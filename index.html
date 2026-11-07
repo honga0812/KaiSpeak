@@ -8,7 +8,7 @@
   <meta http-equiv="Expires" content="0">
   <title>KaiSpeak - 智慧少兒英語發音評測與任務系統</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
   <style>
     body {
       font-family: 'Fredoka', 'Noto Sans TC', sans-serif;
@@ -29,6 +29,12 @@
       0% { stroke-dashoffset: 0; }
       100% { stroke-dashoffset: 6; }
     }
+    .fire-glow {
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.55), 0 0 50px rgba(239, 68, 68, 0.3);
+    }
+    .shield-glow {
+      box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
+    }
     .hide-scrollbar::-webkit-scrollbar {
       display: none;
     }
@@ -41,9 +47,9 @@
 <body class="min-h-screen text-slate-800 flex flex-col items-center p-3 md:p-6 pb-20">
 
   <!-- ======================================================== -->
-  <!-- TOP GLOBAL HEADER: BRAND, STREAK & MODE NAVIGATION       -->
+  <!-- TOP GLOBAL HEADER: BRAND, STREAK, ENERGY & NAVIGATION     -->
   <!-- ======================================================== -->
-  <header class="w-full max-w-5xl flex flex-col md:flex-row items-center justify-between gap-4 py-3 px-4 bg-white/90 backdrop-blur-md rounded-3xl shadow-sm border border-indigo-100/60 mb-4 sticky top-2 z-40">
+  <header class="w-full max-w-5xl flex flex-col md:flex-row items-center justify-between gap-4 py-3 px-4 bg-white/95 backdrop-blur-md rounded-3xl shadow-sm border border-indigo-100/60 mb-4 sticky top-2 z-40">
     <div class="flex items-center justify-between w-full md:w-auto">
       <div class="flex items-center gap-2.5 cursor-pointer" onclick="switchAppMode('quest')">
         <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-500 to-purple-600 flex items-center justify-center text-white text-xl shadow-md shadow-indigo-200">
@@ -53,14 +59,19 @@
           <h1 class="text-xl font-bold tracking-tight text-indigo-950 flex items-center gap-1.5">
             KaiSpeak <span class="text-xs bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full font-semibold">少兒美語</span>
           </h1>
-          <p class="text-[11px] text-slate-600">互動式主動引導 · 隨機例句 · 沙漏倒數</p>
+          <p class="text-[11px] text-slate-600">10 詞每日任務 · 隨機例句 · 能量補簽守護</p>
         </div>
       </div>
 
-      <!-- Mobile QR Code Trigger -->
-      <button onclick="toggleQRModal()" class="md:hidden p-2 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 text-xs font-bold flex items-center gap-1 shadow-sm">
-        📱 掃碼手機體驗
-      </button>
+      <!-- Mobile Streak & Energy Pills -->
+      <div class="flex md:hidden items-center gap-1.5">
+        <button onclick="toggleStreakShieldModal()" class="px-2.5 py-1 rounded-xl bg-amber-50 text-amber-900 border border-amber-200 text-xs font-black flex items-center gap-1 shadow-sm">
+          🔥 <span id="mobileStreakNum">525</span>天
+        </button>
+        <button onclick="toggleStreakShieldModal()" class="px-2.5 py-1 rounded-xl bg-indigo-50 text-indigo-800 border border-indigo-200 text-xs font-black flex items-center gap-1 shadow-sm">
+          ⚡ <span id="mobileEnergyNum">350</span>
+        </button>
+      </div>
     </div>
 
     <!-- Mode Navigation Tabs -->
@@ -79,51 +90,170 @@
       </button>
     </nav>
 
-    <!-- Right Controls: QR Modal & Log -->
+    <!-- Desktop Global Streak & Energy Counter Badge -->
     <div class="hidden md:flex items-center gap-2">
-      <button onclick="toggleQRModal()" class="px-3.5 py-2 rounded-2xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-bold transition flex items-center gap-1.5 border border-indigo-200">
-        <span>📱 掃碼手機體驗</span>
+      <!-- Clickable Streak Pill -->
+      <button onclick="toggleStreakShieldModal()" title="點擊查看打卡守護紀錄與補簽" class="px-3.5 py-2 rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50 hover:from-amber-100 hover:to-orange-100 text-amber-900 border border-amber-200 text-xs font-black transition flex items-center gap-1.5 shadow-sm group">
+        <span class="text-base group-hover:scale-125 transition transform">🔥</span>
+        <span>連續打卡:</span>
+        <span id="headerStreakNum" class="font-mono text-sm text-amber-600 font-extrabold">525</span>
+        <span>天</span>
       </button>
-      <button onclick="toggleLogModal()" class="px-3 py-2 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition flex items-center gap-1">
-        <span>📊 練習日誌</span>
+
+      <!-- Clickable Energy Pill -->
+      <button onclick="toggleStreakShieldModal()" title="點擊開啟能量補簽商城" class="px-3.5 py-2 rounded-2xl bg-gradient-to-r from-indigo-50 to-purple-50 hover:from-indigo-100 hover:to-purple-100 text-indigo-900 border border-indigo-200 text-xs font-black transition flex items-center gap-1.5 shadow-sm group">
+        <span class="text-base text-indigo-600 group-hover:scale-125 transition transform">⚡</span>
+        <span>能量:</span>
+        <span id="headerEnergyNum" class="font-mono text-sm text-indigo-600 font-extrabold">350</span>
+        <span>點</span>
+      </button>
+
+      <button onclick="toggleQRModal()" class="p-2 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition flex items-center" title="手機掃碼體驗">
+        📱
+      </button>
+      <button onclick="toggleLogModal()" class="p-2 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition flex items-center" title="學習日誌">
+        📊
       </button>
     </div>
   </header>
 
   <!-- ======================================================== -->
-  <!-- KICKOFF OVERLAY: DAILY QUEST WELCOME & 3-SECOND COUNTDOWN -->
+  <!-- KICKOFF OVERLAY: GIANT STREAK CELEBRATION & COUNTDOWN     -->
   <!-- ======================================================== -->
-  <div id="questKickoffOverlay" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl border border-indigo-100 text-center flex flex-col items-center transform transition-all duration-300">
-      <div class="w-20 h-20 bg-gradient-to-tr from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center text-4xl shadow-lg shadow-amber-200 mb-4 animate-bounce">
-        🎯
-      </div>
+  <div id="questKickoffOverlay" class="fixed inset-0 bg-slate-900/75 backdrop-blur-md z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-7 md:p-9 max-w-lg w-full shadow-2xl border border-indigo-100 text-center flex flex-col items-center transform transition-all duration-300">
       
-      <div class="inline-flex items-center gap-1.5 bg-amber-100 text-amber-900 px-3.5 py-1 rounded-full text-xs font-extrabold mb-3">
-        🔥 連續打卡第 <span id="overlayStreakNum">3</span> 天
+      <!-- Impressive Huge Glowing Fire Honor Ring -->
+      <div class="relative mb-4 flex items-center justify-center">
+        <div class="w-28 h-28 rounded-full bg-gradient-to-tr from-amber-400 via-orange-500 to-red-500 flex flex-col items-center justify-center text-white shadow-xl fire-glow animate-pulse">
+          <span class="text-3xl">🔥</span>
+          <span id="overlayStreakNum" class="text-3xl font-black font-mono tracking-tighter leading-none mt-0.5">525</span>
+          <span class="text-[10px] font-extrabold uppercase tracking-widest text-amber-100">連續天數</span>
+        </div>
+        <div class="absolute -top-1 -right-1 bg-amber-300 text-amber-950 font-black text-[10px] px-2 py-0.5 rounded-full border border-white shadow">
+          🏆 傳奇守護
+        </div>
       </div>
 
-      <h3 class="text-2xl font-black text-slate-900 mb-2">今日任務即將開始！</h3>
-      <p class="text-xs text-slate-500 mb-6 leading-relaxed">
-        今日精選 <strong class="text-indigo-600">10 個單字</strong> (4新詞 + 4複習 + 2熟悉)<br>
-        每個單字隨機朗讀 <strong>2 條生活例句</strong>，輕鬆掌握標準發音！
+      <h3 class="text-2xl md:text-3xl font-black text-slate-900 mb-1.5">
+        太厲害了！已持續堅持 <span id="overlayStreakTitleNum" class="text-amber-500 font-mono">525</span> 天！
+      </h3>
+      <p class="text-xs text-slate-500 mb-4 leading-relaxed max-w-sm">
+        每一次堅持朗讀，都是守護榮譽的閃耀勳章！今日完成 10 個核心單字，即可繼續點燃明日火炬！
       </p>
+
+      <!-- Energy Shield Status Box -->
+      <div class="w-full bg-gradient-to-r from-amber-50 via-orange-50 to-indigo-50 border border-amber-200/80 rounded-2xl p-3 mb-5 flex items-center justify-between text-left">
+        <div class="flex items-center gap-2.5">
+          <div class="w-10 h-10 rounded-xl bg-white text-indigo-600 flex items-center justify-center text-xl shadow-sm border border-indigo-100">
+            🛡️
+          </div>
+          <div>
+            <div class="text-xs font-black text-slate-800">連續打卡護盾保護中</div>
+            <div class="text-[11px] text-slate-600">目前餘額：<strong class="text-indigo-600 font-mono" id="overlayEnergyNum">350</strong> 點能量</div>
+          </div>
+        </div>
+        <div class="text-right">
+          <span class="text-[10px] bg-emerald-100 text-emerald-800 font-extrabold px-2 py-1 rounded-lg">
+            可抵禦 3 次斷簽
+          </span>
+          <div class="text-[10px] text-slate-600 mt-0.5">100能量/次</div>
+        </div>
+      </div>
 
       <!-- 3-Second Visual Countdown Display (Initially Hidden) -->
       <div id="overlayCountdownBox" class="hidden flex-col items-center my-4">
         <div class="text-6xl font-black text-indigo-600 animate-pulse font-mono" id="overlayCountdownNum">
           3
         </div>
-        <div class="text-xs font-bold text-indigo-400 mt-2">任務準備中，請戴上耳機或打開喇叭...</div>
+        <div class="text-xs font-bold text-indigo-400 mt-2">任務即將開始，請準備好耳機與麥克風...</div>
       </div>
 
-      <button id="overlayStartBtn" onclick="startDailyQuestWithCountdown()" class="w-full py-4 bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-2xl text-base font-extrabold shadow-xl shadow-indigo-300 transition transform active:scale-95 flex items-center justify-center gap-2">
-        <span>🚀 開始今日挑戰</span>
+      <!-- Start Daily Quest Button -->
+      <button id="overlayStartBtn" onclick="startDailyQuestWithCountdown()" class="w-full py-4 bg-gradient-to-r from-amber-500 via-orange-500 to-indigo-600 hover:from-amber-600 hover:to-indigo-700 text-white rounded-2xl text-base font-black shadow-xl shadow-orange-200 transition transform active:scale-95 flex items-center justify-center gap-2">
+        <span>🚀 點擊開始今日挑戰（延續連勝）</span>
       </button>
 
-      <div class="mt-4 text-[11px] text-slate-600 flex items-center gap-1">
-        <span>💡 點選上方按鈕即可啟動聲音與麥克風功能</span>
+      <div class="mt-3.5 text-[11px] text-slate-600 flex items-center gap-1">
+        <span>💡 點選上方按鈕即可啟動耳機示範與麥克風權限</span>
       </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- STREAK SHIELD & ENERGY CENTER MODAL (補簽與能量守護中心)      -->
+  <!-- ======================================================== -->
+  <div id="streakShieldModal" class="fixed inset-0 bg-slate-900/65 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl border border-amber-100 text-center flex flex-col items-center">
+      
+      <div class="flex items-center justify-between w-full pb-3 border-b border-slate-100 mb-4">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">🛡️</span>
+          <h3 class="text-base font-black text-slate-900">連續打卡守護與能量補簽中心</h3>
+        </div>
+        <button onclick="toggleStreakShieldModal()" class="text-slate-400 hover:text-slate-600 font-bold text-lg">✕</button>
+      </div>
+
+      <!-- Honor Ring in Modal -->
+      <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-amber-400 to-orange-500 flex flex-col items-center justify-center text-white shadow-lg mb-3">
+        <span class="text-2xl">🔥</span>
+        <span id="modalStreakNum" class="text-2xl font-black font-mono">525</span>
+        <span class="text-[9px] font-bold text-amber-100">連續打卡天數</span>
+      </div>
+
+      <div class="text-sm font-bold text-slate-800 mb-1">榮譽稱號：<span class="text-amber-600 font-black">🏆 傳奇守護者</span></div>
+      <p class="text-xs text-slate-500 mb-4 leading-relaxed">
+        堅持是不斷進步的階梯！即使偶爾忘記打卡，也可使用儲備能量進行「安全補簽」，守護辛苦累積的心血！
+      </p>
+
+      <!-- Energy Balance Display -->
+      <div class="w-full bg-indigo-50 border border-indigo-200 rounded-2xl p-4 mb-4 text-left flex items-center justify-between">
+        <div>
+          <div class="text-xs text-indigo-700 font-bold">目前可用閃電能量：</div>
+          <div class="text-2xl font-black font-mono text-indigo-950 flex items-center gap-1 mt-0.5">
+            <span>⚡</span> <span id="modalEnergyNum">350</span> <span class="text-xs font-normal text-slate-500">點</span>
+          </div>
+        </div>
+        <div class="text-right">
+          <span class="text-xs font-extrabold text-amber-800 bg-amber-100 px-2.5 py-1 rounded-full">
+            補簽消耗：100 點/天
+          </span>
+        </div>
+      </div>
+
+      <!-- Energy Rules Table -->
+      <div class="w-full bg-slate-50 rounded-2xl p-3 text-left text-xs text-slate-600 mb-5 border border-slate-200/70 space-y-1.5">
+        <div class="font-bold text-slate-700 mb-1">⚡ 能量獲得與消耗規則：</div>
+        <div class="flex items-center justify-between">
+          <span>🎯 完成每日 10 詞朗讀任務：</span>
+          <span class="font-bold text-emerald-600">+50 點</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span>🌟 評測單句得分 ≥ 85 分：</span>
+          <span class="font-bold text-emerald-600">+5 點</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span>🛡️ 遺漏打卡進行「能量補簽」：</span>
+          <span class="font-bold text-rose-600">-100 點</span>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="w-full flex flex-col gap-2.5">
+        <button onclick="consumeEnergyForStreakRepair()" class="w-full py-3 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-black text-xs rounded-xl shadow-md shadow-orange-200 transition flex items-center justify-center gap-2">
+          <span>🛡️ 消耗 100 點能量補簽 1 天（守護連續紀錄）</span>
+        </button>
+
+        <div class="flex gap-2">
+          <button onclick="addSimulatedEnergy(50)" class="flex-1 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-xs rounded-xl border border-indigo-200 transition">
+            ⚡ 模擬獲得 50 能量
+          </button>
+          <button onclick="cycleTestStreak()" class="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
+            ⚙️ 切換測試天數(525/7天)
+          </button>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -139,13 +269,16 @@
           🎯
         </div>
         <div>
-          <div class="flex items-center gap-2">
+          <div class="flex items-center gap-2 flex-wrap">
             <h2 class="text-lg font-bold">今日打卡任務 (10 詞快速挑戰)</h2>
-            <span class="text-[10px] bg-amber-400 text-amber-950 font-extrabold px-2.5 py-0.5 rounded-full shadow-sm">
-              🔥 連續打卡 <span id="questStreakDays">3</span> 天
-            </span>
+            <button onclick="toggleStreakShieldModal()" class="text-[11px] bg-amber-400 hover:bg-amber-300 text-amber-950 font-black px-3 py-1 rounded-full shadow-sm flex items-center gap-1 transition">
+              🔥 連續打卡第 <span id="questStreakDays">525</span> 天
+            </button>
+            <button onclick="toggleStreakShieldModal()" class="text-[11px] bg-white/20 hover:bg-white/30 text-white font-extrabold px-2.5 py-1 rounded-full flex items-center gap-1 transition">
+              ⚡ 能量 <span id="bannerEnergyNum">350</span> 點
+            </button>
           </div>
-          <p class="text-xs text-indigo-100 mt-1">
+          <p class="text-xs text-indigo-100 mt-1.5">
             4 個新詞 + 4 個複習 + 2 個熟悉 · 每詞隨機朗讀 2 句生活範例
           </p>
         </div>
@@ -308,7 +441,7 @@
       <div class="mt-4 pt-3 border-t border-slate-100 w-full max-w-xl flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2">
         <span class="font-bold flex items-center gap-1">🎵 音效試聽測試:</span>
         <div class="flex gap-1.5 flex-wrap">
-          <button onclick="simulateQuestEval(95)" class="px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-lg border border-emerald-200 font-bold hover:bg-emerald-100">95分(最高清脆音)</button>
+          <button onclick="simulateQuestEval(95)" class="px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-lg border border-emerald-200 font-bold hover:bg-emerald-100">95分(水晶音)</button>
           <button onclick="simulateQuestEval(85)" class="px-2.5 py-1 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 font-bold hover:bg-blue-100">85分(中高音)</button>
           <button onclick="simulateQuestEval(75)" class="px-2.5 py-1 bg-amber-50 text-amber-700 rounded-lg border border-amber-200 font-bold hover:bg-amber-100">75分(溫和音)</button>
           <button onclick="simulateQuestEval(60)" class="px-2.5 py-1 bg-rose-50 text-rose-700 rounded-lg border border-rose-200 font-bold hover:bg-rose-100">60分(加油滑音)</button>
@@ -422,7 +555,7 @@
       </div>
 
       <div class="text-[11px] font-mono text-slate-500 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200 mb-4 break-all">
-        https://honga0812.github.io/KaiSpeak/?v=4
+        https://honga0812.github.io/KaiSpeak/?v=5
       </div>
 
       <button onclick="toggleQRModal()" class="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
@@ -3463,7 +3596,9 @@
     let maxAcousticEnergy = 0;
     let lastInterimSpeech = "";
 
-    let streakDays = parseInt(localStorage.getItem('kai_streak_days') || '3');
+    // Streak & Energy Storage (Defaulting to 525 days & 350 energy points)
+    let streakDays = parseInt(localStorage.getItem('kai_streak_days') || '525');
+    let energyPoints = parseInt(localStorage.getItem('kai_energy_points') || '350');
     let practiceLogs = JSON.parse(localStorage.getItem('kai_practice_logs') || '[]');
     let adventureStars = JSON.parse(localStorage.getItem('kai_adventure_stars') || '{}');
 
@@ -3474,6 +3609,7 @@
     // 80~89: Bright chime (G5->C6)
     // 70~79: Warm gentle chime (E5->G5)
     // < 80 : Sympathetic downward sliding "sorry/try again" note
+    // Shield : Uplifting protective crystal sound
     // ========================================================
     const SoundEffects = {
       ctx: null,
@@ -3570,6 +3706,26 @@
         gain.connect(this.ctx.destination);
         osc.start(now);
         osc.stop(now + 0.16);
+      },
+      playShield() {
+        // 補簽護盾修復音效 (Uplifting crystal protective chord)
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const freqs = [523.25, 659.25, 783.99, 1046.5, 1318.51];
+        freqs.forEach((f, i) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(f, now + i * 0.08);
+          gain.gain.setValueAtTime(0, now + i * 0.08);
+          gain.gain.linearRampToValueAtTime(0.22, now + i * 0.08 + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.08 + 0.45);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now + i * 0.08);
+          osc.stop(now + i * 0.08 + 0.46);
+        });
       }
     };
 
@@ -3619,7 +3775,67 @@
     }
 
     // ========================================================
-    // KICKOFF & WELCOME GUIDANCE (第幾天提示 + 3秒倒數 + 聲音解鎖)
+    // STREAK & ENERGY MANAGEMENT LOGIC
+    // ========================================================
+    function updateStreakAndEnergyUI() {
+      // Streak counters
+      const streakEls = [
+        'headerStreakNum', 'mobileStreakNum', 'overlayStreakNum', 
+        'overlayStreakTitleNum', 'modalStreakNum', 'questStreakDays'
+      ];
+      streakEls.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerText = streakDays;
+      });
+
+      // Energy counters
+      const energyEls = [
+        'headerEnergyNum', 'mobileEnergyNum', 'overlayEnergyNum', 
+        'modalEnergyNum', 'bannerEnergyNum'
+      ];
+      energyEls.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.innerText = energyPoints;
+      });
+    }
+
+    function toggleStreakShieldModal() {
+      const m = document.getElementById('streakShieldModal');
+      m.classList.toggle('hidden');
+      if (!m.classList.contains('hidden')) updateStreakAndEnergyUI();
+    }
+
+    function consumeEnergyForStreakRepair() {
+      if (energyPoints >= 100) {
+        energyPoints -= 100;
+        streakDays += 1;
+        localStorage.setItem('kai_streak_days', streakDays.toString());
+        localStorage.setItem('kai_energy_points', energyPoints.toString());
+        updateStreakAndEnergyUI();
+        SoundEffects.playShield();
+        alert(`🎉 補簽守護成功！\n\n已成功消耗 100 點能量修復連續紀錄！\n您的連續打卡紀錄已安全延續至 ${streakDays} 天！`);
+      } else {
+        alert(`⚠️ 能量點數不足！\n\n修復補簽需要 100 點能量，目前僅有 ${energyPoints} 點。\n快去完成今日朗讀挑戰或高分發音賺取能量吧！`);
+      }
+    }
+
+    function addSimulatedEnergy(pts) {
+      energyPoints += pts;
+      localStorage.setItem('kai_energy_points', energyPoints.toString());
+      updateStreakAndEnergyUI();
+      SoundEffects.playScore(95);
+      alert(`⚡ 能量充能成功！已成功獲得 +${pts} 點能量，目前總能量：${energyPoints} 點！`);
+    }
+
+    function cycleTestStreak() {
+      streakDays = streakDays === 525 ? 7 : 525;
+      localStorage.setItem('kai_streak_days', streakDays.toString());
+      updateStreakAndEnergyUI();
+      SoundEffects.playShield();
+    }
+
+    // ========================================================
+    // KICKOFF & WELCOME GUIDANCE (天數榮譽 + 3秒倒數 + 聲音解鎖)
     // ========================================================
     function startDailyQuestWithCountdown() {
       // Pre-warm Audio Context
@@ -3712,8 +3928,7 @@
       document.getElementById('questWordProgress').innerText = questWordIdx + 1;
       const pct = Math.round(((questWordIdx) / 10) * 100);
       document.getElementById('questProgressBar').style.width = `${Math.max(10, pct)}%`;
-      document.getElementById('questStreakDays').innerText = streakDays;
-      document.getElementById('overlayStreakNum').innerText = streakDays;
+      updateStreakAndEnergyUI();
 
       // Update Step Indicators: 0:單字發音, 1:隨機例句1, 2:隨機例句2
       [0, 1, 2].forEach(step => {
@@ -3965,11 +4180,18 @@
       const score = calculateScore(targetText, spokenText, maxAcousticEnergy);
       const isGood = score >= 75;
 
+      // Earn Energy if Score >= 85!
+      if (score >= 85) {
+        energyPoints += 5;
+        localStorage.setItem('kai_energy_points', energyPoints.toString());
+        updateStreakAndEnergyUI();
+      }
+
       // Play Sound Effect Graded by Pitch!
       SoundEffects.playScore(score);
 
       setQuestStatus(
-        isGood ? `🌟 太棒了！評測得分：${score} 分！` : `💪 讀得不錯！得分：${score} 分 (已收納至錯詞本)`,
+        isGood ? `🌟 太棒了！評測得分：${score} 分！(獲得 +5 能量)` : `💪 讀得不錯！得分：${score} 分 (已收納至錯詞本)`,
         isGood ? "⭐" : "💡",
         isGood ? "bg-emerald-100 text-emerald-800 font-black border-emerald-300" : "bg-amber-100 text-amber-900 font-black border-amber-300"
       );
@@ -4007,8 +4229,13 @@
         if (questWordIdx >= questQueue.length) {
           // Finished all 10 words!
           streakDays++;
+          energyPoints += 50; // Daily reward: +50 energy!
           localStorage.setItem('kai_streak_days', streakDays.toString());
-          alert("🎉 恭喜！今日 10 個任務單字與例句已全部挑戰完成！打卡成功，連續天數已升至 " + streakDays + " 天！");
+          localStorage.setItem('kai_energy_points', energyPoints.toString());
+          updateStreakAndEnergyUI();
+          SoundEffects.playShield();
+
+          alert(`🎉 恭喜！今日 10 個任務單字已全部挑戰完成！\n\n🔥 連續打卡榮譽晉級至：${streakDays} 天！\n⚡ 獲得每日打卡獎勵：+50 點能量！(目前總能量: ${energyPoints} 點)`);
           questWordIdx = 0;
           switchAppMode('free');
           return;
@@ -4491,7 +4718,7 @@
     function initQRCode() {
       const canvas = document.getElementById('qrCodeCanvas');
       if (canvas && window.QRCode) {
-        QRCode.toCanvas(canvas, "https://honga0812.github.io/KaiSpeak/?v=4", {
+        QRCode.toCanvas(canvas, "https://honga0812.github.io/KaiSpeak/?v=5", {
           width: 176,
           margin: 1,
           color: { dark: '#312E81', light: '#FFFFFF' }
@@ -4516,6 +4743,7 @@
     window.addEventListener('DOMContentLoaded', () => {
       initQuestQueue();
       switchAppMode('quest');
+      updateStreakAndEnergyUI();
       updateLogUI();
       initQRCode();
     });
