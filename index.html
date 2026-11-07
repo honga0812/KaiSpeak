@@ -2,7 +2,7 @@
 <html lang="zh-Hant-TW">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -13,6 +13,7 @@
     body {
       font-family: 'Fredoka', 'Noto Sans TC', sans-serif;
       background: linear-gradient(135deg, #EEF2FF 0%, #F5F3FF 50%, #EDE9FE 100%);
+      -webkit-tap-highlight-color: transparent;
     }
     .pulse-ring {
       animation: pulse 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
@@ -42,108 +43,115 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
+    /* Prevent rubber-banding on iOS while keeping smooth scrolling */
+    html, body {
+      overflow-x: hidden;
+    }
   </style>
 </head>
-<body class="min-h-screen text-slate-800 flex flex-col items-center p-3 md:p-6 pb-20">
+<body class="min-h-screen text-slate-800 flex flex-col items-center p-2 sm:p-4 md:p-6 pb-20">
 
   <!-- ======================================================== -->
-  <!-- TOP GLOBAL HEADER: BRAND, STREAK, ENERGY & NAVIGATION     -->
+  <!-- TOP GLOBAL HEADER: TABLET & MOBILE ADAPTIVE NAVBAR       -->
   <!-- ======================================================== -->
-  <header class="w-full max-w-5xl flex flex-col md:flex-row items-center justify-between gap-4 py-3 px-4 bg-white/95 backdrop-blur-md rounded-3xl shadow-sm border border-indigo-100/60 mb-4 sticky top-2 z-40">
+  <header class="w-full max-w-6xl flex flex-col md:flex-row items-center justify-between gap-3 p-3 md:px-6 md:py-3.5 bg-white/95 backdrop-blur-md rounded-3xl shadow-sm border border-indigo-100/60 mb-3 md:mb-5 sticky top-2 z-40">
     <div class="flex items-center justify-between w-full md:w-auto">
       <div class="flex items-center gap-2.5 cursor-pointer" onclick="switchAppMode('quest')">
-        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-500 to-purple-600 flex items-center justify-center text-white text-xl shadow-md shadow-indigo-200">
+        <div class="w-10 h-10 md:w-11 md:h-11 rounded-2xl bg-gradient-to-tr from-indigo-500 to-purple-600 flex items-center justify-center text-white text-xl md:text-2xl shadow-md shadow-indigo-200">
           🗣️
         </div>
         <div>
-          <h1 class="text-xl font-bold tracking-tight text-indigo-950 flex items-center gap-1.5">
-            KaiSpeak <span class="text-xs bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full font-semibold">少兒美語</span>
+          <h1 class="text-lg md:text-xl font-bold tracking-tight text-indigo-950 flex items-center gap-1.5">
+            KaiSpeak <span class="text-[10px] md:text-xs bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full font-semibold">少兒美語</span>
           </h1>
-          <p class="text-[11px] text-slate-600">10 詞每日任務 · 隨機例句 · 能量補簽守護</p>
+          <p class="text-[10px] md:text-[11px] text-slate-600">平板·手機自適應 · 10詞任務 · 能量補簽</p>
         </div>
       </div>
 
-      <!-- Mobile Streak & Energy Pills -->
+      <!-- Mobile Top Bar Quick Badges -->
       <div class="flex md:hidden items-center gap-1.5">
-        <button onclick="toggleStreakShieldModal()" class="px-2.5 py-1 rounded-xl bg-amber-50 text-amber-900 border border-amber-200 text-xs font-black flex items-center gap-1 shadow-sm">
+        <button onclick="toggleStreakShieldModal()" class="px-2.5 py-1 rounded-xl bg-amber-50 text-amber-900 border border-amber-200 text-xs font-black flex items-center gap-1 shadow-sm active:scale-95 transition">
           🔥 <span id="mobileStreakNum">525</span>天
         </button>
-        <button onclick="toggleStreakShieldModal()" class="px-2.5 py-1 rounded-xl bg-indigo-50 text-indigo-800 border border-indigo-200 text-xs font-black flex items-center gap-1 shadow-sm">
+        <button onclick="toggleStreakShieldModal()" class="px-2.5 py-1 rounded-xl bg-indigo-50 text-indigo-800 border border-indigo-200 text-xs font-black flex items-center gap-1 shadow-sm active:scale-95 transition">
           ⚡ <span id="mobileEnergyNum">350</span>
+        </button>
+        <button onclick="toggleQRModal()" class="p-1.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold shadow-sm" title="掃碼">
+          📱
         </button>
       </div>
     </div>
 
-    <!-- Mode Navigation Tabs -->
-    <nav class="flex items-center bg-slate-100/90 p-1.5 rounded-2xl border border-slate-200/60 text-xs font-bold">
-      <button id="navQuestBtn" onclick="switchAppMode('quest')" class="px-4 py-2 rounded-xl bg-indigo-600 text-white shadow-sm transition flex items-center gap-1.5">
+    <!-- Mode Navigation Tabs: Touch-Friendly for Tablet & Phone -->
+    <nav class="flex items-center bg-slate-100/90 p-1 md:p-1.5 rounded-2xl border border-slate-200/60 text-xs font-bold w-full md:w-auto justify-center">
+      <button id="navQuestBtn" onclick="switchAppMode('quest')" class="flex-1 md:flex-initial px-3.5 md:px-5 py-2 md:py-2.5 rounded-xl bg-indigo-600 text-white shadow-sm transition flex items-center justify-center gap-1.5">
         <span>🎯 每日任務</span>
-        <span class="text-[10px] bg-amber-400 text-amber-950 px-1.5 py-0.2 rounded-full font-extrabold">10詞速通</span>
+        <span class="text-[9px] md:text-[10px] bg-amber-400 text-amber-950 px-1.5 py-0.2 rounded-full font-extrabold">10詞速通</span>
       </button>
-      <button id="navFreeBtn" onclick="switchAppMode('free')" class="px-4 py-2 rounded-xl text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5">
+      <button id="navFreeBtn" onclick="switchAppMode('free')" class="flex-1 md:flex-initial px-3.5 md:px-5 py-2 md:py-2.5 rounded-xl text-slate-600 hover:text-slate-900 transition flex items-center justify-center gap-1.5">
         <span>📚 自由練習</span>
-        <span class="text-[10px] bg-slate-200 text-slate-600 px-1.5 py-0.2 rounded-full font-bold">50詞庫</span>
+        <span class="text-[9px] md:text-[10px] bg-slate-200 text-slate-600 px-1.5 py-0.2 rounded-full font-bold">50詞庫</span>
       </button>
-      <button id="navAdventureBtn" onclick="switchAppMode('adventure')" class="px-4 py-2 rounded-xl text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5">
+      <button id="navAdventureBtn" onclick="switchAppMode('adventure')" class="flex-1 md:flex-initial px-3.5 md:px-5 py-2 md:py-2.5 rounded-xl text-slate-600 hover:text-slate-900 transition flex items-center justify-center gap-1.5">
         <span>🗺️ 探險島</span>
-        <span class="text-[10px] bg-indigo-100 text-indigo-700 px-1.5 py-0.2 rounded-full font-bold">50關</span>
+        <span class="text-[9px] md:text-[10px] bg-indigo-100 text-indigo-700 px-1.5 py-0.2 rounded-full font-bold">50關</span>
       </button>
     </nav>
 
-    <!-- Desktop Global Streak & Energy Counter Badge -->
+    <!-- Desktop & Tablet Navigation Controls -->
     <div class="hidden md:flex items-center gap-2">
-      <!-- Clickable Streak Pill -->
-      <button onclick="toggleStreakShieldModal()" title="點擊查看打卡守護紀錄與補簽" class="px-3.5 py-2 rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50 hover:from-amber-100 hover:to-orange-100 text-amber-900 border border-amber-200 text-xs font-black transition flex items-center gap-1.5 shadow-sm group">
+      <!-- Clickable Streak Badge -->
+      <button onclick="toggleStreakShieldModal()" title="點擊查看打卡守護紀錄與補簽" class="px-3.5 py-2 rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50 hover:from-amber-100 hover:to-orange-100 text-amber-900 border border-amber-200 text-xs font-black transition flex items-center gap-1.5 shadow-sm group active:scale-95">
         <span class="text-base group-hover:scale-125 transition transform">🔥</span>
         <span>連續打卡:</span>
         <span id="headerStreakNum" class="font-mono text-sm text-amber-600 font-extrabold">525</span>
         <span>天</span>
       </button>
 
-      <!-- Clickable Energy Pill -->
-      <button onclick="toggleStreakShieldModal()" title="點擊開啟能量補簽商城" class="px-3.5 py-2 rounded-2xl bg-gradient-to-r from-indigo-50 to-purple-50 hover:from-indigo-100 hover:to-purple-100 text-indigo-900 border border-indigo-200 text-xs font-black transition flex items-center gap-1.5 shadow-sm group">
+      <!-- Clickable Energy Badge -->
+      <button onclick="toggleStreakShieldModal()" title="點擊開啟能量補簽商城" class="px-3.5 py-2 rounded-2xl bg-gradient-to-r from-indigo-50 to-purple-50 hover:from-indigo-100 hover:to-purple-100 text-indigo-900 border border-indigo-200 text-xs font-black transition flex items-center gap-1.5 shadow-sm group active:scale-95">
         <span class="text-base text-indigo-600 group-hover:scale-125 transition transform">⚡</span>
         <span>能量:</span>
         <span id="headerEnergyNum" class="font-mono text-sm text-indigo-600 font-extrabold">350</span>
         <span>點</span>
       </button>
 
-      <button onclick="toggleQRModal()" class="p-2 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition flex items-center" title="手機掃碼體驗">
+      <button onclick="toggleQRModal()" class="p-2.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition flex items-center active:scale-95" title="手機掃碼體驗">
         📱
       </button>
-      <button onclick="toggleLogModal()" class="p-2 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition flex items-center" title="學習日誌">
+      <button onclick="toggleLogModal()" class="p-2.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition flex items-center active:scale-95" title="學習日誌">
         📊
       </button>
     </div>
   </header>
 
   <!-- ======================================================== -->
-  <!-- KICKOFF OVERLAY: GIANT STREAK CELEBRATION & COUNTDOWN     -->
+  <!-- KICKOFF OVERLAY: TABLET & MOBILE RESPONSIVE DIALOG       -->
   <!-- ======================================================== -->
-  <div id="questKickoffOverlay" class="fixed inset-0 bg-slate-900/75 backdrop-blur-md z-50 flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl p-7 md:p-9 max-w-lg w-full shadow-2xl border border-indigo-100 text-center flex flex-col items-center transform transition-all duration-300">
+  <div id="questKickoffOverlay" class="fixed inset-0 bg-slate-900/75 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    <div class="bg-white rounded-3xl p-6 sm:p-8 md:p-10 max-w-lg w-full shadow-2xl border border-indigo-100 text-center flex flex-col items-center transform transition-all duration-300 my-auto">
       
       <!-- Impressive Huge Glowing Fire Honor Ring -->
       <div class="relative mb-4 flex items-center justify-center">
-        <div class="w-28 h-28 rounded-full bg-gradient-to-tr from-amber-400 via-orange-500 to-red-500 flex flex-col items-center justify-center text-white shadow-xl fire-glow animate-pulse">
-          <span class="text-3xl">🔥</span>
-          <span id="overlayStreakNum" class="text-3xl font-black font-mono tracking-tighter leading-none mt-0.5">525</span>
-          <span class="text-[10px] font-extrabold uppercase tracking-widest text-amber-100">連續天數</span>
+        <div class="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-amber-400 via-orange-500 to-red-500 flex flex-col items-center justify-center text-white shadow-xl fire-glow animate-pulse">
+          <span class="text-2xl md:text-3xl">🔥</span>
+          <span id="overlayStreakNum" class="text-3xl md:text-4xl font-black font-mono tracking-tighter leading-none mt-0.5">525</span>
+          <span class="text-[9px] md:text-[10px] font-extrabold uppercase tracking-widest text-amber-100">連續打卡</span>
         </div>
-        <div class="absolute -top-1 -right-1 bg-amber-300 text-amber-950 font-black text-[10px] px-2 py-0.5 rounded-full border border-white shadow">
+        <div class="absolute -top-1 -right-1 bg-amber-300 text-amber-950 font-black text-[10px] px-2.5 py-0.5 rounded-full border border-white shadow">
           🏆 傳奇守護
         </div>
       </div>
 
-      <h3 class="text-2xl md:text-3xl font-black text-slate-900 mb-1.5">
+      <h3 class="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 mb-1.5 leading-tight">
         太厲害了！已持續堅持 <span id="overlayStreakTitleNum" class="text-amber-500 font-mono">525</span> 天！
       </h3>
-      <p class="text-xs text-slate-500 mb-4 leading-relaxed max-w-sm">
+      <p class="text-xs sm:text-sm text-slate-500 mb-4 leading-relaxed max-w-md">
         每一次堅持朗讀，都是守護榮譽的閃耀勳章！今日完成 10 個核心單字，即可繼續點燃明日火炬！
       </p>
 
       <!-- Energy Shield Status Box -->
-      <div class="w-full bg-gradient-to-r from-amber-50 via-orange-50 to-indigo-50 border border-amber-200/80 rounded-2xl p-3 mb-5 flex items-center justify-between text-left">
+      <div class="w-full bg-gradient-to-r from-amber-50 via-orange-50 to-indigo-50 border border-amber-200/80 rounded-2xl p-3 sm:p-4 mb-5 flex items-center justify-between text-left">
         <div class="flex items-center gap-2.5">
           <div class="w-10 h-10 rounded-xl bg-white text-indigo-600 flex items-center justify-center text-xl shadow-sm border border-indigo-100">
             🛡️
@@ -170,11 +178,11 @@
       </div>
 
       <!-- Start Daily Quest Button -->
-      <button id="overlayStartBtn" onclick="startDailyQuestWithCountdown()" class="w-full py-4 bg-gradient-to-r from-amber-500 via-orange-500 to-indigo-600 hover:from-amber-600 hover:to-indigo-700 text-white rounded-2xl text-base font-black shadow-xl shadow-orange-200 transition transform active:scale-95 flex items-center justify-center gap-2">
+      <button id="overlayStartBtn" onclick="startDailyQuestWithCountdown()" class="w-full py-4 bg-gradient-to-r from-amber-500 via-orange-500 to-indigo-600 hover:from-amber-600 hover:to-indigo-700 text-white rounded-2xl text-base md:text-lg font-black shadow-xl shadow-orange-200 transition transform active:scale-95 flex items-center justify-center gap-2">
         <span>🚀 點擊開始今日挑戰（延續連勝）</span>
       </button>
 
-      <div class="mt-3.5 text-[11px] text-slate-600 flex items-center gap-1">
+      <div class="mt-3 text-[11px] text-slate-600 flex items-center gap-1 justify-center">
         <span>💡 點選上方按鈕即可啟動耳機示範與麥克風權限</span>
       </div>
     </div>
@@ -183,15 +191,15 @@
   <!-- ======================================================== -->
   <!-- STREAK SHIELD & ENERGY CENTER MODAL (補簽與能量守護中心)      -->
   <!-- ======================================================== -->
-  <div id="streakShieldModal" class="fixed inset-0 bg-slate-900/65 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl border border-amber-100 text-center flex flex-col items-center">
+  <div id="streakShieldModal" class="fixed inset-0 bg-slate-900/65 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto hidden">
+    <div class="bg-white rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl border border-amber-100 text-center flex flex-col items-center my-auto">
       
       <div class="flex items-center justify-between w-full pb-3 border-b border-slate-100 mb-4">
         <div class="flex items-center gap-2">
           <span class="text-2xl">🛡️</span>
           <h3 class="text-base font-black text-slate-900">連續打卡守護與能量補簽中心</h3>
         </div>
-        <button onclick="toggleStreakShieldModal()" class="text-slate-400 hover:text-slate-600 font-bold text-lg">✕</button>
+        <button onclick="toggleStreakShieldModal()" class="text-slate-400 hover:text-slate-600 font-bold text-lg p-1">✕</button>
       </div>
 
       <!-- Honor Ring in Modal -->
@@ -240,15 +248,15 @@
 
       <!-- Action Buttons -->
       <div class="w-full flex flex-col gap-2.5">
-        <button onclick="consumeEnergyForStreakRepair()" class="w-full py-3 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-black text-xs rounded-xl shadow-md shadow-orange-200 transition flex items-center justify-center gap-2">
+        <button onclick="consumeEnergyForStreakRepair()" class="w-full py-3 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-black text-xs md:text-sm rounded-xl shadow-md shadow-orange-200 transition flex items-center justify-center gap-2 active:scale-95">
           <span>🛡️ 消耗 100 點能量補簽 1 天（守護連續紀錄）</span>
         </button>
 
         <div class="flex gap-2">
-          <button onclick="addSimulatedEnergy(50)" class="flex-1 py-2 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-xs rounded-xl border border-indigo-200 transition">
+          <button onclick="addSimulatedEnergy(50)" class="flex-1 py-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-xs rounded-xl border border-indigo-200 transition active:scale-95">
             ⚡ 模擬獲得 50 能量
           </button>
-          <button onclick="cycleTestStreak()" class="flex-1 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
+          <button onclick="cycleTestStreak()" class="flex-1 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition active:scale-95">
             ⚙️ 切換測試天數(525/7天)
           </button>
         </div>
@@ -258,215 +266,236 @@
   </div>
 
   <!-- ======================================================== -->
-  <!-- MODE 1: DAILY QUEST VIEW (沉浸式主動互動任務流 - 開屏預設)      -->
+  <!-- MODE 1: DAILY QUEST VIEW (TABLET & MOBILE DUAL-LAYOUT)    -->
   <!-- ======================================================== -->
-  <section id="viewDailyQuest" class="w-full max-w-5xl flex flex-col gap-4">
+  <section id="viewDailyQuest" class="w-full max-w-6xl flex flex-col gap-3 md:gap-5">
     
     <!-- Daily Quest Header Banner -->
-    <div class="bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-700 text-white p-5 rounded-3xl shadow-lg shadow-indigo-100 flex flex-col md:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-4">
-        <div class="w-14 h-14 bg-white/10 backdrop-blur rounded-2xl flex items-center justify-center text-3xl shadow-inner">
+    <div class="bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-700 text-white p-4 sm:p-5 md:p-6 rounded-3xl shadow-lg shadow-indigo-100 flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3 sm:gap-4 w-full md:w-auto">
+        <div class="w-12 h-12 md:w-16 md:h-16 bg-white/10 backdrop-blur rounded-2xl flex items-center justify-center text-2xl md:text-4xl shadow-inner shrink-0">
           🎯
         </div>
         <div>
           <div class="flex items-center gap-2 flex-wrap">
-            <h2 class="text-lg font-bold">今日打卡任務 (10 詞快速挑戰)</h2>
-            <button onclick="toggleStreakShieldModal()" class="text-[11px] bg-amber-400 hover:bg-amber-300 text-amber-950 font-black px-3 py-1 rounded-full shadow-sm flex items-center gap-1 transition">
+            <h2 class="text-base sm:text-lg md:text-xl font-bold">今日打卡任務 (10 詞快速挑戰)</h2>
+            <button onclick="toggleStreakShieldModal()" class="text-[10px] md:text-xs bg-amber-400 hover:bg-amber-300 text-amber-950 font-black px-2.5 py-0.5 rounded-full shadow-sm flex items-center gap-1 transition">
               🔥 連續打卡第 <span id="questStreakDays">525</span> 天
             </button>
-            <button onclick="toggleStreakShieldModal()" class="text-[11px] bg-white/20 hover:bg-white/30 text-white font-extrabold px-2.5 py-1 rounded-full flex items-center gap-1 transition">
+            <button onclick="toggleStreakShieldModal()" class="text-[10px] md:text-xs bg-white/20 hover:bg-white/30 text-white font-extrabold px-2 py-0.5 rounded-full flex items-center gap-1 transition">
               ⚡ 能量 <span id="bannerEnergyNum">350</span> 點
             </button>
           </div>
-          <p class="text-xs text-indigo-100 mt-1.5">
+          <p class="text-xs text-indigo-100 mt-1">
             4 個新詞 + 4 個複習 + 2 個熟悉 · 每詞隨機朗讀 2 句生活範例
           </p>
         </div>
       </div>
 
       <!-- Overall 10 Words Progress -->
-      <div class="flex items-center gap-4 bg-white/10 backdrop-blur px-5 py-3 rounded-2xl border border-white/10 w-full md:w-auto justify-between">
+      <div class="flex items-center gap-3 md:gap-4 bg-white/10 backdrop-blur px-4 py-2.5 md:px-5 md:py-3 rounded-2xl border border-white/10 w-full md:w-auto justify-between">
         <div class="text-left md:text-right">
-          <div class="text-[11px] text-indigo-200">今日詞彙進度</div>
-          <div class="text-lg font-extrabold font-mono"><span id="questWordProgress">1</span> / 10 詞</div>
+          <div class="text-[10px] md:text-[11px] text-indigo-200">今日詞彙進度</div>
+          <div class="text-base md:text-lg font-extrabold font-mono"><span id="questWordProgress">1</span> / 10 詞</div>
         </div>
-        <div class="w-28 bg-white/20 h-3 rounded-full overflow-hidden">
+        <div class="w-24 md:w-32 bg-white/20 h-3 rounded-full overflow-hidden">
           <div id="questProgressBar" class="bg-amber-400 h-full rounded-full transition-all duration-500" style="width: 10%"></div>
         </div>
       </div>
     </div>
 
-    <!-- Prominent Pause / Resume Floating Control Bar -->
-    <div class="w-full flex items-center justify-between bg-white rounded-2xl p-3 px-5 shadow-sm border border-indigo-100">
-      <div class="flex items-center gap-2">
-        <span class="text-xs text-slate-500 font-bold">進程狀態:</span>
-        <span id="questStatusPill" class="text-xs px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-black flex items-center gap-1">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> 引導進行中
-        </span>
+    <!-- Step Indicators for Current Word: 1.單字發音 -> 2.隨機例句 1 -> 3.隨機例句 2 -->
+    <div class="w-full bg-white rounded-2xl p-2.5 md:p-3.5 border border-indigo-100 shadow-sm flex items-center justify-between px-3 md:px-8">
+      <div id="qStepDot0" class="flex items-center gap-2 flex-1 justify-center">
+        <div class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-indigo-600 text-white font-bold text-xs flex items-center justify-center shadow-md">1</div>
+        <span class="text-[11px] md:text-xs font-bold text-indigo-700">單字精讀</span>
       </div>
-
-      <!-- Eye-Catching Tactile Pause / Resume Button -->
-      <button id="questMainPauseBtn" onclick="toggleQuestAutoFlow()" class="px-5 py-2.5 rounded-2xl bg-amber-500 hover:bg-amber-600 active:scale-95 text-white text-xs font-black shadow-lg shadow-amber-200 transition flex items-center gap-2">
-        <span id="questPauseIcon" class="text-base">⏸️</span>
-        <span id="questPauseText">暫停練習 · 休息 / 仔細看內容</span>
-      </button>
-    </div>
-
-    <!-- Active Pause Friendly Notice (Shown when user hits pause) -->
-    <div id="questPauseBanner" class="w-full hidden p-4 bg-amber-50 border-2 border-amber-300 rounded-3xl text-center shadow-md animate-fade-in">
-      <div class="text-amber-900 font-black text-sm flex items-center justify-center gap-2">
-        <span class="text-xl">☕</span>
-        <span>目前已暫停！您可以慢慢閱讀螢幕上的單字、音標與中文翻譯，準備好了隨時點擊「繼續挑戰」！</span>
+      <div class="h-0.5 bg-slate-200 flex-1 mx-2"></div>
+      <div id="qStepDot1" class="flex items-center gap-2 flex-1 justify-center opacity-50">
+        <div class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-slate-200 text-slate-600 font-bold text-xs flex items-center justify-center">2</div>
+        <span class="text-[11px] md:text-xs font-semibold text-slate-500">隨機例句 1</span>
+      </div>
+      <div class="h-0.5 bg-slate-200 flex-1 mx-2"></div>
+      <div id="qStepDot2" class="flex items-center gap-2 flex-1 justify-center opacity-50">
+        <div class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-slate-200 text-slate-600 font-bold text-xs flex items-center justify-center">3</div>
+        <span class="text-[11px] md:text-xs font-semibold text-slate-500">隨機例句 2</span>
       </div>
     </div>
 
-    <!-- Active Quest Interactive Studio Card -->
-    <div class="bg-white rounded-3xl p-6 md:p-8 shadow-xl shadow-indigo-100/70 border border-indigo-50 flex flex-col items-center relative">
+    <!-- ======================================================== -->
+    <!-- TABLET-OPTIMIZED DUAL-PANE / MOBILE SINGLE-COLUMN STUDIO -->
+    <!-- On Tablet (md:): Grid with Left Content Card + Right Console -->
+    <!-- On Mobile: Fluid single column layout                     -->
+    <!-- ======================================================== -->
+    <div class="w-full grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-5 items-stretch">
       
-      <!-- Top Step Indicators for Current Word: [1.單字發音] -> [2.隨機例句 1] -> [3.隨機例句 2] -->
-      <div class="w-full max-w-xl flex items-center justify-between mb-6 px-4">
-        <div id="qStepDot0" class="flex flex-col items-center gap-1 flex-1">
-          <div class="w-9 h-9 rounded-full bg-indigo-600 text-white font-bold text-xs flex items-center justify-center shadow-md">1</div>
-          <span class="text-[11px] font-bold text-indigo-700">單字精讀</span>
-        </div>
-        <div class="h-0.5 bg-slate-200 flex-1 mx-2"></div>
-        <div id="qStepDot1" class="flex flex-col items-center gap-1 flex-1 opacity-50">
-          <div class="w-9 h-9 rounded-full bg-slate-200 text-slate-600 font-bold text-xs flex items-center justify-center">2</div>
-          <span class="text-[11px] font-semibold text-slate-500">隨機例句 1</span>
-        </div>
-        <div class="h-0.5 bg-slate-200 flex-1 mx-2"></div>
-        <div id="qStepDot2" class="flex flex-col items-center gap-1 flex-1 opacity-50">
-          <div class="w-9 h-9 rounded-full bg-slate-200 text-slate-600 font-bold text-xs flex items-center justify-center">3</div>
-          <span class="text-[11px] font-semibold text-slate-500">隨機例句 2</span>
-        </div>
-      </div>
-
-      <!-- Proactive State Banner -->
-      <div id="questStateBanner" class="w-full max-w-xl p-3.5 rounded-2xl bg-indigo-50 border border-indigo-100 text-center font-bold text-indigo-800 text-sm mb-4 flex items-center justify-center gap-2 shadow-inner transition-all duration-300">
-        <span id="questStateIcon" class="text-xl">🔊</span>
-        <span id="questStateText">點選上方「開始挑戰」或播放範讀</span>
-      </div>
-
-      <!-- Big Illustration & Content Card -->
-      <div class="w-full max-w-xl bg-slate-50/70 border border-slate-200/80 rounded-3xl p-6 text-center mb-4 relative">
-        <div id="questEmoji" class="text-6xl mb-3 select-none">🪑</div>
+      <!-- LEFT PANE (Tablet: 7 Cols): Content & Visual Immersion Card -->
+      <div class="md:col-span-7 flex flex-col gap-3">
         
-        <!-- Big Target English Text -->
-        <h2 id="questTargetEnglish" class="text-3xl md:text-4xl font-extrabold text-indigo-950 tracking-wide mb-2 leading-tight">
-          desk
-        </h2>
-
-        <!-- Phonetic -->
-        <div id="questPhonetic" class="text-slate-400 font-mono text-sm mb-2">/dɛsk/</div>
-
-        <!-- Chinese Translation (Clear Side-by-Side) -->
-        <div class="inline-flex items-center gap-2 bg-white px-4 py-1.5 rounded-full border border-indigo-100 shadow-sm mb-2">
-          <span id="questScenarioBadge" class="text-[10px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-700">中文對照</span>
-          <span id="questTargetChinese" class="text-sm md:text-base font-bold text-slate-700">名詞：書桌，辦公桌</span>
+        <!-- Proactive State Banner (Tells kid what system is doing) -->
+        <div id="questStateBanner" class="w-full p-3 md:p-3.5 rounded-2xl bg-indigo-50 border border-indigo-100 text-center font-bold text-indigo-800 text-xs sm:text-sm flex items-center justify-center gap-2 shadow-inner transition-all duration-300">
+          <span id="questStateIcon" class="text-lg md:text-xl">🔊</span>
+          <span id="questStateText">點選上方「開始挑戰」或播放範讀</span>
         </div>
 
-        <!-- Real-time Speech Recognition Feedback Bubble -->
-        <div id="questSpokenFeedbackBox" class="mt-2 text-xs font-bold text-indigo-700 bg-indigo-50/90 px-3.5 py-1.5 rounded-full inline-block border border-indigo-200/60 transition">
-          🎤 聽到你說：<span id="questSpokenText" class="text-indigo-950 underline italic font-black">等待錄音...</span>
-        </div>
-      </div>
+        <!-- Big Hero Educational Content Card -->
+        <div class="flex-1 bg-white rounded-3xl p-6 md:p-8 shadow-xl shadow-indigo-100/70 border border-indigo-50 flex flex-col items-center justify-center text-center relative min-h-[300px] md:min-h-[380px]">
+          
+          <div id="questEmoji" class="text-6xl sm:text-7xl md:text-8xl mb-3 select-none transform hover:scale-110 transition duration-300">
+            🪑
+          </div>
+          
+          <!-- Big Target English Text -->
+          <h2 id="questTargetEnglish" class="text-3xl sm:text-4xl md:text-5xl font-black text-indigo-950 tracking-wide mb-2 leading-tight">
+            desk
+          </h2>
 
-      <!-- Dynamic Visual Sand-Flow Hourglass Countdown Area -->
-      <div id="questHourglassBox" class="flex flex-col items-center gap-2 my-2 hidden">
-        <!-- SVG Hourglass with Animated Flowing Sand -->
-        <div class="relative flex items-center justify-center">
-          <svg viewBox="0 0 64 80" class="w-16 h-20 filter drop-shadow-md">
-            <!-- Glass Body Contour -->
-            <path d="M 10 8 L 54 8 L 54 14 Q 54 36 34 40 Q 54 44 54 66 L 54 72 L 10 72 L 10 66 Q 10 44 30 40 Q 10 36 10 14 Z" fill="none" stroke="#4F46E5" stroke-width="3.5" stroke-linejoin="round" />
-            
-            <!-- Top Sand Bulb (Decreasing from top) -->
-            <clipPath id="topBulbClip">
-              <path d="M 12 12 L 52 12 Q 52 34 32 39 Q 12 34 12 12 Z" />
-            </clipPath>
-            <rect id="topSandRect" x="10" y="12" width="44" height="26" fill="#F59E0B" clip-path="url(#topBulbClip)" class="transition-all duration-1000 ease-linear"/>
-            
-            <!-- Trickling Sand Stream -->
-            <line id="sandStream" x1="32" y1="38" x2="32" y2="66" stroke="#F59E0B" stroke-width="2.5" stroke-dasharray="3,2" class="sand-stream-anim" />
-            
-            <!-- Bottom Sand Bulb (Rising from bottom) -->
-            <clipPath id="bottomBulbClip">
-              <path d="M 12 68 L 52 68 Q 52 46 32 41 Q 12 46 12 68 Z" />
-            </clipPath>
-            <rect id="bottomSandRect" x="10" y="68" width="44" height="0" fill="#F59E0B" clip-path="url(#bottomBulbClip)" class="transition-all duration-1000 ease-linear"/>
-          </svg>
-        </div>
+          <!-- Phonetic -->
+          <div id="questPhonetic" class="text-slate-400 font-mono text-sm md:text-base mb-2">/dɛsk/</div>
 
-        <!-- Prominent Badge with Giant Countdown Number -->
-        <div class="flex items-center gap-2 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-black px-5 py-2 rounded-full shadow-lg shadow-orange-200 text-sm animate-bounce">
-          <span>⏳ 朗讀倒數:</span>
-          <span id="questCountdownNum" class="text-2xl font-black font-mono">5</span>
-          <span>秒</span>
-        </div>
-        <div class="text-[11px] font-bold text-amber-800 bg-amber-50 px-3 py-0.5 rounded-full border border-amber-200">
-          說完系統會自動辨識評分，並播放專屬音效！
+          <!-- Chinese Translation (Clear Side-by-Side Badge) -->
+          <div class="inline-flex items-center gap-2 bg-slate-50 px-4 py-2 rounded-2xl border border-indigo-100/80 shadow-sm mb-3">
+            <span id="questScenarioBadge" class="text-[10px] md:text-xs font-extrabold uppercase px-2 py-0.5 rounded-md bg-indigo-100 text-indigo-700">單字釋義</span>
+            <span id="questTargetChinese" class="text-sm sm:text-base md:text-lg font-bold text-slate-700">名詞：書桌，辦公桌</span>
+          </div>
+
+          <!-- Real-time Speech Recognition Feedback Bubble -->
+          <div id="questSpokenFeedbackBox" class="mt-2 text-xs md:text-sm font-bold text-indigo-700 bg-indigo-50/90 px-4 py-2 rounded-full inline-block border border-indigo-200/60 transition max-w-full truncate">
+            🎤 聽到你說：<span id="questSpokenText" class="text-indigo-950 underline italic font-black">等待錄音...</span>
+          </div>
+
+          <!-- Audio Waveform Live Display during Recording -->
+          <div class="w-full h-9 md:h-11 bg-slate-50 rounded-2xl overflow-hidden border border-slate-200/70 mt-4 flex items-center justify-center relative">
+            <canvas id="questWaveformCanvas" class="w-full h-full"></canvas>
+            <span id="questWaveformPlaceholder" class="absolute text-[11px] text-slate-400 font-medium">聲波感應區 · 朗讀時隨聲波跳動</span>
+          </div>
+
         </div>
       </div>
 
-      <!-- Audio Waveform Live Display during Recording -->
-      <div class="w-full max-w-xl h-10 bg-slate-100 rounded-2xl overflow-hidden border border-slate-200/80 mb-4 flex items-center justify-center relative">
-        <canvas id="questWaveformCanvas" class="w-full h-full"></canvas>
-        <span id="questWaveformPlaceholder" class="absolute text-xs text-slate-600 font-medium">聲波感應區 · 錄音時隨聲音即時波動</span>
-      </div>
-
-      <!-- Central Action Area: Big Pulsing Mic -->
-      <div class="flex flex-col items-center gap-2 mb-4">
-        <div class="relative flex items-center justify-center">
-          <div id="questMicRing" class="absolute w-24 h-24 rounded-full bg-rose-400/40 hidden pulse-ring"></div>
-          <button id="questMicBtn" onclick="toggleQuestManualRecord()" class="relative z-10 w-20 h-20 rounded-full bg-gradient-to-tr from-indigo-600 to-violet-600 text-white shadow-xl shadow-indigo-300 flex flex-col items-center justify-center transition transform active:scale-95 focus:outline-none">
-            <span id="questMicIcon" class="text-2xl">🎙️</span>
-            <span id="questMicLabel" class="text-[11px] font-bold mt-0.5">點我錄音</span>
+      <!-- RIGHT PANE (Tablet: 5 Cols): Control Console, Hourglass, Mic & Sound -->
+      <div class="md:col-span-5 flex flex-col justify-between bg-white rounded-3xl p-5 md:p-6 shadow-xl shadow-indigo-100/70 border border-indigo-50 gap-4">
+        
+        <!-- Top Section of Console: Prominent Pause/Resume Control -->
+        <div class="w-full flex flex-col gap-2">
+          
+          <!-- Eye-Catching Tactile Pause / Resume Button -->
+          <button id="questMainPauseBtn" onclick="toggleQuestAutoFlow()" class="w-full py-3 md:py-3.5 px-4 rounded-2xl bg-amber-500 hover:bg-amber-600 active:scale-95 text-white text-xs md:text-sm font-black shadow-lg shadow-amber-200 transition flex items-center justify-center gap-2">
+            <span id="questPauseIcon" class="text-base md:text-lg">⏸️</span>
+            <span id="questPauseText">暫停練習 · 休息 / 仔細看內容</span>
           </button>
-        </div>
-      </div>
 
-      <!-- Quick Interactive Flow Controls (Replay, Retry, Skip) -->
-      <div class="flex items-center gap-2 flex-wrap justify-center mb-2">
-        <button onclick="replayQuestDemoAudio()" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 text-xs font-bold hover:bg-slate-50 transition flex items-center gap-1 shadow-sm">
-          <span>🔊 再聽範讀</span>
-        </button>
-        <button onclick="retryQuestCurrentStep()" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 text-xs font-bold hover:bg-slate-50 transition flex items-center gap-1 shadow-sm">
-          <span>🔄 重讀此題</span>
-        </button>
-        <button onclick="skipQuestStep()" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition flex items-center gap-1 shadow-sm">
-          <span>⏭️ 跳過此題</span>
-        </button>
-      </div>
+          <!-- Status Indicator Pill -->
+          <div class="flex items-center justify-between px-1 text-[11px] text-slate-500 font-bold">
+            <span>模式引導狀態:</span>
+            <span id="questStatusPill" class="px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-black flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> 自動流轉中
+            </span>
+          </div>
 
-      <!-- Simulation Evaluation Buttons for Quick Testing Sound Effects -->
-      <div class="mt-4 pt-3 border-t border-slate-100 w-full max-w-xl flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-2">
-        <span class="font-bold flex items-center gap-1">🎵 音效試聽測試:</span>
-        <div class="flex gap-1.5 flex-wrap">
-          <button onclick="simulateQuestEval(95)" class="px-2.5 py-1 bg-emerald-50 text-emerald-700 rounded-lg border border-emerald-200 font-bold hover:bg-emerald-100">95分(水晶音)</button>
-          <button onclick="simulateQuestEval(85)" class="px-2.5 py-1 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 font-bold hover:bg-blue-100">85分(中高音)</button>
-          <button onclick="simulateQuestEval(75)" class="px-2.5 py-1 bg-amber-50 text-amber-700 rounded-lg border border-amber-200 font-bold hover:bg-amber-100">75分(溫和音)</button>
-          <button onclick="simulateQuestEval(60)" class="px-2.5 py-1 bg-rose-50 text-rose-700 rounded-lg border border-rose-200 font-bold hover:bg-rose-100">60分(加油滑音)</button>
+          <!-- Active Pause Friendly Notice (Shown when paused) -->
+          <div id="questPauseBanner" class="w-full hidden p-3 bg-amber-50 border-2 border-amber-300 rounded-2xl text-center shadow-sm">
+            <div class="text-amber-900 font-black text-xs flex items-center justify-center gap-1.5 leading-snug">
+              <span>☕ 目前已暫停！可放鬆查看左側單字與例句，準備好隨時點「繼續」！</span>
+            </div>
+          </div>
         </div>
+
+        <!-- Center Section of Console: Hourglass & Big Microphone -->
+        <div class="flex flex-col items-center justify-center py-2 md:py-4 gap-3">
+          
+          <!-- Dynamic Visual Sand-Flow Hourglass Countdown Widget -->
+          <div id="questHourglassBox" class="flex flex-col items-center gap-2 hidden">
+            <!-- SVG Hourglass with Flowing Sand Animation -->
+            <div class="relative flex items-center justify-center">
+              <svg viewBox="0 0 64 80" class="w-14 h-18 md:w-16 md:h-20 filter drop-shadow-md">
+                <!-- Glass Body Contour -->
+                <path d="M 10 8 L 54 8 L 54 14 Q 54 36 34 40 Q 54 44 54 66 L 54 72 L 10 72 L 10 66 Q 10 44 30 40 Q 10 36 10 14 Z" fill="none" stroke="#4F46E5" stroke-width="3.5" stroke-linejoin="round" />
+                
+                <!-- Top Sand Bulb -->
+                <clipPath id="topBulbClip">
+                  <path d="M 12 12 L 52 12 Q 52 34 32 39 Q 12 34 12 12 Z" />
+                </clipPath>
+                <rect id="topSandRect" x="10" y="12" width="44" height="26" fill="#F59E0B" clip-path="url(#topBulbClip)" class="transition-all duration-1000 ease-linear"/>
+                
+                <!-- Trickling Sand Stream -->
+                <line id="sandStream" x1="32" y1="38" x2="32" y2="66" stroke="#F59E0B" stroke-width="2.5" stroke-dasharray="3,2" class="sand-stream-anim" />
+                
+                <!-- Bottom Sand Bulb -->
+                <clipPath id="bottomBulbClip">
+                  <path d="M 12 68 L 52 68 Q 52 46 32 41 Q 12 46 12 68 Z" />
+                </clipPath>
+                <rect id="bottomSandRect" x="10" y="68" width="44" height="0" fill="#F59E0B" clip-path="url(#bottomBulbClip)" class="transition-all duration-1000 ease-linear"/>
+              </svg>
+            </div>
+
+            <!-- Prominent Badge with Giant Countdown Number -->
+            <div class="flex items-center gap-1.5 bg-gradient-to-r from-amber-500 to-orange-500 text-white font-black px-4 py-1.5 md:px-5 md:py-2 rounded-full shadow-lg shadow-orange-200 text-xs md:text-sm animate-bounce">
+              <span>⏳ 朗讀倒數:</span>
+              <span id="questCountdownNum" class="text-xl md:text-2xl font-black font-mono">5</span>
+              <span>秒</span>
+            </div>
+          </div>
+
+          <!-- Giant Touch-Friendly Pulsing Microphone -->
+          <div class="relative flex items-center justify-center my-1">
+            <div id="questMicRing" class="absolute w-28 h-28 md:w-32 md:h-32 rounded-full bg-rose-400/40 hidden pulse-ring"></div>
+            <button id="questMicBtn" onclick="toggleQuestManualRecord()" class="relative z-10 w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-tr from-indigo-600 via-indigo-700 to-purple-600 text-white shadow-xl shadow-indigo-300 flex flex-col items-center justify-center transition transform active:scale-95 focus:outline-none">
+              <span id="questMicIcon" class="text-2xl md:text-3xl">🎙️</span>
+              <span id="questMicLabel" class="text-[10px] md:text-[11px] font-bold mt-0.5">點我錄音</span>
+            </button>
+          </div>
+
+          <!-- Bottom Action Buttons: Replay, Retry, Skip -->
+          <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap justify-center w-full">
+            <button onclick="replayQuestDemoAudio()" class="flex-1 py-2 px-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 text-xs font-bold hover:bg-slate-100 transition flex items-center justify-center gap-1 shadow-sm active:scale-95">
+              <span>🔊 再聽範讀</span>
+            </button>
+            <button onclick="retryQuestCurrentStep()" class="flex-1 py-2 px-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 text-xs font-bold hover:bg-slate-100 transition flex items-center justify-center gap-1 shadow-sm active:scale-95">
+              <span>🔄 重讀此題</span>
+            </button>
+            <button onclick="skipQuestStep()" class="flex-1 py-2 px-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition flex items-center justify-center gap-1 shadow-sm active:scale-95">
+              <span>⏭️ 跳過此題</span>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Bottom Section: Pitch-Graded Sound Effect Test Buttons -->
+        <div class="pt-3 border-t border-slate-100 w-full flex flex-col gap-1.5 text-xs text-slate-500">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-[11px] text-slate-600">🎵 評分音效即時試聽:</span>
+            <span class="text-[10px] text-slate-600">免開麥測試</span>
+          </div>
+          <div class="grid grid-cols-4 gap-1">
+            <button onclick="simulateQuestEval(95)" class="py-1 px-1 bg-emerald-50 text-emerald-700 rounded-lg border border-emerald-200 font-bold hover:bg-emerald-100 text-[10px] text-center active:scale-95">95分(水晶音)</button>
+            <button onclick="simulateQuestEval(85)" class="py-1 px-1 bg-blue-50 text-blue-700 rounded-lg border border-blue-200 font-bold hover:bg-blue-100 text-[10px] text-center active:scale-95">85分(中高音)</button>
+            <button onclick="simulateQuestEval(75)" class="py-1 px-1 bg-amber-50 text-amber-700 rounded-lg border border-amber-200 font-bold hover:bg-amber-100 text-[10px] text-center active:scale-95">75分(溫和音)</button>
+            <button onclick="simulateQuestEval(60)" class="py-1 px-1 bg-rose-50 text-rose-700 rounded-lg border border-rose-200 font-bold hover:bg-rose-100 text-[10px] text-center active:scale-95">60分(加油音)</button>
+          </div>
+        </div>
+
       </div>
 
     </div>
   </section>
 
   <!-- ======================================================== -->
-  <!-- MODE 2: FREE PRACTICE VIEW (50詞庫 · 錯詞本 · 深度糾音)        -->
+  <!-- MODE 2: FREE PRACTICE VIEW (TABLET & MOBILE ADAPTIVE)    -->
   <!-- ======================================================== -->
-  <section id="viewFreePractice" class="w-full max-w-5xl hidden flex-col gap-4">
+  <section id="viewFreePractice" class="w-full max-w-6xl hidden flex-col gap-4">
     
     <!-- Filter Bar & Weak Spot Bank -->
-    <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4">
+    <div class="bg-white rounded-3xl p-4 sm:p-5 shadow-sm border border-slate-100 flex flex-col md:flex-row items-center justify-between gap-3">
       <div>
-        <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+        <h2 class="text-base sm:text-lg font-bold text-slate-800 flex items-center gap-2">
           📚 50 個少兒全景詞彙庫
         </h2>
-        <p class="text-xs text-slate-500 mt-1">自主精細複習 · 點選單字即可切入精讀</p>
+        <p class="text-xs text-slate-500 mt-0.5">自主精細複習 · 點選單字即可切入精讀與 9 條例句庫</p>
       </div>
 
-      <!-- Category Filter Pills -->
-      <div class="flex items-center gap-1.5 overflow-x-auto hide-scrollbar text-xs">
+      <!-- Category Filter Pills: Touch Scrollable -->
+      <div class="flex items-center gap-1.5 overflow-x-auto hide-scrollbar text-xs w-full md:w-auto py-1">
         <button onclick="setFreeCategory('all')" class="free-cat-btn active px-3 py-1.5 rounded-xl font-bold bg-indigo-600 text-white shadow-sm whitespace-nowrap" data-cat="all">全部 (50)</button>
         <button onclick="setFreeCategory('weak')" class="free-cat-btn px-3 py-1.5 rounded-xl font-bold bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100 whitespace-nowrap" data-cat="weak">⚠️ 錯詞本 (<span id="weakCountBadge">0</span>)</button>
         <button onclick="setFreeCategory('home')" class="free-cat-btn px-3 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="home">🏠 家居 (12)</button>
@@ -477,19 +506,19 @@
       </div>
     </div>
 
-    <!-- Free Practice Grid -->
-    <div id="freeGridContainer" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 max-h-72 overflow-y-auto p-1 hide-scrollbar">
+    <!-- Free Practice Grid: 2 Cols on Phone, 3-4 Cols on Tablet, 5 Cols on Desktop -->
+    <div id="freeGridContainer" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2.5 sm:gap-3 max-h-72 md:max-h-80 overflow-y-auto p-1 hide-scrollbar">
       <!-- Word cards injected by JS -->
     </div>
 
-    <!-- Free Practice Focused Inspector Card -->
-    <div class="bg-white rounded-3xl p-6 shadow-xl border border-indigo-50 flex flex-col md:flex-row gap-6 items-center">
-      <div class="w-full md:w-1/3 flex flex-col items-center text-center p-4 bg-slate-50 rounded-2xl border border-slate-100">
-        <div id="freeEmoji" class="text-7xl mb-2">🪑</div>
-        <h3 id="freeWord" class="text-3xl font-black text-indigo-950">desk</h3>
-        <div id="freePhonetic" class="text-xs text-slate-400 font-mono mt-1 mb-2">/dɛsk/</div>
-        <div id="freeMeaning" class="text-xs font-bold text-slate-700 bg-white px-3 py-1 rounded-full border border-indigo-100">名詞：書桌，辦公桌</div>
-        <button onclick="playFreeWordAudio()" class="mt-4 px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-bold hover:bg-indigo-700 transition flex items-center gap-1 shadow-sm">
+    <!-- Free Practice Focused Inspector Card: Dual Column on Tablet -->
+    <div class="bg-white rounded-3xl p-5 md:p-7 shadow-xl border border-indigo-50 flex flex-col md:flex-row gap-6 items-center">
+      <div class="w-full md:w-1/3 flex flex-col items-center text-center p-4 md:p-6 bg-slate-50 rounded-2xl border border-slate-100">
+        <div id="freeEmoji" class="text-7xl md:text-8xl mb-2">🪑</div>
+        <h3 id="freeWord" class="text-3xl md:text-4xl font-black text-indigo-950">desk</h3>
+        <div id="freePhonetic" class="text-xs md:text-sm text-slate-400 font-mono mt-1 mb-2">/dɛsk/</div>
+        <div id="freeMeaning" class="text-xs md:text-sm font-bold text-slate-700 bg-white px-3.5 py-1.5 rounded-full border border-indigo-100 shadow-sm">名詞：書桌，辦公桌</div>
+        <button onclick="playFreeWordAudio()" class="mt-4 px-5 py-2.5 rounded-xl bg-indigo-600 text-white text-xs md:text-sm font-bold hover:bg-indigo-700 transition flex items-center gap-1.5 shadow-md active:scale-95">
           <span>🔊 播放標準原聲</span>
         </button>
       </div>
@@ -497,18 +526,18 @@
       <div class="w-full md:w-2/3 flex flex-col gap-3">
         <div class="flex items-center justify-between">
           <span class="text-xs font-bold text-slate-500">9 條情境例句庫 · 中英文對照</span>
-          <span id="freeScenarioTitle" class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-md">情境一 · 認知描述</span>
+          <span id="freeScenarioTitle" class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg">情境一 · 認知描述</span>
         </div>
 
         <!-- 3 Scenarios Tab -->
         <div class="flex gap-2 text-xs font-bold">
-          <button onclick="selectFreeScenario(0)" id="scTab0" class="flex-1 py-1.5 rounded-xl bg-indigo-600 text-white shadow-sm transition">情境 1</button>
-          <button onclick="selectFreeScenario(1)" id="scTab1" class="flex-1 py-1.5 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition">情境 2</button>
-          <button onclick="selectFreeScenario(2)" id="scTab2" class="flex-1 py-1.5 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition">情境 3</button>
+          <button onclick="selectFreeScenario(0)" id="scTab0" class="flex-1 py-2 rounded-xl bg-indigo-600 text-white shadow-sm transition">情境 1</button>
+          <button onclick="selectFreeScenario(1)" id="scTab1" class="flex-1 py-2 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition">情境 2</button>
+          <button onclick="selectFreeScenario(2)" id="scTab2" class="flex-1 py-2 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition">情境 3</button>
         </div>
 
         <!-- 3 Sentences in Current Scenario -->
-        <div id="freeSentenceList" class="flex flex-col gap-2">
+        <div id="freeSentenceList" class="flex flex-col gap-2.5 max-h-64 overflow-y-auto pr-1">
           <!-- Injected by JS -->
         </div>
       </div>
@@ -516,15 +545,15 @@
   </section>
 
   <!-- ======================================================== -->
-  <!-- MODE 3: ADVENTURE ISLAND (50 關地圖)                       -->
+  <!-- MODE 3: ADVENTURE ISLAND (50 關地圖 TABLET & PHONE)      -->
   <!-- ======================================================== -->
-  <section id="viewAdventure" class="w-full max-w-5xl hidden flex-col gap-4">
-    <div class="bg-white rounded-3xl p-6 shadow-sm border border-slate-100 flex items-center justify-between">
+  <section id="viewAdventure" class="w-full max-w-6xl hidden flex-col gap-4">
+    <div class="bg-white rounded-3xl p-5 md:p-6 shadow-sm border border-slate-100 flex flex-col md:flex-row items-center justify-between gap-3">
       <div>
-        <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+        <h2 class="text-base sm:text-lg font-bold text-slate-800 flex items-center gap-2">
           🗺️ 英語發音探險島 (50 關冒險)
         </h2>
-        <p class="text-xs text-slate-500 mt-1">每一關以三星標準挑戰，點選任一已解鎖關卡即可進行精確挑戰！</p>
+        <p class="text-xs text-slate-500 mt-0.5">每一關以三星標準挑戰，點選任一已解鎖關卡即可進行精確挑戰！</p>
       </div>
       <div class="flex items-center gap-2 bg-amber-50 px-4 py-2 rounded-2xl border border-amber-200 text-xs font-black text-amber-900">
         <span>⭐ 收集星星:</span>
@@ -532,8 +561,8 @@
       </div>
     </div>
 
-    <!-- Adventure Stage Grid -->
-    <div id="advStageGrid" class="grid grid-cols-2 sm:grid-cols-5 md:grid-cols-10 gap-3">
+    <!-- Adventure Stage Grid: Responsive from 2 to 10 cols -->
+    <div id="advStageGrid" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-10 gap-2.5 sm:gap-3">
       <!-- Injected by JS -->
     </div>
   </section>
@@ -547,7 +576,7 @@
         📱
       </div>
       <h3 class="text-lg font-bold text-slate-900 mb-1">手機 / 平板掃碼體驗</h3>
-      <p class="text-xs text-slate-500 mb-4">使用相機掃描下方 QR Code，立即在手機上測試語音與沙漏倒數！</p>
+      <p class="text-xs text-slate-500 mb-4">使用相機掃描下方 QR Code，立即在手機或 iPad 上測試！</p>
       
       <!-- Real Canvas QR Code -->
       <div class="p-3 bg-white border-2 border-indigo-100 rounded-2xl shadow-inner mb-3">
@@ -555,7 +584,7 @@
       </div>
 
       <div class="text-[11px] font-mono text-slate-500 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200 mb-4 break-all">
-        https://honga0812.github.io/KaiSpeak/?v=5
+        https://honga0812.github.io/KaiSpeak/?v=6
       </div>
 
       <button onclick="toggleQRModal()" class="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
@@ -574,7 +603,7 @@
           <span class="text-xl">📊</span>
           <h3 class="text-base font-bold text-slate-900">發音評測紀錄與錯詞本統計</h3>
         </div>
-        <button onclick="toggleLogModal()" class="text-slate-400 hover:text-slate-600 font-bold text-lg">✕</button>
+        <button onclick="toggleLogModal()" class="text-slate-400 hover:text-slate-600 font-bold text-lg p-1">✕</button>
       </div>
 
       <div id="logTableContainer" class="flex-1 overflow-y-auto hide-scrollbar text-xs">
@@ -3778,7 +3807,6 @@
     // STREAK & ENERGY MANAGEMENT LOGIC
     // ========================================================
     function updateStreakAndEnergyUI() {
-      // Streak counters
       const streakEls = [
         'headerStreakNum', 'mobileStreakNum', 'overlayStreakNum', 
         'overlayStreakTitleNum', 'modalStreakNum', 'questStreakDays'
@@ -3788,7 +3816,6 @@
         if (el) el.innerText = streakDays;
       });
 
-      // Energy counters
       const energyEls = [
         'headerEnergyNum', 'mobileEnergyNum', 'overlayEnergyNum', 
         'modalEnergyNum', 'bannerEnergyNum'
@@ -3838,14 +3865,12 @@
     // KICKOFF & WELCOME GUIDANCE (天數榮譽 + 3秒倒數 + 聲音解鎖)
     // ========================================================
     function startDailyQuestWithCountdown() {
-      // Pre-warm Audio Context
       SoundEffects.init();
       try {
         questAudioPlayer.src = "data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA";
         questAudioPlayer.play().then(() => questAudioPlayer.pause()).catch(()=>{});
       } catch(e) {}
 
-      // Show 3-2-1 Countdown
       document.getElementById('overlayStartBtn').classList.add('hidden');
       const countBox = document.getElementById('overlayCountdownBox');
       const countNum = document.getElementById('overlayCountdownNum');
@@ -3864,7 +3889,6 @@
         } else {
           clearInterval(overlayTimer);
           overlayTimer = null;
-          // Hide overlay and kick off proactive quest walkthrough
           document.getElementById('questKickoffOverlay').classList.add('hidden');
           questAutoPlay = true;
           updatePauseUI();
@@ -3889,27 +3913,27 @@
       const bAdv = document.getElementById('navAdventureBtn');
 
       [bQuest, bFree, bAdv].forEach(b => {
-        b.className = "px-4 py-2 rounded-xl text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5";
+        b.className = "flex-1 md:flex-initial px-3.5 md:px-5 py-2 md:py-2.5 rounded-xl text-slate-600 hover:text-slate-900 transition flex items-center justify-center gap-1.5";
       });
 
       if (mode === 'quest') {
         vQuest.classList.remove('hidden');
         vFree.classList.add('hidden');
         vAdv.classList.add('hidden');
-        bQuest.className = "px-4 py-2 rounded-xl bg-indigo-600 text-white shadow-sm transition flex items-center gap-1.5";
+        bQuest.className = "flex-1 md:flex-initial px-3.5 md:px-5 py-2 md:py-2.5 rounded-xl bg-indigo-600 text-white shadow-sm transition flex items-center justify-center gap-1.5";
         renderQuestCard();
       } else if (mode === 'free') {
         vQuest.classList.add('hidden');
         vFree.classList.remove('hidden');
         vAdv.classList.add('hidden');
-        bFree.className = "px-4 py-2 rounded-xl bg-indigo-600 text-white shadow-sm transition flex items-center gap-1.5";
+        bFree.className = "flex-1 md:flex-initial px-3.5 md:px-5 py-2 md:py-2.5 rounded-xl bg-indigo-600 text-white shadow-sm transition flex items-center justify-center gap-1.5";
         renderFreeGrid();
         renderFreeCard();
       } else {
         vQuest.classList.add('hidden');
         vFree.classList.add('hidden');
         vAdv.classList.remove('hidden');
-        bAdv.className = "px-4 py-2 rounded-xl bg-indigo-600 text-white shadow-sm transition flex items-center gap-1.5";
+        bAdv.className = "flex-1 md:flex-initial px-3.5 md:px-5 py-2 md:py-2.5 rounded-xl bg-indigo-600 text-white shadow-sm transition flex items-center justify-center gap-1.5";
         renderAdventureMap();
       }
     }
@@ -3938,18 +3962,18 @@
         const text = dot.querySelector('span');
         if (step === questSubStep) {
           dot.classList.remove('opacity-50');
-          circle.className = "w-9 h-9 rounded-full bg-indigo-600 text-white font-bold text-xs flex items-center justify-center shadow-md scale-110 transition";
-          text.className = "text-[11px] font-bold text-indigo-700";
+          circle.className = "w-7 h-7 md:w-8 md:h-8 rounded-full bg-indigo-600 text-white font-bold text-xs flex items-center justify-center shadow-md scale-110 transition";
+          text.className = "text-[11px] md:text-xs font-bold text-indigo-700";
         } else if (step < questSubStep) {
           dot.classList.remove('opacity-50');
-          circle.className = "w-9 h-9 rounded-full bg-emerald-500 text-white font-bold text-xs flex items-center justify-center shadow-sm";
+          circle.className = "w-7 h-7 md:w-8 md:h-8 rounded-full bg-emerald-500 text-white font-bold text-xs flex items-center justify-center shadow-sm";
           circle.innerHTML = "✓";
-          text.className = "text-[11px] font-semibold text-emerald-700";
+          text.className = "text-[11px] md:text-xs font-semibold text-emerald-700";
         } else {
           dot.classList.add('opacity-50');
-          circle.className = "w-9 h-9 rounded-full bg-slate-200 text-slate-600 font-bold text-xs flex items-center justify-center";
+          circle.className = "w-7 h-7 md:w-8 md:h-8 rounded-full bg-slate-200 text-slate-600 font-bold text-xs flex items-center justify-center";
           circle.innerHTML = `${step + 1}`;
-          text.className = "text-[11px] font-semibold text-slate-500";
+          text.className = "text-[11px] md:text-xs font-semibold text-slate-500";
         }
       });
 
@@ -3987,7 +4011,7 @@
       const ico = document.getElementById('questStateIcon');
       txt.innerText = text;
       ico.innerText = icon;
-      banner.className = `w-full max-w-xl p-3.5 rounded-2xl border text-center font-bold text-sm mb-4 flex items-center justify-center gap-2 shadow-inner transition-all duration-300 ${classes}`;
+      banner.className = `w-full p-3 md:p-3.5 rounded-2xl border text-center font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-inner transition-all duration-300 ${classes}`;
     }
 
     function updatePauseUI() {
@@ -3999,18 +4023,18 @@
 
       if (questAutoPlay) {
         // Running
-        mainBtn.className = "px-5 py-2.5 rounded-2xl bg-amber-500 hover:bg-amber-600 active:scale-95 text-white text-xs font-black shadow-lg shadow-amber-200 transition flex items-center gap-2";
+        mainBtn.className = "w-full py-3 md:py-3.5 px-4 rounded-2xl bg-amber-500 hover:bg-amber-600 active:scale-95 text-white text-xs md:text-sm font-black shadow-lg shadow-amber-200 transition flex items-center justify-center gap-2";
         icon.innerText = "⏸️";
         text.innerText = "暫停練習 · 休息 / 仔細看內容";
-        pill.className = "text-xs px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-black flex items-center gap-1";
-        pill.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> 引導進行中';
+        pill.className = "px-2 py-0.5 rounded-full bg-emerald-100 text-emerald-800 font-black flex items-center gap-1";
+        pill.innerHTML = '<span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> 自動流轉中';
         banner.classList.add('hidden');
       } else {
         // Paused
-        mainBtn.className = "px-5 py-2.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white text-xs font-black shadow-lg shadow-emerald-200 transition flex items-center gap-2 animate-pulse";
+        mainBtn.className = "w-full py-3 md:py-3.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-white text-xs md:text-sm font-black shadow-lg shadow-emerald-200 transition flex items-center justify-center gap-2 animate-pulse";
         icon.innerText = "▶️";
         text.innerText = "繼續今日任務（點我繼續）";
-        pill.className = "text-xs px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-900 font-black flex items-center gap-1";
+        pill.className = "px-2 py-0.5 rounded-full bg-amber-100 text-amber-900 font-black flex items-center gap-1";
         pill.innerHTML = '⏸️ 已暫停休息中';
         banner.classList.remove('hidden');
       }
@@ -4023,12 +4047,11 @@
         setQuestStatus("引導繼續！即將進入下一個朗讀步驟...", "▶️", "bg-indigo-50 text-indigo-800");
         runQuestAutoStep();
       } else {
-        // Stop currently playing audio or recording
         if (questAudioPlayer) questAudioPlayer.pause();
         if (isRecording) stopRecording();
         if (questRecTimer) { clearInterval(questRecTimer); questRecTimer = null; }
         document.getElementById('questHourglassBox').classList.add('hidden');
-        setQuestStatus("任務已暫停。您可以慢慢看當前單字，準備好點擊「繼續今日任務」！", "⏸️", "bg-amber-100 text-amber-900 border-amber-300");
+        setQuestStatus("任務已暫停。您可以慢慢看左側單字，準備好點擊「繼續今日任務」！", "⏸️", "bg-amber-100 text-amber-900 border-amber-300");
       }
     }
 
@@ -4076,7 +4099,6 @@
       questAudioPlayer.onended = finish;
       
       questAudioPlayer.onerror = () => {
-        // Fallback to Web Speech API
         const text = document.getElementById('questTargetEnglish').innerText;
         fallbackNaturalTTS(text, finish);
       };
@@ -4137,7 +4159,6 @@
         if (questCountdownVal <= 0) {
           clearInterval(questRecTimer);
           questRecTimer = null;
-          // Gracefully stop recognition (processes speech, DOES NOT abort!)
           if (isRecording && recognition) {
             try { recognition.stop(); } catch(e){}
           }
@@ -4219,17 +4240,14 @@
     function advanceQuestStep() {
       questSubStep++;
       if (questSubStep > 2) {
-        // Finished word + 2 random sentences for current word!
         questSubStep = 0;
         questWordIdx++;
         
-        // Play light cheerful ding when moving to next word
         SoundEffects.playNext();
 
         if (questWordIdx >= questQueue.length) {
-          // Finished all 10 words!
           streakDays++;
-          energyPoints += 50; // Daily reward: +50 energy!
+          energyPoints += 50;
           localStorage.setItem('kai_streak_days', streakDays.toString());
           localStorage.setItem('kai_energy_points', energyPoints.toString());
           updateStreakAndEnergyUI();
@@ -4277,7 +4295,7 @@
 
         if (!shouldShow) return;
 
-        btn.className = `p-3 rounded-2xl border text-left transition flex items-center gap-2.5 ${
+        btn.className = `p-2.5 sm:p-3 rounded-2xl border text-left transition flex items-center gap-2.5 active:scale-95 ${
           isActive 
             ? 'bg-indigo-600 text-white shadow-md border-indigo-600' 
             : 'bg-white hover:bg-slate-50 text-slate-800 border-slate-200 shadow-sm'
@@ -4298,7 +4316,6 @@
         container.appendChild(btn);
       });
 
-      // Update Weak Count Badge
       const weakWords = new Set(practiceLogs.filter(l => l.score < 75).map(l => l.word));
       document.getElementById('weakCountBadge').innerText = weakWords.size;
     }
@@ -4314,9 +4331,9 @@
         const tab = document.getElementById(`scTab${i}`);
         if (!tab) return;
         if (i === freeScenarioIndex) {
-          tab.className = "flex-1 py-1.5 rounded-xl bg-indigo-600 text-white shadow-sm transition";
+          tab.className = "flex-1 py-2 rounded-xl bg-indigo-600 text-white shadow-sm transition";
         } else {
-          tab.className = "flex-1 py-1.5 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition";
+          tab.className = "flex-1 py-2 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition";
         }
       });
 
@@ -4336,7 +4353,7 @@
               <div class="text-xs font-bold text-indigo-950">${sent}</div>
               <div class="text-[11px] text-slate-500 mt-0.5">${trans}</div>
             </div>
-            <button onclick="playFreeSentenceAudio('${card.id}', ${freeScenarioIndex}, ${sIdx})" class="p-2 rounded-xl bg-white border border-slate-200 hover:bg-indigo-50 text-indigo-600 text-xs shadow-sm">
+            <button onclick="playFreeSentenceAudio('${card.id}', ${freeScenarioIndex}, ${sIdx})" class="p-2 rounded-xl bg-white border border-slate-200 hover:bg-indigo-50 text-indigo-600 text-xs shadow-sm active:scale-95 transition">
               🔊 播放
             </button>
           `;
@@ -4399,15 +4416,15 @@
         totalStars += stars;
 
         const stageBtn = document.createElement('button');
-        stageBtn.className = "p-3 rounded-2xl bg-white border border-indigo-100 shadow-sm flex flex-col items-center text-center hover:scale-105 transition";
+        stageBtn.className = "p-2.5 sm:p-3 rounded-2xl bg-white border border-indigo-100 shadow-sm flex flex-col items-center text-center hover:scale-105 active:scale-95 transition";
         stageBtn.onclick = () => {
           freeCardIndex = idx;
           freeScenarioIndex = 0;
           switchAppMode('free');
         };
         stageBtn.innerHTML = `
-          <div class="text-[10px] font-bold text-slate-600">第 ${stageNum} 關</div>
-          <div class="text-3xl my-1">${c.emoji}</div>
+          <div class="text-[9px] md:text-[10px] font-bold text-slate-600">第 ${stageNum} 關</div>
+          <div class="text-2xl sm:text-3xl my-1">${c.emoji}</div>
           <div class="text-xs font-bold text-indigo-950 truncate w-full">${c.word}</div>
           <div class="text-xs mt-1 text-amber-500 font-bold">${'⭐'.repeat(stars) || '☆☆☆'}</div>
         `;
@@ -4471,7 +4488,6 @@
         }
       }
 
-      // Start Analyser for Waveform and Acoustic Energy
       startAcousticAnalyser();
     }
 
@@ -4557,7 +4573,6 @@
       if (tClean === sClean) return Math.floor(Math.random() * 6) + 94; // 94-99
       if (sClean.includes(tClean) || tClean.includes(sClean)) return Math.floor(Math.random() * 8) + 85; // 85-92
 
-      // Levenshtein similarity
       const dist = levenshtein(tClean, sClean);
       const maxLen = Math.max(tClean.length, sClean.length);
       const sim = Math.max(0, 1 - dist / maxLen);
@@ -4641,7 +4656,6 @@
       if (practiceLogs.length > 300) practiceLogs.pop();
       localStorage.setItem('kai_practice_logs', JSON.stringify(practiceLogs));
 
-      // Update Adventure Stars
       const currentStar = adventureStars[word] || 0;
       let starEarned = 1;
       if (score >= 90) starEarned = 3;
@@ -4718,7 +4732,7 @@
     function initQRCode() {
       const canvas = document.getElementById('qrCodeCanvas');
       if (canvas && window.QRCode) {
-        QRCode.toCanvas(canvas, "https://honga0812.github.io/KaiSpeak/?v=5", {
+        QRCode.toCanvas(canvas, "https://honga0812.github.io/KaiSpeak/?v=6", {
           width: 176,
           margin: 1,
           color: { dark: '#312E81', light: '#FFFFFF' }
