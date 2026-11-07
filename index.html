@@ -76,6 +76,10 @@
 
       <!-- Mobile Top Quick Badges -->
       <div class="flex md:hidden items-center gap-1.5">
+        <button onclick="toggleProfileModal()" class="px-2 py-1 rounded-xl bg-violet-50 text-violet-900 border border-violet-200 text-xs font-black flex items-center gap-1 shadow-sm active:scale-95" title="切換學員">
+          <span id="mobileProfileAvatar">👦</span>
+          <span id="mobileProfileName">Kai</span>▾
+        </button>
         <button onclick="toggleStreakShieldModal()" class="px-2.5 py-1 rounded-xl bg-amber-50 text-amber-900 border border-amber-200 text-xs font-black flex items-center gap-1 shadow-sm active:scale-95 transition">
           🔥 <span id="mobileStreakNum">525</span>天
         </button>
@@ -106,6 +110,21 @@
 
     <!-- Desktop Navigation Controls -->
     <div class="hidden md:flex items-center gap-2">
+      <!-- Desktop Child Profile Switcher -->
+      <button onclick="toggleProfileModal()" title="切換學員 / 家庭多小朋友管理" class="px-3.5 py-1.5 rounded-2xl bg-gradient-to-r from-violet-50 to-indigo-50 hover:from-violet-100 hover:to-indigo-100 text-violet-900 border border-violet-200 text-xs font-bold transition flex items-center gap-2 shadow-sm active:scale-95">
+        <span id="headerProfileAvatar" class="text-xl">👦</span>
+        <div class="text-left leading-tight">
+          <div class="flex items-center gap-1.5">
+            <span id="headerProfileName" class="font-black text-xs text-violet-950">Kai 寶貝</span>
+            <span id="headerProfileGrade" class="text-[9px] bg-violet-200 text-violet-800 px-1.5 py-0.2 rounded-full font-bold">國小二年級</span>
+          </div>
+          <div class="text-[9px] text-violet-600 font-bold flex items-center gap-1">
+            <span id="headerProfileLevelBadge">🟢 程度: 基礎入門</span>
+            <span class="text-violet-400">▾</span>
+          </div>
+        </div>
+      </button>
+
       <button onclick="toggleStreakShieldModal()" title="查看打卡守護紀錄與補簽" class="px-3.5 py-2 rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50 hover:from-amber-100 hover:to-orange-100 text-amber-900 border border-amber-200 text-xs font-black transition flex items-center gap-1.5 shadow-sm active:scale-95">
         <span class="text-base">🔥</span>
         <span>連續打卡:</span>
@@ -146,6 +165,12 @@
         </div>
       </div>
 
+      <div class="text-xs md:text-sm font-bold text-indigo-700 bg-indigo-50 px-3.5 py-1 rounded-full mb-2 inline-flex items-center gap-1.5 border border-indigo-100 shadow-sm">
+        <span id="overlayChildAvatar">👦</span>
+        <span id="overlayChildName">Kai 寶貝</span>
+        <span class="text-indigo-400">·</span>
+        <span id="overlayChildAdaptive">🟢 基礎入門</span>
+      </div>
       <h3 class="text-xl sm:text-2xl md:text-3xl font-black text-slate-900 mb-1.5 leading-tight">
         太厲害了！已持續堅持 <span id="overlayStreakTitleNum" class="text-amber-500 font-mono">525</span> 天！
       </h3>
@@ -310,6 +335,82 @@
             <span>🗺️ 前往探險島闖關</span>
           </button>
         </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MULTI-CHILD PROFILE & ADAPTIVE DIFFICULTY SWITCHER MODAL   -->
+  <!-- ======================================================== -->
+  <div id="profileModal" class="fixed inset-0 bg-slate-900/65 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto hidden">
+    <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl border border-indigo-100 flex flex-col my-auto max-h-[90vh] overflow-y-auto">
+      
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl">🎓</span>
+          <div>
+            <h3 class="text-base font-black text-slate-900">家庭學員切換與管理</h3>
+            <p class="text-[11px] text-slate-500 font-medium">每個小朋友獨立記錄天數、能量、發音表現與智能自適應難度</p>
+          </div>
+        </div>
+        <button onclick="toggleProfileModal()" class="text-slate-400 hover:text-slate-600 font-bold text-lg p-1">✕</button>
+      </div>
+
+      <!-- Current Profile Adaptive Overview Banner -->
+      <div id="modalActiveProfileCard" class="p-4 rounded-2xl bg-gradient-to-r from-violet-50 to-indigo-50 border border-violet-200 mb-4 flex items-center justify-between">
+        <!-- Dynamically rendered -->
+      </div>
+
+      <!-- Profiles List -->
+      <div class="text-xs font-bold text-slate-600 mb-2 flex items-center justify-between">
+        <span>已建立學員檔案（點選立即切換）：</span>
+        <button onclick="toggleNewProfileForm()" class="text-indigo-600 hover:text-indigo-800 flex items-center gap-1 font-bold text-xs bg-indigo-50 px-2.5 py-1 rounded-xl border border-indigo-200">
+          <span>➕ 新增小朋友</span>
+        </button>
+      </div>
+
+      <div id="profileListContainer" class="flex flex-col gap-2.5 mb-4">
+        <!-- Dynamically rendered profile cards -->
+      </div>
+
+      <!-- Add New Child Form (Togglable) -->
+      <div id="newProfileForm" class="hidden p-4 rounded-2xl bg-slate-50 border border-indigo-200 mb-4 flex flex-col gap-3">
+        <div class="text-xs font-extrabold text-indigo-950 flex items-center gap-1.5">
+          <span>👶 新增小朋友學員資料</span>
+        </div>
+        <div>
+          <label class="text-[11px] font-bold text-slate-600 mb-1 block">選擇頭像吉祥圖示：</label>
+          <div id="newAvatarPicker" class="flex items-center gap-2 flex-wrap">
+            <!-- Emoji options -->
+          </div>
+        </div>
+        <div>
+          <label class="text-[11px] font-bold text-slate-600 mb-1 block">小朋友暱稱或英文名：</label>
+          <input type="text" id="newProfileName" placeholder="例如：Mia, Leo, 晨晨" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:outline-none focus:border-indigo-500 font-bold">
+        </div>
+        <div>
+          <label class="text-[11px] font-bold text-slate-600 mb-1 block">年級與基礎程度設定：</label>
+          <select id="newProfileGrade" class="w-full px-3 py-2 text-xs rounded-xl border border-slate-300 focus:outline-none focus:border-indigo-500 font-bold bg-white">
+            <option value="幼兒園大班/國小低年級">幼兒園大班 / 國小低年級（初學啟蒙，以 3~4 詞簡單句為主）</option>
+            <option value="國小二年級" selected>國小二年級（基礎穩固，日常對話 5~6 詞）</option>
+            <option value="國小三年級">國小三年級（日常應用，循序漸進）</option>
+            <option value="國小中高年級">國小中高年級（進階拓展，挑戰 7~9 詞長句）</option>
+          </select>
+        </div>
+        <div class="flex items-center gap-2 mt-1">
+          <button onclick="confirmCreateProfile()" class="flex-1 py-2 rounded-xl bg-indigo-600 text-white font-bold text-xs hover:bg-indigo-700 transition shadow-sm active:scale-95">
+            確認建立並開始學習
+          </button>
+          <button onclick="toggleNewProfileForm()" class="px-3 py-2 rounded-xl bg-slate-200 text-slate-700 font-bold text-xs hover:bg-slate-300 transition">
+            取消
+          </button>
+        </div>
+      </div>
+
+      <div class="p-3 bg-amber-50 rounded-2xl border border-amber-200 text-left text-[11px] text-amber-900 leading-relaxed">
+        <span class="font-bold">💡 智能程度自適應說明：</span>
+        系統會自動分析小朋友的<strong>連續打卡天數</strong>與<strong>歷史發音評測得分</strong>。若回答正確率低於 70% 或評分偏低，系統會自動切換為「簡單初階短句」，保護孩子的學習熱情；當表現優異（平均 85 分以上）時，才會循序漸進晉升至進階句子！
       </div>
 
     </div>
@@ -532,6 +633,11 @@
             </button>
           </div>
 
+          <!-- Early Finish Evaluation Button -->
+          <button id="questEarlyFinishBtn" onclick="finishQuestRecordEarly()" class="w-full hidden py-2.5 px-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 active:scale-95 text-white text-xs md:text-sm font-black shadow-md shadow-emerald-200 transition flex items-center justify-center gap-1.5 animate-pulse">
+            <span>⚡ 我念完了，立即評分！</span>
+          </button>
+
           <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap justify-center w-full">
             <button onclick="replayQuestDemoAudio()" class="flex-1 py-2 px-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-700 text-xs font-bold hover:bg-slate-100 transition flex items-center justify-center gap-1 shadow-sm active:scale-95">
               <span>🔊 再聽範讀</span>
@@ -663,11 +769,11 @@
             </button>
           </div>
 
-          <!-- 3 Scenarios Tabs -->
+          <!-- 3 Graded Difficulty Tabs -->
           <div class="flex gap-2 text-xs font-bold">
-            <button onclick="selectFreeScenario(0)" id="scTab0" class="flex-1 py-2 rounded-xl bg-indigo-600 text-white shadow-sm transition">情境 1</button>
-            <button onclick="selectFreeScenario(1)" id="scTab1" class="flex-1 py-2 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition">情境 2</button>
-            <button onclick="selectFreeScenario(2)" id="scTab2" class="flex-1 py-2 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition">情境 3</button>
+            <button onclick="selectFreeScenario(0)" id="scTab0" class="flex-1 py-2 rounded-xl bg-indigo-600 text-white shadow-sm transition">🟢 難度 1 · 簡單</button>
+            <button onclick="selectFreeScenario(1)" id="scTab1" class="flex-1 py-2 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition">🟡 難度 2 · 中等</button>
+            <button onclick="selectFreeScenario(2)" id="scTab2" class="flex-1 py-2 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition">🟣 難度 3 · 進階</button>
           </div>
 
           <!-- 3 Sentences in Current Scenario -->
@@ -823,7 +929,7 @@
       </div>
 
       <div class="text-[11px] font-mono text-slate-500 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200 mb-4 break-all">
-        https://honga0812.github.io/KaiSpeak/?v=8
+        https://honga0812.github.io/KaiSpeak/?v=9
       </div>
 
       <button onclick="toggleQRModal()" class="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
@@ -867,7 +973,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const MASTER_VOCAB = [
+        const MASTER_VOCAB = [
   {
     "id": "desk",
     "word": "desk",
@@ -885,47 +991,61 @@
       "disc",
       "das"
     ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "This is my desk.",
+        "translation": "這是我的一張書桌。",
+        "audioSrc": "audio/sentence_desk_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Put the book on the desk.",
+        "translation": "把書本放在書桌上。",
+        "audioSrc": "audio/sentence_desk_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "I sit at my desk and study happily.",
+        "translation": "我坐在書桌前開心地學習。",
+        "audioSrc": "audio/sentence_desk_2_0.m4a"
+      }
+    ],
     "scenarios": [
       {
-        "tag": "情境一 · 認知特徵描述",
-        "desc": "觀察桌子的外觀與狀態",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "This is a clean wooden desk.",
-          "The desk is next to the window.",
-          "I have a small blue study desk."
+          "This is my desk."
         ],
         "translations": [
-          "這是一張乾淨的木質書桌。",
-          "書桌就放在窗戶旁邊。",
-          "我有一張藍色的小學習桌。"
+          "這是我的一張書桌。"
         ]
       },
       {
-        "tag": "情境二 · 動作指令與整理",
-        "desc": "在書桌前的動作與自理能力",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Put your story book on the desk.",
-          "Please wipe the dust off your desk.",
-          "Sit down at your desk and draw a picture."
+          "Put the book on the desk."
         ],
         "translations": [
-          "把你的故事書放在書桌上吧。",
-          "請擦乾淨書桌上的灰塵。",
-          "坐在書桌前，畫一幅畫吧。"
+          "把書本放在書桌上。"
         ]
       },
       {
-        "tag": "情境三 · 課堂與生活應用",
-        "desc": "在學校與家裡的對話場景",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "I sit at my desk in school every day.",
-          "Is this desk yours or your sister's?",
-          "We can share this big desk together."
+          "I sit at my desk and study happily."
         ],
         "translations": [
-          "我每天在學校都坐在自己的書桌前。",
-          "這張書桌是你的還是你妹妹的？",
-          "我們可以一起合用這張大書桌。"
+          "我坐在書桌前開心地學習。"
         ]
       }
     ]
@@ -938,54 +1058,70 @@
     "emoji": "🛏️",
     "category": "home",
     "level": "L1",
-    "role": "review",
+    "role": "consolidate",
     "variants": [
       "bed",
       "beds",
       "bad",
-      "bet"
+      "bet",
+      "pet",
+      "bag"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "I like my soft bed.",
+        "translation": "我喜歡我柔軟的床。",
+        "audioSrc": "audio/sentence_bed_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Go to sleep in your bed.",
+        "translation": "去你的床上睡覺吧。",
+        "audioSrc": "audio/sentence_bed_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "My warm bed helps me sleep very well.",
+        "translation": "我溫暖的床讓我睡得很好。",
+        "audioSrc": "audio/sentence_bed_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 認知特徵描述",
-        "desc": "床的外觀與觸感",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "My bed is very soft and warm.",
-          "There is a blue blanket on the bed.",
-          "The big bed is in the master bedroom."
+          "I like my soft bed."
         ],
         "translations": [
-          "我的床非常柔軟而且溫暖。",
-          "床上鋪著一條藍色的毯子。",
-          "大床擺在主臥室裡。"
+          "我喜歡我柔軟的床。"
         ]
       },
       {
-        "tag": "情境二 · 動作指令與自理",
-        "desc": "起臥與整理動作",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Time to make your bed in the morning.",
-          "Do not jump up and down on the bed.",
-          "Go to bed early and sleep well tonight."
+          "Go to sleep in your bed."
         ],
         "translations": [
-          "早上起床該疊被子整理床鋪了。",
-          "不要在床上跳來跳去。",
-          "今晚早點上床睡覺，做個好夢。"
+          "去你的床上睡覺吧。"
         ]
       },
       {
-        "tag": "情境三 · 睡前對話",
-        "desc": "睡前親子溫馨交流",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Mom tells me a story beside my bed.",
-          "I like to hug my teddy bear in bed.",
-          "Are you ready to get out of bed now?"
+          "My warm bed helps me sleep very well."
         ],
         "translations": [
-          "媽媽坐在我床邊給我講故事。",
-          "我喜歡在床上抱著我的泰迪熊。",
-          "你準備好從床上起來了嗎？"
+          "我溫暖的床讓我睡得很好。"
         ]
       }
     ]
@@ -994,7 +1130,7 @@
     "id": "cup",
     "word": "cup",
     "phonetic": "/kʌp/",
-    "meaning": "名詞：水杯，茶杯",
+    "meaning": "名詞：杯子",
     "emoji": "🥛",
     "category": "home",
     "level": "L1",
@@ -1003,49 +1139,65 @@
       "cup",
       "cups",
       "cap",
-      "cop"
+      "cop",
+      "cub",
+      "cut"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "This is a blue cup.",
+        "translation": "這是一個藍色杯子。",
+        "audioSrc": "audio/sentence_cup_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Please give me a cup of water.",
+        "translation": "請給我一杯水。",
+        "audioSrc": "audio/sentence_cup_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "The little cat drinks milk from the cup.",
+        "translation": "小貓咪從杯子裡喝牛奶。",
+        "audioSrc": "audio/sentence_cup_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 認知特徵描述",
-        "desc": "杯子的顏色與造型",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "This is a cute yellow plastic cup.",
-          "The glass cup is full of fresh milk.",
-          "My favorite cup has a cartoon animal."
+          "This is a blue cup."
         ],
         "translations": [
-          "這是一個可愛的黃色塑膠杯。",
-          "玻璃杯裡裝滿了新鮮的牛奶。",
-          "我最喜歡的杯子上有卡通小動物。"
+          "這是一個藍色杯子。"
         ]
       },
       {
-        "tag": "情境二 · 動作指令與安全",
-        "desc": "拿放與使用水杯",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Hold the cup with both hands carefully.",
-          "Please pass me that clean water cup.",
-          "Wash your cup after you drink your milk."
+          "Please give me a cup of water."
         ],
         "translations": [
-          "小心地用雙手端好杯子。",
-          "請把那個乾淨的水杯遞給我。",
-          "喝完牛奶後要把你的水杯洗乾淨。"
+          "請給我一杯水。"
         ]
       },
       {
-        "tag": "情境三 · 日常對話應用",
-        "desc": "點餐與日常飲水交流",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Would you like a warm cup of hot water?",
-          "Can I have another cup of apple juice?",
-          "Mom drinks a cup of fragrant tea every day."
+          "The little cat drinks milk from the cup."
         ],
         "translations": [
-          "你想喝一杯溫熱的白開水嗎？",
-          "我可以再喝一杯蘋果汁嗎？",
-          "媽媽每天都要喝一杯香濃的熱茶。"
+          "小貓咪從杯子裡喝牛奶。"
         ]
       }
     ]
@@ -1054,56 +1206,74 @@
     "id": "door",
     "word": "door",
     "phonetic": "/dɔːr/",
-    "meaning": "名詞：房門，大門",
+    "meaning": "名詞：門",
     "emoji": "🚪",
     "category": "home",
     "level": "L1",
     "role": "review",
     "variants": [
       "door",
-      "doors"
+      "doors",
+      "do",
+      "dor",
+      "doll",
+      "dough"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Please open the door.",
+        "translation": "請打開門。",
+        "audioSrc": "audio/sentence_door_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Please close the door quietly now.",
+        "translation": "現在請輕輕地關上門。",
+        "audioSrc": "audio/sentence_door_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "Someone is knocking at our classroom door.",
+        "translation": "有人在敲我們教室的門。",
+        "audioSrc": "audio/sentence_door_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 認知特徵描述",
-        "desc": "門的方位與材質",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "The front door of our house is red.",
-          "There is a small bell beside the door.",
-          "The bedroom door is made of solid wood."
+          "Please open the door."
         ],
         "translations": [
-          "我們家的大門是紅色的。",
-          "大門旁邊裝有一個小門鈴。",
-          "臥室的房門是實木做成的。"
+          "請打開門。"
         ]
       },
       {
-        "tag": "情境二 · 動作指令與禮貌",
-        "desc": "開門關門的日常動作",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Please knock on the door before entering.",
-          "Remember to close the door gently behind you.",
-          "Open the front door to welcome our guests."
+          "Please close the door quietly now."
         ],
         "translations": [
-          "進門之前請先敲敲門。",
-          "走出門後記得輕輕把門關上。",
-          "開啟大門迎接我們的客人吧。"
+          "現在請輕輕地關上門。"
         ]
       },
       {
-        "tag": "情境三 · 日常生活對話",
-        "desc": "迎客與外出提醒",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Who is knocking loudly at the door?",
-          "Dad is standing right outside the door.",
-          "Lock the door when we leave the house."
+          "Someone is knocking at our classroom door."
         ],
         "translations": [
-          "是誰在門外大聲敲門呀？",
-          "爸爸就站在大門外面呢。",
-          "我們出門離開家時要把門鎖好。"
+          "有人在敲我們教室的門。"
         ]
       }
     ]
@@ -1111,59 +1281,75 @@
   {
     "id": "clock",
     "word": "clock",
-    "phonetic": "/klɑːk/",
-    "meaning": "名詞：時鐘，鬧鐘",
+    "phonetic": "/klɒk/",
+    "meaning": "名詞：時鐘，鐘錶",
     "emoji": "⏰",
     "category": "home",
-    "level": "L1",
+    "level": "L2",
     "role": "new",
     "variants": [
       "clock",
       "clocks",
-      "cock",
-      "lock"
+      "clerk",
+      "lock",
+      "block",
+      "cloak"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Look at the big clock.",
+        "translation": "看那個大時鐘。",
+        "audioSrc": "audio/sentence_clock_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "The wall clock says eight o'clock.",
+        "translation": "牆上的時鐘指著八點整。",
+        "audioSrc": "audio/sentence_clock_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "The alarm clock wakes me up every morning.",
+        "translation": "鬧鐘每天早晨叫我起床。",
+        "audioSrc": "audio/sentence_clock_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 認知特徵描述",
-        "desc": "鐘錶的形狀與指標",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "The round wall clock has twelve numbers.",
-          "The alarm clock makes a loud ringing sound.",
-          "A small digital clock sits on the desk."
+          "Look at the big clock."
         ],
         "translations": [
-          "這個圓圓的掛鐘上有十二個數字。",
-          "鬧鐘發出了響亮的鈴聲。",
-          "書桌上擺著一個小數碼鬧鐘。"
+          "看那個大時鐘。"
         ]
       },
       {
-        "tag": "情境二 · 動作指令與看時間",
-        "desc": "看時間和設定鬧鐘",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Look at the clock to see the time.",
-          "Set the alarm clock for seven in the morning.",
-          "Listen to the clock go tick tick tick."
+          "The wall clock says eight o'clock."
         ],
         "translations": [
-          "看一下鬧鐘現在是幾點鐘了。",
-          "把鬧鐘設定在早上七點鐘。",
-          "聽鬧鐘滴答滴答走動的聲音。"
+          "牆上的時鐘指著八點整。"
         ]
       },
       {
-        "tag": "情境三 · 作息對話應用",
-        "desc": "時間觀念與作息交流",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "What time does the kitchen clock say?",
-          "The clock tells us it is time for bed.",
-          "We must hurry because the clock is ticking."
+          "The alarm clock wakes me up every morning."
         ],
         "translations": [
-          "廚房的掛鐘現在顯示幾點呀？",
-          "時鐘告訴我們該上床睡覺了。",
-          "我們得抓緊時間，因為時間在滴答流逝。"
+          "鬧鐘每天早晨叫我起床。"
         ]
       }
     ]
@@ -1171,59 +1357,75 @@
   {
     "id": "box",
     "word": "box",
-    "phonetic": "/bɑːks/",
+    "phonetic": "/bɒks/",
     "meaning": "名詞：盒子，箱子",
     "emoji": "📦",
     "category": "home",
     "level": "L1",
-    "role": "review",
+    "role": "consolidate",
     "variants": [
       "box",
       "boxes",
       "fox",
-      "backs"
+      "backs",
+      "bucks",
+      "books"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "What is in the box?",
+        "translation": "盒子裡面有什麼？",
+        "audioSrc": "audio/sentence_box_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Open the gift box with a smile.",
+        "translation": "帶著微笑打開這個禮物盒。",
+        "audioSrc": "audio/sentence_box_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "Put all your favorite toys into this box.",
+        "translation": "把所有你喜歡的玩具放進盒子。",
+        "audioSrc": "audio/sentence_box_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 認知特徵描述",
-        "desc": "盒子的材質與顏色",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "This cardboard box is light and brown.",
-          "Here is a colorful mystery gift box.",
-          "The plastic box keeps all my toys safe."
+          "What is in the box?"
         ],
         "translations": [
-          "這個紙箱子又輕又是棕色的。",
-          "這裡有一個五彩斑斕的神秘禮物盒。",
-          "塑膠收納箱能保護好我所有的玩具。"
+          "盒子裡面有什麼？"
         ]
       },
       {
-        "tag": "情境二 · 動作整理與開啟",
-        "desc": "收納整理與開箱",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Open the big box to see the surprise.",
-          "Put all your wooden blocks into the box.",
-          "Help me carry this small paper box."
+          "Open the gift box with a smile."
         ],
         "translations": [
-          "開啟這個大箱子看看裡面的驚喜吧。",
-          "把你所有的積木都收進盒子裡。",
-          "幫我搬一下這個小紙盒好嗎？"
+          "帶著微笑打開這個禮物盒。"
         ]
       },
       {
-        "tag": "情境三 · 日常遊戲與應用",
-        "desc": "找玩具與裝收納交流",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "What is hidden inside this little box?",
-          "My puppy likes to sleep inside the shoe box.",
-          "We packed the old books in a heavy box."
+          "Put all your favorite toys into this box."
         ],
         "translations": [
-          "這個小盒子裡藏著什麼東西呢？",
-          "我的小狗喜歡睡在鞋盒裡面。",
-          "我們把舊書都打包進了一個大重箱子裡。"
+          "把所有你喜歡的玩具放進盒子。"
         ]
       }
     ]
@@ -1232,58 +1434,74 @@
     "id": "lamp",
     "word": "lamp",
     "phonetic": "/læmp/",
-    "meaning": "名詞：檯燈，電燈",
-    "emoji": "💡",
+    "meaning": "名詞：檯燈，燈",
+    "emoji": "🛋️",
     "category": "home",
-    "level": "L1",
-    "role": "new",
+    "level": "L2",
+    "role": "review",
     "variants": [
       "lamp",
       "lamps",
       "lamb",
-      "lump"
+      "lump",
+      "ramp",
+      "lap"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Turn on the lamp.",
+        "translation": "請打開檯燈。",
+        "audioSrc": "audio/sentence_lamp_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "The desk lamp is very bright.",
+        "translation": "這盞書桌檯燈非常明亮。",
+        "audioSrc": "audio/sentence_lamp_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "I read fairy tales under my yellow lamp.",
+        "translation": "我在黃色檯燈下讀童話故事。",
+        "audioSrc": "audio/sentence_lamp_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 認知特徵描述",
-        "desc": "燈光的亮度與顏色",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "The table lamp gives off a warm yellow light.",
-          "A cute desk lamp sits right by my computer.",
-          "The floor lamp makes the living room bright."
+          "Turn on the lamp."
         ],
         "translations": [
-          "這盞檯燈散發著溫暖柔和的黃色光芒。",
-          "電腦旁邊放著一盞可愛的檯燈。",
-          "這盞落地燈讓整個客廳變得格外明亮。"
+          "請打開檯燈。"
         ]
       },
       {
-        "tag": "情境二 · 開關操作指令",
-        "desc": "節約用電與開關動作",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Turn on the desk lamp when you read.",
-          "Please switch off the lamp before going out.",
-          "Adjust the lamp so it shines on your book."
+          "The desk lamp is very bright."
         ],
         "translations": [
-          "閱讀看書的時候記得把檯燈開啟。",
-          "外出之前請記得把燈關掉。",
-          "調整一下臺燈的角度，讓它照亮你的書本。"
+          "這盞書桌檯燈非常明亮。"
         ]
       },
       {
-        "tag": "情境三 · 睡前與生活對話",
-        "desc": "夜讀與伴睡交流",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Can you leave the small night lamp on?",
-          "The bright lamp helps me see things clearly.",
-          "I turn off my bedside lamp to fall asleep."
+          "I read fairy tales under my yellow lamp."
         ],
         "translations": [
-          "可以把這盞小夜燈留著別關嗎？",
-          "明亮的燈光幫我把東西看得很清楚。",
-          "我關掉床頭燈準備進入夢鄉了。"
+          "我在黃色檯燈下讀童話故事。"
         ]
       }
     ]
@@ -1291,58 +1509,75 @@
   {
     "id": "chair",
     "word": "chair",
-    "phonetic": "/tʃɛr/",
+    "phonetic": "/tʃɛər/",
     "meaning": "名詞：椅子",
     "emoji": "🪑",
     "category": "home",
     "level": "L1",
-    "role": "consolidate",
+    "role": "new",
     "variants": [
       "chair",
       "chairs",
-      "cheer"
+      "cheer",
+      "share",
+      "cher",
+      "chat"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Sit on the chair.",
+        "translation": "請坐在椅子上。",
+        "audioSrc": "audio/sentence_chair_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "This small chair is for you.",
+        "translation": "這張小椅子是給你的。",
+        "audioSrc": "audio/sentence_chair_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "Pull your chair close to the study desk.",
+        "translation": "把你的椅子靠進學習書桌旁。",
+        "audioSrc": "audio/sentence_chair_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 認知特徵描述",
-        "desc": "椅子的款式與舒適度",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "This is a comfortable wooden rocking chair.",
-          "There are four sturdy chairs around the dining table.",
-          "The baby high chair is very safe and clean."
+          "Sit on the chair."
         ],
         "translations": [
-          "這是一把坐起來很舒服的木質搖搖椅。",
-          "餐桌周圍擺著四把結實穩固的椅子。",
-          "寶寶專用的高腳餐椅非常安全衛生。"
+          "請坐在椅子上。"
         ]
       },
       {
-        "tag": "情境二 · 動作指令與禮貌",
-        "desc": "拉椅子與入座禮儀",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Pull out the chair and sit down quietly.",
-          "Push your chair in when you stand up.",
-          "Please offer that soft chair to grandma."
+          "This small chair is for you."
         ],
         "translations": [
-          "拉開椅子，安靜地坐下來。",
-          "站起身的時候記得把椅子推回去。",
-          "請把那把軟軟的舒適椅子讓給奶奶坐。"
+          "這張小椅子是給你的。"
         ]
       },
       {
-        "tag": "情境三 · 生活聚餐對話",
-        "desc": "家庭用餐與聚會交流",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Is anyone sitting in this empty chair?",
-          "I sit in my own small chair at dinner.",
-          "We need one more chair for our guest."
+          "Pull your chair close to the study desk."
         ],
         "translations": [
-          "有人坐在這張空著的椅子上嗎？",
-          "吃晚餐時我坐在自己的小椅子上。",
-          "我們需要為客人再添一把椅子。"
+          "把你的椅子靠進學習書桌旁。"
         ]
       }
     ]
@@ -1354,56 +1589,70 @@
     "meaning": "名詞：蘋果",
     "emoji": "🍎",
     "category": "food",
-    "level": "L2",
-    "role": "new",
+    "level": "L1",
+    "role": "consolidate",
     "variants": [
       "apple",
       "apples",
-      "app",
-      "able",
+      "apply",
+      "ample",
       "apo"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "I eat a red apple.",
+        "translation": "我吃一顆紅蘋果。",
+        "audioSrc": "audio/sentence_apple_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "The sweet apple is very tasty.",
+        "translation": "這顆甜甜的蘋果很好吃。",
+        "audioSrc": "audio/sentence_apple_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "Eating a fresh apple every day is healthy.",
+        "translation": "每天吃新鮮蘋果對身體很健康。",
+        "audioSrc": "audio/sentence_apple_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 美味口感與外觀",
-        "desc": "蘋果的顏色與香甜口感",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "I eat a sweet and crunchy red apple.",
-          "This green apple tastes a little bit sour.",
-          "Fresh apples are round and shiny on the tree."
+          "I eat a red apple."
         ],
         "translations": [
-          "我吃了一個又甜又脆的紅蘋果。",
-          "這個青蘋果吃起來有一點點酸酸的。",
-          "樹上新鮮成熟的蘋果又圓又亮。"
+          "我吃一顆紅蘋果。"
         ]
       },
       {
-        "tag": "情境二 · 分享與準備動作",
-        "desc": "洗切分享蘋果的動作",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Wash the ripe red apple before taking a bite.",
-          "Mom cuts the juicy apple into four slices.",
-          "Would you like to share this apple with me?"
+          "The sweet apple is very tasty."
         ],
         "translations": [
-          "大口吃之前要先洗乾淨成熟的紅蘋果。",
-          "媽媽把多汁的蘋果切成了四塊果瓣。",
-          "你願意和我一起分享這個紅蘋果嗎？"
+          "這顆甜甜的蘋果很好吃。"
         ]
       },
       {
-        "tag": "情境三 · 營養與生活對話",
-        "desc": "日常對話與健康諺語",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "An apple a day keeps the doctor away.",
-          "Apples are definitely my favorite healthy fruit.",
-          "Do you prefer sweet red apples or green apples?"
+          "Eating a fresh apple every day is healthy."
         ],
         "translations": [
-          "一天一蘋果，醫生遠離我。",
-          "蘋果絕對是我最喜歡的健康水果。",
-          "你更喜歡甜甜的紅蘋果還是清爽的青蘋果？"
+          "每天吃新鮮蘋果對身體很健康。"
         ]
       }
     ]
@@ -1415,55 +1664,70 @@
     "meaning": "名詞：水，白開水",
     "emoji": "💧",
     "category": "food",
-    "level": "L2",
-    "role": "consolidate",
+    "level": "L1",
+    "role": "review",
     "variants": [
       "water",
-      "wat",
-      "warter",
-      "walter"
+      "waters",
+      "waiter",
+      "warder",
+      "what"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Drink some warm water.",
+        "translation": "喝一些溫水吧。",
+        "audioSrc": "audio/sentence_water_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "I want a cup of cold water.",
+        "translation": "我想要一杯冰涼的水。",
+        "audioSrc": "audio/sentence_water_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "We need to drink plenty of clean water.",
+        "translation": "我們需要喝足夠的乾淨白開水。",
+        "audioSrc": "audio/sentence_water_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 認知特徵描述",
-        "desc": "水的清澈與自然狀態",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "Pure water is clear and has no color.",
-          "Cool water feels refreshing on a hot day.",
-          "Fish swim happily in the clean blue water."
+          "Drink some warm water."
         ],
         "translations": [
-          "純淨的飲用水清澈而且透明無色。",
-          "在炎熱的天氣裡喝口涼開水感覺格外提神。",
-          "小魚在蔚藍清澈的水裡歡快地游來游去。"
+          "喝一些溫水吧。"
         ]
       },
       {
-        "tag": "情境二 · 動作指令與衛生",
-        "desc": "喝水與清洗動作",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Wash your dirty hands with soap and water.",
-          "Pour some warm water into my little cup.",
-          "Drink plenty of water after running and playing."
+          "I want a cup of cold water."
         ],
         "translations": [
-          "用肥皂和清水洗乾淨你的小髒手。",
-          "往我的小水杯裡倒一點溫水吧。",
-          "跑步玩耍出汗後要多補充水分。"
+          "我想要一杯冰涼的水。"
         ]
       },
       {
-        "tag": "情境三 · 日常生活對話",
-        "desc": "口渴需求與關懷對話",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Can I please have a glass of cold water?",
-          "Are you thirsty and in need of some water?",
-          "Remember to bring your water bottle to school."
+          "We need to drink plenty of clean water."
         ],
         "translations": [
-          "我可以要一杯清涼的飲用水嗎？",
-          "你感到口渴想喝點水了嗎？",
-          "去學校上學記得帶上你的便攜水壺。"
+          "我們需要喝足夠的乾淨白開水。"
         ]
       }
     ]
@@ -1475,53 +1739,69 @@
     "meaning": "名詞：香蕉",
     "emoji": "🍌",
     "category": "food",
-    "level": "L2",
+    "level": "L1",
     "role": "new",
     "variants": [
       "banana",
-      "bananas"
+      "bananas",
+      "bonana",
+      "panana"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "I like yellow bananas.",
+        "translation": "我喜歡黃色的香蕉。",
+        "audioSrc": "audio/sentence_banana_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Monkeys love to eat sweet bananas.",
+        "translation": "猴子最喜歡吃甜甜的香蕉。",
+        "audioSrc": "audio/sentence_banana_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "Peel the yellow banana and share with friends.",
+        "translation": "剝開黃香蕉並和好朋友分享。",
+        "audioSrc": "audio/sentence_banana_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 顏色成熟與形狀",
-        "desc": "香蕉的彎彎形狀與色澤",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "The yellow banana is sweet and crescent-shaped.",
-          "Green bananas need a few days to ripen.",
-          "A bunch of fresh bananas sits in the fruit basket."
+          "I like yellow bananas."
         ],
         "translations": [
-          "黃澄澄的香蕉味道很甜，形狀像彎彎的新月。",
-          "綠色的青香蕉還需要放幾天才會完全變熟。",
-          "果籃裡擺著一整串新鮮的香蕉。"
+          "我喜歡黃色的香蕉。"
         ]
       },
       {
-        "tag": "情境二 · 動作剝皮與吃法",
-        "desc": "剝皮與垃圾分類動作",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Peel the yellow banana before you take a bite.",
-          "Throw the banana peel into the trash can.",
-          "Slice the soft banana over your morning cereal."
+          "Monkeys love to eat sweet bananas."
         ],
         "translations": [
-          "大口吃之前先把黃色的香蕉皮剝開。",
-          "把剝下來的香蕉皮扔進垃圾桶裡。",
-          "把軟軟的香蕉切成小薄片放在早餐飲料上。"
+          "猴子最喜歡吃甜甜的香蕉。"
         ]
       },
       {
-        "tag": "情境三 · 趣味常識與對話",
-        "desc": "動物食性與加餐交流",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Playful monkeys in the zoo love to eat bananas.",
-          "Can I have a sweet banana for my afternoon snack?",
-          "We can blend ripe bananas into a yummy smoothie."
+          "Peel the yellow banana and share with friends."
         ],
         "translations": [
-          "動物園裡調皮的小猴子最愛吃香蕉了。",
-          "我的下午點心可以吃一根甜甜的香蕉嗎？",
-          "我們可以把熟透的香蕉打成美味的奶昔。"
+          "剝開黃香蕉並和好朋友分享。"
         ]
       }
     ]
@@ -1534,53 +1814,69 @@
     "emoji": "🥛",
     "category": "food",
     "level": "L1",
-    "role": "review",
+    "role": "consolidate",
     "variants": [
       "milk",
       "milks",
-      "make"
+      "mink",
+      "silk",
+      "mil"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Drink a cup of milk.",
+        "translation": "喝一杯牛奶吧。",
+        "audioSrc": "audio/sentence_milk_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Warm milk makes me grow strong.",
+        "translation": "溫牛奶能讓我長得健康強壯。",
+        "audioSrc": "audio/sentence_milk_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "I drink fresh milk with breakfast every day.",
+        "translation": "我每天早餐都配新鮮牛奶喝。",
+        "audioSrc": "audio/sentence_milk_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 認知特徵描述",
-        "desc": "牛奶的白色與營養",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "Fresh cow milk is creamy, white, and healthy.",
-          "Warm milk has a comforting and pleasant smell.",
-          "A carton of organic milk is in the refrigerator."
+          "Drink a cup of milk."
         ],
         "translations": [
-          "新鮮的牛奶濃郁潔白，而且對身體很有營養。",
-          "溫熱的牛奶散發著讓人安心舒適的香氣。",
-          "冰箱裡放著一盒新鮮的有機牛奶。"
+          "喝一杯牛奶吧。"
         ]
       },
       {
-        "tag": "情境二 · 動作指令與飲用",
-        "desc": "倒牛奶與早餐自理",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Drink a tall glass of warm milk every morning.",
-          "Pour the milk carefully without spilling a drop.",
-          "Stir a spoonful of honey into your warm milk."
+          "Warm milk makes me grow strong."
         ],
         "translations": [
-          "每天清晨喝上一大杯溫牛奶。",
-          "倒牛奶時要小心仔細，不要灑出一滴。",
-          "往溫牛奶裡舀一勺蜂蜜攪拌均勻。"
+          "溫牛奶能讓我長得健康強壯。"
         ]
       },
       {
-        "tag": "情境三 · 早餐與常識對話",
-        "desc": "早餐搭配與骨骼健康交流",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "I usually eat crispy bread and milk for breakfast.",
-          "Friendly cows on the farm give us delicious milk.",
-          "Drinking milk helps build strong and healthy bones."
+          "I drink fresh milk with breakfast every day."
         ],
         "translations": [
-          "我早餐通常都吃香脆的麵包配牛奶。",
-          "農場裡溫順的小牛為我們提供香甜的牛奶。",
-          "常喝牛奶能幫我們長出結實健康的骨骼。"
+          "我每天早餐都配新鮮牛奶喝。"
         ]
       }
     ]
@@ -1593,54 +1889,70 @@
     "emoji": "🍞",
     "category": "food",
     "level": "L1",
-    "role": "new",
+    "role": "review",
     "variants": [
       "bread",
       "breads",
+      "bred",
+      "red",
       "bed",
-      "red"
+      "braid"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "I eat warm bread.",
+        "translation": "我吃熱騰騰的麵包。",
+        "audioSrc": "audio/sentence_bread_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Spread sweet butter on the bread.",
+        "translation": "在麵包上抹上香甜的奶油。",
+        "audioSrc": "audio/sentence_bread_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "Mom baked delicious soft bread for our family.",
+        "translation": "媽媽為我們全家烤了美味的軟麵包。",
+        "audioSrc": "audio/sentence_bread_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 香氣與口感描述",
-        "desc": "麵包的鬆軟與金黃外觀",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "The freshly baked bread smells wonderful.",
-          "This slice of white bread is very soft.",
-          "Golden toast bread is warm and crispy."
+          "I eat warm bread."
         ],
         "translations": [
-          "剛出爐烤好的新鮮麵包聞起來香噴噴的。",
-          "這片白麵包摸起來非常鬆軟。",
-          "烤得金黃的吐司麵包溫熱又香脆。"
+          "我吃熱騰騰的麵包。"
         ]
       },
       {
-        "tag": "情境二 · 動作製作與塗抹",
-        "desc": "塗果醬與做三明治",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Spread sweet strawberry jam on your bread.",
-          "Cut the loaf of bread with a butter knife.",
-          "Put cheese between two slices of brown bread."
+          "Spread sweet butter on the bread."
         ],
         "translations": [
-          "在你的麵包片上抹上甜甜的草莓果醬。",
-          "用塗抹黃油的餐刀切開整塊麵包。",
-          "在兩片全麥麵包中間夾上一片香濃乳酪。"
+          "在麵包上抹上香甜的奶油。"
         ]
       },
       {
-        "tag": "情境三 · 烘焙生活對話",
-        "desc": "麵包店選購與分享",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Do you want toasted bread or plain bread?",
-          "The baker bakes fresh bread every single morning.",
-          "Can you buy a loaf of whole wheat bread?"
+          "Mom baked delicious soft bread for our family."
         ],
         "translations": [
-          "你想吃烤吐司還是普通的切片軟麵包？",
-          "麵包師每天清晨都會烘烤出新鮮的麵包。",
-          "你能幫我買一條全麥麵包回來嗎？"
+          "媽媽為我們全家烤了美味的軟麵包。"
         ]
       }
     ]
@@ -1657,49 +1969,65 @@
     "variants": [
       "egg",
       "eggs",
-      "leg"
+      "ag",
+      "ache",
+      "eck"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "I see a bird egg.",
+        "translation": "我看見一顆鳥蛋。",
+        "audioSrc": "audio/sentence_egg_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "I like to eat fried eggs.",
+        "translation": "我喜歡吃香香的煎雞蛋。",
+        "audioSrc": "audio/sentence_egg_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "Chickens lay fresh eggs on the green farm.",
+        "translation": "母雞在綠色農場裡下新鮮的蛋。",
+        "audioSrc": "audio/sentence_egg_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 外觀形狀描述",
-        "desc": "橢圓造型與蛋殼特徵",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "The hen laid a smooth oval egg in the nest.",
-          "The yellow egg yolk is in the middle of the egg.",
-          "There are six brown eggs inside the carton."
+          "I see a bird egg."
         ],
         "translations": [
-          "母雞在雞窩裡生下了一枚圓滑飽滿的雞蛋。",
-          "金黃色的蛋黃正好包裹在雞蛋的正中央。",
-          "雞蛋紙盒裡整整齊齊地放著六枚褐殼蛋。"
+          "我看見一顆鳥蛋。"
         ]
       },
       {
-        "tag": "情境二 · 烹飪與動作指令",
-        "desc": "剝蛋殼與煎蛋動作",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Peel the boiled egg carefully after it cools down.",
-          "Crack the fresh egg into the frying pan.",
-          "Handle the raw egg gently so it does not break."
+          "I like to eat fried eggs."
         ],
         "translations": [
-          "煮熟的雞蛋放涼之後，輕輕把蛋殼剝乾淨。",
-          "把新鮮的生雞蛋磕開打進平底鍋裡。",
-          "拿生雞蛋的時候動作要輕柔，小心別打破了。"
+          "我喜歡吃香香的煎雞蛋。"
         ]
       },
       {
-        "tag": "情境三 · 營養餐桌對話",
-        "desc": "煎蛋水煮蛋口味選擇",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Do you like your morning egg fried or boiled?",
-          "Eating an egg provides great energy for growing kids.",
-          "Mom is making scrambled eggs with sweet tomatoes."
+          "Chickens lay fresh eggs on the green farm."
         ],
         "translations": [
-          "你早上的雞蛋喜歡吃荷包煎蛋還是水煮蛋？",
-          "吃雞蛋能為成長中的小朋友提供豐富的能量。",
-          "媽媽正在為我們做美味可口的西紅柿炒雞蛋。"
+          "母雞在綠色農場裡下新鮮的蛋。"
         ]
       }
     ]
@@ -1716,49 +2044,65 @@
     "variants": [
       "juice",
       "juices",
-      "choose"
+      "choose",
+      "jews",
+      "just"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "I like orange juice.",
+        "translation": "我喜歡柳橙汁。",
+        "audioSrc": "audio/sentence_juice_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Drink some sweet apple juice today.",
+        "translation": "今天喝一點甜甜的蘋果汁吧。",
+        "audioSrc": "audio/sentence_juice_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "Fresh fruit juice gives us energy and vitamins.",
+        "translation": "新鮮果汁帶給我們能量與維生素。",
+        "audioSrc": "audio/sentence_juice_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 色澤與風味描述",
-        "desc": "果汁的清新果香與顏色",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "Fresh orange juice is bright orange and sweet.",
-          "Cold watermelon juice is wonderful in the hot summer.",
-          "This bottle of grape juice has no added sugar."
+          "I like orange juice."
         ],
         "translations": [
-          "新鮮榨出的橙汁顏色鮮亮，口感酸甜清爽。",
-          "在炎炎夏日喝一杯冰鎮西瓜汁最舒服了。",
-          "這瓶葡萄汁完全沒有新增額外的糖分。"
+          "我喜歡柳橙汁。"
         ]
       },
       {
-        "tag": "情境二 · 壓榨與飲用動作",
-        "desc": "鮮榨果汁與倒果汁動作",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Squeeze the fresh lemon to make sour juice.",
-          "Pour the cold apple juice into my tall glass.",
-          "Sip your fruit juice with a colorful straw."
+          "Drink some sweet apple juice today."
         ],
         "translations": [
-          "擠壓新鮮檸檬來榨出酸爽開胃的檸檬汁。",
-          "把冰涼的蘋果汁倒進我的高腳玻璃杯裡。",
-          "用彩色的吸管小口啜飲美味的果汁。"
+          "今天喝一點甜甜的蘋果汁吧。"
         ]
       },
       {
-        "tag": "情境三 · 野餐聚會對話",
-        "desc": "日常點單與聚會分享",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "What kind of juice would you like to drink?",
-          "We brought sweet apple juice for our family picnic.",
-          "Can I have another cup of freshly squeezed juice?"
+          "Fresh fruit juice gives us energy and vitamins."
         ],
         "translations": [
-          "你想喝什麼口味的新鮮果汁呢？",
-          "我們為全家野餐準備了香甜的蘋果汁。",
-          "我可以再要一杯新鮮現榨的水果汁嗎？"
+          "新鮮果汁帶給我們能量與維生素。"
         ]
       }
     ]
@@ -1771,54 +2115,70 @@
     "emoji": "🎂",
     "category": "food",
     "level": "L1",
-    "role": "new",
+    "role": "consolidate",
     "variants": [
       "cake",
       "cakes",
-      "take",
-      "make"
+      "coke",
+      "cook",
+      "kick",
+      "take"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Happy birthday cake!",
+        "translation": "生日快樂蛋糕！",
+        "audioSrc": "audio/sentence_cake_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "We share the chocolate birthday cake.",
+        "translation": "我們一起分享巧克力生日蛋糕。",
+        "audioSrc": "audio/sentence_cake_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "There are seven colorful candles on my cake.",
+        "translation": "我的蛋糕上面插著七根彩色的蠟燭。",
+        "audioSrc": "audio/sentence_cake_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 奶油與造型描述",
-        "desc": "蛋糕的香甜層層與裝飾",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "The birthday cake is covered in pink sweet cream.",
-          "A chocolate cake smells wonderfully rich and sweet.",
-          "There are colorful fresh berries on top of the cake."
+          "Happy birthday cake!"
         ],
         "translations": [
-          "生日蛋糕上面覆蓋著一層粉紅色的甜奶油。",
-          "巧克力蛋糕散發著濃郁迷人的香甜氣味。",
-          "蛋糕頂部擺放著五顏六色新鮮的水果漿果。"
+          "生日快樂蛋糕！"
         ]
       },
       {
-        "tag": "情境二 · 吹蠟燭與分切動作",
-        "desc": "許願與切蛋糕動作",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Make a wish and blow out the candles on the cake.",
-          "Cut the birthday cake into equal slices for everyone.",
-          "Help me put pretty candles onto the birthday cake."
+          "We share the chocolate birthday cake."
         ],
         "translations": [
-          "閉上眼睛許個願，然後吹滅蛋糕上的生日蠟燭。",
-          "把生日蛋糕均勻切成小塊分給每一位小朋友。",
-          "幫我把漂亮的彩蠟燭一根根插在蛋糕上。"
+          "我們一起分享巧克力生日蛋糕。"
         ]
       },
       {
-        "tag": "情境三 · 生日派對對話",
-        "desc": "慶祝與分享祝福交流",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Happy birthday to you! Enjoy this delicious cake!",
-          "Who would like the first slice of chocolate cake?",
-          "Mom baked this lovely sponge cake just for my party."
+          "There are seven colorful candles on my cake."
         ],
         "translations": [
-          "祝你生日快樂！盡情享受美味的蛋糕吧！",
-          "誰想吃第一塊香濃的巧克力蛋糕呢？",
-          "媽媽專門為我的生日派對烤制了這個可口的戚風蛋糕。"
+          "我的蛋糕上面插著七根彩色的蠟燭。"
         ]
       }
     ]
@@ -1829,57 +2189,72 @@
     "phonetic": "/kæt/",
     "meaning": "名詞：貓咪",
     "emoji": "🐱",
-    "category": "animals",
+    "category": "animal",
     "level": "L1",
-    "role": "review",
+    "role": "consolidate",
     "variants": [
       "cat",
       "cats",
       "cut",
       "cap",
-      "cad"
+      "chat",
+      "cot"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "The cat is sleeping.",
+        "translation": "小貓咪正在睡覺。",
+        "audioSrc": "audio/sentence_cat_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "The white cat has green eyes.",
+        "translation": "這隻白貓有一雙綠色的眼睛。",
+        "audioSrc": "audio/sentence_cat_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "The playful kitten likes to chase wool balls.",
+        "translation": "貪玩的小貓喜歡追著毛線球跑。",
+        "audioSrc": "audio/sentence_cat_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 動物萌態與外貌",
-        "desc": "毛色、鬍鬚與溫順特徵",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "The cute kitten has soft fur and long whiskers.",
-          "A sleeping white cat is curled up on the rug.",
-          "The playful black cat has big green eyes."
+          "The cat is sleeping."
         ],
         "translations": [
-          "這隻可愛的小貓咪有著柔軟的毛髮和長長的鬍鬚。",
-          "一隻睡著了的白貓正蜷縮在溫暖的地毯上。",
-          "這隻貪玩好動的小黑貓長著一雙碧綠的大眼睛。"
+          "小貓咪正在睡覺。"
         ]
       },
       {
-        "tag": "情境二 · 撫摸動作與互動",
-        "desc": "抱貓、梳毛與餵食動作",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Pet the friendly cat gently on its furry head.",
-          "Give the hungry cat a small bowl of fresh milk.",
-          "Do not pull the cat's tail because it hurts."
+          "The white cat has green eyes."
         ],
         "translations": [
-          "輕柔地撫摸小貓毛茸茸的小腦袋。",
-          "給飢餓的小貓準備一小碗新鮮的溫牛奶。",
-          "千萬不要拉扯貓咪的尾巴，因為那樣會讓它很痛。"
+          "這隻白貓有一雙綠色的眼睛。"
         ]
       },
       {
-        "tag": "情境三 · 趣味習性與對話",
-        "desc": "叫聲、捉迷藏與陪伴交流",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "The happy cat purrs and says meow meow.",
-          "Look! The nimble cat caught a toy mouse.",
-          "My pet cat always sleeps at the foot of my bed."
+          "The playful kitten likes to chase wool balls."
         ],
         "translations": [
-          "快樂滿足的貓咪會發出呼嚕聲，喵喵叫著。",
-          "快看！這隻機靈的小貓抓住了一個毛線老鼠玩具。",
-          "我家的小寵物貓總喜歡蜷縮在我的床尾睡覺。"
+          "貪玩的小貓喜歡追著毛線球跑。"
         ]
       }
     ]
@@ -1887,59 +2262,75 @@
   {
     "id": "dog",
     "word": "dog",
-    "phonetic": "/dɔːɡ/",
-    "meaning": "名詞：小狗，獵犬",
+    "phonetic": "/dɒɡ/",
+    "meaning": "名詞：小狗",
     "emoji": "🐶",
-    "category": "animals",
+    "category": "animal",
     "level": "L1",
-    "role": "review",
+    "role": "consolidate",
     "variants": [
       "dog",
       "dogs",
       "dock",
-      "doc"
+      "doc",
+      "duck",
+      "dark"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "The brown dog runs.",
+        "translation": "棕色的小狗在奔跑。",
+        "audioSrc": "audio/sentence_dog_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "My pet dog wags its tail.",
+        "translation": "我的寵物小狗開心地搖著尾巴。",
+        "audioSrc": "audio/sentence_dog_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "The friendly puppy loves playing catch with me.",
+        "translation": "親切的小狗喜歡和我一起玩丟接球。",
+        "audioSrc": "audio/sentence_dog_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 外貌特徵與毛色",
-        "desc": "耳朵、尾巴與活潑特徵",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "The cheerful golden dog has floppy long ears.",
-          "A brave big shepherd dog guards our quiet yard.",
-          "The tiny puppy is fluffy, playful, and very energetic."
+          "The brown dog runs."
         ],
         "translations": [
-          "這隻活潑歡快的金毛犬有著長長耷拉著的大耳朵。",
-          "一隻威武勇敢的牧羊犬守護著我們安靜的庭院。",
-          "小狗寶寶毛茸茸的，愛玩而且精力十分充沛。"
+          "棕色的小狗在奔跑。"
         ]
       },
       {
-        "tag": "情境二 · 動作指令與投擲遊戲",
-        "desc": "扔飛盤、握手與遛狗指令",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Throw the red rubber ball for the excited dog.",
-          "Walk the dog in the park every sunny afternoon.",
-          "Teach the smart dog to sit down and shake hands."
+          "My pet dog wags its tail."
         ],
         "translations": [
-          "把紅色的橡膠球扔出去讓興奮的小狗去撿。",
-          "在每一個晴朗的午後帶小狗去公園散步。",
-          "教聰明的小狗學會安靜坐下以及握手。"
+          "我的寵物小狗開心地搖著尾巴。"
         ]
       },
       {
-        "tag": "情境三 · 情感陪伴與生活對話",
-        "desc": "忠實玩伴與家庭成員對話",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "The loyal dog wags its tail to welcome me home.",
-          "My puppy barks happily when we play in the garden.",
-          "Dogs are known as human beings' very best friends."
+          "The friendly puppy loves playing catch with me."
         ],
         "translations": [
-          "忠誠的小狗用力搖尾巴熱烈歡迎我放學回家。",
-          "我們在花園裡玩耍時，小狗高興得汪汪叫個不停。",
-          "大家都知道狗狗是人類最忠實最好的朋友。"
+          "親切的小狗喜歡和我一起玩丟接球。"
         ]
       }
     ]
@@ -1948,56 +2339,74 @@
     "id": "fish",
     "word": "fish",
     "phonetic": "/fɪʃ/",
-    "meaning": "名詞：小魚，魚類",
+    "meaning": "名詞：魚，魚兒",
     "emoji": "🐟",
-    "category": "animals",
+    "category": "animal",
     "level": "L1",
-    "role": "new",
+    "role": "review",
     "variants": [
       "fish",
-      "fished"
+      "fishes",
+      "finish",
+      "fit",
+      "fist",
+      "wish"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Fish swim in water.",
+        "translation": "魚兒在水裡悠游。",
+        "audioSrc": "audio/sentence_fish_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "The little gold fish swims fast.",
+        "translation": "這隻小金魚游得非常快。",
+        "audioSrc": "audio/sentence_fish_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "Many colorful fish are swimming in the river.",
+        "translation": "好多色彩繽紛的魚在河流裡游泳。",
+        "audioSrc": "audio/sentence_fish_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 水中外觀與遊動",
-        "desc": "魚鱗、魚鰭與水族箱特徵",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "The tiny goldfish has shiny scales and a long tail.",
-          "Colorful little tropical fish swim in the blue aquarium.",
-          "A big silver fish leaps out of the river water."
+          "Fish swim in water."
         ],
         "translations": [
-          "這條小巧的金魚長著閃閃發光的鱗片和長魚尾。",
-          "色彩絢麗的各色熱帶魚在蔚藍的水族箱裡暢遊。",
-          "一條銀白色的大魚躍出了波光粼粼的河水。"
+          "魚兒在水裡悠游。"
         ]
       },
       {
-        "tag": "情境二 · 餵食動作與觀察",
-        "desc": "撒飼料與水族館觀察指令",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Feed the hungry fish with a pinch of fish flakes.",
-          "Watch how smoothly the fish moves through the water.",
-          "Keep the fish tank clean so the fish stay healthy."
+          "The little gold fish swims fast."
         ],
         "translations": [
-          "抓一小撮魚食薄片來餵飽飢餓的小魚。",
-          "仔細觀察小魚在水流中優雅輕盈的遊動姿態。",
-          "保持魚缸水質清潔，小魚才能健健康康地生活。"
+          "這隻小金魚游得非常快。"
         ]
       },
       {
-        "tag": "情境三 · 生態習性與對話",
-        "desc": "海洋自然與常識探索",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Can fish close their eyes when they are asleep?",
-          "Fish use their fins and gills to swim and breathe.",
-          "Look at that funny clownfish hiding among sea anemones."
+          "Many colorful fish are swimming in the river."
         ],
         "translations": [
-          "小魚睡覺的時候會把眼睛閉上嗎？",
-          "魚兒靠魚鰭游泳並依靠魚鰓在水裡自由呼吸。",
-          "快看那隻滑稽的小丑魚正躲在海葵叢中捉迷藏呢。"
+          "好多色彩繽紛的魚在河流裡游泳。"
         ]
       }
     ]
@@ -2006,56 +2415,74 @@
     "id": "bird",
     "word": "bird",
     "phonetic": "/bɜːrd/",
-    "meaning": "名詞：小鳥，飛鳥",
+    "meaning": "名詞：小鳥",
     "emoji": "🐦",
-    "category": "animals",
+    "category": "animal",
     "level": "L1",
-    "role": "review",
+    "role": "new",
     "variants": [
       "bird",
-      "birds"
+      "birds",
+      "bard",
+      "board",
+      "birth",
+      "bed"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "The blue bird sings.",
+        "translation": "藍色小鳥在歌唱。",
+        "audioSrc": "audio/sentence_bird_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "A little bird flies very high.",
+        "translation": "一隻小鳥飛得非常高。",
+        "audioSrc": "audio/sentence_bird_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "Birds build cozy nests up in tall trees.",
+        "translation": "鳥兒在高高的大樹上築起溫暖的巢。",
+        "audioSrc": "audio/sentence_bird_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 羽毛與外貌觀察",
-        "desc": "翅膀、喙與彩色羽毛",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "The cheerful little bird has bright blue feathers.",
-          "A mother bird is sitting quietly in her round nest.",
-          "The tiny hummingbird has a long, slender beak."
+          "The blue bird sings."
         ],
         "translations": [
-          "這隻快樂的小小鳥有著一身亮藍色的漂亮羽毛。",
-          "鳥媽媽正安安靜靜地孵坐在她圓圓的鳥巢裡。",
-          "這隻小小的蜂鳥長著一張細細長長的長嘴巴。"
+          "藍色小鳥在歌唱。"
         ]
       },
       {
-        "tag": "情境二 · 展翅動作與投餵",
-        "desc": "飛翔動作與撒麵包屑指令",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Birds flap their strong wings to soar in the sky.",
-          "Scatter some breadcrumbs in the yard for wild birds.",
-          "Listen carefully to the sweet melody the bird sings."
+          "A little bird flies very high."
         ],
         "translations": [
-          "鳥兒拍打著強壯有力的翅膀在天空中翱翔。",
-          "在院子裡的空地上撒一點麵包屑喂野鳥吃。",
-          "靜靜聆聽小鳥唱出的宛轉悅耳的動人旋律。"
+          "一隻小鳥飛得非常高。"
         ]
       },
       {
-        "tag": "情境三 · 清晨大自然對話",
-        "desc": "清晨鳥鳴與築巢習性",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "The early bird catches the juicy little worm.",
-          "Birds sing sweet songs to wake us up in the morning.",
-          "Where do the swallows fly when cold winter comes?"
+          "Birds build cozy nests up in tall trees."
         ],
         "translations": [
-          "早起的鳥兒有蟲吃。",
-          "鳥兒用清脆歡快的歌聲在清晨喚醒我們。",
-          "當寒冷的冬天來臨，燕子會飛到哪裡過冬呢？"
+          "鳥兒在高高的大樹上築起溫暖的巢。"
         ]
       }
     ]
@@ -2066,55 +2493,72 @@
     "phonetic": "/dʌk/",
     "meaning": "名詞：鴨子",
     "emoji": "🦆",
-    "category": "animals",
+    "category": "animal",
     "level": "L1",
-    "role": "new",
+    "role": "review",
     "variants": [
       "duck",
       "ducks",
-      "dark"
+      "dark",
+      "dog",
+      "dock",
+      "luck"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "The yellow duck swims.",
+        "translation": "黃色小鴨在游泳。",
+        "audioSrc": "audio/sentence_duck_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Five little ducks go out today.",
+        "translation": "五隻小鴨今天一起出門去玩。",
+        "audioSrc": "audio/sentence_duck_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "The baby duck says quack quack to mom.",
+        "translation": "小鴨寶寶對著鴨媽媽呱呱呱叫。",
+        "audioSrc": "audio/sentence_duck_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 外觀特徵與蹼足",
-        "desc": "黃色鴨嘴、扁平蹼足與羽毛",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "The mother duck has waterproof feathers and orange feet.",
-          "Cute yellow ducklings waddle behind their loving mother.",
-          "A wild mallard duck has a shiny green head."
+          "The yellow duck swims."
         ],
         "translations": [
-          "鴨媽媽長著防水的羽毛和橙黃色的大腳蹼。",
-          "可愛的黃色小鴨子一搖一擺地跟在疼愛它們的媽媽身後。",
-          "一隻野生野鴨長著泛著金屬光澤的漂亮綠腦袋。"
+          "黃色小鴨在游泳。"
         ]
       },
       {
-        "tag": "情境二 · 划水動作與叫聲指令",
-        "desc": "池塘游水與學鴨子叫",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Ducks paddle their webbed feet quickly to swim.",
-          "Can you imitate the duck saying quack quack quack?",
-          "Throw small pieces of bread to the ducks in the pond."
+          "Five little ducks go out today."
         ],
         "translations": [
-          "鴨子划動它們的蹼足，迅速在水面上游水。",
-          "你能模仿小鴨子嘎嘎嘎叫的聲音嗎？",
-          "給池塘裡遊弋的鴨子投餵切碎的小麵包塊。"
+          "五隻小鴨今天一起出門去玩。"
         ]
       },
       {
-        "tag": "情境三 · 農場池塘對話",
-        "desc": "鄉村農場與童謠對話",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Five little ducks went out to play one sunny day.",
-          "Ducks stay warm and dry even inside the cold pond.",
-          "Look at the funny ducks diving underwater for food."
+          "The baby duck says quack quack to mom."
         ],
         "translations": [
-          "在一個陽光明媚的日子裡，五隻小鴨子出門玩耍。",
-          "即使遊進冰涼的池塘裡，鴨子也能保持全身溫暖乾燥。",
-          "看看那些好笑的鴨子一個接一個把頭扎進水裡覓食。"
+          "小鴨寶寶對著鴨媽媽呱呱呱叫。"
         ]
       }
     ]
@@ -2123,58 +2567,74 @@
     "id": "pig",
     "word": "pig",
     "phonetic": "/pɪɡ/",
-    "meaning": "名詞：小豬，家豬",
+    "meaning": "名詞：小豬",
     "emoji": "🐷",
-    "category": "animals",
+    "category": "animal",
     "level": "L1",
     "role": "new",
     "variants": [
       "pig",
       "pigs",
       "big",
-      "pick"
+      "pick",
+      "pink",
+      "peg"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "The pink pig is cute.",
+        "translation": "粉紅小豬很可愛。",
+        "audioSrc": "audio/sentence_pig_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "The round pig is eating apples.",
+        "translation": "圓滾滾的小豬正在吃蘋果。",
+        "audioSrc": "audio/sentence_pig_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "Three little pigs built their own cozy houses.",
+        "translation": "三隻小豬建造了屬於自己的溫馨房子。",
+        "audioSrc": "audio/sentence_pig_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 粉嫩外觀特徵",
-        "desc": "卷尾巴、大鼻子與粉色皮膚",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "The cute pink piggy has a curly little tail.",
-          "The mother pig has large floppy ears and a flat snout.",
-          "Fat little piglets love rolling happily in wet mud."
+          "The pink pig is cute."
         ],
         "translations": [
-          "這隻粉嫩可愛的小豬有一條卷卷的小尾巴。",
-          "豬媽媽有著兩隻耷拉著的大耳朵和扁平的鼻吻。",
-          "胖乎乎的小豬寶寶最喜歡在溼溼的泥巴里快樂打滾。"
+          "粉紅小豬很可愛。"
         ]
       },
       {
-        "tag": "情境二 · 動作互動與餵養",
-        "desc": "吃食與學小豬哼哼聲",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "The hungry pig oinks loudly when dinner time arrives.",
-          "Give the farm pigs fresh vegetables and clean water.",
-          "Watch the chubby pig take a relaxing mud bath."
+          "The round pig is eating apples."
         ],
         "translations": [
-          "晚飯時間一到，飢餓的小豬就會大聲哼哼叫。",
-          "為農場裡的小豬餵食新鮮的蔬菜菜葉和乾淨的清水。",
-          "看著那隻圓滾滾的小豬舒舒服服地洗著泥巴浴。"
+          "圓滾滾的小豬正在吃蘋果。"
         ]
       },
       {
-        "tag": "情境三 · 經典童話生活對話",
-        "desc": "三隻小豬與農場生活",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Have you ever heard the fairy tale of the three little pigs?",
-          "Pigs are actually very clean and intelligent animals.",
-          "The baby pig nudges its mother with its round pink nose."
+          "Three little pigs built their own cozy houses."
         ],
         "translations": [
-          "你聽過關於三隻小豬的經典童話故事嗎？",
-          "小豬其實是非常愛乾淨並且很聰明的動物呢。",
-          "小豬寶寶用它圓圓的粉紅鼻子蹭著媽媽撒嬌。"
+          "三隻小豬建造了屬於自己的溫馨房子。"
         ]
       }
     ]
@@ -2182,59 +2642,75 @@
   {
     "id": "bear",
     "word": "bear",
-    "phonetic": "/bɛr/",
-    "meaning": "名詞：熊，狗熊",
+    "phonetic": "/bɛər/",
+    "meaning": "名詞：熊，小熊",
     "emoji": "🐻",
-    "category": "animals",
-    "level": "L1",
-    "role": "new",
+    "category": "animal",
+    "level": "L2",
+    "role": "review",
     "variants": [
       "bear",
       "bears",
       "bare",
-      "pear"
+      "beer",
+      "pear",
+      "bar"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "I see a big bear.",
+        "translation": "我看見一隻大熊。",
+        "audioSrc": "audio/sentence_bear_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "The furry brown bear loves honey.",
+        "translation": "毛茸茸的棕熊最喜歡吃蜂蜜。",
+        "audioSrc": "audio/sentence_bear_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "My cute teddy bear sleeps with me tonight.",
+        "translation": "可愛的泰迪熊今晚陪我一起睡覺。",
+        "audioSrc": "audio/sentence_bear_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 雄壯外觀描述",
-        "desc": "厚重皮毛、利爪與體型",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "The big brown bear has thick fur and strong paws.",
-          "A polar bear is furry and pure white like fresh snow.",
-          "The giant panda bear loves munching on green bamboo."
+          "I see a big bear."
         ],
         "translations": [
-          "這隻大棕熊長著濃密厚實的毛髮和強壯有力的熊掌。",
-          "北極熊全身毛茸茸的，白得就像剛落下的白雪。",
-          "可愛的大熊貓最喜歡津津有味地咀嚼新鮮翠綠的竹子。"
+          "我看見一隻大熊。"
         ]
       },
       {
-        "tag": "情境二 · 捕魚與動作指令",
-        "desc": "捕魚抓蜜與爬樹動作",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Bears stand on two legs to reach high tree branches.",
-          "Watch the brown bear catch jumping salmon in the river.",
-          "Do not approach a wild bear in the deep forest."
+          "The furry brown bear loves honey."
         ],
         "translations": [
-          "大熊可以用兩條後腿直立站起來抓取高處的樹枝。",
-          "看看大棕熊如何在湍急的河流中捕食跳躍的鮭魚。",
-          "在茂密的原始森林裡千萬不要擅自接近野生熊。"
+          "毛茸茸的棕熊最喜歡吃蜂蜜。"
         ]
       },
       {
-        "tag": "情境三 · 冬眠與童話對話",
-        "desc": "泰迪熊玩偶與森林童話",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Bears sleep in cozy mountain caves all through the winter.",
-          "I love to cuddle with my soft brown teddy bear in bed.",
-          "Winnie the Pooh is a famous bear who loves sweet honey."
+          "My cute teddy bear sleeps with me tonight."
         ],
         "translations": [
-          "整個寒冷的冬天，黑熊都在舒適溫暖的山洞裡冬眠。",
-          "在床上我最喜歡抱著軟綿綿的棕色泰迪熊入睡。",
-          "小熊維尼是一隻享譽世界的、最愛吃甜蜂蜜的小熊。"
+          "可愛的泰迪熊今晚陪我一起睡覺。"
         ]
       }
     ]
@@ -2243,57 +2719,73 @@
     "id": "rabbit",
     "word": "rabbit",
     "phonetic": "/ˈræb.ɪt/",
-    "meaning": "名詞：兔子，小白兔",
+    "meaning": "名詞：兔子",
     "emoji": "🐰",
-    "category": "animals",
-    "level": "L2",
+    "category": "animal",
+    "level": "L1",
     "role": "new",
     "variants": [
       "rabbit",
       "rabbits",
-      "habit"
+      "habit",
+      "rapid",
+      "ribbon"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "The white rabbit hops.",
+        "translation": "白兔一蹦一跳。",
+        "audioSrc": "audio/sentence_rabbit_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "The rabbit has two long ears.",
+        "translation": "小兔子有一對長長的耳朵。",
+        "audioSrc": "audio/sentence_rabbit_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "The cute bunny loves eating crunchy orange carrots.",
+        "translation": "可愛的小兔子最喜歡吃爽脆的紅蘿蔔。",
+        "audioSrc": "audio/sentence_rabbit_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 軟萌外貌描述",
-        "desc": "長耳朵、紅眼睛與毛絨尾巴",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "The white bunny has long upright ears and a cotton-ball tail.",
-          "A pet rabbit has very soft gray fur and twitching whiskers.",
-          "Baby rabbits are tiny, shy, and incredibly adorable."
+          "The white rabbit hops."
         ],
         "translations": [
-          "這隻小白兔長著長長的豎耳朵和一個棉花糖般的小尾巴。",
-          "這隻寵物兔長著柔軟的灰色絨毛和輕微抽動的鬍鬚。",
-          "剛出生的小兔寶寶小巧玲瓏，既害羞又讓人喜愛。"
+          "白兔一蹦一跳。"
         ]
       },
       {
-        "tag": "情境二 · 蹦跳動作與餵養",
-        "desc": "蹦蹦跳跳與喂胡蘿蔔指令",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Feed the fluffy rabbit with fresh green carrot tops.",
-          "Rabbits hop around quickly on their strong hind legs.",
-          "Stroke the friendly rabbit gently from head to tail."
+          "The rabbit has two long ears."
         ],
         "translations": [
-          "用新鮮水靈的胡蘿蔔纓來喂這隻毛茸茸的小兔子。",
-          "兔子依靠強壯有力的後腿敏捷地蹦蹦跳跳。",
-          "輕輕地從頭到尾撫摸這隻友好溫順的小兔子。"
+          "小兔子有一對長長的耳朵。"
         ]
       },
       {
-        "tag": "情境三 · 寓言童話對話",
-        "desc": "龜兔賽跑與愛麗絲夢遊仙境",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "The speedy rabbit lost the race to the steady turtle.",
-          "Rabbits dig deep underground burrows to keep safe and warm.",
-          "Look at the bunny munching quietly on fresh sweet clover."
+          "The cute bunny loves eating crunchy orange carrots."
         ],
         "translations": [
-          "跑得飛快的兔子因為驕傲而在比賽中輸給了踏實的烏龜。",
-          "兔子會在地下挖掘深邃的洞穴來保暖和躲避天敵。",
-          "看那隻小兔子正安靜地嚼著甜美多汁的白三葉草。"
+          "可愛的小兔子最喜歡吃爽脆的紅蘿蔔。"
         ]
       }
     ]
@@ -2304,55 +2796,71 @@
     "phonetic": "/ˈmʌŋ.ki/",
     "meaning": "名詞：猴子",
     "emoji": "🐵",
-    "category": "animals",
+    "category": "animal",
     "level": "L2",
-    "role": "new",
+    "role": "consolidate",
     "variants": [
       "monkey",
       "monkeys",
-      "money"
+      "monk",
+      "money",
+      "mark"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "The monkey is funny.",
+        "translation": "猴子很有趣。",
+        "audioSrc": "audio/sentence_monkey_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "The monkey climbs up the tree.",
+        "translation": "小猴子靈活地爬上了大樹。",
+        "audioSrc": "audio/sentence_monkey_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "The clever monkey swings from branch to branch.",
+        "translation": "聰明的猴子在樹枝之間盪來盪去。",
+        "audioSrc": "audio/sentence_monkey_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 機靈外貌與長尾",
-        "desc": "棕色毛髮、長尾巴與靈巧手足",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "The clever little monkey has a long and flexible tail.",
-          "A baby monkey clings tightly to its mother's belly.",
-          "The cheeky brown monkey has bright, curious brown eyes."
+          "The monkey is funny."
         ],
         "translations": [
-          "這隻聰明機靈的小猴子長著一條長而靈活自如的長尾巴。",
-          "一隻小猴寶寶緊緊地依偎抱住媽媽的腹部。",
-          "這隻頑皮的棕色小猴子閃爍著一雙充滿好奇的大眼睛。"
+          "猴子很有趣。"
         ]
       },
       {
-        "tag": "情境二 · 攀爬動作與玩耍",
-        "desc": "盪鞦韆、摘果子與抓癢指令",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Monkeys swing skillfully from vine to vine in trees.",
-          "Hand a ripe yellow banana to the hungry zoo monkey.",
-          "Watch the playful monkey jump across the wooden bars."
+          "The monkey climbs up the tree."
         ],
         "translations": [
-          "猴子依靠矯健的身手在樹枝藤蔓間自如穿梭盪漾。",
-          "把一根熟透的黃香蕉遞給動物園裡飢腸轆轆的猴子。",
-          "看那隻貪玩的小猴子敏捷地跨過一根根木頭橫樑。"
+          "小猴子靈活地爬上了大樹。"
         ]
       },
       {
-        "tag": "情境三 · 趣味習性與對話",
-        "desc": "動物園遊覽與兒歌對話",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Five little monkeys were jumping on the big soft bed.",
-          "Monkeys use both their agile hands and feet to climb trees.",
-          "The funny monkey is making goofy faces at the tourists."
+          "The clever monkey swings from branch to branch."
         ],
         "translations": [
-          "五隻調皮的小猴子在一張又大又軟的床上蹦蹦跳跳。",
-          "猴子能手腳並用地輕鬆攀爬上高聳挺拔的大樹。",
-          "那隻滑稽有趣的猴子正對著來往的遊客做著鬼臉呢。"
+          "聰明的猴子在樹枝之間盪來盪去。"
         ]
       }
     ]
@@ -2361,57 +2869,74 @@
     "id": "sun",
     "word": "sun",
     "phonetic": "/sʌn/",
-    "meaning": "名詞：太陽，陽光",
+    "meaning": "名詞：太陽",
     "emoji": "☀️",
     "category": "nature",
     "level": "L1",
-    "role": "new",
+    "role": "consolidate",
     "variants": [
       "sun",
+      "suns",
       "son",
-      "some"
+      "some",
+      "soon",
+      "sang"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "The sun is bright.",
+        "translation": "太陽非常明亮。",
+        "audioSrc": "audio/sentence_sun_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "The warm sun shines all day.",
+        "translation": "溫暖的太陽一整天都照耀著。",
+        "audioSrc": "audio/sentence_sun_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "The morning sun gives light to all living things.",
+        "translation": "早晨的太陽為世間萬物帶來光芒。",
+        "audioSrc": "audio/sentence_sun_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 天空光芒與色彩",
-        "desc": "朝陽、晚霞與金色光輝",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "The brilliant golden sun shines in the clear blue sky.",
-          "The morning sun warms the cool mountain grass.",
-          "A spectacular orange sunset marks the end of the day."
+          "The sun is bright."
         ],
         "translations": [
-          "燦爛耀眼的金色太陽在湛藍晴朗的天空中普照大地。",
-          "初升的晨陽灑下暖意，烘熱了帶著涼意的高山青草。",
-          "一抹壯麗無比的橙色落日餘暉宣告著一天的落幕。"
+          "太陽非常明亮。"
         ]
       },
       {
-        "tag": "情境二 · 戶外防曬動作指令",
-        "desc": "戴太陽鏡、塗防曬與日光浴",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Put on your sun hat and sunglasses when going outside.",
-          "Feel the pleasant warm sun directly upon your face.",
-          "Do not look straight into the bright sun with bare eyes."
+          "The warm sun shines all day."
         ],
         "translations": [
-          "大太陽天出門記得戴好遮陽防曬帽和太陽鏡。",
-          "閉上眼睛，感受溫暖柔和的陽光灑在臉上的愜意。",
-          "千萬不要用沒有防護的眼睛直接注視刺眼的烈日。"
+          "溫暖的太陽一整天都照耀著。"
         ]
       },
       {
-        "tag": "情境三 · 作息規律與自然對話",
-        "desc": "日出日落與植物光合作用",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "The bright sun rises in the east and sets in the west.",
-          "Green plants need warm sunlight and pure water to grow.",
-          "What a gorgeous, bright, and sunny weekend morning!"
+          "The morning sun gives light to all living things."
         ],
         "translations": [
-          "耀眼的太陽東昇西落，日復一日照耀著我們。",
-          "綠色植物需要溫暖的陽光和純淨的水分才能茁壯成長。",
-          "這是一個多麼明媚、晴朗而且充滿陽光的週末早晨啊！"
+          "早晨的太陽為世間萬物帶來光芒。"
         ]
       }
     ]
@@ -2420,56 +2945,74 @@
     "id": "moon",
     "word": "moon",
     "phonetic": "/muːn/",
-    "meaning": "名詞：月亮，月光",
+    "meaning": "名詞：月亮",
     "emoji": "🌙",
     "category": "nature",
     "level": "L1",
     "role": "new",
     "variants": [
       "moon",
-      "moons"
+      "moons",
+      "mood",
+      "noon",
+      "move",
+      "man"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Look at the moon.",
+        "translation": "看那美麗的月亮。",
+        "audioSrc": "audio/sentence_moon_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "The round moon glows in dark.",
+        "translation": "圓圓的月亮在夜空中發亮。",
+        "audioSrc": "audio/sentence_moon_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "The silver moon smiles down from the night sky.",
+        "translation": "銀色的月亮從夜空中微笑俯瞰大地。",
+        "audioSrc": "audio/sentence_moon_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 夜空月色與輪廓",
-        "desc": "彎月、滿月與銀白清輝",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "The silver crescent moon glows gently in the night sky.",
-          "Tonight the big round full moon looks like a silver plate.",
-          "Soft moonlight streams in through my bedroom window."
+          "Look at the moon."
         ],
         "translations": [
-          "一彎銀白色的蛾眉月在靜謐的夜空中柔柔地發光。",
-          "今晚圓圓的大滿月看起來就像掛在天上的一隻銀盤。",
-          "柔和清幽的月光從我臥室的窗前悄悄流淌進來。"
+          "看那美麗的月亮。"
         ]
       },
       {
-        "tag": "情境二 · 仰望觀察動作指令",
-        "desc": "用望遠鏡看月亮環形山",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Look up at the glowing moon through our telescope.",
-          "Point your finger toward the bright moon among clouds.",
-          "Watch the white clouds glide slowly across the moon."
+          "The round moon glows in dark."
         ],
         "translations": [
-          "透過我們的小天文望遠鏡仰望夜空中明亮的月球吧。",
-          "伸出你的手指，指向雲層中若隱若現的皎潔明月。",
-          "看天邊輕柔的白雲從月亮前面慢悠悠地滑過。"
+          "圓圓的月亮在夜空中發亮。"
         ]
       },
       {
-        "tag": "情境三 · 中秋節與睡前對話",
-        "desc": "中秋賞月與睡前晚安對話",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "We eat sweet mooncakes while admiring the harvest moon.",
-          "Good night moon, good night stars, see you in the morning.",
-          "Did you know brave astronauts have walked on the moon?"
+          "The silver moon smiles down from the night sky."
         ],
         "translations": [
-          "中秋節我們一邊品嚐香甜的月餅，一邊賞圓圓的秋月。",
-          "晚安月亮，晚安星星，我們明天清晨再相聚。",
-          "你知道嗎？勇敢的宇航員叔叔曾經真正登月漫步過呢！"
+          "銀色的月亮從夜空中微笑俯瞰大地。"
         ]
       }
     ]
@@ -2478,57 +3021,74 @@
     "id": "star",
     "word": "star",
     "phonetic": "/stɑːr/",
-    "meaning": "名詞：星星，恆星",
+    "meaning": "名詞：星星",
     "emoji": "⭐",
     "category": "nature",
     "level": "L1",
-    "role": "review",
+    "role": "consolidate",
     "variants": [
       "star",
       "stars",
-      "start"
+      "start",
+      "stir",
+      "store",
+      "stay"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Twinkle twinkle little star.",
+        "translation": "一閃一閃亮晶晶小星星。",
+        "audioSrc": "audio/sentence_star_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "There are bright stars tonight.",
+        "translation": "今晚夜空中有許多明亮的星星。",
+        "audioSrc": "audio/sentence_star_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "We can make a wish upon the bright star.",
+        "translation": "我們可以對著明亮的星星許下願望。",
+        "audioSrc": "audio/sentence_star_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 閃爍光芒與夜空",
-        "desc": "繁星點點、星座與銀河",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "Countless twinkling stars decorate the dark velvet sky.",
-          "The North Star shines steadily to guide travelers at night.",
-          "A brilliant shooting star darts across the midnight sky."
+          "Twinkle twinkle little star."
         ],
         "translations": [
-          "數不清的閃亮星星將漆黑的天鵝絨夜空裝點得格外美麗。",
-          "北極星在北方恆久發光，為黑夜裡的旅人指引方向。",
-          "一顆耀眼奪目的流星剎那間劃過了靜謐的午夜夜空。"
+          "一閃一閃亮晶晶小星星。"
         ]
       },
       {
-        "tag": "情境二 · 數星星與許願動作",
-        "desc": "手指點數與閉眼許願指令",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Close your eyes and make a wish upon that bright star.",
-          "Count the visible stars you can spot above our house.",
-          "Connect the bright stars with your finger to form shapes."
+          "There are bright stars tonight."
         ],
         "translations": [
-          "閉上雙眼，對著天邊那顆最亮的星星許下一個美好心願。",
-          "數數今晚在我們家屋頂上空你能數清多少顆小星星。",
-          "用手指在空中把一顆顆亮星連線，描繪出好玩的星座。"
+          "今晚夜空中有許多明亮的星星。"
         ]
       },
       {
-        "tag": "情境三 · 經典兒歌童年對話",
-        "desc": "小星星兒歌與天文奧秘",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Twinkle, twinkle, little star, how I wonder what you are!",
-          "Stars look tiny to us because they are trillions of miles away.",
-          "My teacher gave me a shiny golden star sticker for good work."
+          "We can make a wish upon the bright star."
         ],
         "translations": [
-          "一閃一閃亮晶晶，滿天都是小星星！",
-          "星星看起來那麼微小，是因為它們距離我們有千億英里遙遠。",
-          "因為我表現優秀，老師獎勵給我一張金燦燦的星星小貼紙。"
+          "我們可以對著明亮的星星許下願望。"
         ]
       }
     ]
@@ -2541,53 +3101,70 @@
     "emoji": "🌳",
     "category": "nature",
     "level": "L1",
-    "role": "new",
+    "role": "review",
     "variants": [
       "tree",
       "trees",
-      "three"
+      "three",
+      "free",
+      "tea",
+      "try"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "This is a tall tree.",
+        "translation": "這是一棵高大的樹。",
+        "audioSrc": "audio/sentence_tree_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Green leaves grow on the tree.",
+        "translation": "綠油油的葉子長在樹木上。",
+        "audioSrc": "audio/sentence_tree_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "Children play hide and seek around big trees.",
+        "translation": "小朋友們圍繞在大樹旁玩捉迷藏。",
+        "audioSrc": "audio/sentence_tree_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 挺拔樹木與枝葉",
-        "desc": "粗壯樹幹、茂盛樹冠與落葉",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "The tall oak tree has thick brown bark and green leaves.",
-          "In autumn, colorful orange and red leaves fall from the tree.",
-          "A blossoming apple tree is full of fragrant white flowers."
+          "This is a tall tree."
         ],
         "translations": [
-          "這棵高大的橡樹有著粗壯的棕色樹皮和茂盛的綠葉。",
-          "秋天來臨，五彩斑斕的橙紅落葉從樹枝上紛紛揚揚落下。",
-          "一棵盛開的蘋果樹上開滿了芬芳潔白的蘋果花朵。"
+          "這是一棵高大的樹。"
         ]
       },
       {
-        "tag": "情境二 · 動作植樹與攀爬",
-        "desc": "給樹澆水、種樹苗與避暑指令",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Plant a young tree sapling in the school yard.",
-          "Rest under the cool shade of the leafy tree on hot days.",
-          "Do not break branches when you play around the old tree."
+          "Green leaves grow on the tree."
         ],
         "translations": [
-          "在學校的庭院裡種下一株嫩綠的小樹苗吧。",
-          "烈日炎炎的夏日，坐在綠樹濃密的樹蔭底下納涼休息。",
-          "在古老的大樹下玩耍時，請愛護樹木不要折斷枝條。"
+          "綠油油的葉子長在樹木上。"
         ]
       },
       {
-        "tag": "情境三 · 鳥類家園與生態對話",
-        "desc": "鳥巢家園與環境保護交流",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Birds build cozy straw nests high up in the tree branches.",
-          "Squirrels store sweet acorns inside hollow tree trunks.",
-          "Trees clean our air and give us fresh oxygen to breathe."
+          "Children play hide and seek around big trees."
         ],
         "translations": [
-          "小鳥們把溫暖的乾草小窩高高築在健壯的大樹椏上。",
-          "小松鼠在空心的樹幹樹洞裡儲存甜甜的橡子口糧。",
-          "樹木能淨化我們的空氣，為人類提供源源不絕的新鮮氧氣。"
+          "小朋友們圍繞在大樹旁玩捉迷藏。"
         ]
       }
     ]
@@ -2604,49 +3181,66 @@
     "variants": [
       "rain",
       "rains",
+      "reign",
+      "ran",
+      "ring",
       "train"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "I hear the rain.",
+        "translation": "我聽見下雨的聲音。",
+        "audioSrc": "audio/sentence_rain_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Rain falls down from the clouds.",
+        "translation": "雨水從天上的雲朵落了下來。",
+        "audioSrc": "audio/sentence_rain_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "Put on your yellow raincoat when it begins to rain.",
+        "translation": "開始下雨的時候穿上你的黃色雨衣。",
+        "audioSrc": "audio/sentence_rain_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 雨絲淅瀝與聲音",
-        "desc": "毛毛雨、暴雨與泥土清香",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "Gentle raindrops fall rhythmically upon the glass window.",
-          "The heavy summer rain creates clear puddles on the sidewalk.",
-          "The refreshing smell of clean rain fills the evening air."
+          "I hear the rain."
         ],
         "translations": [
-          "輕柔的小雨滴富有節奏地輕輕拍打著透明的玻璃窗。",
-          "夏天的傾盆大雨在水泥人行道上積起了清澈的小水窪。",
-          "空氣中瀰漫著清涼雨水洗刷大地後散發出的清新泥土芳香。"
+          "我聽見下雨的聲音。"
         ]
       },
       {
-        "tag": "情境二 · 撐傘踩水動作指令",
-        "desc": "撐雨傘、穿雨靴與跳水坑",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Open your umbrella before stepping out into the cold rain.",
-          "Put on your yellow waterproof boots to splash in rain puddles.",
-          "Stay safe inside the house until the thunderstorm stops."
+          "Rain falls down from the clouds."
         ],
         "translations": [
-          "走入寒風冷雨中之前，記得把你的雨傘撐開。",
-          "穿上你的黃色防水小雨靴，去小水坑裡踩水花玩耍吧。",
-          "雷雨交加的時候要待在安全的屋裡，直到風雨平息。"
+          "雨水從天上的雲朵落了下來。"
         ]
       },
       {
-        "tag": "情境三 · 雨後彩虹生活對話",
-        "desc": "植物喝水與雨過天晴彩虹",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Rain, rain, go away, come again another sunny day!",
-          "Thirsty garden flowers drink the pure rainwater to blossom.",
-          "Look! A magnificent rainbow appeared right after the rain!"
+          "Put on your yellow raincoat when it begins to rain."
         ],
         "translations": [
-          "小雨小雨快走開，改天晴朗你再來！",
-          "花園裡口渴的小花朵貪婪地吮吸純淨雨水，競相綻放。",
-          "快抬頭看！雨過天晴之後出現了一道絢麗壯觀的七色彩虹！"
+          "開始下雨的時候穿上你的黃色雨衣。"
         ]
       }
     ]
@@ -2655,57 +3249,74 @@
     "id": "flower",
     "word": "flower",
     "phonetic": "/ˈflaʊ.ər/",
-    "meaning": "名詞：花朵，鮮花",
+    "meaning": "名詞：花朵",
     "emoji": "🌸",
     "category": "nature",
-    "level": "L2",
-    "role": "new",
+    "level": "L1",
+    "role": "review",
     "variants": [
       "flower",
       "flowers",
-      "flour"
+      "flour",
+      "flow",
+      "floor",
+      "flyer"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "The red flower smells good.",
+        "translation": "紅色花朵聞起來好香。",
+        "audioSrc": "audio/sentence_flower_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Butterflies dance around the pretty flower.",
+        "translation": "蝴蝶在美麗的花朵周圍翩翩起舞。",
+        "audioSrc": "audio/sentence_flower_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "Spring brings many colorful flowers into our garden.",
+        "translation": "春天為我們的花園帶來許多繽紛的花朵。",
+        "audioSrc": "audio/sentence_flower_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 花容花色與芳香",
-        "desc": "花瓣色彩、芬芳氣味與花蕊",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "This lovely pink rose flower smells delightful and sweet.",
-          "Yellow sunflower blossoms turn their heads toward the sun.",
-          "Tiny purple wildflower petals blanket the green hill."
+          "The red flower smells good."
         ],
         "translations": [
-          "這朵嬌豔可愛的粉玫瑰聞起來香甜迷人、沁人心脾。",
-          "金燦燦的向日葵花盤永遠迎著太陽的方向轉動仰望。",
-          "漫山遍野的小小紫色野花瓣把綠油油的山坡裝扮一新。"
+          "紅色花朵聞起來好香。"
         ]
       },
       {
-        "tag": "情境二 · 澆花采摘動作指令",
-        "desc": "拿水壺澆花與愛護花木",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Water the blooming garden flowers with the watering can.",
-          "Smell the delicate sweet scent of this fresh spring flower.",
-          "Do not pluck the pretty flowers in public city parks."
+          "Butterflies dance around the pretty flower."
         ],
         "translations": [
-          "拿著小花灑給小花園裡競相綻放的鮮花澆澆水。",
-          "湊上前聞一聞這朵新鮮春花散發出的清雅淡香。",
-          "請愛護城市公共公園裡的美麗花草，不要隨意採摘。"
+          "蝴蝶在美麗的花朵周圍翩翩起舞。"
         ]
       },
       {
-        "tag": "情境三 · 蜜蜂傳粉與節日對話",
-        "desc": "蜜蜂採蜜與送媽媽鮮花交流",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Busy honeybees collect sweet nectar from colorful flowers.",
-          "I picked a bouquet of lovely flowers for my dear mother.",
-          "Spring has arrived because all the garden flowers are blooming!"
+          "Spring brings many colorful flowers into our garden."
         ],
         "translations": [
-          "忙碌的小蜜蜂在五顏六色的花叢中穿梭採集甘甜的花蜜。",
-          "我親手為親愛的媽媽挑選幷包紮了一束溫馨美麗的花束。",
-          "春天真的已經到來啦，因為花園裡百花齊放爭奇鬥豔！"
+          "春天為我們的花園帶來許多繽紛的花朵。"
         ]
       }
     ]
@@ -2713,57 +3324,75 @@
   {
     "id": "grass",
     "word": "grass",
-    "phonetic": "/ɡræs/",
+    "phonetic": "/ɡrɑːs/",
     "meaning": "名詞：青草，草地",
     "emoji": "🌱",
     "category": "nature",
     "level": "L1",
-    "role": "new",
+    "role": "consolidate",
     "variants": [
       "grass",
-      "glass"
+      "grasses",
+      "glass",
+      "class",
+      "gas",
+      "cross"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "The grass is green.",
+        "translation": "草地是翠綠色的。",
+        "audioSrc": "audio/sentence_grass_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "We run on soft green grass.",
+        "translation": "我們在柔軟的綠草地上奔跑。",
+        "audioSrc": "audio/sentence_grass_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "Morning dew shines like diamonds on the grass.",
+        "translation": "早晨的露珠在青草上像鑽石般發光。",
+        "audioSrc": "audio/sentence_grass_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 綠茵茵草坪描述",
-        "desc": "草地色澤、露珠與地毯感",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "The fresh green grass feels soft like a natural carpet.",
-          "Morning dew drops sparkle brightly on blades of grass.",
-          "The expansive soccer field is covered in lush thick grass."
+          "The grass is green."
         ],
         "translations": [
-          "新鮮嫩綠的青草踩上去就如同一張天然軟柔的大地毯。",
-          "清晨晶瑩剔透的小露珠在細長的草葉尖上閃閃發光。",
-          "寬闊無垠的足球場被鬱鬱蔥蔥、平整茂密的綠草覆蓋著。"
+          "草地是翠綠色的。"
         ]
       },
       {
-        "tag": "情境二 · 赤腳奔跑動作指令",
-        "desc": "草地打滾、修剪草坪與散步",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Take off your shoes and walk barefoot on the cool grass.",
-          "Sit down with your friends on the sunny park grass for lunch.",
-          "Help your dad push the lawnmower to trim the tall grass."
+          "We run on soft green grass."
         ],
         "translations": [
-          "脫掉你的鞋襪，光著腳丫踩在涼爽舒適的青草地上走走。",
-          "在陽光明媚的日子裡和好朋友坐在公園草地上享用午餐。",
-          "幫爸爸一起推著割草機，把長得太高的雜草修剪齊整。"
+          "我們在柔軟的綠草地上奔跑。"
         ]
       },
       {
-        "tag": "情境三 · 野餐聚會對話交流",
-        "desc": "草地放風箏與親近大自然",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Let's spread our picnic blanket over the dry green grass.",
-          "Cute sheep and white horses graze peacefully on mountain grass.",
-          "Keep off the freshly planted grass so it can grow strong."
+          "Morning dew shines like diamonds on the grass."
         ],
         "translations": [
-          "讓我們在乾燥鬆軟的綠草坪上鋪開全家野餐地墊吧。",
-          "可愛的小羊和白馬在山間的青草地上悠閒安詳地吃草。",
-          "請愛護腳下新栽種的嫩草，讓它們能夠茁壯生根成長。"
+          "早晨的露珠在青草上像鑽石般發光。"
         ]
       }
     ]
@@ -2775,54 +3404,71 @@
     "meaning": "名詞：風，微風",
     "emoji": "🍃",
     "category": "nature",
-    "level": "L1",
+    "level": "L2",
     "role": "new",
     "variants": [
       "wind",
       "winds",
-      "win"
+      "wine",
+      "wing",
+      "win",
+      "went"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "The cool wind blows.",
+        "translation": "涼爽的風吹拂著。",
+        "audioSrc": "audio/sentence_wind_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "The gentle wind moves the leaves.",
+        "translation": "溫和的微風吹動了樹上的葉子。",
+        "audioSrc": "audio/sentence_wind_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "A strong wind helps our paper kite fly high.",
+        "translation": "一陣強勁的風幫助紙風箏飛得好高。",
+        "audioSrc": "audio/sentence_wind_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 風聲風勢與觸感",
-        "desc": "微風拂面與大風呼嘯",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "A gentle cool breeze whispers softly through the trees.",
-          "The strong autumn wind blows dry leaves across the street.",
-          "The chilly winter wind makes our cheeks turn rosy pink."
+          "The cool wind blows."
         ],
         "translations": [
-          "一陣溫柔涼爽的微風在樹梢枝頭間輕聲細語地掠過。",
-          "凜冽強勁的秋風把街道兩旁的乾燥落葉吹得滿地飛舞。",
-          "冬天刺骨的寒風吹得我們的小臉蛋變得紅撲撲的。"
+          "涼爽的風吹拂著。"
         ]
       },
       {
-        "tag": "情境二 · 借風放風箏動作指令",
-        "desc": "利用風向放飛風箏與關窗",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Hold the kite string tightly as the wind lifts it up.",
-          "Close the bedroom window tightly before the stormy wind hits.",
-          "Feel the invigorating sea wind blowing through your hair."
+          "The gentle wind moves the leaves."
         ],
         "translations": [
-          "當風把風箏託舉飛向高空時，一定要緊緊抓牢風箏線。",
-          "在暴風雨猛烈來襲之前，記得把臥室的窗戶關緊關好。",
-          "靜靜感受迎面吹拂而來的清爽海風穿過你的髮梢。"
+          "溫和的微風吹動了樹上的葉子。"
         ]
       },
       {
-        "tag": "情境三 · 風車動力生活對話",
-        "desc": "風車發電與帆船乘風破浪",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "The giant white windmills spin around to create clean energy.",
-          "Which direction is the prevailing wind blowing from today?",
-          "The small sailboat glides swiftly across the bay with the wind."
+          "A strong wind helps our paper kite fly high."
         ],
         "translations": [
-          "潔白高大的風力發電機在風中旋轉，為千家萬戶輸送清潔能源。",
-          "今天吹的是從哪個方向過來的風呀？",
-          "小帆船乘著順風，在蔚藍的海灣水面上輕快飛馳。"
+          "一陣強勁的風幫助紙風箏飛得好高。"
         ]
       }
     ]
@@ -2831,57 +3477,74 @@
     "id": "ball",
     "word": "ball",
     "phonetic": "/bɔːl/",
-    "meaning": "名詞：球，皮球",
+    "meaning": "名詞：球",
     "emoji": "⚽",
-    "category": "play",
+    "category": "toy_school",
     "level": "L1",
-    "role": "review",
+    "role": "consolidate",
     "variants": [
       "ball",
       "balls",
-      "bowl"
+      "bowl",
+      "bell",
+      "boy",
+      "bald"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Kick the soccer ball.",
+        "translation": "踢這個足球吧。",
+        "audioSrc": "audio/sentence_ball_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "We bounce the big red ball.",
+        "translation": "我們拍打著紅色的大皮球。",
+        "audioSrc": "audio/sentence_ball_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "Throw the ball to your friend and catch it.",
+        "translation": "把球丟給你的好朋友並穩穩接住。",
+        "audioSrc": "audio/sentence_ball_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 球體外形與彈性",
-        "desc": "皮球彈跳、顏色與材質",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "The round soccer ball is made of black and white leather.",
-          "This bouncy rubber basketball rebounds very high off the gym floor.",
-          "A small yellow tennis ball rolls swiftly under the couch."
+          "Kick the soccer ball."
         ],
         "translations": [
-          "這個圓滾滾的足球是由黑白相間的皮革縫製而成的。",
-          "這個富有彈性的橡膠籃球在體育館地板上能彈得非常高。",
-          "一顆小巧的黃色網球飛快地滾進了客廳沙發底下。"
+          "踢這個足球吧。"
         ]
       },
       {
-        "tag": "情境二 · 踢球接球動作指令",
-        "desc": "傳球、射門與投籃動作",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Kick the soccer ball right into the goal net!",
-          "Can you catch the bouncy red ball with both hands?",
-          "Throw the ball gently to your little brother."
+          "We bounce the big red ball."
         ],
         "translations": [
-          "奮力起腳，把足球穩穩踢進對面的球門網窩裡！",
-          "你能用雙手穩穩接住這顆高高彈起的紅皮球嗎？",
-          "輕輕把手裡的球拋傳給你面前的小弟弟。"
+          "我們拍打著紅色的大皮球。"
         ]
       },
       {
-        "tag": "情境三 · 團隊運動對話交流",
-        "desc": "課間體育遊戲與友誼交流",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Who wants to join our team to play ball together?",
-          "Pass the ball quickly to the open teammate on the left.",
-          "Playing ball in the fresh air keeps our bodies strong."
+          "Throw the ball to your friend and catch it."
         ],
         "translations": [
-          "誰想加入我們的隊伍，大家聚在一起痛痛快快踢場球？",
-          "快速把球傳給左側跑到位、無人盯防的隊友。",
-          "在戶外新鮮空氣裡打球運動能讓我們的體魄更加強健。"
+          "把球丟給你的好朋友並穩穩接住。"
         ]
       }
     ]
@@ -2890,58 +3553,74 @@
     "id": "book",
     "word": "book",
     "phonetic": "/bʊk/",
-    "meaning": "名詞：書本，畫冊",
+    "meaning": "名詞：書本",
     "emoji": "📖",
-    "category": "play",
+    "category": "toy_school",
     "level": "L1",
     "role": "consolidate",
     "variants": [
       "book",
       "books",
       "look",
-      "took"
+      "hook",
+      "back",
+      "buck"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Read this story book.",
+        "translation": "讀這本故事書吧。",
+        "audioSrc": "audio/sentence_book_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "I open my English picture book.",
+        "translation": "我打開我的英語圖畫書。",
+        "audioSrc": "audio/sentence_book_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "Reading good books takes us to magical new worlds.",
+        "translation": "閱讀好書能帶我們走進奇幻的新世界。",
+        "audioSrc": "audio/sentence_book_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 書籍外觀與插圖",
-        "desc": "精美繪本、彩色封面與頁碼",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "This fairy tale picture book has colorful illustrations.",
-          "A thick English dictionary is placed on the wooden shelf.",
-          "The bedtime story book has exciting tales of brave knights."
+          "Read this story book."
         ],
         "translations": [
-          "這本童話圖畫書裡繪製著許多色彩明麗的精美插圖。",
-          "一本厚重的大英語詞典穩穩地擺放在木書架上。",
-          "這本睡前故事書裡記錄著關於英勇騎士的扣人心絃的冒險傳說。"
+          "讀這本故事書吧。"
         ]
       },
       {
-        "tag": "情境二 · 翻書閱讀動作指令",
-        "desc": "開啟翻頁與放回書包指令",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Open your English book to page twenty-five.",
-          "Turn the paper pages gently without tearing them.",
-          "Pack your textbooks neatly inside your school backpack."
+          "I open my English picture book."
         ],
         "translations": [
-          "請把你的英語課本翻到第二十五頁。",
-          "翻看紙質書頁的時候動作要輕柔，不要把書頁撕破了。",
-          "把你的教科書整齊平穩地收拾進你的小書包裡。"
+          "我打開我的英語圖畫書。"
         ]
       },
       {
-        "tag": "情境三 · 親子共讀對話交流",
-        "desc": "圖書館借書與睡前讀書時光",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "What fascinating story are you reading in your new book?",
-          "Mom and Dad read me a wonderful story book before sleep.",
-          "We can borrow exciting books from our school library."
+          "Reading good books takes us to magical new worlds."
         ],
         "translations": [
-          "你正在這本新書裡閱讀什麼引人入勝的精彩故事呀？",
-          "每天入睡前，爸爸媽媽都會給我讀一本溫馨的故事繪本。",
-          "我們可以從學校圖書館裡借閱許多知識豐富的有趣圖書。"
+          "閱讀好書能帶我們走進奇幻的新世界。"
         ]
       }
     ]
@@ -2950,58 +3629,74 @@
     "id": "pen",
     "word": "pen",
     "phonetic": "/pɛn/",
-    "meaning": "名詞：筆，鋼筆，圓珠筆",
+    "meaning": "名詞：筆，原子筆",
     "emoji": "🖊️",
-    "category": "play",
+    "category": "toy_school",
     "level": "L1",
-    "role": "new",
+    "role": "review",
     "variants": [
       "pen",
       "pens",
       "pan",
-      "pin"
+      "pin",
+      "pain",
+      "pet"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "This is my blue pen.",
+        "translation": "這是我的藍色筆。",
+        "audioSrc": "audio/sentence_pen_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Write your English name with a pen.",
+        "translation": "用原子筆寫下你的英文名字。",
+        "audioSrc": "audio/sentence_pen_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "I use a colorful pen to draw pretty pictures.",
+        "translation": "我用彩色筆畫出許多美麗的圖畫。",
+        "audioSrc": "audio/sentence_pen_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 筆的外形與墨水",
-        "desc": "筆桿顏色、墨水與書寫順暢",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "My favorite gel pen writes in smooth dark blue ink.",
-          "The silver fountain pen has a shiny golden metal nib.",
-          "A pack of colorful marker pens sits on the craft table."
+          "This is my blue pen."
         ],
         "translations": [
-          "我最喜歡的這支中性筆寫起字來墨跡流暢，是深藍色的。",
-          "這支銀色的高檔鋼筆有著一枚金光閃閃的金屬筆尖。",
-          "手工操作檯上整齊擺放著一整盒色彩繽紛的彩色馬克筆。"
+          "這是我的藍色筆。"
         ]
       },
       {
-        "tag": "情境二 · 握筆書寫動作指令",
-        "desc": "端正握筆、蓋上筆帽與簽名",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Hold the pen properly between your thumb and index finger.",
-          "Cap your pen tightly after writing so the ink stays fresh.",
-          "Write your full name clearly on the exam paper with a pen."
+          "Write your English name with a pen."
         ],
         "translations": [
-          "用拇指和食指規範正確地握住筆桿。",
-          "寫完字後要把筆帽緊緊蓋好，防止墨水乾涸變硬。",
-          "用簽字筆在考卷試卷的姓名欄裡清晰地寫下你的全名。"
+          "用原子筆寫下你的英文名字。"
         ]
       },
       {
-        "tag": "情境三 · 課堂文具借還對話",
-        "desc": "同學間借筆與練習書法交流",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "May I please borrow your black pen for just a minute?",
-          "I ran out of ink; does anyone have an extra spare pen?",
-          "Dad signed the important permission slip with his fancy pen."
+          "I use a colorful pen to draw pretty pictures."
         ],
         "translations": [
-          "我可以借用一下你的黑色簽字筆一分鐘嗎？",
-          "我的筆墨水用光了，請問有誰有多餘備用的筆借我用一下嗎？",
-          "爸爸用他精緻的鋼筆在重要的家長同意書上鄭重簽下了名字。"
+          "我用彩色筆畫出許多美麗的圖畫。"
         ]
       }
     ]
@@ -3010,58 +3705,74 @@
     "id": "bag",
     "word": "bag",
     "phonetic": "/bæɡ/",
-    "meaning": "名詞：書包，提袋",
+    "meaning": "名詞：書包，背包",
     "emoji": "🎒",
-    "category": "play",
+    "category": "toy_school",
     "level": "L1",
-    "role": "new",
+    "role": "review",
     "variants": [
       "bag",
       "bags",
       "back",
-      "beg"
+      "beg",
+      "bad",
+      "bug"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "My school bag is blue.",
+        "translation": "我的書包是藍色的。",
+        "audioSrc": "audio/sentence_bag_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Pack your books into the bag.",
+        "translation": "把你的書本收拾進書包裡。",
+        "audioSrc": "audio/sentence_bag_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "Carry your light bag and walk to school together.",
+        "translation": "背著你輕巧的書包一起步行上學去。",
+        "audioSrc": "audio/sentence_bag_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 書包材質與容量",
-        "desc": "拉鍊、口袋與人體工學雙肩包",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "My school backpack has two shoulder straps and many pockets.",
-          "A reusable canvas shopping bag hangs behind the kitchen door.",
-          "The red travel bag is packed with warm clothes for the trip."
+          "My school bag is blue."
         ],
         "translations": [
-          "我的雙肩書包配有兩條透氣揹帶和許多實用的小口袋。",
-          "廚房門後掛著一個輕便環保、可重複利用的帆布購物袋。",
-          "這隻紅色的旅行包裡裝滿了為這次外出旅行準備的厚衣服。"
+          "我的書包是藍色的。"
         ]
       },
       {
-        "tag": "情境二 · 整理背起動作指令",
-        "desc": "拉拉鍊、背上與存放書包指令",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Zip up your backpack securely before boarding the bus.",
-          "Put your pencil box and lunchbox carefully into the bag.",
-          "Hang your heavy school bag on the wooden wall hook."
+          "Pack your books into the bag."
         ],
         "translations": [
-          "上校車之前，記得仔細把雙肩包的拉鍊完全拉好。",
-          "把你的文具盒和小便當盒穩妥地放進揹包裡面。",
-          "把沉甸甸的書包整齊地掛在牆壁的木質掛鉤上。"
+          "把你的書本收拾進書包裡。"
         ]
       },
       {
-        "tag": "情境三 · 出行上學對話交流",
-        "desc": "檢查上學物品與收拾行囊",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Did you double check if all your homework is in your bag?",
-          "This backpack feels quite heavy with all our new library books.",
-          "Can you help mom carry this paper grocery bag into the kitchen?"
+          "Carry your light bag and walk to school together."
         ],
         "translations": [
-          "你仔細檢查過所有的家庭作業是否都裝進書包裡了嗎？",
-          "裝了這麼多新借來的圖書館圖書，書包背起來感覺沉甸甸的。",
-          "你能幫媽媽把這袋裝滿日用品的牛皮紙袋拎進廚房嗎？"
+          "背著你輕巧的書包一起步行上學去。"
         ]
       }
     ]
@@ -3072,55 +3783,72 @@
     "phonetic": "/tɔɪ/",
     "meaning": "名詞：玩具",
     "emoji": "🧸",
-    "category": "play",
+    "category": "toy_school",
     "level": "L1",
     "role": "new",
     "variants": [
       "toy",
       "toys",
-      "boy"
+      "boy",
+      "toe",
+      "joy",
+      "toll"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "I share my favorite toy.",
+        "translation": "我分享我最喜歡的玩具。",
+        "audioSrc": "audio/sentence_toy_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "This new toy robot can walk.",
+        "translation": "這個全新的機器人玩具會走路。",
+        "audioSrc": "audio/sentence_toy_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "Please tidy up your toys after playing in room.",
+        "translation": "在房間玩耍後請把玩具整理收拾好。",
+        "audioSrc": "audio/sentence_toy_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 玩具種類與造型",
-        "desc": "毛絨熊、積木與遙控車",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "The soft plush teddy bear is my favorite bedtime toy.",
-          "A shiny red toy sports car can race across the living room carpet.",
-          "Colorful building block toys let kids create tall towers."
+          "I share my favorite toy."
         ],
         "translations": [
-          "這隻柔軟毛茸茸的泰迪熊是我每晚睡覺時最喜歡的抱枕玩具。",
-          "一輛紅光閃閃的玩具跑車可以在客廳的地毯上飛馳競速。",
-          "色彩鮮豔的拼插積木玩具能讓孩子們搭建起壯觀的高樓大廈。"
+          "我分享我最喜歡的玩具。"
         ]
       },
       {
-        "tag": "情境二 · 整理玩具動作指令",
-        "desc": "收納箱整理與分享玩具動作",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Pack away all your plastic toys into the wooden toy box.",
-          "Learn to share your favorite toys happily with playmates.",
-          "Do not leave small toy pieces scattered on the bedroom floor."
+          "This new toy robot can walk."
         ],
         "translations": [
-          "把散落各處的塑膠玩具統統收納整理到木質玩具箱裡。",
-          "學會大方快樂地和小夥伴們共同分享你最心愛的玩具。",
-          "不要把小零件玩具隨意亂扔散落在臥室的地板上。"
+          "這個全新的機器人玩具會走路。"
         ]
       },
       {
-        "tag": "情境三 · 商店選購與分享對話",
-        "desc": "玩具店挑選與生日禮物交流",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Which exciting toy would you like to choose for your birthday?",
-          "We can build an entire futuristic city with these construction toys.",
-          "Santa brought so many delightful surprise toys on Christmas morning."
+          "Please tidy up your toys after playing in room."
         ],
         "translations": [
-          "在你的生日這天，你最想挑選哪一件讓你心動的新玩具呢？",
-          "藉助這些工程挖掘機拼裝玩具，我們可以建起一座未來夢幻之城。",
-          "在聖誕節早晨，聖誕老人為我們帶來了好多意想不到的驚喜玩具。"
+          "在房間玩耍後請把玩具整理收拾好。"
         ]
       }
     ]
@@ -3129,57 +3857,74 @@
     "id": "car",
     "word": "car",
     "phonetic": "/kɑːr/",
-    "meaning": "名詞：小汽車，轎車",
+    "meaning": "名詞：汽車，小車",
     "emoji": "🚗",
-    "category": "play",
+    "category": "toy_school",
     "level": "L1",
-    "role": "new",
+    "role": "consolidate",
     "variants": [
       "car",
       "cars",
-      "card"
+      "card",
+      "cat",
+      "core",
+      "cart"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "The red car goes fast.",
+        "translation": "紅色的汽車跑得很快。",
+        "audioSrc": "audio/sentence_car_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Dad drives a clean blue car.",
+        "translation": "爸爸開著一輛乾淨的藍色車子。",
+        "audioSrc": "audio/sentence_car_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "Cars stop when traffic lights turn from green to red.",
+        "translation": "當交通信號燈由綠轉紅時汽車停下來。",
+        "audioSrc": "audio/sentence_car_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 車型外觀與顏色",
-        "desc": "車輪、車燈與流線型車身",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "Our family sedan is an electric car painted shiny blue.",
-          "A speedy red racing car zoomed past on the highway.",
-          "The modern car has four rubber wheels and bright headlights."
+          "The red car goes fast."
         ],
         "translations": [
-          "我們全家開的家用轎車是一輛塗裝成靚麗天藍色的電動汽車。",
-          "一輛風馳電掣的紅色賽車在寬闊的高速公路上飛馳而過。",
-          "這輛現代化汽車裝有四個耐磨的橡膠輪胎和明亮的前大燈。"
+          "紅色的汽車跑得很快。"
         ]
       },
       {
-        "tag": "情境二 · 安全乘車動作指令",
-        "desc": "系安全帶與安全上下車",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Fasten your seatbelt snugly as soon as you enter the car.",
-          "Please lock the car doors before we begin driving.",
-          "Look both ways carefully before stepping out of the car."
+          "Dad drives a clean blue car."
         ],
         "translations": [
-          "一坐進車裡，就請立刻把安全帶穩穩貼身扣好。",
-          "在我們啟程開車出發之前，請把車門鎖好。",
-          "推開車門下車之前，一定要兩邊仔細張望確認安全。"
+          "爸爸開著一輛乾淨的藍色車子。"
         ]
       },
       {
-        "tag": "情境三 · 自駕出行生活對話",
-        "desc": "全家自駕遊與日常接送",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Dad is driving our car to the sunny beach this weekend.",
-          "Mom drove the car to pick us up right after school ended.",
-          "Where did dad park the car in the underground parking lot?"
+          "Cars stop when traffic lights turn from green to red."
         ],
         "translations": [
-          "這個週末爸爸要開車帶我們全家去陽光明媚的海灘度假。",
-          "放學鈴聲一響，媽媽就開車準時趕來校門口接我們回家。",
-          "爸爸把車停在地下停車場的哪一個停車車位上了？"
+          "當交通信號燈由綠轉紅時汽車停下來。"
         ]
       }
     ]
@@ -3188,58 +3933,74 @@
     "id": "bus",
     "word": "bus",
     "phonetic": "/bʌs/",
-    "meaning": "名詞：公交車，校車",
+    "meaning": "名詞：公車，校車",
     "emoji": "🚌",
-    "category": "play",
+    "category": "toy_school",
     "level": "L1",
-    "role": "new",
+    "role": "review",
     "variants": [
       "bus",
       "buses",
+      "boss",
+      "bath",
       "buzz",
-      "bath"
+      "pass"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "The yellow school bus stops.",
+        "translation": "黃色的校車停下來了。",
+        "audioSrc": "audio/sentence_bus_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "We ride the bus to school.",
+        "translation": "我們搭乘公車一起去學校。",
+        "audioSrc": "audio/sentence_bus_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "The wheels on the bus go round and round.",
+        "translation": "公車上的輪子轉呀轉轉個不停。",
+        "audioSrc": "audio/sentence_bus_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 外觀造型與車身",
-        "desc": "黃色校車、雙層巴士與長車身",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "The bright yellow school bus has flashing safety lights.",
-          "A double-decker city bus carries passengers across the town.",
-          "The electric municipal bus is very quiet and eco-friendly."
+          "The yellow school bus stops."
         ],
         "translations": [
-          "這輛亮黃色的大校車頂部裝有閃爍不停的安全警示紅燈。",
-          "一輛雙層城市公交車滿載著乘客在繁華的市區街道穿梭。",
-          "這輛新型純電動市政公交車執行起來極其安靜而且綠色環保。"
+          "黃色的校車停下來了。"
         ]
       },
       {
-        "tag": "情境二 · 排隊上下車動作指令",
-        "desc": "文明乘車與扶穩坐好",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Wait patiently in line at the bus stop for your turn.",
-          "Hold onto the handrail tightly when the bus is in motion.",
-          "Wave goodbye to the friendly driver when you step off the bus."
+          "We ride the bus to school."
         ],
         "translations": [
-          "在公交站臺排好隊，按順序耐心等待公交車進站。",
-          "公交車行駛在路上的時候，雙手一定要抓緊扶手欄杆。",
-          "下車邁步離開公交車時，禮貌地向親切的司機叔叔揮手道別。"
+          "我們搭乘公車一起去學校。"
         ]
       },
       {
-        "tag": "情境三 · 乘車路線對話交流",
-        "desc": "看站牌與日常通勤交流",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Which bus number goes straight to the central science museum?",
-          "The wheels on the bus go round and round all through the town.",
-          "My school bus arrives promptly at seven-thirty every morning."
+          "The wheels on the bus go round and round."
         ],
         "translations": [
-          "請問哪一路公交車可以直接開到市中心科技館門口？",
-          "大巴車上的輪子轉啊轉，穿過整個熱鬧的小城鎮。",
-          "每天早晨七點半，接送我上學的校車都會準時出現在路口。"
+          "公車上的輪子轉呀轉轉個不停。"
         ]
       }
     ]
@@ -3248,57 +4009,74 @@
     "id": "bike",
     "word": "bike",
     "phonetic": "/baɪk/",
-    "meaning": "名詞：腳踏車，單車",
+    "meaning": "名詞：腳踏車",
     "emoji": "🚲",
-    "category": "play",
+    "category": "toy_school",
     "level": "L1",
     "role": "new",
     "variants": [
       "bike",
       "bikes",
-      "back"
+      "bake",
+      "back",
+      "bite",
+      "pike"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "I ride my small bike.",
+        "translation": "我騎我的小腳踏車。",
+        "audioSrc": "audio/sentence_bike_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Wear a helmet when riding bike.",
+        "translation": "騎腳踏車的時候要戴好安全帽。",
+        "audioSrc": "audio/sentence_bike_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "I can ride my bicycle in the green park.",
+        "translation": "我可以在綠色公園裡悠閒地騎腳踏車。",
+        "audioSrc": "audio/sentence_bike_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 車鈴車把與車輪",
-        "desc": "踏板、車把手與輔助輪",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "My brand-new red bicycle has a loud, clear silver bell.",
-          "The mountain bike has sturdy off-road tires for bumpy trails.",
-          "A toddler bike is equipped with two safe training wheels."
+          "I ride my small bike."
         ],
         "translations": [
-          "我剛買的嶄新紅單車上裝有一隻聲音清脆響亮的銀色車鈴。",
-          "這輛專業山地腳踏車配備了適應崎嶇山路的防滑越野輪胎。",
-          "幼兒初學腳踏車兩側裝有兩個用來保證平衡的安全輔助輪。"
+          "我騎我的小腳踏車。"
         ]
       },
       {
-        "tag": "情境二 · 騎行安全動作指令",
-        "desc": "戴頭盔、踩腳踏與剎車指令",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Always put on your safety helmet before riding your bike.",
-          "Pedal steadily and keep your balance on the smooth bike path.",
-          "Squeeze the handbrakes gently when you want to stop the bike."
+          "Wear a helmet when riding bike."
         ],
         "translations": [
-          "騎腳踏車出發之前，一定要先佩戴好安全防護頭盔。",
-          "在平整寬闊的腳踏車專用道上平穩蹬踏腳踏，保持良好平衡。",
-          "想要減速或者停車時，請兩手輕柔平緩地捏緊剎車手柄。"
+          "騎腳踏車的時候要戴好安全帽。"
         ]
       },
       {
-        "tag": "情境三 · 公園騎行生活對話",
-        "desc": "週末騎行與戶外健康活動",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Dad taught me how to ride a two-wheel bike in the park.",
-          "Let's go for an enjoyable bike ride along the riverfront trail.",
-          "Ring your bike bell to politely alert pedestrians ahead."
+          "I can ride my bicycle in the green park."
         ],
         "translations": [
-          "在公園的空地上，爸爸耐心地教會了我怎麼騎兩輪腳踏車。",
-          "讓我們沿著風景優美的沿江步道來一場歡快的騎行之旅吧。",
-          "提前按響清脆的車鈴，禮貌地提醒前方行走的行人注意避讓。"
+          "我可以在綠色公園裡悠閒地騎腳踏車。"
         ]
       }
     ]
@@ -3309,55 +4087,72 @@
     "phonetic": "/kaɪt/",
     "meaning": "名詞：風箏",
     "emoji": "🪁",
-    "category": "play",
+    "category": "toy_school",
     "level": "L1",
-    "role": "new",
+    "role": "consolidate",
     "variants": [
       "kite",
       "kites",
-      "night"
+      "cat",
+      "night",
+      "bite",
+      "tight"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Fly the colorful kite high.",
+        "translation": "把彩色風箏高高放飛。",
+        "audioSrc": "audio/sentence_kite_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "My kite dances in the sky.",
+        "translation": "我的風箏在天空中跳舞。",
+        "audioSrc": "audio/sentence_kite_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "Wind blows gently and lifts our big kite up.",
+        "translation": "微風輕輕吹拂把我們的大風箏送上天空。",
+        "audioSrc": "audio/sentence_kite_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 圖案與長尾巴特徵",
-        "desc": "蝴蝶風箏、龍風箏與綵帶",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "The colorful diamond kite has a long fluttering ribbon tail.",
-          "A giant dragon kite looks magnificent soaring among white clouds.",
-          "This lightweight nylon kite is shaped like an eagle with open wings."
+          "Fly the colorful kite high."
         ],
         "translations": [
-          "這隻五彩斑斕的菱形風箏後面拖著長長的飄逸綵帶尾巴。",
-          "一隻巨型的中國龍風箏翱翔在白雲間，看起來壯麗非凡。",
-          "這隻輕盈的尼龍風箏被做成了一隻展開雙翅振翅欲飛的雄鷹模樣。"
+          "把彩色風箏高高放飛。"
         ]
       },
       {
-        "tag": "情境二 · 迎風奔跑放飛指令",
-        "desc": "逆風跑、放線與收線動作",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Run into the wind quickly and let go of the kite.",
-          "Unwind the spool of string gradually so the kite climbs higher.",
-          "Pull the string firmly to maneuver your kite against the breeze."
+          "My kite dances in the sky."
         ],
         "translations": [
-          "迎著風向快步奔跑起來，然後順勢鬆開手中的風箏。",
-          "隨著風箏越飛越高，慢慢勻速放出手裡的線軸線圈。",
-          "緊緊握住風箏線，透過手上的拉力在迎面而來的微風中操控風箏。"
+          "我的風箏在天空中跳舞。"
         ]
       },
       {
-        "tag": "情境三 · 春遊草坪生活對話",
-        "desc": "春天踏青與全家放風箏",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Springtime is the most wonderful season to fly kites on grass.",
-          "Look how high our paper kite is flying in the endless blue sky!",
-          "Can you help me reel in the kite string as the wind dies down?"
+          "Wind blows gently and lifts our big kite up."
         ],
         "translations": [
-          "春意盎然的春天是在綠草地上放飛風箏的最美妙季節。",
-          "抬頭看，我們的紙風箏在遼闊無際的藍天上飛得多高呀！",
-          "隨著風力漸漸減弱變小，你能幫我一起把風箏線收捲回來嗎？"
+          "微風輕輕吹拂把我們的大風箏送上天空。"
         ]
       }
     ]
@@ -3368,54 +4163,71 @@
     "phonetic": "/ˈbeɪ.bi/",
     "meaning": "名詞：小嬰兒，寶寶",
     "emoji": "👶",
-    "category": "home",
-    "level": "L2",
-    "role": "new",
+    "category": "daily_body",
+    "level": "L1",
+    "role": "consolidate",
     "variants": [
       "baby",
-      "babies"
+      "babies",
+      "babe",
+      "maybe",
+      "bb"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "The sweet baby is smiling.",
+        "translation": "甜美的小嬰兒正在微笑。",
+        "audioSrc": "audio/sentence_baby_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Mom holds the sleepy little baby.",
+        "translation": "媽媽溫柔抱著想睡覺的小嬰兒。",
+        "audioSrc": "audio/sentence_baby_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "The happy baby claps both hands and laughs aloud.",
+        "translation": "快樂的小嬰兒拍著雙手大聲歡笑。",
+        "audioSrc": "audio/sentence_baby_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 可愛面容特徵",
-        "desc": "胖乎乎小手、明亮眼睛與襁褓",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "The precious baby has chubby pink cheeks and tiny hands.",
-          "The newborn infant is wrapped snugly in a warm yellow blanket.",
-          "The sweet baby sleeps peacefully inside the wooden cradle."
+          "The sweet baby is smiling."
         ],
         "translations": [
-          "這個可愛的小嬰兒有著胖嘟嘟的粉紅小臉蛋和嬌嫩的小手。",
-          "剛出生的小毛頭寶寶被穩妥舒適地包裹在一條暖黃色小被子裡。",
-          "小寶寶在木質小搖籃裡恬靜安詳地睡著了。"
+          "甜美的小嬰兒正在微笑。"
         ]
       },
       {
-        "tag": "情境二 · 撫育照顧動作指令",
-        "desc": "輕搖搖籃、餵奶粉與哄睡指令",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Rock the baby carriage very gently to soothe the crying infant.",
-          "Wash your hands thoroughly before holding the delicate newborn baby.",
-          "Sing a sweet lullaby softly to help the baby fall asleep."
+          "Mom holds the sleepy little baby."
         ],
         "translations": [
-          "輕輕晃動嬰兒推車，安撫哭鬧不安的小嬰兒。",
-          "在伸手抱柔嫩的新生小寶寶之前，務必要用香皂把雙手清洗乾淨。",
-          "輕聲細語地哼唱一首甜美搖籃曲，哄疲倦的小寶寶安然入夢。"
+          "媽媽溫柔抱著想睡覺的小嬰兒。"
         ]
       },
       {
-        "tag": "情境三 · 親情互動生活對話",
-        "desc": "抓周、學步與親子溫情",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "The cheerful baby giggles and smiles whenever mommy tickles him.",
-          "Look! The little baby is taking her very first hesitant steps!",
-          "We must speak very quietly because the baby is sleeping soundly."
+          "The happy baby claps both hands and laughs aloud."
         ],
         "translations": [
-          "每當媽媽輕輕撓他癢癢，開朗的小寶寶就會咯咯大笑起來。",
-          "快看快看！那個小小的小嬰兒正邁出她人生中搖搖晃晃的第一步！",
-          "我們說話動作都要輕輕的，因為可愛的小寶寶正在甜美睡夢中呢。"
+          "快樂的小嬰兒拍著雙手大聲歡笑。"
         ]
       }
     ]
@@ -3424,57 +4236,74 @@
     "id": "shoe",
     "word": "shoe",
     "phonetic": "/ʃuː/",
-    "meaning": "名詞：鞋子，跑鞋",
+    "meaning": "名詞：鞋子",
     "emoji": "👟",
-    "category": "home",
+    "category": "daily_body",
     "level": "L1",
     "role": "review",
     "variants": [
       "shoe",
       "shoes",
-      "shoot"
+      "show",
+      "shoot",
+      "sure",
+      "zoo"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Put on your new shoes.",
+        "translation": "穿上你的新鞋子吧。",
+        "audioSrc": "audio/sentence_shoe_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Tie your shoe laces by yourself.",
+        "translation": "請練習自己把鞋帶綁整齊好。",
+        "audioSrc": "audio/sentence_shoe_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "These running shoes help me jump and run fast.",
+        "translation": "這雙運動跑鞋幫助我跳得高也跑得快。",
+        "audioSrc": "audio/sentence_shoe_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 鞋款材質與鞋底",
-        "desc": "運動跑鞋、皮鞋與橡膠鞋底",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "My athletic running shoes are blue with white bouncy soles.",
-          "Shiny black dress shoes are polished nicely for the concert.",
-          "Warm fleece-lined winter shoes keep little feet cozy in snow."
+          "Put on your new shoes."
         ],
         "translations": [
-          "我的運動慢跑鞋是藍色的，帶有高彈力減震的白色鞋底。",
-          "鋥亮發光的黑色正裝皮鞋被仔細打磨拋光，以參加今晚的音樂會。",
-          "內襯厚實羊羔絨的保暖冬鞋能確保小腳丫在冰天雪地裡暖暖和和。"
+          "穿上你的新鞋子吧。"
         ]
       },
       {
-        "tag": "情境二 · 穿鞋繫鞋帶自理動作",
-        "desc": "區分左右腳與獨立繫鞋帶",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Put on your sneakers and tie the shoelaces securely.",
-          "Make sure you put the right shoe on your right foot.",
-          "Place your muddy shoes neatly upon the entrance shoe rack."
+          "Tie your shoe laces by yourself."
         ],
         "translations": [
-          "穿好你的運動跑鞋，並且把鞋帶結結實實地繫緊。",
-          "穿鞋的時候要檢查清楚，確保右腳穿進了右邊的鞋子裡。",
-          "把你沾滿泥巴的髒鞋子整整齊齊地擺放在門廳的鞋架上。"
+          "請練習自己把鞋帶綁整齊好。"
         ]
       },
       {
-        "tag": "情境三 · 出門換鞋生活對話",
-        "desc": "鞋碼大小與戶外出行交流",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Do your new school shoes fit comfortably without pinching toes?",
-          "I have grown so fast that my old shoes are already too tight.",
-          "Take off your outdoor shoes before walking onto the living room rug."
+          "These running shoes help me jump and run fast."
         ],
         "translations": [
-          "你的這雙新校鞋穿起來合腳舒適嗎，會不會擠壓或者磨到腳趾頭？",
-          "我長個子長得太快了，以至於以前穿的舊鞋子現在都擠腳了。",
-          "踩上客廳乾淨地毯之前，請先把在外面穿的戶外鞋脫下來。"
+          "這雙運動跑鞋幫助我跳得高也跑得快。"
         ]
       }
     ]
@@ -3485,56 +4314,72 @@
     "phonetic": "/hæt/",
     "meaning": "名詞：帽子",
     "emoji": "🧢",
-    "category": "home",
+    "category": "daily_body",
     "level": "L1",
     "role": "new",
     "variants": [
       "hat",
       "hats",
       "hot",
-      "cat"
+      "hut",
+      "head",
+      "heart"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Wear a warm yellow hat.",
+        "translation": "戴上一頂溫暖的黃帽子。",
+        "audioSrc": "audio/sentence_hat_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "This sun hat protects my face.",
+        "translation": "這頂遮陽帽保護了我的臉部。",
+        "audioSrc": "audio/sentence_hat_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "The cute magic hat looks very special on head.",
+        "translation": "這頂可愛的魔法帽戴在頭上顯得非常特別。",
+        "audioSrc": "audio/sentence_hat_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 帽簷造型與保暖",
-        "desc": "鴨舌帽、遮陽帽與毛線帽",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "My favorite baseball cap has an adjustable visor.",
-          "The knitted wool hat has a fluffy pom-pom on top.",
-          "A wide-brimmed straw hat keeps strong sunlight off the face."
+          "Wear a warm yellow hat."
         ],
         "translations": [
-          "我最喜歡的這頂棒球帽配有一個可以調節角度的硬遮陽板。",
-          "這頂針織羊毛帽子頂部點綴著一顆毛茸茸的可愛小毛球。",
-          "寬寬帽簷的夏日草帽能很好地遮擋強烈的紫外線陽光。"
+          "戴上一頂溫暖的黃帽子。"
         ]
       },
       {
-        "tag": "情境二 · 佩戴整理動作指令",
-        "desc": "戴好帽子與進屋脫帽禮節",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Put on your warm woolen hat before going out into snow.",
-          "Take off your hat politely when you enter the classroom.",
-          "Adjust your cap visor so the bright sun does not blind you."
+          "This sun hat protects my face."
         ],
         "translations": [
-          "在邁步走進冰天雪地之前，一定要把暖和的毛線帽戴嚴實。",
-          "當你走進教室時，出於禮貌請主動把帽子摘下來。",
-          "調整好你的帽子帽簷，讓耀眼的直射陽光不會刺傷你的眼睛。"
+          "這頂遮陽帽保護了我的臉部。"
         ]
       },
       {
-        "tag": "情境三 · 出遊保暖生活對話",
-        "desc": "防風禦寒與沙灘出遊交流",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Does this stylish blue hat match my winter jacket nicely?",
-          "Hold onto your hat tightly so the sudden gust of wind does not blow it away.",
-          "Grandpa always wears a classic brown fedora hat when he travels."
+          "The cute magic hat looks very special on head."
         ],
         "translations": [
-          "這頂時髦俏皮的藍色帽子跟我身上穿的冬裝外套搭配得好看嗎？",
-          "兩手緊緊扶住頭頂的帽子，免得被突如其來的一陣大風給吹跑了。",
-          "每次出遠門旅行時，爺爺總是戴著一頂經典典雅的棕色軟呢禮帽。"
+          "這頂可愛的魔法帽戴在頭上顯得非常特別。"
         ]
       }
     ]
@@ -3545,55 +4390,72 @@
     "phonetic": "/hænd/",
     "meaning": "名詞：手，小手",
     "emoji": "✋",
-    "category": "home",
+    "category": "daily_body",
     "level": "L1",
-    "role": "new",
+    "role": "consolidate",
     "variants": [
       "hand",
       "hands",
-      "and"
+      "head",
+      "hard",
+      "and",
+      "hound"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Wash your hands with soap.",
+        "translation": "用肥皂把雙手洗乾淨。",
+        "audioSrc": "audio/sentence_hand_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Clap your hands with happy music.",
+        "translation": "跟著歡樂的音樂拍拍你的雙手。",
+        "audioSrc": "audio/sentence_hand_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "Raise your right hand when asking teacher a question.",
+        "translation": "向老師問問題時請先舉起你的右手。",
+        "audioSrc": "audio/sentence_hand_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 五指外形與功能",
-        "desc": "手掌、十指與靈巧指甲",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "Each human hand has five agile fingers and a palm.",
-          "Clean hands have neatly trimmed fingernails and no dirt.",
-          "A baby's tiny hand can curl around an adult's finger."
+          "Wash your hands with soap."
         ],
         "translations": [
-          "人類的每一隻手都長有五根靈巧自如的手指和一個手掌心。",
-          "保持乾淨的小手有著修剪整齊的指甲，看不見任何汙垢髒汙。",
-          "小嬰兒嬌嫩的小手可以穩穩抓住大人伸過來的一根手指。"
+          "用肥皂把雙手洗乾淨。"
         ]
       },
       {
-        "tag": "情境二 · 拍手洗手動作指令",
-        "desc": "勤洗手、拍拍手與舉手發言",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Wash your hands thoroughly with antibacterial soap for twenty seconds.",
-          "Raise your right hand politely if you wish to ask a question.",
-          "Clap your hands cheerfully if you know the lyrics to the song."
+          "Clap your hands with happy music."
         ],
         "translations": [
-          "用抑菌洗手液認認真真清洗揉搓雙手至少二十秒鐘。",
-          "如果你想在課堂上提出問題，請先禮貌端正地舉起右手。",
-          "如果你會唱這首歌的歌詞，就高興地拍拍你的小手吧！"
+          "跟著歡樂的音樂拍拍你的雙手。"
         ]
       },
       {
-        "tag": "情境三 · 牽手禮貌生活對話",
-        "desc": "過馬路牽手與手工勞作",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Hold mom's hand tightly whenever we cross the busy road.",
-          "We crafted this colorful Mother's Day card with our own hands.",
-          "Give me a helping hand to carry these heavy grocery bags."
+          "Raise your right hand when asking teacher a question."
         ],
         "translations": [
-          "每次牽手橫穿車水馬龍的馬路時，都要把媽媽的手抓得緊緊的。",
-          "我們用自己的這雙小手親手製作了這張充滿愛意的母親節賀卡。",
-          "你能搭把手，幫我一起把這些沉重的購物袋提回家嗎？"
+          "向老師問問題時請先舉起你的右手。"
         ]
       }
     ]
@@ -3604,55 +4466,72 @@
     "phonetic": "/aɪ/",
     "meaning": "名詞：眼睛",
     "emoji": "👁️",
-    "category": "home",
+    "category": "daily_body",
     "level": "L1",
-    "role": "new",
+    "role": "review",
     "variants": [
       "eye",
       "eyes",
-      "I"
+      "i",
+      "ice",
+      "aye",
+      "iron"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Close your eyes and sleep.",
+        "translation": "閉上雙眼好好睡覺吧。",
+        "audioSrc": "audio/sentence_eye_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "She has big and bright eyes.",
+        "translation": "她有著一雙又大又明亮的眼睛。",
+        "audioSrc": "audio/sentence_eye_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "Protect your eyes by taking breaks from bright screens.",
+        "translation": "遠離發光螢幕多休息來好好保護眼睛。",
+        "audioSrc": "audio/sentence_eye_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 瞳孔虹膜與明亮目光",
-        "desc": "清澈雙眼、長睫毛與眼色",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "The little girl has sparkling big brown eyes and dark eyelashes.",
-          "Cats have unique slit pupils that dilate wide in the dark.",
-          "Healthy human eyes can see a spectrum of vibrant colors."
+          "Close your eyes and sleep."
         ],
         "translations": [
-          "那個小女孩有一雙水汪汪閃耀的棕色大眼睛和濃密黑長的小睫毛。",
-          "貓咪擁有獨特的狹縫瞳孔，能在昏暗的黑夜中迅速放大捕光。",
-          "健康的眼睛能夠看清世間大自然中絢爛多彩的萬千色彩。"
+          "閉上雙眼好好睡覺吧。"
         ]
       },
       {
-        "tag": "情境二 · 保護視力動作指令",
-        "desc": "眼保健操、閉目養神與眨眼",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Close your tired eyes and take a brief five-minute rest.",
-          "Blink your eyes naturally to keep them moist and comfortable.",
-          "Do not rub your delicate eyes with unwashed dirty fingers."
+          "She has big and bright eyes."
         ],
         "translations": [
-          "輕輕閉上感到疲憊乾澀的雙眼，稍作五分鐘的放鬆休息。",
-          "自然規律地眨眨眼睛，讓淚膜保持眼球的溼潤與舒適。",
-          "千萬不要用沒洗乾淨的髒手去胡亂揉搓嬌嫩脆弱的眼睛。"
+          "她有著一雙又大又明亮的眼睛。"
         ]
       },
       {
-        "tag": "情境三 · 視力檢查生活對話",
-        "desc": "看遠看近與閱讀護眼交流",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "The optometrist doctor examined my vision during the checkup.",
-          "Keep proper distance from the screen to protect your precious eyes.",
-          "Look far into the distant green trees to relax your eye muscles."
+          "Protect your eyes by taking breaks from bright screens."
         ],
         "translations": [
-          "在常規體檢中，眼科醫生細緻地為我進行了視力健康檢查。",
-          "看書寫字看螢幕時請保持充足的正確距離，呵護我們寶貴的雙眼。",
-          "多向窗外遙望遠處鬱鬱蔥蔥的綠色樹木，放鬆緊張的眼部睫狀肌。"
+          "遠離發光螢幕多休息來好好保護眼睛。"
         ]
       }
     ]
@@ -3661,56 +4540,74 @@
     "id": "smile",
     "word": "smile",
     "phonetic": "/smaɪl/",
-    "meaning": "名詞/動詞：微笑，笑容",
+    "meaning": "名詞/動詞：微笑",
     "emoji": "😊",
-    "category": "home",
+    "category": "daily_body",
     "level": "L1",
-    "role": "new",
+    "role": "consolidate",
     "variants": [
       "smile",
-      "smiles"
+      "smiles",
+      "smell",
+      "small",
+      "mile",
+      "style"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Give me a happy smile.",
+        "translation": "給我一個快樂的微笑吧。",
+        "audioSrc": "audio/sentence_smile_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "A warm smile makes everyone glad.",
+        "translation": "溫暖的微笑讓身邊每個人都高興。",
+        "audioSrc": "audio/sentence_smile_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "A sweet smile is the best gift to friends.",
+        "translation": "甜美的微笑是送給好朋友最好的禮物。",
+        "audioSrc": "audio/sentence_smile_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 燦爛笑容特徵",
-        "desc": "嘴角上揚、酒窩與溫暖親和力",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "A radiant warm smile brightens up her whole face.",
-          "The child has cute deep dimples whenever he breaks into a smile.",
-          "A friendly welcoming smile makes strangers feel right at home."
+          "Give me a happy smile."
         ],
         "translations": [
-          "一個溫暖燦爛的笑容瞬間點亮了她整張親切可愛的臉龐。",
-          "每次臉上綻放開心笑容的時候，小男孩兩頰都會露出迷人的小酒窩。",
-          "一個真誠熱情的友好微笑能讓陌生的初來乍到者立刻感到賓至如歸。"
+          "給我一個快樂的微笑吧。"
         ]
       },
       {
-        "tag": "情境二 · 拍照與問候動作指令",
-        "desc": "看鏡頭笑一個與對人微笑",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Look directly at the camera lens and say cheese with a big smile!",
-          "Smile warmly when you greet your teachers and classmates in the morning.",
-          "Never forget to smile even when facing challenging tasks."
+          "A warm smile makes everyone glad."
         ],
         "translations": [
-          "注視著相機鏡頭，咧開嘴露出開心的燦爛微笑說：茄子！",
-          "清晨在校門口遇見老師和同學時，請微笑著主動道聲早安。",
-          "即使面臨困難重重的挑戰任務，也永遠別忘了保持微笑和自信。"
+          "溫暖的微笑讓身邊每個人都高興。"
         ]
       },
       {
-        "tag": "情境三 · 治癒情感生活對話",
-        "desc": "快樂感染力與關懷對話",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Your delightful smile always brings joy to everyone around you.",
-          "A simple sincere smile can turn someone's gloomy day completely around.",
-          "Mom smiled with deep pride when she saw my neat report card."
+          "A sweet smile is the best gift to friends."
         ],
         "translations": [
-          "你臉上洋溢著的歡快笑容總能給身邊的每一個人帶來無盡的快樂。",
-          "一個發自肺腑的真摯笑容足以徹底化解他人一整天的陰霾與疲憊。",
-          "當媽媽看到我工整優異的成績單時，臉上流露出了無比欣慰自豪的微笑。"
+          "甜美的微笑是送給好朋友最好的禮物。"
         ]
       }
     ]
@@ -3719,57 +4616,74 @@
     "id": "heart",
     "word": "heart",
     "phonetic": "/hɑːrt/",
-    "meaning": "名詞：心，愛心，心臟",
+    "meaning": "名詞：愛心，心臟",
     "emoji": "❤️",
-    "category": "home",
+    "category": "daily_body",
     "level": "L1",
     "role": "new",
     "variants": [
       "heart",
       "hearts",
-      "hard"
+      "hard",
+      "hot",
+      "part",
+      "art"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "I love with all heart.",
+        "translation": "我全心全意地愛著。",
+        "audioSrc": "audio/sentence_heart_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Draw a red heart for mom.",
+        "translation": "為親愛的媽媽畫一顆紅心。",
+        "audioSrc": "audio/sentence_heart_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "A kind heart always helps people around with joy.",
+        "translation": "善良的心靈總是樂於帶著喜悅幫助他人。",
+        "audioSrc": "audio/sentence_heart_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 愛心圖形與跳動",
-        "desc": "紅色愛心形狀與強健心跳",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "The shiny red heart-shaped greeting card is drawn with crayons.",
-          "A healthy human heart beats steadily day and night.",
-          "There is a gold heart locket dangling from her necklace."
+          "I love with all heart."
         ],
         "translations": [
-          "這張紅豔豔的愛心形狀祝福卡是用彩色蠟筆親手畫出來的。",
-          "一顆健康的人類心臟日夜不知疲倦、沉穩有力地跳動著。",
-          "她的金項鍊上懸掛著一枚做工精巧的金質心形吊墜。"
+          "我全心全意地愛著。"
         ]
       },
       {
-        "tag": "情境二 · 感受心跳動作指令",
-        "desc": "摸胸口聽心跳與手比愛心",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Place your palm flat on your left chest to feel your beating heart.",
-          "Make a cute heart gesture with your two hands for the photograph.",
-          "Listen to your heart rate speed up after running around the track."
+          "Draw a red heart for mom."
         ],
         "translations": [
-          "把手掌平貼在你的左胸膛上，感受那有節律跳動的心跳。",
-          "拍照留念的時候，兩隻手配合比出一個萌萌的愛心造型吧。",
-          "在操場跑道上跑完幾圈步後，仔細聆聽自己加速砰砰跳動的心率。"
+          "為親愛的媽媽畫一顆紅心。"
         ]
       },
       {
-        "tag": "情境三 · 關愛感恩情感對話",
-        "desc": "用真心表達愛與感謝",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "I love you with all my whole heart, mom and dad!",
-          "Thank you from the bottom of my heart for your generous help.",
-          "Regular physical exercise keeps your heart youthful and strong."
+          "A kind heart always helps people around with joy."
         ],
         "translations": [
-          "爸爸媽媽，我全心全意深深地愛著你們！",
-          "從心底深處最真誠地感謝您給予我的無私援助與支援。",
-          "堅持規律有益的體育鍛煉能讓我們寶貴的心臟長久保持活力與強健。"
+          "善良的心靈總是樂於帶著喜悅幫助他人。"
         ]
       }
     ]
@@ -3778,56 +4692,74 @@
     "id": "friend",
     "word": "friend",
     "phonetic": "/frɛnd/",
-    "meaning": "名詞：朋友，夥伴",
+    "meaning": "名詞：朋友，好朋友",
     "emoji": "🤝",
-    "category": "home",
+    "category": "daily_body",
     "level": "L1",
-    "role": "new",
+    "role": "review",
     "variants": [
       "friend",
-      "friends"
+      "friends",
+      "front",
+      "french",
+      "brand",
+      "fred"
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "You are my best friend.",
+        "translation": "你是我最好的好朋友。",
+        "audioSrc": "audio/sentence_friend_0_0.m4a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Good friends share toys and snacks.",
+        "translation": "好朋友會互相分享玩具和點心。",
+        "audioSrc": "audio/sentence_friend_1_0.m4a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 拓展挑戰",
+        "tag": "進階",
+        "text": "True friends always help and support each other warmly.",
+        "translation": "真正的朋友總是溫暖地互相幫助與支持。",
+        "audioSrc": "audio/sentence_friend_2_0.m4a"
+      }
     ],
     "scenarios": [
       {
-        "tag": "情境一 · 友善夥伴品質描述",
-        "desc": "善良忠誠、形影不離的知己",
+        "tag": "難度 1 · 簡單初階",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
         "sentences": [
-          "A true friend is always kind, honest, and supportive.",
-          "My best friend and I share our hobbies and secrets together.",
-          "New classmates can quickly become great lifelong friends."
+          "You are my best friend."
         ],
         "translations": [
-          "一個真正的朋友總是為人善良、待人真誠而且樂於助人。",
-          "我和我最要好的知心好友彼此無話不談，分享快樂和各自的秘密。",
-          "新學期剛認識的新同學很快就能融入集體，成為相伴一生的摯友。"
+          "你是我最好的好朋友。"
         ]
       },
       {
-        "tag": "情境二 · 握手互助動作指令",
-        "desc": "交朋友握手、分享玩具指令",
+        "tag": "難度 2 · 中等日常",
+        "desc": "生活日常短句（適合中年級/日常口語）",
         "sentences": [
-          "Shake hands and introduce your name politely to make a new friend.",
-          "Share your favorite colored crayons generously with your friend.",
-          "Help your friend stand back up if they trip on the playground."
+          "Good friends share toys and snacks."
         ],
         "translations": [
-          "禮貌地伸出手和對方握手並自我介紹，結交一個友善的新朋友。",
-          "把你珍愛的彩色畫筆大方地拿出來，和小夥伴一起塗鴉分享。",
-          "如果在操場奔跑時不小心摔跤摔倒了，快快伸手把好朋友扶起來。"
+          "好朋友會互相分享玩具和點心。"
         ]
       },
       {
-        "tag": "情境三 · 友誼長青生活對話",
-        "desc": "週末結伴出遊與互致問候",
+        "tag": "難度 3 · 進階挑戰",
+        "desc": "拓展進階長句（適合高年級/拓展能力）",
         "sentences": [
-          "Would you like to come over to my house this Saturday, my friend?",
-          "A friend in need is indeed a trustworthy friend forever.",
-          "We sang a cheerful friendship song together at summer camp."
+          "True friends always help and support each other warmly."
         ],
         "translations": [
-          "這個週六你願意來我們家一起做客做遊戲嗎，我的好朋友？",
-          "患難與共、風雨同舟的朋友，才是真正經得起時間考驗的好朋友。",
-          "在歡快的夏令營篝火晚會上，大家肩並肩手拉手合唱友誼之歌。"
+          "真正的朋友總是溫暖地互相幫助與支持。"
         ]
       }
     ]
@@ -3837,15 +4769,50 @@
     // Application State
     let appMode = 'quest'; // 'quest' | 'free' | 'adventure'
     
+    // --- Multi-Child Profiles & Adaptive System ---
+    const DEFAULT_PROFILES = [
+      {
+        id: "child_kai",
+        name: "Kai 寶貝",
+        avatar: "👦",
+        grade: "國小二年級",
+        streakDays: 525,
+        energyPoints: 350,
+        scoreHistory: [88, 92, 85, 90, 95, 86, 91, 94],
+        weakWords: ["banana", "clock"],
+        masteredWords: ["cat", "dog", "apple", "sun"],
+        adventureStars: {"desk": 3, "bed": 3, "cup": 2, "door": 3, "clock": 1},
+        practiceLogs: []
+      },
+      {
+        id: "child_mia",
+        name: "Mia 妹妹",
+        avatar: "👧",
+        grade: "國小一年級",
+        streakDays: 14,
+        energyPoints: 120,
+        scoreHistory: [70, 74, 76, 75, 78],
+        weakWords: ["rabbit", "friend"],
+        masteredWords: ["baby", "milk"],
+        adventureStars: {"desk": 2, "bed": 1},
+        practiceLogs: []
+      }
+    ];
+
+    let profiles = [];
+    let currentProfileId = "child_kai";
+    let selectedAvatarEmoji = "👦";
+    let earlyFinishTimer = null;
+
     // --- Quest Mode State (10 Words: Dynamic SRS Based on Practice History) ---
     let questQueue = []; // 10 items
     let questWordIdx = 0; // 0 to 9
-    let questSubStep = 0; // 0: Word, 1: Random Sent 1, 2: Random Sent 2
+    let questSubStep = 0; // 0: Word, 1: Graded Sent 1, 2: Graded Sent 2
     let questAutoPlay = false;
     let questAudioPlayer = new Audio();
     let questRecTimer = null;
-    let questCountdownVal = 5;
-    let questMaxCountdown = 5;
+    let questCountdownVal = 8;
+    let questMaxCountdown = 8;
     let overlayTimer = null;
 
     // --- Free Mode State (Paged Flashcards, Random Shuffle & Diagnostics) ---
@@ -3878,11 +4845,327 @@
     let maxAcousticEnergy = 0;
     let lastInterimSpeech = "";
 
-    // Persistent Storage
-    let streakDays = parseInt(localStorage.getItem('kai_streak_days') || '525');
-    let energyPoints = parseInt(localStorage.getItem('kai_energy_points') || '350');
-    let practiceLogs = JSON.parse(localStorage.getItem('kai_practice_logs') || '[]');
-    let adventureStars = JSON.parse(localStorage.getItem('kai_adventure_stars') || '{}');
+    // Active Profile Synced Variables
+    let streakDays = 525;
+    let energyPoints = 350;
+    let practiceLogs = [];
+    let adventureStars = {};
+
+    // ========================================================
+    // MULTI-CHILD PROFILE & ADAPTIVE DIFFICULTY STORE
+    // ========================================================
+    function initProfileStore() {
+      const saved = localStorage.getItem('kai_multi_profiles');
+      if (saved) {
+        try {
+          profiles = JSON.parse(saved);
+        } catch(e) {
+          profiles = JSON.parse(JSON.stringify(DEFAULT_PROFILES));
+        }
+      } else {
+        profiles = JSON.parse(JSON.stringify(DEFAULT_PROFILES));
+        const legacyStreak = localStorage.getItem('kai_streak_days');
+        const legacyEnergy = localStorage.getItem('kai_energy_points');
+        const legacyLogs = localStorage.getItem('kai_practice_logs');
+        const legacyStars = localStorage.getItem('kai_adventure_stars');
+        if (legacyStreak) profiles[0].streakDays = parseInt(legacyStreak);
+        if (legacyEnergy) profiles[0].energyPoints = parseInt(legacyEnergy);
+        if (legacyLogs) {
+          try { profiles[0].practiceLogs = JSON.parse(legacyLogs); } catch(e){}
+        }
+        if (legacyStars) {
+          try { profiles[0].adventureStars = JSON.parse(legacyStars); } catch(e){}
+        }
+        saveProfilesToStorage();
+      }
+
+      const savedCurId = localStorage.getItem('kai_current_profile_id');
+      if (savedCurId && profiles.some(p => p.id === savedCurId)) {
+        currentProfileId = savedCurId;
+      } else {
+        currentProfileId = profiles[0].id;
+      }
+
+      loadActiveProfileData();
+    }
+
+    function getActiveProfile() {
+      return profiles.find(p => p.id === currentProfileId) || profiles[0];
+    }
+
+    function saveProfilesToStorage() {
+      localStorage.setItem('kai_multi_profiles', JSON.stringify(profiles));
+      localStorage.setItem('kai_current_profile_id', currentProfileId);
+      // Sync legacy localStorage keys
+      const p = getActiveProfile();
+      localStorage.setItem('kai_streak_days', (p.streakDays || 1).toString());
+      localStorage.setItem('kai_energy_points', (p.energyPoints || 0).toString());
+      localStorage.setItem('kai_practice_logs', JSON.stringify(p.practiceLogs || []));
+      localStorage.setItem('kai_adventure_stars', JSON.stringify(p.adventureStars || {}));
+    }
+
+    function loadActiveProfileData() {
+      const p = getActiveProfile();
+      streakDays = p.streakDays || 1;
+      energyPoints = p.energyPoints || 0;
+      practiceLogs = p.practiceLogs || [];
+      adventureStars = p.adventureStars || {};
+
+      updateProfileHeaderUI();
+      updateStreakAndEnergyUI();
+      updateAdaptiveBadgeUI();
+    }
+
+    function updateProfileHeaderUI() {
+      const p = getActiveProfile();
+      const adaptive = getAdaptiveAnalysis(p);
+
+      const hAvatar = document.getElementById('headerProfileAvatar');
+      const hName = document.getElementById('headerProfileName');
+      const hGrade = document.getElementById('headerProfileGrade');
+      const hBadge = document.getElementById('headerProfileLevelBadge');
+      const mAvatar = document.getElementById('mobileProfileAvatar');
+      const mName = document.getElementById('mobileProfileName');
+      const oAvatar = document.getElementById('overlayChildAvatar');
+      const oName = document.getElementById('overlayChildName');
+      const oAdaptive = document.getElementById('overlayChildAdaptive');
+
+      if (hAvatar) hAvatar.innerText = p.avatar;
+      if (hName) hName.innerText = p.name;
+      if (hGrade) hGrade.innerText = p.grade;
+      if (hBadge) hBadge.innerText = adaptive.title.split(' ')[0] + ' ' + (adaptive.level === 1 ? '初階' : (adaptive.level === 2 ? '中階' : '高階'));
+      if (mAvatar) mAvatar.innerText = p.avatar;
+      if (mName) mName.innerText = p.name.slice(0, 4);
+      if (oAvatar) oAvatar.innerText = p.avatar;
+      if (oName) oName.innerText = p.name;
+      if (oAdaptive) oAdaptive.innerText = adaptive.title;
+    }
+
+    function getAdaptiveAnalysis(profile) {
+      const p = profile || getActiveProfile();
+      const history = p.scoreHistory || [];
+      const streak = p.streakDays || 1;
+
+      if (history.length === 0) {
+        return {
+          level: 1,
+          title: "🟢 基礎入門（短句適配）",
+          desc: "專注 3~4 詞極簡例句，保護發音開口自信心！",
+          badgeClass: "bg-emerald-100 text-emerald-800 border-emerald-300",
+          avgScore: 80,
+          accuracyPct: 100
+        };
+      }
+
+      const recent = history.slice(-10);
+      const avg = Math.round(recent.reduce((a, b) => a + b, 0) / recent.length);
+      const goodCount = recent.filter(s => s >= 75).length;
+      const accuracyPct = Math.round((goodCount / recent.length) * 100);
+
+      // Low score or low accuracy -> strictly downgrade to Level 1
+      if (avg < 73 || accuracyPct < 60) {
+        return {
+          level: 1,
+          title: "🟢 基礎入門（短句適配）",
+          desc: `近期平均 ${avg} 分 · 正確率 ${accuracyPct}%。智能降階為初階短句，減輕負擔、鞏固基礎！`,
+          badgeClass: "bg-emerald-100 text-emerald-800 border-emerald-300",
+          avgScore: avg,
+          accuracyPct
+        };
+      }
+
+      // High score and good streak -> upgrade to Level 3
+      if ((avg >= 85 && streak >= 3) || avg >= 88) {
+        return {
+          level: 3,
+          title: "🟣 進階拓展（挑戰長句）",
+          desc: `近期平均 ${avg} 分 · 正確率 ${accuracyPct}%！口語表現優異，已晉升高難度拓展句挑戰！`,
+          badgeClass: "bg-purple-100 text-purple-800 border-purple-300",
+          avgScore: avg,
+          accuracyPct
+        };
+      }
+
+      // Default Level 2
+      return {
+        level: 2,
+        title: "🟡 中階探索（生活日常）",
+        desc: `近期平均 ${avg} 分 · 正確率 ${accuracyPct}%。日常情境句型，穩定提升聽讀流暢度！`,
+        badgeClass: "bg-amber-100 text-amber-800 border-amber-300",
+        avgScore: avg,
+        accuracyPct
+      };
+    }
+
+    function updateAdaptiveBadgeUI() {
+      const p = getActiveProfile();
+      const adaptive = getAdaptiveAnalysis(p);
+      const tEl = document.getElementById('questAdaptiveTitle');
+      const dEl = document.getElementById('questAdaptiveDesc');
+      if (tEl) tEl.innerText = `智能自適應：${adaptive.title}`;
+      if (dEl) dEl.innerText = adaptive.desc;
+    }
+
+    function toggleProfileModal() {
+      const modal = document.getElementById('profileModal');
+      if (!modal) return;
+      modal.classList.toggle('hidden');
+      if (!modal.classList.contains('hidden')) {
+        renderProfileModalContent();
+      }
+    }
+
+    function renderProfileModalContent() {
+      const activeP = getActiveProfile();
+      const adaptive = getAdaptiveAnalysis(activeP);
+
+      // Render Active Banner
+      const cardEl = document.getElementById('modalActiveProfileCard');
+      if (cardEl) {
+        cardEl.innerHTML = `
+          <div class="flex items-center gap-3">
+            <span class="text-4xl p-2 rounded-2xl bg-white shadow-sm">${activeP.avatar}</span>
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-base font-black text-slate-900">${activeP.name}</span>
+                <span class="text-[10px] bg-violet-200 text-violet-900 px-2 py-0.5 rounded-full font-bold">${activeP.grade}</span>
+                <span class="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-extrabold">✓ 當前學習中</span>
+              </div>
+              <div class="text-xs text-slate-600 mt-1 flex items-center gap-3">
+                <span>🔥 連續: <strong>${activeP.streakDays || 1}</strong> 天</span>
+                <span>⚡ 能量: <strong>${activeP.energyPoints || 0}</strong> 點</span>
+                <span>🎯 適應: <strong>${adaptive.title}</strong></span>
+              </div>
+            </div>
+          </div>
+          <div class="text-right hidden sm:block">
+            <div class="text-[11px] text-slate-500 font-bold">近期發音評測</div>
+            <div class="text-xl font-black text-indigo-600">${adaptive.avgScore} <span class="text-xs text-slate-400">分</span></div>
+          </div>
+        `;
+      }
+
+      // Render Profiles List
+      const listContainer = document.getElementById('profileListContainer');
+      if (listContainer) {
+        listContainer.innerHTML = profiles.map(p => {
+          const isCurrent = p.id === currentProfileId;
+          const a = getAdaptiveAnalysis(p);
+          return `
+            <div class="p-3.5 rounded-2xl border transition flex items-center justify-between gap-3 ${
+              isCurrent ? 'bg-indigo-50/70 border-indigo-300 shadow-sm' : 'bg-slate-50 border-slate-200 hover:bg-slate-100'
+            }">
+              <div class="flex items-center gap-2.5">
+                <span class="text-2xl">${p.avatar}</span>
+                <div>
+                  <div class="flex items-center gap-1.5">
+                    <span class="font-bold text-xs text-slate-900">${p.name}</span>
+                    <span class="text-[9px] bg-slate-200 text-slate-700 px-1.5 py-0.2 rounded font-semibold">${p.grade}</span>
+                  </div>
+                  <div class="text-[10px] text-slate-500 mt-0.5 flex items-center gap-2">
+                    <span>🔥 ${p.streakDays || 1} 天</span>
+                    <span>⚡ ${p.energyPoints || 0} 點</span>
+                    <span class="${a.badgeClass} px-1.5 py-0.2 rounded font-bold">${a.title.split(' ')[0]}</span>
+                    <span>均分 ${a.avgScore} 分</span>
+                  </div>
+                </div>
+              </div>
+              <div>
+                ${
+                  isCurrent 
+                    ? `<span class="px-3 py-1.5 rounded-xl bg-indigo-600 text-white text-xs font-bold shadow-sm">當前使用中</span>`
+                    : `<button onclick="switchProfile('${p.id}')" class="px-3 py-1.5 rounded-xl bg-white hover:bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-bold shadow-sm active:scale-95 transition">切換至此學員</button>`
+                }
+              </div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Render Avatar Picker
+      const picker = document.getElementById('newAvatarPicker');
+      const emojis = ['👦', '👧', '🧒', '🦁', '🐱', '🐶', '🚀', '🦄', '🌟'];
+      if (picker) {
+        picker.innerHTML = emojis.map(emo => `
+          <button type="button" onclick="selectNewAvatar('${emo}')" class="w-8 h-8 rounded-xl border text-base flex items-center justify-center transition active:scale-95 ${
+            selectedAvatarEmoji === emo ? 'border-indigo-600 bg-indigo-100 scale-110 shadow' : 'border-slate-200 bg-white hover:bg-slate-100'
+          }">${emo}</button>
+        `).join('');
+      }
+    }
+
+    function selectNewAvatar(emo) {
+      selectedAvatarEmoji = emo;
+      renderProfileModalContent();
+    }
+
+    function toggleNewProfileForm() {
+      const form = document.getElementById('newProfileForm');
+      if (form) form.classList.toggle('hidden');
+    }
+
+    function confirmCreateProfile() {
+      const nameInput = document.getElementById('newProfileName');
+      const gradeSelect = document.getElementById('newProfileGrade');
+      const name = (nameInput ? nameInput.value : "").trim();
+      const grade = gradeSelect ? gradeSelect.value : "國小一年級";
+
+      if (!name) {
+        alert("請輸入小朋友的暱稱或英文名！");
+        return;
+      }
+
+      const newId = 'child_' + Date.now();
+      const newProfile = {
+        id: newId,
+        name: name,
+        avatar: selectedAvatarEmoji,
+        grade: grade,
+        streakDays: 1,
+        energyPoints: 100,
+        scoreHistory: [80],
+        weakWords: [],
+        masteredWords: [],
+        adventureStars: {},
+        practiceLogs: []
+      };
+
+      profiles.push(newProfile);
+      currentProfileId = newId;
+      saveProfilesToStorage();
+      loadActiveProfileData();
+
+      if (nameInput) nameInput.value = "";
+      toggleNewProfileForm();
+      toggleProfileModal();
+
+      initQuestQueue();
+      questWordIdx = 0;
+      questSubStep = 0;
+      renderQuestCard();
+
+      SoundEffects.playShield();
+      alert(`🎉 成功建立新學員【${name}】！
+已為 ${name} 自動配置專屬自適應英語任務與學習檔案！`);
+    }
+
+    function switchProfile(profileId) {
+      if (profileId === currentProfileId) return;
+      currentProfileId = profileId;
+      saveProfilesToStorage();
+      loadActiveProfileData();
+
+      initQuestQueue();
+      questWordIdx = 0;
+      questSubStep = 0;
+      renderQuestCard();
+
+      if (appMode === 'free') renderFreeCard();
+      if (appMode === 'adventure') renderAdventureMap();
+
+      toggleProfileModal();
+      SoundEffects.playShield();
+    }
 
     // ========================================================
     // SOUND EFFECTS MODULE (Web Audio API Synthesizer)
@@ -4027,16 +5310,19 @@
     // 4 New, 4 Review/Weak, 2 Consolidate
     // ========================================================
     function initQuestQueue() {
-      // Find weak words from practice logs (< 75)
-      const weakWordsSet = new Set(practiceLogs.filter(l => l.score < 75).map(l => l.word));
-      const masteredWordsSet = new Set(practiceLogs.filter(l => l.score >= 85).map(l => l.word));
+      const activeP = getActiveProfile();
+      const adaptive = getAdaptiveAnalysis(activeP);
+      const userLevel = adaptive.level; // 1: 初階, 2: 中階, 3: 高階
+
+      // Find weak words from profile
+      const weakWordsSet = new Set(activeP.weakWords || practiceLogs.filter(l => l.score < 75).map(l => l.word));
+      const masteredWordsSet = new Set(activeP.masteredWords || practiceLogs.filter(l => l.score >= 85).map(l => l.word));
 
       // Separate pool
       const weakPool = MASTER_VOCAB.filter(v => weakWordsSet.has(v.word) || v.role === 'review');
       const consolidatePool = MASTER_VOCAB.filter(v => masteredWordsSet.has(v.word) || v.role === 'consolidate');
       const newPool = MASTER_VOCAB.filter(v => !weakWordsSet.has(v.word) && !masteredWordsSet.has(v.word));
 
-      // Shuffle helper
       const shuf = arr => [...arr].sort(() => 0.5 - Math.random());
 
       const selected = [
@@ -4045,7 +5331,6 @@
         ...shuf(consolidatePool).slice(0, 2)
       ];
 
-      // Fallback filling if pools are small
       let fallbackIdx = 0;
       const shufAll = shuf(MASTER_VOCAB);
       while (selected.length < 10 && fallbackIdx < shufAll.length) {
@@ -4055,25 +5340,30 @@
         fallbackIdx++;
       }
 
-      // For each word, randomly pick 2 sentences from its 9 scenario sentences
+      // Assign 2 age-appropriate sentences according to the child's adaptive level!
       questQueue = selected.map(wordObj => {
-        const allSentences = [];
-        if (wordObj.scenarios && wordObj.scenarios.length > 0) {
-          wordObj.scenarios.forEach((sc, scIdx) => {
-            if (sc.sentences) {
-              sc.sentences.forEach((sent, sentIdx) => {
-                allSentences.push({
-                  text: sent,
-                  translation: (sc.translations && sc.translations[sentIdx]) ? sc.translations[sentIdx] : "",
-                  scenarioTitle: sc.title || `情境 ${scIdx + 1}`,
-                  audioSrc: `audio/sentence_${wordObj.id}_${scIdx}_${sentIdx}.m4a`
-                });
-              });
-            }
-          });
+        const g = wordObj.gradedSentences;
+        let picked = [];
+        if (userLevel === 1) {
+          // Level 1: Simple L1 & Medium L2
+          picked = [
+            { text: g[0].text, translation: g[0].translation, level: 1, levelLabel: "簡單 · 初階短句", audioSrc: g[0].audioSrc },
+            { text: g[1].text, translation: g[1].translation, level: 2, levelLabel: "中等 · 生活日常", audioSrc: g[1].audioSrc }
+          ];
+        } else if (userLevel === 2) {
+          // Level 2: Simple L1 & Medium L2
+          picked = [
+            { text: g[0].text, translation: g[0].translation, level: 1, levelLabel: "簡單 · 初階短句", audioSrc: g[0].audioSrc },
+            { text: g[1].text, translation: g[1].translation, level: 2, levelLabel: "中等 · 生活日常", audioSrc: g[1].audioSrc }
+          ];
+        } else {
+          // Level 3: Medium L2 & Hard L3
+          picked = [
+            { text: g[1].text, translation: g[1].translation, level: 2, levelLabel: "中等 · 生活日常", audioSrc: g[1].audioSrc },
+            { text: g[2].text, translation: g[2].translation, level: 3, levelLabel: "進階 · 拓展挑戰", audioSrc: g[2].audioSrc }
+          ];
         }
-        const shuffled = [...allSentences].sort(() => 0.5 - Math.random());
-        const picked = shuffled.slice(0, 2);
+
         return {
           ...wordObj,
           _dailySentences: picked
@@ -4274,7 +5564,7 @@
         engEl.innerText = sentItem.text;
         chiEl.innerText = sentItem.translation;
         phoEl.classList.add('hidden');
-        badgeEl.innerText = sentItem.scenarioTitle || `精選例句 ${questSubStep}`;
+        badgeEl.innerText = sentItem.levelLabel || sentItem.scenarioTitle || `精選例句 ${questSubStep}`;
       }
 
       document.getElementById('questSpokenText').innerText = "等待朗讀...";
@@ -4406,16 +5696,87 @@
       if (numEl) numEl.innerText = remaining;
     }
 
+    function getQuestCountdownTime() {
+      if (questSubStep === 0) return 8; // 8s for single word
+      const card = currentQuestCard();
+      const sent = (card._dailySentences && card._dailySentences[questSubStep - 1]);
+      if (sent && sent.level === 3) return 15; // 15s for Level 3
+      if (sent && sent.level === 2) return 12; // 12s for Level 2
+      return 10; // 10s for Level 1
+    }
+
+    function checkEarlyFinishSpoken(currentText) {
+      if (!isRecording || activeRecModule !== 'quest') return;
+      const targetText = document.getElementById('questTargetEnglish').innerText;
+      if (!targetText) return;
+
+      const clean = (s) => s.toLowerCase().replace(/[^a-z0-9\s]/g, '').trim().split(/\s+/).filter(Boolean);
+      const targetWords = clean(targetText);
+      const spokenWords = clean(currentText);
+
+      if (targetWords.length === 0 || spokenWords.length === 0) return;
+
+      let isFinished = false;
+
+      if (questSubStep === 0) {
+        // Single word step: check target word or variants
+        const card = currentQuestCard();
+        const variants = (card.variants || []).map(v => v.toLowerCase());
+        variants.push(targetWords[0]);
+        if (spokenWords.some(w => variants.includes(w))) {
+          isFinished = true;
+        }
+      } else {
+        // Sentence step: check if last word is reached and enough words were spoken
+        const lastWord = targetWords[targetWords.length - 1];
+        const lastSpoken = spokenWords[spokenWords.length - 1];
+        const hasLastWord = spokenWords.includes(lastWord) || lastSpoken === lastWord;
+        const enoughWords = spokenWords.length >= Math.max(1, targetWords.length - 1);
+        const matchRatio = targetWords.filter(w => spokenWords.includes(w)).length / targetWords.length;
+
+        if ((hasLastWord && enoughWords) || matchRatio >= 0.85) {
+          isFinished = true;
+        }
+      }
+
+      if (isFinished) {
+        const feedbackEl = document.getElementById('questSpokenText');
+        if (feedbackEl) {
+          feedbackEl.innerHTML = `${currentText} <span class="text-emerald-600 font-extrabold ml-1.5 animate-pulse">✓ 偵測讀完，即將評分...</span>`;
+        }
+        if (earlyFinishTimer) clearTimeout(earlyFinishTimer);
+        earlyFinishTimer = setTimeout(() => {
+          if (isRecording && activeRecModule === 'quest') {
+            finishQuestRecordEarly();
+          }
+        }, 400);
+      }
+    }
+
+    function finishQuestRecordEarly() {
+      if (earlyFinishTimer) { clearTimeout(earlyFinishTimer); earlyFinishTimer = null; }
+      const earlyBtn = document.getElementById('questEarlyFinishBtn');
+      if (earlyBtn) earlyBtn.classList.add('hidden');
+
+      if (questRecTimer) { clearInterval(questRecTimer); questRecTimer = null; }
+      if (recognition) {
+        try { recognition.stop(); } catch(e){}
+      }
+      stopRecording();
+    }
+
     function startQuestAutoRecord() {
       if (!questAutoPlay) return;
       setQuestStatus("輪到你啦，請大聲朗讀！(沙漏倒數計時中...)", "🎙️", "bg-rose-100 text-rose-800 font-extrabold border-rose-200");
       
       const ring = document.getElementById('questMicRing');
       const hourglassBox = document.getElementById('questHourglassBox');
+      const earlyBtn = document.getElementById('questEarlyFinishBtn');
       ring.classList.remove('hidden');
       hourglassBox.classList.remove('hidden');
+      if (earlyBtn) earlyBtn.classList.remove('hidden');
 
-      questMaxCountdown = questSubStep === 0 ? 5 : 6;
+      questMaxCountdown = getQuestCountdownTime();
       questCountdownVal = questMaxCountdown;
       updateHourglass(questCountdownVal, questMaxCountdown);
       document.getElementById('questSpokenText').innerText = "聆聽中，請大聲朗讀...";
@@ -4469,11 +5830,14 @@
     }
 
     function handleQuestSpeechEvaluation(spokenText) {
+      if (earlyFinishTimer) { clearTimeout(earlyFinishTimer); earlyFinishTimer = null; }
       if (questRecTimer) { clearInterval(questRecTimer); questRecTimer = null; }
       const ring = document.getElementById('questMicRing');
       const hourglassBox = document.getElementById('questHourglassBox');
+      const earlyBtn = document.getElementById('questEarlyFinishBtn');
       ring.classList.add('hidden');
       hourglassBox.classList.add('hidden');
+      if (earlyBtn) earlyBtn.classList.add('hidden');
 
       const targetText = document.getElementById('questTargetEnglish').innerText;
       
@@ -4483,11 +5847,26 @@
       const score = calculateScore(targetText, spokenText, maxAcousticEnergy);
       const isGood = score >= 75;
 
+      const p = getActiveProfile();
+      if (!p.scoreHistory) p.scoreHistory = [];
+      p.scoreHistory.push(score);
+      if (p.scoreHistory.length > 50) p.scoreHistory.shift();
+
       if (score >= 85) {
         energyPoints += 5;
-        localStorage.setItem('kai_energy_points', energyPoints.toString());
+        p.energyPoints = energyPoints;
+        if (!p.masteredWords) p.masteredWords = [];
+        const card = currentQuestCard();
+        if (!p.masteredWords.includes(card.word)) p.masteredWords.push(card.word);
+        if (p.weakWords) p.weakWords = p.weakWords.filter(w => w !== card.word);
         updateStreakAndEnergyUI();
+      } else if (score < 75) {
+        if (!p.weakWords) p.weakWords = [];
+        const card = currentQuestCard();
+        if (!p.weakWords.includes(card.word)) p.weakWords.push(card.word);
       }
+      saveProfilesToStorage();
+      updateAdaptiveBadgeUI();
 
       SoundEffects.playScore(score);
 
@@ -4498,7 +5877,7 @@
       );
 
       const card = currentQuestCard();
-      const typeStr = questSubStep === 0 ? "每日任務-單字" : `每日任務-隨機例句${questSubStep}`;
+      const typeStr = questSubStep === 0 ? "每日任務-單字" : `每日任務-例句${questSubStep}`;
       recordPracticeLog(card.word, targetText, score, isGood ? "已熟練" : "待加強", typeStr);
 
       setTimeout(() => {
@@ -4628,8 +6007,10 @@
           const oldStreak = streakDays;
           streakDays++;
           energyPoints += 50;
-          localStorage.setItem('kai_streak_days', streakDays.toString());
-          localStorage.setItem('kai_energy_points', energyPoints.toString());
+          const p = getActiveProfile();
+          p.streakDays = streakDays;
+          p.energyPoints = energyPoints;
+          saveProfilesToStorage();
           updateStreakAndEnergyUI();
 
           questAutoPlay = false;
@@ -4840,7 +6221,7 @@
       });
 
       const sc = card.scenarios[freeScenarioIndex] || card.scenarios[0];
-      document.getElementById('freeScenarioTitle').innerText = sc.title || `情境 ${freeScenarioIndex + 1}`;
+      document.getElementById('freeScenarioTitle').innerText = sc.tag || sc.title || `難度 ${freeScenarioIndex + 1}`;
 
       const listContainer = document.getElementById('freeSentenceList');
       listContainer.innerHTML = '';
@@ -5239,6 +6620,7 @@
               if (activeRecModule === 'quest') {
                 const feedbackEl = document.getElementById('questSpokenText');
                 if (feedbackEl) feedbackEl.innerText = currentText;
+                checkEarlyFinishSpoken(currentText);
               }
             }
           };
@@ -5493,7 +6875,7 @@
     function initQRCode() {
       const canvas = document.getElementById('qrCodeCanvas');
       if (canvas && window.QRCode) {
-        QRCode.toCanvas(canvas, "https://honga0812.github.io/KaiSpeak/?v=8", {
+        QRCode.toCanvas(canvas, "https://honga0812.github.io/KaiSpeak/?v=9", {
           width: 176,
           margin: 1,
           color: { dark: '#312E81', light: '#FFFFFF' }
@@ -5516,6 +6898,7 @@
     function pad(n) { return n < 10 ? '0' + n : n; }
 
     window.addEventListener('DOMContentLoaded', () => {
+      initProfileStore();
       initQuestQueue();
       switchAppMode('quest');
       updateStreakAndEnergyUI();
