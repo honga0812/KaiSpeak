@@ -1,0 +1,6 @@
+.DS_Store
+*.pyc
+__pycache__/
+cert.pem
+key.pem
+temp_script.js
