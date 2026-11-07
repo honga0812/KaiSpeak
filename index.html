@@ -698,15 +698,49 @@
       </div>
     </div>
 
-    <!-- Category Filter Pills -->
+    <!-- Category Filter Pills with Kai Story Integration -->
     <div class="flex items-center gap-1.5 overflow-x-auto hide-scrollbar text-xs w-full py-1">
-      <button onclick="setFreeCategory('all')" class="free-cat-btn active px-3.5 py-1.5 rounded-xl font-bold bg-indigo-600 text-white shadow-sm whitespace-nowrap" data-cat="all">全部詞庫</button>
+      <button onclick="setFreeCategory('all')" class="free-cat-btn active px-3.5 py-1.5 rounded-xl font-bold bg-indigo-600 text-white shadow-sm whitespace-nowrap" data-cat="all">全部詞庫 (50)</button>
+      <button onclick="setFreeCategory('story')" class="free-cat-btn px-3.5 py-1.5 rounded-xl font-black bg-gradient-to-r from-amber-100 via-purple-100 to-indigo-100 text-purple-950 border border-purple-300 hover:from-amber-200 hover:to-purple-200 whitespace-nowrap shadow-sm flex items-center gap-1.5 active:scale-95 transition" data-cat="story">
+        <span class="text-sm">📖</span>
+        <span>生活故事 · Kai's Day</span>
+        <span class="text-[9px] bg-purple-600 text-white px-2 py-0.5 rounded-full font-extrabold tracking-wider">Kai Story</span>
+      </button>
       <button onclick="setFreeCategory('weak')" class="free-cat-btn px-3.5 py-1.5 rounded-xl font-bold bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100 whitespace-nowrap" data-cat="weak">⚠️ 錯詞本 (<span id="weakCountBadge">0</span>)</button>
-      <button onclick="setFreeCategory('home')" class="free-cat-btn px-3.5 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="home">🏠 家居 (12)</button>
-      <button onclick="setFreeCategory('food')" class="free-cat-btn px-3.5 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="food">🍎 飲食 (10)</button>
-      <button onclick="setFreeCategory('animal')" class="free-cat-btn px-3.5 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="animal">🐶 動物 (10)</button>
-      <button onclick="setFreeCategory('nature')" class="free-cat-btn px-3.5 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="nature">🌿 自然 (10)</button>
-      <button onclick="setFreeCategory('play')" class="free-cat-btn px-3.5 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="play">⚽ 玩樂 (8)</button>
+      <button onclick="setFreeCategory('home')" class="free-cat-btn px-3.5 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="home">🏠 家居 (8)</button>
+      <button onclick="setFreeCategory('food')" class="free-cat-btn px-3.5 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="food">🍎 飲食 (8)</button>
+      <button onclick="setFreeCategory('animal')" class="free-cat-btn px-3.5 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="animal">🐶 動物 (9)</button>
+      <button onclick="setFreeCategory('nature')" class="free-cat-btn px-3.5 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="nature">🌿 自然 (8)</button>
+      <button onclick="setFreeCategory('toy_school')" class="free-cat-btn px-3.5 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="toy_school">🎒 校園 (9)</button>
+      <button onclick="setFreeCategory('daily_body')" class="free-cat-btn px-3.5 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="daily_body">❤️ 身心 (8)</button>
+    </div>
+
+    <!-- Kai Story Living Scene Navigator Banner (Toggled when story category selected) -->
+    <div id="freeStoryIntroBanner" class="w-full hidden p-3.5 sm:p-4 rounded-3xl bg-gradient-to-r from-amber-50 via-purple-50 to-indigo-50 border-2 border-purple-200 shadow-md flex flex-col gap-2.5">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <div class="flex items-center gap-2.5">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-400 to-purple-600 flex items-center justify-center text-white text-xl shadow-md">
+            📖
+          </div>
+          <div>
+            <h4 class="text-sm sm:text-base font-black text-purple-950 flex items-center gap-2">
+              《Kai 的生活奇妙冒險日 · Kai's Wonderful Day》
+              <span class="text-[10px] bg-purple-700 text-white px-2 py-0.5 rounded-full font-bold">Kai Story 繪本情境</span>
+            </h4>
+            <p class="text-[11px] sm:text-xs text-purple-900/80 font-medium">晨光甦醒 ➔ 活力早餐 ➔ 走進自然 ➔ 奇遇萌寵 ➔ 校園同樂 ➔ 溫暖歸家。打破孤立單詞分類，將全景單字串聯成生動故事！</p>
+          </div>
+        </div>
+      </div>
+      <!-- 6 Chapters Quick Filter Pills -->
+      <div class="flex items-center gap-1.5 overflow-x-auto hide-scrollbar text-xs font-bold pt-1">
+        <button onclick="filterStoryChapter('all')" id="storyChapTab_all" class="story-chap-tab px-3 py-1.5 rounded-xl bg-purple-700 text-white shadow-xs whitespace-nowrap">全部 6 幕 (50詞)</button>
+        <button onclick="filterStoryChapter(1)" id="storyChapTab_1" class="story-chap-tab px-3 py-1.5 rounded-xl bg-white text-purple-900 border border-purple-200 hover:bg-purple-100 whitespace-nowrap">🌅 1.溫馨清晨 (8)</button>
+        <button onclick="filterStoryChapter(2)" id="storyChapTab_2" class="story-chap-tab px-3 py-1.5 rounded-xl bg-white text-purple-900 border border-purple-200 hover:bg-purple-100 whitespace-nowrap">🥞 2.元氣早餐 (8)</button>
+        <button onclick="filterStoryChapter(3)" id="storyChapTab_3" class="story-chap-tab px-3 py-1.5 rounded-xl bg-white text-purple-900 border border-purple-200 hover:bg-purple-100 whitespace-nowrap">🌲 3.探索自然 (8)</button>
+        <button onclick="filterStoryChapter(4)" id="storyChapTab_4" class="story-chap-tab px-3 py-1.5 rounded-xl bg-white text-purple-900 border border-purple-200 hover:bg-purple-100 whitespace-nowrap">🐾 4.奇遇萌寵 (9)</button>
+        <button onclick="filterStoryChapter(5)" id="storyChapTab_5" class="story-chap-tab px-3 py-1.5 rounded-xl bg-white text-purple-900 border border-purple-200 hover:bg-purple-100 whitespace-nowrap">🎒 5.校園玩樂 (9)</button>
+        <button onclick="filterStoryChapter(6)" id="storyChapTab_6" class="story-chap-tab px-3 py-1.5 rounded-xl bg-white text-purple-900 border border-purple-200 hover:bg-purple-100 whitespace-nowrap">💖 6.溫暖陪伴 (8)</button>
+      </div>
     </div>
 
     <!-- Flashcard Pagination Header & Controls (Supports scaling up to 5,000 words smoothly!) -->
@@ -737,7 +771,21 @@
           <div id="freeEmoji" class="text-7xl md:text-8xl mb-2 select-none">🪑</div>
           <h3 id="freeWord" class="text-3xl md:text-4xl font-black text-indigo-950">desk</h3>
           <div id="freePhonetic" class="text-xs md:text-sm text-slate-400 font-mono mt-1 mb-2">/dɛsk/</div>
-          <div id="freeMeaning" class="text-xs md:text-sm font-bold text-slate-700 bg-white px-3.5 py-1.5 rounded-full border border-indigo-100 shadow-sm mb-4">名詞：書桌，辦公桌</div>
+          <div id="freeMeaning" class="text-xs md:text-sm font-bold text-slate-700 bg-white px-3.5 py-1.5 rounded-full border border-indigo-100 shadow-sm mb-3">名詞：書桌，辦公桌</div>
+
+          <!-- Kai Story Narrative Context Box -->
+          <div id="freeStorySceneBox" class="w-full mb-3 p-3 bg-gradient-to-r from-purple-50 via-pink-50 to-amber-50 rounded-2xl border border-purple-200 text-left flex items-start gap-2 shadow-xs">
+            <span class="text-lg">📖</span>
+            <div class="flex-1 overflow-hidden">
+              <div class="flex items-center justify-between gap-1">
+                <span id="freeStoryChapterBadge" class="text-[9px] font-black text-purple-900 bg-purple-200/90 px-2 py-0.5 rounded-full">第一幕 · 晨光居家</span>
+                <span id="freeStoryOrderBadge" class="text-[9px] font-bold text-purple-700">第 4 節</span>
+              </div>
+              <div id="freeStorySceneText" class="text-[11px] text-purple-950 font-bold mt-1 leading-snug">
+                在小書桌前整理好今天出門要用的學習物品。
+              </div>
+            </div>
+          </div>
           
           <div class="flex flex-col gap-2 w-full">
             <button onclick="playFreeTargetAudio()" class="w-full py-2.5 rounded-xl bg-indigo-600 text-white text-xs font-bold hover:bg-indigo-700 transition flex items-center justify-center gap-1.5 shadow-md active:scale-95">
@@ -929,7 +977,7 @@
       </div>
 
       <div class="text-[11px] font-mono text-slate-500 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200 mb-4 break-all">
-        https://honga0812.github.io/KaiSpeak/?v=9
+        https://honga0812.github.io/KaiSpeak/?v=10
       </div>
 
       <button onclick="toggleQRModal()" class="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
@@ -1048,7 +1096,11 @@
           "我坐在書桌前開心地學習。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 1,
+    "storyChapterTitle": "🌅 第一幕 · 溫馨清晨與居家自理",
+    "storyOrder": 4,
+    "storyScene": "在小書桌前整理好今天出門要用的學習物品。"
   },
   {
     "id": "bed",
@@ -1124,7 +1176,11 @@
           "我溫暖的床讓我睡得很好。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 1,
+    "storyChapterTitle": "🌅 第一幕 · 溫馨清晨與居家自理",
+    "storyOrder": 1,
+    "storyScene": "Kai 從柔軟的小床上醒來，在晨光中伸個大懶腰。"
   },
   {
     "id": "cup",
@@ -1200,7 +1256,11 @@
           "小貓咪從杯子裡喝牛奶。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 1,
+    "storyChapterTitle": "🌅 第一幕 · 溫馨清晨與居家自理",
+    "storyOrder": 8,
+    "storyScene": "拿起心愛的藍色水杯，先準備喝杯溫開水。"
   },
   {
     "id": "door",
@@ -1276,7 +1336,11 @@
           "有人在敲我們教室的門。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 1,
+    "storyChapterTitle": "🌅 第一幕 · 溫馨清晨與居家自理",
+    "storyOrder": 7,
+    "storyScene": "開心地轉開房門把手，快步走向客廳。"
   },
   {
     "id": "clock",
@@ -1352,7 +1416,11 @@
           "鬧鐘每天早晨叫我起床。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 1,
+    "storyChapterTitle": "🌅 第一幕 · 溫馨清晨與居家自理",
+    "storyOrder": 2,
+    "storyScene": "抬頭看牆上的時鐘指著早晨七點整，該起床囉！"
   },
   {
     "id": "box",
@@ -1428,7 +1496,11 @@
           "把所有你喜歡的玩具放進盒子。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 1,
+    "storyChapterTitle": "🌅 第一幕 · 溫馨清晨與居家自理",
+    "storyOrder": 6,
+    "storyScene": "打開神奇的百寶箱，拿出心愛的幸運徽章。"
   },
   {
     "id": "lamp",
@@ -1504,7 +1576,11 @@
           "我在黃色檯燈下讀童話故事。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 1,
+    "storyChapterTitle": "🌅 第一幕 · 溫馨清晨與居家自理",
+    "storyOrder": 3,
+    "storyScene": "伸手輕輕關掉床頭溫暖明亮的小檯燈。"
   },
   {
     "id": "chair",
@@ -1580,7 +1656,11 @@
           "把你的椅子靠進學習書桌旁。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 1,
+    "storyChapterTitle": "🌅 第一幕 · 溫馨清晨與居家自理",
+    "storyOrder": 5,
+    "storyScene": "把書桌前的小椅子整齊收進桌子下方。"
   },
   {
     "id": "apple",
@@ -1655,7 +1735,11 @@
           "每天吃新鮮蘋果對身體很健康。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 2,
+    "storyChapterTitle": "🥞 第二幕 · 營養早餐與元氣滿滿",
+    "storyOrder": 13,
+    "storyScene": "媽媽切了一顆紅通通的脆甜蘋果給 Kai 吃。"
   },
   {
     "id": "water",
@@ -1730,7 +1814,11 @@
           "我們需要喝足夠的乾淨白開水。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 2,
+    "storyChapterTitle": "🥞 第二幕 · 營養早餐與元氣滿滿",
+    "storyOrder": 9,
+    "storyScene": "大口喝下溫暖的白開水，給身體滿滿的元氣。"
   },
   {
     "id": "banana",
@@ -1804,7 +1892,11 @@
           "剝開黃香蕉並和好朋友分享。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 2,
+    "storyChapterTitle": "🥞 第二幕 · 營養早餐與元氣滿滿",
+    "storyOrder": 14,
+    "storyScene": "順手剝開一根黃澄澄的香甜香蕉當作點心。"
   },
   {
     "id": "milk",
@@ -1879,7 +1971,11 @@
           "我每天早餐都配新鮮牛奶喝。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 2,
+    "storyChapterTitle": "🥞 第二幕 · 營養早餐與元氣滿滿",
+    "storyOrder": 10,
+    "storyScene": "喝下一大杯香濃的新鮮牛奶，健康快快長大！"
   },
   {
     "id": "bread",
@@ -1955,7 +2051,11 @@
           "媽媽為我們全家烤了美味的軟麵包。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 2,
+    "storyChapterTitle": "🥞 第二幕 · 營養早餐與元氣滿滿",
+    "storyOrder": 11,
+    "storyScene": "咬下一片香噴噴的烤麵包，塗上金黃奶油。"
   },
   {
     "id": "egg",
@@ -2030,7 +2130,11 @@
           "母雞在綠色農場裡下新鮮的蛋。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 2,
+    "storyChapterTitle": "🥞 第二幕 · 營養早餐與元氣滿滿",
+    "storyOrder": 12,
+    "storyScene": "開心地吃完盤子裡香氣四溢的營養煎雞蛋。"
   },
   {
     "id": "juice",
@@ -2105,7 +2209,11 @@
           "新鮮果汁帶給我們能量與維生素。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 2,
+    "storyChapterTitle": "🥞 第二幕 · 營養早餐與元氣滿滿",
+    "storyOrder": 15,
+    "storyScene": "再喝一口酸酸甜甜的新鮮柳橙果汁，精神百倍！"
   },
   {
     "id": "cake",
@@ -2181,7 +2289,11 @@
           "我的蛋糕上面插著七根彩色的蠟燭。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 2,
+    "storyChapterTitle": "🥞 第二幕 · 營養早餐與元氣滿滿",
+    "storyOrder": 16,
+    "storyScene": "桌上還有一小塊慶祝好天氣的甜甜小蛋糕。"
   },
   {
     "id": "cat",
@@ -2257,7 +2369,11 @@
           "貪玩的小貓喜歡追著毛線球跑。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 4,
+    "storyChapterTitle": "🐾 第四幕 · 萌寵奇遇與森林小夥伴",
+    "storyOrder": 25,
+    "storyScene": "在紅磚圍牆上，看見一隻正在曬太陽打瞌睡的小白貓。"
   },
   {
     "id": "dog",
@@ -2333,7 +2449,11 @@
           "親切的小狗喜歡和我一起玩丟接球。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 4,
+    "storyChapterTitle": "🐾 第四幕 · 萌寵奇遇與森林小夥伴",
+    "storyOrder": 26,
+    "storyScene": "鄰居家的小狗熱情地搖著尾巴跑過來打招呼。"
   },
   {
     "id": "fish",
@@ -2409,7 +2529,11 @@
           "好多色彩繽紛的魚在河流裡游泳。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 4,
+    "storyChapterTitle": "🐾 第四幕 · 萌寵奇遇與森林小夥伴",
+    "storyOrder": 29,
+    "storyScene": "池水清澈見底，好幾條小金魚在水草間追逐嬉戲。"
   },
   {
     "id": "bird",
@@ -2485,7 +2609,11 @@
           "鳥兒在高高的大樹上築起溫暖的巢。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 4,
+    "storyChapterTitle": "🐾 第四幕 · 萌寵奇遇與森林小夥伴",
+    "storyOrder": 27,
+    "storyScene": "樹梢上傳來藍色小鳥歡快悠揚的歌聲。"
   },
   {
     "id": "duck",
@@ -2561,7 +2689,11 @@
           "小鴨寶寶對著鴨媽媽呱呱呱叫。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 4,
+    "storyChapterTitle": "🐾 第四幕 · 萌寵奇遇與森林小夥伴",
+    "storyOrder": 28,
+    "storyScene": "路過公園池塘，看見一群黃色小鴨快活地游水。"
   },
   {
     "id": "pig",
@@ -2637,7 +2769,11 @@
           "三隻小豬建造了屬於自己的溫馨房子。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 4,
+    "storyChapterTitle": "🐾 第四幕 · 萌寵奇遇與森林小夥伴",
+    "storyOrder": 31,
+    "storyScene": "遠處農場圍欄邊，傳來小粉紅豬哼哼哼的快樂叫聲。"
   },
   {
     "id": "bear",
@@ -2713,7 +2849,11 @@
           "可愛的泰迪熊今晚陪我一起睡覺。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 4,
+    "storyChapterTitle": "🐾 第四幕 · 萌寵奇遇與森林小夥伴",
+    "storyOrder": 32,
+    "storyScene": "Kai 想到書包裡裝著的可愛泰迪熊玩偶。"
   },
   {
     "id": "rabbit",
@@ -2788,7 +2928,11 @@
           "可愛的小兔子最喜歡吃爽脆的紅蘿蔔。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 4,
+    "storyChapterTitle": "🐾 第四幕 · 萌寵奇遇與森林小夥伴",
+    "storyOrder": 30,
+    "storyScene": "草叢深處突然蹦出一隻長耳朵的雪白小白兔！"
   },
   {
     "id": "monkey",
@@ -2863,7 +3007,11 @@
           "聰明的猴子在樹枝之間盪來盪去。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 4,
+    "storyChapterTitle": "🐾 第四幕 · 萌寵奇遇與森林小夥伴",
+    "storyOrder": 33,
+    "storyScene": "公園裡的樹林間，頑皮小猴靈活地盪來盪去。"
   },
   {
     "id": "sun",
@@ -2939,7 +3087,11 @@
           "早晨的太陽為世間萬物帶來光芒。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 3,
+    "storyChapterTitle": "🌲 第三幕 · 走進戶外與探索大自然",
+    "storyOrder": 17,
+    "storyScene": "一推開大門，金黃溫暖的朝陽灑滿了全身。"
   },
   {
     "id": "moon",
@@ -3015,7 +3167,11 @@
           "銀色的月亮從夜空中微笑俯瞰大地。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 3,
+    "storyChapterTitle": "🌲 第三幕 · 走進戶外與探索大自然",
+    "storyOrder": 23,
+    "storyScene": "回想起昨晚掛在夜空中像銀盤一樣明亮的月亮。"
   },
   {
     "id": "star",
@@ -3091,7 +3247,11 @@
           "我們可以對著明亮的星星許下願望。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 3,
+    "storyChapterTitle": "🌲 第三幕 · 走進戶外與探索大自然",
+    "storyOrder": 24,
+    "storyScene": "也想起夜空中一閃一閃眨著眼睛的無數小星星。"
   },
   {
     "id": "tree",
@@ -3167,7 +3327,11 @@
           "小朋友們圍繞在大樹旁玩捉迷藏。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 3,
+    "storyChapterTitle": "🌲 第三幕 · 走進戶外與探索大自然",
+    "storyOrder": 19,
+    "storyScene": "路旁高聳挺拔的大樹在微風中輕輕搖曳。"
   },
   {
     "id": "rain",
@@ -3243,7 +3407,11 @@
           "開始下雨的時候穿上你的黃色雨衣。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 3,
+    "storyChapterTitle": "🌲 第三幕 · 走進戶外與探索大自然",
+    "storyOrder": 22,
+    "storyScene": "想起下小雨的時候，雨滴落在葉子上的輕柔聲響。"
   },
   {
     "id": "flower",
@@ -3319,7 +3487,11 @@
           "春天為我們的花園帶來許多繽紛的花朵。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 3,
+    "storyChapterTitle": "🌲 第三幕 · 走進戶外與探索大自然",
+    "storyOrder": 21,
+    "storyScene": "看見草叢裡盛開的一朵鮮紅小花，聞起來好香！"
   },
   {
     "id": "grass",
@@ -3395,7 +3567,11 @@
           "早晨的露珠在青草上像鑽石般發光。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 3,
+    "storyChapterTitle": "🌲 第三幕 · 走進戶外與探索大自然",
+    "storyOrder": 20,
+    "storyScene": "踩在路邊軟綿綿的翠綠草地上，腳步好輕快。"
   },
   {
     "id": "wind",
@@ -3471,7 +3647,11 @@
           "一陣強勁的風幫助紙風箏飛得好高。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 3,
+    "storyChapterTitle": "🌲 第三幕 · 走進戶外與探索大自然",
+    "storyOrder": 18,
+    "storyScene": "迎面吹來一陣涼爽清新的微風，真舒服呀！"
   },
   {
     "id": "ball",
@@ -3547,7 +3727,11 @@
           "把球丟給你的好朋友並穩穩接住。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 6,
+    "storyChapterTitle": "💖 第六幕 · 操場奔馳與溫暖歸家",
+    "storyOrder": 43,
+    "storyScene": "來到綠油油的操場上，和同學們一起開心地踢足球。"
   },
   {
     "id": "book",
@@ -3623,7 +3807,11 @@
           "閱讀好書能帶我們走進奇幻的新世界。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 5,
+    "storyChapterTitle": "🎒 第五幕 · 校園學習與歡樂玩伴",
+    "storyOrder": 40,
+    "storyScene": "走進教室坐在位子上，翻開精美的英語圖畫故事書。"
   },
   {
     "id": "pen",
@@ -3699,7 +3887,11 @@
           "我用彩色筆畫出許多美麗的圖畫。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 5,
+    "storyChapterTitle": "🎒 第五幕 · 校園學習與歡樂玩伴",
+    "storyOrder": 41,
+    "storyScene": "握好彩色原子筆，在筆記本上寫下自己漂亮的英文名。"
   },
   {
     "id": "bag",
@@ -3775,7 +3967,11 @@
           "背著你輕巧的書包一起步行上學去。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 5,
+    "storyChapterTitle": "🎒 第五幕 · 校園學習與歡樂玩伴",
+    "storyOrder": 36,
+    "storyScene": "背緊滿載知識與夢想的藍色雙肩書包。"
   },
   {
     "id": "toy",
@@ -3851,7 +4047,11 @@
           "在房間玩耍後請把玩具整理收拾好。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 5,
+    "storyChapterTitle": "🎒 第五幕 · 校園學習與歡樂玩伴",
+    "storyOrder": 42,
+    "storyScene": "下課鈴聲響起，拿出心愛的機器人玩具和大家一起玩。"
   },
   {
     "id": "car",
@@ -3927,7 +4127,11 @@
           "當交通信號燈由綠轉紅時汽車停下來。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 5,
+    "storyChapterTitle": "🎒 第五幕 · 校園學習與歡樂玩伴",
+    "storyOrder": 38,
+    "storyScene": "馬路上幾輛色彩繽紛的小汽車守秩序地停在斑馬線前。"
   },
   {
     "id": "bus",
@@ -4003,7 +4207,11 @@
           "公車上的輪子轉呀轉轉個不停。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 5,
+    "storyChapterTitle": "🎒 第五幕 · 校園學習與歡樂玩伴",
+    "storyOrder": 37,
+    "storyScene": "看見路口黃色校車平穩地靠站，司機叔叔微笑招手。"
   },
   {
     "id": "bike",
@@ -4079,7 +4287,11 @@
           "我可以在綠色公園裡悠閒地騎腳踏車。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 5,
+    "storyChapterTitle": "🎒 第五幕 · 校園學習與歡樂玩伴",
+    "storyOrder": 39,
+    "storyScene": "看見大哥哥大姐姐騎著漂亮的腳踏車上學。"
   },
   {
     "id": "kite",
@@ -4155,7 +4367,11 @@
           "微風輕輕吹拂把我們的大風箏送上天空。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 6,
+    "storyChapterTitle": "💖 第六幕 · 操場奔馳與溫暖歸家",
+    "storyOrder": 44,
+    "storyScene": "乘著和煦微風，把七彩斑斕的蝴蝶風箏高高放上青空。"
   },
   {
     "id": "baby",
@@ -4230,7 +4446,11 @@
           "快樂的小嬰兒拍著雙手大聲歡笑。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 6,
+    "storyChapterTitle": "💖 第六幕 · 操場奔馳與溫暖歸家",
+    "storyOrder": 49,
+    "storyScene": "放學回到家，抱抱搖籃裡正咿咿呀呀笑著的小嬰兒妹妹。"
   },
   {
     "id": "shoe",
@@ -4306,7 +4526,11 @@
           "這雙運動跑鞋幫助我跳得高也跑得快。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 5,
+    "storyChapterTitle": "🎒 第五幕 · 校園學習與歡樂玩伴",
+    "storyOrder": 34,
+    "storyScene": "踏著舒適合腳的運動跑鞋，健步如飛朝學校走去。"
   },
   {
     "id": "hat",
@@ -4382,7 +4606,11 @@
           "這頂可愛的魔法帽戴在頭上顯得非常特別。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 5,
+    "storyChapterTitle": "🎒 第五幕 · 校園學習與歡樂玩伴",
+    "storyOrder": 35,
+    "storyScene": "戴上頭上的帥氣黃色遮陽帽，不怕太陽曬。"
   },
   {
     "id": "hand",
@@ -4458,7 +4686,11 @@
           "向老師問問題時請先舉起你的右手。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 6,
+    "storyChapterTitle": "💖 第六幕 · 操場奔馳與溫暖歸家",
+    "storyOrder": 47,
+    "storyScene": "活動結束後，大家一起用肥皂把小手洗得乾乾淨淨。"
   },
   {
     "id": "eye",
@@ -4534,7 +4766,11 @@
           "遠離發光螢幕多休息來好好保護眼睛。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 6,
+    "storyChapterTitle": "💖 第六幕 · 操場奔馳與溫暖歸家",
+    "storyOrder": 48,
+    "storyScene": "用好奇明亮的大眼睛觀察周遭一切新鮮美好的事物。"
   },
   {
     "id": "smile",
@@ -4610,7 +4846,11 @@
           "甜美的微笑是送給好朋友最好的禮物。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 6,
+    "storyChapterTitle": "💖 第六幕 · 操場奔馳與溫暖歸家",
+    "storyOrder": 46,
+    "storyScene": "大家都笑得合不攏嘴，臉上洋溢著無比燦爛的微笑。"
   },
   {
     "id": "heart",
@@ -4686,7 +4926,11 @@
           "善良的心靈總是樂於帶著喜悅幫助他人。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 6,
+    "storyChapterTitle": "💖 第六幕 · 操場奔馳與溫暖歸家",
+    "storyOrder": 50,
+    "storyScene": "心中充滿了溫暖、愛意與對美好明天的期待！"
   },
   {
     "id": "friend",
@@ -4762,7 +5006,11 @@
           "真正的朋友總是溫暖地互相幫助與支持。"
         ]
       }
-    ]
+    ],
+    "storyChapter": 6,
+    "storyChapterTitle": "💖 第六幕 · 操場奔馳與溫暖歸家",
+    "storyOrder": 45,
+    "storyScene": "下課時緊緊拉著最好的好朋友，彼此分享秘密。"
   }
 ];
 
@@ -4819,6 +5067,7 @@
     const FREE_PAGE_SIZE = 8;
     let freePage = 0;
     let freeCategory = 'all';
+    let selectedStoryChapter = 'all'; // 'all' | 1 | 2 | 3 | 4 | 5 | 6
     let freeRandomMode = false;
     let freeShuffledList = [];
     let freeCardIndex = 0; // Global index in MASTER_VOCAB
@@ -6060,6 +6309,12 @@
       if (freeCategory === 'weak') {
         const weakSet = new Set(practiceLogs.filter(l => l.score < 75).map(l => l.word));
         pool = MASTER_VOCAB.filter(c => weakSet.has(c.word));
+      } else if (freeCategory === 'story') {
+        // Sort strictly by Kai Story order!
+        pool = [...MASTER_VOCAB].sort((a, b) => (a.storyOrder || 0) - (b.storyOrder || 0));
+        if (selectedStoryChapter !== 'all') {
+          pool = pool.filter(c => c.storyChapter === selectedStoryChapter);
+        }
       } else if (freeCategory !== 'all') {
         pool = MASTER_VOCAB.filter(c => c.category === freeCategory);
       }
@@ -6071,6 +6326,24 @@
         return freeShuffledList;
       }
       return pool;
+    }
+
+    function filterStoryChapter(chap) {
+      selectedStoryChapter = chap;
+      freePage = 0;
+      document.querySelectorAll('.story-chap-tab').forEach(t => {
+        t.className = "story-chap-tab px-3 py-1.5 rounded-xl bg-white text-purple-900 border border-purple-200 hover:bg-purple-100 whitespace-nowrap";
+      });
+      const activeTab = document.getElementById(`storyChapTab_${chap}`);
+      if (activeTab) {
+        activeTab.className = "story-chap-tab px-3 py-1.5 rounded-xl bg-purple-700 text-white shadow-xs whitespace-nowrap";
+      }
+      renderFreeGrid();
+      const list = getFilteredFreeVocab();
+      if (list.length > 0) {
+        freeCardIndex = MASTER_VOCAB.findIndex(c => c.word === list[0].word);
+        renderFreeCard();
+      }
     }
 
     function toggleFreeRandomMode() {
@@ -6160,12 +6433,16 @@
           renderFreeCard();
         };
 
+        const storyPill = freeCategory === 'story' 
+          ? `<span class="text-[8px] px-1 py-0.2 rounded font-bold ${isActive ? 'bg-purple-800 text-purple-200' : 'bg-purple-100 text-purple-800'}">第${c.storyChapter}幕</span>`
+          : '';
+
         cardEl.innerHTML = `
           <span class="text-3xl select-none">${c.emoji}</span>
           <div class="overflow-hidden flex-1">
             <div class="flex items-center justify-between gap-1">
               <span class="font-bold text-xs truncate">${c.word}</span>
-              ${scoreBadge}
+              <div class="flex items-center gap-1">${storyPill}${scoreBadge}</div>
             </div>
             <div class="text-[10px] ${isActive ? 'text-indigo-100' : 'text-slate-600'} truncate">${c.phonetic}</div>
             <div class="text-[10px] ${isActive ? 'text-indigo-200' : 'text-slate-600'} truncate">${c.meaning}</div>
@@ -6205,6 +6482,13 @@
       document.getElementById('freeWord').innerText = card.word;
       document.getElementById('freePhonetic').innerText = card.phonetic;
       document.getElementById('freeMeaning').innerText = card.meaning;
+
+      const scBadge = document.getElementById('freeStoryChapterBadge');
+      const scOrder = document.getElementById('freeStoryOrderBadge');
+      const scText = document.getElementById('freeStorySceneText');
+      if (scBadge) scBadge.innerText = card.storyChapterTitle || 'Kai Story 生活繪本情境';
+      if (scOrder) scOrder.innerText = `故事節奏 #${card.storyOrder || 1}`;
+      if (scText) scText.innerText = card.storyScene || 'Kai 展開新的一天探索。';
 
       if (freeActiveTarget === 'word') {
         setFreeTargetToWord();
@@ -6265,11 +6549,33 @@
       freeCategory = cat;
       freePage = 0;
       freeRandomMode = false;
+      selectedStoryChapter = 'all';
+
+      // Toggle Story Banner
+      const storyBanner = document.getElementById('freeStoryIntroBanner');
+      if (storyBanner) {
+        if (cat === 'story') {
+          storyBanner.classList.remove('hidden');
+          // Reset chapter tabs
+          filterStoryChapter('all');
+        } else {
+          storyBanner.classList.add('hidden');
+        }
+      }
+
       document.querySelectorAll('.free-cat-btn').forEach(btn => {
         if (btn.getAttribute('data-cat') === cat) {
-          btn.className = "free-cat-btn active px-3.5 py-1.5 rounded-xl font-bold bg-indigo-600 text-white shadow-sm whitespace-nowrap";
+          if (cat === 'story') {
+            btn.className = "free-cat-btn active px-3.5 py-1.5 rounded-xl font-black bg-gradient-to-r from-purple-700 to-indigo-700 text-white shadow-md whitespace-nowrap flex items-center gap-1.5";
+          } else {
+            btn.className = "free-cat-btn active px-3.5 py-1.5 rounded-xl font-bold bg-indigo-600 text-white shadow-sm whitespace-nowrap";
+          }
         } else {
-          btn.className = "free-cat-btn px-3.5 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap";
+          if (btn.getAttribute('data-cat') === 'story') {
+            btn.className = "free-cat-btn px-3.5 py-1.5 rounded-xl font-black bg-gradient-to-r from-amber-100 via-purple-100 to-indigo-100 text-purple-950 border border-purple-300 hover:from-amber-200 hover:to-purple-200 whitespace-nowrap shadow-sm flex items-center gap-1.5";
+          } else {
+            btn.className = "free-cat-btn px-3.5 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap";
+          }
         }
       });
       renderFreeGrid();
@@ -6875,7 +7181,7 @@
     function initQRCode() {
       const canvas = document.getElementById('qrCodeCanvas');
       if (canvas && window.QRCode) {
-        QRCode.toCanvas(canvas, "https://honga0812.github.io/KaiSpeak/?v=9", {
+        QRCode.toCanvas(canvas, "https://honga0812.github.io/KaiSpeak/?v=10", {
           width: 176,
           margin: 1,
           color: { dark: '#312E81', light: '#FFFFFF' }
