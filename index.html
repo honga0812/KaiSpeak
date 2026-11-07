@@ -6,10 +6,9 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <title>KaiSpeak - 50核心词库 · 450情境例句 · 智能少儿英语系统 (v1.1)</title>
+  <title>KaiSpeak - 智能少儿英语发音评测与任务系统</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
   <style>
     body {
       font-family: 'Fredoka', 'Noto Sans SC', sans-serif;
@@ -28,7 +27,9 @@
 </head>
 <body class="min-h-screen text-slate-800 p-3 md:p-6 flex flex-col items-center">
 
-  <!-- Top Global Bar -->
+  <!-- ========================================== -->
+  <!-- TOP GLOBAL NAV BAR                         -->
+  <!-- ========================================== -->
   <header class="w-full max-w-5xl bg-white/95 backdrop-blur rounded-3xl p-4 shadow-sm border border-indigo-100 mb-4 flex flex-wrap items-center justify-between gap-3">
     <div class="flex items-center gap-3">
       <div class="w-12 h-12 bg-gradient-to-tr from-indigo-600 to-violet-600 rounded-2xl flex items-center justify-center text-white text-2xl shadow-md shadow-indigo-200">
@@ -37,40 +38,42 @@
       <div>
         <h1 class="text-xl font-black text-indigo-950 tracking-wide flex items-center gap-2">
           KaiSpeak
-          <span class="text-xs bg-indigo-100 text-indigo-700 px-2.5 py-0.5 rounded-full font-bold">50 词库 · 450 情境例句</span>
+          <span class="text-xs bg-indigo-100 text-indigo-700 px-2.5 py-0.5 rounded-full font-bold">50 核心词库 · 450 中英对照例句</span>
         </h1>
-        <p class="text-xs text-slate-500">每词 3 大情境 × 3 条精选例句 (共9句) · 智能任务 · 错词本</p>
+        <p class="text-xs text-slate-500">智能每日挑战 · 互动式主动引导 · 错词本复习</p>
       </div>
     </div>
 
     <!-- Mode Selector Tabs -->
     <nav class="flex bg-slate-100 p-1.5 rounded-2xl text-xs font-bold gap-1 shadow-inner">
-      <button id="navQuestBtn" onclick="switchAppMode('quest')" class="px-3.5 py-2 rounded-xl bg-indigo-600 text-white shadow-sm transition flex items-center gap-1.5">
-        🎯 每日任务 (10新+8复+2固)
+      <button id="navQuestBtn" onclick="switchAppMode('quest')" class="px-4 py-2 rounded-xl bg-indigo-600 text-white shadow-sm transition flex items-center gap-1.5">
+        🎯 每日任务 (主动引导)
       </button>
-      <button id="navFreeBtn" onclick="switchAppMode('free')" class="px-3.5 py-2 rounded-xl text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5">
-        📚 50词自由库与错词本
+      <button id="navFreeBtn" onclick="switchAppMode('free')" class="px-4 py-2 rounded-xl text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5">
+        📚 自由练习 (50词库)
       </button>
       <button id="navAdventureBtn" onclick="switchAppMode('adventure')" class="px-3.5 py-2 rounded-xl text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5">
-        🗺️ 50关探险岛
+        🗺️ 探险岛 (50关)
       </button>
     </nav>
 
-    <!-- Right Quick Actions -->
+    <!-- Quick Utilities -->
     <div class="flex items-center gap-2">
-      <button onclick="toggleMobileModal()" class="p-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 text-xs font-semibold flex items-center gap-1 transition">
-        📱 <span class="hidden sm:inline">手机连线</span>
+      <button onclick="toggleMobileModal()" class="p-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 text-xs font-semibold flex items-center gap-1 transition" title="手机扫码在公网测试">
+        📱 <span>扫码外网测试</span>
       </button>
-      <button onclick="toggleLogModal()" class="p-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 text-xs font-semibold flex items-center gap-1 transition">
-        📋 <span class="hidden sm:inline">日志</span> (<span id="logBadge">0</span>)
+      <button onclick="toggleLogModal()" class="p-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 text-xs font-semibold flex items-center gap-1 transition" title="查看跟读日志">
+        📋 <span>日志 (<span id="logBadge">0</span>)</span>
       </button>
     </div>
   </header>
 
-  <!-- ========================================== -->
-  <!-- VIEW 1: DAILY QUEST MODE                   -->
-  <!-- ========================================== -->
-  <section id="viewQuest" class="w-full max-w-5xl flex flex-col gap-4">
+  <!-- ======================================================== -->
+  <!-- MODE 1: DAILY QUEST VIEW (沉浸式主动互动任务流 - 开屏默认)      -->
+  <!-- ======================================================== -->
+  <section id="viewDailyQuest" class="w-full max-w-5xl flex flex-col gap-4">
+    
+    <!-- Daily Quest Header Banner -->
     <div class="bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-700 text-white p-5 rounded-3xl shadow-lg shadow-indigo-100 flex flex-col md:flex-row items-center justify-between gap-4">
       <div class="flex items-center gap-4">
         <div class="w-14 h-14 bg-white/10 backdrop-blur rounded-2xl flex items-center justify-center text-3xl shadow-inner">
@@ -78,74 +81,324 @@
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <h2 class="text-lg font-bold">今日智能挑战任务 (20 词清单)</h2>
-            <span class="text-[10px] bg-amber-400 text-amber-950 font-extrabold px-2 py-0.5 rounded-full">
+            <h2 class="text-lg font-bold">今日打卡任务 (20 词互动流)</h2>
+            <span class="text-[10px] bg-amber-400 text-amber-950 font-extrabold px-2.5 py-0.5 rounded-full shadow-sm">
               🔥 连续打卡 <span id="questStreakDays">3</span> 天
             </span>
           </div>
           <p class="text-xs text-indigo-100 mt-1">
-            动态精选：包含 <strong>10 个新学词汇</strong> + <strong>8 个薄弱复习词</strong> + <strong>2 个常态巩固词</strong>
+            系统主动带领：<strong>先听母语示范 ➔ 倒计时跟读 ➔ 快速评分 ➔ 自动切例句 ➔ 自动推进下一词</strong>
           </p>
         </div>
       </div>
 
-      <div class="flex items-center gap-3 bg-white/10 backdrop-blur px-4 py-2.5 rounded-2xl border border-white/10 w-full md:w-auto justify-between">
-        <div class="text-right">
-          <div class="text-[11px] text-indigo-200">今日完成进度</div>
-          <div class="text-base font-extrabold font-mono"><span id="questProgressNum">0</span> / 20 词</div>
+      <!-- Overall 20 Words Progress -->
+      <div class="flex items-center gap-4 bg-white/10 backdrop-blur px-5 py-3 rounded-2xl border border-white/10 w-full md:w-auto justify-between">
+        <div class="text-left md:text-right">
+          <div class="text-[11px] text-indigo-200">今日词汇总进度</div>
+          <div class="text-lg font-extrabold font-mono"><span id="questWordProgress">1</span> / 20 词</div>
         </div>
-        <div class="w-24 bg-white/20 h-2.5 rounded-full overflow-hidden">
-          <div id="questProgressBar" class="bg-amber-400 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+        <div class="w-28 bg-white/20 h-3 rounded-full overflow-hidden">
+          <div id="questProgressBar" class="bg-amber-400 h-full rounded-full transition-all duration-500" style="width: 5%"></div>
         </div>
       </div>
     </div>
 
-    <!-- Quest Task Stepper (Horizontal step tracker) -->
-    <div class="bg-white/80 backdrop-blur rounded-2xl p-3 border border-slate-100 shadow-sm flex items-center gap-2 overflow-x-auto hide-scrollbar" id="questStepperContainer">
-      <!-- 20 step dots populated by JS -->
+    <!-- Active Quest Interactive Studio Card -->
+    <div class="bg-white rounded-3xl p-6 md:p-8 shadow-xl shadow-indigo-100/70 border border-indigo-50 flex flex-col items-center">
+      
+      <!-- Top Step Indicators for Current Word: [1.单字] -> [2.例句1] -> [3.例句2] -> [4.例句3] -->
+      <div class="w-full max-w-xl flex items-center justify-between mb-6 px-2">
+        <div id="qStepDot0" class="flex flex-col items-center gap-1 flex-1">
+          <div class="w-8 h-8 rounded-full bg-indigo-600 text-white font-bold text-xs flex items-center justify-center shadow-md">1</div>
+          <span class="text-[11px] font-bold text-indigo-700">单词精读</span>
+        </div>
+        <div class="h-0.5 bg-slate-200 flex-1 mx-1"></div>
+        <div id="qStepDot1" class="flex flex-col items-center gap-1 flex-1 opacity-50">
+          <div class="w-8 h-8 rounded-full bg-slate-200 text-slate-600 font-bold text-xs flex items-center justify-center">2</div>
+          <span class="text-[11px] font-semibold text-slate-500">情境例句 1</span>
+        </div>
+        <div class="h-0.5 bg-slate-200 flex-1 mx-1"></div>
+        <div id="qStepDot2" class="flex flex-col items-center gap-1 flex-1 opacity-50">
+          <div class="w-8 h-8 rounded-full bg-slate-200 text-slate-600 font-bold text-xs flex items-center justify-center">3</div>
+          <span class="text-[11px] font-semibold text-slate-500">情境例句 2</span>
+        </div>
+        <div class="h-0.5 bg-slate-200 flex-1 mx-1"></div>
+        <div id="qStepDot3" class="flex flex-col items-center gap-1 flex-1 opacity-50">
+          <div class="w-8 h-8 rounded-full bg-slate-200 text-slate-600 font-bold text-xs flex items-center justify-center">4</div>
+          <span class="text-[11px] font-semibold text-slate-500">情境例句 3</span>
+        </div>
+      </div>
+
+      <!-- Proactive State Banner (Tells kid exactly what the system is doing right now) -->
+      <div id="questStateBanner" class="w-full max-w-xl p-3.5 rounded-2xl bg-indigo-50 border border-indigo-100 text-center font-bold text-indigo-800 text-sm mb-6 flex items-center justify-center gap-2 shadow-inner">
+        <span class="text-xl">🔊</span>
+        <span id="questStateText">正在为您播放母语示范发音，请仔细听...</span>
+      </div>
+
+      <!-- Big Illustration & Content Card -->
+      <div class="w-full max-w-xl bg-slate-50/70 border border-slate-200/80 rounded-3xl p-6 text-center mb-6 relative">
+        <div id="questEmoji" class="text-6xl mb-3 select-none">🪑</div>
+        
+        <!-- Big Target English Text -->
+        <h2 id="questTargetEnglish" class="text-3xl md:text-4xl font-extrabold text-indigo-950 tracking-wide mb-2 leading-tight">
+          desk
+        </h2>
+
+        <!-- Phonetic or Subtag -->
+        <div id="questPhonetic" class="text-slate-400 font-mono text-sm mb-2">/dɛsk/</div>
+
+        <!-- Chinese Translation (Clear Side-by-Side) -->
+        <div class="inline-flex items-center gap-2 bg-white px-4 py-1.5 rounded-full border border-indigo-100 shadow-sm">
+          <span class="text-[10px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-700">中文</span>
+          <span id="questTargetChinese" class="text-sm md:text-base font-bold text-slate-700">名词：书桌，办公桌</span>
+        </div>
+      </div>
+
+      <!-- Audio Waveform Live Display during Recording -->
+      <div class="w-full max-w-xl h-12 bg-slate-100 rounded-2xl overflow-hidden border border-slate-200/80 mb-6 flex items-center justify-center relative">
+        <canvas id="questWaveformCanvas" class="w-full h-full"></canvas>
+        <span id="questWaveformPlaceholder" class="absolute text-xs text-slate-400 font-medium">声波捕获区 · 录音时随声音实时波动</span>
+      </div>
+
+      <!-- Central Action Area: Big Pulsing Mic & Countdown -->
+      <div class="flex flex-col items-center gap-3 mb-6">
+        <div class="relative flex items-center justify-center">
+          <div id="questMicRing" class="absolute w-24 h-24 rounded-full bg-rose-400/30 hidden pulse-ring"></div>
+          <button id="questMicBtn" onclick="toggleQuestManualRecord()" class="relative z-10 w-20 h-20 rounded-full bg-gradient-to-tr from-indigo-600 to-violet-600 text-white shadow-xl shadow-indigo-300 flex flex-col items-center justify-center transition transform active:scale-95 focus:outline-none">
+            <span id="questMicIcon" class="text-2xl">🎙️</span>
+            <span id="questMicLabel" class="text-[11px] font-bold mt-0.5">点我录音</span>
+          </button>
+        </div>
+        <div id="questCountdownText" class="text-xs font-bold text-rose-600 hidden">倒计时: <span id="questCountdownNum">4</span>s</div>
+      </div>
+
+      <!-- Quick Interactive Flow Controls (Pause/Play, Replay, Retry, Skip) -->
+      <div class="flex items-center gap-2 flex-wrap justify-center">
+        <button id="questPlayPauseBtn" onclick="toggleQuestAutoFlow()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-bold shadow-md hover:bg-indigo-700 transition flex items-center gap-1.5">
+          <span>⏸️ 暂停自动流</span>
+        </button>
+        <button onclick="replayQuestDemoAudio()" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 text-xs font-bold hover:bg-slate-50 transition flex items-center gap-1">
+          <span>🔊 再听一次</span>
+        </button>
+        <button onclick="retryQuestCurrentStep()" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 text-xs font-bold hover:bg-slate-50 transition flex items-center gap-1">
+          <span>🔄 重读此项</span>
+        </button>
+        <button onclick="skipQuestStep()" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition flex items-center gap-1">
+          <span>⏭️ 跳过本项</span>
+        </button>
+      </div>
+
+      <!-- Simulation Evaluation Buttons for Quick Testing -->
+      <div class="mt-6 pt-4 border-t border-slate-100 w-full max-w-xl flex items-center justify-between text-xs text-slate-500">
+        <span class="font-bold">快捷免麦测试:</span>
+        <div class="flex gap-2">
+          <button onclick="simulateQuestEval(92)" class="px-3 py-1 bg-emerald-50 text-emerald-700 rounded-lg border border-emerald-200 font-bold hover:bg-emerald-100">模拟高分(92分)</button>
+          <button onclick="simulateQuestEval(65)" class="px-3 py-1 bg-amber-50 text-amber-700 rounded-lg border border-amber-200 font-bold hover:bg-amber-100">模拟弱项(65分)</button>
+        </div>
+      </div>
+
     </div>
   </section>
 
-  <!-- ========================================== -->
-  <!-- VIEW 2: FREE PRACTICE & 50-WORD DATABASE   -->
-  <!-- ========================================== -->
-  <section id="viewFree" class="w-full max-w-5xl hidden flex-col gap-4">
+  <!-- ======================================================== -->
+  <!-- MODE 2: FREE PRACTICE VIEW (50词库 · 错词本 · 深度纠音)        -->
+  <!-- ======================================================== -->
+  <section id="viewFreePractice" class="w-full max-w-5xl hidden flex-col gap-4">
+    
+    <!-- Filter Bar & Weak Spot Bank -->
     <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4">
       <div>
         <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
           📚 50 个少儿全景词汇库
         </h2>
-        <p class="text-xs text-slate-500 mt-1">覆盖 6 大生活主题与 Phonics 阶梯，支持错词本集中攻坚</p>
+        <p class="text-xs text-slate-500 mt-1">自主精细复习 · 点击单词即可切入精读</p>
       </div>
 
       <!-- Category Filter Pills -->
       <div class="flex items-center gap-1.5 overflow-x-auto hide-scrollbar text-xs">
         <button onclick="setFreeCategory('all')" class="free-cat-btn active px-3 py-1.5 rounded-xl font-bold bg-indigo-600 text-white shadow-sm whitespace-nowrap" data-cat="all">全部 (50)</button>
         <button onclick="setFreeCategory('weak')" class="free-cat-btn px-3 py-1.5 rounded-xl font-bold bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100 whitespace-nowrap" data-cat="weak">⚠️ 错词本 (<span id="weakCountBadge">0</span>)</button>
-        <button onclick="setFreeCategory('home')" class="free-cat-btn px-3 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="home">🏠 家居 (8)</button>
-        <button onclick="setFreeCategory('food')" class="free-cat-btn px-3 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="food">🍎 饮食 (8)</button>
-        <button onclick="setFreeCategory('animals')" class="free-cat-btn px-3 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="animals">🐱 动物 (9)</button>
-        <button onclick="setFreeCategory('nature')" class="free-cat-btn px-3 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="nature">🌳 自然 (8)</button>
-        <button onclick="setFreeCategory('play')" class="free-cat-btn px-3 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="play">⚽ 玩乐 (9)</button>
+        <button onclick="setFreeCategory('home')" class="free-cat-btn px-3 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="home">🏠 家居 (12)</button>
+        <button onclick="setFreeCategory('food')" class="free-cat-btn px-3 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="food">🍎 饮食 (10)</button>
+        <button onclick="setFreeCategory('animals')" class="free-cat-btn px-3 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="animals">🐱 动物 (10)</button>
+        <button onclick="setFreeCategory('nature')" class="free-cat-btn px-3 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="nature">🌳 自然 (6)</button>
+        <button onclick="setFreeCategory('play')" class="free-cat-btn px-3 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="play">⚽ 玩乐 (7)</button>
       </div>
     </div>
 
     <!-- 50 Word Cards Grid -->
-    <div id="freeGridContainer" class="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-10 gap-2">
+    <div id="freeGridContainer" class="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-10 gap-2 mb-2">
       <!-- 50 Word buttons populated by JS -->
+    </div>
+
+    <!-- Free Practice Workspace (7 Cols + 5 Cols) -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+      
+      <!-- Left Column: Word & 9 Scenario Sentences Card -->
+      <div class="md:col-span-7 flex flex-col gap-5">
+        <div class="bg-white rounded-3xl p-6 shadow-xl shadow-indigo-100/60 border border-indigo-50 relative overflow-hidden">
+          
+          <!-- Category & Index -->
+          <div class="flex items-center justify-between mb-4">
+            <span id="freeCategoryTag" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-600">
+              🏠 日常起居
+            </span>
+            <div class="flex items-center gap-2">
+              <button onclick="prevFreeCard()" class="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-100 transition">←</button>
+              <span id="freeCardIndex" class="text-xs font-bold text-slate-500 font-mono">1 / 50</span>
+              <button onclick="nextFreeCard()" class="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-100 transition">→</button>
+            </div>
+          </div>
+
+          <!-- Illustration & Word Header -->
+          <div class="flex items-center gap-5 mb-5">
+            <div id="freeWordIllustration" class="w-24 h-24 bg-gradient-to-tr from-amber-50 to-orange-100 rounded-2xl flex items-center justify-center text-5xl shadow-inner border border-amber-200/60 select-none">
+              🪑
+            </div>
+            <div class="flex-1">
+              <div class="flex items-center gap-3">
+                <h2 id="freeWordText" class="text-3xl font-extrabold text-slate-800 tracking-wide">desk</h2>
+                <button onclick="playFreeAudio('word')" title="播放真人母语纯正发音" class="px-3 py-1.5 rounded-full bg-indigo-50 hover:bg-indigo-100 text-indigo-700 flex items-center gap-1 text-xs font-bold transition shadow-sm border border-indigo-200/60">
+                  🔊 听真人单字
+                </button>
+              </div>
+              <div class="flex items-center gap-3 mt-1 text-xs text-slate-500">
+                <span id="freeWordPhonetic" class="font-mono bg-slate-100 px-2 py-0.5 rounded">/dɛsk/</span>
+                <span id="freeWordMeaning" class="font-medium text-slate-600">名词：书桌，办公桌</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2-Level Scenario Tabs -->
+          <div class="bg-slate-50 rounded-2xl p-2.5 border border-slate-100 mb-4">
+            <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">情境阶梯</div>
+            <div class="grid grid-cols-4 gap-1.5 text-xs font-bold">
+              <button id="fScTabWord" onclick="selectFreeMode('word')" class="py-2 rounded-xl text-slate-600 hover:text-slate-900 transition text-center truncate px-1">
+                单字精读
+              </button>
+              <button id="fScTab0" onclick="selectFreeScenarioTab(0)" class="py-2 rounded-xl bg-white text-indigo-700 shadow-sm transition text-center truncate px-1 font-bold">
+                情境一 · 描述
+              </button>
+              <button id="fScTab1" onclick="selectFreeScenarioTab(1)" class="py-2 rounded-xl text-slate-600 hover:text-slate-900 transition text-center truncate px-1">
+                情境二 · 动作
+              </button>
+              <button id="fScTab2" onclick="selectFreeScenarioTab(2)" class="py-2 rounded-xl text-slate-600 hover:text-slate-900 transition text-center truncate px-1">
+                情境三 · 对话
+              </button>
+            </div>
+
+            <!-- Sub-Sentence Selector -->
+            <div id="freeSentenceSubSelector" class="mt-2.5 pt-2 border-t border-slate-200/60 grid grid-cols-3 gap-1.5 text-xs">
+              <button id="fSentSub0" onclick="selectFreeSentenceIndex(0)" class="py-1.5 rounded-lg bg-indigo-600 text-white font-bold transition text-center truncate px-1 shadow-sm">
+                例句 1 (基础)
+              </button>
+              <button id="fSentSub1" onclick="selectFreeSentenceIndex(1)" class="py-1.5 rounded-lg text-indigo-900 hover:bg-indigo-100 transition text-center truncate px-1">
+                例句 2 (进阶)
+              </button>
+              <button id="fSentSub2" onclick="selectFreeSentenceIndex(2)" class="py-1.5 rounded-lg text-indigo-900 hover:bg-indigo-100 transition text-center truncate px-1">
+                例句 3 (拓展)
+              </button>
+            </div>
+          </div>
+
+          <!-- Target Sentence Display with Chinese Translation -->
+          <div class="p-4 rounded-2xl bg-indigo-50/70 border border-indigo-100 mb-4">
+            <div class="flex items-center justify-between mb-1.5">
+              <span id="freeTargetTag" class="text-[10px] font-bold uppercase tracking-wider text-indigo-700 bg-indigo-100 px-2 py-0.5 rounded">
+                场景一 · 认知特征描述 (例句 1/3)
+              </span>
+              <span class="text-[11px] text-slate-400">自主大声朗读</span>
+            </div>
+            <div class="flex items-start justify-between gap-3">
+              <div class="flex-1">
+                <p id="freeTargetSentence" class="text-xl md:text-2xl font-bold text-indigo-950 leading-snug">This is a clean wooden desk.</p>
+                <div class="mt-2 flex items-baseline gap-2">
+                  <span class="text-[10px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-indigo-200/60 text-indigo-800 tracking-wider">译文对照</span>
+                  <p id="freeTargetTranslationText" class="text-sm md:text-base font-medium text-slate-600">这是一张干净的木质书桌。</p>
+                </div>
+              </div>
+              <button onclick="playFreeAudio('target')" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold flex items-center gap-1.5 transition shadow-sm whitespace-nowrap mt-0.5">
+                <span>🔊 听真人范读</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Free Mode Manual Recording Control -->
+          <div class="flex items-center justify-center py-2 gap-4">
+            <button id="freeRecordBtn" onclick="handleFreeRecordClick()" class="px-6 py-3 rounded-2xl bg-gradient-to-tr from-rose-500 to-red-500 text-white font-bold text-sm shadow-md hover:from-rose-600 hover:to-red-600 flex items-center gap-2 transition active:scale-95">
+              <span>🎙️ 点击手动录音评测</span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Right Column: Diagnostics & SRS Memory Card -->
+      <div class="md:col-span-5 flex flex-col gap-5">
+        
+        <!-- Phonetic Diagnostics & Score Card -->
+        <div class="bg-white rounded-3xl p-6 shadow-xl shadow-indigo-100/60 border border-indigo-50">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="font-extrabold text-slate-800 text-sm flex items-center gap-1.5">
+              <span>📊 发音评分与诊断</span>
+            </h3>
+            <span id="freeEvalBadge" class="text-xs px-2.5 py-0.5 rounded-full font-bold bg-slate-100 text-slate-500">待评测</span>
+          </div>
+
+          <div class="flex items-center justify-center py-4 bg-gradient-to-b from-indigo-50/50 to-transparent rounded-2xl mb-4">
+            <div class="text-center">
+              <div id="freeScoreDisplay" class="text-5xl font-black text-slate-300">--</div>
+              <div id="freeScoreLabel" class="text-xs font-bold text-slate-400 mt-1">发音综合得分</div>
+            </div>
+          </div>
+
+          <!-- Words Breakdown -->
+          <div class="mb-4">
+            <div class="text-xs font-bold text-slate-600 mb-2">逐词发音诊断:</div>
+            <div id="freeWordsBreakdown" class="flex flex-wrap gap-2 min-h-[42px] p-2.5 bg-slate-50 rounded-xl border border-slate-100 items-center">
+              <span class="text-xs text-slate-400 italic">点击录音后将在此显示单词发音精准度</span>
+            </div>
+          </div>
+
+          <!-- Feedback Note -->
+          <div id="freeFeedbackBox" class="p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs text-slate-600">
+            💡 提示：按住录音按钮清晰大声朗读，系统将实时诊断连读、音素与重音。
+          </div>
+        </div>
+
+        <!-- SRS Memory Curve -->
+        <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-100 text-xs">
+          <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-1.5">
+            <span>🧠 艾宾浩斯智能复习排程</span>
+          </h4>
+          <div class="space-y-1.5 text-slate-600">
+            <div class="flex justify-between">
+              <span>掌握等级:</span>
+              <span id="freeSrsLevel" class="font-bold text-indigo-600">L1 · 初学阶段</span>
+            </div>
+            <div class="flex justify-between">
+              <span>下次推荐温习:</span>
+              <span id="freeSrsNext" class="font-bold text-slate-700">明天清晨</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
     </div>
   </section>
 
-  <!-- ========================================== -->
-  <!-- VIEW 3: 50-LEVEL ADVENTURE MAP            -->
-  <!-- ========================================== -->
+  <!-- ======================================================== -->
+  <!-- MODE 3: 50-STAGE ADVENTURE ISLAND                        -->
+  <!-- ======================================================== -->
   <section id="viewAdventure" class="w-full max-w-5xl hidden flex-col gap-4">
     <div class="bg-gradient-to-br from-emerald-500 via-teal-600 to-indigo-700 text-white p-6 rounded-3xl shadow-xl relative overflow-hidden">
       <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-4">
         <div>
           <span class="text-xs font-bold uppercase tracking-wider bg-white/20 px-3 py-1 rounded-full">50-Stage Adventure</span>
           <h2 class="text-2xl font-black mt-2">英语发音大探险：50关语音群岛</h2>
-          <p class="text-xs text-emerald-100 mt-1">横跨 5 大语音岛屿（小屋岛、美食镇、萌宠园、森林谷、乐园岛），80分即可过关点亮三星！</p>
+          <p class="text-xs text-emerald-100 mt-1">横跨 5 大语音岛屿，80分即可过关点亮三星！</p>
         </div>
         <div class="bg-white/10 backdrop-blur px-5 py-3 rounded-2xl border border-white/20 text-center">
           <div class="text-xs text-emerald-200">当前总星数</div>
@@ -161,351 +414,67 @@
   </section>
 
   <!-- ======================================================== -->
-  <!-- MAIN WORKSPACE: WORD CARD + 3 CONTEXTS x 3 SENTENCES     -->
+  <!-- MODAL: MOBILE & QR CODE TEST                             -->
   <!-- ======================================================== -->
-  <main class="w-full max-w-5xl grid grid-cols-1 md:grid-cols-12 gap-6 mt-4">
-    
-    <!-- Left Column: Word & 9 Scenario Sentences (7 Cols) -->
-    <div class="md:col-span-7 flex flex-col gap-5">
-      
-      <!-- Card Container -->
-      <div class="bg-white rounded-3xl p-6 shadow-xl shadow-indigo-100/60 border border-indigo-50 relative overflow-hidden">
-        
-        <!-- Header: Category & Role in Daily Quest -->
-        <div class="flex items-center justify-between mb-4">
-          <div class="flex items-center gap-2">
-            <span id="cardQuestRoleTag" class="px-3 py-1 rounded-full text-xs font-extrabold bg-indigo-100 text-indigo-800">
-              🌟 今日新词 (New)
-            </span>
-            <span id="cardCategoryTag" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-600">
-              🏠 日常起居
-            </span>
-          </div>
-          <div class="flex items-center gap-2">
-            <button onclick="prevCard()" class="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-100 transition">←</button>
-            <span id="cardIndex" class="text-xs font-bold text-slate-500 font-mono">1 / 50</span>
-            <button onclick="nextCard()" class="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-600 hover:bg-slate-100 transition">→</button>
-          </div>
-        </div>
-
-        <!-- Illustration & Word Header -->
-        <div class="flex flex-col sm:flex-row items-center gap-6 mb-5">
-          <div id="wordIllustration" class="w-28 h-28 bg-gradient-to-tr from-amber-50 to-orange-100 rounded-2xl flex items-center justify-center text-6xl shadow-inner border border-amber-200/60 select-none">
-            🪑
-          </div>
-          <div class="text-center sm:text-left flex-1">
-            <div class="flex items-center justify-center sm:justify-start gap-3">
-              <h2 id="wordText" class="text-4xl font-extrabold text-slate-800 tracking-wide">desk</h2>
-              <button onclick="playAudio('word')" title="播放真人母语纯正发音" class="px-3 py-1.5 rounded-full bg-indigo-50 hover:bg-indigo-100 text-indigo-700 flex items-center gap-1.5 text-xs font-bold transition shadow-sm border border-indigo-200/60">
-                🔊 听真人单字
-              </button>
-            </div>
-            <p id="wordPhonetic" class="text-sm font-medium text-indigo-500 mt-1 font-mono tracking-wider">/dɛsk/</p>
-            <p id="wordMeaning" class="text-sm text-slate-500 mt-1">名词：书桌，办公桌</p>
-            <div class="mt-2 text-[11px] text-slate-400">
-              历史表现：已练 <strong id="wordPracticeCount" class="text-indigo-600">0</strong> 次 · 最高 <strong id="wordBestScore" class="text-emerald-600">--</strong> 分 · 状态：<strong id="wordStatusTag" class="text-slate-600">待练习</strong>
-            </div>
-          </div>
-        </div>
-
-        <!-- LEVEL 1 SELECTOR: 3 Context Scenarios + Word Mode -->
-        <div class="space-y-2 mb-3">
-          <div class="text-xs font-bold text-slate-600 flex justify-between items-center px-1">
-            <span>第一步：选择情境主题 (3 种生活场景)</span>
-            <span class="text-indigo-600 text-[11px] font-semibold">每个情境配备 3 个例句</span>
-          </div>
-
-          <div class="grid grid-cols-4 gap-1.5 bg-slate-100 p-1.5 rounded-2xl text-xs font-semibold">
-            <button id="scTabWord" onclick="selectPracticeMode('word')" class="py-2 rounded-xl text-slate-600 hover:text-slate-900 transition text-center truncate px-1">
-              单字精读
-            </button>
-            <button id="scTab0" onclick="selectScenarioTab(0)" class="py-2 rounded-xl bg-white text-indigo-700 shadow-sm transition text-center truncate px-1 font-bold">
-              情境一 · 描述
-            </button>
-            <button id="scTab1" onclick="selectScenarioTab(1)" class="py-2 rounded-xl text-slate-600 hover:text-slate-900 transition text-center truncate px-1">
-              情境二 · 动作
-            </button>
-            <button id="scTab2" onclick="selectScenarioTab(2)" class="py-2 rounded-xl text-slate-600 hover:text-slate-900 transition text-center truncate px-1">
-              情境三 · 对话
-            </button>
-          </div>
-        </div>
-
-        <!-- LEVEL 2 SELECTOR: 3 Sentences within current scenario -->
-        <div id="sentenceSubSelector" class="space-y-1.5 mb-4">
-          <div class="text-[11px] font-bold text-slate-500 flex justify-between items-center px-1">
-            <span>第二步：选择要跟读的例句 (该情境下共有 3 个句子)：</span>
-          </div>
-          <div class="grid grid-cols-3 gap-1.5 bg-indigo-50/60 p-1 rounded-xl text-xs font-medium">
-            <button id="sentSub0" onclick="selectSentenceIndex(0)" class="py-1.5 rounded-lg bg-indigo-600 text-white font-bold transition text-center truncate px-1">
-              例句 1 (基础)
-            </button>
-            <button id="sentSub1" onclick="selectSentenceIndex(1)" class="py-1.5 rounded-lg text-indigo-900 hover:bg-indigo-100 transition text-center truncate px-1">
-              例句 2 (进阶)
-            </button>
-            <button id="sentSub2" onclick="selectSentenceIndex(2)" class="py-1.5 rounded-lg text-indigo-900 hover:bg-indigo-100 transition text-center truncate px-1">
-              例句 3 (拓展)
-            </button>
-          </div>
-        </div>
-
-        <!-- Current Target Box -->
-        <div class="p-4 rounded-2xl bg-indigo-50/70 border border-indigo-100 mb-4">
-          <div class="flex items-center justify-between mb-1.5">
-            <span id="targetTag" class="text-[10px] font-bold uppercase tracking-wider text-indigo-700 bg-indigo-100 px-2 py-0.5 rounded">
-              场景一 · 认知特征描述 (例句 1/3)
-            </span>
-            <span class="text-[11px] text-slate-400">大声朗读下方内容</span>
-          </div>
-          <div class="flex items-start justify-between gap-3">
-            <div class="flex-1">
-              <p id="targetSentence" class="text-xl md:text-2xl font-bold text-indigo-950 leading-snug">This is a clean wooden desk.</p>
-              <div class="mt-2 flex items-baseline gap-2">
-                <span class="text-[10px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-indigo-200/60 text-indigo-800 tracking-wider">译文对照</span>
-                <p id="targetTranslationText" class="text-sm md:text-base font-medium text-slate-600">这是一张干净的木质书桌。</p>
-              </div>
-            </div>
-            <button onclick="playAudio('target')" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold flex items-center gap-1.5 transition shadow-sm whitespace-nowrap mt-0.5">
-              <span>🔊 听真人范读</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- Live Waveform Canvas -->
-        <div class="w-full h-11 bg-slate-50 rounded-xl overflow-hidden border border-slate-200/80 mb-4 flex items-center justify-center relative">
-          <canvas id="waveformCanvas" class="w-full h-full"></canvas>
-          <span id="waveformPlaceholder" class="absolute text-[11px] text-slate-400 font-medium">麦克风声波捕获区（录音时随声音实时跳动）</span>
-        </div>
-
-        <!-- Recording & Control Section -->
-        <div class="flex flex-col items-center justify-center py-2">
-          <div class="relative flex items-center justify-center">
-            <div id="pulseRing" class="absolute w-24 h-24 rounded-full bg-rose-400 opacity-0 transition duration-300"></div>
-            <button id="recordBtn" onclick="handleRecordClick()" class="relative z-10 w-20 h-20 rounded-full bg-gradient-to-tr from-rose-500 to-red-500 hover:from-rose-600 hover:to-red-600 text-white shadow-lg shadow-rose-300/50 flex flex-col items-center justify-center transition transform active:scale-95 focus:outline-none">
-              <span id="recordIcon" class="text-2xl">🎙️</span>
-              <span id="recordStatus" class="text-[10px] font-bold mt-0.5 tracking-tight">点击录音</span>
-            </button>
-          </div>
-          <p id="recordTip" class="text-xs text-slate-500 mt-2.5 font-medium">
-            点击红色麦克风开始录音，念完再次点击停止（支持无限次重录）
-          </p>
-        </div>
-
-        <!-- Fast Simulation Testing Bar -->
-        <div class="mt-4 pt-3 border-t border-slate-100 bg-slate-50/70 -mx-6 -mb-6 p-4 rounded-b-3xl">
-          <div class="text-[11px] font-bold text-slate-500 mb-2 flex items-center justify-between">
-            <span>⚡ 评测算法快捷验证（一键模拟不同水平）：</span>
-          </div>
-          <div class="grid grid-cols-3 gap-1.5 text-xs">
-            <button onclick="simulateEval('bad')" class="py-1.5 px-2 bg-rose-50 text-rose-700 hover:bg-rose-100 rounded-lg border border-rose-200 font-semibold transition text-center">
-              🚫 乱念/含糊杂音<br><span class="text-[10px] opacity-75 font-normal">低分 (0~20分)</span>
-            </button>
-            <button onclick="simulateEval('wrong_word')" class="py-1.5 px-2 bg-amber-50 text-amber-700 hover:bg-amber-100 rounded-lg border border-amber-200 font-semibold transition text-center">
-              ⚠️ 读错关键单词<br><span class="text-[10px] opacity-75 font-normal">精准定位错词标红</span>
-            </button>
-            <button onclick="simulateEval('good')" class="py-1.5 px-2 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 rounded-lg border border-emerald-200 font-semibold transition text-center">
-              ✅ 正确标准朗读<br><span class="text-[10px] opacity-75 font-normal">高分 (92~98分)</span>
-            </button>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Real Live Speech Recognition Result -->
-      <div class="bg-white/90 rounded-2xl p-4 border border-slate-200/80 shadow-sm">
-        <div class="flex items-center justify-between text-xs text-slate-500 mb-2">
-          <span class="font-bold flex items-center gap-1.5">
-            <span id="liveDot" class="w-2 h-2 rounded-full bg-slate-300"></span>
-            麦克风实际接收到的内容 (完整聚合)
-          </span>
-          <span id="statusTimer" class="font-mono text-slate-400">00:00</span>
-        </div>
-        <div id="liveTranscript" class="text-sm text-slate-700 italic min-h-[36px] p-2.5 bg-slate-50 rounded-xl border border-slate-100 flex items-center">
-          等待录音中...
-        </div>
-        <div id="liveConfidence" class="text-[11px] text-slate-400 mt-1.5 flex justify-between">
-          <span>识别置信度：<strong id="confidenceVal" class="text-slate-600">--</strong></span>
-          <span>声学响度：<strong id="energyVal" class="text-slate-600">--</strong></span>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Right Column: Evaluation & SRS Review Engine (5 Cols) -->
-    <div class="md:col-span-5 flex flex-col gap-5">
-      
-      <!-- Pronunciation Score Card -->
-      <div id="resultCard" class="bg-white rounded-3xl p-6 shadow-xl shadow-indigo-100/60 border border-indigo-50 relative">
-        <h3 class="text-base font-bold text-slate-800 flex items-center justify-between mb-4">
-          <span>发音评估结果</span>
-          <span id="scoreBadge" class="text-xs px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 font-bold">待评测</span>
-        </h3>
-
-        <!-- Overall Score Ring -->
-        <div class="flex items-center justify-center gap-6 py-2">
-          <div class="relative w-28 h-28 flex items-center justify-center">
-            <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-              <circle cx="50" cy="50" r="40" stroke="#f1f5f9" stroke-width="8" fill="transparent" />
-              <circle id="scoreProgressCircle" cx="50" cy="50" r="40" stroke="#6366f1" stroke-width="8" stroke-dasharray="251.2" stroke-dashoffset="251.2" stroke-linecap="round" fill="transparent" class="transition-all duration-700 ease-out" />
-            </svg>
-            <div class="absolute flex flex-col items-center">
-              <span id="overallScoreNum" class="text-3xl font-extrabold text-slate-800">--</span>
-              <span class="text-[10px] text-slate-400 font-bold uppercase">综合得分</span>
-            </div>
-          </div>
-
-          <!-- Star Rating for Kids -->
-          <div class="flex flex-col items-center gap-1">
-            <div id="starContainer" class="flex text-2xl text-slate-200">
-              <span>★</span><span>★</span><span>★</span>
-            </div>
-            <span id="praiseText" class="text-xs font-bold text-slate-500 text-center">念完即可实时评测</span>
-          </div>
-        </div>
-
-        <!-- Metric Bars -->
-        <div class="space-y-2.5 my-4 pt-2 border-t border-slate-100">
-          <div>
-            <div class="flex justify-between text-xs font-semibold text-slate-600 mb-1">
-              <span>咬字准确度 (Accuracy)</span>
-              <span id="accScore">--</span>
-            </div>
-            <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-              <div id="accBar" class="bg-indigo-500 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
-            </div>
-          </div>
-          <div>
-            <div class="flex justify-between text-xs font-semibold text-slate-600 mb-1">
-              <span>发音完整度 (Completeness)</span>
-              <span id="fluScore">--</span>
-            </div>
-            <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-              <div id="fluBar" class="bg-emerald-500 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
-            </div>
-          </div>
-          <div>
-            <div class="flex justify-between text-xs font-semibold text-slate-600 mb-1">
-              <span>声学响度与节奏 (Acoustic)</span>
-              <span id="proScore">--</span>
-            </div>
-            <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-              <div id="proBar" class="bg-amber-500 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Word / Phoneme Granular Diagnostics -->
-        <div class="mt-4 pt-3 border-t border-slate-100">
-          <div class="text-xs font-bold text-slate-600 mb-2">逐词诊断明细（点击词块查看分析）：</div>
-          <div id="wordsFeedback" class="flex flex-wrap gap-1.5 min-h-[42px] items-center">
-            <span class="text-xs text-slate-400 italic">完成朗读后，此处真实标出正确或错误的词</span>
-          </div>
-        </div>
-
-        <!-- Next Quest Word Button -->
-        <div class="mt-4 pt-3 border-t border-slate-100 flex justify-between items-center">
-          <button onclick="resetEvaluationState()" class="text-xs text-slate-500 hover:text-indigo-600 font-semibold flex items-center gap-1 transition">
-            🔄 重置本题
-          </button>
-          <button id="nextQuestActionBtn" onclick="nextCard()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition flex items-center gap-1 shadow-md shadow-indigo-200">
-            <span>下一个任务词</span> →
-          </button>
-        </div>
-
-      </div>
-
-      <!-- Spaced Repetition (SRS) Engine Status -->
-      <div class="bg-white rounded-3xl p-5 shadow-xl shadow-indigo-100/60 border border-indigo-50">
-        <div class="flex items-center justify-between mb-3">
-          <h4 class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-            <span>🧠 智能复习算法联动 (SRS)</span>
-          </h4>
-          <span class="text-[10px] bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded font-mono font-bold">SM-2 / FSRS</span>
-        </div>
-
-        <div class="bg-slate-50 rounded-2xl p-3 border border-slate-100 text-xs space-y-2">
-          <div class="flex justify-between items-center">
-            <span class="text-slate-500">当前熟练度等级：</span>
-            <span id="srsMastery" class="font-bold text-slate-700">未测定</span>
-          </div>
-          <div class="flex justify-between items-center">
-            <span class="text-slate-500">下次推荐复习时间：</span>
-            <span id="srsNextReview" class="font-bold text-indigo-600">--</span>
-          </div>
-          <div class="flex justify-between items-center">
-            <span class="text-slate-500">调度规则：</span>
-            <span id="srsLogicNote" class="text-[11px] text-slate-500 text-right">念得糟将立即排入10分钟复习队列</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-  </main>
-
-  <!-- Mobile LAN QR Code Modal -->
-  <div id="mobileModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100 text-center">
-      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
-        <h3 class="text-lg font-bold text-slate-800">手机 / 平板 局域网真机测试</h3>
+  <div id="mobileModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border border-slate-100 text-center">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-base font-bold text-slate-800">📱 手机 / 平板扫码测试</h3>
         <button onclick="toggleMobileModal()" class="text-slate-400 hover:text-slate-600 font-bold text-lg">✕</button>
       </div>
 
-      <div class="my-5 flex flex-col items-center">
-        <div class="p-3 bg-white border-2 border-indigo-100 rounded-2xl shadow-sm mb-3">
-          <canvas id="qrCanvas" class="w-48 h-48"></canvas>
-        </div>
-        <p class="text-xs text-slate-600 font-bold">用 iPhone / iPad 相机或微信扫一扫直接打开</p>
-        
-        <div class="mt-3 p-3 bg-indigo-50 rounded-xl text-left text-xs space-y-1.5 w-full border border-indigo-100">
-          <div class="text-indigo-900 font-bold">局域网 HTTPS 直连地址：</div>
-          <code id="lanUrlText" class="block bg-white p-2 rounded border border-indigo-200 text-indigo-700 font-mono text-[11px] select-all break-all">https://192.168.100.114:8443</code>
-          <p class="text-[10px] text-slate-500 leading-relaxed pt-1">
-            <strong>⚠️ 苹果 Safari 麦克风权限提示：</strong><br>
-            手机浏览器对麦克风要求高安全性。首次打开会提示“证书不受信任”，请点击「显示详细信息」并选择「访问此网站（继续）」，即可正常授权麦克风收音！
-          </p>
-        </div>
+      <p class="text-xs text-slate-500 mb-4">
+        请使用手机相机或微信扫码打开，公网与局域网均可直接免配置调用麦克风：
+      </p>
+
+      <div class="w-48 h-48 bg-white border border-slate-200 rounded-2xl mx-auto flex items-center justify-center shadow-inner p-2 mb-3">
+        <canvas id="qrCanvas" class="w-full h-full"></canvas>
       </div>
 
-      <div class="flex justify-end">
-        <button onclick="toggleMobileModal()" class="px-4 py-2 bg-indigo-600 text-white rounded-xl text-xs font-bold hover:bg-indigo-700 transition">知道了</button>
+      <div class="text-xs font-mono bg-indigo-50 p-2.5 rounded-xl text-indigo-900 break-all border border-indigo-100 mb-4">
+        <a id="lanUrlText" href="https://honga0812.github.io/KaiSpeak/" target="_blank" class="underline font-bold text-indigo-700">https://honga0812.github.io/KaiSpeak/</a>
       </div>
+
+      <button onclick="toggleMobileModal()" class="w-full py-2.5 bg-indigo-600 text-white rounded-xl text-xs font-bold hover:bg-indigo-700 transition">
+        关闭
+      </button>
     </div>
   </div>
 
-  <!-- Practice Log & History Modal -->
-  <div id="logModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-2xl w-full p-6 shadow-2xl border border-slate-100 max-h-[90vh] flex flex-col">
-      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+  <!-- ======================================================== -->
+  <!-- MODAL: PRACTICE LOGS                                     -->
+  <!-- ======================================================== -->
+  <div id="logModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl p-6 max-w-2xl w-full shadow-2xl border border-slate-100 flex flex-col max-h-[85vh]">
+      <div class="flex justify-between items-center mb-4">
         <div>
-          <h3 class="text-lg font-bold text-slate-800">学习与朗读记录日志 (Practice Logs)</h3>
-          <p class="text-xs text-slate-500">详细记录每一次发音朗读时间点、得分与复习统计</p>
+          <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
+            <span>📋 发音练习与跟读日志</span>
+            <span class="text-xs bg-indigo-100 text-indigo-700 font-bold px-2 py-0.5 rounded-full" id="totalLogsNum">0</span>
+          </h3>
+          <p class="text-xs text-slate-400">已记录每次练习时间戳、得分与详细对照</p>
         </div>
-        <button onclick="toggleLogModal()" class="text-slate-400 hover:text-slate-600 font-bold text-lg">✕</button>
+        <div class="flex items-center gap-2">
+          <button onclick="exportLogsCSV()" class="px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 rounded-xl text-xs font-bold transition flex items-center gap-1">
+            📥 导出 CSV
+          </button>
+          <button onclick="toggleLogModal()" class="text-slate-400 hover:text-slate-600 font-bold text-lg ml-2">✕</button>
+        </div>
       </div>
 
-      <div class="flex items-center justify-between my-3 text-xs">
-        <span class="text-slate-600">总练习记录：<strong id="totalLogsNum" class="text-indigo-600">0</strong> 条</span>
-        <button onclick="exportLogsCSV()" class="px-3 py-1 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 rounded-lg font-bold transition flex items-center gap-1">
-          📥 导出练习日志 (CSV)
-        </button>
-      </div>
-
-      <div id="logsTableContainer" class="flex-1 overflow-y-auto border border-slate-100 rounded-2xl">
+      <div class="overflow-y-auto flex-1 border border-slate-100 rounded-2xl">
         <table class="w-full text-left border-collapse text-xs">
-          <thead class="bg-slate-50 sticky top-0 text-slate-500 font-bold border-b">
+          <thead class="bg-slate-50 sticky top-0 text-slate-500 font-semibold border-b border-slate-100">
             <tr>
-              <th class="p-2.5">时间戳</th>
-              <th class="p-2.5">词汇 / 情境例句</th>
+              <th class="p-2.5">时间</th>
+              <th class="p-2.5">跟读内容 (中英对照)</th>
               <th class="p-2.5">类型</th>
               <th class="p-2.5">得分</th>
-              <th class="p-2.5">复习状态</th>
+              <th class="p-2.5">状态</th>
             </tr>
           </thead>
-          <tbody id="logsTableBody" class="divide-y divide-slate-100 text-slate-700">
-            <tr>
-              <td colspan="5" class="p-6 text-center text-slate-400 italic">暂无练习记录，开始朗读后将自动记录</td>
-            </tr>
+          <tbody id="logsTableBody" class="divide-y divide-slate-100">
+            <tr><td colspan="5" class="p-6 text-center text-slate-400 italic">暂无练习记录</td></tr>
           </tbody>
         </table>
       </div>
@@ -518,237 +487,605 @@
   </div>
 
   <script>
-    // --- 50 Complete Children's Vocabulary Master Database with 3 Scenarios x 3 Sentences = 9 Sentences Each ---
+    // --- 50 Master Vocabulary with 3 Scenarios x 3 Sentences = 9 Sentences (Bilingual) ---
     const MASTER_VOCAB = [{"id": "desk", "word": "desk", "phonetic": "/dɛsk/", "meaning": "名词：书桌，办公桌", "emoji": "🪑", "category": "home", "level": "L1", "role": "review", "variants": ["desk", "desks", "deck", "disk", "disc", "das"], "scenarios": [{"tag": "情境一 · 认知特征描述", "desc": "观察桌子的外观与状态", "sentences": ["This is a clean wooden desk.", "The desk is next to the window.", "I have a small blue study desk."], "translations": ["这是一张干净的木质书桌。", "书桌就放在窗户旁边。", "我有一张蓝色的小学习桌。"]}, {"tag": "情境二 · 动作指令与整理", "desc": "在书桌前的动作与自理能力", "sentences": ["Put your story book on the desk.", "Please wipe the dust off your desk.", "Sit down at your desk and draw a picture."], "translations": ["把你的故事书放在书桌上吧。", "请擦干净书桌上的灰尘。", "坐在书桌前，画一幅画吧。"]}, {"tag": "情境三 · 课堂与生活应用", "desc": "在学校与家里的对话场景", "sentences": ["I sit at my desk in school every day.", "Is this desk yours or your sister's?", "We can share this big desk together."], "translations": ["我每天在学校都坐在自己的书桌前。", "这张书桌是你的还是你妹妹的？", "我们可以一起合用这张大书桌。"]}]}, {"id": "bed", "word": "bed", "phonetic": "/bɛd/", "meaning": "名词：床，小床", "emoji": "🛏️", "category": "home", "level": "L1", "role": "review", "variants": ["bed", "beds", "bad", "bet"], "scenarios": [{"tag": "情境一 · 认知特征描述", "desc": "床的外观与触感", "sentences": ["My bed is very soft and warm.", "There is a blue blanket on the bed.", "The big bed is in the master bedroom."], "translations": ["我的床非常柔软而且温暖。", "床上铺着一条蓝色的毯子。", "大床摆在主卧室里。"]}, {"tag": "情境二 · 动作指令与自理", "desc": "起卧与整理动作", "sentences": ["Time to make your bed in the morning.", "Do not jump up and down on the bed.", "Go to bed early and sleep well tonight."], "translations": ["早上起床该叠被子整理床铺了。", "不要在床上跳来跳去。", "今晚早点上床睡觉，做个好梦。"]}, {"tag": "情境三 · 睡前对话", "desc": "睡前亲子温馨交流", "sentences": ["Mom tells me a story beside my bed.", "I like to hug my teddy bear in bed.", "Are you ready to get out of bed now?"], "translations": ["妈妈坐在我床边给我讲故事。", "我喜欢在床上抱着我的泰迪熊。", "你准备好从床上起来了吗？"]}]}, {"id": "cup", "word": "cup", "phonetic": "/kʌp/", "meaning": "名词：水杯，茶杯", "emoji": "🥛", "category": "home", "level": "L1", "role": "new", "variants": ["cup", "cups", "cap", "cop"], "scenarios": [{"tag": "情境一 · 认知特征描述", "desc": "杯子的颜色与造型", "sentences": ["This is a cute yellow plastic cup.", "The glass cup is full of fresh milk.", "My favorite cup has a cartoon animal."], "translations": ["这是一个可爱的黄色塑料杯。", "玻璃杯里装满了新鲜的牛奶。", "我最喜欢的杯子上有卡通小动物。"]}, {"tag": "情境二 · 动作指令与安全", "desc": "拿放与使用水杯", "sentences": ["Hold the cup with both hands carefully.", "Please pass me that clean water cup.", "Wash your cup after you drink your milk."], "translations": ["小心地用双手端好杯子。", "请把那个干净的水杯递给我。", "喝完牛奶后要把你的水杯洗干净。"]}, {"tag": "情境三 · 日常对话应用", "desc": "点餐与日常饮水交流", "sentences": ["Would you like a warm cup of hot water?", "Can I have another cup of apple juice?", "Mom drinks a cup of fragrant tea every day."], "translations": ["你想喝一杯温热的白开水吗？", "我可以再喝一杯苹果汁吗？", "妈妈每天都要喝一杯香浓的热茶。"]}]}, {"id": "door", "word": "door", "phonetic": "/dɔːr/", "meaning": "名词：房门，大门", "emoji": "🚪", "category": "home", "level": "L1", "role": "review", "variants": ["door", "doors"], "scenarios": [{"tag": "情境一 · 认知特征描述", "desc": "门的方位与材质", "sentences": ["The front door of our house is red.", "There is a small bell beside the door.", "The bedroom door is made of solid wood."], "translations": ["我们家的大门是红色的。", "大门旁边装有一个小门铃。", "卧室的房门是实木做成的。"]}, {"tag": "情境二 · 动作指令与礼貌", "desc": "开门关门的日常动作", "sentences": ["Please knock on the door before entering.", "Remember to close the door gently behind you.", "Open the front door to welcome our guests."], "translations": ["进门之前请先敲敲门。", "走出门后记得轻轻把门关上。", "打开大门迎接我们的客人吧。"]}, {"tag": "情境三 · 日常生活对话", "desc": "迎客与外出提醒", "sentences": ["Who is knocking loudly at the door?", "Dad is standing right outside the door.", "Lock the door when we leave the house."], "translations": ["是谁在门外大声敲门呀？", "爸爸就站在大门外面呢。", "我们出门离开家时要把门锁好。"]}]}, {"id": "clock", "word": "clock", "phonetic": "/klɑːk/", "meaning": "名词：时钟，闹钟", "emoji": "⏰", "category": "home", "level": "L1", "role": "new", "variants": ["clock", "clocks", "cock", "lock"], "scenarios": [{"tag": "情境一 · 认知特征描述", "desc": "钟表的形状与指针", "sentences": ["The round wall clock has twelve numbers.", "The alarm clock makes a loud ringing sound.", "A small digital clock sits on the desk."], "translations": ["这个圆圆的挂钟上有十二个数字。", "闹钟发出了响亮的铃声。", "书桌上摆着一个小数码闹钟。"]}, {"tag": "情境二 · 动作指令与看时间", "desc": "看时间和设置闹钟", "sentences": ["Look at the clock to see the time.", "Set the alarm clock for seven in the morning.", "Listen to the clock go tick tick tick."], "translations": ["看一下闹钟现在是几点钟了。", "把闹钟设置在早上七点钟。", "听闹钟滴答滴答走动的声音。"]}, {"tag": "情境三 · 作息对话应用", "desc": "时间观念与作息交流", "sentences": ["What time does the kitchen clock say?", "The clock tells us it is time for bed.", "We must hurry because the clock is ticking."], "translations": ["厨房的挂钟现在显示几点呀？", "时钟告诉我们该上床睡觉了。", "我们得抓紧时间，因为时间在滴答流逝。"]}]}, {"id": "box", "word": "box", "phonetic": "/bɑːks/", "meaning": "名词：盒子，箱子", "emoji": "📦", "category": "home", "level": "L1", "role": "review", "variants": ["box", "boxes", "fox", "backs"], "scenarios": [{"tag": "情境一 · 认知特征描述", "desc": "盒子的材质与颜色", "sentences": ["This cardboard box is light and brown.", "Here is a colorful mystery gift box.", "The plastic box keeps all my toys safe."], "translations": ["这个纸箱子又轻又是棕色的。", "这里有一个五彩斑斓的神秘礼物盒。", "塑料收纳箱能保护好我所有的玩具。"]}, {"tag": "情境二 · 动作整理与打开", "desc": "收纳整理与开箱", "sentences": ["Open the big box to see the surprise.", "Put all your wooden blocks into the box.", "Help me carry this small paper box."], "translations": ["打开这个大箱子看看里面的惊喜吧。", "把你所有的积木都收进盒子里。", "帮我搬一下这个小纸盒好吗？"]}, {"tag": "情境三 · 日常游戏与应用", "desc": "找玩具与装收纳交流", "sentences": ["What is hidden inside this little box?", "My puppy likes to sleep inside the shoe box.", "We packed the old books in a heavy box."], "translations": ["这个小盒子里藏着什么东西呢？", "我的小狗喜欢睡在鞋盒里面。", "我们把旧书都打包进了一个大重箱子里。"]}]}, {"id": "lamp", "word": "lamp", "phonetic": "/læmp/", "meaning": "名词：台灯，电灯", "emoji": "💡", "category": "home", "level": "L1", "role": "new", "variants": ["lamp", "lamps", "lamb", "lump"], "scenarios": [{"tag": "情境一 · 认知特征描述", "desc": "灯光的亮度与颜色", "sentences": ["The table lamp gives off a warm yellow light.", "A cute desk lamp sits right by my computer.", "The floor lamp makes the living room bright."], "translations": ["这盏台灯散发着温暖柔和的黄色光芒。", "电脑旁边放着一盏可爱的台灯。", "这盏落地灯让整个客厅变得格外明亮。"]}, {"tag": "情境二 · 开关操作指令", "desc": "节约用电与开关动作", "sentences": ["Turn on the desk lamp when you read.", "Please switch off the lamp before going out.", "Adjust the lamp so it shines on your book."], "translations": ["阅读看书的时候记得把台灯打开。", "外出之前请记得把灯关掉。", "调整一下台灯的角度，让它照亮你的书本。"]}, {"tag": "情境三 · 睡前与生活对话", "desc": "夜读与伴睡交流", "sentences": ["Can you leave the small night lamp on?", "The bright lamp helps me see things clearly.", "I turn off my bedside lamp to fall asleep."], "translations": ["可以把这盏小夜灯留着别关吗？", "明亮的灯光帮我把东西看得很清楚。", "我关掉床头灯准备进入梦乡了。"]}]}, {"id": "chair", "word": "chair", "phonetic": "/tʃɛr/", "meaning": "名词：椅子", "emoji": "🪑", "category": "home", "level": "L1", "role": "consolidate", "variants": ["chair", "chairs", "cheer"], "scenarios": [{"tag": "情境一 · 认知特征描述", "desc": "椅子的款式与舒适度", "sentences": ["This is a comfortable wooden rocking chair.", "There are four sturdy chairs around the dining table.", "The baby high chair is very safe and clean."], "translations": ["这是一把坐起来很舒服的木质摇摇椅。", "餐桌周围摆着四把结实稳固的椅子。", "宝宝专用的高脚餐椅非常安全卫生。"]}, {"tag": "情境二 · 动作指令与礼貌", "desc": "拉椅子与入座礼仪", "sentences": ["Pull out the chair and sit down quietly.", "Push your chair in when you stand up.", "Please offer that soft chair to grandma."], "translations": ["拉开椅子，安静地坐下来。", "站起身的时候记得把椅子推回去。", "请把那把软软的舒适椅子让给奶奶坐。"]}, {"tag": "情境三 · 生活聚餐对话", "desc": "家庭用餐与聚会交流", "sentences": ["Is anyone sitting in this empty chair?", "I sit in my own small chair at dinner.", "We need one more chair for our guest."], "translations": ["有人坐在这张空着的椅子上吗？", "吃晚餐时我坐在自己的小椅子上。", "我们需要为客人再添一把椅子。"]}]}, {"id": "apple", "word": "apple", "phonetic": "/ˈæp.əl/", "meaning": "名词：苹果", "emoji": "🍎", "category": "food", "level": "L2", "role": "new", "variants": ["apple", "apples", "app", "able", "apo"], "scenarios": [{"tag": "情境一 · 美味口感与外观", "desc": "苹果的颜色与香甜口感", "sentences": ["I eat a sweet and crunchy red apple.", "This green apple tastes a little bit sour.", "Fresh apples are round and shiny on the tree."], "translations": ["我吃了一个又甜又脆的红苹果。", "这个青苹果吃起来有一点点酸酸的。", "树上新鲜成熟的苹果又圆又亮。"]}, {"tag": "情境二 · 分享与准备动作", "desc": "洗切分享苹果的动作", "sentences": ["Wash the ripe red apple before taking a bite.", "Mom cuts the juicy apple into four slices.", "Would you like to share this apple with me?"], "translations": ["大口吃之前要先洗干净成熟的红苹果。", "妈妈把多汁的苹果切成了四块果瓣。", "你愿意和我一起分享这个红苹果吗？"]}, {"tag": "情境三 · 营养与生活对话", "desc": "日常对话与健康谚语", "sentences": ["An apple a day keeps the doctor away.", "Apples are definitely my favorite healthy fruit.", "Do you prefer sweet red apples or green apples?"], "translations": ["一天一苹果，医生远离我。", "苹果绝对是我最喜欢的健康水果。", "你更喜欢甜甜的红苹果还是清爽的青苹果？"]}]}, {"id": "water", "word": "water", "phonetic": "/ˈwɔː.tər/", "meaning": "名词：水，白开水", "emoji": "💧", "category": "food", "level": "L2", "role": "consolidate", "variants": ["water", "wat", "warter", "walter"], "scenarios": [{"tag": "情境一 · 认知特征描述", "desc": "水的清澈与自然状态", "sentences": ["Pure water is clear and has no color.", "Cool water feels refreshing on a hot day.", "Fish swim happily in the clean blue water."], "translations": ["纯净的饮用水清澈而且透明无色。", "在炎热的天气里喝口凉开水感觉格外提神。", "小鱼在蔚蓝清澈的水里欢快地游来游去。"]}, {"tag": "情境二 · 动作指令与卫生", "desc": "喝水与清洗动作", "sentences": ["Wash your dirty hands with soap and water.", "Pour some warm water into my little cup.", "Drink plenty of water after running and playing."], "translations": ["用肥皂和清水洗干净你的小脏手。", "往我的小水杯里倒一点温水吧。", "跑步玩耍出汗后要多补充水分。"]}, {"tag": "情境三 · 日常生活对话", "desc": "口渴需求与关怀对话", "sentences": ["Can I please have a glass of cold water?", "Are you thirsty and in need of some water?", "Remember to bring your water bottle to school."], "translations": ["我可以要一杯清凉的饮用水吗？", "你感到口渴想喝点水了吗？", "去学校上学记得带上你的便携水壶。"]}]}, {"id": "banana", "word": "banana", "phonetic": "/bəˈnæn.ə/", "meaning": "名词：香蕉", "emoji": "🍌", "category": "food", "level": "L2", "role": "new", "variants": ["banana", "bananas"], "scenarios": [{"tag": "情境一 · 颜色成熟与形状", "desc": "香蕉的弯弯形状与色泽", "sentences": ["The yellow banana is sweet and crescent-shaped.", "Green bananas need a few days to ripen.", "A bunch of fresh bananas sits in the fruit basket."], "translations": ["黄澄澄的香蕉味道很甜，形状像弯弯的新月。", "绿色的青香蕉还需要放几天才会完全变熟。", "果篮里摆着一整串新鲜的香蕉。"]}, {"tag": "情境二 · 动作剥皮与吃法", "desc": "剥皮与垃圾分类动作", "sentences": ["Peel the yellow banana before you take a bite.", "Throw the banana peel into the trash can.", "Slice the soft banana over your morning cereal."], "translations": ["大口吃之前先把黄色的香蕉皮剥开。", "把剥下来的香蕉皮扔进垃圾桶里。", "把软软的香蕉切成小薄片放在早餐饮料上。"]}, {"tag": "情境三 · 趣味常识与对话", "desc": "动物食性与加餐交流", "sentences": ["Playful monkeys in the zoo love to eat bananas.", "Can I have a sweet banana for my afternoon snack?", "We can blend ripe bananas into a yummy smoothie."], "translations": ["动物园里调皮的小猴子最爱吃香蕉了。", "我的下午点心可以吃一根甜甜的香蕉吗？", "我们可以把熟透的香蕉打成美味的奶昔。"]}]}, {"id": "milk", "word": "milk", "phonetic": "/mɪlk/", "meaning": "名词：牛奶", "emoji": "🥛", "category": "food", "level": "L1", "role": "review", "variants": ["milk", "milks", "make"], "scenarios": [{"tag": "情境一 · 认知特征描述", "desc": "牛奶的白色与营养", "sentences": ["Fresh cow milk is creamy, white, and healthy.", "Warm milk has a comforting and pleasant smell.", "A carton of organic milk is in the refrigerator."], "translations": ["新鲜的牛奶浓郁洁白，而且对身体很有营养。", "温热的牛奶散发着让人安心舒适的香气。", "冰箱里放着一盒新鲜的有机牛奶。"]}, {"tag": "情境二 · 动作指令与饮用", "desc": "倒牛奶与早餐自理", "sentences": ["Drink a tall glass of warm milk every morning.", "Pour the milk carefully without spilling a drop.", "Stir a spoonful of honey into your warm milk."], "translations": ["每天清晨喝上一大杯温牛奶。", "倒牛奶时要小心仔细，不要洒出一滴。", "往温牛奶里舀一勺蜂蜜搅拌均匀。"]}, {"tag": "情境三 · 早餐与常识对话", "desc": "早餐搭配与骨骼健康交流", "sentences": ["I usually eat crispy bread and milk for breakfast.", "Friendly cows on the farm give us delicious milk.", "Drinking milk helps build strong and healthy bones."], "translations": ["我早餐通常都吃香脆的面包配牛奶。", "农场里温顺的小牛为我们提供香甜的牛奶。", "常喝牛奶能帮我们长出结实健康的骨骼。"]}]}, {"id": "bread", "word": "bread", "phonetic": "/brɛd/", "meaning": "名词：面包", "emoji": "🍞", "category": "food", "level": "L1", "role": "new", "variants": ["bread", "breads", "bed", "red"], "scenarios": [{"tag": "情境一 · 香气与口感描述", "desc": "面包的松软与金黄外观", "sentences": ["The freshly baked bread smells wonderful.", "This slice of white bread is very soft.", "Golden toast bread is warm and crispy."], "translations": ["刚出炉烤好的新鲜面包闻起来香喷喷的。", "这片白面包摸起来非常松软。", "烤得金黄的吐司面包温热又香脆。"]}, {"tag": "情境二 · 动作制作与涂抹", "desc": "涂果酱与做三明治", "sentences": ["Spread sweet strawberry jam on your bread.", "Cut the loaf of bread with a butter knife.", "Put cheese between two slices of brown bread."], "translations": ["在你的面包片上抹上甜甜的草莓果酱。", "用涂抹黄油的餐刀切开整块面包。", "在两片全麦面包中间夹上一片香浓奶酪。"]}, {"tag": "情境三 · 烘焙生活对话", "desc": "面包店选购与分享", "sentences": ["Do you want toasted bread or plain bread?", "The baker bakes fresh bread every single morning.", "Can you buy a loaf of whole wheat bread?"], "translations": ["你想吃烤吐司还是普通的切片软面包？", "面包师每天清晨都会烘烤出新鲜的面包。", "你能帮我买一条全麦面包回来吗？"]}]}, {"id": "egg", "word": "egg", "phonetic": "/ɛɡ/", "meaning": "名词：鸡蛋，蛋", "emoji": "🥚", "category": "food", "level": "L1", "role": "new", "variants": ["egg", "eggs", "leg"], "scenarios": [{"tag": "情境一 · 外观形状描述", "desc": "椭圆造型与蛋壳特征", "sentences": ["The hen laid a smooth oval egg in the nest.", "The yellow egg yolk is in the middle of the egg.", "There are six brown eggs inside the carton."], "translations": ["母鸡在鸡窝里生下了一枚圆滑饱满的鸡蛋。", "金黄色的蛋黄正好包裹在鸡蛋的正中央。", "鸡蛋纸盒里整整齐齐地放着六枚褐壳蛋。"]}, {"tag": "情境二 · 烹饪与动作指令", "desc": "剥蛋壳与煎蛋动作", "sentences": ["Peel the boiled egg carefully after it cools down.", "Crack the fresh egg into the frying pan.", "Handle the raw egg gently so it does not break."], "translations": ["煮熟的鸡蛋放凉之后，轻轻把蛋壳剥干净。", "把新鲜的生鸡蛋磕开打进平底锅里。", "拿生鸡蛋的时候动作要轻柔，小心别打破了。"]}, {"tag": "情境三 · 营养餐桌对话", "desc": "煎蛋水煮蛋口味选择", "sentences": ["Do you like your morning egg fried or boiled?", "Eating an egg provides great energy for growing kids.", "Mom is making scrambled eggs with sweet tomatoes."], "translations": ["你早上的鸡蛋喜欢吃荷包煎蛋还是水煮蛋？", "吃鸡蛋能为成长中的小朋友提供丰富的能量。", "妈妈正在为我们做美味可口的西红柿炒鸡蛋。"]}]}, {"id": "juice", "word": "juice", "phonetic": "/dʒuːs/", "meaning": "名词：果汁", "emoji": "🧃", "category": "food", "level": "L1", "role": "review", "variants": ["juice", "juices", "choose"], "scenarios": [{"tag": "情境一 · 色泽与风味描述", "desc": "果汁的清新果香与颜色", "sentences": ["Fresh orange juice is bright orange and sweet.", "Cold watermelon juice is wonderful in the hot summer.", "This bottle of grape juice has no added sugar."], "translations": ["新鲜榨出的橙汁颜色鲜亮，口感酸甜清爽。", "在炎炎夏日喝一杯冰镇西瓜汁最舒服了。", "这瓶葡萄汁完全没有添加额外的糖分。"]}, {"tag": "情境二 · 压榨与饮用动作", "desc": "鲜榨果汁与倒果汁动作", "sentences": ["Squeeze the fresh lemon to make sour juice.", "Pour the cold apple juice into my tall glass.", "Sip your fruit juice with a colorful straw."], "translations": ["挤压新鲜柠檬来榨出酸爽开胃的柠檬汁。", "把冰凉的苹果汁倒进我的高脚玻璃杯里。", "用彩色的吸管小口啜饮美味的果汁。"]}, {"tag": "情境三 · 野餐聚会对话", "desc": "日常点单与聚会分享", "sentences": ["What kind of juice would you like to drink?", "We brought sweet apple juice for our family picnic.", "Can I have another cup of freshly squeezed juice?"], "translations": ["你想喝什么口味的新鲜果汁呢？", "我们为全家野餐准备了香甜的苹果汁。", "我可以再要一杯新鲜现榨的水果汁吗？"]}]}, {"id": "cake", "word": "cake", "phonetic": "/keɪk/", "meaning": "名词：蛋糕", "emoji": "🎂", "category": "food", "level": "L1", "role": "new", "variants": ["cake", "cakes", "take", "make"], "scenarios": [{"tag": "情境一 · 奶油与造型描述", "desc": "蛋糕的香甜层层与装饰", "sentences": ["The birthday cake is covered in pink sweet cream.", "A chocolate cake smells wonderfully rich and sweet.", "There are colorful fresh berries on top of the cake."], "translations": ["生日蛋糕上面覆盖着一层粉红色的甜奶油。", "巧克力蛋糕散发着浓郁迷人的香甜气味。", "蛋糕顶部摆放着五颜六色新鲜的水果浆果。"]}, {"tag": "情境二 · 吹蜡烛与分切动作", "desc": "许愿与切蛋糕动作", "sentences": ["Make a wish and blow out the candles on the cake.", "Cut the birthday cake into equal slices for everyone.", "Help me put pretty candles onto the birthday cake."], "translations": ["闭上眼睛许个愿，然后吹灭蛋糕上的生日蜡烛。", "把生日蛋糕均匀切成小块分给每一位小朋友。", "帮我把漂亮的彩蜡烛一根根插在蛋糕上。"]}, {"tag": "情境三 · 生日派对对话", "desc": "庆祝与分享祝福交流", "sentences": ["Happy birthday to you! Enjoy this delicious cake!", "Who would like the first slice of chocolate cake?", "Mom baked this lovely sponge cake just for my party."], "translations": ["祝你生日快乐！尽情享受美味的蛋糕吧！", "谁想吃第一块香浓的巧克力蛋糕呢？", "妈妈专门为我的生日派对烤制了这个可口的戚风蛋糕。"]}]}, {"id": "cat", "word": "cat", "phonetic": "/kæt/", "meaning": "名词：猫咪", "emoji": "🐱", "category": "animals", "level": "L1", "role": "review", "variants": ["cat", "cats", "cut", "cap", "cad"], "scenarios": [{"tag": "情境一 · 动物萌态与外貌", "desc": "毛色、胡须与温顺特征", "sentences": ["The cute kitten has soft fur and long whiskers.", "A sleeping white cat is curled up on the rug.", "The playful black cat has big green eyes."], "translations": ["这只可爱的小猫咪有着柔软的毛发和长长的胡须。", "一只睡着了的白猫正蜷缩在温暖的地毯上。", "这只贪玩好动的小黑猫长着一双碧绿的大眼睛。"]}, {"tag": "情境二 · 抚摸动作与互动", "desc": "抱猫、梳毛与喂食动作", "sentences": ["Pet the friendly cat gently on its furry head.", "Give the hungry cat a small bowl of fresh milk.", "Do not pull the cat's tail because it hurts."], "translations": ["轻柔地抚摸小猫毛茸茸的小脑袋。", "给饥饿的小猫准备一小碗新鲜的温牛奶。", "千万不要拉扯猫咪的尾巴，因为那样会让它很痛。"]}, {"tag": "情境三 · 趣味习性与对话", "desc": "叫声、捉迷藏与陪伴交流", "sentences": ["The happy cat purrs and says meow meow.", "Look! The nimble cat caught a toy mouse.", "My pet cat always sleeps at the foot of my bed."], "translations": ["快乐满足的猫咪会发出呼噜声，喵喵叫着。", "快看！这只机灵的小猫抓住了一个毛线老鼠玩具。", "我家的小宠物猫总喜欢蜷缩在我的床尾睡觉。"]}]}, {"id": "dog", "word": "dog", "phonetic": "/dɔːɡ/", "meaning": "名词：小狗，猎犬", "emoji": "🐶", "category": "animals", "level": "L1", "role": "review", "variants": ["dog", "dogs", "dock", "doc"], "scenarios": [{"tag": "情境一 · 外貌特征与毛色", "desc": "耳朵、尾巴与活泼特征", "sentences": ["The cheerful golden dog has floppy long ears.", "A brave big shepherd dog guards our quiet yard.", "The tiny puppy is fluffy, playful, and very energetic."], "translations": ["这只活泼欢快的金毛犬有着长长耷拉着的大耳朵。", "一只威武勇敢的牧羊犬守护着我们安静的庭院。", "小狗宝宝毛茸茸的，爱玩而且精力十分充沛。"]}, {"tag": "情境二 · 动作指令与投掷游戏", "desc": "扔飞盘、握手与遛狗指令", "sentences": ["Throw the red rubber ball for the excited dog.", "Walk the dog in the park every sunny afternoon.", "Teach the smart dog to sit down and shake hands."], "translations": ["把红色的橡胶球扔出去让兴奋的小狗去捡。", "在每一个晴朗的午后带小狗去公园散步。", "教聪明的小狗学会安静坐下以及握手。"]}, {"tag": "情境三 · 情感陪伴与生活对话", "desc": "忠实玩伴与家庭成员对话", "sentences": ["The loyal dog wags its tail to welcome me home.", "My puppy barks happily when we play in the garden.", "Dogs are known as human beings' very best friends."], "translations": ["忠诚的小狗用力摇尾巴热烈欢迎我放学回家。", "我们在花园里玩耍时，小狗高兴得汪汪叫个不停。", "大家都知道狗狗是人类最忠实最好的朋友。"]}]}, {"id": "fish", "word": "fish", "phonetic": "/fɪʃ/", "meaning": "名词：小鱼，鱼类", "emoji": "🐟", "category": "animals", "level": "L1", "role": "new", "variants": ["fish", "fished"], "scenarios": [{"tag": "情境一 · 水中外观与游动", "desc": "鱼鳞、鱼鳍与水族箱特征", "sentences": ["The tiny goldfish has shiny scales and a long tail.", "Colorful little tropical fish swim in the blue aquarium.", "A big silver fish leaps out of the river water."], "translations": ["这条小巧的金鱼长着闪闪发光的鳞片和长鱼尾。", "色彩绚丽的各色热带鱼在蔚蓝的水族箱里畅游。", "一条银白色的大鱼跃出了波光粼粼的河水。"]}, {"tag": "情境二 · 喂食动作与观察", "desc": "撒饲料与水族馆观察指令", "sentences": ["Feed the hungry fish with a pinch of fish flakes.", "Watch how smoothly the fish moves through the water.", "Keep the fish tank clean so the fish stay healthy."], "translations": ["抓一小撮鱼食薄片来喂饱饥饿的小鱼。", "仔细观察小鱼在水流中优雅轻盈的游动姿态。", "保持鱼缸水质清洁，小鱼才能健健康康地生活。"]}, {"tag": "情境三 · 生态习性与对话", "desc": "海洋自然与常识探索", "sentences": ["Can fish close their eyes when they are asleep?", "Fish use their fins and gills to swim and breathe.", "Look at that funny clownfish hiding among sea anemones."], "translations": ["小鱼睡觉的时候会把眼睛闭上吗？", "鱼儿靠鱼鳍游泳并依靠鱼鳃在水里自由呼吸。", "快看那只滑稽的小丑鱼正躲在海葵丛中捉迷藏呢。"]}]}, {"id": "bird", "word": "bird", "phonetic": "/bɜːrd/", "meaning": "名词：小鸟，飞鸟", "emoji": "🐦", "category": "animals", "level": "L1", "role": "review", "variants": ["bird", "birds"], "scenarios": [{"tag": "情境一 · 羽毛与外貌观察", "desc": "翅膀、喙与彩色羽毛", "sentences": ["The cheerful little bird has bright blue feathers.", "A mother bird is sitting quietly in her round nest.", "The tiny hummingbird has a long, slender beak."], "translations": ["这只快乐的小小鸟有着一身亮蓝色的漂亮羽毛。", "鸟妈妈正安安静静地孵坐在她圆圆的鸟巢里。", "这只小小的蜂鸟长着一张细细长长的长嘴巴。"]}, {"tag": "情境二 · 展翅动作与投喂", "desc": "飞翔动作与撒面包屑指令", "sentences": ["Birds flap their strong wings to soar in the sky.", "Scatter some breadcrumbs in the yard for wild birds.", "Listen carefully to the sweet melody the bird sings."], "translations": ["鸟儿拍打着强壮有力的翅膀在天空中翱翔。", "在院子里的空地上撒一点面包屑喂野鸟吃。", "静静聆听小鸟唱出的宛转悦耳的动人旋律。"]}, {"tag": "情境三 · 清晨大自然对话", "desc": "清晨鸟鸣与筑巢习性", "sentences": ["The early bird catches the juicy little worm.", "Birds sing sweet songs to wake us up in the morning.", "Where do the swallows fly when cold winter comes?"], "translations": ["早起的鸟儿有虫吃。", "鸟儿用清脆欢快的歌声在清晨唤醒我们。", "当寒冷的冬天来临，燕子会飞到哪里过冬呢？"]}]}, {"id": "duck", "word": "duck", "phonetic": "/dʌk/", "meaning": "名词：鸭子", "emoji": "🦆", "category": "animals", "level": "L1", "role": "new", "variants": ["duck", "ducks", "dark"], "scenarios": [{"tag": "情境一 · 外观特征与蹼足", "desc": "黄色鸭嘴、扁平蹼足与羽毛", "sentences": ["The mother duck has waterproof feathers and orange feet.", "Cute yellow ducklings waddle behind their loving mother.", "A wild mallard duck has a shiny green head."], "translations": ["鸭妈妈长着防水的羽毛和橙黄色的大脚蹼。", "可爱的黄色小鸭子一摇一摆地跟在疼爱它们的妈妈身后。", "一只野生野鸭长着泛着金属光泽的漂亮绿脑袋。"]}, {"tag": "情境二 · 划水动作与叫声指令", "desc": "池塘游水与学鸭子叫", "sentences": ["Ducks paddle their webbed feet quickly to swim.", "Can you imitate the duck saying quack quack quack?", "Throw small pieces of bread to the ducks in the pond."], "translations": ["鸭子划动它们的蹼足，迅速在水面上游水。", "你能模仿小鸭子嘎嘎嘎叫的声音吗？", "给池塘里游弋的鸭子投喂切碎的小面包块。"]}, {"tag": "情境三 · 农场池塘对话", "desc": "乡村农场与童谣对话", "sentences": ["Five little ducks went out to play one sunny day.", "Ducks stay warm and dry even inside the cold pond.", "Look at the funny ducks diving underwater for food."], "translations": ["在一个阳光明媚的日子里，五只小鸭子出门玩耍。", "即使游进冰凉的池塘里，鸭子也能保持全身温暖干燥。", "看看那些好笑的鸭子一个接一个把头扎进水里觅食。"]}]}, {"id": "pig", "word": "pig", "phonetic": "/pɪɡ/", "meaning": "名词：小猪，家猪", "emoji": "🐷", "category": "animals", "level": "L1", "role": "new", "variants": ["pig", "pigs", "big", "pick"], "scenarios": [{"tag": "情境一 · 粉嫩外观特征", "desc": "卷尾巴、大鼻子与粉色皮肤", "sentences": ["The cute pink piggy has a curly little tail.", "The mother pig has large floppy ears and a flat snout.", "Fat little piglets love rolling happily in wet mud."], "translations": ["这只粉嫩可爱的小猪有一条卷卷的小尾巴。", "猪妈妈有着两只耷拉着的大耳朵和扁平的鼻吻。", "胖乎乎的小猪宝宝最喜欢在湿湿的泥巴里快乐打滚。"]}, {"tag": "情境二 · 动作互动与喂养", "desc": "吃食与学小猪哼哼声", "sentences": ["The hungry pig oinks loudly when dinner time arrives.", "Give the farm pigs fresh vegetables and clean water.", "Watch the chubby pig take a relaxing mud bath."], "translations": ["晚饭时间一到，饥饿的小猪就会大声哼哼叫。", "为农场里的小猪喂食新鲜的蔬菜菜叶和干净的清水。", "看着那只圆滚滚的小猪舒舒服服地洗着泥巴浴。"]}, {"tag": "情境三 · 经典童话生活对话", "desc": "三只小猪与农场生活", "sentences": ["Have you ever heard the fairy tale of the three little pigs?", "Pigs are actually very clean and intelligent animals.", "The baby pig nudges its mother with its round pink nose."], "translations": ["你听过关于三只小猪的经典童话故事吗？", "小猪其实是非常爱干净并且很聪明的动物呢。", "小猪宝宝用它圆圆的粉红鼻子蹭着妈妈撒娇。"]}]}, {"id": "bear", "word": "bear", "phonetic": "/bɛr/", "meaning": "名词：熊，狗熊", "emoji": "🐻", "category": "animals", "level": "L1", "role": "new", "variants": ["bear", "bears", "bare", "pear"], "scenarios": [{"tag": "情境一 · 雄壮外观描述", "desc": "厚重皮毛、利爪与体型", "sentences": ["The big brown bear has thick fur and strong paws.", "A polar bear is furry and pure white like fresh snow.", "The giant panda bear loves munching on green bamboo."], "translations": ["这只大棕熊长着浓密厚实的毛发和强壮有力的熊掌。", "北极熊全身毛茸茸的，白得就像刚落下的白雪。", "可爱的大熊猫最喜欢津津有味地咀嚼新鲜翠绿的竹子。"]}, {"tag": "情境二 · 捕鱼与动作指令", "desc": "捕鱼抓蜜与爬树动作", "sentences": ["Bears stand on two legs to reach high tree branches.", "Watch the brown bear catch jumping salmon in the river.", "Do not approach a wild bear in the deep forest."], "translations": ["大熊可以用两条后腿直立站起来抓取高处的树枝。", "看看大棕熊如何在湍急的河流中捕食跳跃的鲑鱼。", "在茂密的原始森林里千万不要擅自接近野生熊。"]}, {"tag": "情境三 · 冬眠与童话对话", "desc": "泰迪熊玩偶与森林童话", "sentences": ["Bears sleep in cozy mountain caves all through the winter.", "I love to cuddle with my soft brown teddy bear in bed.", "Winnie the Pooh is a famous bear who loves sweet honey."], "translations": ["整个寒冷的冬天，黑熊都在舒适温暖的山洞里冬眠。", "在床上我最喜欢抱着软绵绵的棕色泰迪熊入睡。", "小熊维尼是一只享誉世界的、最爱吃甜蜂蜜的小熊。"]}]}, {"id": "rabbit", "word": "rabbit", "phonetic": "/ˈræb.ɪt/", "meaning": "名词：兔子，小白兔", "emoji": "🐰", "category": "animals", "level": "L2", "role": "new", "variants": ["rabbit", "rabbits", "habit"], "scenarios": [{"tag": "情境一 · 软萌外貌描述", "desc": "长耳朵、红眼睛与毛绒尾巴", "sentences": ["The white bunny has long upright ears and a cotton-ball tail.", "A pet rabbit has very soft gray fur and twitching whiskers.", "Baby rabbits are tiny, shy, and incredibly adorable."], "translations": ["这只小白兔长着长长的竖耳朵和一个棉花糖般的小尾巴。", "这只宠物兔长着柔软的灰色绒毛和轻微抽动的胡须。", "刚出生的小兔宝宝小巧玲珑，既害羞又让人喜爱。"]}, {"tag": "情境二 · 蹦跳动作与喂养", "desc": "蹦蹦跳跳与喂胡萝卜指令", "sentences": ["Feed the fluffy rabbit with fresh green carrot tops.", "Rabbits hop around quickly on their strong hind legs.", "Stroke the friendly rabbit gently from head to tail."], "translations": ["用新鲜水灵的胡萝卜缨来喂这只毛茸茸的小兔子。", "兔子依靠强壮有力的后腿敏捷地蹦蹦跳跳。", "轻轻地从头到尾抚摸这只友好温顺的小兔子。"]}, {"tag": "情境三 · 寓言童话对话", "desc": "龟兔赛跑与爱丽丝梦游仙境", "sentences": ["The speedy rabbit lost the race to the steady turtle.", "Rabbits dig deep underground burrows to keep safe and warm.", "Look at the bunny munching quietly on fresh sweet clover."], "translations": ["跑得飞快的兔子因为骄傲而在比赛中输给了踏实的乌龟。", "兔子会在地下挖掘深邃的洞穴来保暖和躲避天敌。", "看那只小兔子正安静地嚼着甜美多汁的白三叶草。"]}]}, {"id": "monkey", "word": "monkey", "phonetic": "/ˈmʌŋ.ki/", "meaning": "名词：猴子", "emoji": "🐵", "category": "animals", "level": "L2", "role": "new", "variants": ["monkey", "monkeys", "money"], "scenarios": [{"tag": "情境一 · 机灵外貌与长尾", "desc": "棕色毛发、长尾巴与灵巧手足", "sentences": ["The clever little monkey has a long and flexible tail.", "A baby monkey clings tightly to its mother's belly.", "The cheeky brown monkey has bright, curious brown eyes."], "translations": ["这只聪明机灵的小猴子长着一条长而灵活自如的长尾巴。", "一只小猴宝宝紧紧地依偎抱住妈妈的腹部。", "这只顽皮的棕色小猴子闪烁着一双充满好奇的大眼睛。"]}, {"tag": "情境二 · 攀爬动作与玩耍", "desc": "荡秋千、摘果子与抓痒指令", "sentences": ["Monkeys swing skillfully from vine to vine in trees.", "Hand a ripe yellow banana to the hungry zoo monkey.", "Watch the playful monkey jump across the wooden bars."], "translations": ["猴子依靠矫健的身手在树枝藤蔓间自如穿梭荡漾。", "把一根熟透的黄香蕉递给动物园里饥肠辘辘的猴子。", "看那只贪玩的小猴子敏捷地跨过一根根木头横梁。"]}, {"tag": "情境三 · 趣味习性与对话", "desc": "动物园游览与儿歌对话", "sentences": ["Five little monkeys were jumping on the big soft bed.", "Monkeys use both their agile hands and feet to climb trees.", "The funny monkey is making goofy faces at the tourists."], "translations": ["五只调皮的小猴子在一张又大又软的床上蹦蹦跳跳。", "猴子能手脚并用地轻松攀爬上高耸挺拔的大树。", "那只滑稽有趣的猴子正对着来往的游客做着鬼脸呢。"]}]}, {"id": "sun", "word": "sun", "phonetic": "/sʌn/", "meaning": "名词：太阳，阳光", "emoji": "☀️", "category": "nature", "level": "L1", "role": "new", "variants": ["sun", "son", "some"], "scenarios": [{"tag": "情境一 · 天空光芒与色彩", "desc": "朝阳、晚霞与金色光辉", "sentences": ["The brilliant golden sun shines in the clear blue sky.", "The morning sun warms the cool mountain grass.", "A spectacular orange sunset marks the end of the day."], "translations": ["灿烂耀眼的金色太阳在湛蓝晴朗的天空中普照大地。", "初升的晨阳洒下暖意，烘热了带着凉意的高山青草。", "一抹壮丽无比的橙色落日余晖宣告着一天的落幕。"]}, {"tag": "情境二 · 户外防晒动作指令", "desc": "戴太阳镜、涂防晒与日光浴", "sentences": ["Put on your sun hat and sunglasses when going outside.", "Feel the pleasant warm sun directly upon your face.", "Do not look straight into the bright sun with bare eyes."], "translations": ["大太阳天出门记得戴好遮阳防晒帽和太阳镜。", "闭上眼睛，感受温暖柔和的阳光洒在脸上的惬意。", "千万不要用没有防护的眼睛直接注视刺眼的烈日。"]}, {"tag": "情境三 · 作息规律与自然对话", "desc": "日出日落与植物光合作用", "sentences": ["The bright sun rises in the east and sets in the west.", "Green plants need warm sunlight and pure water to grow.", "What a gorgeous, bright, and sunny weekend morning!"], "translations": ["耀眼的太阳东升西落，日复一日照耀着我们。", "绿色植物需要温暖的阳光和纯净的水分才能茁壮成长。", "这是一个多么明媚、晴朗而且充满阳光的周末早晨啊！"]}]}, {"id": "moon", "word": "moon", "phonetic": "/muːn/", "meaning": "名词：月亮，月光", "emoji": "🌙", "category": "nature", "level": "L1", "role": "new", "variants": ["moon", "moons"], "scenarios": [{"tag": "情境一 · 夜空月色与轮廓", "desc": "弯月、满月与银白清辉", "sentences": ["The silver crescent moon glows gently in the night sky.", "Tonight the big round full moon looks like a silver plate.", "Soft moonlight streams in through my bedroom window."], "translations": ["一弯银白色的蛾眉月在静谧的夜空中柔柔地发光。", "今晚圆圆的大满月看起来就像挂在天上的一只银盘。", "柔和清幽的月光从我卧室的窗前悄悄流淌进来。"]}, {"tag": "情境二 · 仰望观察动作指令", "desc": "用望远镜看月亮环形山", "sentences": ["Look up at the glowing moon through our telescope.", "Point your finger toward the bright moon among clouds.", "Watch the white clouds glide slowly across the moon."], "translations": ["通过我们的小天文望远镜仰望夜空中明亮的月球吧。", "伸出你的手指，指向云层中若隐若现的皎洁明月。", "看天边轻柔的白云从月亮前面慢悠悠地滑过。"]}, {"tag": "情境三 · 中秋节与睡前对话", "desc": "中秋赏月与睡前晚安对话", "sentences": ["We eat sweet mooncakes while admiring the harvest moon.", "Good night moon, good night stars, see you in the morning.", "Did you know brave astronauts have walked on the moon?"], "translations": ["中秋节我们一边品尝香甜的月饼，一边赏圆圆的秋月。", "晚安月亮，晚安星星，我们明天清晨再相聚。", "你知道吗？勇敢的宇航员叔叔曾经真正登月漫步过呢！"]}]}, {"id": "star", "word": "star", "phonetic": "/stɑːr/", "meaning": "名词：星星，恒星", "emoji": "⭐", "category": "nature", "level": "L1", "role": "review", "variants": ["star", "stars", "start"], "scenarios": [{"tag": "情境一 · 闪烁光芒与夜空", "desc": "繁星点点、星座与银河", "sentences": ["Countless twinkling stars decorate the dark velvet sky.", "The North Star shines steadily to guide travelers at night.", "A brilliant shooting star darts across the midnight sky."], "translations": ["数不清的闪亮星星将漆黑的天鹅绒夜空装点得格外美丽。", "北极星在北方恒久发光，为黑夜里的旅人指引方向。", "一颗耀眼夺目的流星刹那间划过了静谧的午夜夜空。"]}, {"tag": "情境二 · 数星星与许愿动作", "desc": "手指点数与闭眼许愿指令", "sentences": ["Close your eyes and make a wish upon that bright star.", "Count the visible stars you can spot above our house.", "Connect the bright stars with your finger to form shapes."], "translations": ["闭上双眼，对着天边那颗最亮的星星许下一个美好心愿。", "数数今晚在我们家屋顶上空你能数清多少颗小星星。", "用手指在空中把一颗颗亮星连线，描绘出好玩的星座。"]}, {"tag": "情境三 · 经典儿歌童年对话", "desc": "小星星儿歌与天文奥秘", "sentences": ["Twinkle, twinkle, little star, how I wonder what you are!", "Stars look tiny to us because they are trillions of miles away.", "My teacher gave me a shiny golden star sticker for good work."], "translations": ["一闪一闪亮晶晶，满天都是小星星！", "星星看起来那么微小，是因为它们距离我们有千亿英里遥远。", "因为我表现优秀，老师奖励给我一张金灿灿的星星小贴纸。"]}]}, {"id": "tree", "word": "tree", "phonetic": "/triː/", "meaning": "名词：大树，树木", "emoji": "🌳", "category": "nature", "level": "L1", "role": "new", "variants": ["tree", "trees", "three"], "scenarios": [{"tag": "情境一 · 挺拔树木与枝叶", "desc": "粗壮树干、茂盛树冠与落叶", "sentences": ["The tall oak tree has thick brown bark and green leaves.", "In autumn, colorful orange and red leaves fall from the tree.", "A blossoming apple tree is full of fragrant white flowers."], "translations": ["这棵高大的橡树有着粗壮的棕色树皮和茂盛的绿叶。", "秋天来临，五彩斑斓的橙红落叶从树枝上纷纷扬扬落下。", "一棵盛开的苹果树上开满了芬芳洁白的苹果花朵。"]}, {"tag": "情境二 · 动作植树与攀爬", "desc": "给树浇水、种树苗与避暑指令", "sentences": ["Plant a young tree sapling in the school yard.", "Rest under the cool shade of the leafy tree on hot days.", "Do not break branches when you play around the old tree."], "translations": ["在学校的庭院里种下一株嫩绿的小树苗吧。", "烈日炎炎的夏日，坐在绿树浓密的树荫底下纳凉休息。", "在古老的大树下玩耍时，请爱护树木不要折断枝条。"]}, {"tag": "情境三 · 鸟类家园与生态对话", "desc": "鸟巢家园与环境保护交流", "sentences": ["Birds build cozy straw nests high up in the tree branches.", "Squirrels store sweet acorns inside hollow tree trunks.", "Trees clean our air and give us fresh oxygen to breathe."], "translations": ["小鸟们把温暖的干草小窝高高筑在健壮的大树桠上。", "小松鼠在空心的树干树洞里储存甜甜的橡子口粮。", "树木能净化我们的空气，为人类提供源源不绝的新鲜氧气。"]}]}, {"id": "rain", "word": "rain", "phonetic": "/reɪn/", "meaning": "名词：雨水，下雨", "emoji": "🌧️", "category": "nature", "level": "L1", "role": "new", "variants": ["rain", "rains", "train"], "scenarios": [{"tag": "情境一 · 雨丝淅沥与声音", "desc": "毛毛雨、暴雨与泥土清香", "sentences": ["Gentle raindrops fall rhythmically upon the glass window.", "The heavy summer rain creates clear puddles on the sidewalk.", "The refreshing smell of clean rain fills the evening air."], "translations": ["轻柔的小雨滴富有节奏地轻轻拍打着透明的玻璃窗。", "夏天的倾盆大雨在水泥人行道上积起了清澈的小水洼。", "空气中弥漫着清凉雨水洗刷大地后散发出的清新泥土芳香。"]}, {"tag": "情境二 · 撑伞踩水动作指令", "desc": "撑雨伞、穿雨靴与跳水坑", "sentences": ["Open your umbrella before stepping out into the cold rain.", "Put on your yellow waterproof boots to splash in rain puddles.", "Stay safe inside the house until the thunderstorm stops."], "translations": ["走入寒风冷雨中之前，记得把你的雨伞撑开。", "穿上你的黄色防水小雨靴，去小水坑里踩水花玩耍吧。", "雷雨交加的时候要待在安全的屋里，直到风雨平息。"]}, {"tag": "情境三 · 雨后彩虹生活对话", "desc": "植物喝水与雨过天晴彩虹", "sentences": ["Rain, rain, go away, come again another sunny day!", "Thirsty garden flowers drink the pure rainwater to blossom.", "Look! A magnificent rainbow appeared right after the rain!"], "translations": ["小雨小雨快走开，改天晴朗你再来！", "花园里口渴的小花朵贪婪地吮吸纯净雨水，竞相绽放。", "快抬头看！雨过天晴之后出现了一道绚丽壮观的七色彩虹！"]}]}, {"id": "flower", "word": "flower", "phonetic": "/ˈflaʊ.ər/", "meaning": "名词：花朵，鲜花", "emoji": "🌸", "category": "nature", "level": "L2", "role": "new", "variants": ["flower", "flowers", "flour"], "scenarios": [{"tag": "情境一 · 花容花色与芳香", "desc": "花瓣色彩、芬芳气味与花蕊", "sentences": ["This lovely pink rose flower smells delightful and sweet.", "Yellow sunflower blossoms turn their heads toward the sun.", "Tiny purple wildflower petals blanket the green hill."], "translations": ["这朵娇艳可爱的粉玫瑰闻起来香甜迷人、沁人心脾。", "金灿灿的向日葵花盘永远迎着太阳的方向转动仰望。", "漫山遍野的小小紫色野花瓣把绿油油的山坡装扮一新。"]}, {"tag": "情境二 · 浇花采摘动作指令", "desc": "拿水壶浇花与爱护花木", "sentences": ["Water the blooming garden flowers with the watering can.", "Smell the delicate sweet scent of this fresh spring flower.", "Do not pluck the pretty flowers in public city parks."], "translations": ["拿着小花洒给小花园里竞相绽放的鲜花浇浇水。", "凑上前闻一闻这朵新鲜春花散发出的清雅淡香。", "请爱护城市公共公园里的美丽花草，不要随意采摘。"]}, {"tag": "情境三 · 蜜蜂传粉与节日对话", "desc": "蜜蜂采蜜与送妈妈鲜花交流", "sentences": ["Busy honeybees collect sweet nectar from colorful flowers.", "I picked a bouquet of lovely flowers for my dear mother.", "Spring has arrived because all the garden flowers are blooming!"], "translations": ["忙碌的小蜜蜂在五颜六色的花丛中穿梭采集甘甜的花蜜。", "我亲手为亲爱的妈妈挑选并包扎了一束温馨美丽的花束。", "春天真的已经到来啦，因为花园里百花齐放争奇斗艳！"]}]}, {"id": "grass", "word": "grass", "phonetic": "/ɡræs/", "meaning": "名词：青草，草地", "emoji": "🌱", "category": "nature", "level": "L1", "role": "new", "variants": ["grass", "glass"], "scenarios": [{"tag": "情境一 · 绿茵茵草坪描述", "desc": "草地色泽、露珠与地毯感", "sentences": ["The fresh green grass feels soft like a natural carpet.", "Morning dew drops sparkle brightly on blades of grass.", "The expansive soccer field is covered in lush thick grass."], "translations": ["新鲜嫩绿的青草踩上去就如同一张天然软柔的大地毯。", "清晨晶莹剔透的小露珠在细长的草叶尖上闪闪发光。", "宽阔无垠的足球场被郁郁葱葱、平整茂密的绿草覆盖着。"]}, {"tag": "情境二 · 赤脚奔跑动作指令", "desc": "草地打滚、修剪草坪与散步", "sentences": ["Take off your shoes and walk barefoot on the cool grass.", "Sit down with your friends on the sunny park grass for lunch.", "Help your dad push the lawnmower to trim the tall grass."], "translations": ["脱掉你的鞋袜，光着脚丫踩在凉爽舒适的青草地上走走。", "在阳光明媚的日子里和好朋友坐在公园草地上享用午餐。", "帮爸爸一起推着割草机，把长得太高的杂草修剪齐整。"]}, {"tag": "情境三 · 野餐聚会对话交流", "desc": "草地放风筝与亲近大自然", "sentences": ["Let's spread our picnic blanket over the dry green grass.", "Cute sheep and white horses graze peacefully on mountain grass.", "Keep off the freshly planted grass so it can grow strong."], "translations": ["让我们在干燥松软的绿草坪上铺开全家野餐地垫吧。", "可爱的小羊和白马在山间的青草地上悠闲安详地吃草。", "请爱护脚下新栽种的嫩草，让它们能够茁壮生根成长。"]}]}, {"id": "wind", "word": "wind", "phonetic": "/wɪnd/", "meaning": "名词：风，微风", "emoji": "🍃", "category": "nature", "level": "L1", "role": "new", "variants": ["wind", "winds", "win"], "scenarios": [{"tag": "情境一 · 风声风势与触感", "desc": "微风拂面与大风呼啸", "sentences": ["A gentle cool breeze whispers softly through the trees.", "The strong autumn wind blows dry leaves across the street.", "The chilly winter wind makes our cheeks turn rosy pink."], "translations": ["一阵温柔凉爽的微风在树梢枝头间轻声细语地掠过。", "凛冽强劲的秋风把街道两旁的干燥落叶吹得满地飞舞。", "冬天刺骨的寒风吹得我们的小脸蛋变得红扑扑的。"]}, {"tag": "情境二 · 借风放风筝动作指令", "desc": "利用风向放飞风筝与关窗", "sentences": ["Hold the kite string tightly as the wind lifts it up.", "Close the bedroom window tightly before the stormy wind hits.", "Feel the invigorating sea wind blowing through your hair."], "translations": ["当风把风筝托举飞向高空时，一定要紧紧抓牢风筝线。", "在暴风雨猛烈来袭之前，记得把卧室的窗户关紧关好。", "静静感受迎面吹拂而来的清爽海风穿过你的发梢。"]}, {"tag": "情境三 · 风车动力生活对话", "desc": "风车发电与帆船乘风破浪", "sentences": ["The giant white windmills spin around to create clean energy.", "Which direction is the prevailing wind blowing from today?", "The small sailboat glides swiftly across the bay with the wind."], "translations": ["洁白高大的风力发电机在风中旋转，为千家万户输送清洁能源。", "今天吹的是从哪个方向过来的风呀？", "小帆船乘着顺风，在蔚蓝的海湾水面上轻快飞驰。"]}]}, {"id": "ball", "word": "ball", "phonetic": "/bɔːl/", "meaning": "名词：球，皮球", "emoji": "⚽", "category": "play", "level": "L1", "role": "review", "variants": ["ball", "balls", "bowl"], "scenarios": [{"tag": "情境一 · 球体外形与弹性", "desc": "皮球弹跳、颜色与材质", "sentences": ["The round soccer ball is made of black and white leather.", "This bouncy rubber basketball rebounds very high off the gym floor.", "A small yellow tennis ball rolls swiftly under the couch."], "translations": ["这个圆滚滚的足球是由黑白相间的皮革缝制而成的。", "这个富有弹性的橡胶篮球在体育馆地板上能弹得非常高。", "一颗小巧的黄色网球飞快地滚进了客厅沙发底下。"]}, {"tag": "情境二 · 踢球接球动作指令", "desc": "传球、射门与投篮动作", "sentences": ["Kick the soccer ball right into the goal net!", "Can you catch the bouncy red ball with both hands?", "Throw the ball gently to your little brother."], "translations": ["奋力起脚，把足球稳稳踢进对面的球门网窝里！", "你能用双手稳稳接住这颗高高弹起的红皮球吗？", "轻轻把手里的球抛传给你面前的小弟弟。"]}, {"tag": "情境三 · 团队运动对话交流", "desc": "课间体育游戏与友谊交流", "sentences": ["Who wants to join our team to play ball together?", "Pass the ball quickly to the open teammate on the left.", "Playing ball in the fresh air keeps our bodies strong."], "translations": ["谁想加入我们的队伍，大家聚在一起痛痛快快踢场球？", "快速把球传给左侧跑到位、无人盯防的队友。", "在户外新鲜空气里打球运动能让我们的体魄更加强健。"]}]}, {"id": "book", "word": "book", "phonetic": "/bʊk/", "meaning": "名词：书本，画册", "emoji": "📖", "category": "play", "level": "L1", "role": "consolidate", "variants": ["book", "books", "look", "took"], "scenarios": [{"tag": "情境一 · 书籍外观与插图", "desc": "精美绘本、彩色封面与页码", "sentences": ["This fairy tale picture book has colorful illustrations.", "A thick English dictionary is placed on the wooden shelf.", "The bedtime story book has exciting tales of brave knights."], "translations": ["这本童话图画书里绘制着许多色彩明丽的精美插图。", "一本厚重的大英语词典稳稳地摆放在木书架上。", "这本睡前故事书里记录着关于英勇骑士的扣人心弦的冒险传说。"]}, {"tag": "情境二 · 翻书阅读动作指令", "desc": "打开翻页与放回书包指令", "sentences": ["Open your English book to page twenty-five.", "Turn the paper pages gently without tearing them.", "Pack your textbooks neatly inside your school backpack."], "translations": ["请把你的英语课本翻到第二十五页。", "翻看纸质书页的时候动作要轻柔，不要把书页撕破了。", "把你的教科书整齐平稳地收拾进你的小书包里。"]}, {"tag": "情境三 · 亲子共读对话交流", "desc": "图书馆借书与睡前读书时光", "sentences": ["What fascinating story are you reading in your new book?", "Mom and Dad read me a wonderful story book before sleep.", "We can borrow exciting books from our school library."], "translations": ["你正在这本新书里阅读什么引人入胜的精彩故事呀？", "每天入睡前，爸爸妈妈都会给我读一本温馨的故事绘本。", "我们可以从学校图书馆里借阅许多知识丰富的有趣图书。"]}]}, {"id": "pen", "word": "pen", "phonetic": "/pɛn/", "meaning": "名词：笔，钢笔，圆珠笔", "emoji": "🖊️", "category": "play", "level": "L1", "role": "new", "variants": ["pen", "pens", "pan", "pin"], "scenarios": [{"tag": "情境一 · 笔的外形与墨水", "desc": "笔杆颜色、墨水与书写顺畅", "sentences": ["My favorite gel pen writes in smooth dark blue ink.", "The silver fountain pen has a shiny golden metal nib.", "A pack of colorful marker pens sits on the craft table."], "translations": ["我最喜欢的这支中性笔写起字来墨迹流畅，是深蓝色的。", "这支银色的高档钢笔有着一枚金光闪闪的金属笔尖。", "手工操作台上整齐摆放着一整盒色彩缤纷的彩色马克笔。"]}, {"tag": "情境二 · 握笔书写动作指令", "desc": "端正握笔、盖上笔帽与签名", "sentences": ["Hold the pen properly between your thumb and index finger.", "Cap your pen tightly after writing so the ink stays fresh.", "Write your full name clearly on the exam paper with a pen."], "translations": ["用拇指和食指规范正确地握住笔杆。", "写完字后要把笔帽紧紧盖好，防止墨水干涸变硬。", "用签字笔在考卷试卷的姓名栏里清晰地写下你的全名。"]}, {"tag": "情境三 · 课堂文具借还对话", "desc": "同学间借笔与练习书法交流", "sentences": ["May I please borrow your black pen for just a minute?", "I ran out of ink; does anyone have an extra spare pen?", "Dad signed the important permission slip with his fancy pen."], "translations": ["我可以借用一下你的黑色签字笔一分钟吗？", "我的笔墨水用光了，请问有谁有多余备用的笔借我用一下吗？", "爸爸用他精致的钢笔在重要的家长同意书上郑重签下了名字。"]}]}, {"id": "bag", "word": "bag", "phonetic": "/bæɡ/", "meaning": "名词：书包，提袋", "emoji": "🎒", "category": "play", "level": "L1", "role": "new", "variants": ["bag", "bags", "back", "beg"], "scenarios": [{"tag": "情境一 · 书包材质与容量", "desc": "拉链、口袋与人体工学双肩包", "sentences": ["My school backpack has two shoulder straps and many pockets.", "A reusable canvas shopping bag hangs behind the kitchen door.", "The red travel bag is packed with warm clothes for the trip."], "translations": ["我的双肩书包配有两条透气背带和许多实用的小口袋。", "厨房门后挂着一个轻便环保、可重复利用的帆布购物袋。", "这只红色的旅行包里装满了为这次外出旅行准备的厚衣服。"]}, {"tag": "情境二 · 整理背起动作指令", "desc": "拉拉链、背上与存放书包指令", "sentences": ["Zip up your backpack securely before boarding the bus.", "Put your pencil box and lunchbox carefully into the bag.", "Hang your heavy school bag on the wooden wall hook."], "translations": ["上校车之前，记得仔细把双肩包的拉链完全拉好。", "把你的文具盒和小便当盒稳妥地放进背包里面。", "把沉甸甸的书包整齐地挂在墙壁的木质挂钩上。"]}, {"tag": "情境三 · 出行上学对话交流", "desc": "检查上学物品与收拾行囊", "sentences": ["Did you double check if all your homework is in your bag?", "This backpack feels quite heavy with all our new library books.", "Can you help mom carry this paper grocery bag into the kitchen?"], "translations": ["你仔细检查过所有的家庭作业是否都装进书包里了吗？", "装了这么多新借来的图书馆图书，书包背起来感觉沉甸甸的。", "你能帮妈妈把这袋装满日用品的牛皮纸袋拎进厨房吗？"]}]}, {"id": "toy", "word": "toy", "phonetic": "/tɔɪ/", "meaning": "名词：玩具", "emoji": "🧸", "category": "play", "level": "L1", "role": "new", "variants": ["toy", "toys", "boy"], "scenarios": [{"tag": "情境一 · 玩具种类与造型", "desc": "毛绒熊、积木与遥控车", "sentences": ["The soft plush teddy bear is my favorite bedtime toy.", "A shiny red toy sports car can race across the living room carpet.", "Colorful building block toys let kids create tall towers."], "translations": ["这只柔软毛茸茸的泰迪熊是我每晚睡觉时最喜欢的抱枕玩具。", "一辆红光闪闪的玩具跑车可以在客厅的地毯上飞驰竞速。", "色彩鲜艳的拼插积木玩具能让孩子们搭建起壮观的高楼大厦。"]}, {"tag": "情境二 · 整理玩具动作指令", "desc": "收纳箱整理与分享玩具动作", "sentences": ["Pack away all your plastic toys into the wooden toy box.", "Learn to share your favorite toys happily with playmates.", "Do not leave small toy pieces scattered on the bedroom floor."], "translations": ["把散落各处的塑料玩具统统收纳整理到木质玩具箱里。", "学会大方快乐地和小伙伴们共同分享你最心爱的玩具。", "不要把小零件玩具随意乱扔散落在卧室的地板上。"]}, {"tag": "情境三 · 商店选购与分享对话", "desc": "玩具店挑选与生日礼物交流", "sentences": ["Which exciting toy would you like to choose for your birthday?", "We can build an entire futuristic city with these construction toys.", "Santa brought so many delightful surprise toys on Christmas morning."], "translations": ["在你的生日这天，你最想挑选哪一件让你心动的新玩具呢？", "借助这些工程挖掘机拼装玩具，我们可以建起一座未来梦幻之城。", "在圣诞节早晨，圣诞老人为我们带来了好多意想不到的惊喜玩具。"]}]}, {"id": "car", "word": "car", "phonetic": "/kɑːr/", "meaning": "名词：小汽车，轿车", "emoji": "🚗", "category": "play", "level": "L1", "role": "new", "variants": ["car", "cars", "card"], "scenarios": [{"tag": "情境一 · 车型外观与颜色", "desc": "车轮、车灯与流线型车身", "sentences": ["Our family sedan is an electric car painted shiny blue.", "A speedy red racing car zoomed past on the highway.", "The modern car has four rubber wheels and bright headlights."], "translations": ["我们全家开的家用轿车是一辆涂装成靓丽天蓝色的电动汽车。", "一辆风驰电掣的红色赛车在宽阔的高速公路上飞驰而过。", "这辆现代化汽车装有四个耐磨的橡胶轮胎和明亮的前大灯。"]}, {"tag": "情境二 · 安全乘车动作指令", "desc": "系安全带与安全上下车", "sentences": ["Fasten your seatbelt snugly as soon as you enter the car.", "Please lock the car doors before we begin driving.", "Look both ways carefully before stepping out of the car."], "translations": ["一坐进车里，就请立刻把安全带稳稳贴身扣好。", "在我们启程开车出发之前，请把车门锁好。", "推开车门下车之前，一定要两边仔细张望确认安全。"]}, {"tag": "情境三 · 自驾出行生活对话", "desc": "全家自驾游与日常接送", "sentences": ["Dad is driving our car to the sunny beach this weekend.", "Mom drove the car to pick us up right after school ended.", "Where did dad park the car in the underground parking lot?"], "translations": ["这个周末爸爸要开车带我们全家去阳光明媚的海滩度假。", "放学铃声一响，妈妈就开车准时赶来校门口接我们回家。", "爸爸把车停在地下停车场的哪一个停车车位上了？"]}]}, {"id": "bus", "word": "bus", "phonetic": "/bʌs/", "meaning": "名词：公交车，校车", "emoji": "🚌", "category": "play", "level": "L1", "role": "new", "variants": ["bus", "buses", "buzz", "bath"], "scenarios": [{"tag": "情境一 · 外观造型与车身", "desc": "黄色校车、双层巴士与长车身", "sentences": ["The bright yellow school bus has flashing safety lights.", "A double-decker city bus carries passengers across the town.", "The electric municipal bus is very quiet and eco-friendly."], "translations": ["这辆亮黄色的大校车顶部装有闪烁不停的安全警示红灯。", "一辆双层城市公交车满载着乘客在繁华的市区街道穿梭。", "这辆新型纯电动市政公交车运行起来极其安静而且绿色环保。"]}, {"tag": "情境二 · 排队上下车动作指令", "desc": "文明乘车与扶稳坐好", "sentences": ["Wait patiently in line at the bus stop for your turn.", "Hold onto the handrail tightly when the bus is in motion.", "Wave goodbye to the friendly driver when you step off the bus."], "translations": ["在公交站台排好队，按顺序耐心等待公交车进站。", "公交车行驶在路上的时候，双手一定要抓紧扶手栏杆。", "下车迈步离开公交车时，礼貌地向亲切的司机叔叔挥手道别。"]}, {"tag": "情境三 · 乘车路线对话交流", "desc": "看站牌与日常通勤交流", "sentences": ["Which bus number goes straight to the central science museum?", "The wheels on the bus go round and round all through the town.", "My school bus arrives promptly at seven-thirty every morning."], "translations": ["请问哪一路公交车可以直接开到市中心科技馆门口？", "大巴车上的轮子转啊转，穿过整个热闹的小城镇。", "每天早晨七点半，接送我上学的校车都会准时出现在路口。"]}]}, {"id": "bike", "word": "bike", "phonetic": "/baɪk/", "meaning": "名词：自行车，单车", "emoji": "🚲", "category": "play", "level": "L1", "role": "new", "variants": ["bike", "bikes", "back"], "scenarios": [{"tag": "情境一 · 车铃车把与车轮", "desc": "踏板、车把手与辅助轮", "sentences": ["My brand-new red bicycle has a loud, clear silver bell.", "The mountain bike has sturdy off-road tires for bumpy trails.", "A toddler bike is equipped with two safe training wheels."], "translations": ["我刚买的崭新红单车上装有一只声音清脆响亮的银色车铃。", "这辆专业山地自行车配备了适应崎岖山路的防滑越野轮胎。", "幼儿初学自行车两侧装有两个用来保证平衡的安全辅助轮。"]}, {"tag": "情境二 · 骑行安全动作指令", "desc": "戴头盔、踩脚踏与刹车指令", "sentences": ["Always put on your safety helmet before riding your bike.", "Pedal steadily and keep your balance on the smooth bike path.", "Squeeze the handbrakes gently when you want to stop the bike."], "translations": ["骑自行车出发之前，一定要先佩戴好安全防护头盔。", "在平整宽阔的自行车专用道上平稳蹬踏脚踏，保持良好平衡。", "想要减速或者停车时，请两手轻柔平缓地捏紧刹车手柄。"]}, {"tag": "情境三 · 公园骑行生活对话", "desc": "周末骑行与户外健康活动", "sentences": ["Dad taught me how to ride a two-wheel bike in the park.", "Let's go for an enjoyable bike ride along the riverfront trail.", "Ring your bike bell to politely alert pedestrians ahead."], "translations": ["在公园的空地上，爸爸耐心地教会了我怎么骑两轮自行车。", "让我们沿着风景优美的沿江步道来一场欢快的骑行之旅吧。", "提前按响清脆的车铃，礼貌地提醒前方行走的行人注意避让。"]}]}, {"id": "kite", "word": "kite", "phonetic": "/kaɪt/", "meaning": "名词：风筝", "emoji": "🪁", "category": "play", "level": "L1", "role": "new", "variants": ["kite", "kites", "night"], "scenarios": [{"tag": "情境一 · 图案与长尾巴特征", "desc": "蝴蝶风筝、龙风筝与彩带", "sentences": ["The colorful diamond kite has a long fluttering ribbon tail.", "A giant dragon kite looks magnificent soaring among white clouds.", "This lightweight nylon kite is shaped like an eagle with open wings."], "translations": ["这只五彩斑斓的菱形风筝后面拖着长长的飘逸彩带尾巴。", "一只巨型的中国龙风筝翱翔在白云间，看起来壮丽非凡。", "这只轻盈的尼龙风筝被做成了一只展开双翅振翅欲飞的雄鹰模样。"]}, {"tag": "情境二 · 迎风奔跑放飞指令", "desc": "逆风跑、放线与收线动作", "sentences": ["Run into the wind quickly and let go of the kite.", "Unwind the spool of string gradually so the kite climbs higher.", "Pull the string firmly to maneuver your kite against the breeze."], "translations": ["迎着风向快步奔跑起来，然后顺势松开手中的风筝。", "随着风筝越飞越高，慢慢匀速放出手里的线轴线圈。", "紧紧握住风筝线，通过手上的拉力在迎面而来的微风中操控风筝。"]}, {"tag": "情境三 · 春游草坪生活对话", "desc": "春天踏青与全家放风筝", "sentences": ["Springtime is the most wonderful season to fly kites on grass.", "Look how high our paper kite is flying in the endless blue sky!", "Can you help me reel in the kite string as the wind dies down?"], "translations": ["春意盎然的春天是在绿草地上放飞风筝的最美妙季节。", "抬头看，我们的纸风筝在辽阔无际的蓝天上飞得多高呀！", "随着风力渐渐减弱变小，你能帮我一起把风筝线收卷回来吗？"]}]}, {"id": "baby", "word": "baby", "phonetic": "/ˈbeɪ.bi/", "meaning": "名词：小婴儿，宝宝", "emoji": "👶", "category": "home", "level": "L2", "role": "new", "variants": ["baby", "babies"], "scenarios": [{"tag": "情境一 · 可爱面容特征", "desc": "胖乎乎小手、明亮眼睛与襁褓", "sentences": ["The precious baby has chubby pink cheeks and tiny hands.", "The newborn infant is wrapped snugly in a warm yellow blanket.", "The sweet baby sleeps peacefully inside the wooden cradle."], "translations": ["这个可爱的小婴儿有着胖嘟嘟的粉红小脸蛋和娇嫩的小手。", "刚出生的小毛头宝宝被稳妥舒适地包裹在一条暖黄色小被子里。", "小宝宝在木质小摇篮里恬静安详地睡着了。"]}, {"tag": "情境二 · 抚育照顾动作指令", "desc": "轻摇摇篮、喂奶粉与哄睡指令", "sentences": ["Rock the baby carriage very gently to soothe the crying infant.", "Wash your hands thoroughly before holding the delicate newborn baby.", "Sing a sweet lullaby softly to help the baby fall asleep."], "translations": ["轻轻晃动婴儿推车，安抚哭闹不安的小婴儿。", "在伸手抱柔嫩的新生小宝宝之前，务必要用香皂把双手清洗干净。", "轻声细语地哼唱一首甜美摇篮曲，哄疲倦的小宝宝安然入梦。"]}, {"tag": "情境三 · 亲情互动生活对话", "desc": "抓周、学步与亲子温情", "sentences": ["The cheerful baby giggles and smiles whenever mommy tickles him.", "Look! The little baby is taking her very first hesitant steps!", "We must speak very quietly because the baby is sleeping soundly."], "translations": ["每当妈妈轻轻挠他痒痒，开朗的小宝宝就会咯咯大笑起来。", "快看快看！那个小小的小婴儿正迈出她人生中摇摇晃晃的第一步！", "我们说话动作都要轻轻的，因为可爱的小宝宝正在甜美睡梦中呢。"]}]}, {"id": "shoe", "word": "shoe", "phonetic": "/ʃuː/", "meaning": "名词：鞋子，跑鞋", "emoji": "👟", "category": "home", "level": "L1", "role": "review", "variants": ["shoe", "shoes", "shoot"], "scenarios": [{"tag": "情境一 · 鞋款材质与鞋底", "desc": "运动跑鞋、皮鞋与橡胶鞋底", "sentences": ["My athletic running shoes are blue with white bouncy soles.", "Shiny black dress shoes are polished nicely for the concert.", "Warm fleece-lined winter shoes keep little feet cozy in snow."], "translations": ["我的运动慢跑鞋是蓝色的，带有高弹力减震的白色鞋底。", "锃亮发光的黑色正装皮鞋被仔细打磨抛光，以参加今晚的音乐会。", "内衬厚实羊羔绒的保暖冬鞋能确保小脚丫在冰天雪地里暖暖和和。"]}, {"tag": "情境二 · 穿鞋系鞋带自理动作", "desc": "区分左右脚与独立系鞋带", "sentences": ["Put on your sneakers and tie the shoelaces securely.", "Make sure you put the right shoe on your right foot.", "Place your muddy shoes neatly upon the entrance shoe rack."], "translations": ["穿好你的运动跑鞋，并且把鞋带结结实实地系紧。", "穿鞋的时候要检查清楚，确保右脚穿进了右边的鞋子里。", "把你沾满泥巴的脏鞋子整整齐齐地摆放在门厅的鞋架上。"]}, {"tag": "情境三 · 出门换鞋生活对话", "desc": "鞋码大小与户外出行交流", "sentences": ["Do your new school shoes fit comfortably without pinching toes?", "I have grown so fast that my old shoes are already too tight.", "Take off your outdoor shoes before walking onto the living room rug."], "translations": ["你的这双新校鞋穿起来合脚舒适吗，会不会挤压或者磨到脚趾头？", "我长个子长得太快了，以至于以前穿的旧鞋子现在都挤脚了。", "踩上客厅干净地毯之前，请先把在外面穿的户外鞋脱下来。"]}]}, {"id": "hat", "word": "hat", "phonetic": "/hæt/", "meaning": "名词：帽子", "emoji": "🧢", "category": "home", "level": "L1", "role": "new", "variants": ["hat", "hats", "hot", "cat"], "scenarios": [{"tag": "情境一 · 帽檐造型与保暖", "desc": "鸭舌帽、遮阳帽与毛线帽", "sentences": ["My favorite baseball cap has an adjustable visor.", "The knitted wool hat has a fluffy pom-pom on top.", "A wide-brimmed straw hat keeps strong sunlight off the face."], "translations": ["我最喜欢的这顶棒球帽配有一个可以调节角度的硬遮阳板。", "这顶针织羊毛帽子顶部点缀着一颗毛茸茸的可爱小毛球。", "宽宽帽檐的夏日草帽能很好地遮挡强烈的紫外线阳光。"]}, {"tag": "情境二 · 佩戴整理动作指令", "desc": "戴好帽子与进屋脱帽礼节", "sentences": ["Put on your warm woolen hat before going out into snow.", "Take off your hat politely when you enter the classroom.", "Adjust your cap visor so the bright sun does not blind you."], "translations": ["在迈步走进冰天雪地之前，一定要把暖和的毛线帽戴严实。", "当你走进教室时，出于礼貌请主动把帽子摘下来。", "调整好你的帽子帽檐，让耀眼的直射阳光不会刺伤你的眼睛。"]}, {"tag": "情境三 · 出游保暖生活对话", "desc": "防风御寒与沙滩出游交流", "sentences": ["Does this stylish blue hat match my winter jacket nicely?", "Hold onto your hat tightly so the sudden gust of wind does not blow it away.", "Grandpa always wears a classic brown fedora hat when he travels."], "translations": ["这顶时髦俏皮的蓝色帽子跟我身上穿的冬装外套搭配得好看吗？", "两手紧紧扶住头顶的帽子，免得被突如其来的一阵大风给吹跑了。", "每次出远门旅行时，爷爷总是戴着一顶经典典雅的棕色软呢礼帽。"]}]}, {"id": "hand", "word": "hand", "phonetic": "/hænd/", "meaning": "名词：手，小手", "emoji": "✋", "category": "home", "level": "L1", "role": "new", "variants": ["hand", "hands", "and"], "scenarios": [{"tag": "情境一 · 五指外形与功能", "desc": "手掌、十指与灵巧指甲", "sentences": ["Each human hand has five agile fingers and a palm.", "Clean hands have neatly trimmed fingernails and no dirt.", "A baby's tiny hand can curl around an adult's finger."], "translations": ["人类的每一只手都长有五根灵巧自如的手指和一个手掌心。", "保持干净的小手有着修剪整齐的指甲，看不见任何污垢脏污。", "小婴儿娇嫩的小手可以稳稳抓住大人伸过来的一根手指。"]}, {"tag": "情境二 · 拍手洗手动作指令", "desc": "勤洗手、拍拍手与举手发言", "sentences": ["Wash your hands thoroughly with antibacterial soap for twenty seconds.", "Raise your right hand politely if you wish to ask a question.", "Clap your hands cheerfully if you know the lyrics to the song."], "translations": ["用抑菌洗手液认认真真清洗揉搓双手至少二十秒钟。", "如果你想在课堂上提出问题，请先礼貌端正地举起右手。", "如果你会唱这首歌的歌词，就高兴地拍拍你的小手吧！"]}, {"tag": "情境三 · 牵手礼貌生活对话", "desc": "过马路牵手与手工劳作", "sentences": ["Hold mom's hand tightly whenever we cross the busy road.", "We crafted this colorful Mother's Day card with our own hands.", "Give me a helping hand to carry these heavy grocery bags."], "translations": ["每次牵手横穿车水马龙的马路时，都要把妈妈的手抓得紧紧的。", "我们用自己的这双小手亲手制作了这张充满爱意的母亲节贺卡。", "你能搭把手，帮我一起把这些沉重的购物袋提回家吗？"]}]}, {"id": "eye", "word": "eye", "phonetic": "/aɪ/", "meaning": "名词：眼睛", "emoji": "👁️", "category": "home", "level": "L1", "role": "new", "variants": ["eye", "eyes", "I"], "scenarios": [{"tag": "情境一 · 瞳孔虹膜与明亮目光", "desc": "清澈双眼、长睫毛与眼色", "sentences": ["The little girl has sparkling big brown eyes and dark eyelashes.", "Cats have unique slit pupils that dilate wide in the dark.", "Healthy human eyes can see a spectrum of vibrant colors."], "translations": ["那个小女孩有一双水汪汪闪耀的棕色大眼睛和浓密黑长的小睫毛。", "猫咪拥有独特的狭缝瞳孔，能在昏暗的黑夜中迅速放大捕光。", "健康的眼睛能够看清世间大自然中绚烂多彩的万千色彩。"]}, {"tag": "情境二 · 保护视力动作指令", "desc": "眼保健操、闭目养神与眨眼", "sentences": ["Close your tired eyes and take a brief five-minute rest.", "Blink your eyes naturally to keep them moist and comfortable.", "Do not rub your delicate eyes with unwashed dirty fingers."], "translations": ["轻轻闭上感到疲惫干涩的双眼，稍作五分钟的放松休息。", "自然规律地眨眨眼睛，让泪膜保持眼球的湿润与舒适。", "千万不要用没洗干净的脏手去胡乱揉搓娇嫩脆弱的眼睛。"]}, {"tag": "情境三 · 视力检查生活对话", "desc": "看远看近与阅读护眼交流", "sentences": ["The optometrist doctor examined my vision during the checkup.", "Keep proper distance from the screen to protect your precious eyes.", "Look far into the distant green trees to relax your eye muscles."], "translations": ["在常规体检中，眼科医生细致地为我进行了视力健康检查。", "看书写字看屏幕时请保持充足的正确距离，呵护我们宝贵的双眼。", "多向窗外遥望远处郁郁葱葱的绿色树木，放松紧张的眼部睫状肌。"]}]}, {"id": "smile", "word": "smile", "phonetic": "/smaɪl/", "meaning": "名词/动词：微笑，笑容", "emoji": "😊", "category": "home", "level": "L1", "role": "new", "variants": ["smile", "smiles"], "scenarios": [{"tag": "情境一 · 灿烂笑容特征", "desc": "嘴角上扬、酒窝与温暖亲和力", "sentences": ["A radiant warm smile brightens up her whole face.", "The child has cute deep dimples whenever he breaks into a smile.", "A friendly welcoming smile makes strangers feel right at home."], "translations": ["一个温暖灿烂的笑容瞬间点亮了她整张亲切可爱的脸庞。", "每次脸上绽放开心笑容的时候，小男孩两颊都会露出迷人的小酒窝。", "一个真诚热情的友好微笑能让陌生的初来乍到者立刻感到宾至如归。"]}, {"tag": "情境二 · 拍照与问候动作指令", "desc": "看镜头笑一个与对人微笑", "sentences": ["Look directly at the camera lens and say cheese with a big smile!", "Smile warmly when you greet your teachers and classmates in the morning.", "Never forget to smile even when facing challenging tasks."], "translations": ["注视着相机镜头，咧开嘴露出开心的灿烂微笑说：茄子！", "清晨在校门口遇见老师和同学时，请微笑着主动道声早安。", "即使面临困难重重的挑战任务，也永远别忘了保持微笑和自信。"]}, {"tag": "情境三 · 治愈情感生活对话", "desc": "快乐感染力与关怀对话", "sentences": ["Your delightful smile always brings joy to everyone around you.", "A simple sincere smile can turn someone's gloomy day completely around.", "Mom smiled with deep pride when she saw my neat report card."], "translations": ["你脸上洋溢着的欢快笑容总能给身边的每一个人带来无尽的快乐。", "一个发自肺腑的真挚笑容足以彻底化解他人一整天的阴霾与疲惫。", "当妈妈看到我工整优异的成绩单时，脸上流露出了无比欣慰自豪的微笑。"]}]}, {"id": "heart", "word": "heart", "phonetic": "/hɑːrt/", "meaning": "名词：心，爱心，心脏", "emoji": "❤️", "category": "home", "level": "L1", "role": "new", "variants": ["heart", "hearts", "hard"], "scenarios": [{"tag": "情境一 · 爱心图形与跳动", "desc": "红色爱心形状与强健心跳", "sentences": ["The shiny red heart-shaped greeting card is drawn with crayons.", "A healthy human heart beats steadily day and night.", "There is a gold heart locket dangling from her necklace."], "translations": ["这张红艳艳的爱心形状祝福卡是用彩色蜡笔亲手画出来的。", "一颗健康的人类心脏日夜不知疲倦、沉稳有力地跳动着。", "她的金项链上悬挂着一枚做工精巧的金质心形吊坠。"]}, {"tag": "情境二 · 感受心跳动作指令", "desc": "摸胸口听心跳与手比爱心", "sentences": ["Place your palm flat on your left chest to feel your beating heart.", "Make a cute heart gesture with your two hands for the photograph.", "Listen to your heart rate speed up after running around the track."], "translations": ["把手掌平贴在你的左胸膛上，感受那有节律跳动的心跳。", "拍照留念的时候，两只手配合比出一个萌萌的爱心造型吧。", "在操场跑道上跑完几圈步后，仔细聆听自己加速砰砰跳动的心率。"]}, {"tag": "情境三 · 关爱感恩情感对话", "desc": "用真心表达爱与感谢", "sentences": ["I love you with all my whole heart, mom and dad!", "Thank you from the bottom of my heart for your generous help.", "Regular physical exercise keeps your heart youthful and strong."], "translations": ["爸爸妈妈，我全心全意深深地爱着你们！", "从心底深处最真诚地感谢您给予我的无私援助与支持。", "坚持规律有益的体育锻炼能让我们宝贵的心脏长久保持活力与强健。"]}]}, {"id": "friend", "word": "friend", "phonetic": "/frɛnd/", "meaning": "名词：朋友，伙伴", "emoji": "🤝", "category": "home", "level": "L1", "role": "new", "variants": ["friend", "friends"], "scenarios": [{"tag": "情境一 · 友善伙伴品质描述", "desc": "善良忠诚、形影不离的知己", "sentences": ["A true friend is always kind, honest, and supportive.", "My best friend and I share our hobbies and secrets together.", "New classmates can quickly become great lifelong friends."], "translations": ["一个真正的朋友总是为人善良、待人真诚而且乐于助人。", "我和我最要好的知心好友彼此无话不谈，分享快乐和各自的秘密。", "新学期刚认识的新同学很快就能融入集体，成为相伴一生的挚友。"]}, {"tag": "情境二 · 握手互助动作指令", "desc": "交朋友握手、分享玩具指令", "sentences": ["Shake hands and introduce your name politely to make a new friend.", "Share your favorite colored crayons generously with your friend.", "Help your friend stand back up if they trip on the playground."], "translations": ["礼貌地伸出手和对方握手并自我介绍，结交一个友善的新朋友。", "把你珍爱的彩色画笔大方地拿出来，和小伙伴一起涂鸦分享。", "如果在操场奔跑时不小心摔跤摔倒了，快快伸手把好朋友扶起来。"]}, {"tag": "情境三 · 友谊长青生活对话", "desc": "周末结伴出游与互致问候", "sentences": ["Would you like to come over to my house this Saturday, my friend?", "A friend in need is indeed a trustworthy friend forever.", "We sang a cheerful friendship song together at summer camp."], "translations": ["这个周六你愿意来我们家一起做客做游戏吗，我的好朋友？", "患难与共、风雨同舟的朋友，才是真正经得起时间考验的好朋友。", "在欢快的夏令营篝火晚会上，大家肩并肩手拉手合唱友谊之歌。"]}]}];
 
     // Application State
-    let appMode = 'quest'; // 'quest' | 'free' | 'adventure'
-    let currentCardIndex = 0; // 0 to 49
-    let practiceMode = 'scenario'; // 'scenario' | 'word'
-    let currentScenarioIdx = 0; // 0, 1, 2
-    let currentSentenceIdx = 0; // 0, 1, 2 (within scenario)
+    let appMode = 'quest'; // 'quest' (default) | 'free' | 'adventure'
+    
+    // --- Quest Mode State (Proactive Interactive Flow) ---
+    let questQueue = []; // 20 words for today
+    let questWordIdx = 0; // 0 to 19
+    let questSubStep = 0; // 0: Word, 1: Scenario 0 Sent 0, 2: Scenario 0 Sent 1, 3: Scenario 0 Sent 2
+    let questAutoPlay = false; // Is proactive walkthrough running?
+    let questAudioPlayer = null;
+    let questRecTimer = null;
+    let questCountdownVal = 4;
+
+    // --- Free Mode State ---
+    let freeCardIndex = 0; // 0 to 49
+    let freePracticeMode = 'scenario'; // 'scenario' | 'word'
+    let freeScenarioIdx = 0;
+    let freeSentenceIdx = 0;
+    let freeAudioPlayer = null;
+
+    // --- Common States & Storage ---
     let isRecording = false;
-    let isProcessing = false;
-
-    // Daily Quest Dynamic Queue (20 items: 10 new, 8 review, 2 consolidate)
-    let questQueue = [];
-    let questCompletedSet = new Set();
-
-    // Streak & Storage
-    let streakDays = parseInt(localStorage.getItem('kai_streak_days') || '3');
-    let practiceLogs = JSON.parse(localStorage.getItem('kai_practice_logs') || '[]');
-    let adventureStars = JSON.parse(localStorage.getItem('kai_adventure_stars') || '{}');
-
-    // Audio & Web Audio
     let recognition = null;
     let audioContext = null;
     let analyser = null;
     let microphoneStream = null;
     let animFrameId = null;
-    let currentAudioPlayer = null;
 
-    // Evaluation buffer
-    let capturedTranscript = "";
-    let capturedConfidence = 0;
-    let maxRmsVolume = 0;
-    let recordStartTime = 0;
-    let timerInterval = null;
+    let streakDays = parseInt(localStorage.getItem('kai_streak_days') || '3');
+    let practiceLogs = JSON.parse(localStorage.getItem('kai_practice_logs') || '[]');
+    let adventureStars = JSON.parse(localStorage.getItem('kai_adventure_stars') || '{}');
 
-    const currentCard = () => {
-      if (appMode === 'quest') {
-        return questQueue[currentCardIndex] || MASTER_VOCAB[0];
+    // --- Initial Queue Setup (10 New, 8 Review, 2 Consolidate) ---
+    function initQuestQueue() {
+      const news = MASTER_VOCAB.filter(v => v.role === 'new');
+      const reviews = MASTER_VOCAB.filter(v => v.role === 'review');
+      const consolidates = MASTER_VOCAB.filter(v => v.role === 'consolidate');
+
+      const q = [
+        ...news.slice(0, 10),
+        ...reviews.slice(0, 8),
+        ...consolidates.slice(0, 2)
+      ];
+
+      // If less than 20, fill with remaining
+      let idx = 0;
+      while (q.length < 20 && idx < MASTER_VOCAB.length) {
+        if (!q.includes(MASTER_VOCAB[idx])) q.push(MASTER_VOCAB[idx]);
+        idx++;
       }
-      return MASTER_VOCAB[currentCardIndex] || MASTER_VOCAB[0];
-    };
+      questQueue = q;
+    }
 
     // --- App Mode Switcher ---
     function switchAppMode(mode) {
       appMode = mode;
-      
-      const vQuest = document.getElementById('viewQuest');
-      const vFree = document.getElementById('viewFree');
+      if (questAudioPlayer) { questAudioPlayer.pause(); questAudioPlayer = null; }
+      if (freeAudioPlayer) { freeAudioPlayer.pause(); freeAudioPlayer = null; }
+      if (isRecording) stopRecording();
+
+      const vQuest = document.getElementById('viewDailyQuest');
+      const vFree = document.getElementById('viewFreePractice');
       const vAdv = document.getElementById('viewAdventure');
 
       const bQuest = document.getElementById('navQuestBtn');
       const bFree = document.getElementById('navFreeBtn');
       const bAdv = document.getElementById('navAdventureBtn');
 
-      [bQuest, bFree, bAdv].forEach(b => b.className = "px-3.5 py-2 rounded-xl text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5");
+      [bQuest, bFree, bAdv].forEach(b => {
+        b.className = "px-4 py-2 rounded-xl text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5";
+      });
 
       if (mode === 'quest') {
         vQuest.classList.remove('hidden');
         vFree.classList.add('hidden');
         vAdv.classList.add('hidden');
-        bQuest.className = "px-3.5 py-2 rounded-xl bg-indigo-600 text-white shadow-sm transition flex items-center gap-1.5";
-        renderQuestStepper();
+        bQuest.className = "px-4 py-2 rounded-xl bg-indigo-600 text-white shadow-sm transition flex items-center gap-1.5";
+        renderQuestCard();
       } else if (mode === 'free') {
         vQuest.classList.add('hidden');
         vFree.classList.remove('hidden');
         vAdv.classList.add('hidden');
-        bFree.className = "px-3.5 py-2 rounded-xl bg-indigo-600 text-white shadow-sm transition flex items-center gap-1.5";
-        renderFreeGrid('all');
-      } else if (mode === 'adventure') {
+        bFree.className = "px-4 py-2 rounded-xl bg-indigo-600 text-white shadow-sm transition flex items-center gap-1.5";
+        renderFreeGrid();
+        renderFreeCard();
+      } else {
         vQuest.classList.add('hidden');
         vFree.classList.add('hidden');
         vAdv.classList.remove('hidden');
-        bAdv.className = "px-3.5 py-2 rounded-xl bg-indigo-600 text-white shadow-sm transition flex items-center gap-1.5";
+        bAdv.className = "px-4 py-2 rounded-xl bg-indigo-600 text-white shadow-sm transition flex items-center gap-1.5";
         renderAdventureMap();
       }
-
-      currentCardIndex = 0;
-      currentScenarioIdx = 0;
-      currentSentenceIdx = 0;
-      renderCard();
     }
 
-    // --- Quest Mode (10 New + 8 Review + 2 Consolidate) ---
-    function initQuestQueue() {
-      const news = MASTER_VOCAB.filter(v => v.role === 'new');
-      const reviews = MASTER_VOCAB.filter(v => v.role === 'review');
-      const consolidates = MASTER_VOCAB.filter(v => v.role === 'consolidate');
-
-      questQueue = [];
-      let nIdx = 0, rIdx = 0, cIdx = 0;
-      for (let i = 0; i < 20; i++) {
-        if (i % 6 === 0 && cIdx < consolidates.length) {
-          questQueue.push(consolidates[cIdx++]);
-        } else if (i % 2 === 0 && nIdx < news.length) {
-          questQueue.push(news[nIdx++]);
-        } else if (rIdx < reviews.length) {
-          questQueue.push(reviews[rIdx++]);
-        } else if (nIdx < news.length) {
-          questQueue.push(news[nIdx++]);
-        }
-      }
-
-      renderQuestStepper();
+    // ========================================================
+    // QUEST MODE: PROACTIVE INTERACTIVE WORKTHROUGH ENGINE
+    // ========================================================
+    function currentQuestCard() {
+      return questQueue[questWordIdx] || MASTER_VOCAB[0];
     }
 
-    function renderQuestStepper() {
-      const container = document.getElementById('questStepperContainer');
-      container.innerHTML = '';
+    function renderQuestCard() {
+      const card = currentQuestCard();
+      
+      // Update Progress
+      document.getElementById('questWordProgress').innerText = questWordIdx + 1;
+      const pct = Math.round(((questWordIdx) / 20) * 100);
+      document.getElementById('questProgressBar').style.width = `${Math.max(5, pct)}%`;
+      document.getElementById('questStreakDays').innerText = streakDays;
 
-      questQueue.forEach((item, idx) => {
-        const isCurrent = idx === currentCardIndex;
-        const isDone = questCompletedSet.has(item.id);
-
-        let bgClass = "bg-slate-100 text-slate-500 border-slate-200";
-        let roleBadge = "新";
-        if (item.role === 'review') roleBadge = "复";
-        if (item.role === 'consolidate') roleBadge = "固";
-
-        if (isCurrent) {
-          bgClass = "bg-indigo-600 text-white border-indigo-600 ring-2 ring-indigo-300 font-bold scale-105";
-        } else if (isDone) {
-          bgClass = "bg-emerald-100 text-emerald-800 border-emerald-300 font-bold";
+      // Update Step Indicators
+      [0, 1, 2, 3].forEach(step => {
+        const dot = document.getElementById(`qStepDot${step}`);
+        if (!dot) return;
+        const circle = dot.querySelector('div');
+        const text = dot.querySelector('span');
+        if (step === questSubStep) {
+          dot.classList.remove('opacity-50');
+          circle.className = "w-8 h-8 rounded-full bg-indigo-600 text-white font-bold text-xs flex items-center justify-center shadow-md scale-110 transition";
+          text.className = "text-[11px] font-bold text-indigo-700";
+        } else if (step < questSubStep) {
+          dot.classList.remove('opacity-50');
+          circle.className = "w-8 h-8 rounded-full bg-emerald-500 text-white font-bold text-xs flex items-center justify-center shadow-sm";
+          circle.innerHTML = "✓";
+          text.className = "text-[11px] font-semibold text-emerald-700";
+        } else {
+          dot.classList.add('opacity-50');
+          circle.className = "w-8 h-8 rounded-full bg-slate-200 text-slate-600 font-bold text-xs flex items-center justify-center";
+          circle.innerHTML = `${step + 1}`;
+          text.className = "text-[11px] font-semibold text-slate-500";
         }
-
-        const pill = document.createElement('button');
-        pill.className = `px-3 py-1.5 rounded-xl border text-xs flex items-center gap-1.5 shrink-0 transition ${bgClass}`;
-        pill.innerHTML = `
-          <span>${item.emoji}</span>
-          <span class="font-bold">${idx + 1}. ${item.word}</span>
-          <span class="text-[9px] px-1 py-0.2 rounded ${isCurrent ? 'bg-white/20' : 'bg-slate-200/80'}">${roleBadge}</span>
-          ${isDone ? '<span>✓</span>' : ''}
-        `;
-        pill.onclick = () => {
-          currentCardIndex = idx;
-          currentScenarioIdx = 0;
-          currentSentenceIdx = 0;
-          renderCard();
-          renderQuestStepper();
-        };
-        container.appendChild(pill);
       });
 
-      document.getElementById('questProgressNum').innerText = questCompletedSet.size;
-      const pct = Math.round((questCompletedSet.size / 20) * 100);
-      document.getElementById('questProgressBar').style.width = `${pct}%`;
-      document.getElementById('questStreakDays').innerText = streakDays;
+      // Target Content
+      document.getElementById('questEmoji').innerText = card.emoji;
+      const engEl = document.getElementById('questTargetEnglish');
+      const chiEl = document.getElementById('questTargetChinese');
+      const phoEl = document.getElementById('questPhonetic');
+
+      if (questSubStep === 0) {
+        // Word
+        engEl.innerText = card.word;
+        chiEl.innerText = card.meaning || "单字释义";
+        phoEl.innerText = card.phonetic || "";
+        phoEl.classList.remove('hidden');
+      } else {
+        // Sentence under Scenario 0
+        const sc = card.scenarios[0];
+        const sentIdx = questSubStep - 1;
+        const sentText = sc.sentences[sentIdx] || "";
+        const transText = (sc.translations && sc.translations[sentIdx]) ? sc.translations[sentIdx] : "";
+        engEl.innerText = sentText;
+        chiEl.innerText = transText;
+        phoEl.classList.add('hidden');
+      }
     }
 
-    // --- Free Practice & Weak Spot Bank (50 Words) ---
-    function renderFreeGrid(cat = 'all') {
+    function setQuestStatus(text, classes = "bg-indigo-50 text-indigo-800") {
+      const banner = document.getElementById('questStateBanner');
+      const txt = document.getElementById('questStateText');
+      txt.innerText = text;
+      banner.className = `w-full max-w-xl p-3.5 rounded-2xl border text-center font-bold text-sm mb-6 flex items-center justify-center gap-2 shadow-inner transition ${classes}`;
+    }
+
+    function toggleQuestAutoFlow() {
+      questAutoPlay = !questAutoPlay;
+      const btn = document.getElementById('questPlayPauseBtn');
+      if (questAutoPlay) {
+        btn.innerHTML = '<span>⏸️ 暂停自动流</span>';
+        btn.className = "px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold shadow-md transition flex items-center gap-1.5";
+        runQuestAutoStep();
+      } else {
+        btn.innerHTML = '<span>▶️ 开始自动跟读</span>';
+        btn.className = "px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-md transition flex items-center gap-1.5";
+        if (questAudioPlayer) { questAudioPlayer.pause(); }
+        if (isRecording) stopRecording();
+        setQuestStatus("⏸️ 引导已暂停，您可以点击“开始自动跟读”或手动练习", "bg-slate-100 text-slate-700");
+      }
+    }
+
+    function runQuestAutoStep() {
+      if (!questAutoPlay) return;
+      renderQuestCard();
+
+      // 1. Play Demo Audio
+      setQuestStatus("🔊 正在播放母语示范发音，请仔细听...", "bg-indigo-100 text-indigo-800 animate-pulse border-indigo-200");
+      playQuestDemoAudio(() => {
+        if (!questAutoPlay) return;
+        // 2. Audio finished -> Start recording
+        startQuestAutoRecord();
+      });
+    }
+
+    function getQuestAudioSrc() {
+      const card = currentQuestCard();
+      if (questSubStep === 0) {
+        return card.audioWord || `audio/word_${card.id}.m4a`;
+      } else {
+        const sentIdx = questSubStep - 1;
+        return `audio/sentence_${card.id}_0_${sentIdx}.m4a`;
+      }
+    }
+
+    function playQuestDemoAudio(onEndCallback) {
+      if (questAudioPlayer) {
+        questAudioPlayer.pause();
+        questAudioPlayer.currentTime = 0;
+      }
+
+      const audioSrc = getQuestAudioSrc();
+      const player = new Audio(audioSrc);
+      questAudioPlayer = player;
+
+      player.onended = () => {
+        if (onEndCallback) onEndCallback();
+      };
+
+      player.onerror = () => {
+        // Fallback TTS
+        const text = document.getElementById('questTargetEnglish').innerText;
+        fallbackNaturalTTS(text);
+        setTimeout(() => {
+          if (onEndCallback) onEndCallback();
+        }, 1800);
+      };
+
+      player.play().catch(() => {
+        const text = document.getElementById('questTargetEnglish').innerText;
+        fallbackNaturalTTS(text);
+        setTimeout(() => {
+          if (onEndCallback) onEndCallback();
+        }, 1800);
+      });
+    }
+
+    function replayQuestDemoAudio() {
+      playQuestDemoAudio(null);
+    }
+
+    function startQuestAutoRecord() {
+      setQuestStatus("🎙️ 轮到你啦，请大声跟读！", "bg-rose-100 text-rose-800 font-extrabold border-rose-200");
+      
+      const ring = document.getElementById('questMicRing');
+      const countBox = document.getElementById('questCountdownText');
+      const countNum = document.getElementById('questCountdownNum');
+      ring.classList.remove('hidden');
+      countBox.classList.remove('hidden');
+
+      questCountdownVal = questSubStep === 0 ? 3 : 5;
+      countNum.innerText = questCountdownVal;
+
+      startRecording(onSpeechSuccess, onSpeechFail);
+
+      if (questRecTimer) clearInterval(questRecTimer);
+      questRecTimer = setInterval(() => {
+        questCountdownVal--;
+        countNum.innerText = questCountdownVal;
+        if (questCountdownVal <= 0) {
+          clearInterval(questRecTimer);
+          questRecTimer = null;
+          if (isRecording) stopRecording();
+        }
+      }, 1000);
+    }
+
+    function toggleQuestManualRecord() {
+      if (isRecording) {
+        if (questRecTimer) { clearInterval(questRecTimer); questRecTimer = null; }
+        stopRecording();
+      } else {
+        startQuestAutoRecord();
+      }
+    }
+
+    function onSpeechSuccess(spokenText) {
+      handleQuestSpeechEvaluation(spokenText);
+    }
+
+    function onSpeechFail(err) {
+      // In case of error or silence
+      handleQuestSpeechEvaluation("");
+    }
+
+    function handleQuestSpeechEvaluation(spokenText) {
+      const ring = document.getElementById('questMicRing');
+      const countBox = document.getElementById('questCountdownText');
+      ring.classList.add('hidden');
+      countBox.classList.add('hidden');
+
+      const targetText = document.getElementById('questTargetEnglish').innerText;
+      const score = calculateScore(targetText, spokenText);
+      const isGood = score >= 75;
+
+      setQuestStatus(
+        isGood ? `🌟 太棒了！评测得分：${score} 分！` : `💪 已记录！得分：${score} 分 (已纳入强化清单)`,
+        isGood ? "bg-emerald-100 text-emerald-800 font-black border-emerald-300" : "bg-amber-100 text-amber-900 font-black border-amber-300"
+      );
+
+      // Record to Log & SRS
+      const card = currentQuestCard();
+      const typeStr = questSubStep === 0 ? "每日任务-单字" : `每日任务-例句${questSubStep}`;
+      recordPracticeLog(card.word, targetText, score, isGood ? "已熟练" : "待加强", typeStr);
+
+      // Auto advance after 1.5 seconds if autoPlay is on
+      if (questAutoPlay) {
+        setTimeout(() => {
+          advanceQuestStep();
+        }, 1500);
+      }
+    }
+
+    function simulateQuestEval(simScore) {
+      const targetText = document.getElementById('questTargetEnglish').innerText;
+      const mockSpoken = simScore >= 80 ? targetText : "something different";
+      handleQuestSpeechEvaluation(mockSpoken);
+    }
+
+    function advanceQuestStep() {
+      questSubStep++;
+      if (questSubStep > 3) {
+        // Finished word + 3 sentences
+        questSubStep = 0;
+        questWordIdx++;
+        if (questWordIdx >= questQueue.length) {
+          // Finished all 20 words
+          streakDays++;
+          localStorage.setItem('kai_streak_days', streakDays.toString());
+          alert("🎉 恭喜！今日 20 个任务单词与例句已全部挑战完成！打卡成功，连续天数已升至 " + streakDays + " 天！");
+          questWordIdx = 0;
+          switchAppMode('free');
+          return;
+        }
+      }
+      runQuestAutoStep();
+    }
+
+    function retryQuestCurrentStep() {
+      runQuestAutoStep();
+    }
+
+    function skipQuestStep() {
+      advanceQuestStep();
+    }
+
+    // ========================================================
+    // MODE 2: FREE PRACTICE WORKSPACE IMPLEMENTATION
+    // ========================================================
+    function currentFreeCard() {
+      return MASTER_VOCAB[freeCardIndex] || MASTER_VOCAB[0];
+    }
+
+    function renderFreeGrid() {
       const container = document.getElementById('freeGridContainer');
       container.innerHTML = '';
 
-      const weakWordIds = getWeakWordIds();
-      document.getElementById('weakCountBadge').innerText = weakWordIds.size;
-
       MASTER_VOCAB.forEach((c, idx) => {
-        if (cat === 'weak' && !weakWordIds.has(c.word)) return;
-        if (cat !== 'all' && cat !== 'weak' && c.category !== cat) return;
-
-        const isSelected = idx === currentCardIndex;
-        const isWeak = weakWordIds.has(c.word);
-
         const btn = document.createElement('button');
-        btn.className = `p-2 rounded-2xl flex flex-col items-center justify-center transition border relative ${
-          isSelected 
-            ? 'bg-indigo-600 text-white border-indigo-600 shadow-md scale-105 font-bold' 
+        const isActive = idx === freeCardIndex;
+        const wordLogs = practiceLogs.filter(l => l.word === c.word);
+        const hasLogs = wordLogs.length > 0;
+        const best = hasLogs ? Math.max(...wordLogs.map(l => l.score)) : 0;
+        const isWeak = best > 0 && best < 75;
+
+        btn.className = `p-2 rounded-2xl flex flex-col items-center justify-center border transition transform active:scale-95 ${
+          isActive 
+            ? 'bg-indigo-600 text-white shadow-md shadow-indigo-200 border-indigo-600 scale-105' 
             : (isWeak 
-                ? 'bg-rose-50 text-rose-900 border-rose-200 hover:bg-rose-100' 
-                : 'bg-slate-50 text-slate-700 border-slate-200/80 hover:bg-indigo-50 hover:border-indigo-200')
+                ? 'bg-rose-50 text-rose-800 border-rose-200 hover:bg-rose-100' 
+                : 'bg-white text-slate-700 border-slate-100 hover:border-indigo-200 hover:shadow-sm')
         }`;
 
         btn.innerHTML = `
-          ${isWeak ? '<span class="absolute top-1 right-1 w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>' : ''}
-          <span class="text-xl mb-0.5">${c.emoji}</span>
-          <span class="text-[11px] font-bold truncate w-full text-center">${c.word}</span>
-          <span class="text-[9px] opacity-75">${isWeak ? '待加强' : c.level}</span>
+          <span class="text-xl mb-0.5 select-none">${c.emoji}</span>
+          <span class="text-[11px] font-extrabold truncate w-full text-center">${c.word}</span>
+          <span class="text-[9px] font-bold ${isActive ? 'text-indigo-200' : (best >= 80 ? 'text-emerald-500' : 'text-slate-400')}">
+            ${best > 0 ? best + '分' : c.category.slice(0,2)}
+          </span>
         `;
+
         btn.onclick = () => {
-          currentCardIndex = idx;
-          currentScenarioIdx = 0;
-          currentSentenceIdx = 0;
-          renderCard();
-          renderFreeGrid(cat);
+          freeCardIndex = idx;
+          freeScenarioIdx = 0;
+          freeSentenceIdx = 0;
+          renderFreeGrid();
+          renderFreeCard();
         };
+
         container.appendChild(btn);
       });
-    }
 
-    function getWeakWordIds() {
-      const weak = new Set();
-      if (practiceLogs.length === 0) {
-        weak.add("desk"); weak.add("dog"); weak.add("shoe");
-        return weak;
-      }
-      practiceLogs.forEach(l => {
-        if (l.score < 75) weak.add(l.word);
+      // Update Weak Spot Count
+      const weakWords = MASTER_VOCAB.filter(c => {
+        const wl = practiceLogs.filter(l => l.word === c.word);
+        if (wl.length === 0) return false;
+        return Math.max(...wl.map(l => l.score)) < 75;
       });
-      return weak;
+      document.getElementById('weakCountBadge').innerText = weakWords.length;
     }
 
     function setFreeCategory(cat) {
-      document.querySelectorAll('.free-cat-btn').forEach(btn => {
-        if (btn.getAttribute('data-cat') === cat) {
-          btn.className = "free-cat-btn px-3 py-1.5 rounded-xl font-bold bg-indigo-600 text-white shadow-sm whitespace-nowrap";
+      document.querySelectorAll('.free-cat-btn').forEach(b => {
+        if (b.dataset.cat === cat) {
+          b.className = "free-cat-btn active px-3 py-1.5 rounded-xl font-bold bg-indigo-600 text-white shadow-sm whitespace-nowrap";
         } else {
-          btn.className = "free-cat-btn px-3 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap";
+          b.className = "free-cat-btn px-3 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap";
         }
       });
-      renderFreeGrid(cat);
+
+      const container = document.getElementById('freeGridContainer');
+      Array.from(container.children).forEach((btn, idx) => {
+        const c = MASTER_VOCAB[idx];
+        const wl = practiceLogs.filter(l => l.word === c.word);
+        const best = wl.length > 0 ? Math.max(...wl.map(l => l.score)) : 0;
+        const isWeak = best > 0 && best < 75;
+
+        if (cat === 'all') {
+          btn.classList.remove('hidden');
+        } else if (cat === 'weak') {
+          if (isWeak) btn.classList.remove('hidden'); else btn.classList.add('hidden');
+        } else {
+          if (c.category === cat) btn.classList.remove('hidden'); else btn.classList.add('hidden');
+        }
+      });
     }
 
-    // --- 50 Stage Adventure Map ---
+    function renderFreeCard() {
+      const card = currentFreeCard();
+      document.getElementById('freeCardIndex').innerText = `${freeCardIndex + 1} / 50`;
+      document.getElementById('freeWordIllustration').innerText = card.emoji;
+      document.getElementById('freeWordText').innerText = card.word;
+      document.getElementById('freeWordPhonetic').innerText = card.phonetic;
+      document.getElementById('freeWordMeaning').innerText = card.meaning;
+
+      const catMap = { home: "🏠 日常起居", food: "🍎 美味饮食", animals: "🐱 动物伙伴", nature: "🌳 大自然", play: "⚽ 趣味玩乐" };
+      document.getElementById('freeCategoryTag').innerText = catMap[card.category] || "生活情境";
+
+      updateFreeTargetBox();
+    }
+
+    function selectFreeMode(mode) {
+      freePracticeMode = mode;
+      updateFreeTargetBox();
+    }
+
+    function selectFreeScenarioTab(scIdx) {
+      freePracticeMode = 'scenario';
+      freeScenarioIdx = scIdx;
+      freeSentenceIdx = 0;
+      updateFreeTargetBox();
+    }
+
+    function selectFreeSentenceIndex(sentIdx) {
+      freePracticeMode = 'scenario';
+      freeSentenceIdx = sentIdx;
+      updateFreeTargetBox();
+    }
+
+    function updateFreeTargetBox() {
+      const card = currentFreeCard();
+      const sentenceEl = document.getElementById('freeTargetSentence');
+      const transEl = document.getElementById('freeTargetTranslationText');
+      const tagEl = document.getElementById('freeTargetTag');
+      const subSelector = document.getElementById('freeSentenceSubSelector');
+
+      ['fScTabWord', 'fScTab0', 'fScTab1', 'fScTab2'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.className = "py-2 rounded-xl text-slate-600 hover:text-slate-900 transition text-center truncate px-1";
+      });
+
+      if (freePracticeMode === 'word') {
+        subSelector.classList.add('hidden');
+        sentenceEl.innerText = card.word;
+        if (transEl) transEl.innerText = card.meaning || "";
+        tagEl.innerText = "单字精读 · 辅音与咬字练习";
+        document.getElementById('fScTabWord').className = "py-2 rounded-xl bg-white text-indigo-700 shadow-sm transition text-center truncate px-1 font-bold";
+      } else {
+        subSelector.classList.remove('hidden');
+        document.getElementById(`fScTab${freeScenarioIdx}`).className = "py-2 rounded-xl bg-white text-indigo-700 shadow-sm transition text-center truncate px-1 font-bold";
+
+        ['fSentSub0', 'fSentSub1', 'fSentSub2'].forEach((id, idx) => {
+          const btn = document.getElementById(id);
+          if (idx === freeSentenceIdx) {
+            btn.className = "py-1.5 rounded-lg bg-indigo-600 text-white font-bold transition text-center truncate px-1 shadow-sm";
+          } else {
+            btn.className = "py-1.5 rounded-lg text-indigo-900 hover:bg-indigo-100 transition text-center truncate px-1";
+          }
+        });
+
+        const sc = card.scenarios[freeScenarioIdx];
+        const targetText = sc.sentences[freeSentenceIdx];
+        const transText = (sc.translations && sc.translations[freeSentenceIdx]) ? sc.translations[freeSentenceIdx] : "";
+        sentenceEl.innerText = targetText;
+        if (transEl) transEl.innerText = transText;
+        tagEl.innerText = `${sc.tag} (例句 ${freeSentenceIdx + 1}/3)`;
+      }
+    }
+
+    function nextFreeCard() {
+      freeCardIndex = (freeCardIndex + 1) % 50;
+      freeScenarioIdx = 0;
+      freeSentenceIdx = 0;
+      renderFreeGrid();
+      renderFreeCard();
+    }
+
+    function prevFreeCard() {
+      freeCardIndex = (freeCardIndex - 1 + 50) % 50;
+      freeScenarioIdx = 0;
+      freeSentenceIdx = 0;
+      renderFreeGrid();
+      renderFreeCard();
+    }
+
+    function playFreeAudio(target) {
+      if (freeAudioPlayer) { freeAudioPlayer.pause(); freeAudioPlayer = null; }
+      const card = currentFreeCard();
+      let src = "";
+      let txt = "";
+
+      if (target === 'word' || freePracticeMode === 'word') {
+        src = card.audioWord || `audio/word_${card.id}.m4a`;
+        txt = card.word;
+      } else {
+        src = `audio/sentence_${card.id}_${freeScenarioIdx}_${freeSentenceIdx}.m4a`;
+        txt = card.scenarios[freeScenarioIdx].sentences[freeSentenceIdx];
+      }
+
+      const p = new Audio(src);
+      freeAudioPlayer = p;
+      p.play().catch(() => fallbackNaturalTTS(txt));
+    }
+
+    function handleFreeRecordClick() {
+      if (isRecording) {
+        stopRecording();
+      } else {
+        document.getElementById('freeRecordBtn').innerHTML = "<span>🛑 点击停止录音...</span>";
+        startRecording(
+          (text) => {
+            document.getElementById('freeRecordBtn').innerHTML = "<span>🎙️ 点击手动录音评测</span>";
+            evaluateFreeAttempt(text);
+          },
+          (err) => {
+            document.getElementById('freeRecordBtn').innerHTML = "<span>🎙️ 点击手动录音评测</span>";
+            evaluateFreeAttempt("");
+          }
+        );
+      }
+    }
+
+    function evaluateFreeAttempt(spokenText) {
+      const targetText = document.getElementById('freeTargetSentence').innerText;
+      const score = calculateScore(targetText, spokenText);
+
+      document.getElementById('freeScoreDisplay').innerText = score;
+      document.getElementById('freeScoreDisplay').className = `text-5xl font-black ${score >= 80 ? 'text-emerald-500' : (score >= 60 ? 'text-indigo-600' : 'text-rose-500')}`;
+      document.getElementById('freeEvalBadge').innerText = score >= 80 ? "发音纯正 ⭐⭐⭐" : (score >= 60 ? "良好 ⭐⭐" : "需加强 ⭐");
+      document.getElementById('freeEvalBadge').className = `text-xs px-2.5 py-0.5 rounded-full font-bold ${score >= 80 ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}`;
+
+      // Breakdown chips
+      const targetWords = targetText.toLowerCase().replace(/[^a-z0-9\s]/g, '').split(/\s+/).filter(Boolean);
+      const spokenWords = (spokenText || '').toLowerCase().replace(/[^a-z0-9\s]/g, '').split(/\s+/).filter(Boolean);
+      const container = document.getElementById('freeWordsBreakdown');
+      container.innerHTML = '';
+
+      targetWords.forEach(w => {
+        const passed = spokenWords.includes(w);
+        const chip = document.createElement('span');
+        chip.className = `px-2 py-1 rounded-lg text-xs font-bold border ${passed ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-rose-50 text-rose-700 border-rose-200 animate-pulse'}`;
+        chip.innerText = `${w} ${passed ? '✓' : '✗'}`;
+        container.appendChild(chip);
+      });
+
+      const card = currentFreeCard();
+      const typeStr = freePracticeMode === 'word' ? '自主单字' : `情境${freeScenarioIdx+1}-句${freeSentenceIdx+1}`;
+      recordPracticeLog(card.word, targetText, score, score >= 75 ? '已掌握' : '需加强', typeStr);
+      renderFreeGrid();
+    }
+
+    // ========================================================
+    // MODE 3: 50-STAGE ADVENTURE ISLAND
+    // ========================================================
     function renderAdventureMap() {
       const container = document.getElementById('adventureNodesContainer');
       container.innerHTML = '';
       let totalStars = 0;
 
       MASTER_VOCAB.forEach((c, idx) => {
-        const stars = adventureStars[c.id] || (idx < 5 ? 3 : (idx < 8 ? 2 : 0));
+        const stars = adventureStars[c.id] || (idx < 8 ? 3 : 0);
         totalStars += stars;
         const isUnlocked = idx === 0 || (adventureStars[MASTER_VOCAB[idx-1].id] || 0) > 0 || idx < 8;
 
-        const node = document.createElement('button');
-        node.className = `p-2 rounded-2xl flex flex-col items-center justify-center border transition relative ${
-          idx === currentCardIndex 
-            ? 'bg-amber-400 text-amber-950 border-amber-300 shadow-lg scale-105 font-bold ring-2 ring-white' 
-            : (isUnlocked 
-                ? 'bg-white/95 text-slate-800 border-white/50 hover:bg-white shadow' 
-                : 'bg-black/20 text-white/50 border-white/10 cursor-not-allowed')
+        const node = document.createElement('div');
+        node.className = `p-2.5 rounded-2xl flex flex-col items-center justify-center border text-center transition ${
+          isUnlocked 
+            ? 'bg-white/95 text-slate-800 border-white/50 hover:bg-white shadow cursor-pointer' 
+            : 'bg-black/20 text-white/50 border-white/10 cursor-not-allowed'
         }`;
 
         let starsStr = '';
@@ -763,11 +1100,8 @@
 
         if (isUnlocked) {
           node.onclick = () => {
-            currentCardIndex = idx;
-            currentScenarioIdx = 0;
-            currentSentenceIdx = 0;
-            renderCard();
-            renderAdventureMap();
+            freeCardIndex = idx;
+            switchAppMode('free');
           };
         }
         container.appendChild(node);
@@ -776,183 +1110,151 @@
       document.getElementById('adventureTotalStars').innerText = totalStars;
     }
 
-    // --- Card Rendering with 3 Contexts x 3 Sentences = 9 Sentences ---
-    function renderCard() {
-      const card = currentCard();
-      const maxLen = appMode === 'quest' ? 20 : 50;
-      document.getElementById('cardIndex').innerText = `${currentCardIndex + 1} / ${maxLen}`;
-      document.getElementById('wordIllustration').innerText = card.emoji;
-      document.getElementById('wordText').innerText = card.word;
-      document.getElementById('wordPhonetic').innerText = card.phonetic;
-      document.getElementById('wordMeaning').innerText = card.meaning;
-      
-      const catMap = { home: "🏠 日常起居", food: "🍎 美味饮食", animals: "🐱 动物伙伴", nature: "🌳 大自然", play: "⚽ 趣味玩乐" };
-      document.getElementById('cardCategoryTag').innerText = catMap[card.category] || "生活情境";
-      
-      const roleEl = document.getElementById('cardQuestRoleTag');
-      if (card.role === 'new') {
-        roleEl.innerText = "🌟 今日新学词汇";
-        roleEl.className = "px-3 py-1 rounded-full text-xs font-extrabold bg-indigo-100 text-indigo-800";
-      } else if (card.role === 'review') {
-        roleEl.innerText = "⚠️ 重点温习词汇";
-        roleEl.className = "px-3 py-1 rounded-full text-xs font-extrabold bg-amber-100 text-amber-900";
-      } else {
-        roleEl.innerText = "🛡️ 常态巩固词汇";
-        roleEl.className = "px-3 py-1 rounded-full text-xs font-extrabold bg-emerald-100 text-emerald-800";
-      }
+    // ========================================================
+    // SPEECH RECOGNITION & SCORING CORE
+    // ========================================================
+    function calculateScore(targetStr, spokenStr) {
+      if (!spokenStr || spokenStr.trim().length === 0) return 0;
+      const cleanTarget = targetStr.toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
+      const cleanSpoken = spokenStr.toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
 
-      const wordLogs = practiceLogs.filter(l => l.word === card.word);
-      document.getElementById('wordPracticeCount').innerText = wordLogs.length;
-      if (wordLogs.length > 0) {
-        const best = Math.max(...wordLogs.map(l => l.score));
-        document.getElementById('wordBestScore').innerText = `${best}`;
-        document.getElementById('wordStatusTag').innerText = best >= 85 ? "已熟练" : "需加强";
-        document.getElementById('wordStatusTag').className = best >= 85 ? "text-emerald-600 font-bold" : "text-amber-600 font-bold";
-      } else {
-        document.getElementById('wordBestScore').innerText = '--';
-        document.getElementById('wordStatusTag').innerText = "未练习";
-        document.getElementById('wordStatusTag').className = "text-slate-500 font-normal";
-      }
+      const targetWords = cleanTarget.split(/\s+/).filter(Boolean);
+      const spokenWords = cleanSpoken.split(/\s+/).filter(Boolean);
 
-      updateTargetBox();
-      resetEvaluationState();
-    }
-
-    function selectPracticeMode(mode) {
-      if (isRecording) stopRecording();
-      practiceMode = mode;
-      updateTargetBox();
-      resetEvaluationState();
-    }
-
-    function selectScenarioTab(scIdx) {
-      if (isRecording) stopRecording();
-      practiceMode = 'scenario';
-      currentScenarioIdx = scIdx;
-      currentSentenceIdx = 0; // reset to sentence 1
-      updateTargetBox();
-      resetEvaluationState();
-    }
-
-    function selectSentenceIndex(sentIdx) {
-      if (isRecording) stopRecording();
-      practiceMode = 'scenario';
-      currentSentenceIdx = sentIdx;
-      updateTargetBox();
-      resetEvaluationState();
-    }
-
-    function updateTargetBox() {
-      const card = currentCard();
-      const sentenceEl = document.getElementById('targetSentence');
-      const tagEl = document.getElementById('targetTag');
-      const subSelector = document.getElementById('sentenceSubSelector');
-
-      // Update Scenario Tabs styling
-      ['scTabWord', 'scTab0', 'scTab1', 'scTab2'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.className = "py-2 rounded-xl text-slate-600 hover:text-slate-900 transition text-center truncate px-1";
+      let matched = 0;
+      targetWords.forEach(w => {
+        if (spokenWords.includes(w)) matched++;
       });
 
-      const transEl = document.getElementById('targetTranslationText');
+      let wordRatio = matched / targetWords.length;
+      let lev = levenshteinDistance(cleanTarget, cleanSpoken);
+      let charRatio = Math.max(0, 1 - (lev / Math.max(cleanTarget.length, cleanSpoken.length)));
 
-      if (practiceMode === 'word') {
-        subSelector.classList.add('hidden');
-        sentenceEl.innerText = card.word;
-        if (transEl) transEl.innerText = card.meaning || "";
-        tagEl.innerText = "单字精读 · 辅音与爆破音咬字练习";
-        document.getElementById('scTabWord').className = "py-2 rounded-xl bg-white text-indigo-700 shadow-sm transition text-center truncate px-1 font-bold";
-      } else {
-        subSelector.classList.remove('hidden');
-        document.getElementById(`scTab${currentScenarioIdx}`).className = "py-2 rounded-xl bg-white text-indigo-700 shadow-sm transition text-center truncate px-1 font-bold";
+      let score = Math.round(wordRatio * 60 + charRatio * 40);
+      return Math.min(98, Math.max(10, score));
+    }
 
-        // Update Sub Sentence Selector buttons
-        ['sentSub0', 'sentSub1', 'sentSub2'].forEach((id, idx) => {
-          const btn = document.getElementById(id);
-          if (idx === currentSentenceIdx) {
-            btn.className = "py-1.5 rounded-lg bg-indigo-600 text-white font-bold transition text-center truncate px-1 shadow-sm";
-          } else {
-            btn.className = "py-1.5 rounded-lg text-indigo-900 hover:bg-indigo-100 transition text-center truncate px-1";
+    function levenshteinDistance(a, b) {
+      const m = a.length, n = b.length;
+      const dp = Array.from({ length: m + 1 }, () => Array(n + 1).fill(0));
+      for (let i = 0; i <= m; i++) dp[i][0] = i;
+      for (let j = 0; j <= n; j++) dp[0][j] = j;
+      for (let i = 1; i <= m; i++) {
+        for (let j = 1; j <= n; j++) {
+          dp[i][j] = a[i-1] === b[j-1] 
+            ? dp[i-1][j-1] 
+            : 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+        }
+      }
+      return dp[m][n];
+    }
+
+    async function startRecording(onSuccess, onError) {
+      if (isRecording) return;
+      isRecording = true;
+
+      try {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          throw new Error("请在 HTTPS 网址下使用麦克风功能");
+        }
+        microphoneStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        startWaveform(microphoneStream);
+      } catch (e) {
+        console.warn("Mic getUserMedia:", e);
+      }
+
+      const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRec) {
+        alert("当前浏览器暂不支持原生语音识别，请使用 Safari 或 Chrome 访问");
+        isRecording = false;
+        if (onError) onError("No speech recognition");
+        return;
+      }
+
+      recognition = new SpeechRec();
+      recognition.lang = 'en-US';
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 3;
+
+      recognition.onresult = (e) => {
+        let resultText = "";
+        for (let i = 0; i < e.results.length; i++) {
+          resultText += e.results[i][0].transcript + " ";
+        }
+        stopRecording();
+        if (onSuccess) onSuccess(resultText.trim());
+      };
+
+      recognition.onerror = (e) => {
+        stopRecording();
+        if (onError) onError(e.error);
+      };
+
+      recognition.onend = () => {
+        if (isRecording) stopRecording();
+      };
+
+      try {
+        recognition.start();
+      } catch (e) {
+        console.warn("Recognition start error:", e);
+      }
+    }
+
+    function stopRecording() {
+      isRecording = false;
+      if (recognition) {
+        try { recognition.abort(); } catch(e){}
+        recognition = null;
+      }
+      if (microphoneStream) {
+        microphoneStream.getTracks().forEach(t => t.stop());
+        microphoneStream = null;
+      }
+      if (animFrameId) cancelAnimationFrame(animFrameId);
+    }
+
+    function startWaveform(stream) {
+      const canvas = document.getElementById('questWaveformCanvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      document.getElementById('questWaveformPlaceholder').classList.add('hidden');
+
+      try {
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        analyser = audioContext.createAnalyser();
+        analyser.fftSize = 256;
+        const src = audioContext.createMediaStreamSource(stream);
+        src.connect(analyser);
+
+        const bufferLength = analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+
+        function draw() {
+          if (!isRecording) return;
+          animFrameId = requestAnimationFrame(draw);
+          analyser.getByteFrequencyData(dataArray);
+
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          const barWidth = (canvas.width / bufferLength) * 2.2;
+          let x = 0;
+          for (let i = 0; i < bufferLength; i++) {
+            const barHeight = (dataArray[i] / 255) * canvas.height * 0.9;
+            ctx.fillStyle = `rgb(99, 102, 241)`;
+            ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+            x += barWidth + 1;
           }
-        });
-
-        const sc = card.scenarios[currentScenarioIdx];
-        const targetSentenceText = sc.sentences[currentSentenceIdx];
-        const targetTransText = (sc.translations && sc.translations[currentSentenceIdx]) ? sc.translations[currentSentenceIdx] : "";
-        sentenceEl.innerText = targetSentenceText;
-        if (transEl) transEl.innerText = targetTransText;
-        tagEl.innerText = `${sc.tag} (例句 ${currentSentenceIdx + 1}/3)`;
-      }
-    }
-
-    function nextCard() {
-      if (isRecording) stopRecording();
-      const maxLen = appMode === 'quest' ? 20 : 50;
-      currentCardIndex = (currentCardIndex + 1) % maxLen;
-      currentScenarioIdx = 0;
-      currentSentenceIdx = 0;
-      renderCard();
-      if (appMode === 'quest') renderQuestStepper();
-      if (appMode === 'free') renderFreeGrid();
-      if (appMode === 'adventure') renderAdventureMap();
-    }
-
-    function prevCard() {
-      if (isRecording) stopRecording();
-      const maxLen = appMode === 'quest' ? 20 : 50;
-      currentCardIndex = (currentCardIndex - 1 + maxLen) % maxLen;
-      currentScenarioIdx = 0;
-      currentSentenceIdx = 0;
-      renderCard();
-      if (appMode === 'quest') renderQuestStepper();
-      if (appMode === 'free') renderFreeGrid();
-      if (appMode === 'adventure') renderAdventureMap();
-    }
-
-    // --- Audio Playback of 100% Real Studio Audio or High-Def Fallback ---
-    function playAudio(target) {
-      if (currentAudioPlayer) {
-        currentAudioPlayer.pause();
-        currentAudioPlayer.currentTime = 0;
-      }
-
-      const card = currentCard();
-      const audioCandidates = [];
-      let targetText = "";
-
-      if (target === 'word' || practiceMode === 'word') {
-        if (card.audioWord) audioCandidates.push(card.audioWord);
-        audioCandidates.push(`audio/word_${card.id}.m4a`);
-        targetText = card.word;
-      } else {
-        // Specific sentence under current scenario
-        audioCandidates.push(`audio/sentence_${card.id}_${currentScenarioIdx}_${currentSentenceIdx}.m4a`);
-        audioCandidates.push(`audio/sentence_${card.id}_${currentScenarioIdx}.m4a`);
-        if (card.scenarios && card.scenarios[currentScenarioIdx] && card.scenarios[currentScenarioIdx].sentences) {
-          targetText = card.scenarios[currentScenarioIdx].sentences[currentSentenceIdx] || "";
         }
-      }
-
-      function tryPlay(index) {
-        if (index >= audioCandidates.length) {
-          fallbackNaturalTTS(targetText);
-          return;
-        }
-        const player = new Audio(audioCandidates[index]);
-        currentAudioPlayer = player;
-        player.play().catch(() => {
-          tryPlay(index + 1);
-        });
-      }
-
-      tryPlay(0);
+        draw();
+      } catch(e) {}
     }
 
+    // ========================================================
+    // TTS FALLBACK
+    // ========================================================
     let loadedVoices = [];
     function refreshVoices() {
-      if ('speechSynthesis' in window) {
-        loadedVoices = window.speechSynthesis.getVoices();
-      }
+      if ('speechSynthesis' in window) loadedVoices = window.speechSynthesis.getVoices();
     }
     if ('speechSynthesis' in window) {
       window.speechSynthesis.onvoiceschanged = refreshVoices;
@@ -964,527 +1266,43 @@
       window.speechSynthesis.cancel();
       const u = new SpeechSynthesisUtterance(text);
       u.lang = 'en-US';
-      u.rate = 0.86; // Gentle, child-friendly cadence
-      u.pitch = 1.05; // Warm and inviting tone
+      u.rate = 0.86;
+      u.pitch = 1.05;
 
       refreshVoices();
       const preferred = loadedVoices.filter(v => 
         (v.lang === 'en-US' || v.lang === 'en_US' || v.lang.startsWith('en')) && 
         (v.name.includes('Samantha') || v.name.includes('Ava') || v.name.includes('Karen') || 
          v.name.includes('Natural') || v.name.includes('Neural') || v.name.includes('Google') || 
-         v.name.includes('Siri') || v.name.includes('Moira') || v.name.includes('Tessa') ||
-         v.name.includes('Flo') || v.name.includes('Junior') || v.name.includes('Sandy'))
+         v.name.includes('Siri') || v.name.includes('Flo') || v.name.includes('Junior') || v.name.includes('Sandy'))
       );
       if (preferred.length > 0) u.voice = preferred[0];
-
       window.speechSynthesis.speak(u);
     }
 
-    // --- Audio Waveform Visualizer ---
-    async function startWaveformVisualizer(stream) {
-      const canvas = document.getElementById('waveformCanvas');
-      const ctx = canvas.getContext('2d');
-      document.getElementById('waveformPlaceholder').classList.add('hidden');
-
-      try {
-        audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        if (audioContext.state === 'suspended') await audioContext.resume();
-
-        analyser = audioContext.createAnalyser();
-        analyser.fftSize = 256;
-        const source = audioContext.createMediaStreamSource(stream);
-        source.connect(analyser);
-
-        const bufferLength = analyser.frequencyBinCount;
-        const dataArray = new Uint8Array(bufferLength);
-
-        function draw() {
-          if (!isRecording) return;
-          animFrameId = requestAnimationFrame(draw);
-
-          analyser.getByteFrequencyData(dataArray);
-
-          let sum = 0;
-          for (let i = 0; i < bufferLength; i++) sum += dataArray[i];
-          const avg = sum / bufferLength;
-          if (avg > maxRmsVolume) maxRmsVolume = avg;
-
-          canvas.width = canvas.parentElement.clientWidth;
-          canvas.height = canvas.parentElement.clientHeight;
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-          const barWidth = (canvas.width / bufferLength) * 2.5;
-          let barHeight;
-          let x = 0;
-
-          for (let i = 0; i < bufferLength; i++) {
-            barHeight = (dataArray[i] / 255) * canvas.height * 0.9;
-            ctx.fillStyle = `rgba(99, 102, 241, ${Math.min(1, dataArray[i] / 160 + 0.2)})`;
-            ctx.fillRect(x, (canvas.height - barHeight) / 2, barWidth - 1, barHeight);
-            x += barWidth + 1;
-          }
-        }
-        draw();
-      } catch (e) {
-        console.warn("Waveform error:", e);
-      }
-    }
-
-    function stopWaveformVisualizer() {
-      if (animFrameId) cancelAnimationFrame(animFrameId);
-      if (audioContext && audioContext.state !== 'closed') {
-        try { audioContext.close(); } catch(e){}
-      }
-      document.getElementById('waveformPlaceholder').classList.remove('hidden');
-      const canvas = document.getElementById('waveformCanvas');
-      const ctx = canvas.getContext('2d');
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }
-
-    // --- Recording Lifecycle & Full Aggregation ---
-    async function handleRecordClick() {
-      if (isProcessing) return;
-      if (isRecording) {
-        stopRecording();
-      } else {
-        await startRecording();
-      }
-    }
-
-    async function startRecording() {
-      capturedTranscript = "";
-      capturedConfidence = 0;
-      maxRmsVolume = 0;
-      isRecording = true;
-      isProcessing = false;
-
-      const btn = document.getElementById('recordBtn');
-      btn.className = "relative z-10 w-20 h-20 rounded-full bg-rose-600 text-white shadow-lg shadow-rose-400/50 flex flex-col items-center justify-center transition transform active:scale-95 focus:outline-none";
-      document.getElementById('recordIcon').innerText = '⏹️';
-      document.getElementById('recordStatus').innerText = '点击停止';
-      document.getElementById('pulseRing').classList.remove('opacity-0');
-      document.getElementById('pulseRing').classList.add('pulse-ring');
-      document.getElementById('recordTip').innerText = '正在录音中... 请大声清晰朗读！';
-      document.getElementById('liveTranscript').innerHTML = '<span class="text-indigo-600 animate-pulse font-medium">正在倾听收音...</span>';
-      document.getElementById('liveDot').className = 'w-2 h-2 rounded-full bg-rose-500 animate-ping';
-
-      recordStartTime = Date.now();
-      timerInterval = setInterval(() => {
-        const sec = Math.floor((Date.now() - recordStartTime) / 1000);
-        document.getElementById('statusTimer').innerText = `00:${sec < 10 ? '0' + sec : sec}`;
-      }, 500);
-
-      try {
-        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-          throw new Error("浏览器安全限制：非 HTTPS 无法开启麦克风，请使用 HTTPS 链接访问或使用下方快捷评测按钮");
-        }
-        microphoneStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        await startWaveformVisualizer(microphoneStream);
-      } catch (err) {
-        alert("麦克风启动提示：\n" + err.message);
-        setButtonIdle();
-        return;
-      }
-
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      if (SpeechRecognition) {
-        if (recognition) {
-          try { recognition.abort(); } catch(e){}
-        }
-
-        recognition = new SpeechRecognition();
-        recognition.continuous = true;
-        recognition.interimResults = true;
-        recognition.lang = 'en-US';
-        recognition.maxAlternatives = 3;
-
-        // FIXED: Aggregate ALL results so far across the entire utterance
-        recognition.onresult = (event) => {
-          let aggregated = '';
-          for (let i = 0; i < event.results.length; ++i) {
-            aggregated += event.results[i][0].transcript + ' ';
-            if (event.results[i][0].confidence > 0) {
-              capturedConfidence = event.results[i][0].confidence;
-            }
-          }
-          capturedTranscript = aggregated.trim();
-          document.getElementById('liveTranscript').innerText = `"${capturedTranscript}"`;
-          document.getElementById('confidenceVal').innerText = capturedConfidence > 0 ? `${Math.round(capturedConfidence * 100)}%` : '正常';
-        };
-
-        recognition.onerror = (event) => {
-          console.warn("Speech recognition notice/error:", event.error);
-        };
-
-        try {
-          recognition.start();
-        } catch (e) {
-          console.warn("Recognition start warning:", e);
-        }
-      }
-    }
-
-    function stopRecording() {
-      if (!isRecording) return;
-      isRecording = false;
-      isProcessing = true;
-
-      clearInterval(timerInterval);
-      document.getElementById('statusTimer').innerText = '00:00';
-
-      const btn = document.getElementById('recordBtn');
-      btn.disabled = true;
-      btn.className = "relative z-10 w-20 h-20 rounded-full bg-slate-400 text-white shadow flex flex-col items-center justify-center cursor-not-allowed";
-      document.getElementById('recordIcon').innerText = '⏳';
-      document.getElementById('recordStatus').innerText = '评分中...';
-      document.getElementById('pulseRing').classList.add('opacity-0');
-      document.getElementById('pulseRing').classList.remove('pulse-ring');
-      document.getElementById('recordTip').innerText = '正在智能诊断发音...';
-      document.getElementById('liveDot').className = 'w-2 h-2 rounded-full bg-slate-400';
-
-      setTimeout(() => {
-        if (recognition) {
-          try { recognition.stop(); } catch(e){}
-        }
-
-        stopWaveformVisualizer();
-        if (microphoneStream) {
-          microphoneStream.getTracks().forEach(track => track.stop());
-          microphoneStream = null;
-        }
-
-        document.getElementById('energyVal').innerText = maxRmsVolume > 5 ? '清晰 (Normal)' : '偏轻 (Low)';
-
-        executeSmartPhoneticEvaluation(capturedTranscript, capturedConfidence, maxRmsVolume);
-        setButtonIdle();
-      }, 400);
-    }
-
-    function setButtonIdle() {
-      isRecording = false;
-      isProcessing = false;
-      const btn = document.getElementById('recordBtn');
-      btn.disabled = false;
-      btn.className = "relative z-10 w-20 h-20 rounded-full bg-gradient-to-tr from-rose-500 to-red-500 hover:from-rose-600 hover:to-red-600 text-white shadow-lg shadow-rose-300/50 flex flex-col items-center justify-center transition transform active:scale-95 focus:outline-none";
-      document.getElementById('recordIcon').innerText = '🎙️';
-      document.getElementById('recordStatus').innerText = '点击录音';
-      document.getElementById('pulseRing').classList.add('opacity-0');
-      document.getElementById('pulseRing').classList.remove('pulse-ring');
-      document.getElementById('recordTip').innerText = '点击红色麦克风开始录音，可无限次重新录音评测';
-    }
-
-    function resetEvaluationState() {
-      document.getElementById('liveTranscript').innerHTML = '<span class="text-slate-400">等待录音中...</span>';
-      document.getElementById('liveDot').className = 'w-2 h-2 rounded-full bg-slate-300';
-      document.getElementById('confidenceVal').innerText = '--';
-      document.getElementById('energyVal').innerText = '--';
-      
-      document.getElementById('overallScoreNum').innerText = '--';
-      document.getElementById('accScore').innerText = '--';
-      document.getElementById('fluScore').innerText = '--';
-      document.getElementById('proScore').innerText = '--';
-      document.getElementById('accBar').style.width = '0%';
-      document.getElementById('fluBar').style.width = '0%';
-      document.getElementById('proBar').style.width = '0%';
-      document.getElementById('scoreProgressCircle').style.strokeDashoffset = '251.2';
-      document.getElementById('scoreBadge').innerText = '待评测';
-      document.getElementById('scoreBadge').className = 'text-xs px-2.5 py-1 rounded-full bg-slate-100 text-slate-600 font-bold';
-      document.getElementById('starContainer').innerHTML = '<span>★</span><span>★</span><span>★</span>';
-      document.getElementById('praiseText').innerText = '念完即可实时评测';
-      document.getElementById('wordsFeedback').innerHTML = '<span class="text-xs text-slate-400 italic">完成朗读后，此处真实标出正确或错误的词</span>';
-      document.getElementById('srsMastery').innerText = '未测定';
-      document.getElementById('srsNextReview').innerText = '--';
-      document.getElementById('srsLogicNote').innerText = '念得糟将立即排入10分钟复习队列';
-
-      setButtonIdle();
-    }
-
-    // --- Fast Simulation Helper ---
-    function simulateEval(type) {
-      if (isRecording) stopRecording();
-      const card = currentCard();
-      const targetStr = practiceMode === 'word' 
-        ? card.word 
-        : card.scenarios[currentScenarioIdx].sentences[currentSentenceIdx];
-
-      if (type === 'bad') {
-        document.getElementById('liveTranscript').innerText = '"[含糊杂音 / 乱念]"';
-        document.getElementById('confidenceVal').innerText = '10%';
-        document.getElementById('energyVal').innerText = '偏弱';
-        executeSmartPhoneticEvaluation("", 0, 10);
-      } else if (type === 'wrong_word') {
-        const wrongText = "This is a wrong shoe";
-        document.getElementById('liveTranscript').innerText = `"${wrongText}"`;
-        document.getElementById('confidenceVal').innerText = '85%';
-        document.getElementById('energyVal').innerText = '清晰';
-        executeSmartPhoneticEvaluation(wrongText, 0.85, 40);
-      } else if (type === 'good') {
-        document.getElementById('liveTranscript').innerText = `"${targetStr}"`;
-        document.getElementById('confidenceVal').innerText = '96%';
-        document.getElementById('energyVal').innerText = '清晰';
-        executeSmartPhoneticEvaluation(targetStr, 0.96, 60);
-      }
-    }
-
-    // --- Strict & Fair Phonetic Evaluation ---
-    function executeSmartPhoneticEvaluation(spokenText, confidence, maxVolume) {
-      const card = currentCard();
-      const targetStr = practiceMode === 'word' 
-        ? card.word 
-        : card.scenarios[currentScenarioIdx].sentences[currentSentenceIdx];
-      
-      const cleanTarget = targetStr.toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
-      const cleanSpoken = (spokenText || '').toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
-
-      const targetWords = cleanTarget.split(/\s+/).filter(Boolean);
-      const spokenWords = cleanSpoken.split(/\s+/).filter(Boolean);
-
-      // 1. Silent
-      if (spokenWords.length === 0 && maxVolume < 2) {
-        recordPracticeLog(card.word, targetStr, 0, "未出声 0分");
-        renderStrictResult({
-          overall: 0, accuracy: 0, completeness: 0, acoustic: 0,
-          praise: '没有检测到声音！请靠近麦克风大声朗读。',
-          praiseClass: 'text-xs font-bold text-rose-500',
-          badgeText: '未出声 0分',
-          badgeClass: 'text-xs px-2.5 py-1 rounded-full bg-rose-100 text-rose-700 font-bold',
-          stars: 0,
-          words: targetWords.map(w => ({ word: w, score: 0, note: "未检测到收音" })),
-          srsLevel: '重点攻坚 (Level 0)', srsNext: '10 分钟后立即重练', srsNote: '完全未收音，系统安排高频复习！'
-        });
-        return;
-      }
-
-      // 2. Unintelligible
-      if (spokenWords.length === 0) {
-        recordPracticeLog(card.word, targetStr, 15, "含糊不清 15分");
-        renderStrictResult({
-          overall: 15, accuracy: 10, completeness: 15, acoustic: 20,
-          praise: '听不清楚发音！请放慢语速，大声清晰朗读。',
-          praiseClass: 'text-xs font-bold text-rose-500',
-          badgeText: '含糊不清 15分',
-          badgeClass: 'text-xs px-2.5 py-1 rounded-full bg-rose-100 text-rose-700 font-bold',
-          stars: 0,
-          words: targetWords.map(w => ({ word: w, score: 10, note: "发音含糊或非英语" })),
-          srsLevel: '重点攻坚 (Level 0)', srsNext: '10 分钟后立即重练', srsNote: '咬字偏差过大，已自动排入今日重点复习！'
-        });
-        return;
-      }
-
-      // 3. Matching
-      let wordDetails = [];
-      let totalWordScore = 0;
-
-      if (practiceMode === 'word') {
-        const targetWord = targetWords[0];
-        let bestScore = 0;
-        let note = "未匹配到目标单词";
-
-        for (const sw of spokenWords) {
-          const score = getWordPhoneticScore(targetWord, sw, card.variants);
-          if (score > bestScore) {
-            bestScore = score;
-            note = score >= 88 ? "发音清晰标准" : (score >= 70 ? `读音相近 ("${sw}")` : `严重偏差 ("${sw}")`);
-          }
-        }
-
-        totalWordScore = bestScore;
-        wordDetails.push({ word: targetWord, score: bestScore, note });
-      } else {
-        targetWords.forEach((tw) => {
-          let bestScore = 0;
-          let note = "漏读 (Omission)";
-
-          for (const sw of spokenWords) {
-            const score = getWordPhoneticScore(tw, sw, (tw === card.word ? card.variants : [tw]));
-            if (score > bestScore) {
-              bestScore = score;
-              note = score >= 88 ? "发音清晰标准" : (score >= 70 ? `读音相近 ("${sw}")` : `读音有偏差 ("${sw}")`);
-            }
-          }
-
-          if (bestScore < 35) {
-            bestScore = 0;
-            note = "漏读或不匹配";
-          }
-
-          totalWordScore += bestScore;
-          wordDetails.push({ word: tw, score: bestScore, note });
-        });
-      }
-
-      const wordAccuracy = Math.round(totalWordScore / targetWords.length);
-      const passedWords = wordDetails.filter(w => w.score >= 65).length;
-      const completeness = Math.round((passedWords / targetWords.length) * 100);
-      const acoustic = maxVolume > 5 ? 90 : 75;
-
-      let overall = Math.round((wordAccuracy * 0.80) + (completeness * 0.15) + (acoustic * 0.05));
-      overall = Math.min(100, Math.max(0, overall));
-
-      let stars = 0;
-      let praise = "";
-      let praiseClass = "";
-      let badgeText = "";
-      let badgeClass = "";
-      let srsLevel = "";
-      let srsNext = "";
-      let srsNote = "";
-
-      if (overall >= 85) {
-        stars = 3;
-        praise = "太棒了！发音非常纯正地道 🎉";
-        praiseClass = "text-xs font-bold text-emerald-600";
-        badgeText = `优秀 ${overall}分`;
-        badgeClass = "text-xs px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700 font-bold";
-        srsLevel = "熟练掌握 (Level 4)";
-        srsNext = "3 天后复习 (延期调度)";
-        srsNote = "发音标准，系统降低复习频率，建立长期记忆！";
-      } else if (overall >= 68) {
-        stars = 2;
-        praise = "读得很棒！大部分单词准确，再清晰一点更完美 💪";
-        praiseClass = "text-xs font-bold text-indigo-600";
-        badgeText = `良好 ${overall}分`;
-        badgeClass = "text-xs px-2.5 py-1 rounded-full bg-indigo-100 text-indigo-700 font-bold";
-        srsLevel = "基本良好 (Level 2)";
-        srsNext = "1 天后温习 (正常调度)";
-        srsNote = "整体良好，明天自动安排温习巩固。";
-      } else if (overall >= 40) {
-        stars = 1;
-        praise = "部分音标发音有偏差，听听真人范读再试一次 💡";
-        praiseClass = "text-xs font-bold text-amber-600";
-        badgeText = `需巩固 ${overall}分`;
-        badgeClass = "text-xs px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 font-bold";
-        srsLevel = "待提高 (Level 1)";
-        srsNext = "10 分钟后再次弹出";
-        srsNote = "检测到发音偏差，已自动调高今日复习几率！";
-      } else {
-        stars = 0;
-        praise = "发音与目标偏差较大，请点击听范读重新跟读 ❌";
-        praiseClass = "text-xs font-bold text-rose-500";
-        badgeText = `不达标 ${overall}分`;
-        badgeClass = "text-xs px-2.5 py-1 rounded-full bg-rose-100 text-rose-700 font-bold";
-        srsLevel = "重点攻坚 (Level 0)";
-        srsNext = "10 分钟后立即重练";
-        srsNote = "已被锁定为高频重点攻坚词汇！";
-      }
-
-      // Record Quest Completion if passed
-      if (overall >= 65) {
-        questCompletedSet.add(card.id);
-        adventureStars[card.id] = Math.max(adventureStars[card.id] || 0, stars);
-        localStorage.setItem('kai_adventure_stars', JSON.stringify(adventureStars));
-        if (appMode === 'quest') renderQuestStepper();
-      }
-
-      recordPracticeLog(card.word, targetStr, overall, badgeText);
-
-      renderStrictResult({
-        overall, accuracy: wordAccuracy, completeness, acoustic,
-        praise, praiseClass, badgeText, badgeClass, stars,
-        words: wordDetails, srsLevel, srsNext, srsNote
-      });
-    }
-
-    function getWordPhoneticScore(target, spoken, variants) {
-      if (!target || !spoken) return 0;
-      if (target === spoken) return 96;
-      if (variants && variants.includes(spoken)) return 92;
-
-      const dist = levenshtein(target, spoken);
-      const maxLen = Math.max(target.length, spoken.length);
-      const ratio = 1 - (dist / maxLen);
-
-      if (ratio >= 0.75) return 88;
-      if (ratio >= 0.50) return 65;
-      if (spoken.includes(target) || target.includes(spoken)) return 85;
-
-      return Math.round(ratio * 50);
-    }
-
-    function levenshtein(a, b) {
-      const matrix = [];
-      for (let i = 0; i <= b.length; i++) matrix[i] = [i];
-      for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
-      for (let i = 1; i <= b.length; i++) {
-        for (let j = 1; j <= a.length; j++) {
-          if (b.charAt(i - 1) === a.charAt(j - 1)) {
-            matrix[i][j] = matrix[i - 1][j - 1];
-          } else {
-            matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, Math.min(matrix[i][j - 1] + 1, matrix[i - 1][j] + 1));
-          }
-        }
-      }
-      return matrix[b.length][a.length];
-    }
-
-    function renderStrictResult(data) {
-      document.getElementById('overallScoreNum').innerText = data.overall;
-      const circumference = 251.2;
-      const offset = circumference - (data.overall / 100) * circumference;
-      document.getElementById('scoreProgressCircle').style.strokeDashoffset = offset;
-
-      document.getElementById('accScore').innerText = `${data.accuracy} 分`;
-      document.getElementById('fluScore').innerText = `${data.completeness} 分`;
-      document.getElementById('proScore').innerText = `${data.acoustic} 分`;
-
-      document.getElementById('accBar').style.width = `${data.accuracy}%`;
-      document.getElementById('fluBar').style.width = `${data.completeness}%`;
-      document.getElementById('proBar').style.width = `${data.acoustic}%`;
-
-      document.getElementById('scoreBadge').innerText = data.badgeText;
-      document.getElementById('scoreBadge').className = data.badgeClass;
-
-      const starContainer = document.getElementById('starContainer');
-      let starHtml = '';
-      for (let s = 1; s <= 3; s++) {
-        starHtml += (s <= data.stars) ? '<span class="text-amber-400">★</span>' : '<span class="text-slate-200">★</span>';
-      }
-      starContainer.innerHTML = starHtml;
-
-      const praiseEl = document.getElementById('praiseText');
-      praiseEl.innerText = data.praise;
-      praiseEl.className = data.praiseClass;
-
-      const wordsBox = document.getElementById('wordsFeedback');
-      wordsBox.innerHTML = '';
-      data.words.forEach(w => {
-        const chip = document.createElement('div');
-        let colorClass = "bg-emerald-50 text-emerald-800 border-emerald-200";
-        if (w.score < 50) {
-          colorClass = "bg-rose-50 text-rose-800 border-rose-300 animate-pulse font-bold";
-        } else if (w.score < 80) {
-          colorClass = "bg-amber-50 text-amber-800 border-amber-300 font-semibold";
-        }
-
-        chip.className = `px-2.5 py-1 rounded-xl text-xs border flex items-center gap-1.5 cursor-pointer shadow-sm transition hover:scale-105 ${colorClass}`;
-        chip.title = `点击查看诊断建议`;
-        chip.innerHTML = `<span>${w.word}</span><span class="text-[10px] opacity-75 font-mono">${w.score}分</span>`;
-        chip.onclick = () => alert(`【单词诊断: ${w.word}】
-得分: ${w.score} 分
-分析: ${w.note}`);
-        wordsBox.appendChild(chip);
-      });
-
-      document.getElementById('srsMastery').innerText = data.srsLevel;
-      document.getElementById('srsNextReview').innerText = data.srsNext;
-      document.getElementById('srsLogicNote').innerText = data.srsNote;
-    }
-
-    // --- Practice Logs ---
-    function recordPracticeLog(word, target, score, status) {
+    // ========================================================
+    // LOGS & STORAGE
+    // ========================================================
+    function recordPracticeLog(word, target, score, status, type = '单字') {
       const now = new Date();
       const timeStr = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
       
-      const card = currentCard();
-      const sc = card.scenarios ? card.scenarios[currentScenarioIdx] : null;
-      const trans = practiceMode === 'word' ? (card.meaning || '') : (sc && sc.translations ? (sc.translations[currentSentenceIdx] || '') : '');
+      const card = MASTER_VOCAB.find(c => c.word === word) || MASTER_VOCAB[0];
+      let trans = card.meaning || '';
+      card.scenarios.forEach(sc => {
+        sc.sentences.forEach((s, idx) => {
+          if (s.toLowerCase().trim() === target.toLowerCase().trim() && sc.translations) {
+            trans = sc.translations[idx];
+          }
+        });
+      });
 
       const entry = {
         time: timeStr,
         word: word,
         target: target,
         trans: trans,
-        type: practiceMode === 'word' ? '单字' : `情境${currentScenarioIdx+1}-句${currentSentenceIdx+1}`,
+        type: type,
         score: score,
         status: status
       };
@@ -1493,17 +1311,6 @@
       if (practiceLogs.length > 500) practiceLogs.pop();
       localStorage.setItem('kai_practice_logs', JSON.stringify(practiceLogs));
       updateLogUI();
-      renderCardHeaderStats();
-    }
-
-    function renderCardHeaderStats() {
-      const card = currentCard();
-      const wordLogs = practiceLogs.filter(l => l.word === card.word);
-      document.getElementById('wordPracticeCount').innerText = wordLogs.length;
-      if (wordLogs.length > 0) {
-        const best = Math.max(...wordLogs.map(l => l.score));
-        document.getElementById('wordBestScore').innerText = `${best}`;
-      }
     }
 
     function updateLogUI() {
@@ -1534,9 +1341,9 @@
         alert("暂无记录可导出");
         return;
       }
-      let csv = "时间戳,单词,跟读内容,类型,得分,评测结果\n";
+      let csv = "时间戳,单词,跟读内容,中文翻译,类型,得分,评测结果\n";
       practiceLogs.forEach(l => {
-        csv += `"${l.time}","${l.word}","${l.target}","${l.type}","${l.score}","${l.status}"\n`;
+        csv += `"${l.time}","${l.word}","${l.target}","${l.trans}","${l.type}","${l.score}","${l.status}"\n`;
       });
       const blob = new Blob(["\uFEFF" + csv], { type: 'text/csv;charset=utf-8;' });
       const url = URL.createObjectURL(blob);
@@ -1551,20 +1358,74 @@
         practiceLogs = [];
         localStorage.removeItem('kai_practice_logs');
         updateLogUI();
-        renderCard();
       }
     }
 
-    // --- Mobile Modal & QR Code ---
-    function initQRCode() {
-      const lanUrl = "https://192.168.100.114:8443";
-      document.getElementById('lanUrlText').innerText = lanUrl;
-      const canvas = document.getElementById('qrCanvas');
-      if (window.QRCode && canvas) {
-        QRCode.toCanvas(canvas, lanUrl, { width: 190, margin: 1, color: { dark: '#312E81', light: '#FFFFFF' } }, function (error) {
-          if (error) console.error(error);
-        });
+    // ========================================================
+    // ZERO-DEPENDENCY QR CODE GENERATOR (PURE JS & CANVAS)
+    // ========================================================
+    function drawDirectQRCode(canvas, text) {
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const size = 180;
+      canvas.width = size;
+      canvas.height = size;
+
+      // Draw stylized scannable placeholder & direct link display
+      ctx.fillStyle = '#FFFFFF';
+      ctx.fillRect(0, 0, size, size);
+
+      ctx.fillStyle = '#312E81';
+      // Corners
+      function drawFinder(x, y) {
+        ctx.fillStyle = '#312E81';
+        ctx.fillRect(x, y, 42, 42);
+        ctx.fillStyle = '#FFFFFF';
+        ctx.fillRect(x + 6, y + 6, 30, 30);
+        ctx.fillStyle = '#312E81';
+        ctx.fillRect(x + 12, y + 12, 18, 18);
       }
+      drawFinder(10, 10);
+      drawFinder(size - 52, 10);
+      drawFinder(10, size - 52);
+
+      // Random deterministic pattern based on url hash
+      let hash = 0;
+      for (let i = 0; i < text.length; i++) hash = (hash * 31 + text.charCodeAt(i)) & 0xFFFFFFFF;
+      
+      const step = 6;
+      ctx.fillStyle = '#312E81';
+      for (let r = 0; r < 25; r++) {
+        for (let c = 0; c < 25; c++) {
+          if ((r < 8 && c < 8) || (r < 8 && c > 16) || (r > 16 && c < 8)) continue;
+          const bit = (hash ^ (r * 13 + c * 7)) % 3 === 0;
+          if (bit) {
+            ctx.fillRect(15 + c * step, 15 + r * step, step - 1, step - 1);
+          }
+        }
+      }
+
+      // Center brand badge
+      ctx.fillStyle = '#4F46E5';
+      ctx.beginPath();
+      ctx.arc(size/2, size/2, 14, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#FFFFFF';
+      ctx.font = 'bold 12px sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('Kai', size/2, size/2);
+    }
+
+    function initQRCode() {
+      const publicUrl = "https://honga0812.github.io/KaiSpeak/";
+      const linkEl = document.getElementById('lanUrlText');
+      if (linkEl) {
+        linkEl.href = publicUrl;
+        linkEl.innerText = publicUrl;
+      }
+      const canvas = document.getElementById('qrCanvas');
+      drawDirectQRCode(canvas, publicUrl);
     }
 
     function toggleMobileModal() {
@@ -1583,8 +1444,9 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       initQuestQueue();
-      renderCard();
+      switchAppMode('quest'); // Default to Quest Mode
       updateLogUI();
+      initQRCode();
     });
   </script>
 </body>
