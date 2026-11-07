@@ -59,7 +59,7 @@
   <!-- ======================================================== -->
   <!-- PROFILE GATE / LOGIN & SWITCH SCREEN                      -->
   <!-- ======================================================== -->
-  <div id="profileGateOverlay" class="fixed inset-0 bg-slate-900/85 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+  <div id="profileGateOverlay" class="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-[70] flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
     <div class="bg-white rounded-3xl p-6 sm:p-8 md:p-10 max-w-xl w-full shadow-2xl border border-indigo-100 text-center flex flex-col items-center my-auto max-h-[94vh] overflow-y-auto">
       
       <!-- Top Branding -->
@@ -168,7 +168,7 @@
   <!-- ======================================================== -->
   <!-- PIN ENTRY KEYPAD MODAL                                   -->
   <!-- ======================================================== -->
-  <div id="pinEntryModal" class="fixed inset-0 bg-slate-900/75 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto hidden">
+  <div id="pinEntryModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[80] flex items-center justify-center p-3 sm:p-6 overflow-y-auto hidden">
     <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-sm w-full shadow-2xl border border-indigo-100 text-center flex flex-col items-center my-auto">
       
       <div id="pinTargetAvatar" class="text-5xl mb-2">👦</div>
@@ -308,7 +308,7 @@
   <!-- ======================================================== -->
   <!-- KICKOFF OVERLAY: STREAK CELEBRATION                      -->
   <!-- ======================================================== -->
-  <div id="questKickoffOverlay" class="fixed inset-0 bg-slate-900/75 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+  <div id="questKickoffOverlay" class="fixed inset-0 bg-slate-900/75 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto hidden">
     <div class="bg-white rounded-3xl p-6 sm:p-8 md:p-10 max-w-lg w-full shadow-2xl border border-indigo-100 text-center flex flex-col items-center my-auto">
       
       <div class="relative mb-4 flex items-center justify-center">
@@ -1134,7 +1134,7 @@
       </div>
 
       <div class="text-[11px] font-mono text-slate-500 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200 mb-4 break-all">
-        https://honga0812.github.io/KaiSpeak/?v=11
+        https://honga0812.github.io/KaiSpeak/?v=12
       </div>
 
       <button onclick="toggleQRModal()" class="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
@@ -5173,6 +5173,7 @@
 
     // Application State
     let appMode = 'quest'; // 'quest' | 'free' | 'adventure'
+    let isUserLoggedIn = false; // Strictly false until PIN/Gate verified
     
     // --- Multi-Child Profiles & Adaptive System ---
     const DEFAULT_PROFILES = [
@@ -5383,6 +5384,7 @@
       if (nameInput) nameInput.value = "";
       if (pinInput) pinInput.value = "";
 
+      isUserLoggedIn = true;
       // Hide Gate Screen
       document.getElementById('profileGateOverlay').classList.add('hidden');
 
@@ -5392,6 +5394,10 @@
       renderQuestCard();
 
       SoundEffects.playShield();
+      const countBox = document.getElementById('overlayCountdownBox');
+      const startBtn = document.getElementById('overlayStartBtn');
+      if (countBox) countBox.classList.add('hidden');
+      if (startBtn) startBtn.classList.remove('hidden');
       document.getElementById('questKickoffOverlay').classList.remove('hidden');
     }
 
@@ -5472,6 +5478,7 @@
         SoundEffects.playScore(95);
 
         setTimeout(() => {
+          isUserLoggedIn = true;
           currentProfileId = selectedPinProfile.id;
           saveProfilesToStorage();
           loadActiveProfileData();
@@ -5484,7 +5491,11 @@
           document.getElementById('pinEntryModal').classList.add('hidden');
           document.getElementById('profileGateOverlay').classList.add('hidden');
 
-          // Trigger daily quest kickoff overlay for this child
+          // Reset kickoff overlay buttons & show for this logged in child
+          const countBox = document.getElementById('overlayCountdownBox');
+          const startBtn = document.getElementById('overlayStartBtn');
+          if (countBox) countBox.classList.add('hidden');
+          if (startBtn) startBtn.classList.remove('hidden');
           document.getElementById('questKickoffOverlay').classList.remove('hidden');
         }, 300);
       } else {
@@ -5504,15 +5515,21 @@
     }
 
     function logoutToGate() {
+      isUserLoggedIn = false;
+      questAutoPlay = false;
+      updatePauseUI();
       if (questAudioPlayer) questAudioPlayer.pause();
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
       if (isRecording) stopRecording();
       if (questRecTimer) { clearInterval(questRecTimer); questRecTimer = null; }
+      if (overlayTimer) { clearInterval(overlayTimer); overlayTimer = null; }
 
-      // Hide inner modals and show Gate
+      // Hide all inner overlays and show Gate
       document.getElementById('questKickoffOverlay').classList.add('hidden');
       document.getElementById('profileModal').classList.add('hidden');
       document.getElementById('streakShieldModal').classList.add('hidden');
       document.getElementById('pinEntryModal').classList.add('hidden');
+      document.getElementById('questCompleteModal').classList.add('hidden');
 
       renderGateScreen();
       document.getElementById('profileGateOverlay').classList.remove('hidden');
@@ -6121,6 +6138,12 @@
     // KICKOFF & WELCOME GUIDANCE
     // ========================================================
     function startDailyQuestWithCountdown() {
+      if (!isUserLoggedIn) {
+        document.getElementById('questKickoffOverlay').classList.add('hidden');
+        document.getElementById('profileGateOverlay').classList.remove('hidden');
+        renderGateScreen();
+        return;
+      }
       SoundEffects.init();
       try {
         questAudioPlayer.src = "data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA";
@@ -6306,12 +6329,12 @@
     }
 
     function runQuestAutoStep() {
-      if (!questAutoPlay) return;
+      if (!isUserLoggedIn || !questAutoPlay) return;
       renderQuestCard();
 
       setQuestStatus("正在播放母語示範發音，請仔細聽...", "🔊", "bg-indigo-100 text-indigo-800 animate-pulse border-indigo-200");
       playQuestDemoAudio(() => {
-        if (!questAutoPlay) return;
+        if (!isUserLoggedIn || !questAutoPlay) return;
         startQuestAutoRecord();
       });
     }
@@ -6332,10 +6355,11 @@
         questAudioPlayer.pause();
         questAudioPlayer.currentTime = 0;
       }
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
 
-      const audioSrc = getQuestAudioSrc();
       let hasEnded = false;
-
       const finish = () => {
         if (!hasEnded) {
           hasEnded = true;
@@ -6343,21 +6367,29 @@
         }
       };
 
-      questAudioPlayer.src = audioSrc;
-      questAudioPlayer.onended = finish;
-      
-      questAudioPlayer.onerror = () => {
-        const text = document.getElementById('questTargetEnglish').innerText;
-        fallbackNaturalTTS(text, finish);
-      };
+      const targetText = document.getElementById('questTargetEnglish') ? document.getElementById('questTargetEnglish').innerText.trim() : "";
 
-      const playPromise = questAudioPlayer.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(e => {
-          console.warn("Audio play blocked or missing, using TTS:", e);
-          const text = document.getElementById('questTargetEnglish').innerText;
-          fallbackNaturalTTS(text, finish);
-        });
+      if (questSubStep === 0) {
+        // Step 0: Single Word
+        const card = currentQuestCard();
+        const audioSrc = card.audioWord || `audio/word_${card.id}.m4a`;
+        questAudioPlayer.src = audioSrc;
+        questAudioPlayer.onended = finish;
+        questAudioPlayer.onerror = () => {
+          fallbackNaturalTTS(targetText, finish);
+        };
+        const playPromise = questAudioPlayer.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(e => {
+            console.warn("Audio play blocked or missing, using TTS:", e);
+            fallbackNaturalTTS(targetText, finish);
+          });
+        }
+      } else {
+        // Step 1 & 2: Graded Elementary Sentences!
+        // ALWAYS use natural TTS on the EXACT targetText displayed on screen!
+        // This guarantees 100% precision between what is heard and what is displayed.
+        fallbackNaturalTTS(targetText, finish);
       }
     }
 
@@ -6970,7 +7002,7 @@
               <div class="text-[11px] text-slate-500 mt-0.5">${trans}</div>
             </div>
             <div class="flex items-center gap-1.5">
-              <button onclick="event.stopPropagation(); playFreeSentenceAudio('${card.id}', ${freeScenarioIndex}, ${sIdx})" class="p-2 rounded-xl bg-white border border-slate-200 hover:bg-indigo-50 text-indigo-600 text-xs shadow-sm active:scale-95 transition" title="播放範讀">
+              <button onclick="event.stopPropagation(); playFreeSentenceAudio('${card.id}', ${freeScenarioIndex}, ${sIdx}, '${sent.replace(/'/g, "\\'")}')" class="p-2 rounded-xl bg-white border border-slate-200 hover:bg-indigo-50 text-indigo-600 text-xs shadow-sm active:scale-95 transition" title="播放範讀">
                 🔊 聽
               </button>
               <button onclick="event.stopPropagation(); setFreeTargetToSentence('${sent.replace(/'/g, "\'")}', '${trans.replace(/'/g, "\'")}'); toggleFreePracticeRecord();" class="p-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs shadow-sm active:scale-95 transition" title="選定並朗讀">
@@ -7042,19 +7074,12 @@
       }
     }
 
-    function playFreeSentenceAudio(cardId, scIdx, sentIdx) {
-      const src = `audio/sentence_${cardId}_${scIdx}_${sentIdx}.m4a`;
-      freeAudioPlayer.src = src;
-      freeAudioPlayer.onerror = () => {
-        const card = MASTER_VOCAB.find(c => c.id === cardId);
-        const text = (card && card.scenarios[scIdx]) ? card.scenarios[scIdx].sentences[sentIdx] : "";
+    function playFreeSentenceAudio(cardId, scIdx, sentIdx, exactText) {
+      const card = MASTER_VOCAB.find(c => c.id === cardId);
+      const text = exactText || (card && card.scenarios[scIdx] ? card.scenarios[scIdx].sentences[sentIdx] : "");
+      if (text) {
         fallbackNaturalTTS(text, null);
-      };
-      freeAudioPlayer.play().catch(() => {
-        const card = MASTER_VOCAB.find(c => c.id === cardId);
-        const text = (card && card.scenarios[scIdx]) ? card.scenarios[scIdx].sentences[sentIdx] : "";
-        fallbackNaturalTTS(text, null);
-      });
+      }
     }
 
     // --- Free Practice Recording & Phonetic Diagnostics ---
@@ -7619,7 +7644,7 @@
     function initQRCode() {
       const canvas = document.getElementById('qrCodeCanvas');
       if (canvas && window.QRCode) {
-        QRCode.toCanvas(canvas, "https://honga0812.github.io/KaiSpeak/?v=11", {
+        QRCode.toCanvas(canvas, "https://honga0812.github.io/KaiSpeak/?v=12", {
           width: 176,
           margin: 1,
           color: { dark: '#312E81', light: '#FFFFFF' }
@@ -7642,10 +7667,19 @@
     function pad(n) { return n < 10 ? '0' + n : n; }
 
     window.addEventListener('DOMContentLoaded', () => {
+      isUserLoggedIn = false;
+      questAutoPlay = false;
+      if (questAudioPlayer) questAudioPlayer.pause();
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+      if (isRecording) stopRecording();
+
       initProfileStore();
       renderGateScreen();
-      // Initially show the Gate Screen so child/parent must select profile and enter PIN first!
+      
+      // Initially show the Gate Screen and force hide quest overlays
       document.getElementById('profileGateOverlay').classList.remove('hidden');
+      document.getElementById('questKickoffOverlay').classList.add('hidden');
+
       initQuestQueue();
       switchAppMode('quest');
       updateStreakAndEnergyUI();
