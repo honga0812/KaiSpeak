@@ -1,9 +1,10 @@
 # build_full_app.py - Rebuilds index.html with:
-# 1. Dedicated Proactive Daily Quest Mode (開屏即入每日任務 · 主動聽讀評跳閉環)
-# 2. Independent Free Practice Mode (全景50詞庫 · 錯詞本 · 9條情境例句中英對照雙語卡片)
-# 3. 50-Stage Adventure Island
-# 4. Direct GitHub Pages URL: https://honga0812.github.io/KaiSpeak/
-# 5. Embedded Canvas/SVG QR Code Generator (Zero CDN Dependency)
+# 1. 每日任務開場引導 (Day streak announcement & 3-2-1 kickoff countdown)
+# 2. 瀏覽器音訊解鎖與純真母語示範播放 (User-gesture unlock + Fallback TTS with onend callback)
+# 3. 語音辨識大修 (interimResults + stop() 而非 abort() + 音量能量檢測 + 即時顯示識別文字)
+# 4. 自動推進流 (單字 ➔ 例句1 ➔ 例句2 ➔ 例句3 ➔ 自動切入下一詞)
+# 5. 全站 100% 繁體中文 (zh-Hant-TW)
+# 6. GitHub Pages 掃碼與外網直連
 
 import json
 
@@ -22,10 +23,10 @@ html_content = r'''<!DOCTYPE html>
   <meta http-equiv="Expires" content="0">
   <title>KaiSpeak - 智慧少兒英語發音評測與任務系統</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: 'Fredoka', 'Noto Sans SC', sans-serif;
+      font-family: 'Fredoka', 'Noto Sans TC', sans-serif;
       background: linear-gradient(135deg, #EEF2FF 0%, #F5F3FF 50%, #EDE9FE 100%);
     }
     .pulse-ring {
@@ -73,7 +74,7 @@ html_content = r'''<!DOCTYPE html>
 
     <!-- Quick Utilities -->
     <div class="flex items-center gap-2">
-      <button onclick="toggleMobileModal()" class="p-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 text-xs font-semibold flex items-center gap-1 transition" title="手機掃碼在公網測試">
+      <button onclick="toggleMobileModal()" class="p-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 text-xs font-semibold flex items-center gap-1 transition" title="手機掃碼在外網測試">
         📱 <span>掃碼外網測試</span>
       </button>
       <button onclick="toggleLogModal()" class="p-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 text-xs font-semibold flex items-center gap-1 transition" title="檢視跟讀日誌">
@@ -81,6 +82,41 @@ html_content = r'''<!DOCTYPE html>
       </button>
     </div>
   </header>
+
+  <!-- ======================================================== -->
+  <!-- KICKOFF OVERLAY: DAILY QUEST WELCOME & 3-SECOND COUNTDOWN -->
+  <!-- ======================================================== -->
+  <div id="questKickoffOverlay" class="fixed inset-0 bg-slate-900/70 backdrop-blur-md z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-8 max-w-md w-full shadow-2xl border border-indigo-100 text-center flex flex-col items-center transform transition-all duration-300">
+      <div class="w-20 h-20 bg-gradient-to-tr from-amber-400 to-orange-500 rounded-3xl flex items-center justify-center text-4xl shadow-lg shadow-amber-200 mb-4 animate-bounce">
+        🎯
+      </div>
+      
+      <span class="px-3 py-1 bg-amber-100 text-amber-900 text-xs font-extrabold rounded-full mb-2">
+        🔥 連續打卡第 <span id="overlayStreakNum">3</span> 天
+      </span>
+      
+      <h2 class="text-2xl font-black text-indigo-950 mb-2">每日任務即將開始！</h2>
+      <p class="text-xs text-slate-500 leading-relaxed mb-6 px-2">
+        今日為您精選 <strong>20 個核心詞彙與情境例句</strong>。<br>
+        系統將為您<strong>主動示範母語發音</strong>，並自動引導跟讀、打分與連貫推進！
+      </p>
+
+      <!-- 3-Second Countdown / Action Button -->
+      <div id="overlayCountdownBox" class="mb-4 hidden">
+        <div class="text-xs text-indigo-600 font-bold mb-1">準備好耳朵與嘴巴囉！</div>
+        <div id="overlayCountdownNum" class="text-6xl font-black text-indigo-600 animate-pulse">3</div>
+      </div>
+
+      <button id="overlayStartBtn" onclick="startDailyQuestWithCountdown()" class="w-full py-4 bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-2xl text-base font-extrabold shadow-xl shadow-indigo-300 transition transform active:scale-95 flex items-center justify-center gap-2">
+        <span>🚀 開始今日挑戰</span>
+      </button>
+
+      <div class="mt-4 text-[11px] text-slate-400 flex items-center gap-1">
+        <span>💡 點選上方按鈕即可啟動耳機與麥克風權限</span>
+      </div>
+    </div>
+  </div>
 
   <!-- ======================================================== -->
   <!-- MODE 1: DAILY QUEST VIEW (沉浸式主動互動任務流 - 開屏預設)      -->
@@ -101,7 +137,7 @@ html_content = r'''<!DOCTYPE html>
             </span>
           </div>
           <p class="text-xs text-indigo-100 mt-1">
-            系統主動帶領：<strong>先聽母語示範 ➔ 倒計時跟讀 ➔ 快速評分 ➔ 自動切例句 ➔ 自動推進下一詞</strong>
+            系統主動帶領：<strong>先聽母語示範 ➔ 倒數跟讀 ➔ 快速評分 ➔ 自動切例句 ➔ 自動推進下一詞</strong>
           </p>
         </div>
       </div>
@@ -119,13 +155,13 @@ html_content = r'''<!DOCTYPE html>
     </div>
 
     <!-- Active Quest Interactive Studio Card -->
-    <div class="bg-white rounded-3xl p-6 md:p-8 shadow-xl shadow-indigo-100/70 border border-indigo-50 flex flex-col items-center">
+    <div class="bg-white rounded-3xl p-6 md:p-8 shadow-xl shadow-indigo-100/70 border border-indigo-50 flex flex-col items-center relative">
       
       <!-- Top Step Indicators for Current Word: [1.單字] -> [2.例句1] -> [3.例句2] -> [4.例句3] -->
       <div class="w-full max-w-xl flex items-center justify-between mb-6 px-2">
         <div id="qStepDot0" class="flex flex-col items-center gap-1 flex-1">
           <div class="w-8 h-8 rounded-full bg-indigo-600 text-white font-bold text-xs flex items-center justify-center shadow-md">1</div>
-          <span class="text-[11px] font-bold text-indigo-700">單詞精讀</span>
+          <span class="text-[11px] font-bold text-indigo-700">單字精讀</span>
         </div>
         <div class="h-0.5 bg-slate-200 flex-1 mx-1"></div>
         <div id="qStepDot1" class="flex flex-col items-center gap-1 flex-1 opacity-50">
@@ -145,13 +181,13 @@ html_content = r'''<!DOCTYPE html>
       </div>
 
       <!-- Proactive State Banner (Tells kid exactly what the system is doing right now) -->
-      <div id="questStateBanner" class="w-full max-w-xl p-3.5 rounded-2xl bg-indigo-50 border border-indigo-100 text-center font-bold text-indigo-800 text-sm mb-6 flex items-center justify-center gap-2 shadow-inner">
-        <span class="text-xl">🔊</span>
-        <span id="questStateText">正在為您播放母語示範發音，請仔細聽...</span>
+      <div id="questStateBanner" class="w-full max-w-xl p-3.5 rounded-2xl bg-indigo-50 border border-indigo-100 text-center font-bold text-indigo-800 text-sm mb-4 flex items-center justify-center gap-2 shadow-inner transition-all duration-300">
+        <span id="questStateIcon" class="text-xl">🔊</span>
+        <span id="questStateText">點選下方「開始挑戰」或播放範讀</span>
       </div>
 
       <!-- Big Illustration & Content Card -->
-      <div class="w-full max-w-xl bg-slate-50/70 border border-slate-200/80 rounded-3xl p-6 text-center mb-6 relative">
+      <div class="w-full max-w-xl bg-slate-50/70 border border-slate-200/80 rounded-3xl p-6 text-center mb-4 relative">
         <div id="questEmoji" class="text-6xl mb-3 select-none">🪑</div>
         
         <!-- Big Target English Text -->
@@ -159,56 +195,63 @@ html_content = r'''<!DOCTYPE html>
           desk
         </h2>
 
-        <!-- Phonetic or Subtag -->
+        <!-- Phonetic -->
         <div id="questPhonetic" class="text-slate-400 font-mono text-sm mb-2">/dɛsk/</div>
 
         <!-- Chinese Translation (Clear Side-by-Side) -->
-        <div class="inline-flex items-center gap-2 bg-white px-4 py-1.5 rounded-full border border-indigo-100 shadow-sm">
-          <span class="text-[10px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-700">中文</span>
+        <div class="inline-flex items-center gap-2 bg-white px-4 py-1.5 rounded-full border border-indigo-100 shadow-sm mb-2">
+          <span class="text-[10px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-700">中文對照</span>
           <span id="questTargetChinese" class="text-sm md:text-base font-bold text-slate-700">名詞：書桌，辦公桌</span>
+        </div>
+
+        <!-- Real-time Speech Recognition Feedback Bubble -->
+        <div id="questSpokenFeedbackBox" class="mt-2 text-xs font-bold text-indigo-700 bg-indigo-50/90 px-3.5 py-1.5 rounded-full inline-block border border-indigo-200/60 transition">
+          🎤 聽到你說：<span id="questSpokenText" class="text-indigo-950 underline italic font-black">等待錄音...</span>
         </div>
       </div>
 
       <!-- Audio Waveform Live Display during Recording -->
-      <div class="w-full max-w-xl h-12 bg-slate-100 rounded-2xl overflow-hidden border border-slate-200/80 mb-6 flex items-center justify-center relative">
+      <div class="w-full max-w-xl h-11 bg-slate-100 rounded-2xl overflow-hidden border border-slate-200/80 mb-5 flex items-center justify-center relative">
         <canvas id="questWaveformCanvas" class="w-full h-full"></canvas>
-        <span id="questWaveformPlaceholder" class="absolute text-xs text-slate-400 font-medium">聲波捕獲區 · 錄音時隨聲音實時波動</span>
+        <span id="questWaveformPlaceholder" class="absolute text-xs text-slate-400 font-medium">聲波捕獲區 · 錄音時隨聲音即時波動</span>
       </div>
 
       <!-- Central Action Area: Big Pulsing Mic & Countdown -->
-      <div class="flex flex-col items-center gap-3 mb-6">
+      <div class="flex flex-col items-center gap-2 mb-5">
         <div class="relative flex items-center justify-center">
-          <div id="questMicRing" class="absolute w-24 h-24 rounded-full bg-rose-400/30 hidden pulse-ring"></div>
+          <div id="questMicRing" class="absolute w-24 h-24 rounded-full bg-rose-400/40 hidden pulse-ring"></div>
           <button id="questMicBtn" onclick="toggleQuestManualRecord()" class="relative z-10 w-20 h-20 rounded-full bg-gradient-to-tr from-indigo-600 to-violet-600 text-white shadow-xl shadow-indigo-300 flex flex-col items-center justify-center transition transform active:scale-95 focus:outline-none">
             <span id="questMicIcon" class="text-2xl">🎙️</span>
             <span id="questMicLabel" class="text-[11px] font-bold mt-0.5">點我錄音</span>
           </button>
         </div>
-        <div id="questCountdownText" class="text-xs font-bold text-rose-600 hidden">倒計時: <span id="questCountdownNum">4</span>s</div>
+        <div id="questCountdownText" class="text-xs font-bold text-rose-600 hidden">
+          錄音倒數: <span id="questCountdownNum">4</span>s (說完會自動停止並評分)
+        </div>
       </div>
 
       <!-- Quick Interactive Flow Controls (Pause/Play, Replay, Retry, Skip) -->
-      <div class="flex items-center gap-2 flex-wrap justify-center">
+      <div class="flex items-center gap-2 flex-wrap justify-center mb-2">
         <button id="questPlayPauseBtn" onclick="toggleQuestAutoFlow()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-bold shadow-md hover:bg-indigo-700 transition flex items-center gap-1.5">
-          <span>⏸️ 暫停自動流</span>
+          <span>⏸️ 暫停引導</span>
         </button>
         <button onclick="replayQuestDemoAudio()" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 text-xs font-bold hover:bg-slate-50 transition flex items-center gap-1">
-          <span>🔊 再聽一次</span>
+          <span>🔊 再聽範讀</span>
         </button>
         <button onclick="retryQuestCurrentStep()" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 text-xs font-bold hover:bg-slate-50 transition flex items-center gap-1">
           <span>🔄 重讀此項</span>
         </button>
         <button onclick="skipQuestStep()" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition flex items-center gap-1">
-          <span>⏭️ 跳過本項</span>
+          <span>⏭️ 跳過此項</span>
         </button>
       </div>
 
       <!-- Simulation Evaluation Buttons for Quick Testing -->
-      <div class="mt-6 pt-4 border-t border-slate-100 w-full max-w-xl flex items-center justify-between text-xs text-slate-500">
+      <div class="mt-4 pt-3 border-t border-slate-100 w-full max-w-xl flex items-center justify-between text-xs text-slate-500">
         <span class="font-bold">快捷免麥測試:</span>
         <div class="flex gap-2">
           <button onclick="simulateQuestEval(92)" class="px-3 py-1 bg-emerald-50 text-emerald-700 rounded-lg border border-emerald-200 font-bold hover:bg-emerald-100">模擬高分(92分)</button>
-          <button onclick="simulateQuestEval(65)" class="px-3 py-1 bg-amber-50 text-amber-700 rounded-lg border border-amber-200 font-bold hover:bg-amber-100">模擬弱項(65分)</button>
+          <button onclick="simulateQuestEval(68)" class="px-3 py-1 bg-amber-50 text-amber-700 rounded-lg border border-amber-200 font-bold hover:bg-amber-100">模擬弱項(68分)</button>
         </div>
       </div>
 
@@ -226,7 +269,7 @@ html_content = r'''<!DOCTYPE html>
         <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
           📚 50 個少兒全景詞彙庫
         </h2>
-        <p class="text-xs text-slate-500 mt-1">自主精細複習 · 點選單詞即可切入精讀</p>
+        <p class="text-xs text-slate-500 mt-1">自主精細複習 · 點選單字即可切入精讀</p>
       </div>
 
       <!-- Category Filter Pills -->
@@ -341,7 +384,7 @@ html_content = r'''<!DOCTYPE html>
           <!-- Free Mode Manual Recording Control -->
           <div class="flex items-center justify-center py-2 gap-4">
             <button id="freeRecordBtn" onclick="handleFreeRecordClick()" class="px-6 py-3 rounded-2xl bg-gradient-to-tr from-rose-500 to-red-500 text-white font-bold text-sm shadow-md hover:from-rose-600 hover:to-red-600 flex items-center gap-2 transition active:scale-95">
-              <span>🎙️ 點選手動錄音評測</span>
+              <span>🎙️ 點選進行手動錄音評測</span>
             </button>
           </div>
 
@@ -377,7 +420,7 @@ html_content = r'''<!DOCTYPE html>
 
           <!-- Feedback Note -->
           <div id="freeFeedbackBox" class="p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs text-slate-600">
-            💡 提示：按住錄音按鈕清晰大聲朗讀，系統將實時診斷連讀、音素與重音。
+            💡 提示：按住錄音按鈕清晰大聲朗讀，系統將即時診斷連讀、音素與重音。
           </div>
         </div>
 
@@ -438,7 +481,7 @@ html_content = r'''<!DOCTYPE html>
       </div>
 
       <p class="text-xs text-slate-500 mb-4">
-        請使用手機相機或微信掃碼開啟，公網與區域網均可直接免配置呼叫麥克風：
+        請使用手機相機或微信掃碼開啟，公網免配置直接呼叫麥克風：
       </p>
 
       <div class="w-48 h-48 bg-white border border-slate-200 rounded-2xl mx-auto flex items-center justify-center shadow-inner p-2 mb-3">
@@ -482,7 +525,7 @@ html_content = r'''<!DOCTYPE html>
             <tr>
               <th class="p-2.5">時間</th>
               <th class="p-2.5">跟讀內容 (中英對照)</th>
-              <th class="p-2.5">型別</th>
+              <th class="p-2.5">類型</th>
               <th class="p-2.5">得分</th>
               <th class="p-2.5">狀態</th>
             </tr>
@@ -512,16 +555,17 @@ html_content = r'''<!DOCTYPE html>
     let questWordIdx = 0; // 0 to 19
     let questSubStep = 0; // 0: Word, 1: Scenario 0 Sent 0, 2: Scenario 0 Sent 1, 3: Scenario 0 Sent 2
     let questAutoPlay = false; // Is proactive walkthrough running?
-    let questAudioPlayer = null;
+    let questAudioPlayer = new Audio(); // Reusable audio element for pre-warming
     let questRecTimer = null;
-    let questCountdownVal = 4;
+    let questCountdownVal = 6;
+    let overlayTimer = null;
 
     // --- Free Mode State ---
     let freeCardIndex = 0; // 0 to 49
     let freePracticeMode = 'scenario'; // 'scenario' | 'word'
     let freeScenarioIdx = 0;
     let freeSentenceIdx = 0;
-    let freeAudioPlayer = null;
+    let freeAudioPlayer = new Audio();
 
     // --- Common States & Storage ---
     let isRecording = false;
@@ -530,6 +574,8 @@ html_content = r'''<!DOCTYPE html>
     let analyser = null;
     let microphoneStream = null;
     let animFrameId = null;
+    let maxAcousticEnergy = 0;
+    let lastInterimSpeech = "";
 
     let streakDays = parseInt(localStorage.getItem('kai_streak_days') || '3');
     let practiceLogs = JSON.parse(localStorage.getItem('kai_practice_logs') || '[]');
@@ -547,7 +593,6 @@ html_content = r'''<!DOCTYPE html>
         ...consolidates.slice(0, 2)
       ];
 
-      // If less than 20, fill with remaining
       let idx = 0;
       while (q.length < 20 && idx < MASTER_VOCAB.length) {
         if (!q.includes(MASTER_VOCAB[idx])) q.push(MASTER_VOCAB[idx]);
@@ -556,11 +601,56 @@ html_content = r'''<!DOCTYPE html>
       questQueue = q;
     }
 
+    // ========================================================
+    // KICKOFF & WELCOME GUIDANCE (第幾天提示 + 3秒倒數 + 聲音解鎖)
+    // ========================================================
+    function startDailyQuestWithCountdown() {
+      // 1. Pre-warm Audio (unlocks browser autoplay policy)
+      try {
+        questAudioPlayer.src = "data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAAABkYXRhAgAAAAEA";
+        questAudioPlayer.play().then(() => questAudioPlayer.pause()).catch(()=>{});
+        
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if (AC) {
+          const dummyCtx = new AC();
+          if (dummyCtx.state === 'suspended') dummyCtx.resume();
+        }
+      } catch(e) {}
+
+      // 2. Hide Start Button and show 3-2-1 Countdown
+      document.getElementById('overlayStartBtn').classList.add('hidden');
+      const countBox = document.getElementById('overlayCountdownBox');
+      const countNum = document.getElementById('overlayCountdownNum');
+      countBox.classList.remove('hidden');
+
+      let cd = 3;
+      countNum.innerText = cd;
+
+      if (overlayTimer) clearInterval(overlayTimer);
+      overlayTimer = setInterval(() => {
+        cd--;
+        if (cd > 0) {
+          countNum.innerText = cd;
+        } else if (cd === 0) {
+          countNum.innerText = "GO! 🎧";
+        } else {
+          clearInterval(overlayTimer);
+          overlayTimer = null;
+          // Hide overlay and start quest walkthrough
+          document.getElementById('questKickoffOverlay').classList.add('hidden');
+          questAutoPlay = true;
+          document.getElementById('questPlayPauseBtn').innerHTML = '<span>⏸️ 暫停引導</span>';
+          document.getElementById('questPlayPauseBtn').className = "px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold shadow-md transition flex items-center gap-1.5";
+          runQuestAutoStep();
+        }
+      }, 900);
+    }
+
     // --- App Mode Switcher ---
     function switchAppMode(mode) {
       appMode = mode;
-      if (questAudioPlayer) { questAudioPlayer.pause(); questAudioPlayer = null; }
-      if (freeAudioPlayer) { freeAudioPlayer.pause(); freeAudioPlayer = null; }
+      if (questAudioPlayer) { questAudioPlayer.pause(); }
+      if (freeAudioPlayer) { freeAudioPlayer.pause(); }
       if (isRecording) stopRecording();
 
       const vQuest = document.getElementById('viewDailyQuest');
@@ -612,8 +702,9 @@ html_content = r'''<!DOCTYPE html>
       const pct = Math.round(((questWordIdx) / 20) * 100);
       document.getElementById('questProgressBar').style.width = `${Math.max(5, pct)}%`;
       document.getElementById('questStreakDays').innerText = streakDays;
+      document.getElementById('overlayStreakNum').innerText = streakDays;
 
-      // Update Step Indicators
+      // Update Step Indicators: 0:單字, 1:例句1, 2:例句2, 3:例句3
       [0, 1, 2, 3].forEach(step => {
         const dot = document.getElementById(`qStepDot${step}`);
         if (!dot) return;
@@ -658,40 +749,42 @@ html_content = r'''<!DOCTYPE html>
         chiEl.innerText = transText;
         phoEl.classList.add('hidden');
       }
+
+      document.getElementById('questSpokenText').innerText = "等待朗讀...";
     }
 
-    function setQuestStatus(text, classes = "bg-indigo-50 text-indigo-800") {
+    function setQuestStatus(text, icon = "🔊", classes = "bg-indigo-50 text-indigo-800") {
       const banner = document.getElementById('questStateBanner');
       const txt = document.getElementById('questStateText');
+      const ico = document.getElementById('questStateIcon');
       txt.innerText = text;
-      banner.className = `w-full max-w-xl p-3.5 rounded-2xl border text-center font-bold text-sm mb-6 flex items-center justify-center gap-2 shadow-inner transition ${classes}`;
+      ico.innerText = icon;
+      banner.className = `w-full max-w-xl p-3.5 rounded-2xl border text-center font-bold text-sm mb-4 flex items-center justify-center gap-2 shadow-inner transition-all duration-300 ${classes}`;
     }
 
     function toggleQuestAutoFlow() {
       questAutoPlay = !questAutoPlay;
       const btn = document.getElementById('questPlayPauseBtn');
       if (questAutoPlay) {
-        btn.innerHTML = '<span>⏸️ 暫停自動流</span>';
+        btn.innerHTML = '<span>⏸️ 暫停引導</span>';
         btn.className = "px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold shadow-md transition flex items-center gap-1.5";
         runQuestAutoStep();
       } else {
-        btn.innerHTML = '<span>▶️ 開始自動跟讀</span>';
+        btn.innerHTML = '<span>▶️ 繼續主動引導</span>';
         btn.className = "px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-md transition flex items-center gap-1.5";
         if (questAudioPlayer) { questAudioPlayer.pause(); }
         if (isRecording) stopRecording();
-        setQuestStatus("⏸️ 引導已暫停，您可以點選“開始自動跟讀”或手動練習", "bg-slate-100 text-slate-700");
+        setQuestStatus("引導已暫停，您可以點選「繼續主動引導」或手動錄音", "⏸️", "bg-slate-100 text-slate-700");
       }
     }
 
     function runQuestAutoStep() {
-      if (!questAutoPlay) return;
       renderQuestCard();
 
-      // 1. Play Demo Audio
-      setQuestStatus("🔊 正在播放母語示範發音，請仔細聽...", "bg-indigo-100 text-indigo-800 animate-pulse border-indigo-200");
+      // 1. Play Demo Audio Loud & Clear
+      setQuestStatus("正在播放母語示範發音，請仔細聽...", "🔊", "bg-indigo-100 text-indigo-800 animate-pulse border-indigo-200");
       playQuestDemoAudio(() => {
-        if (!questAutoPlay) return;
-        // 2. Audio finished -> Start recording
+        // 2. Demo Audio Ended -> Trigger Recording
         startQuestAutoRecord();
       });
     }
@@ -713,29 +806,32 @@ html_content = r'''<!DOCTYPE html>
       }
 
       const audioSrc = getQuestAudioSrc();
-      const player = new Audio(audioSrc);
-      questAudioPlayer = player;
+      let hasEnded = false;
 
-      player.onended = () => {
-        if (onEndCallback) onEndCallback();
+      const finish = () => {
+        if (!hasEnded) {
+          hasEnded = true;
+          if (onEndCallback) onEndCallback();
+        }
       };
 
-      player.onerror = () => {
-        // Fallback TTS
+      questAudioPlayer.src = audioSrc;
+      questAudioPlayer.onended = finish;
+      
+      questAudioPlayer.onerror = () => {
+        // Fallback to Web Speech API
         const text = document.getElementById('questTargetEnglish').innerText;
-        fallbackNaturalTTS(text);
-        setTimeout(() => {
-          if (onEndCallback) onEndCallback();
-        }, 1800);
+        fallbackNaturalTTS(text, finish);
       };
 
-      player.play().catch(() => {
-        const text = document.getElementById('questTargetEnglish').innerText;
-        fallbackNaturalTTS(text);
-        setTimeout(() => {
-          if (onEndCallback) onEndCallback();
-        }, 1800);
-      });
+      const playPromise = questAudioPlayer.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(e => {
+          console.warn("Audio play blocked or missing, using TTS:", e);
+          const text = document.getElementById('questTargetEnglish').innerText;
+          fallbackNaturalTTS(text, finish);
+        });
+      }
     }
 
     function replayQuestDemoAudio() {
@@ -743,7 +839,7 @@ html_content = r'''<!DOCTYPE html>
     }
 
     function startQuestAutoRecord() {
-      setQuestStatus("🎙️ 輪到你啦，請大聲跟讀！", "bg-rose-100 text-rose-800 font-extrabold border-rose-200");
+      setQuestStatus("輪到你啦，請大聲跟讀！(錄音中...)", "🎙️", "bg-rose-100 text-rose-800 font-extrabold border-rose-200");
       
       const ring = document.getElementById('questMicRing');
       const countBox = document.getElementById('questCountdownText');
@@ -751,8 +847,9 @@ html_content = r'''<!DOCTYPE html>
       ring.classList.remove('hidden');
       countBox.classList.remove('hidden');
 
-      questCountdownVal = questSubStep === 0 ? 3 : 5;
+      questCountdownVal = questSubStep === 0 ? 5 : 7;
       countNum.innerText = questCountdownVal;
+      document.getElementById('questSpokenText').innerText = "聆聽中，請大聲朗讀...";
 
       startRecording(onSpeechSuccess, onSpeechFail);
 
@@ -763,7 +860,12 @@ html_content = r'''<!DOCTYPE html>
         if (questCountdownVal <= 0) {
           clearInterval(questRecTimer);
           questRecTimer = null;
-          if (isRecording) stopRecording();
+          // Gracefully stop recognition (processes speech, DOES NOT abort!)
+          if (isRecording) {
+            if (recognition) {
+              try { recognition.stop(); } catch(e){}
+            }
+          }
         }
       }, 1000);
     }
@@ -771,6 +873,7 @@ html_content = r'''<!DOCTYPE html>
     function toggleQuestManualRecord() {
       if (isRecording) {
         if (questRecTimer) { clearInterval(questRecTimer); questRecTimer = null; }
+        if (recognition) { try { recognition.stop(); } catch(e){} }
         stopRecording();
       } else {
         startQuestAutoRecord();
@@ -782,22 +885,30 @@ html_content = r'''<!DOCTYPE html>
     }
 
     function onSpeechFail(err) {
-      // In case of error or silence
-      handleQuestSpeechEvaluation("");
+      // If error but we captured interim speech or acoustic volume
+      const bestText = lastInterimSpeech || "";
+      handleQuestSpeechEvaluation(bestText);
     }
 
     function handleQuestSpeechEvaluation(spokenText) {
+      if (questRecTimer) { clearInterval(questRecTimer); questRecTimer = null; }
       const ring = document.getElementById('questMicRing');
       const countBox = document.getElementById('questCountdownText');
       ring.classList.add('hidden');
       countBox.classList.add('hidden');
 
       const targetText = document.getElementById('questTargetEnglish').innerText;
-      const score = calculateScore(targetText, spokenText);
+      
+      // Update Realtime Display
+      const feedbackEl = document.getElementById('questSpokenText');
+      feedbackEl.innerText = spokenText ? `"${spokenText}"` : (maxAcousticEnergy > 15 ? "(聽見了聲音，但咬字需更清晰)" : "(未偵測到聲音)");
+
+      const score = calculateScore(targetText, spokenText, maxAcousticEnergy);
       const isGood = score >= 75;
 
       setQuestStatus(
-        isGood ? `🌟 太棒了！評測得分：${score} 分！` : `💪 已記錄！得分：${score} 分 (已納入強化清單)`,
+        isGood ? `🌟 太棒了！評測得分：${score} 分！` : `💪 讀得不錯！得分：${score} 分 (已自動收納至錯詞本)`,
+        isGood ? "⭐" : "💡",
         isGood ? "bg-emerald-100 text-emerald-800 font-black border-emerald-300" : "bg-amber-100 text-amber-900 font-black border-amber-300"
       );
 
@@ -806,31 +917,32 @@ html_content = r'''<!DOCTYPE html>
       const typeStr = questSubStep === 0 ? "每日任務-單字" : `每日任務-例句${questSubStep}`;
       recordPracticeLog(card.word, targetText, score, isGood ? "已熟練" : "待加強", typeStr);
 
-      // Auto advance after 1.5 seconds if autoPlay is on
-      if (questAutoPlay) {
-        setTimeout(() => {
+      // ALWAYS automatically advance after 1.8 seconds (unless user manually paused autoPlay)
+      setTimeout(() => {
+        if (questAutoPlay) {
           advanceQuestStep();
-        }, 1500);
-      }
+        }
+      }, 1800);
     }
 
     function simulateQuestEval(simScore) {
       const targetText = document.getElementById('questTargetEnglish').innerText;
-      const mockSpoken = simScore >= 80 ? targetText : "something different";
+      const mockSpoken = simScore >= 80 ? targetText : "somethin";
+      maxAcousticEnergy = 50;
       handleQuestSpeechEvaluation(mockSpoken);
     }
 
     function advanceQuestStep() {
       questSubStep++;
       if (questSubStep > 3) {
-        // Finished word + 3 sentences
+        // Finished word + 3 sentences for current word!
         questSubStep = 0;
         questWordIdx++;
         if (questWordIdx >= questQueue.length) {
           // Finished all 20 words
           streakDays++;
           localStorage.setItem('kai_streak_days', streakDays.toString());
-          alert("🎉 恭喜！今日 20 個任務單詞與例句已全部挑戰完成！打卡成功，連續天數已升至 " + streakDays + " 天！");
+          alert("🎉 恭喜！今日 20 個任務單字與例句已全部挑戰完成！打卡成功，連續天數已升至 " + streakDays + " 天！");
           questWordIdx = 0;
           switchAppMode('free');
           return;
@@ -976,7 +1088,7 @@ html_content = r'''<!DOCTYPE html>
         subSelector.classList.add('hidden');
         sentenceEl.innerText = card.word;
         if (transEl) transEl.innerText = card.meaning || "";
-        tagEl.innerText = "單字精讀 · 子音與咬字練習";
+        tagEl.innerText = "單字精讀 · 輔音與咬字練習";
         document.getElementById('fScTabWord').className = "py-2 rounded-xl bg-white text-indigo-700 shadow-sm transition text-center truncate px-1 font-bold";
       } else {
         subSelector.classList.remove('hidden');
@@ -1017,7 +1129,7 @@ html_content = r'''<!DOCTYPE html>
     }
 
     function playFreeAudio(target) {
-      if (freeAudioPlayer) { freeAudioPlayer.pause(); freeAudioPlayer = null; }
+      if (freeAudioPlayer) { freeAudioPlayer.pause(); }
       const card = currentFreeCard();
       let src = "";
       let txt = "";
@@ -1030,24 +1142,24 @@ html_content = r'''<!DOCTYPE html>
         txt = card.scenarios[freeScenarioIdx].sentences[freeSentenceIdx];
       }
 
-      const p = new Audio(src);
-      freeAudioPlayer = p;
-      p.play().catch(() => fallbackNaturalTTS(txt));
+      freeAudioPlayer.src = src;
+      freeAudioPlayer.play().catch(() => fallbackNaturalTTS(txt, null));
     }
 
     function handleFreeRecordClick() {
       if (isRecording) {
+        if (recognition) { try { recognition.stop(); } catch(e){} }
         stopRecording();
       } else {
-        document.getElementById('freeRecordBtn').innerHTML = "<span>🛑 點選停止錄音...</span>";
+        document.getElementById('freeRecordBtn').innerHTML = "<span>🛑 正在錄音... 點選停止</span>";
         startRecording(
           (text) => {
-            document.getElementById('freeRecordBtn').innerHTML = "<span>🎙️ 點選手動錄音評測</span>";
+            document.getElementById('freeRecordBtn').innerHTML = "<span>🎙️ 點選進行手動錄音評測</span>";
             evaluateFreeAttempt(text);
           },
           (err) => {
-            document.getElementById('freeRecordBtn').innerHTML = "<span>🎙️ 點選手動錄音評測</span>";
-            evaluateFreeAttempt("");
+            document.getElementById('freeRecordBtn').innerHTML = "<span>🎙️ 點選進行手動錄音評測</span>";
+            evaluateFreeAttempt(lastInterimSpeech || "");
           }
         );
       }
@@ -1055,7 +1167,7 @@ html_content = r'''<!DOCTYPE html>
 
     function evaluateFreeAttempt(spokenText) {
       const targetText = document.getElementById('freeTargetSentence').innerText;
-      const score = calculateScore(targetText, spokenText);
+      const score = calculateScore(targetText, spokenText, maxAcousticEnergy);
 
       document.getElementById('freeScoreDisplay').innerText = score;
       document.getElementById('freeScoreDisplay').className = `text-5xl font-black ${score >= 80 ? 'text-emerald-500' : (score >= 60 ? 'text-indigo-600' : 'text-rose-500')}`;
@@ -1069,7 +1181,7 @@ html_content = r'''<!DOCTYPE html>
       container.innerHTML = '';
 
       targetWords.forEach(w => {
-        const passed = spokenWords.includes(w);
+        const passed = spokenWords.includes(w) || spokenWords.some(sw => sw.startsWith(w.slice(0, 3)));
         const chip = document.createElement('span');
         chip.className = `px-2 py-1 rounded-lg text-xs font-bold border ${passed ? 'bg-emerald-50 text-emerald-700 border-emerald-200' : 'bg-rose-50 text-rose-700 border-rose-200 animate-pulse'}`;
         chip.innerText = `${w} ${passed ? '✓' : '✗'}`;
@@ -1125,27 +1237,45 @@ html_content = r'''<!DOCTYPE html>
     }
 
     // ========================================================
-    // SPEECH RECOGNITION & SCORING CORE
+    // SPEECH RECOGNITION & ROBUST SCORING CORE
     // ========================================================
-    function calculateScore(targetStr, spokenStr) {
-      if (!spokenStr || spokenStr.trim().length === 0) return 0;
+    function calculateScore(targetStr, spokenStr, acousticEnergy = 0) {
       const cleanTarget = targetStr.toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
-      const cleanSpoken = spokenStr.toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
+      const cleanSpoken = (spokenStr || '').toLowerCase().replace(/[^a-z0-9\s]/g, '').trim();
+
+      // If user spoke into mic (measured via Web Audio Analyser energy)
+      if (cleanSpoken.length === 0) {
+        if (acousticEnergy > 20) {
+          // Child spoke with clear volume, but ASR didn't catch specific word
+          return 68; // Encouraging effort score, NEVER a demoralizing 0!
+        }
+        return 0; // True silence
+      }
 
       const targetWords = cleanTarget.split(/\s+/).filter(Boolean);
       const spokenWords = cleanSpoken.split(/\s+/).filter(Boolean);
 
       let matched = 0;
-      targetWords.forEach(w => {
-        if (spokenWords.includes(w)) matched++;
+      targetWords.forEach(tw => {
+        if (spokenWords.includes(tw)) {
+          matched++;
+        } else if (spokenWords.some(sw => levenshteinDistance(tw, sw) <= 1)) {
+          matched += 0.85; // Slight phonemic tolerance for young kids
+        }
       });
 
       let wordRatio = matched / targetWords.length;
       let lev = levenshteinDistance(cleanTarget, cleanSpoken);
       let charRatio = Math.max(0, 1 - (lev / Math.max(cleanTarget.length, cleanSpoken.length)));
 
-      let score = Math.round(wordRatio * 60 + charRatio * 40);
-      return Math.min(98, Math.max(10, score));
+      let score = Math.round(wordRatio * 65 + charRatio * 35);
+      
+      // If target word exists anywhere in speech (e.g. "a cup" for "cup"), minimum 85
+      if (targetWords.length === 1 && spokenWords.includes(targetWords[0])) {
+        score = Math.max(88, score);
+      }
+
+      return Math.min(98, Math.max(25, score));
     }
 
     function levenshteinDistance(a, b) {
@@ -1166,20 +1296,21 @@ html_content = r'''<!DOCTYPE html>
     async function startRecording(onSuccess, onError) {
       if (isRecording) return;
       isRecording = true;
+      maxAcousticEnergy = 0;
+      lastInterimSpeech = "";
 
       try {
-        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-          throw new Error("請在 HTTPS 網址下使用麥克風功能");
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+          microphoneStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+          startWaveform(microphoneStream);
         }
-        microphoneStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        startWaveform(microphoneStream);
       } catch (e) {
-        console.warn("Mic getUserMedia:", e);
+        console.warn("Mic stream warning:", e);
       }
 
       const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
       if (!SpeechRec) {
-        alert("當前瀏覽器暫不支援原生語音識別，請使用 Safari 或 Chrome 訪問");
+        alert("請使用支援 Web Speech 的瀏覽器（如 Safari 或 Chrome）");
         isRecording = false;
         if (onError) onError("No speech recognition");
         return;
@@ -1187,25 +1318,39 @@ html_content = r'''<!DOCTYPE html>
 
       recognition = new SpeechRec();
       recognition.lang = 'en-US';
-      recognition.interimResults = false;
+      recognition.continuous = false;
+      recognition.interimResults = true; // Realtime capture as kid speaks!
       recognition.maxAlternatives = 3;
 
+      let finalCaptured = "";
+
       recognition.onresult = (e) => {
-        let resultText = "";
-        for (let i = 0; i < e.results.length; i++) {
-          resultText += e.results[i][0].transcript + " ";
+        let interim = "";
+        for (let i = e.resultIndex; i < e.results.length; i++) {
+          const trans = e.results[i][0].transcript;
+          if (e.results[i].isFinal) {
+            finalCaptured += trans + " ";
+          } else {
+            interim += trans;
+          }
         }
-        stopRecording();
-        if (onSuccess) onSuccess(resultText.trim());
+        const currentText = (finalCaptured + " " + interim).trim();
+        lastInterimSpeech = currentText;
+        if (currentText) {
+          document.getElementById('questSpokenText').innerText = `"${currentText}"`;
+        }
       };
 
       recognition.onerror = (e) => {
-        stopRecording();
+        console.warn("Speech recognition error:", e.error);
         if (onError) onError(e.error);
       };
 
       recognition.onend = () => {
-        if (isRecording) stopRecording();
+        isRecording = false;
+        stopRecording();
+        const textToScore = finalCaptured.trim() || lastInterimSpeech.trim();
+        if (onSuccess) onSuccess(textToScore);
       };
 
       try {
@@ -1217,10 +1362,6 @@ html_content = r'''<!DOCTYPE html>
 
     function stopRecording() {
       isRecording = false;
-      if (recognition) {
-        try { recognition.abort(); } catch(e){}
-        recognition = null;
-      }
       if (microphoneStream) {
         microphoneStream.getTracks().forEach(t => t.stop());
         microphoneStream = null;
@@ -1235,7 +1376,10 @@ html_content = r'''<!DOCTYPE html>
       document.getElementById('questWaveformPlaceholder').classList.add('hidden');
 
       try {
-        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if (!audioContext && AC) audioContext = new AC();
+        if (audioContext.state === 'suspended') audioContext.resume();
+
         analyser = audioContext.createAnalyser();
         analyser.fftSize = 256;
         const src = audioContext.createMediaStreamSource(stream);
@@ -1248,6 +1392,11 @@ html_content = r'''<!DOCTYPE html>
           if (!isRecording) return;
           animFrameId = requestAnimationFrame(draw);
           analyser.getByteFrequencyData(dataArray);
+
+          let sum = 0;
+          for (let i = 0; i < bufferLength; i++) sum += dataArray[i];
+          let currentEnergy = sum / bufferLength;
+          if (currentEnergy > maxAcousticEnergy) maxAcousticEnergy = currentEnergy;
 
           ctx.clearRect(0, 0, canvas.width, canvas.height);
           const barWidth = (canvas.width / bufferLength) * 2.2;
@@ -1264,7 +1413,7 @@ html_content = r'''<!DOCTYPE html>
     }
 
     // ========================================================
-    // TTS FALLBACK
+    // TTS FALLBACK WITH ONEND HOOK
     // ========================================================
     let loadedVoices = [];
     function refreshVoices() {
@@ -1275,8 +1424,11 @@ html_content = r'''<!DOCTYPE html>
       refreshVoices();
     }
 
-    function fallbackNaturalTTS(text) {
-      if (!('speechSynthesis' in window) || !text) return;
+    function fallbackNaturalTTS(text, onEndCb) {
+      if (!('speechSynthesis' in window) || !text) {
+        if (onEndCb) onEndCb();
+        return;
+      }
       window.speechSynthesis.cancel();
       const u = new SpeechSynthesisUtterance(text);
       u.lang = 'en-US';
@@ -1291,6 +1443,12 @@ html_content = r'''<!DOCTYPE html>
          v.name.includes('Siri') || v.name.includes('Flo') || v.name.includes('Junior') || v.name.includes('Sandy'))
       );
       if (preferred.length > 0) u.voice = preferred[0];
+
+      if (onEndCb) {
+        u.onend = () => onEndCb();
+        u.onerror = () => onEndCb();
+      }
+
       window.speechSynthesis.speak(u);
     }
 
@@ -1355,7 +1513,7 @@ html_content = r'''<!DOCTYPE html>
         alert("暫無記錄可匯出");
         return;
       }
-      let csv = "時間戳,單詞,跟讀內容,中文翻譯,型別,得分,評測結果\n";
+      let csv = "時間戳,單詞,跟讀內容,中文翻譯,類型,得分,評測結果\n";
       practiceLogs.forEach(l => {
         csv += `"${l.time}","${l.word}","${l.target}","${l.trans}","${l.type}","${l.score}","${l.status}"\n`;
       });
@@ -1385,12 +1543,10 @@ html_content = r'''<!DOCTYPE html>
       canvas.width = size;
       canvas.height = size;
 
-      // Draw stylized scannable placeholder & direct link display
       ctx.fillStyle = '#FFFFFF';
       ctx.fillRect(0, 0, size, size);
 
       ctx.fillStyle = '#312E81';
-      // Corners
       function drawFinder(x, y) {
         ctx.fillStyle = '#312E81';
         ctx.fillRect(x, y, 42, 42);
@@ -1403,7 +1559,6 @@ html_content = r'''<!DOCTYPE html>
       drawFinder(size - 52, 10);
       drawFinder(10, size - 52);
 
-      // Random deterministic pattern based on url hash
       let hash = 0;
       for (let i = 0; i < text.length; i++) hash = (hash * 31 + text.charCodeAt(i)) & 0xFFFFFFFF;
       
@@ -1419,7 +1574,6 @@ html_content = r'''<!DOCTYPE html>
         }
       }
 
-      // Center brand badge
       ctx.fillStyle = '#4F46E5';
       ctx.beginPath();
       ctx.arc(size/2, size/2, 14, 0, Math.PI * 2);
@@ -1458,7 +1612,7 @@ html_content = r'''<!DOCTYPE html>
 
     window.addEventListener('DOMContentLoaded', () => {
       initQuestQueue();
-      switchAppMode('quest'); // Default to Quest Mode
+      switchAppMode('quest');
       updateLogUI();
       initQRCode();
     });
@@ -1470,4 +1624,4 @@ html_content = r'''<!DOCTYPE html>
 with open("index.html", "w", encoding="utf-8") as f:
     f.write(html_content)
 
-print("Generated full index.html successfully!")
+print("Generated upgraded index.html with interactive kickoff, robust speech scoring & auto advancement successfully!")
