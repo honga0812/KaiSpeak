@@ -1,6 +1,6 @@
 # build_full_app.py - Rebuilds index.html with:
-# 1. Dedicated Proactive Daily Quest Mode (开屏即入每日任务 · 主动听读评跳闭环)
-# 2. Independent Free Practice Mode (全景50词库 · 错词本 · 9条情境例句中英对照双语卡片)
+# 1. Dedicated Proactive Daily Quest Mode (開屏即入每日任務 · 主動聽讀評跳閉環)
+# 2. Independent Free Practice Mode (全景50詞庫 · 錯詞本 · 9條情境例句中英對照雙語卡片)
 # 3. 50-Stage Adventure Island
 # 4. Direct GitHub Pages URL: https://honga0812.github.io/KaiSpeak/
 # 5. Embedded Canvas/SVG QR Code Generator (Zero CDN Dependency)
@@ -13,14 +13,14 @@ with open("vocab.json", "r", encoding="utf-8") as f:
 vocab_json_str = json.dumps(vocab_data, ensure_ascii=False)
 
 html_content = r'''<!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-Hant-TW">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
-  <title>KaiSpeak - 智能少儿英语发音评测与任务系统</title>
+  <title>KaiSpeak - 智慧少兒英語發音評測與任務系統</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
@@ -52,38 +52,38 @@ html_content = r'''<!DOCTYPE html>
       <div>
         <h1 class="text-xl font-black text-indigo-950 tracking-wide flex items-center gap-2">
           KaiSpeak
-          <span class="text-xs bg-indigo-100 text-indigo-700 px-2.5 py-0.5 rounded-full font-bold">50 核心词库 · 450 中英对照例句</span>
+          <span class="text-xs bg-indigo-100 text-indigo-700 px-2.5 py-0.5 rounded-full font-bold">50 核心詞庫 · 450 中英對照例句</span>
         </h1>
-        <p class="text-xs text-slate-500">智能每日挑战 · 互动式主动引导 · 错词本复习</p>
+        <p class="text-xs text-slate-500">智慧每日挑戰 · 互動式主動引導 · 錯詞本複習</p>
       </div>
     </div>
 
     <!-- Mode Selector Tabs -->
     <nav class="flex bg-slate-100 p-1.5 rounded-2xl text-xs font-bold gap-1 shadow-inner">
       <button id="navQuestBtn" onclick="switchAppMode('quest')" class="px-4 py-2 rounded-xl bg-indigo-600 text-white shadow-sm transition flex items-center gap-1.5">
-        🎯 每日任务 (主动引导)
+        🎯 每日任務 (主動引導)
       </button>
       <button id="navFreeBtn" onclick="switchAppMode('free')" class="px-4 py-2 rounded-xl text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5">
-        📚 自由练习 (50词库)
+        📚 自由練習 (50詞庫)
       </button>
       <button id="navAdventureBtn" onclick="switchAppMode('adventure')" class="px-3.5 py-2 rounded-xl text-slate-600 hover:text-slate-900 transition flex items-center gap-1.5">
-        🗺️ 探险岛 (50关)
+        🗺️ 探險島 (50關)
       </button>
     </nav>
 
     <!-- Quick Utilities -->
     <div class="flex items-center gap-2">
-      <button onclick="toggleMobileModal()" class="p-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 text-xs font-semibold flex items-center gap-1 transition" title="手机扫码在公网测试">
-        📱 <span>扫码外网测试</span>
+      <button onclick="toggleMobileModal()" class="p-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 text-xs font-semibold flex items-center gap-1 transition" title="手機掃碼在公網測試">
+        📱 <span>掃碼外網測試</span>
       </button>
-      <button onclick="toggleLogModal()" class="p-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 text-xs font-semibold flex items-center gap-1 transition" title="查看跟读日志">
-        📋 <span>日志 (<span id="logBadge">0</span>)</span>
+      <button onclick="toggleLogModal()" class="p-2 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 text-xs font-semibold flex items-center gap-1 transition" title="檢視跟讀日誌">
+        📋 <span>日誌 (<span id="logBadge">0</span>)</span>
       </button>
     </div>
   </header>
 
   <!-- ======================================================== -->
-  <!-- MODE 1: DAILY QUEST VIEW (沉浸式主动互动任务流 - 开屏默认)      -->
+  <!-- MODE 1: DAILY QUEST VIEW (沉浸式主動互動任務流 - 開屏預設)      -->
   <!-- ======================================================== -->
   <section id="viewDailyQuest" class="w-full max-w-5xl flex flex-col gap-4">
     
@@ -95,13 +95,13 @@ html_content = r'''<!DOCTYPE html>
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <h2 class="text-lg font-bold">今日打卡任务 (20 词互动流)</h2>
+            <h2 class="text-lg font-bold">今日打卡任務 (20 詞互動流)</h2>
             <span class="text-[10px] bg-amber-400 text-amber-950 font-extrabold px-2.5 py-0.5 rounded-full shadow-sm">
-              🔥 连续打卡 <span id="questStreakDays">3</span> 天
+              🔥 連續打卡 <span id="questStreakDays">3</span> 天
             </span>
           </div>
           <p class="text-xs text-indigo-100 mt-1">
-            系统主动带领：<strong>先听母语示范 ➔ 倒计时跟读 ➔ 快速评分 ➔ 自动切例句 ➔ 自动推进下一词</strong>
+            系統主動帶領：<strong>先聽母語示範 ➔ 倒計時跟讀 ➔ 快速評分 ➔ 自動切例句 ➔ 自動推進下一詞</strong>
           </p>
         </div>
       </div>
@@ -109,8 +109,8 @@ html_content = r'''<!DOCTYPE html>
       <!-- Overall 20 Words Progress -->
       <div class="flex items-center gap-4 bg-white/10 backdrop-blur px-5 py-3 rounded-2xl border border-white/10 w-full md:w-auto justify-between">
         <div class="text-left md:text-right">
-          <div class="text-[11px] text-indigo-200">今日词汇总进度</div>
-          <div class="text-lg font-extrabold font-mono"><span id="questWordProgress">1</span> / 20 词</div>
+          <div class="text-[11px] text-indigo-200">今日詞彙總進度</div>
+          <div class="text-lg font-extrabold font-mono"><span id="questWordProgress">1</span> / 20 詞</div>
         </div>
         <div class="w-28 bg-white/20 h-3 rounded-full overflow-hidden">
           <div id="questProgressBar" class="bg-amber-400 h-full rounded-full transition-all duration-500" style="width: 5%"></div>
@@ -121,11 +121,11 @@ html_content = r'''<!DOCTYPE html>
     <!-- Active Quest Interactive Studio Card -->
     <div class="bg-white rounded-3xl p-6 md:p-8 shadow-xl shadow-indigo-100/70 border border-indigo-50 flex flex-col items-center">
       
-      <!-- Top Step Indicators for Current Word: [1.单字] -> [2.例句1] -> [3.例句2] -> [4.例句3] -->
+      <!-- Top Step Indicators for Current Word: [1.單字] -> [2.例句1] -> [3.例句2] -> [4.例句3] -->
       <div class="w-full max-w-xl flex items-center justify-between mb-6 px-2">
         <div id="qStepDot0" class="flex flex-col items-center gap-1 flex-1">
           <div class="w-8 h-8 rounded-full bg-indigo-600 text-white font-bold text-xs flex items-center justify-center shadow-md">1</div>
-          <span class="text-[11px] font-bold text-indigo-700">单词精读</span>
+          <span class="text-[11px] font-bold text-indigo-700">單詞精讀</span>
         </div>
         <div class="h-0.5 bg-slate-200 flex-1 mx-1"></div>
         <div id="qStepDot1" class="flex flex-col items-center gap-1 flex-1 opacity-50">
@@ -147,7 +147,7 @@ html_content = r'''<!DOCTYPE html>
       <!-- Proactive State Banner (Tells kid exactly what the system is doing right now) -->
       <div id="questStateBanner" class="w-full max-w-xl p-3.5 rounded-2xl bg-indigo-50 border border-indigo-100 text-center font-bold text-indigo-800 text-sm mb-6 flex items-center justify-center gap-2 shadow-inner">
         <span class="text-xl">🔊</span>
-        <span id="questStateText">正在为您播放母语示范发音，请仔细听...</span>
+        <span id="questStateText">正在為您播放母語示範發音，請仔細聽...</span>
       </div>
 
       <!-- Big Illustration & Content Card -->
@@ -165,14 +165,14 @@ html_content = r'''<!DOCTYPE html>
         <!-- Chinese Translation (Clear Side-by-Side) -->
         <div class="inline-flex items-center gap-2 bg-white px-4 py-1.5 rounded-full border border-indigo-100 shadow-sm">
           <span class="text-[10px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-700">中文</span>
-          <span id="questTargetChinese" class="text-sm md:text-base font-bold text-slate-700">名词：书桌，办公桌</span>
+          <span id="questTargetChinese" class="text-sm md:text-base font-bold text-slate-700">名詞：書桌，辦公桌</span>
         </div>
       </div>
 
       <!-- Audio Waveform Live Display during Recording -->
       <div class="w-full max-w-xl h-12 bg-slate-100 rounded-2xl overflow-hidden border border-slate-200/80 mb-6 flex items-center justify-center relative">
         <canvas id="questWaveformCanvas" class="w-full h-full"></canvas>
-        <span id="questWaveformPlaceholder" class="absolute text-xs text-slate-400 font-medium">声波捕获区 · 录音时随声音实时波动</span>
+        <span id="questWaveformPlaceholder" class="absolute text-xs text-slate-400 font-medium">聲波捕獲區 · 錄音時隨聲音實時波動</span>
       </div>
 
       <!-- Central Action Area: Big Pulsing Mic & Countdown -->
@@ -181,34 +181,34 @@ html_content = r'''<!DOCTYPE html>
           <div id="questMicRing" class="absolute w-24 h-24 rounded-full bg-rose-400/30 hidden pulse-ring"></div>
           <button id="questMicBtn" onclick="toggleQuestManualRecord()" class="relative z-10 w-20 h-20 rounded-full bg-gradient-to-tr from-indigo-600 to-violet-600 text-white shadow-xl shadow-indigo-300 flex flex-col items-center justify-center transition transform active:scale-95 focus:outline-none">
             <span id="questMicIcon" class="text-2xl">🎙️</span>
-            <span id="questMicLabel" class="text-[11px] font-bold mt-0.5">点我录音</span>
+            <span id="questMicLabel" class="text-[11px] font-bold mt-0.5">點我錄音</span>
           </button>
         </div>
-        <div id="questCountdownText" class="text-xs font-bold text-rose-600 hidden">倒计时: <span id="questCountdownNum">4</span>s</div>
+        <div id="questCountdownText" class="text-xs font-bold text-rose-600 hidden">倒計時: <span id="questCountdownNum">4</span>s</div>
       </div>
 
       <!-- Quick Interactive Flow Controls (Pause/Play, Replay, Retry, Skip) -->
       <div class="flex items-center gap-2 flex-wrap justify-center">
         <button id="questPlayPauseBtn" onclick="toggleQuestAutoFlow()" class="px-4 py-2 rounded-xl bg-indigo-600 text-white text-xs font-bold shadow-md hover:bg-indigo-700 transition flex items-center gap-1.5">
-          <span>⏸️ 暂停自动流</span>
+          <span>⏸️ 暫停自動流</span>
         </button>
         <button onclick="replayQuestDemoAudio()" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 text-xs font-bold hover:bg-slate-50 transition flex items-center gap-1">
-          <span>🔊 再听一次</span>
+          <span>🔊 再聽一次</span>
         </button>
         <button onclick="retryQuestCurrentStep()" class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 text-xs font-bold hover:bg-slate-50 transition flex items-center gap-1">
-          <span>🔄 重读此项</span>
+          <span>🔄 重讀此項</span>
         </button>
         <button onclick="skipQuestStep()" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition flex items-center gap-1">
-          <span>⏭️ 跳过本项</span>
+          <span>⏭️ 跳過本項</span>
         </button>
       </div>
 
       <!-- Simulation Evaluation Buttons for Quick Testing -->
       <div class="mt-6 pt-4 border-t border-slate-100 w-full max-w-xl flex items-center justify-between text-xs text-slate-500">
-        <span class="font-bold">快捷免麦测试:</span>
+        <span class="font-bold">快捷免麥測試:</span>
         <div class="flex gap-2">
-          <button onclick="simulateQuestEval(92)" class="px-3 py-1 bg-emerald-50 text-emerald-700 rounded-lg border border-emerald-200 font-bold hover:bg-emerald-100">模拟高分(92分)</button>
-          <button onclick="simulateQuestEval(65)" class="px-3 py-1 bg-amber-50 text-amber-700 rounded-lg border border-amber-200 font-bold hover:bg-amber-100">模拟弱项(65分)</button>
+          <button onclick="simulateQuestEval(92)" class="px-3 py-1 bg-emerald-50 text-emerald-700 rounded-lg border border-emerald-200 font-bold hover:bg-emerald-100">模擬高分(92分)</button>
+          <button onclick="simulateQuestEval(65)" class="px-3 py-1 bg-amber-50 text-amber-700 rounded-lg border border-amber-200 font-bold hover:bg-amber-100">模擬弱項(65分)</button>
         </div>
       </div>
 
@@ -216,7 +216,7 @@ html_content = r'''<!DOCTYPE html>
   </section>
 
   <!-- ======================================================== -->
-  <!-- MODE 2: FREE PRACTICE VIEW (50词库 · 错词本 · 深度纠音)        -->
+  <!-- MODE 2: FREE PRACTICE VIEW (50詞庫 · 錯詞本 · 深度糾音)        -->
   <!-- ======================================================== -->
   <section id="viewFreePractice" class="w-full max-w-5xl hidden flex-col gap-4">
     
@@ -224,20 +224,20 @@ html_content = r'''<!DOCTYPE html>
     <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4">
       <div>
         <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
-          📚 50 个少儿全景词汇库
+          📚 50 個少兒全景詞彙庫
         </h2>
-        <p class="text-xs text-slate-500 mt-1">自主精细复习 · 点击单词即可切入精读</p>
+        <p class="text-xs text-slate-500 mt-1">自主精細複習 · 點選單詞即可切入精讀</p>
       </div>
 
       <!-- Category Filter Pills -->
       <div class="flex items-center gap-1.5 overflow-x-auto hide-scrollbar text-xs">
         <button onclick="setFreeCategory('all')" class="free-cat-btn active px-3 py-1.5 rounded-xl font-bold bg-indigo-600 text-white shadow-sm whitespace-nowrap" data-cat="all">全部 (50)</button>
-        <button onclick="setFreeCategory('weak')" class="free-cat-btn px-3 py-1.5 rounded-xl font-bold bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100 whitespace-nowrap" data-cat="weak">⚠️ 错词本 (<span id="weakCountBadge">0</span>)</button>
+        <button onclick="setFreeCategory('weak')" class="free-cat-btn px-3 py-1.5 rounded-xl font-bold bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100 whitespace-nowrap" data-cat="weak">⚠️ 錯詞本 (<span id="weakCountBadge">0</span>)</button>
         <button onclick="setFreeCategory('home')" class="free-cat-btn px-3 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="home">🏠 家居 (12)</button>
-        <button onclick="setFreeCategory('food')" class="free-cat-btn px-3 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="food">🍎 饮食 (10)</button>
-        <button onclick="setFreeCategory('animals')" class="free-cat-btn px-3 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="animals">🐱 动物 (10)</button>
+        <button onclick="setFreeCategory('food')" class="free-cat-btn px-3 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="food">🍎 飲食 (10)</button>
+        <button onclick="setFreeCategory('animals')" class="free-cat-btn px-3 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="animals">🐱 動物 (10)</button>
         <button onclick="setFreeCategory('nature')" class="free-cat-btn px-3 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="nature">🌳 自然 (6)</button>
-        <button onclick="setFreeCategory('play')" class="free-cat-btn px-3 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="play">⚽ 玩乐 (7)</button>
+        <button onclick="setFreeCategory('play')" class="free-cat-btn px-3 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="play">⚽ 玩樂 (7)</button>
       </div>
     </div>
 
@@ -273,42 +273,42 @@ html_content = r'''<!DOCTYPE html>
             <div class="flex-1">
               <div class="flex items-center gap-3">
                 <h2 id="freeWordText" class="text-3xl font-extrabold text-slate-800 tracking-wide">desk</h2>
-                <button onclick="playFreeAudio('word')" title="播放真人母语纯正发音" class="px-3 py-1.5 rounded-full bg-indigo-50 hover:bg-indigo-100 text-indigo-700 flex items-center gap-1 text-xs font-bold transition shadow-sm border border-indigo-200/60">
-                  🔊 听真人单字
+                <button onclick="playFreeAudio('word')" title="播放真人母語純正發音" class="px-3 py-1.5 rounded-full bg-indigo-50 hover:bg-indigo-100 text-indigo-700 flex items-center gap-1 text-xs font-bold transition shadow-sm border border-indigo-200/60">
+                  🔊 聽真人單字
                 </button>
               </div>
               <div class="flex items-center gap-3 mt-1 text-xs text-slate-500">
                 <span id="freeWordPhonetic" class="font-mono bg-slate-100 px-2 py-0.5 rounded">/dɛsk/</span>
-                <span id="freeWordMeaning" class="font-medium text-slate-600">名词：书桌，办公桌</span>
+                <span id="freeWordMeaning" class="font-medium text-slate-600">名詞：書桌，辦公桌</span>
               </div>
             </div>
           </div>
 
           <!-- 2-Level Scenario Tabs -->
           <div class="bg-slate-50 rounded-2xl p-2.5 border border-slate-100 mb-4">
-            <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">情境阶梯</div>
+            <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-2">情境階梯</div>
             <div class="grid grid-cols-4 gap-1.5 text-xs font-bold">
               <button id="fScTabWord" onclick="selectFreeMode('word')" class="py-2 rounded-xl text-slate-600 hover:text-slate-900 transition text-center truncate px-1">
-                单字精读
+                單字精讀
               </button>
               <button id="fScTab0" onclick="selectFreeScenarioTab(0)" class="py-2 rounded-xl bg-white text-indigo-700 shadow-sm transition text-center truncate px-1 font-bold">
                 情境一 · 描述
               </button>
               <button id="fScTab1" onclick="selectFreeScenarioTab(1)" class="py-2 rounded-xl text-slate-600 hover:text-slate-900 transition text-center truncate px-1">
-                情境二 · 动作
+                情境二 · 動作
               </button>
               <button id="fScTab2" onclick="selectFreeScenarioTab(2)" class="py-2 rounded-xl text-slate-600 hover:text-slate-900 transition text-center truncate px-1">
-                情境三 · 对话
+                情境三 · 對話
               </button>
             </div>
 
             <!-- Sub-Sentence Selector -->
             <div id="freeSentenceSubSelector" class="mt-2.5 pt-2 border-t border-slate-200/60 grid grid-cols-3 gap-1.5 text-xs">
               <button id="fSentSub0" onclick="selectFreeSentenceIndex(0)" class="py-1.5 rounded-lg bg-indigo-600 text-white font-bold transition text-center truncate px-1 shadow-sm">
-                例句 1 (基础)
+                例句 1 (基礎)
               </button>
               <button id="fSentSub1" onclick="selectFreeSentenceIndex(1)" class="py-1.5 rounded-lg text-indigo-900 hover:bg-indigo-100 transition text-center truncate px-1">
-                例句 2 (进阶)
+                例句 2 (進階)
               </button>
               <button id="fSentSub2" onclick="selectFreeSentenceIndex(2)" class="py-1.5 rounded-lg text-indigo-900 hover:bg-indigo-100 transition text-center truncate px-1">
                 例句 3 (拓展)
@@ -320,20 +320,20 @@ html_content = r'''<!DOCTYPE html>
           <div class="p-4 rounded-2xl bg-indigo-50/70 border border-indigo-100 mb-4">
             <div class="flex items-center justify-between mb-1.5">
               <span id="freeTargetTag" class="text-[10px] font-bold uppercase tracking-wider text-indigo-700 bg-indigo-100 px-2 py-0.5 rounded">
-                场景一 · 认知特征描述 (例句 1/3)
+                場景一 · 認知特徵描述 (例句 1/3)
               </span>
-              <span class="text-[11px] text-slate-400">自主大声朗读</span>
+              <span class="text-[11px] text-slate-400">自主大聲朗讀</span>
             </div>
             <div class="flex items-start justify-between gap-3">
               <div class="flex-1">
                 <p id="freeTargetSentence" class="text-xl md:text-2xl font-bold text-indigo-950 leading-snug">This is a clean wooden desk.</p>
                 <div class="mt-2 flex items-baseline gap-2">
-                  <span class="text-[10px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-indigo-200/60 text-indigo-800 tracking-wider">译文对照</span>
-                  <p id="freeTargetTranslationText" class="text-sm md:text-base font-medium text-slate-600">这是一张干净的木质书桌。</p>
+                  <span class="text-[10px] font-extrabold uppercase px-1.5 py-0.5 rounded bg-indigo-200/60 text-indigo-800 tracking-wider">譯文對照</span>
+                  <p id="freeTargetTranslationText" class="text-sm md:text-base font-medium text-slate-600">這是一張乾淨的木質書桌。</p>
                 </div>
               </div>
               <button onclick="playFreeAudio('target')" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold flex items-center gap-1.5 transition shadow-sm whitespace-nowrap mt-0.5">
-                <span>🔊 听真人范读</span>
+                <span>🔊 聽真人範讀</span>
               </button>
             </div>
           </div>
@@ -341,7 +341,7 @@ html_content = r'''<!DOCTYPE html>
           <!-- Free Mode Manual Recording Control -->
           <div class="flex items-center justify-center py-2 gap-4">
             <button id="freeRecordBtn" onclick="handleFreeRecordClick()" class="px-6 py-3 rounded-2xl bg-gradient-to-tr from-rose-500 to-red-500 text-white font-bold text-sm shadow-md hover:from-rose-600 hover:to-red-600 flex items-center gap-2 transition active:scale-95">
-              <span>🎙️ 点击手动录音评测</span>
+              <span>🎙️ 點選手動錄音評測</span>
             </button>
           </div>
 
@@ -355,44 +355,44 @@ html_content = r'''<!DOCTYPE html>
         <div class="bg-white rounded-3xl p-6 shadow-xl shadow-indigo-100/60 border border-indigo-50">
           <div class="flex items-center justify-between mb-4">
             <h3 class="font-extrabold text-slate-800 text-sm flex items-center gap-1.5">
-              <span>📊 发音评分与诊断</span>
+              <span>📊 發音評分與診斷</span>
             </h3>
-            <span id="freeEvalBadge" class="text-xs px-2.5 py-0.5 rounded-full font-bold bg-slate-100 text-slate-500">待评测</span>
+            <span id="freeEvalBadge" class="text-xs px-2.5 py-0.5 rounded-full font-bold bg-slate-100 text-slate-500">待評測</span>
           </div>
 
           <div class="flex items-center justify-center py-4 bg-gradient-to-b from-indigo-50/50 to-transparent rounded-2xl mb-4">
             <div class="text-center">
               <div id="freeScoreDisplay" class="text-5xl font-black text-slate-300">--</div>
-              <div id="freeScoreLabel" class="text-xs font-bold text-slate-400 mt-1">发音综合得分</div>
+              <div id="freeScoreLabel" class="text-xs font-bold text-slate-400 mt-1">發音綜合得分</div>
             </div>
           </div>
 
           <!-- Words Breakdown -->
           <div class="mb-4">
-            <div class="text-xs font-bold text-slate-600 mb-2">逐词发音诊断:</div>
+            <div class="text-xs font-bold text-slate-600 mb-2">逐詞發音診斷:</div>
             <div id="freeWordsBreakdown" class="flex flex-wrap gap-2 min-h-[42px] p-2.5 bg-slate-50 rounded-xl border border-slate-100 items-center">
-              <span class="text-xs text-slate-400 italic">点击录音后将在此显示单词发音精准度</span>
+              <span class="text-xs text-slate-400 italic">點選錄音後將在此顯示單詞發音精準度</span>
             </div>
           </div>
 
           <!-- Feedback Note -->
           <div id="freeFeedbackBox" class="p-3 rounded-xl bg-slate-50 border border-slate-100 text-xs text-slate-600">
-            💡 提示：按住录音按钮清晰大声朗读，系统将实时诊断连读、音素与重音。
+            💡 提示：按住錄音按鈕清晰大聲朗讀，系統將實時診斷連讀、音素與重音。
           </div>
         </div>
 
         <!-- SRS Memory Curve -->
         <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-100 text-xs">
           <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-1.5">
-            <span>🧠 艾宾浩斯智能复习排程</span>
+            <span>🧠 艾賓浩斯智慧複習排程</span>
           </h4>
           <div class="space-y-1.5 text-slate-600">
             <div class="flex justify-between">
-              <span>掌握等级:</span>
-              <span id="freeSrsLevel" class="font-bold text-indigo-600">L1 · 初学阶段</span>
+              <span>掌握等級:</span>
+              <span id="freeSrsLevel" class="font-bold text-indigo-600">L1 · 初學階段</span>
             </div>
             <div class="flex justify-between">
-              <span>下次推荐温习:</span>
+              <span>下次推薦溫習:</span>
               <span id="freeSrsNext" class="font-bold text-slate-700">明天清晨</span>
             </div>
           </div>
@@ -411,11 +411,11 @@ html_content = r'''<!DOCTYPE html>
       <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-4">
         <div>
           <span class="text-xs font-bold uppercase tracking-wider bg-white/20 px-3 py-1 rounded-full">50-Stage Adventure</span>
-          <h2 class="text-2xl font-black mt-2">英语发音大探险：50关语音群岛</h2>
-          <p class="text-xs text-emerald-100 mt-1">横跨 5 大语音岛屿，80分即可过关点亮三星！</p>
+          <h2 class="text-2xl font-black mt-2">英語發音大探險：50關語音群島</h2>
+          <p class="text-xs text-emerald-100 mt-1">橫跨 5 大語音島嶼，80分即可過關點亮三星！</p>
         </div>
         <div class="bg-white/10 backdrop-blur px-5 py-3 rounded-2xl border border-white/20 text-center">
-          <div class="text-xs text-emerald-200">当前总星数</div>
+          <div class="text-xs text-emerald-200">當前總星數</div>
           <div class="text-2xl font-black text-amber-300">⭐ <span id="adventureTotalStars">24</span> / 150</div>
         </div>
       </div>
@@ -433,12 +433,12 @@ html_content = r'''<!DOCTYPE html>
   <div id="mobileModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-white rounded-3xl p-6 max-w-md w-full shadow-2xl border border-slate-100 text-center">
       <div class="flex justify-between items-center mb-4">
-        <h3 class="text-base font-bold text-slate-800">📱 手机 / 平板扫码测试</h3>
+        <h3 class="text-base font-bold text-slate-800">📱 手機 / 平板掃碼測試</h3>
         <button onclick="toggleMobileModal()" class="text-slate-400 hover:text-slate-600 font-bold text-lg">✕</button>
       </div>
 
       <p class="text-xs text-slate-500 mb-4">
-        请使用手机相机或微信扫码打开，公网与局域网均可直接免配置调用麦克风：
+        請使用手機相機或微信掃碼開啟，公網與區域網均可直接免配置呼叫麥克風：
       </p>
 
       <div class="w-48 h-48 bg-white border border-slate-200 rounded-2xl mx-auto flex items-center justify-center shadow-inner p-2 mb-3">
@@ -450,7 +450,7 @@ html_content = r'''<!DOCTYPE html>
       </div>
 
       <button onclick="toggleMobileModal()" class="w-full py-2.5 bg-indigo-600 text-white rounded-xl text-xs font-bold hover:bg-indigo-700 transition">
-        关闭
+        關閉
       </button>
     </div>
   </div>
@@ -463,14 +463,14 @@ html_content = r'''<!DOCTYPE html>
       <div class="flex justify-between items-center mb-4">
         <div>
           <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
-            <span>📋 发音练习与跟读日志</span>
+            <span>📋 發音練習與跟讀日誌</span>
             <span class="text-xs bg-indigo-100 text-indigo-700 font-bold px-2 py-0.5 rounded-full" id="totalLogsNum">0</span>
           </h3>
-          <p class="text-xs text-slate-400">已记录每次练习时间戳、得分与详细对照</p>
+          <p class="text-xs text-slate-400">已記錄每次練習時間戳、得分與詳細對照</p>
         </div>
         <div class="flex items-center gap-2">
           <button onclick="exportLogsCSV()" class="px-3 py-1.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 rounded-xl text-xs font-bold transition flex items-center gap-1">
-            📥 导出 CSV
+            📥 匯出 CSV
           </button>
           <button onclick="toggleLogModal()" class="text-slate-400 hover:text-slate-600 font-bold text-lg ml-2">✕</button>
         </div>
@@ -480,22 +480,22 @@ html_content = r'''<!DOCTYPE html>
         <table class="w-full text-left border-collapse text-xs">
           <thead class="bg-slate-50 sticky top-0 text-slate-500 font-semibold border-b border-slate-100">
             <tr>
-              <th class="p-2.5">时间</th>
-              <th class="p-2.5">跟读内容 (中英对照)</th>
-              <th class="p-2.5">类型</th>
+              <th class="p-2.5">時間</th>
+              <th class="p-2.5">跟讀內容 (中英對照)</th>
+              <th class="p-2.5">型別</th>
               <th class="p-2.5">得分</th>
-              <th class="p-2.5">状态</th>
+              <th class="p-2.5">狀態</th>
             </tr>
           </thead>
           <tbody id="logsTableBody" class="divide-y divide-slate-100">
-            <tr><td colspan="5" class="p-6 text-center text-slate-400 italic">暂无练习记录</td></tr>
+            <tr><td colspan="5" class="p-6 text-center text-slate-400 italic">暫無練習記錄</td></tr>
           </tbody>
         </table>
       </div>
 
       <div class="mt-4 pt-3 border-t border-slate-100 flex justify-between items-center">
-        <button onclick="clearLogs()" class="text-xs text-rose-500 hover:underline">清空所有记录</button>
-        <button onclick="toggleLogModal()" class="px-4 py-2 bg-slate-800 text-white rounded-xl text-xs font-bold hover:bg-slate-900 transition">关闭</button>
+        <button onclick="clearLogs()" class="text-xs text-rose-500 hover:underline">清空所有記錄</button>
+        <button onclick="toggleLogModal()" class="px-4 py-2 bg-slate-800 text-white rounded-xl text-xs font-bold hover:bg-slate-900 transition">關閉</button>
       </div>
     </div>
   </div>
@@ -645,7 +645,7 @@ html_content = r'''<!DOCTYPE html>
       if (questSubStep === 0) {
         // Word
         engEl.innerText = card.word;
-        chiEl.innerText = card.meaning || "单字释义";
+        chiEl.innerText = card.meaning || "單字釋義";
         phoEl.innerText = card.phonetic || "";
         phoEl.classList.remove('hidden');
       } else {
@@ -671,15 +671,15 @@ html_content = r'''<!DOCTYPE html>
       questAutoPlay = !questAutoPlay;
       const btn = document.getElementById('questPlayPauseBtn');
       if (questAutoPlay) {
-        btn.innerHTML = '<span>⏸️ 暂停自动流</span>';
+        btn.innerHTML = '<span>⏸️ 暫停自動流</span>';
         btn.className = "px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold shadow-md transition flex items-center gap-1.5";
         runQuestAutoStep();
       } else {
-        btn.innerHTML = '<span>▶️ 开始自动跟读</span>';
+        btn.innerHTML = '<span>▶️ 開始自動跟讀</span>';
         btn.className = "px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-md transition flex items-center gap-1.5";
         if (questAudioPlayer) { questAudioPlayer.pause(); }
         if (isRecording) stopRecording();
-        setQuestStatus("⏸️ 引导已暂停，您可以点击“开始自动跟读”或手动练习", "bg-slate-100 text-slate-700");
+        setQuestStatus("⏸️ 引導已暫停，您可以點選“開始自動跟讀”或手動練習", "bg-slate-100 text-slate-700");
       }
     }
 
@@ -688,7 +688,7 @@ html_content = r'''<!DOCTYPE html>
       renderQuestCard();
 
       // 1. Play Demo Audio
-      setQuestStatus("🔊 正在播放母语示范发音，请仔细听...", "bg-indigo-100 text-indigo-800 animate-pulse border-indigo-200");
+      setQuestStatus("🔊 正在播放母語示範發音，請仔細聽...", "bg-indigo-100 text-indigo-800 animate-pulse border-indigo-200");
       playQuestDemoAudio(() => {
         if (!questAutoPlay) return;
         // 2. Audio finished -> Start recording
@@ -743,7 +743,7 @@ html_content = r'''<!DOCTYPE html>
     }
 
     function startQuestAutoRecord() {
-      setQuestStatus("🎙️ 轮到你啦，请大声跟读！", "bg-rose-100 text-rose-800 font-extrabold border-rose-200");
+      setQuestStatus("🎙️ 輪到你啦，請大聲跟讀！", "bg-rose-100 text-rose-800 font-extrabold border-rose-200");
       
       const ring = document.getElementById('questMicRing');
       const countBox = document.getElementById('questCountdownText');
@@ -797,14 +797,14 @@ html_content = r'''<!DOCTYPE html>
       const isGood = score >= 75;
 
       setQuestStatus(
-        isGood ? `🌟 太棒了！评测得分：${score} 分！` : `💪 已记录！得分：${score} 分 (已纳入强化清单)`,
+        isGood ? `🌟 太棒了！評測得分：${score} 分！` : `💪 已記錄！得分：${score} 分 (已納入強化清單)`,
         isGood ? "bg-emerald-100 text-emerald-800 font-black border-emerald-300" : "bg-amber-100 text-amber-900 font-black border-amber-300"
       );
 
       // Record to Log & SRS
       const card = currentQuestCard();
-      const typeStr = questSubStep === 0 ? "每日任务-单字" : `每日任务-例句${questSubStep}`;
-      recordPracticeLog(card.word, targetText, score, isGood ? "已熟练" : "待加强", typeStr);
+      const typeStr = questSubStep === 0 ? "每日任務-單字" : `每日任務-例句${questSubStep}`;
+      recordPracticeLog(card.word, targetText, score, isGood ? "已熟練" : "待加強", typeStr);
 
       // Auto advance after 1.5 seconds if autoPlay is on
       if (questAutoPlay) {
@@ -830,7 +830,7 @@ html_content = r'''<!DOCTYPE html>
           // Finished all 20 words
           streakDays++;
           localStorage.setItem('kai_streak_days', streakDays.toString());
-          alert("🎉 恭喜！今日 20 个任务单词与例句已全部挑战完成！打卡成功，连续天数已升至 " + streakDays + " 天！");
+          alert("🎉 恭喜！今日 20 個任務單詞與例句已全部挑戰完成！打卡成功，連續天數已升至 " + streakDays + " 天！");
           questWordIdx = 0;
           switchAppMode('free');
           return;
@@ -936,7 +936,7 @@ html_content = r'''<!DOCTYPE html>
       document.getElementById('freeWordPhonetic').innerText = card.phonetic;
       document.getElementById('freeWordMeaning').innerText = card.meaning;
 
-      const catMap = { home: "🏠 日常起居", food: "🍎 美味饮食", animals: "🐱 动物伙伴", nature: "🌳 大自然", play: "⚽ 趣味玩乐" };
+      const catMap = { home: "🏠 日常起居", food: "🍎 美味飲食", animals: "🐱 動物夥伴", nature: "🌳 大自然", play: "⚽ 趣味玩樂" };
       document.getElementById('freeCategoryTag').innerText = catMap[card.category] || "生活情境";
 
       updateFreeTargetBox();
@@ -976,7 +976,7 @@ html_content = r'''<!DOCTYPE html>
         subSelector.classList.add('hidden');
         sentenceEl.innerText = card.word;
         if (transEl) transEl.innerText = card.meaning || "";
-        tagEl.innerText = "单字精读 · 辅音与咬字练习";
+        tagEl.innerText = "單字精讀 · 子音與咬字練習";
         document.getElementById('fScTabWord').className = "py-2 rounded-xl bg-white text-indigo-700 shadow-sm transition text-center truncate px-1 font-bold";
       } else {
         subSelector.classList.remove('hidden');
@@ -1039,14 +1039,14 @@ html_content = r'''<!DOCTYPE html>
       if (isRecording) {
         stopRecording();
       } else {
-        document.getElementById('freeRecordBtn').innerHTML = "<span>🛑 点击停止录音...</span>";
+        document.getElementById('freeRecordBtn').innerHTML = "<span>🛑 點選停止錄音...</span>";
         startRecording(
           (text) => {
-            document.getElementById('freeRecordBtn').innerHTML = "<span>🎙️ 点击手动录音评测</span>";
+            document.getElementById('freeRecordBtn').innerHTML = "<span>🎙️ 點選手動錄音評測</span>";
             evaluateFreeAttempt(text);
           },
           (err) => {
-            document.getElementById('freeRecordBtn').innerHTML = "<span>🎙️ 点击手动录音评测</span>";
+            document.getElementById('freeRecordBtn').innerHTML = "<span>🎙️ 點選手動錄音評測</span>";
             evaluateFreeAttempt("");
           }
         );
@@ -1059,7 +1059,7 @@ html_content = r'''<!DOCTYPE html>
 
       document.getElementById('freeScoreDisplay').innerText = score;
       document.getElementById('freeScoreDisplay').className = `text-5xl font-black ${score >= 80 ? 'text-emerald-500' : (score >= 60 ? 'text-indigo-600' : 'text-rose-500')}`;
-      document.getElementById('freeEvalBadge').innerText = score >= 80 ? "发音纯正 ⭐⭐⭐" : (score >= 60 ? "良好 ⭐⭐" : "需加强 ⭐");
+      document.getElementById('freeEvalBadge').innerText = score >= 80 ? "發音純正 ⭐⭐⭐" : (score >= 60 ? "良好 ⭐⭐" : "需加強 ⭐");
       document.getElementById('freeEvalBadge').className = `text-xs px-2.5 py-0.5 rounded-full font-bold ${score >= 80 ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}`;
 
       // Breakdown chips
@@ -1077,8 +1077,8 @@ html_content = r'''<!DOCTYPE html>
       });
 
       const card = currentFreeCard();
-      const typeStr = freePracticeMode === 'word' ? '自主单字' : `情境${freeScenarioIdx+1}-句${freeSentenceIdx+1}`;
-      recordPracticeLog(card.word, targetText, score, score >= 75 ? '已掌握' : '需加强', typeStr);
+      const typeStr = freePracticeMode === 'word' ? '自主單字' : `情境${freeScenarioIdx+1}-句${freeSentenceIdx+1}`;
+      recordPracticeLog(card.word, targetText, score, score >= 75 ? '已掌握' : '需加強', typeStr);
       renderFreeGrid();
     }
 
@@ -1106,7 +1106,7 @@ html_content = r'''<!DOCTYPE html>
         for (let s = 1; s <= 3; s++) starsStr += s <= stars ? '★' : '☆';
 
         node.innerHTML = `
-          <div class="text-[9px] font-mono font-bold opacity-75">关卡 ${idx + 1}</div>
+          <div class="text-[9px] font-mono font-bold opacity-75">關卡 ${idx + 1}</div>
           <div class="text-xl my-0.5">${c.emoji}</div>
           <div class="text-[11px] font-black truncate w-full text-center">${c.word}</div>
           <div class="text-[10px] text-amber-500 font-bold tracking-tight">${isUnlocked ? starsStr : '🔒'}</div>
@@ -1169,7 +1169,7 @@ html_content = r'''<!DOCTYPE html>
 
       try {
         if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-          throw new Error("请在 HTTPS 网址下使用麦克风功能");
+          throw new Error("請在 HTTPS 網址下使用麥克風功能");
         }
         microphoneStream = await navigator.mediaDevices.getUserMedia({ audio: true });
         startWaveform(microphoneStream);
@@ -1179,7 +1179,7 @@ html_content = r'''<!DOCTYPE html>
 
       const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
       if (!SpeechRec) {
-        alert("当前浏览器暂不支持原生语音识别，请使用 Safari 或 Chrome 访问");
+        alert("當前瀏覽器暫不支援原生語音識別，請使用 Safari 或 Chrome 訪問");
         isRecording = false;
         if (onError) onError("No speech recognition");
         return;
@@ -1297,7 +1297,7 @@ html_content = r'''<!DOCTYPE html>
     // ========================================================
     // LOGS & STORAGE
     // ========================================================
-    function recordPracticeLog(word, target, score, status, type = '单字') {
+    function recordPracticeLog(word, target, score, status, type = '單字') {
       const now = new Date();
       const timeStr = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
       
@@ -1332,7 +1332,7 @@ html_content = r'''<!DOCTYPE html>
       document.getElementById('totalLogsNum').innerText = practiceLogs.length;
       const tbody = document.getElementById('logsTableBody');
       if (practiceLogs.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="5" class="p-6 text-center text-slate-400 italic">暂无练习记录</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="5" class="p-6 text-center text-slate-400 italic">暫無練習記錄</td></tr>';
         return;
       }
 
@@ -1352,10 +1352,10 @@ html_content = r'''<!DOCTYPE html>
 
     function exportLogsCSV() {
       if (practiceLogs.length === 0) {
-        alert("暂无记录可导出");
+        alert("暫無記錄可匯出");
         return;
       }
-      let csv = "时间戳,单词,跟读内容,中文翻译,类型,得分,评测结果\n";
+      let csv = "時間戳,單詞,跟讀內容,中文翻譯,型別,得分,評測結果\n";
       practiceLogs.forEach(l => {
         csv += `"${l.time}","${l.word}","${l.target}","${l.trans}","${l.type}","${l.score}","${l.status}"\n`;
       });
@@ -1363,12 +1363,12 @@ html_content = r'''<!DOCTYPE html>
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `KaiSpeak_练习日志_${new Date().toISOString().slice(0,10)}.csv`;
+      a.download = `KaiSpeak_練習日誌_${new Date().toISOString().slice(0,10)}.csv`;
       a.click();
     }
 
     function clearLogs() {
-      if (confirm("确定要清空所有练习记录吗？")) {
+      if (confirm("確定要清空所有練習記錄嗎？")) {
         practiceLogs = [];
         localStorage.removeItem('kai_practice_logs');
         updateLogUI();
