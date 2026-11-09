@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "v20";
+        const LATEST_VER = "v22";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -327,12 +327,12 @@
   <!-- ======================================================== -->
   <header class="w-full max-w-6xl bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl jelly-header mb-2.5 md:mb-3.5 sticky top-1.5 z-40 px-3 sm:px-4 py-2 sm:py-2.5 shadow-[0_6px_20px_rgba(79,70,229,0.08)] border border-white/90">
     
-    <!-- Top Row: V3 Logo (Self-contained, no side text) & Learner Status Badges -->
-    <div class="w-full flex items-center justify-between gap-2 sm:gap-4 pb-1.5 sm:pb-2 border-b border-indigo-50/70">
+    <!-- Top Row: V3 Logo (Self-contained, filling left space with prominent 3D presence) & Learner Status Badges -->
+    <div class="w-full flex items-center justify-between gap-3 sm:gap-6 pb-2 border-b border-indigo-50/80">
       
-      <!-- Brand Logo (Pure V3 Jelly Badge, KaiSpeak is already in the 3D logo!) -->
-      <div class="flex items-center cursor-pointer select-none shrink-0 group" onclick="switchAppMode('quest')" title="KaiSpeak 首頁">
-        <img src="images/ui/KaiSpeak_logo_V3_trans.png" alt="KaiSpeak" class="h-10 sm:h-12 md:h-13 w-auto object-contain drop-shadow-[0_4px_10px_rgba(79,70,229,0.18)] group-hover:scale-105 transition-all duration-300 shrink-0">
+      <!-- Brand Logo (Pure V3 Jelly Badge, prominently sized to fill left brand area) -->
+      <div class="flex items-center cursor-pointer select-none shrink-0 group py-0.5" onclick="switchAppMode('quest')" title="KaiSpeak 首頁">
+        <img src="images/ui/KaiSpeak_logo_V3_trans.png" alt="KaiSpeak" class="h-16 sm:h-20 md:h-24 lg:h-28 w-auto object-contain drop-shadow-[0_8px_22px_rgba(79,70,229,0.25)] group-hover:scale-105 transition-all duration-300 shrink-0">
       </div>
 
       <!-- Right Controls: Profile & Status Badges (Streamlined & slim) -->
@@ -1066,16 +1066,13 @@
                 🔄 切換回單字
               </button>
             </div>
-            <!-- Quick Navigation Controls (Fluid continuous card & sentence switching) -->
+            <!-- Quick Navigation Controls (Consistent unified position: Prev on Left, Next on Right!) -->
             <div class="flex items-center gap-1.5 flex-wrap">
-              <button type="button" onclick="prevFreeWordCard()" class="px-2.5 py-1 rounded-xl bg-white/20 hover:bg-white/30 text-white font-bold text-xs transition active:scale-95" title="上一個單字卡">
-                ◀ 上一詞
+              <button type="button" id="freeHeroPrevBtn" onclick="prevFreeStep()" class="px-3 py-1.5 rounded-xl bg-white/20 hover:bg-white/30 text-white font-bold text-xs transition active:scale-95 flex items-center gap-1 shadow-xs" title="上一個">
+                <span>◀</span> <span id="freeHeroPrevLabel">上一個</span>
               </button>
-              <button type="button" onclick="nextFreeWordCard()" class="px-2.5 py-1 rounded-xl bg-white/20 hover:bg-white/30 text-white font-bold text-xs transition active:scale-95" title="下一個單字卡">
-                下一詞 ▶
-              </button>
-              <button type="button" id="freeHeroNextSentBtn" onclick="nextFreeSentenceStep()" class="hidden px-2.5 py-1 rounded-xl bg-emerald-400 hover:bg-emerald-300 text-emerald-950 font-black text-xs transition active:scale-95 shadow-sm" title="進入下一個例句">
-                下一句 ➔
+              <button type="button" id="freeHeroNextBtn" onclick="nextFreeStep()" class="px-3.5 py-1.5 rounded-xl bg-emerald-400 hover:bg-emerald-300 text-emerald-950 font-black text-xs transition active:scale-95 shadow-sm flex items-center gap-1" title="下一個">
+                <span id="freeHeroNextLabel">下一個</span> <span>▶</span>
               </button>
             </div>
           </div>
@@ -1087,15 +1084,19 @@
           </p>
         </div>
 
-        <!-- Prominent Large Action Buttons (Listen & Follow-along Record) -->
-        <div class="flex items-center gap-3 w-full sm:w-auto shrink-0 relative z-10 justify-center">
-          <button type="button" onclick="playFreeTargetAudio()" class="jelly-btn-3d flex-1 sm:flex-initial py-3.5 sm:py-4 px-5 sm:px-7 rounded-2xl bg-white text-indigo-950 hover:bg-indigo-50 font-black text-xs sm:text-sm border-2 border-indigo-100 border-b-4 border-b-indigo-200 shadow-md transition flex items-center justify-center gap-2 active:translate-y-1 active:border-b-2" title="播放母語示範發音">
+        <!-- Prominent Large Action Buttons (Listen, Follow-along Record, Early Evaluation) -->
+        <div class="flex items-center gap-2.5 sm:gap-3 w-full sm:w-auto shrink-0 relative z-10 justify-center flex-wrap">
+          <button type="button" onclick="playFreeTargetAudio()" class="jelly-btn-3d flex-1 sm:flex-initial py-3.5 sm:py-4 px-4 sm:px-6 rounded-2xl bg-white text-indigo-950 hover:bg-indigo-50 font-black text-xs sm:text-sm border-2 border-indigo-100 border-b-4 border-b-indigo-200 shadow-md transition flex items-center justify-center gap-2 active:translate-y-1 active:border-b-2" title="播放母語示範發音">
             <span class="text-lg">🔊</span>
             <span>聽示範</span>
           </button>
-          <button type="button" id="freeRecordBtn" onclick="toggleFreePracticeRecord()" class="jelly-btn-3d flex-1 sm:flex-initial py-3.5 sm:py-4 px-6 sm:px-8 rounded-2xl bg-gradient-to-r from-amber-400 via-orange-400 to-rose-500 hover:from-amber-300 hover:to-rose-600 text-white font-black text-xs sm:text-sm border-2 border-amber-300 border-b-4 border-b-orange-600 shadow-[0_8px_20px_rgba(249,115,22,0.4)] transition flex items-center justify-center gap-2 animate-pulse active:translate-y-1 active:border-b-2">
+          <button type="button" id="freeRecordBtn" onclick="toggleFreePracticeRecord()" class="jelly-btn-3d flex-1 sm:flex-initial py-3.5 sm:py-4 px-5 sm:px-7 rounded-2xl bg-gradient-to-r from-amber-400 via-orange-400 to-rose-500 hover:from-amber-300 hover:to-rose-600 text-white font-black text-xs sm:text-sm border-2 border-amber-300 border-b-4 border-b-orange-600 shadow-[0_8px_20px_rgba(249,115,22,0.4)] transition flex items-center justify-center gap-2 active:translate-y-1 active:border-b-2">
             <span id="freeRecordIcon" class="text-xl">🎙️</span>
             <span id="freeRecordLabel">點我開始跟讀</span>
+          </button>
+          <!-- Early Finish Evaluation Button (Visible when listening/recording) -->
+          <button type="button" id="freeEarlyFinishBtn" onclick="finishFreeRecordEarly()" class="hidden jelly-btn-3d flex-1 sm:flex-initial py-3.5 sm:py-4 px-4 sm:px-6 rounded-2xl bg-gradient-to-b from-emerald-400 to-emerald-600 hover:from-emerald-300 text-white font-black text-xs sm:text-sm border-2 border-emerald-300 border-b-4 border-b-emerald-800 shadow-md transition flex items-center justify-center gap-1.5 animate-pulse active:translate-y-1 active:border-b-2">
+            <span>⚡ 我念完了，立即評分！</span>
           </button>
         </div>
       </div>
@@ -18195,6 +18196,13 @@
         bFree.className = tabActive;
         renderFreeGrid();
         renderFreeCard();
+        freeAutoShadowing = true;
+        // 切換到自由練習時，主動念英文，念完自動開啟錄音判斷功能
+        setTimeout(() => {
+          if (appMode === 'free') {
+            playFreeTargetAudio();
+          }
+        }, 300);
       } else {
         vQuest.classList.add('hidden');
         vFree.classList.add('hidden');
@@ -18970,18 +18978,21 @@
       const heroTarget = document.getElementById('freeActiveTargetText');
       const heroTrans = document.getElementById('freeActiveTargetTrans');
 
-      const heroNextSentBtn = document.getElementById('freeHeroNextSentBtn');
+      const heroPrevLabel = document.getElementById('freeHeroPrevLabel');
+      const heroNextLabel = document.getElementById('freeHeroNextLabel');
       if (freeActiveTarget === 'word') {
         if (heroType) heroType.innerHTML = '<span>🎯 當前跟讀目標：</span><span class="font-bold underline">單字</span>';
         if (heroResetBtn) heroResetBtn.classList.add('hidden');
-        if (heroNextSentBtn) heroNextSentBtn.classList.add('hidden');
+        if (heroPrevLabel) heroPrevLabel.innerText = "上一詞";
+        if (heroNextLabel) heroNextLabel.innerText = "下一詞";
         if (heroTarget) heroTarget.innerText = card.word;
         if (heroTrans) heroTrans.innerText = card.meaning;
       } else {
         const lvlName = freeScenarioIndex === 0 ? '簡單' : (freeScenarioIndex === 1 ? '中等' : '進階');
         if (heroType) heroType.innerHTML = `<span>🎯 當前跟讀目標：</span><span class="font-bold underline">例句 (難度 ${freeScenarioIndex + 1} · ${lvlName})</span>`;
         if (heroResetBtn) heroResetBtn.classList.remove('hidden');
-        if (heroNextSentBtn) heroNextSentBtn.classList.remove('hidden');
+        if (heroPrevLabel) heroPrevLabel.innerText = freeScenarioIndex === 0 ? "回單字" : "上一句";
+        if (heroNextLabel) heroNextLabel.innerText = freeScenarioIndex >= 2 ? "下一詞" : "下一句";
         if (heroTarget) heroTarget.innerText = freeActiveSentenceText;
         if (heroTrans) heroTrans.innerText = freeActiveSentenceTrans;
       }
@@ -19096,11 +19107,36 @@
       SoundEffects.playClick('tab');
     }
 
+    let freeAutoShadowing = true;
+    let freeSpeechSilenceTimer = null;
+    let freeSafetyTimeoutTimer = null;
+
+    function nextFreeStep() {
+      closeSpeechDiagModal();
+      freeAutoShadowing = true;
+      if (freeActiveTarget === 'word') {
+        nextFreeWordCard();
+      } else {
+        nextFreeSentenceStep();
+      }
+    }
+
+    function prevFreeStep() {
+      closeSpeechDiagModal();
+      freeAutoShadowing = true;
+      if (freeActiveTarget === 'word') {
+        prevFreeWordCard();
+      } else {
+        prevFreeSentenceStep();
+      }
+    }
+
     function nextFreeWordCard() {
       closeSpeechDiagModal();
       freeCardIndex = (freeCardIndex + 1) % MASTER_VOCAB.length;
       freeScenarioIndex = 0;
       freeSentenceIndex = 0;
+      freeAutoShadowing = true;
       setFreeTargetToWord();
       renderFreeCard();
       playFreeTargetAudio();
@@ -19112,6 +19148,7 @@
       freeCardIndex = (freeCardIndex - 1 + MASTER_VOCAB.length) % MASTER_VOCAB.length;
       freeScenarioIndex = 0;
       freeSentenceIndex = 0;
+      freeAutoShadowing = true;
       setFreeTargetToWord();
       renderFreeCard();
       playFreeTargetAudio();
@@ -19120,6 +19157,7 @@
 
     function startFirstSentenceForCurrentWord() {
       closeSpeechDiagModal();
+      freeAutoShadowing = true;
       freeScenarioIndex = 0;
       freeSentenceIndex = 0;
       const card = currentFreeCard();
@@ -19134,6 +19172,7 @@
 
     function nextFreeSentenceStep() {
       closeSpeechDiagModal();
+      freeAutoShadowing = true;
       const card = currentFreeCard();
       const currentSc = card.scenarios[freeScenarioIndex] || card.scenarios[0];
       
@@ -19163,6 +19202,7 @@
 
     function prevFreeSentenceStep() {
       closeSpeechDiagModal();
+      freeAutoShadowing = true;
       const card = currentFreeCard();
       if (freeSentenceIndex > 0) {
         freeSentenceIndex--;
@@ -19187,21 +19227,47 @@
 
     function returnToWordFromModal() {
       closeSpeechDiagModal();
+      freeAutoShadowing = true;
       setFreeTargetToWord();
       renderFreeCard();
       playFreeTargetAudio();
       SoundEffects.playClick('pop');
     }
 
-    function playFreeTargetAudio() {
+    function playFreeTargetAudio(onEndCallback) {
+      if (freeAudioPlayer) {
+        freeAudioPlayer.pause();
+        freeAudioPlayer.currentTime = 0;
+      }
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+
       const card = currentFreeCard();
       if (!card) return;
-      if (freeActiveTarget === 'word') {
-        const src = card.audioWord || `audio/word_${card.id}.m4a`;
-        freeAudioPlayer.src = src;
-        freeAudioPlayer.onerror = () => fallbackNaturalTTS(card.word, null);
-        freeAudioPlayer.play().catch(() => fallbackNaturalTTS(card.word, null));
-      } else {
+
+      let hasEnded = false;
+      const finish = () => {
+        if (!hasEnded) {
+          hasEnded = true;
+          if (typeof onEndCallback === 'function') {
+            onEndCallback();
+          } else if (freeAutoShadowing && appMode === 'free') {
+            // 主動念英文之後，像每日任務一樣自動開啟錄音判斷功能！
+            setTimeout(() => {
+              if (appMode === 'free' && freeAutoShadowing && !isRecording) {
+                startFreeListening();
+              }
+            }, 350);
+          }
+        }
+      };
+
+      let targetText = card.word;
+      let audioPath = card.audioWord || `audio/word_${card.id}.m4a`;
+
+      if (freeActiveTarget === 'sentence') {
+        targetText = freeActiveSentenceText;
         let scIdx = freeScenarioIndex;
         if (card.scenarios) {
           card.scenarios.forEach((sc, idx) => {
@@ -19210,13 +19276,16 @@
             }
           });
         }
-        const audioPath = `audio/sentence_${card.id}_${scIdx}_0.m4a`;
-        freeAudioPlayer.src = audioPath;
-        freeAudioPlayer.onerror = () => fallbackNaturalTTS(freeActiveSentenceText, null);
-        const playPromise = freeAudioPlayer.play();
-        if (playPromise !== undefined) {
-          playPromise.catch(() => fallbackNaturalTTS(freeActiveSentenceText, null));
-        }
+        audioPath = `audio/sentence_${card.id}_${scIdx}_0.m4a`;
+      }
+
+      freeAudioPlayer.src = audioPath;
+      freeAudioPlayer.onended = finish;
+      freeAudioPlayer.onerror = () => fallbackNaturalTTS(targetText, finish);
+
+      const playPromise = freeAudioPlayer.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => fallbackNaturalTTS(targetText, finish));
       }
     }
 
@@ -19243,27 +19312,78 @@
     // --- Free Practice Recording & Phonetic Diagnostics ---
     function toggleFreePracticeRecord() {
       if (isRecording && activeRecModule === 'free') {
+        // 使用者手動點掉：關閉自動跟讀並停止當前錄音
+        freeAutoShadowing = false;
+        stopFreeListeningUI();
         stopRecording();
-        document.getElementById('freeRecordLabel').innerText = "點我開始跟讀";
-        document.getElementById('freeRecordIcon').innerText = "🎙️";
-        document.getElementById('freeRecordBtn').className = "flex-1 sm:flex-initial py-3.5 sm:py-4 px-6 sm:px-8 rounded-2xl bg-gradient-to-r from-amber-400 via-orange-400 to-rose-500 hover:from-amber-300 hover:to-rose-600 text-white font-black text-xs sm:text-sm shadow-xl shadow-orange-500/30 transition active:scale-95 flex items-center justify-center gap-2 animate-pulse";
       } else {
-        activeRecModule = 'free';
-        document.getElementById('freeRecordLabel').innerText = "正在錄音中(說完請稍候)...";
-        document.getElementById('freeRecordIcon').innerText = "🔴";
-        document.getElementById('freeRecordBtn').className = "flex-1 sm:flex-initial py-3.5 sm:py-4 px-6 sm:px-8 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-black text-xs sm:text-sm shadow-xl shadow-amber-300 transition active:scale-95 flex items-center justify-center gap-2 animate-pulse";
-        startRecording(onSpeechSuccess, onSpeechFail);
-
-        // Auto stop after 6 seconds
-        setTimeout(() => {
-          if (isRecording && activeRecModule === 'free') {
-            stopRecording();
-            document.getElementById('freeRecordLabel').innerText = "點我開始跟讀";
-            document.getElementById('freeRecordIcon').innerText = "🎙️";
-            document.getElementById('freeRecordBtn').className = "flex-1 sm:flex-initial py-3.5 sm:py-4 px-6 sm:px-8 rounded-2xl bg-gradient-to-r from-amber-400 via-orange-400 to-rose-500 hover:from-amber-300 hover:to-rose-600 text-white font-black text-xs sm:text-sm shadow-xl shadow-orange-500/30 transition active:scale-95 flex items-center justify-center gap-2 animate-pulse";
-          }
-        }, 6000);
+        freeAutoShadowing = true;
+        startFreeListening();
       }
+    }
+
+    function startFreeListening() {
+      if (appMode !== 'free') return;
+      if (isRecording) stopRecording();
+
+      activeRecModule = 'free';
+      const btn = document.getElementById('freeRecordBtn');
+      const lbl = document.getElementById('freeRecordLabel');
+      const icn = document.getElementById('freeRecordIcon');
+      const earlyBtn = document.getElementById('freeEarlyFinishBtn');
+
+      if (lbl) lbl.innerText = "聆聽中... (念完自動分析)";
+      if (icn) icn.innerText = "🔴";
+      if (btn) btn.className = "jelly-btn-3d flex-1 sm:flex-initial py-3.5 sm:py-4 px-6 sm:px-8 rounded-2xl bg-gradient-to-r from-rose-500 via-pink-600 to-rose-600 text-white font-black text-xs sm:text-sm shadow-xl shadow-rose-500/40 border-2 border-white border-b-4 border-b-rose-900 transition active:scale-95 flex items-center justify-center gap-2 animate-pulse";
+      if (earlyBtn) earlyBtn.classList.remove('hidden');
+
+      if (freeSpeechSilenceTimer) {
+        clearTimeout(freeSpeechSilenceTimer);
+        freeSpeechSilenceTimer = null;
+      }
+      if (freeSafetyTimeoutTimer) {
+        clearTimeout(freeSafetyTimeoutTimer);
+        freeSafetyTimeoutTimer = null;
+      }
+
+      startRecording(onSpeechSuccess, onSpeechFail);
+
+      // 安全防護超時：15 秒內無任何聲音，自動恢復待命狀態
+      freeSafetyTimeoutTimer = setTimeout(() => {
+        if (isRecording && activeRecModule === 'free') {
+          stopFreeListeningUI();
+          stopRecording();
+        }
+      }, 15000);
+    }
+
+    function stopFreeListeningUI() {
+      const btn = document.getElementById('freeRecordBtn');
+      const lbl = document.getElementById('freeRecordLabel');
+      const icn = document.getElementById('freeRecordIcon');
+      const earlyBtn = document.getElementById('freeEarlyFinishBtn');
+
+      if (lbl) lbl.innerText = "點我開始跟讀";
+      if (icn) icn.innerText = "🎙️";
+      if (btn) btn.className = "jelly-btn-3d flex-1 sm:flex-initial py-3.5 sm:py-4 px-5 sm:px-7 rounded-2xl bg-gradient-to-r from-amber-400 via-orange-400 to-rose-500 hover:from-amber-300 hover:to-rose-600 text-white font-black text-xs sm:text-sm border-2 border-amber-300 border-b-4 border-b-orange-600 shadow-[0_8px_20px_rgba(249,115,22,0.4)] transition flex items-center justify-center gap-2 active:translate-y-1 active:border-b-2";
+      if (earlyBtn) earlyBtn.classList.add('hidden');
+
+      if (freeSpeechSilenceTimer) {
+        clearTimeout(freeSpeechSilenceTimer);
+        freeSpeechSilenceTimer = null;
+      }
+      if (freeSafetyTimeoutTimer) {
+        clearTimeout(freeSafetyTimeoutTimer);
+        freeSafetyTimeoutTimer = null;
+      }
+    }
+
+    function finishFreeRecordEarly() {
+      if (!isRecording || activeRecModule !== 'free') return;
+      const spoken = lastInterimSpeech || "";
+      stopFreeListeningUI();
+      stopRecording();
+      handleFreeSpeechEvaluation(spoken);
     }
 
     function handleFreeSpeechEvaluation(spokenText) {
@@ -19583,7 +19703,27 @@
                   }
                 }
                 checkEarlyFinishSpoken(currentText);
+              } else if (activeRecModule === 'free') {
+                // 自由練習：偵測念完之後開始進行分析（無需倒數，念完自動出分數）
+                if (freeSpeechSilenceTimer) clearTimeout(freeSpeechSilenceTimer);
+                const delay = finalTranscript ? 600 : 1200;
+                freeSpeechSilenceTimer = setTimeout(() => {
+                  if (isRecording && activeRecModule === 'free') {
+                    finishFreeRecordEarly();
+                  }
+                }, delay);
               }
+            }
+          };
+
+          recognition.onspeechend = () => {
+            if (activeRecModule === 'free' && isRecording) {
+              if (freeSpeechSilenceTimer) clearTimeout(freeSpeechSilenceTimer);
+              freeSpeechSilenceTimer = setTimeout(() => {
+                if (isRecording && activeRecModule === 'free') {
+                  finishFreeRecordEarly();
+                }
+              }, 500);
             }
           };
 
@@ -19698,7 +19838,7 @@
       }
       document.getElementById('modalTeacherTip').innerText = tip;
 
-      // Dynamic Next Action Buttons (Word & Sentence progressive flow)
+      // Dynamic Next Action Buttons (Unified Fixed Layout: Mode Switch on Left, Next on Right!)
       const actionsContainer = document.getElementById('modalActionButtonsContainer');
       if (actionsContainer) {
         if (mode === 'free') {
@@ -19708,18 +19848,22 @@
 
           if (freeActiveTarget === 'word') {
             actionsContainer.innerHTML = `
-              <div class="grid grid-cols-2 gap-2 w-full">
-                <button type="button" onclick="nextFreeWordCard()" class="jelly-btn-3d py-3.5 px-3 rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-purple-800 text-white font-black text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-1.5 active:scale-95 border-b-[3px] border-indigo-950">
-                  <span>➡️ 下一個單字</span>
-                  <span class="text-[10px] bg-white/20 px-1.5 py-0.2 rounded-full font-mono">${nextWord}</span>
-                </button>
-                <button type="button" onclick="startFirstSentenceForCurrentWord()" class="jelly-btn-3d py-3.5 px-3 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:to-orange-700 text-white font-black text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-1.5 active:scale-95 border-b-[3px] border-amber-800">
+              <!-- Row 1: Primary Action Row (Unified layout: Mode Switch on Left, Next on Right!) -->
+              <div class="grid grid-cols-2 gap-2.5 w-full">
+                <!-- Left: Mode Switch to Sentences -->
+                <button type="button" onclick="startFirstSentenceForCurrentWord()" class="jelly-btn-3d py-3.5 sm:py-4 px-3 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-black text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-1.5 active:scale-95 border-b-[3px] border-amber-800" title="進入此單字的三階例句練習">
                   <span>📖 挑戰本詞例句</span>
-                  <span class="text-[10px] bg-amber-900/30 px-1.5 py-0.2 rounded-full font-mono">簡單➔</span>
+                  <span class="text-[10px] bg-amber-900/40 px-1.5 py-0.2 rounded-full font-mono">簡單➔</span>
+                </button>
+                <!-- Right: PRIMARY NEXT WORD BUTTON (Fixed right-hand position!) -->
+                <button type="button" onclick="nextFreeWordCard()" class="jelly-btn-3d py-3.5 sm:py-4 px-3 rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-purple-800 text-white font-black text-xs sm:text-sm shadow-lg shadow-indigo-500/30 transition flex items-center justify-center gap-1.5 active:scale-95 border-b-[3px] border-indigo-950" title="前往下一個單字">
+                  <span>➡️ 下一個單字</span>
+                  <span class="text-[10px] bg-white/20 px-1.5 py-0.2 rounded-full font-mono font-bold">${nextWord}</span>
                 </button>
               </div>
 
-              <div class="grid grid-cols-3 gap-2 w-full pt-1">
+              <!-- Row 2: Secondary Tool Row (Fixed exactly 3 buttons!) -->
+              <div class="grid grid-cols-3 gap-2 w-full pt-1.5">
                 <button type="button" onclick="retryRecordingFromModal()" class="py-2.5 px-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition flex items-center justify-center gap-1 active:scale-95">
                   <span>🔄</span> 再唸一次
                 </button>
@@ -19727,7 +19871,7 @@
                   <span>🔊</span> 重聽示範
                 </button>
                 <button type="button" onclick="closeSpeechDiagModal()" class="py-2.5 px-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold text-xs transition active:scale-95">
-                  完成關閉
+                  ✕ 完成關閉
                 </button>
               </div>
             `;
@@ -19739,28 +19883,29 @@
               : `➡️ 下一個例句 (難度 ${nextLevelNum} · ${nextLevelNum === 2 ? '中等' : '進階'})`;
 
             actionsContainer.innerHTML = `
-              <div class="grid grid-cols-2 gap-2 w-full">
-                <button type="button" onclick="nextFreeSentenceStep()" class="jelly-btn-3d py-3.5 px-2 sm:px-3 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-indigo-600 hover:from-emerald-600 hover:to-indigo-700 text-white font-black text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-1 active:scale-95 border-b-[3px] border-emerald-900">
-                  <span>${nextSentenceBtnText}</span>
-                </button>
-                <button type="button" onclick="returnToWordFromModal()" class="jelly-btn-3d py-3.5 px-3 rounded-2xl bg-indigo-50 hover:bg-indigo-100 text-indigo-900 font-black text-xs sm:text-sm shadow-xs transition flex items-center justify-center gap-1.5 active:scale-95 border-2 border-indigo-200 border-b-[3px] border-b-indigo-300">
+              <!-- Row 1: Primary Action Row (Unified layout: Mode Switch on Left, Next on Right!) -->
+              <div class="grid grid-cols-2 gap-2.5 w-full">
+                <!-- Left: Mode Switch back to Word -->
+                <button type="button" onclick="returnToWordFromModal()" class="jelly-btn-3d py-3.5 sm:py-4 px-3 rounded-2xl bg-indigo-50 hover:bg-indigo-100 text-indigo-900 font-black text-xs sm:text-sm shadow-xs transition flex items-center justify-center gap-1.5 active:scale-95 border-2 border-indigo-200 border-b-[3px] border-b-indigo-300" title="返回此單字卡">
                   <span>🔤 回到單字</span>
                   <span class="text-[10px] bg-indigo-200 text-indigo-800 px-1.5 py-0.2 rounded-full font-mono">${card.word}</span>
                 </button>
+                <!-- Right: PRIMARY NEXT SENTENCE/WORD BUTTON (Fixed right-hand position!) -->
+                <button type="button" onclick="nextFreeSentenceStep()" class="jelly-btn-3d py-3.5 sm:py-4 px-2 sm:px-3 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-indigo-600 hover:from-emerald-600 hover:to-indigo-700 text-white font-black text-xs sm:text-sm shadow-lg shadow-emerald-500/30 transition flex items-center justify-center gap-1.5 active:scale-95 border-b-[3px] border-emerald-950" title="進入下一句或下一詞">
+                  <span>${nextSentenceBtnText}</span>
+                </button>
               </div>
 
-              <div class="grid grid-cols-4 gap-1.5 w-full pt-1">
-                <button type="button" onclick="retryRecordingFromModal()" class="py-2 px-1 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition flex items-center justify-center gap-1 active:scale-95">
-                  <span>🔄</span> 重唸
+              <!-- Row 2: Secondary Tool Row (Fixed exactly 3 buttons!) -->
+              <div class="grid grid-cols-3 gap-2 w-full pt-1.5">
+                <button type="button" onclick="retryRecordingFromModal()" class="py-2.5 px-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition flex items-center justify-center gap-1 active:scale-95">
+                  <span>🔄</span> 再唸一次
                 </button>
-                <button type="button" onclick="replayAudioFromModal()" class="py-2 px-1 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-xs transition flex items-center justify-center gap-1 border border-indigo-100 active:scale-95">
+                <button type="button" onclick="replayAudioFromModal()" class="py-2.5 px-2 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-xs transition flex items-center justify-center gap-1 border border-indigo-100 active:scale-95">
                   <span>🔊</span> 聽示範
                 </button>
-                <button type="button" onclick="nextFreeWordCard()" class="py-2 px-1 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-700 font-bold text-xs transition flex items-center justify-center gap-1 border border-purple-100 active:scale-95" title="跳至下一個字卡">
-                  <span>⏭️</span> 下個字
-                </button>
-                <button type="button" onclick="closeSpeechDiagModal()" class="py-2 px-1 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold text-xs transition active:scale-95">
-                  關閉
+                <button type="button" onclick="closeSpeechDiagModal()" class="py-2.5 px-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold text-xs transition active:scale-95">
+                  ✕ 完成關閉
                 </button>
               </div>
             `;
