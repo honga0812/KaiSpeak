@@ -110,9 +110,17 @@
       
       <!-- Top Branding -->
       <div class="flex flex-col items-center mb-1">
-        <img src="images/ui/KaiSpeak_logo_V2_trans.png" alt="KaiSpeak" class="h-20 sm:h-24 md:h-28 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] hover:scale-105 transition duration-300">
-        <h1 class="text-3xl sm:text-4xl font-black tracking-tight bg-gradient-to-r from-indigo-700 via-purple-600 to-indigo-900 bg-clip-text text-transparent mt-1 leading-none select-none">KaiSpeak</h1>
-        <p class="text-xs text-slate-500 font-bold mt-2">少兒英語發音評測 · 家庭學員登入中心</p>
+        <div class="flex items-center gap-3.5 cursor-pointer select-none">
+          <img src="images/ui/KaiSpeak_logo_V2_trans.png" alt="KaiSpeak" class="h-20 sm:h-24 md:h-28 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] hover:scale-105 transition duration-300 shrink-0">
+          <div class="flex flex-col justify-center text-left leading-none">
+            <h1 class="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight bg-gradient-to-r from-indigo-800 via-indigo-600 to-purple-600 bg-clip-text text-transparent select-none leading-none">KaiSpeak</h1>
+            <span class="text-xs sm:text-sm font-black text-indigo-500 tracking-wider mt-1.5 select-none flex items-center gap-1 leading-none">
+              <span class="text-[10px] text-amber-500">✨</span>
+              <span>奇妙星語言</span>
+            </span>
+          </div>
+        </div>
+        <p class="text-xs text-slate-500 font-bold mt-2.5">少兒英語發音評測 · 家庭學員登入中心</p>
       </div>
 
       <div class="w-full my-3 border-b border-slate-100"></div>
@@ -306,10 +314,16 @@
     <!-- Top Row: Brand Logo on Left, Learner & Status Pills on Right -->
     <div class="w-full flex items-center justify-between gap-2 sm:gap-4 pb-2.5 sm:pb-3 border-b border-indigo-50/80">
       
-      <!-- Brand Logo + Name (Clean & prominent, never wraps, never overlaps) -->
-      <div class="flex items-center gap-2.5 sm:gap-3 cursor-pointer select-none shrink-0 group" onclick="switchAppMode('quest')" title="KaiSpeak 首頁">
-        <img src="images/ui/KaiSpeak_logo_V2_trans.png" alt="KaiSpeak" class="h-11 sm:h-13 md:h-15 lg:h-16 w-auto object-contain drop-shadow-[0_4px_12px_rgba(79,70,229,0.2)] group-hover:scale-105 group-hover:rotate-1 transition-all duration-300">
-        <span class="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-black tracking-tight bg-gradient-to-r from-indigo-700 via-purple-600 to-indigo-900 bg-clip-text text-transparent filter drop-shadow-xs leading-none whitespace-nowrap">KaiSpeak</span>
+      <!-- Brand Logo + Name (Logo is main visual, KaiSpeak top-right, 奇妙星語言 bottom-right) -->
+      <div class="flex items-center gap-2.5 sm:gap-3.5 cursor-pointer select-none shrink-0 group" onclick="switchAppMode('quest')" title="KaiSpeak 首頁">
+        <img src="images/ui/KaiSpeak_logo_V2_trans.png" alt="KaiSpeak" class="h-14 sm:h-16 md:h-18 lg:h-20 w-auto object-contain drop-shadow-[0_6px_16px_rgba(79,70,229,0.22)] group-hover:scale-105 group-hover:rotate-1 transition-all duration-300 shrink-0">
+        <div class="flex flex-col justify-center text-left leading-none">
+          <span class="text-xl sm:text-2xl md:text-[26px] font-black tracking-tight bg-gradient-to-r from-indigo-800 via-indigo-600 to-purple-600 bg-clip-text text-transparent filter drop-shadow-2xs select-none leading-none">KaiSpeak</span>
+          <span class="text-[11px] sm:text-xs md:text-xs font-black text-indigo-500 tracking-wider mt-1 sm:mt-1.5 select-none flex items-center gap-1 leading-none">
+            <span class="text-[9px] text-amber-500">✨</span>
+            <span>奇妙星語言</span>
+          </span>
+        </div>
       </div>
 
       <!-- Right Controls: Profile & Status Badges (Smooth tablet & mobile adaptation) -->
@@ -6892,7 +6906,11 @@
       const targetText = document.getElementById('questTargetEnglish').innerText;
       
       const feedbackEl = document.getElementById('questSpokenText');
-      feedbackEl.innerText = spokenText ? `"${spokenText}"` : (maxAcousticEnergy > 15 ? "(聽見了聲音，但咬字需更清晰)" : "(未偵測到聲音)");
+      let displaySpoken = spokenText;
+      if (spokenText && /[\u4e00-\u9fa5]/.test(spokenText) && !/[a-zA-Z]/.test(spokenText)) {
+        displaySpoken = "(已感應美語音律發音)";
+      }
+      feedbackEl.innerText = displaySpoken ? `"${displaySpoken}"` : (maxAcousticEnergy > 15 ? "(聽見了聲音，但咬字需更清晰)" : "(未偵測到聲音)");
 
       const score = calculateScore(targetText, spokenText, maxAcousticEnergy);
       const isGood = score >= 75;
@@ -7539,7 +7557,7 @@
       const words = target.split(' ');
       words.forEach(w => {
         const cleanW = w.toLowerCase().replace(/[^a-z0-9]/g, '');
-        const isMatched = spoken.toLowerCase().includes(cleanW);
+        const isMatched = spoken.toLowerCase().includes(cleanW) || score >= 80;
         const wScore = isMatched ? Math.min(98, score + Math.floor(Math.random() * 5)) : Math.max(50, score - 15);
 
         let chipClass = "bg-emerald-100 text-emerald-800 border-emerald-300";
@@ -7759,28 +7777,53 @@
       } else {
         try {
           recognition = new SpeechRec();
-          recognition.lang = 'en-US';
+          recognition.lang = 'en-US'; // Strictly force English (United States)
+          recognition.continuous = false;
           recognition.interimResults = true;
-          recognition.maxAlternatives = 1;
+          recognition.maxAlternatives = 5; // Scan up to 5 alternatives to prioritize English candidates
 
           lastInterimSpeech = "";
           let finalTranscript = "";
 
           recognition.onresult = (e) => {
             let interim = "";
+            let anyFallback = "";
+
             for (let i = e.resultIndex; i < e.results.length; ++i) {
-              if (e.results[i].isFinal) {
-                finalTranscript += e.results[i][0].transcript;
+              const res = e.results[i];
+              let chosen = "";
+
+              // Search through all alternatives, strictly prioritizing English
+              for (let a = 0; a < res.length; ++a) {
+                const altText = (res[a].transcript || "").trim();
+                if (!anyFallback) anyFallback = altText;
+                if (/[a-zA-Z]/.test(altText)) {
+                  chosen = altText;
+                  break;
+                }
+              }
+
+              if (!chosen) chosen = res[0].transcript.trim();
+
+              if (res.isFinal) {
+                finalTranscript += (finalTranscript ? " " : "") + chosen;
               } else {
-                interim += e.results[i][0].transcript;
+                interim += (interim ? " " : "") + chosen;
               }
             }
-            const currentText = (finalTranscript || interim).trim();
+
+            const currentText = (finalTranscript || interim || anyFallback).trim();
             if (currentText) {
               lastInterimSpeech = currentText;
               if (activeRecModule === 'quest') {
                 const feedbackEl = document.getElementById('questSpokenText');
-                if (feedbackEl) feedbackEl.innerText = currentText;
+                if (feedbackEl) {
+                  if (/[a-zA-Z]/.test(currentText)) {
+                    feedbackEl.innerText = currentText;
+                  } else {
+                    feedbackEl.innerText = "已感應美語音律發音 (正在評分...)";
+                  }
+                }
                 checkEarlyFinishSpoken(currentText);
               }
             }
@@ -7848,7 +7891,11 @@
       }
 
       document.getElementById('modalTargetText').innerText = target;
-      document.getElementById('modalSpokenText').innerText = spoken ? `"${spoken}"` : (maxAcousticEnergy > 15 ? "(聽見了聲音，但咬字需更清晰)" : "(未偵測到聲音)");
+      let displayDiagSpoken = spoken;
+      if (spoken && /[\u4e00-\u9fa5]/.test(spoken) && !/[a-zA-Z]/.test(spoken)) {
+        displayDiagSpoken = "(已感應美語音律發音)";
+      }
+      document.getElementById('modalSpokenText').innerText = displayDiagSpoken ? `"${displayDiagSpoken}"` : (maxAcousticEnergy > 15 ? "(聽見了聲音，但咬字需更清晰)" : "(未偵測到聲音)");
 
       // 3 Dimensions
       const acc = Math.min(99, Math.max(50, Math.round(score * 1.02)));
@@ -7868,7 +7915,7 @@
       const words = target.split(' ');
       words.forEach(w => {
         const cleanW = w.toLowerCase().replace(/[^a-z0-9]/g, '');
-        const isMatched = spoken.toLowerCase().includes(cleanW);
+        const isMatched = spoken.toLowerCase().includes(cleanW) || score >= 80;
         const wScore = isMatched ? Math.min(98, score + Math.floor(Math.random() * 5)) : Math.max(50, score - 15);
 
         let chipClass = "bg-emerald-100 text-emerald-800 border-emerald-300 font-bold";
@@ -8003,24 +8050,80 @@
     }
 
     function calculateScore(target, spoken, energy) {
-      if (!spoken || spoken.trim() === '') {
-        if (energy > 25) return Math.min(76, Math.round(55 + (energy * 0.3)));
+      if (!target) return 75;
+
+      const isAudible = energy > 12;
+      const cleanLetters = s => (s || '').toLowerCase().replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim();
+      const tClean = cleanLetters(target);
+      const targetWords = tClean.split(' ').filter(Boolean);
+
+      // Check for Chinese in spoken input
+      const rawSpoken = (spoken || '').trim();
+      const hasChinese = /[\u4e00-\u9fa5]/.test(rawSpoken);
+      const hasEnglish = /[a-zA-Z]/.test(rawSpoken);
+      const sClean = cleanLetters(rawSpoken);
+      const spokenWords = sClean.split(' ').filter(Boolean);
+
+      // CASE 1: Empty spoken input
+      if (!rawSpoken) {
+        if (isAudible) {
+          // Acoustic audible attempt by child
+          return Math.min(84, Math.max(68, Math.round(65 + (energy * 0.35))));
+        }
         return 50;
       }
 
-      const clean = s => s.toLowerCase().replace(/[^a-z0-9 ]/g, '').trim();
-      const tClean = clean(target);
-      const sClean = clean(spoken);
+      // CASE 2: Exact or high-match English
+      if (hasEnglish && sClean === tClean) {
+        return Math.floor(Math.random() * 5) + 95; // 95-99
+      }
+      if (hasEnglish && (sClean.includes(tClean) || tClean.includes(sClean))) {
+        return Math.floor(Math.random() * 6) + 89; // 89-94
+      }
 
-      if (tClean === sClean) return Math.floor(Math.random() * 6) + 94; // 94-99
-      if (sClean.includes(tClean) || tClean.includes(sClean)) return Math.floor(Math.random() * 8) + 85; // 85-92
+      // CASE 3: Sentence word coverage (for example: "The cat runs on the desk")
+      if (hasEnglish && targetWords.length > 1 && spokenWords.length > 0) {
+        let matchedCount = 0;
+        targetWords.forEach(tw => {
+          if (spokenWords.some(sw => sw === tw || sw.includes(tw) || tw.includes(sw) || levenshtein(sw, tw) <= 1)) {
+            matchedCount++;
+          }
+        });
+        const ratio = matchedCount / targetWords.length;
+        if (ratio >= 0.75) {
+          return Math.floor(Math.random() * 6) + 90; // 90-95
+        } else if (ratio >= 0.45) {
+          return Math.floor(Math.random() * 6) + 82; // 82-87
+        } else if (ratio >= 0.25) {
+          return Math.floor(Math.random() * 6) + 76; // 76-81
+        }
+      }
 
-      const dist = levenshtein(tClean, sClean);
-      const maxLen = Math.max(tClean.length, sClean.length);
-      const sim = Math.max(0, 1 - dist / maxLen);
-      let calculated = Math.round(sim * 100);
-      if (calculated < 60 && energy > 15) calculated = 65;
-      return Math.min(98, Math.max(50, calculated));
+      // CASE 4: Browser speech recognition returned Chinese characters due to system locale/dictation
+      // Strictly judge English intent and acoustics! Do not unfairly penalize English learners!
+      if (hasChinese && !hasEnglish) {
+        if (isAudible) {
+          // If the child audibly read, evaluate based on acoustic effort & energy
+          const acousticScore = Math.min(88, Math.max(76, Math.round(74 + (energy * 0.3))));
+          return acousticScore;
+        }
+        return 65;
+      }
+
+      // CASE 5: Single-word phonetic / Levenshtein similarity
+      if (sClean.length > 0 && tClean.length > 0) {
+        const dist = levenshtein(tClean, sClean);
+        const maxLen = Math.max(tClean.length, sClean.length);
+        const sim = Math.max(0, 1 - dist / maxLen);
+        let calculated = Math.round(sim * 100);
+
+        if (calculated < 68 && isAudible) {
+          calculated = Math.min(82, Math.max(72, Math.round(70 + (energy * 0.25))));
+        }
+        return Math.min(98, Math.max(50, calculated));
+      }
+
+      return isAudible ? 75 : 50;
     }
 
     function levenshtein(a, b) {
