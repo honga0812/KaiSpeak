@@ -1,0 +1,274 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 820" width="100%" height="100%">
+  <defs>
+    <!-- Background Glows -->
+    <radialGradient id="bgAura" cx="50%" cy="45%" r="50%">
+      <stop offset="0%" stop-color="#FDE047" stop-opacity="0.45"/>
+      <stop offset="50%" stop-color="#818CF8" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#4F46E5" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- 3D Yellow Star Gradients -->
+    <radialGradient id="starBody" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#FEF08A"/>
+      <stop offset="40%" stop-color="#FACC15"/>
+      <stop offset="85%" stop-color="#EAB308"/>
+      <stop offset="100%" stop-color="#CA8A04"/>
+    </radialGradient>
+
+    <!-- Kai Blue 3D Lettering -->
+    <linearGradient id="kaiFront" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#7DD3FC"/>
+      <stop offset="30%" stop-color="#38BDF8"/>
+      <stop offset="70%" stop-color="#0284C7"/>
+      <stop offset="100%" stop-color="#0369A1"/>
+    </linearGradient>
+    <linearGradient id="kaiStroke" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#0C4A6E"/>
+      <stop offset="100%" stop-color="#082F49"/>
+    </linearGradient>
+
+    <!-- Speak Coral/Orange 3D Lettering -->
+    <linearGradient id="speakFront" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047"/>
+      <stop offset="25%" stop-color="#FB923C"/>
+      <stop offset="75%" stop-color="#F43F5E"/>
+      <stop offset="100%" stop-color="#E11D48"/>
+    </linearGradient>
+    <linearGradient id="speakStroke" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#881337"/>
+      <stop offset="100%" stop-color="#4C0519"/>
+    </linearGradient>
+
+    <!-- Pedestal Gradient -->
+    <linearGradient id="podiumTop" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#A7F3D0"/>
+      <stop offset="30%" stop-color="#BAE6FD"/>
+      <stop offset="70%" stop-color="#DDD6FE"/>
+      <stop offset="100%" stop-color="#FBCFE8"/>
+    </linearGradient>
+    <linearGradient id="podiumSide" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#6EE7B7"/>
+      <stop offset="30%" stop-color="#38BDF8"/>
+      <stop offset="70%" stop-color="#818CF8"/>
+      <stop offset="100%" stop-color="#F472B6"/>
+    </linearGradient>
+
+    <!-- Sound Wave Gradients -->
+    <linearGradient id="waveCyan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="100%" stop-color="#818CF8"/>
+    </linearGradient>
+    <linearGradient id="waveCoral" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FB7185"/>
+      <stop offset="100%" stop-color="#FBBF24"/>
+    </linearGradient>
+
+    <!-- Filters for 3D Drop Shadows -->
+    <filter id="deepGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="18" flood-color="#1E1B4B" flood-opacity="0.45"/>
+    </filter>
+    <filter id="softPop" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#0F172A" flood-opacity="0.35"/>
+    </filter>
+    <filter id="goldGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Ambient Golden Aura -->
+  <circle cx="450" cy="380" r="380" fill="url(#bgAura)"/>
+
+  <!-- ========================================== -->
+  <!-- 1. BASE STAGE PODIUM (Circular 3D Disc)    -->
+  <!-- ========================================== -->
+  <g id="podium" filter="url(#softPop)">
+    <!-- 3D Extrusion Side -->
+    <path d="M 140 700 C 140 770, 760 770, 760 700 L 760 670 C 760 740, 140 740, 140 670 Z" fill="url(#podiumSide)"/>
+    <!-- Top Rim -->
+    <ellipse cx="450" cy="670" rx="310" ry="52" fill="url(#podiumTop)" stroke="#FFFFFF" stroke-width="4"/>
+    <ellipse cx="450" cy="665" rx="285" ry="42" fill="none" stroke="#FFFFFF" stroke-opacity="0.6" stroke-width="2.5"/>
+    <!-- Decorative Equalizer Sound Dots & Mini Stars on Rim -->
+    <circle cx="220" cy="690" r="7" fill="#FDE047"/>
+    <circle cx="260" cy="705" r="8" fill="#67E8F9"/>
+    <circle cx="310" cy="715" r="6" fill="#F472B6"/>
+    <circle cx="590" cy="715" r="7" fill="#FBBF24"/>
+    <circle cx="640" cy="705" r="8" fill="#38BDF8"/>
+    <circle cx="680" cy="690" r="6" fill="#A7F3D0"/>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- 2. CENTRAL 3D GOLDEN STAR MASCOT           -->
+  <!-- ========================================== -->
+  <g id="mainStar" filter="url(#deepGlow)">
+    <!-- Big Puffy Rounded 5-Point Star -->
+    <path d="M 450 110 
+             C 475 220, 520 250, 610 270 
+             C 540 330, 525 380, 560 480 
+             C 465 420, 435 420, 340 480 
+             C 375 380, 360 330, 290 270 
+             C 380 250, 425 220, 450 110 Z" 
+          fill="url(#starBody)" stroke="#F59E0B" stroke-width="10" stroke-linejoin="round"/>
+    <!-- Star Specular Highlight -->
+    <path d="M 450 135 C 465 210, 500 240, 560 260 C 510 295, 490 325, 480 370 C 445 320, 410 290, 360 270 C 410 240, 435 210, 450 135 Z" 
+          fill="#FEF9C3" opacity="0.55"/>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- 3. KAI MASCOT WITH VOICE HEADSET & SOUND   -->
+  <!-- ========================================== -->
+  <g id="kaiSilhouette" filter="url(#softPop)">
+    <!-- Kai Boy Silhouette Speaking with Joy (Blue Royal Silhouette) -->
+    <path d="M 450 250
+             C 438 250, 428 240, 428 226
+             C 428 212, 438 200, 452 200
+             C 464 200, 474 210, 474 224
+             C 474 230, 471 236, 467 240
+             C 478 245, 485 256, 488 270
+             C 492 285, 490 305, 485 320
+             C 482 328, 475 330, 470 325
+             C 465 318, 465 305, 468 290
+             C 462 295, 455 300, 448 300
+             C 440 300, 435 292, 438 285
+             C 442 278, 448 274, 454 270
+             C 445 268, 432 278, 420 290
+             C 414 296, 405 294, 403 286
+             C 400 278, 405 270, 412 264
+             C 424 254, 436 250, 450 250 Z"
+          fill="#0284C7"/>
+    <!-- Cute Kai Spiky Hair details -->
+    <path d="M 445 198 C 440 190, 448 185, 455 188 C 462 184, 468 189, 466 198 Z" fill="#0369A1"/>
+    
+    <!-- Golden Hi-Tech Voice Headset on Kai -->
+    <path d="M 432 222 C 430 210, 442 202, 456 202 C 468 202, 476 212, 474 224" 
+          fill="none" stroke="#F59E0B" stroke-width="4" stroke-linecap="round"/>
+    <!-- Headset Ear Piece -->
+    <circle cx="434" cy="222" r="7" fill="#F59E0B" stroke="#FFFFFF" stroke-width="2"/>
+    <!-- Headset Microphone Boom pointing to Mouth -->
+    <path d="M 434 225 Q 438 238, 448 236" fill="none" stroke="#F59E0B" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="449" cy="236" r="4" fill="#10B981" stroke="#FFFFFF" stroke-width="1.5"/>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- 4. DYNAMIC SOUNDWAVES RADIATING (VOICE)    -->
+  <!-- ========================================== -->
+  <g id="soundWaves">
+    <!-- Wave 1 (Inner Cyan) -->
+    <path d="M 480 215 C 495 225, 495 245, 480 255" fill="none" stroke="url(#waveCyan)" stroke-width="5" stroke-linecap="round" opacity="0.9"/>
+    <!-- Wave 2 (Middle Amber/Pink) -->
+    <path d="M 495 205 C 518 220, 518 250, 495 265" fill="none" stroke="url(#waveCoral)" stroke-width="6" stroke-linecap="round" opacity="0.95"/>
+    <!-- Wave 3 (Outer Bright Gold) -->
+    <path d="M 512 195 C 542 215, 542 260, 512 280" fill="none" stroke="#FACC15" stroke-width="7" stroke-linecap="round" filter="url(#goldGlow)"/>
+    
+    <!-- Left Subtle Resonance Echo Waves -->
+    <path d="M 415 218 C 405 225, 405 240, 415 248" fill="none" stroke="#67E8F9" stroke-width="4" stroke-linecap="round" opacity="0.75"/>
+    <path d="M 402 210 C 388 222, 388 245, 402 258" fill="none" stroke="#DDD6FE" stroke-width="5" stroke-linecap="round" opacity="0.7"/>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- 5. FLOATING 3D ABC ALPHABET & BUBBLES      -->
+  <!-- ========================================== -->
+  <!-- Letter A (Cyan Blue 3D Bubble) -->
+  <g transform="translate(190, 160) rotate(-14)" filter="url(#softPop)">
+    <ellipse cx="35" cy="35" rx="35" ry="35" fill="#06B6D4"/>
+    <text x="35" y="46" font-family="Arial, sans-serif" font-size="40" font-weight="900" fill="#FFFFFF" text-anchor="middle" stroke="#083344" stroke-width="4" paint-order="stroke fill">A</text>
+    <ellipse cx="24" cy="20" rx="10" ry="5" fill="#FFFFFF" opacity="0.6" transform="rotate(-30, 24, 20)"/>
+  </g>
+
+  <!-- Letter B (Neon Pink 3D Bubble) -->
+  <g transform="translate(650, 160) rotate(16)" filter="url(#softPop)">
+    <ellipse cx="35" cy="35" rx="35" ry="35" fill="#EC4899"/>
+    <text x="35" y="46" font-family="Arial, sans-serif" font-size="38" font-weight="900" fill="#FFFFFF" text-anchor="middle" stroke="#701A75" stroke-width="4" paint-order="stroke fill">B</text>
+    <ellipse cx="24" cy="20" rx="10" ry="5" fill="#FFFFFF" opacity="0.6" transform="rotate(-30, 24, 20)"/>
+  </g>
+
+  <!-- Letter C (Lime Green 3D Bubble) -->
+  <g transform="translate(740, 290) rotate(8)" filter="url(#softPop)">
+    <ellipse cx="28" cy="28" rx="28" ry="28" fill="#10B981"/>
+    <text x="28" y="37" font-family="Arial, sans-serif" font-size="30" font-weight="900" fill="#FFFFFF" text-anchor="middle" stroke="#064E3B" stroke-width="3" paint-order="stroke fill">C</text>
+    <ellipse cx="19" cy="16" rx="7" ry="3.5" fill="#FFFFFF" opacity="0.6" transform="rotate(-30, 19, 16)"/>
+  </g>
+
+  <!-- Speech Bubble with Heart Voice (Left) -->
+  <g transform="translate(130, 280) rotate(-8)" filter="url(#softPop)">
+    <path d="M 10 20 C 10 9, 20 0, 45 0 C 70 0, 80 9, 80 20 C 80 32, 68 40, 48 40 L 30 52 L 32 40 C 18 40, 10 32, 10 20 Z" 
+          fill="#FDE047" stroke="#D97706" stroke-width="3.5"/>
+    <!-- Sound wave icon inside bubble -->
+    <path d="M 35 20 Q 45 14, 55 20 M 39 24 Q 45 20, 51 24" fill="none" stroke="#92400E" stroke-width="3" stroke-linecap="round"/>
+  </g>
+
+  <!-- Twinkling Sparkles -->
+  <g fill="#FEF08A" filter="url(#goldGlow)">
+    <!-- Top Sparkle -->
+    <path d="M 450 40 Q 450 70, 465 70 Q 450 70, 450 100 Q 450 70, 435 70 Q 450 70, 450 40 Z"/>
+    <!-- Left Star -->
+    <path d="M 120 180 Q 120 200, 130 200 Q 120 200, 120 220 Q 120 200, 110 200 Q 120 200, 120 180 Z" fill="#F472B6"/>
+    <!-- Right Star -->
+    <path d="M 790 220 Q 790 240, 800 240 Q 790 240, 790 260 Q 790 240, 780 240 Q 790 240, 790 220 Z" fill="#38BDF8"/>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- 6. MASTER TYPOGRAPHY: "KaiSpeak"           -->
+  <!-- ========================================== -->
+  <!-- 3D Bottom Deep Layer Stroke Shadow -->
+  <g filter="url(#deepGlow)">
+    <!-- Kai Shadow Layer (Extrusion) -->
+    <text x="195" y="515" font-family="'Fredoka', 'Arial Rounded MT Bold', 'Nunito', sans-serif" font-size="160" font-weight="900" fill="#082F49" text-anchor="middle" letter-spacing="-4">Kai</text>
+    <!-- Speak Shadow Layer (Extrusion) -->
+    <text x="585" y="515" font-family="'Fredoka', 'Arial Rounded MT Bold', 'Nunito', sans-serif" font-size="160" font-weight="900" fill="#4C0519" text-anchor="middle" letter-spacing="-4">Speak</text>
+  </g>
+
+  <!-- Intermediate Outlines -->
+  <g>
+    <!-- Kai Bold Stroke -->
+    <text x="195" y="505" font-family="'Fredoka', 'Arial Rounded MT Bold', 'Nunito', sans-serif" font-size="160" font-weight="900" fill="url(#kaiStroke)" stroke="url(#kaiStroke)" stroke-width="26" stroke-linejoin="round" text-anchor="middle" letter-spacing="-4">Kai</text>
+    <!-- Speak Bold Stroke -->
+    <text x="585" y="505" font-family="'Fredoka', 'Arial Rounded MT Bold', 'Nunito', sans-serif" font-size="160" font-weight="900" fill="url(#speakStroke)" stroke="url(#speakStroke)" stroke-width="26" stroke-linejoin="round" text-anchor="middle" letter-spacing="-4">Speak</text>
+  </g>
+
+  <!-- Front Gradient Fill Letters -->
+  <g>
+    <!-- "Kai" (Sky/Royal Blue Glossy) -->
+    <text x="195" y="500" font-family="'Fredoka', 'Arial Rounded MT Bold', 'Nunito', sans-serif" font-size="160" font-weight="900" fill="url(#kaiFront)" text-anchor="middle" letter-spacing="-4">Kai</text>
+    <!-- "Speak" (Coral/Sunset Orange Glossy) -->
+    <text x="585" y="500" font-family="'Fredoka', 'Arial Rounded MT Bold', 'Nunito', sans-serif" font-size="160" font-weight="900" fill="url(#speakFront)" text-anchor="middle" letter-spacing="-4">Speak</text>
+  </g>
+
+  <!-- Glossy White Bubble Highlights on Letters -->
+  <g fill="#FFFFFF" opacity="0.75">
+    <!-- K Highlight -->
+    <ellipse cx="155" cy="430" rx="16" ry="8" transform="rotate(-35, 155, 430)"/>
+    <!-- a Highlight -->
+    <ellipse cx="195" cy="445" rx="12" ry="6" transform="rotate(-20, 245, 445)"/>
+    <!-- i Dot Star/Sparkle -->
+    <circle cx="312" cy="400" r="9" fill="#FEF08A" stroke="#FFFFFF" stroke-width="3"/>
+    <!-- S Highlight -->
+    <ellipse cx="395" cy="430" rx="14" ry="7" transform="rotate(-25, 395, 430)"/>
+    <!-- p Highlight -->
+    <ellipse cx="475" cy="445" rx="13" ry="6" transform="rotate(-15, 475, 445)"/>
+    <!-- e Highlight -->
+    <ellipse cx="555" cy="450" rx="12" ry="6" transform="rotate(-20, 555, 450)"/>
+    <!-- a Highlight -->
+    <ellipse cx="635" cy="450" rx="12" ry="6" transform="rotate(-20, 635, 450)"/>
+    <!-- k Highlight -->
+    <ellipse cx="715" cy="430" rx="14" ry="7" transform="rotate(-35, 715, 430)"/>
+  </g>
+
+  <!-- ========================================== -->
+  <!-- 7. SUBTITLE: 3D BUBBLE BADGE 「奇妙星語音」  -->
+  <!-- ========================================== -->
+  <g id="subtitle" filter="url(#softPop)">
+    <!-- Subtitle Pill Plate -->
+    <rect x="240" y="585" width="420" height="70" rx="35" fill="#FFFFFF" stroke="#F59E0B" stroke-width="6"/>
+    <rect x="195" y="590" width="410" height="60" rx="30" fill="#FEF3C7" stroke="#FFFFFF" stroke-width="2"/>
+    
+    <!-- Left Decorative Tiny Note -->
+    <text x="272" y="632" font-size="24" fill="#38BDF8">🗣️</text>
+    <!-- Right Decorative Tiny Sparkle -->
+    <text x="628" y="632" font-size="24" fill="#F43F5E">✨</text>
+
+    <!-- Subtitle Characters: 奇 妙 星 語 音 -->
+    <text x="450" y="634" font-family="'Microsoft JhengHei', 'PingFang TC', sans-serif" font-size="36" font-weight="900" fill="#312E81" text-anchor="middle" letter-spacing="6">奇妙星語音</text>
+  </g>
+
+</svg>

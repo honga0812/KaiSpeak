@@ -63,16 +63,9 @@
     <div class="bg-white rounded-3xl p-6 sm:p-8 md:p-10 max-w-xl w-full shadow-2xl border border-indigo-100 text-center flex flex-col items-center my-auto max-h-[94vh] overflow-y-auto">
       
       <!-- Top Branding -->
-      <div class="flex items-center gap-3 mb-2">
-        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-500 to-purple-600 flex items-center justify-center text-white text-2xl shadow-lg shadow-indigo-200">
-          🗣️
-        </div>
-        <div class="text-left">
-          <h2 class="text-xl sm:text-2xl font-black text-indigo-950 flex items-center gap-2">
-            KaiSpeak <span class="text-xs bg-indigo-100 text-indigo-700 px-2.5 py-0.5 rounded-full font-bold">少兒美語</span>
-          </h2>
-          <p class="text-xs text-slate-500 font-medium">智慧英語發音評測 · 家庭學員登入中心</p>
-        </div>
+      <div class="flex flex-col items-center mb-1">
+        <img src="images/ui/kaispeak_logo.svg" alt="KaiSpeak 奇妙星語音" class="h-16 sm:h-20 w-auto object-contain drop-shadow-md hover:scale-105 transition duration-300">
+        <p class="text-xs text-slate-500 font-bold mt-1">少兒美語發音評測 · 家庭學員登入中心</p>
       </div>
 
       <div class="w-full my-3 border-b border-slate-100"></div>
@@ -104,21 +97,40 @@
 
       <!-- State 2: When no profiles OR clicked Add Child -> Show Create Form -->
       <div id="gateCreateProfileView" class="w-full flex flex-col items-center hidden">
-        <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-amber-400 to-orange-500 flex items-center justify-center text-3xl shadow-lg mb-3">
+        <div id="gateAvatarPreview" class="w-18 h-18 sm:w-20 sm:h-20 rounded-full bg-gradient-to-tr from-amber-400 to-orange-500 flex items-center justify-center text-4xl shadow-xl mb-3 border-4 border-white ring-4 ring-indigo-100 overflow-hidden">
           👶
         </div>
         <h3 id="gateCreateTitle" class="text-base sm:text-lg font-black text-slate-800 mb-1">
           建立第一位小朋友學員檔案
         </h3>
         <p id="gateCreateSubtitle" class="text-xs text-slate-500 mb-4">
-          設定專屬頭像、年級與 4 位數密碼，保護各自的連續打卡紀錄
+          支援相機拍照或相簿上傳真實照片，設定年級與 4 位數密碼保護紀錄！
         </p>
 
         <div class="w-full text-left space-y-3.5 mb-5 bg-slate-50 p-4 sm:p-5 rounded-2xl border border-slate-200">
           <div>
-            <label class="text-xs font-bold text-slate-700 mb-1.5 block">1. 選擇萌趣吉祥頭像：</label>
+            <label class="text-xs font-bold text-slate-700 mb-1.5 block">1. 設定學員專屬大頭相片：</label>
+            
+            <!-- Photo Upload & Camera Action Buttons -->
+            <div class="flex items-center gap-2 mb-2.5">
+              <button type="button" onclick="triggerGateCameraCapture()" class="flex-1 py-2 px-3 bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white rounded-xl text-xs font-black transition flex items-center justify-center gap-1.5 shadow-sm active:scale-95">
+                <span>📷 相機拍照</span>
+              </button>
+              <button type="button" onclick="document.getElementById('gateAlbumFileInput').click()" class="flex-1 py-2 px-3 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 rounded-xl text-xs font-black transition flex items-center justify-center gap-1.5 shadow-xs active:scale-95">
+                <span>🖼️ 相簿選相片</span>
+              </button>
+              <button type="button" id="gateClearPhotoBtn" onclick="clearGateCustomPhoto()" class="hidden px-2.5 py-2 bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 rounded-xl text-xs font-bold transition active:scale-95" title="清除相片換回卡通圖示">
+                ✕ 清除相片
+              </button>
+            </div>
+
+            <!-- Hidden File Inputs -->
+            <input type="file" id="gateAlbumFileInput" accept="image/*" class="hidden" onchange="handleGatePhotoFile(event)">
+            <input type="file" id="gateCameraMobileInput" accept="image/*" capture="user" class="hidden" onchange="handleGatePhotoFile(event)">
+
+            <div class="text-[11px] font-bold text-slate-500 mb-1.5">或點選吉祥物卡通圖示：</div>
             <div id="gateAvatarPicker" class="flex items-center gap-2 flex-wrap">
-              <!-- Emojis -->
+              <!-- Emojis injected by JS -->
             </div>
           </div>
 
@@ -210,19 +222,48 @@
 
 
   <!-- ======================================================== -->
+  <!-- WEBCAM CAMERA SNAPSHOT MODAL                             -->
+  <!-- ======================================================== -->
+  <div id="cameraCaptureModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-sm z-[80] hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-5 sm:p-6 max-w-sm w-full shadow-2xl border border-indigo-100 flex flex-col items-center text-center">
+      <div class="flex items-center justify-between w-full mb-3">
+        <h4 class="text-sm sm:text-base font-black text-indigo-950 flex items-center gap-2">
+          <span>📷</span> 拍攝學員大頭相片
+        </h4>
+        <button type="button" onclick="closeCameraModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold flex items-center justify-center">✕</button>
+      </div>
+      
+      <div class="relative w-64 h-64 rounded-3xl bg-slate-900 overflow-hidden mb-4 shadow-inner border-4 border-indigo-200 flex items-center justify-center">
+        <video id="cameraVideo" autoplay playsinline class="w-full h-full object-cover transform -scale-x-100"></video>
+        <canvas id="cameraSnapshotCanvas" width="240" height="240" class="hidden"></canvas>
+        <div class="absolute inset-4 rounded-full border-2 border-dashed border-white/60 pointer-events-none"></div>
+      </div>
+
+      <div class="flex items-center gap-2 w-full">
+        <button type="button" onclick="takeCameraSnapshot()" class="flex-1 py-3 px-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 text-white font-black text-xs sm:text-sm shadow-md active:scale-95 transition flex items-center justify-center gap-2">
+          <span>📸</span> 拍照完成
+        </button>
+        <button type="button" onclick="closeCameraModal()" class="py-3 px-4 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs sm:text-sm transition">
+          取消
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ======================================================== -->
   <!-- TOP GLOBAL HEADER                                        -->
   <!-- ======================================================== -->
   <header class="w-full max-w-6xl flex flex-col md:flex-row items-center justify-between gap-3 p-3 md:px-6 md:py-3.5 bg-white/95 backdrop-blur-md rounded-3xl shadow-sm border border-indigo-100/60 mb-3 md:mb-5 sticky top-2 z-40">
     <div class="flex items-center justify-between w-full md:w-auto">
-      <div class="flex items-center gap-2.5 cursor-pointer" onclick="switchAppMode('quest')">
-        <div class="w-10 h-10 md:w-11 md:h-11 rounded-2xl bg-gradient-to-tr from-indigo-500 to-purple-600 flex items-center justify-center text-white text-xl md:text-2xl shadow-md shadow-indigo-200">
-          🗣️
-        </div>
-        <div>
-          <h1 class="text-lg md:text-xl font-bold tracking-tight text-indigo-950 flex items-center gap-1.5">
-            KaiSpeak <span class="text-[10px] md:text-xs bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full font-semibold">少兒美語</span>
-          </h1>
-          <p class="text-[10px] md:text-[11px] text-slate-600">自適應雙欄 · 動態任務 · 字卡隨機 · 迷霧盲盒闖關</p>
+      <div class="flex items-center gap-3 cursor-pointer select-none" onclick="switchAppMode('quest')" title="KaiSpeak 奇妙星語音">
+        <img src="images/ui/kaispeak_logo.svg" alt="KaiSpeak 奇妙星語音" class="h-12 md:h-14 w-auto object-contain drop-shadow-sm hover:scale-105 transition duration-300">
+        <div class="flex flex-col text-left">
+          <div class="flex items-center gap-1.5">
+            <span class="text-base md:text-lg font-black tracking-tight text-indigo-950">KaiSpeak</span>
+            <span class="text-[10px] md:text-xs bg-gradient-to-r from-amber-400 to-orange-500 text-white px-2 py-0.5 rounded-full font-black shadow-xs">奇妙星語音</span>
+          </div>
+          <p class="text-[10px] md:text-[11px] text-slate-500 font-semibold">母語示範 · 動態圖卡 · 自適應雙欄 · 盲盒闖關</p>
         </div>
       </div>
 
@@ -714,8 +755,14 @@
         </div>
 
         <div class="flex-1 bg-white rounded-3xl p-6 md:p-8 shadow-xl shadow-indigo-100/70 border border-indigo-50 flex flex-col items-center justify-center text-center relative min-h-[300px] md:min-h-[380px]">
-          <div id="questEmoji" class="text-6xl sm:text-7xl md:text-8xl mb-3 select-none transform hover:scale-110 transition duration-300">
-            🪑
+          <div class="relative w-32 h-32 sm:w-40 sm:h-40 rounded-3xl bg-indigo-50/40 border border-indigo-100/60 shadow-sm flex items-center justify-center mb-3 overflow-hidden group">
+            <img id="questCardImage" src="" alt="Dynamic Card" class="hidden w-full h-full object-cover group-hover:scale-105 transition duration-300">
+            <div id="questEmoji" class="text-6xl sm:text-7xl md:text-8xl select-none transform hover:scale-110 transition duration-300">
+              🪑
+            </div>
+            <div class="absolute top-2 left-2 bg-indigo-900/80 backdrop-blur-sm text-white text-[9px] font-black px-2 py-0.5 rounded-full shadow-xs">
+              動態圖卡
+            </div>
           </div>
           <h2 id="questTargetEnglish" class="text-3xl sm:text-4xl md:text-5xl font-black text-indigo-950 tracking-wide mb-2 leading-tight">
             desk
@@ -917,15 +964,58 @@
     </div>
 
     <!-- ======================================================== -->
-    <!-- FOCUSED INSPECTOR CARD WITH PHONETIC DIAGNOSTICS & RECORDING -->
+    <!-- FOCUSED HERO PRACTICE STAGE (LARGE, CLEAR & PROMINENT)   -->
     <!-- ======================================================== -->
-    <div class="bg-white rounded-3xl p-5 md:p-7 shadow-xl border border-indigo-50 flex flex-col gap-6">
+    <div class="bg-white rounded-3xl p-5 md:p-8 shadow-xl border border-indigo-100 flex flex-col gap-6">
       
+      <!-- HERO TARGET FOLLOW-ALONG BANNER (IMPOSSIBLE TO MISS!) -->
+      <div class="bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-700 rounded-3xl p-5 sm:p-7 text-white shadow-xl shadow-indigo-200/80 flex flex-col lg:flex-row items-center justify-between gap-5 text-center lg:text-left relative overflow-hidden">
+        <!-- Background subtle glow circles -->
+        <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+        <div class="absolute -left-10 -top-10 w-48 h-48 bg-purple-400/20 rounded-full blur-2xl pointer-events-none"></div>
+
+        <div class="flex-1 relative z-10 max-w-full">
+          <div class="flex items-center justify-center lg:justify-start gap-2 mb-2 flex-wrap">
+            <span id="freeHeroTargetType" class="text-xs font-black px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white border border-white/30 flex items-center gap-1 shadow-xs">
+              🎯 當前跟讀目標：單字
+            </span>
+            <button type="button" onclick="setFreeTargetToWord(); renderFreeCard();" id="freeHeroResetBtn" class="hidden text-xs bg-amber-400 hover:bg-amber-300 text-amber-950 px-3 py-1 rounded-full font-black transition active:scale-95 shadow-sm">
+              🔄 切換回單字
+            </button>
+          </div>
+          <h2 id="freeActiveTargetText" class="text-3xl sm:text-4xl md:text-5xl font-black tracking-wide text-white drop-shadow-sm leading-tight mb-1 break-words">
+            desk
+          </h2>
+          <p id="freeActiveTargetTrans" class="text-sm sm:text-base md:text-lg font-bold text-indigo-100 mt-1">
+            名詞：書桌，辦公桌
+          </p>
+        </div>
+
+        <!-- Prominent Large Action Buttons (Listen & Follow-along Record) -->
+        <div class="flex items-center gap-3 w-full sm:w-auto shrink-0 relative z-10 justify-center">
+          <button type="button" onclick="playFreeTargetAudio()" class="flex-1 sm:flex-initial py-3.5 sm:py-4 px-5 sm:px-7 rounded-2xl bg-white text-indigo-950 hover:bg-indigo-50 font-black text-xs sm:text-sm shadow-md hover:shadow-lg transition active:scale-95 flex items-center justify-center gap-2" title="播放母語示範發音">
+            <span class="text-lg">🔊</span>
+            <span>聽示範</span>
+          </button>
+          <button type="button" id="freeRecordBtn" onclick="toggleFreePracticeRecord()" class="flex-1 sm:flex-initial py-3.5 sm:py-4 px-6 sm:px-8 rounded-2xl bg-gradient-to-r from-amber-400 via-orange-400 to-rose-500 hover:from-amber-300 hover:to-rose-600 text-white font-black text-xs sm:text-sm shadow-xl shadow-orange-500/30 transition active:scale-95 flex items-center justify-center gap-2 animate-pulse">
+            <span id="freeRecordIcon" class="text-xl">🎙️</span>
+            <span id="freeRecordLabel">點我開始跟讀</span>
+          </button>
+        </div>
+      </div>
+
       <div class="flex flex-col md:flex-row gap-6 items-start">
         
-        <!-- Word Card Info -->
-        <div class="w-full md:w-1/3 flex flex-col items-center text-center p-5 bg-slate-50 rounded-2xl border border-slate-100 shrink-0">
-          <div id="freeEmoji" class="text-7xl md:text-8xl mb-2 select-none">🪑</div>
+        <!-- Word Card Info with Real Dynamic GIF Card Support -->
+        <div class="w-full md:w-1/3 flex flex-col items-center text-center p-5 bg-slate-50 rounded-2xl border border-slate-200 shrink-0">
+          <div class="relative w-36 h-36 sm:w-40 sm:h-40 rounded-3xl bg-white border-2 border-indigo-100 shadow-md flex items-center justify-center mb-3 overflow-hidden group">
+            <img id="freeCardImage" src="" alt="Dynamic Card" class="hidden w-full h-full object-cover group-hover:scale-105 transition duration-300">
+            <div id="freeEmoji" class="text-7xl md:text-8xl select-none group-hover:scale-110 transition duration-300">🪑</div>
+            <div class="absolute top-2 left-2 bg-indigo-900/80 backdrop-blur-sm text-white text-[9px] font-black px-2 py-0.5 rounded-full shadow-xs">
+              動態圖卡
+            </div>
+          </div>
+
           <h3 id="freeWord" class="text-3xl md:text-4xl font-black text-indigo-950">desk</h3>
           <div id="freePhonetic" class="text-xs md:text-sm text-slate-400 font-mono mt-1 mb-2">/dɛsk/</div>
           <div id="freeMeaning" class="text-xs md:text-sm font-bold text-slate-700 bg-white px-3.5 py-1.5 rounded-full border border-indigo-100 shadow-sm mb-3">名詞：書桌，辦公桌</div>
@@ -944,34 +1034,16 @@
             </div>
           </div>
           
-          <div class="flex flex-col gap-2 w-full">
-            <button onclick="playFreeTargetAudio()" class="w-full py-2.5 rounded-xl bg-indigo-600 text-white text-xs font-bold hover:bg-indigo-700 transition flex items-center justify-center gap-1.5 shadow-md active:scale-95">
-              <span>🔊 播放標準原聲</span>
-            </button>
-            <button id="freeRecordBtn" onclick="toggleFreePracticeRecord()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white text-xs font-black transition flex items-center justify-center gap-1.5 shadow-md active:scale-95">
-              <span id="freeRecordIcon">🎙️</span>
-              <span id="freeRecordLabel">跟讀當前選中項評測</span>
-            </button>
-          </div>
+          <button type="button" onclick="setFreeTargetToWord(); renderFreeCard(); playFreeTargetAudio();" class="w-full py-2.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-black transition flex items-center justify-center gap-1.5 border border-indigo-200 active:scale-95 shadow-xs">
+            <span>🎯 選定此單字為跟讀目標</span>
+          </button>
         </div>
 
-        <!-- 9 Sentences Picker -->
+        <!-- 9 Sentences Picker (Comfortable Cards) -->
         <div class="w-full md:w-2/3 flex flex-col gap-3">
           <div class="flex items-center justify-between">
-            <span class="text-xs font-bold text-slate-500">當前評測目標與 9 條生活例句：</span>
-            <span id="freeScenarioTitle" class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg">情境一 · 認知描述</span>
-          </div>
-
-          <!-- Current Evaluation Target Banner -->
-          <div class="p-3 bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl border border-indigo-100 flex items-center justify-between gap-3">
-            <div>
-              <span class="text-[10px] font-extrabold text-indigo-600 uppercase bg-white px-2 py-0.5 rounded shadow-sm">當前跟讀目標</span>
-              <div id="freeActiveTargetText" class="text-sm md:text-base font-black text-indigo-950 mt-1">desk</div>
-              <div id="freeActiveTargetTrans" class="text-xs text-slate-500">名詞：書桌，辦公桌</div>
-            </div>
-            <button onclick="setFreeTargetToWord()" class="px-2.5 py-1 bg-white hover:bg-indigo-50 text-indigo-700 rounded-xl border border-indigo-200 text-xs font-bold shadow-sm whitespace-nowrap active:scale-95">
-              切換回單字
-            </button>
+            <span class="text-xs font-bold text-slate-500">點選下方例句即可切換練習：</span>
+            <span id="freeScenarioTitle" class="text-xs font-black text-indigo-700 bg-indigo-50 px-3 py-1 rounded-xl border border-indigo-100">難度 1 · 簡單初階</span>
           </div>
 
           <!-- 3 Graded Difficulty Tabs -->
@@ -982,7 +1054,7 @@
           </div>
 
           <!-- 3 Sentences in Current Scenario -->
-          <div id="freeSentenceList" class="flex flex-col gap-2 max-h-56 overflow-y-auto pr-1">
+          <div id="freeSentenceList" class="flex flex-col gap-2.5 max-h-64 overflow-y-auto pr-1">
             <!-- Injected by JS -->
           </div>
         </div>
@@ -1087,7 +1159,10 @@
         <button onclick="closeAdvModal()" class="text-slate-400 hover:text-slate-600 font-bold text-lg p-1">✕</button>
       </div>
 
-      <div id="advModalEmoji" class="text-7xl mb-2">🪑</div>
+      <div class="relative w-32 h-32 rounded-3xl bg-indigo-50/50 border border-indigo-100/60 shadow-sm flex items-center justify-center mb-3 overflow-hidden group">
+        <img id="advModalCardImage" src="" alt="Dynamic Card" class="hidden w-full h-full object-cover">
+        <div id="advModalEmoji" class="text-7xl select-none">🪑</div>
+      </div>
       <h3 id="advModalWord" class="text-3xl font-black text-indigo-950">desk</h3>
       <div id="advModalPhonetic" class="text-xs text-slate-400 font-mono mt-0.5 mb-2">/dɛsk/</div>
       <div id="advModalMeaning" class="text-xs font-bold text-slate-700 bg-slate-50 px-3 py-1 rounded-full border border-slate-100 mb-4">名詞：書桌，辦公桌</div>
@@ -1119,6 +1194,92 @@
   </div>
 
   <!-- ======================================================== -->
+  <!-- FLOATING PRONUNCIATION DIAGNOSTIC MODAL                  -->
+  <!-- ======================================================== -->
+  <div id="speechDiagModal" class="fixed inset-0 bg-slate-900/75 backdrop-blur-md z-[85] hidden flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl border-2 border-indigo-100 flex flex-col items-center text-center my-auto max-h-[92vh] overflow-y-auto">
+      
+      <!-- Top Score Ring -->
+      <div id="modalScoreRing" class="w-20 h-20 sm:w-24 sm:h-24 rounded-full flex flex-col items-center justify-center text-white shadow-xl mb-2 bg-gradient-to-tr from-emerald-500 to-teal-400">
+        <span id="modalScoreNumber" class="text-3xl sm:text-4xl font-black">95</span>
+        <span class="text-[9px] font-bold opacity-90">評測得分</span>
+      </div>
+
+      <div id="modalScoreStars" class="text-lg sm:text-xl mb-1 text-amber-400">⭐⭐⭐</div>
+      <h3 id="modalScoreTitle" class="text-base sm:text-lg font-black text-slate-800 mb-1">
+        卓越超群！發音非常標準！
+      </h3>
+      
+      <!-- Target & Spoken comparison -->
+      <div class="w-full bg-slate-50 p-3 rounded-2xl border border-slate-200 text-left mb-3">
+        <div class="text-[10px] font-bold text-slate-400">🎯 評測目標內容：</div>
+        <div id="modalTargetText" class="text-xs sm:text-sm font-black text-indigo-950 mt-0.5">This is my desk.</div>
+        <div class="text-[10px] font-bold text-slate-400 mt-2">🗣️ 辨識語音：</div>
+        <div id="modalSpokenText" class="text-xs sm:text-sm font-bold text-slate-700 mt-0.5 italic">"This is my desk"</div>
+      </div>
+
+      <!-- 3 Core Dimensions: Accuracy, Fluency, Completeness -->
+      <div class="grid grid-cols-3 gap-2 w-full mb-3 text-center">
+        <div class="bg-indigo-50/60 p-2.5 rounded-2xl border border-indigo-100">
+          <div class="text-[9px] text-slate-500 font-bold">準確度 (Accuracy)</div>
+          <div id="modalAccVal" class="text-sm sm:text-base font-black text-indigo-700 mt-0.5">96%</div>
+          <div class="w-full bg-slate-200 h-1.5 rounded-full mt-1 overflow-hidden">
+            <div id="modalAccBar" class="bg-indigo-600 h-full rounded-full" style="width: 96%"></div>
+          </div>
+        </div>
+        <div class="bg-emerald-50/60 p-2.5 rounded-2xl border border-emerald-100">
+          <div class="text-[9px] text-slate-500 font-bold">流暢度 (Fluency)</div>
+          <div id="modalFluVal" class="text-sm sm:text-base font-black text-emerald-700 mt-0.5">92%</div>
+          <div class="w-full bg-slate-200 h-1.5 rounded-full mt-1 overflow-hidden">
+            <div id="modalFluBar" class="bg-emerald-500 h-full rounded-full" style="width: 92%"></div>
+          </div>
+        </div>
+        <div class="bg-purple-50/60 p-2.5 rounded-2xl border border-purple-100">
+          <div class="text-[9px] text-slate-500 font-bold">完整度 (Complete)</div>
+          <div id="modalCompVal" class="text-sm sm:text-base font-black text-purple-700 mt-0.5">98%</div>
+          <div class="w-full bg-slate-200 h-1.5 rounded-full mt-1 overflow-hidden">
+            <div id="modalCompBar" class="bg-purple-600 h-full rounded-full" style="width: 98%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Word-by-Word Granular Chips -->
+      <div class="w-full text-left mb-3">
+        <div class="text-xs font-bold text-slate-600 mb-1.5 flex items-center justify-between">
+          <span>逐詞音素發音分析：</span>
+          <span class="text-[10px] text-slate-400">綠色=標準 · 橙色=輕微偏誤 · 紅色=漏讀</span>
+        </div>
+        <div id="modalWordChips" class="flex flex-wrap gap-1.5 p-2.5 rounded-2xl bg-slate-50 border border-slate-200 min-h-[42px] items-center">
+          <!-- Injected by JS -->
+        </div>
+      </div>
+
+      <!-- Mascot Kai's Encouragement Tip -->
+      <div class="w-full p-2.5 bg-amber-50 rounded-2xl border border-amber-200 flex items-center gap-2 text-left mb-4">
+        <span class="text-2xl">🤖</span>
+        <div class="flex-1 text-xs text-amber-950 font-bold leading-snug" id="modalTeacherTip">
+          太棒了！你的咬字十分清晰，重音抓得非常準確！
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2 w-full">
+        <button type="button" onclick="retryRecordingFromModal()" class="flex-1 py-3 px-3 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 active:scale-95 text-white font-black text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-1.5">
+          <span>🔄</span> 再唸一次
+        </button>
+        <button type="button" onclick="replayAudioFromModal()" class="py-3 px-3.5 rounded-2xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-black text-xs sm:text-sm transition flex items-center justify-center gap-1 border border-indigo-200 active:scale-95">
+          <span>🔊</span> 重聽示範
+        </button>
+        <button type="button" onclick="closeSpeechDiagModal()" class="py-3 px-4 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs sm:text-sm transition active:scale-95">
+          完成關閉
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ======================================================== -->
   <!-- QR CODE MODAL FOR MOBILE / TABLET LIVE TESTING           -->
   <!-- ======================================================== -->
   <div id="qrModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
@@ -1134,7 +1295,7 @@
       </div>
 
       <div class="text-[11px] font-mono text-slate-500 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200 mb-4 break-all">
-        https://honga0812.github.io/KaiSpeak/?v=13
+        https://honga0812.github.io/KaiSpeak/?v=14
       </div>
 
       <button onclick="toggleQRModal()" class="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
@@ -5259,7 +5420,119 @@
     let energyPoints = 350;
     let practiceLogs = [];
     let adventureStars = {};
+    let selectedCustomAvatar = null;
+    let webcamStream = null;
 
+    function setAvatarElement(el, avatar, sizeClass = "w-7 h-7 rounded-full object-cover") {
+      if (!el) return;
+      if (avatar && (avatar.startsWith('data:image') || avatar.startsWith('http') || avatar.startsWith('blob:'))) {
+        el.innerHTML = `<img src="${avatar}" class="${sizeClass} border border-indigo-200 shadow-xs inline-block" alt="avatar">`;
+      } else {
+        el.innerText = avatar || '👦';
+      }
+    }
+
+    function updateGateAvatarPreview() {
+      const preview = document.getElementById('gateAvatarPreview');
+      const clearBtn = document.getElementById('gateClearPhotoBtn');
+      if (!preview) return;
+      if (selectedCustomAvatar) {
+        preview.innerHTML = `<img src="${selectedCustomAvatar}" class="w-full h-full object-cover" alt="Custom Avatar">`;
+        if (clearBtn) clearBtn.classList.remove('hidden');
+      } else {
+        preview.innerHTML = selectedAvatarEmoji || '👦';
+        if (clearBtn) clearBtn.classList.add('hidden');
+      }
+    }
+
+    function selectGateAvatar(emo) {
+      selectedAvatarEmoji = emo;
+      selectedCustomAvatar = null;
+      updateGateAvatarPreview();
+      renderGateScreen();
+    }
+
+    function clearGateCustomPhoto() {
+      selectedCustomAvatar = null;
+      updateGateAvatarPreview();
+    }
+
+    function handleGatePhotoFile(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = 160;
+          canvas.height = 160;
+          const ctx = canvas.getContext('2d');
+          const minSide = Math.min(img.width, img.height);
+          const sx = (img.width - minSide) / 2;
+          const sy = (img.height - minSide) / 2;
+          ctx.drawImage(img, sx, sy, minSide, minSide, 0, 0, 160, 160);
+          selectedCustomAvatar = canvas.toDataURL('image/jpeg', 0.85);
+          updateGateAvatarPreview();
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function triggerGateCameraCapture() {
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia && !/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        openCameraModal();
+      } else {
+        const camInput = document.getElementById('gateCameraMobileInput');
+        if (camInput) camInput.click();
+      }
+    }
+
+    function openCameraModal() {
+      const modal = document.getElementById('cameraCaptureModal');
+      const video = document.getElementById('cameraVideo');
+      if (!modal || !video) return;
+      modal.classList.remove('hidden');
+      navigator.mediaDevices.getUserMedia({ video: { width: 320, height: 320, facingMode: 'user' } })
+        .then(stream => {
+          webcamStream = stream;
+          video.srcObject = stream;
+        })
+        .catch(err => {
+          console.warn("Webcam error:", err);
+          modal.classList.add('hidden');
+          const camInput = document.getElementById('gateCameraMobileInput');
+          if (camInput) camInput.click();
+        });
+    }
+
+    function closeCameraModal() {
+      const modal = document.getElementById('cameraCaptureModal');
+      if (modal) modal.classList.add('hidden');
+      if (webcamStream) {
+        webcamStream.getTracks().forEach(t => t.stop());
+        webcamStream = null;
+      }
+    }
+
+    function takeCameraSnapshot() {
+      const video = document.getElementById('cameraVideo');
+      const canvas = document.getElementById('cameraSnapshotCanvas');
+      if (!video || !canvas) return;
+      const ctx = canvas.getContext('2d');
+      ctx.save();
+      ctx.translate(canvas.width, 0);
+      ctx.scale(-1, 1);
+      const minSide = Math.min(video.videoWidth || 320, video.videoHeight || 320);
+      const sx = ((video.videoWidth || 320) - minSide) / 2;
+      const sy = ((video.videoHeight || 320) - minSide) / 2;
+      ctx.drawImage(video, sx, sy, minSide, minSide, 0, 0, canvas.width, canvas.height);
+      ctx.restore();
+      selectedCustomAvatar = canvas.toDataURL('image/jpeg', 0.85);
+      closeCameraModal();
+      updateGateAvatarPreview();
+    }
 
     // ========================================================
     // PROFILE GATE & PIN AUTHENTICATION ENGINE
@@ -5274,13 +5547,15 @@
       const quickDemoBtn = document.getElementById('gateQuickDemoBtn');
       const grid = document.getElementById('gateProfilesGrid');
 
+      updateGateAvatarPreview();
+
       // Populate avatar picker
       const picker = document.getElementById('gateAvatarPicker');
       const emojis = ['👦', '👧', '🧒', '🦁', '🐱', '🐶', '🚀', '🦄', '🌟'];
       if (picker) {
         picker.innerHTML = emojis.map(emo => `
           <button type="button" onclick="selectGateAvatar('${emo}')" class="w-9 h-9 rounded-xl border text-lg flex items-center justify-center transition active:scale-95 ${
-            selectedAvatarEmoji === emo ? 'border-indigo-600 bg-indigo-100 scale-110 shadow-md' : 'border-slate-200 bg-white hover:bg-slate-100'
+            (!selectedCustomAvatar && selectedAvatarEmoji === emo) ? 'border-indigo-600 bg-indigo-100 scale-110 shadow-md' : 'border-slate-200 bg-white hover:bg-slate-100'
           }">${emo}</button>
         `).join('');
       }
@@ -5292,7 +5567,7 @@
         if (cancelBtn) cancelBtn.classList.add('hidden');
         if (quickDemoBtn) quickDemoBtn.classList.remove('hidden');
         document.getElementById('gateCreateTitle').innerText = "🎉 歡迎！請先建立第一位小朋友學員";
-        document.getElementById('gateCreateSubtitle').innerText = "為第一位孩子設定專屬暱稱、年級與 4 位數密碼即可展開英語冒險！";
+        document.getElementById('gateCreateSubtitle').innerText = "支援相機拍照或相簿上傳，為孩子設定暱稱、年級與 4 位數密碼即可展開英語冒險！";
       } else {
         // Profiles exist -> Show children cards
         gateSelectView.classList.remove('hidden');
@@ -5300,9 +5575,12 @@
 
         if (grid) {
           grid.innerHTML = profiles.map(p => {
+            const avatarHtml = (p.avatar && (p.avatar.startsWith('data:image') || p.avatar.startsWith('http') || p.avatar.startsWith('blob:')))
+              ? `<img src="${p.avatar}" class="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover border-2 border-indigo-200 shadow-md mb-2 group-hover:scale-105 transition" alt="${p.name}">`
+              : `<div class="text-4xl sm:text-5xl mb-2 group-hover:scale-110 transition duration-300">${p.avatar || '👦'}</div>`;
             return `
               <div onclick="openPinModal('${p.id}')" class="p-3.5 sm:p-4 rounded-3xl bg-slate-50 hover:bg-indigo-50 border-2 border-slate-200 hover:border-indigo-400 text-center transition cursor-pointer active:scale-95 shadow-sm hover:shadow-md flex flex-col items-center group">
-                <div class="text-4xl sm:text-5xl mb-2 group-hover:scale-110 transition duration-300">${p.avatar}</div>
+                ${avatarHtml}
                 <div class="font-black text-xs sm:text-sm text-slate-900 group-hover:text-indigo-900 truncate max-w-full">${p.name}</div>
                 <div class="text-[9px] text-slate-500 font-bold bg-white px-2 py-0.5 rounded-full border border-slate-200 mt-1">${p.grade}</div>
                 <div class="text-[10px] text-amber-600 font-extrabold mt-1.5 flex items-center gap-1">
@@ -5364,7 +5642,7 @@
       const newProfile = {
         id: newId,
         name: name,
-        avatar: selectedAvatarEmoji,
+        avatar: selectedCustomAvatar || selectedAvatarEmoji,
         grade: grade,
         pin: pin,
         streakDays: 1,
@@ -5378,6 +5656,7 @@
 
       profiles.push(newProfile);
       currentProfileId = newId;
+      selectedCustomAvatar = null;
       saveProfilesToStorage();
       loadActiveProfileData();
 
@@ -5406,7 +5685,7 @@
       if (!selectedPinProfile) return;
 
       enteredPin = "";
-      document.getElementById('pinTargetAvatar').innerText = selectedPinProfile.avatar;
+      setAvatarElement(document.getElementById('pinTargetAvatar'), selectedPinProfile.avatar, "w-14 h-14 rounded-full object-cover");
       document.getElementById('pinTargetName').innerText = `${selectedPinProfile.name} 的專屬密碼`;
       document.getElementById('pinErrorMsg').innerText = "";
       updatePinDotsUI();
@@ -5634,13 +5913,13 @@
       const oName = document.getElementById('overlayChildName');
       const oAdaptive = document.getElementById('overlayChildAdaptive');
 
-      if (hAvatar) hAvatar.innerText = p.avatar;
+      if (hAvatar) setAvatarElement(hAvatar, p.avatar, "w-8 h-8 rounded-full object-cover");
       if (hName) hName.innerText = p.name;
       if (hGrade) hGrade.innerText = p.grade;
       if (hBadge) hBadge.innerText = adaptive.title.split(' ')[0] + ' ' + (adaptive.level === 1 ? '初階' : (adaptive.level === 2 ? '中階' : '高階'));
-      if (mAvatar) mAvatar.innerText = p.avatar;
+      if (mAvatar) setAvatarElement(mAvatar, p.avatar, "w-7 h-7 rounded-full object-cover");
       if (mName) mName.innerText = p.name.slice(0, 4);
-      if (oAvatar) oAvatar.innerText = p.avatar;
+      if (oAvatar) setAvatarElement(oAvatar, p.avatar, "w-14 h-14 rounded-full object-cover");
       if (oName) oName.innerText = p.name;
       if (oAdaptive) oAdaptive.innerText = adaptive.title;
     }
@@ -5760,7 +6039,9 @@
               isCurrent ? 'bg-indigo-50/70 border-indigo-300 shadow-sm' : 'bg-slate-50 border-slate-200 hover:bg-slate-100'
             }">
               <div class="flex items-center gap-2.5">
-                <span class="text-2xl">${p.avatar}</span>
+                ${(p.avatar && (p.avatar.startsWith('data:image') || p.avatar.startsWith('http') || p.avatar.startsWith('blob:')))
+                  ? `<img src="${p.avatar}" class="w-8 h-8 rounded-full object-cover border border-indigo-200 shadow-xs" alt="${p.name}">`
+                  : `<span class="text-2xl">${p.avatar || '👦'}</span>`}
                 <div>
                   <div class="flex items-center gap-1.5">
                     <span class="font-bold text-xs text-slate-900">${p.name}</span>
@@ -5823,7 +6104,7 @@
       const newProfile = {
         id: newId,
         name: name,
-        avatar: selectedAvatarEmoji,
+        avatar: selectedCustomAvatar || selectedAvatarEmoji,
         grade: grade,
         streakDays: 1,
         energyPoints: 100,
@@ -5836,6 +6117,7 @@
 
       profiles.push(newProfile);
       currentProfileId = newId;
+      selectedCustomAvatar = null;
       saveProfilesToStorage();
       loadActiveProfileData();
 
@@ -6256,6 +6538,13 @@
       });
 
       document.getElementById('questEmoji').innerText = card.emoji;
+      const qImg = document.getElementById('questCardImage');
+      const qEmo = document.getElementById('questEmoji');
+      if (qImg && qEmo) {
+        qImg.src = `images/cards/card_${card.id}.gif`;
+        qImg.onload = () => { qImg.classList.remove('hidden'); qEmo.classList.add('hidden'); };
+        qImg.onerror = () => { qImg.classList.add('hidden'); qEmo.classList.remove('hidden'); };
+      }
       const engEl = document.getElementById('questTargetEnglish');
       const chiEl = document.getElementById('questTargetChinese');
       const phoEl = document.getElementById('questPhonetic');
@@ -6930,16 +7219,12 @@
       freeActiveTarget = 'word';
       freeActiveSentenceText = card.word;
       freeActiveSentenceTrans = card.meaning;
-      document.getElementById('freeActiveTargetText').innerText = card.word;
-      document.getElementById('freeActiveTargetTrans').innerText = card.meaning;
     }
 
     function setFreeTargetToSentence(text, trans) {
       freeActiveTarget = 'sentence';
       freeActiveSentenceText = text;
       freeActiveSentenceTrans = trans;
-      document.getElementById('freeActiveTargetText').innerText = text;
-      document.getElementById('freeActiveTargetTrans').innerText = trans;
     }
 
     function renderFreeCard() {
@@ -6948,6 +7233,14 @@
       document.getElementById('freeWord').innerText = card.word;
       document.getElementById('freePhonetic').innerText = card.phonetic;
       document.getElementById('freeMeaning').innerText = card.meaning;
+
+      const fImg = document.getElementById('freeCardImage');
+      const fEmo = document.getElementById('freeEmoji');
+      if (fImg && fEmo) {
+        fImg.src = `images/cards/card_${card.id}.gif`;
+        fImg.onload = () => { fImg.classList.remove('hidden'); fEmo.classList.add('hidden'); };
+        fImg.onerror = () => { fImg.classList.add('hidden'); fEmo.classList.remove('hidden'); };
+      }
 
       const scBadge = document.getElementById('freeStoryChapterBadge');
       const scOrder = document.getElementById('freeStoryOrderBadge');
@@ -6960,13 +7253,31 @@
         setFreeTargetToWord();
       }
 
+      // Update Hero Stage
+      const heroType = document.getElementById('freeHeroTargetType');
+      const heroResetBtn = document.getElementById('freeHeroResetBtn');
+      const heroTarget = document.getElementById('freeActiveTargetText');
+      const heroTrans = document.getElementById('freeActiveTargetTrans');
+
+      if (freeActiveTarget === 'word') {
+        if (heroType) heroType.innerHTML = '<span>🎯 當前跟讀目標：</span><span class="font-bold underline">單字</span>';
+        if (heroResetBtn) heroResetBtn.classList.add('hidden');
+        if (heroTarget) heroTarget.innerText = card.word;
+        if (heroTrans) heroTrans.innerText = card.meaning;
+      } else {
+        if (heroType) heroType.innerHTML = `<span>🎯 當前跟讀目標：</span><span class="font-bold underline">生活例句 (難度 ${freeScenarioIndex + 1})</span>`;
+        if (heroResetBtn) heroResetBtn.classList.remove('hidden');
+        if (heroTarget) heroTarget.innerText = freeActiveSentenceText;
+        if (heroTrans) heroTrans.innerText = freeActiveSentenceTrans;
+      }
+
       [0, 1, 2].forEach(i => {
         const tab = document.getElementById(`scTab${i}`);
         if (!tab) return;
         if (i === freeScenarioIndex) {
-          tab.className = "flex-1 py-2 rounded-xl bg-indigo-600 text-white shadow-sm transition";
+          tab.className = "flex-1 py-2.5 rounded-xl bg-indigo-600 text-white shadow-sm transition font-black text-xs";
         } else {
-          tab.className = "flex-1 py-2 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition";
+          tab.className = "flex-1 py-2.5 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 transition font-bold text-xs";
         }
       });
 
@@ -6982,10 +7293,10 @@
           const isSelected = freeActiveTarget === 'sentence' && freeActiveSentenceText === sent;
 
           const row = document.createElement('div');
-          row.className = `p-3 rounded-2xl border transition flex items-center justify-between gap-3 cursor-pointer ${
+          row.className = `p-3.5 sm:p-4 rounded-2xl border-2 transition flex items-center justify-between gap-3 cursor-pointer ${
             isSelected 
-              ? 'bg-indigo-50/80 border-indigo-300 shadow-sm' 
-              : 'bg-slate-50 border-slate-200 hover:bg-slate-100'
+              ? 'bg-indigo-50/90 border-indigo-400 shadow-md ring-2 ring-indigo-200/60' 
+              : 'bg-white border-slate-200 hover:border-indigo-300 hover:bg-slate-50 shadow-xs'
           }`;
           row.onclick = () => {
             setFreeTargetToSentence(sent, trans);
@@ -6994,15 +7305,18 @@
 
           row.innerHTML = `
             <div class="flex-1 text-left">
-              <div class="text-xs font-bold text-indigo-950">${sent}</div>
-              <div class="text-[11px] text-slate-500 mt-0.5">${trans}</div>
+              <div class="text-xs sm:text-sm font-black text-indigo-950 flex items-center gap-1.5">
+                ${isSelected ? '<span class="text-indigo-600">👉</span>' : ''}
+                <span>${sent}</span>
+              </div>
+              <div class="text-[11px] sm:text-xs text-slate-500 mt-1">${trans}</div>
             </div>
-            <div class="flex items-center gap-1.5">
-              <button onclick="event.stopPropagation(); playFreeSentenceAudio('${card.id}', ${freeScenarioIndex}, ${sIdx}, '${sent.replace(/'/g, "\\'")}')" class="p-2 rounded-xl bg-white border border-slate-200 hover:bg-indigo-50 text-indigo-600 text-xs shadow-sm active:scale-95 transition" title="播放範讀">
-                🔊 聽
+            <div class="flex items-center gap-2 shrink-0">
+              <button type="button" onclick="event.stopPropagation(); playFreeSentenceAudio('${card.id}', ${freeScenarioIndex}, ${sIdx}, '${sent.replace(/'/g, "\\'")}')" class="py-2 px-3 rounded-xl bg-slate-100 border border-slate-200 hover:bg-indigo-50 hover:text-indigo-700 text-slate-700 text-xs font-black shadow-xs active:scale-95 transition flex items-center gap-1" title="播放範讀">
+                <span>🔊</span> 聽
               </button>
-              <button onclick="event.stopPropagation(); setFreeTargetToSentence('${sent.replace(/'/g, "\'")}', '${trans.replace(/'/g, "\'")}'); toggleFreePracticeRecord();" class="p-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs shadow-sm active:scale-95 transition" title="選定並朗讀">
-                🎙️ 念
+              <button type="button" onclick="event.stopPropagation(); setFreeTargetToSentence('${sent.replace(/'/g, "\\'")}', '${trans.replace(/'/g, "\\'")}'); renderFreeCard(); toggleFreePracticeRecord();" class="py-2 px-3.5 rounded-xl bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 text-white text-xs font-black shadow-sm active:scale-95 transition flex items-center gap-1" title="選定並朗讀">
+                <span>🎙️</span> 跟讀
               </button>
             </div>
           `;
@@ -7108,32 +7422,32 @@
     function toggleFreePracticeRecord() {
       if (isRecording && activeRecModule === 'free') {
         stopRecording();
-        document.getElementById('freeRecordLabel').innerText = "跟讀當前選中項評測";
+        document.getElementById('freeRecordLabel').innerText = "點我開始跟讀";
         document.getElementById('freeRecordIcon').innerText = "🎙️";
-        document.getElementById('freeRecordBtn').className = "w-full py-2.5 rounded-xl bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white text-xs font-black transition flex items-center justify-center gap-1.5 shadow-md active:scale-95";
+        document.getElementById('freeRecordBtn').className = "flex-1 sm:flex-initial py-3.5 sm:py-4 px-6 sm:px-8 rounded-2xl bg-gradient-to-r from-amber-400 via-orange-400 to-rose-500 hover:from-amber-300 hover:to-rose-600 text-white font-black text-xs sm:text-sm shadow-xl shadow-orange-500/30 transition active:scale-95 flex items-center justify-center gap-2 animate-pulse";
       } else {
         activeRecModule = 'free';
         document.getElementById('freeRecordLabel').innerText = "正在錄音中(說完請稍候)...";
         document.getElementById('freeRecordIcon').innerText = "🔴";
-        document.getElementById('freeRecordBtn').className = "w-full py-2.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-black transition flex items-center justify-center gap-1.5 shadow-md animate-pulse";
+        document.getElementById('freeRecordBtn').className = "flex-1 sm:flex-initial py-3.5 sm:py-4 px-6 sm:px-8 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-black text-xs sm:text-sm shadow-xl shadow-amber-300 transition active:scale-95 flex items-center justify-center gap-2 animate-pulse";
         startRecording(onSpeechSuccess, onSpeechFail);
 
         // Auto stop after 6 seconds
         setTimeout(() => {
           if (isRecording && activeRecModule === 'free') {
             stopRecording();
-            document.getElementById('freeRecordLabel').innerText = "跟讀當前選中項評測";
+            document.getElementById('freeRecordLabel').innerText = "點我開始跟讀";
             document.getElementById('freeRecordIcon').innerText = "🎙️";
-            document.getElementById('freeRecordBtn').className = "w-full py-2.5 rounded-xl bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white text-xs font-black transition flex items-center justify-center gap-1.5 shadow-md active:scale-95";
+            document.getElementById('freeRecordBtn').className = "flex-1 sm:flex-initial py-3.5 sm:py-4 px-6 sm:px-8 rounded-2xl bg-gradient-to-r from-amber-400 via-orange-400 to-rose-500 hover:from-amber-300 hover:to-rose-600 text-white font-black text-xs sm:text-sm shadow-xl shadow-orange-500/30 transition active:scale-95 flex items-center justify-center gap-2 animate-pulse";
           }
         }, 6000);
       }
     }
 
     function handleFreeSpeechEvaluation(spokenText) {
-      document.getElementById('freeRecordLabel').innerText = "跟讀當前選中項評測";
+      document.getElementById('freeRecordLabel').innerText = "點我開始跟讀";
       document.getElementById('freeRecordIcon').innerText = "🎙️";
-      document.getElementById('freeRecordBtn').className = "w-full py-2.5 rounded-xl bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white text-xs font-black transition flex items-center justify-center gap-1.5 shadow-md active:scale-95";
+      document.getElementById('freeRecordBtn').className = "flex-1 sm:flex-initial py-3.5 sm:py-4 px-6 sm:px-8 rounded-2xl bg-gradient-to-r from-amber-400 via-orange-400 to-rose-500 hover:from-amber-300 hover:to-rose-600 text-white font-black text-xs sm:text-sm shadow-xl shadow-orange-500/30 transition active:scale-95 flex items-center justify-center gap-2 animate-pulse";
 
       const targetText = freeActiveSentenceText || currentFreeCard().word;
       const score = calculateScore(targetText, spokenText, maxAcousticEnergy);
@@ -7149,8 +7463,11 @@
       const card = currentFreeCard();
       recordPracticeLog(card.word, targetText, score, score >= 75 ? "已熟練" : "待加強", "自由練習診斷");
 
-      // Render Granular Diagnostics Breakdown
+      // Render Static Granular Diagnostics Breakdown
       renderFreePhoneticDiagnostics(targetText, spokenText, score);
+
+      // Float the Interactive Diagnostic Sheet!
+      openSpeechDiagModal(targetText, spokenText, score, 'free');
     }
 
     function renderFreePhoneticDiagnostics(target, spoken, score) {
@@ -7298,6 +7615,13 @@
       currentAdvWord = MASTER_VOCAB[globalIdx];
       document.getElementById('advModalStageTitle').innerText = `第 ${globalIdx + 1} 關冒險挑戰`;
       document.getElementById('advModalEmoji').innerText = currentAdvWord.emoji;
+      const advImg = document.getElementById('advModalCardImage');
+      const advEmo = document.getElementById('advModalEmoji');
+      if (advImg && advEmo) {
+        advImg.src = `images/cards/card_${currentAdvWord.id}.gif`;
+        advImg.onload = () => { advImg.classList.remove('hidden'); advEmo.classList.add('hidden'); };
+        advImg.onerror = () => { advImg.classList.add('hidden'); advEmo.classList.remove('hidden'); };
+      }
       document.getElementById('advModalWord').innerText = currentAdvWord.word;
       document.getElementById('advModalPhonetic').innerText = currentAdvWord.phonetic;
       document.getElementById('advModalMeaning').innerText = currentAdvWord.meaning;
@@ -7446,62 +7770,190 @@
       stopAcousticAnalyser();
     }
 
-    function startAcousticAnalyser() {
+    // --- Floating Speech Diagnostic Modal Controls ---
+    let lastDiagData = null;
+
+    function openSpeechDiagModal(target, spoken, score, mode) {
+      lastDiagData = { target, spoken, score, mode };
+      const modal = document.getElementById('speechDiagModal');
+      if (!modal) return;
+
+      document.getElementById('modalScoreNumber').innerText = score;
+      const ring = document.getElementById('modalScoreRing');
+      const stars = document.getElementById('modalScoreStars');
+      const title = document.getElementById('modalScoreTitle');
+
+      if (score >= 90) {
+        ring.className = "w-20 h-20 sm:w-24 sm:h-24 rounded-full flex flex-col items-center justify-center text-white shadow-xl mb-2 bg-gradient-to-tr from-emerald-500 to-teal-400";
+        stars.innerText = "⭐⭐⭐";
+        title.innerText = "🌟 卓越超群！發音非常標準！";
+      } else if (score >= 80) {
+        ring.className = "w-20 h-20 sm:w-24 sm:h-24 rounded-full flex flex-col items-center justify-center text-white shadow-xl mb-2 bg-gradient-to-tr from-indigo-500 to-blue-500";
+        stars.innerText = "⭐⭐☆";
+        title.innerText = "👍 表現優良！咬字很清晰！";
+      } else if (score >= 70) {
+        ring.className = "w-20 h-20 sm:w-24 sm:h-24 rounded-full flex flex-col items-center justify-center text-white shadow-xl mb-2 bg-gradient-to-tr from-amber-500 to-orange-400";
+        stars.innerText = "⭐☆☆";
+        title.innerText = "💪 繼續加油！多聽兩次示範！";
+      } else {
+        ring.className = "w-20 h-20 sm:w-24 sm:h-24 rounded-full flex flex-col items-center justify-center text-white shadow-xl mb-2 bg-gradient-to-tr from-rose-500 to-pink-500";
+        stars.innerText = "☆☆☆";
+        title.innerText = "🌱 沒關係，跟著示範再念一次！";
+      }
+
+      document.getElementById('modalTargetText').innerText = target;
+      document.getElementById('modalSpokenText').innerText = spoken ? `"${spoken}"` : (maxAcousticEnergy > 15 ? "(聽見了聲音，但咬字需更清晰)" : "(未偵測到聲音)");
+
+      // 3 Dimensions
+      const acc = Math.min(99, Math.max(50, Math.round(score * 1.02)));
+      const flu = Math.min(98, Math.max(55, Math.round(score * 0.98 + (maxAcousticEnergy * 0.1))));
+      const comp = spoken ? Math.min(100, Math.max(60, Math.round((spoken.split(' ').length / target.split(' ').length) * 95))) : 50;
+
+      document.getElementById('modalAccVal').innerText = `${acc}%`;
+      document.getElementById('modalAccBar').style.width = `${acc}%`;
+      document.getElementById('modalFluVal').innerText = `${flu}%`;
+      document.getElementById('modalFluBar').style.width = `${flu}%`;
+      document.getElementById('modalCompVal').innerText = `${comp}%`;
+      document.getElementById('modalCompBar').style.width = `${comp}%`;
+
+      // Word Chips
+      const chipsContainer = document.getElementById('modalWordChips');
+      chipsContainer.innerHTML = '';
+      const words = target.split(' ');
+      words.forEach(w => {
+        const cleanW = w.toLowerCase().replace(/[^a-z0-9]/g, '');
+        const isMatched = spoken.toLowerCase().includes(cleanW);
+        const wScore = isMatched ? Math.min(98, score + Math.floor(Math.random() * 5)) : Math.max(50, score - 15);
+
+        let chipClass = "bg-emerald-100 text-emerald-800 border-emerald-300 font-bold";
+        if (wScore < 75) {
+          chipClass = "bg-rose-100 text-rose-800 border-rose-300 font-bold";
+        } else if (wScore < 85) {
+          chipClass = "bg-amber-100 text-amber-900 border-amber-300 font-semibold";
+        }
+
+        const chip = document.createElement('div');
+        chip.className = `px-2.5 py-1 rounded-xl text-xs border flex items-center gap-1.5 shadow-xs ${chipClass}`;
+        chip.innerHTML = `<span>${w}</span><span class="text-[9px] opacity-75 font-mono">${wScore}分</span>`;
+        chipsContainer.appendChild(chip);
+      });
+
+      // Mascot Tip
+      let tip = "太棒了！你的咬字十分清晰，重音抓得非常準確！";
+      if (score < 75) {
+        tip = "讀音偏輕或有部分音素吞音，建議點擊「重聽示範」仔細聽母語示範，並加大音量大聲朗讀！";
+      } else if (score < 85) {
+        tip = "表現良好！若能將句子連讀語調更放鬆自然，分數將輕鬆突破 90 分！";
+      }
+      document.getElementById('modalTeacherTip').innerText = tip;
+
+      modal.classList.remove('hidden');
+    }
+
+    function closeSpeechDiagModal() {
+      const modal = document.getElementById('speechDiagModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function retryRecordingFromModal() {
+      closeSpeechDiagModal();
+      if (!lastDiagData) return;
+      if (lastDiagData.mode === 'free') {
+        toggleFreePracticeRecord();
+      } else if (lastDiagData.mode === 'adv') {
+        toggleAdvRecord();
+      }
+    }
+
+    function replayAudioFromModal() {
+      if (!lastDiagData) return;
+      if (lastDiagData.mode === 'free') {
+        playFreeTargetAudio();
+      } else if (lastDiagData.mode === 'adv') {
+        playAdvModalAudio();
+      }
+    }
+
+    // --- Persistent Audio & Acoustic Analyser (Desktop Mic Permission Re-prompt Fix) ---
+    let persistentMicStream = null;
+    let persistentAudioCtx = null;
+    let persistentAnalyser = null;
+    let isAcousticActive = false;
+
+    async function getOrCreateMicrophoneStream() {
+      if (persistentMicStream && persistentMicStream.active) {
+        const tracks = persistentMicStream.getAudioTracks();
+        if (tracks.length > 0 && tracks[0].readyState === 'live') {
+          return persistentMicStream;
+        }
+      }
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return null;
+      try {
+        persistentMicStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        return persistentMicStream;
+      } catch (err) {
+        console.warn("getUserMedia error:", err);
+        return null;
+      }
+    }
+
+    async function startAcousticAnalyser() {
       maxAcousticEnergy = 0;
-      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return;
+      isAcousticActive = true;
+      const stream = await getOrCreateMicrophoneStream();
+      if (!stream) return;
 
-      navigator.mediaDevices.getUserMedia({ audio: true }).then(stream => {
-        microphoneStream = stream;
-        const AC = window.AudioContext || window.webkitAudioContext;
-        if (!AC) return;
-        audioContext = new AC();
-        analyser = audioContext.createAnalyser();
-        analyser.fftSize = 256;
-        const source = audioContext.createMediaStreamSource(stream);
-        source.connect(analyser);
+      const AC = window.AudioContext || window.webkitAudioContext;
+      if (!AC) return;
+      if (!persistentAudioCtx) {
+        persistentAudioCtx = new AC();
+        persistentAnalyser = persistentAudioCtx.createAnalyser();
+        persistentAnalyser.fftSize = 256;
+        const source = persistentAudioCtx.createMediaStreamSource(stream);
+        source.connect(persistentAnalyser);
+      }
+      if (persistentAudioCtx.state === 'suspended') {
+        persistentAudioCtx.resume().catch(()=>{});
+      }
 
-        const canvas = document.getElementById('questWaveformCanvas');
-        const ctx = canvas ? canvas.getContext('2d') : null;
-        const dataArray = new Uint8Array(analyser.frequencyBinCount);
+      const canvas = document.getElementById('questWaveformCanvas');
+      const ctx = canvas ? canvas.getContext('2d') : null;
+      const dataArray = new Uint8Array(persistentAnalyser.frequencyBinCount);
 
-        function draw() {
-          if (!isRecording) return;
-          animFrameId = requestAnimationFrame(draw);
-          analyser.getByteFrequencyData(dataArray);
+      function draw() {
+        if (!isRecording || !isAcousticActive) return;
+        animFrameId = requestAnimationFrame(draw);
+        persistentAnalyser.getByteFrequencyData(dataArray);
 
-          let sum = 0;
-          for (let i = 0; i < dataArray.length; i++) sum += dataArray[i];
-          const avg = sum / dataArray.length;
-          if (avg > maxAcousticEnergy) maxAcousticEnergy = avg;
+        let sum = 0;
+        for (let i = 0; i < dataArray.length; i++) sum += dataArray[i];
+        const avg = sum / dataArray.length;
+        if (avg > maxAcousticEnergy) maxAcousticEnergy = avg;
 
-          if (ctx && canvas && activeRecModule === 'quest') {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#6366F1';
-            const barWidth = (canvas.width / dataArray.length) * 2.5;
-            let x = 0;
-            for (let i = 0; i < dataArray.length; i++) {
-              const barHeight = (dataArray[i] / 255) * canvas.height;
-              ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
-              x += barWidth + 1;
-            }
+        if (ctx && canvas && activeRecModule === 'quest') {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.fillStyle = '#6366F1';
+          const barWidth = (canvas.width / dataArray.length) * 2.5;
+          let x = 0;
+          for (let i = 0; i < dataArray.length; i++) {
+            const barHeight = (dataArray[i] / 255) * canvas.height;
+            ctx.fillRect(x, canvas.height - barHeight, barWidth, barHeight);
+            x += barWidth + 1;
           }
         }
-        draw();
-      }).catch(err => {
-        console.warn("getUserMedia error:", err);
-      });
+      }
+      draw();
     }
 
     function stopAcousticAnalyser() {
-      if (animFrameId) cancelAnimationFrame(animFrameId);
-      if (microphoneStream) {
-        microphoneStream.getTracks().forEach(t => t.stop());
-        microphoneStream = null;
+      isAcousticActive = false;
+      if (animFrameId) {
+        cancelAnimationFrame(animFrameId);
+        animFrameId = null;
       }
-      if (audioContext) {
-        audioContext.close().catch(()=>{});
-        audioContext = null;
-      }
+      // CRITICAL FIX FOR DESKTOP CHROME:
+      // Do NOT kill persistentMicStream audio tracks!
+      // Keeping stream alive prevents Chrome desktop from repeatedly prompting mic permission every sentence!
     }
 
     function calculateScore(target, spoken, energy) {
@@ -7666,7 +8118,7 @@
     function initQRCode() {
       const canvas = document.getElementById('qrCodeCanvas');
       if (canvas && window.QRCode) {
-        QRCode.toCanvas(canvas, "https://honga0812.github.io/KaiSpeak/?v=13", {
+        QRCode.toCanvas(canvas, "https://honga0812.github.io/KaiSpeak/?v=14", {
           width: 176,
           margin: 1,
           color: { dark: '#312E81', light: '#FFFFFF' }
