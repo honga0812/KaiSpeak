@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "v19";
+        const LATEST_VER = "v20";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -124,7 +124,7 @@
       <!-- Top Branding -->
       <div class="flex flex-col items-center mb-1">
         <div class="flex items-center gap-3.5 cursor-pointer select-none">
-          <img src="images/ui/KaiSpeak_logo_V2_trans.png" alt="KaiSpeak" class="h-20 sm:h-24 md:h-28 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] hover:scale-105 transition duration-300 shrink-0">
+          <img src="images/ui/KaiSpeak_logo_V3_trans.png" alt="KaiSpeak" class="h-20 sm:h-24 md:h-28 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] hover:scale-105 transition duration-300 shrink-0">
           <div class="flex flex-col justify-center text-left leading-none">
             <h1 class="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight bg-gradient-to-r from-indigo-800 via-indigo-600 to-purple-600 bg-clip-text text-transparent select-none leading-none">KaiSpeak</h1>
             <span class="text-xs sm:text-sm font-black text-indigo-500 tracking-wider mt-1.5 select-none flex items-center gap-1 leading-none">
@@ -322,29 +322,25 @@
   <!-- ======================================================== -->
   <!-- TOP GLOBAL HEADER (RESPONSIVE & TABLET OPTIMIZED)         -->
   <!-- ======================================================== -->
-  <header class="w-full max-w-6xl bg-white/95 backdrop-blur-md rounded-3xl sm:rounded-[32px] jelly-header mb-3 md:mb-5 sticky top-2 z-40 p-3 sm:p-4 shadow-[0_12px_30px_rgba(79,70,229,0.12)] border-2 border-white/90">
+  <!-- ======================================================== -->
+  <!-- SLIM STREAMLINED APP HEADER (LOGO V3 & COMPACT UNIT NAV) -->
+  <!-- ======================================================== -->
+  <header class="w-full max-w-6xl bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl jelly-header mb-2.5 md:mb-3.5 sticky top-1.5 z-40 px-3 sm:px-4 py-2 sm:py-2.5 shadow-[0_6px_20px_rgba(79,70,229,0.08)] border border-white/90">
     
-    <!-- Top Row: Brand Logo on Left, Learner & Status Pills on Right -->
-    <div class="w-full flex items-center justify-between gap-2 sm:gap-4 pb-2.5 sm:pb-3 border-b border-indigo-50/80">
+    <!-- Top Row: V3 Logo (Self-contained, no side text) & Learner Status Badges -->
+    <div class="w-full flex items-center justify-between gap-2 sm:gap-4 pb-1.5 sm:pb-2 border-b border-indigo-50/70">
       
-      <!-- Brand Logo + Name (Logo is main visual, KaiSpeak top-right, 奇妙星語言 bottom-right) -->
-      <div class="flex items-center gap-2.5 sm:gap-3.5 cursor-pointer select-none shrink-0 group" onclick="switchAppMode('quest')" title="KaiSpeak 首頁">
-        <img src="images/ui/KaiSpeak_logo_V2_trans.png" alt="KaiSpeak" class="h-14 sm:h-16 md:h-18 lg:h-20 w-auto object-contain drop-shadow-[0_6px_16px_rgba(79,70,229,0.22)] group-hover:scale-105 group-hover:rotate-1 transition-all duration-300 shrink-0">
-        <div class="flex flex-col justify-center text-left leading-none">
-          <span class="text-xl sm:text-2xl md:text-[26px] font-black tracking-tight bg-gradient-to-r from-indigo-800 via-indigo-600 to-purple-600 bg-clip-text text-transparent filter drop-shadow-2xs select-none leading-none">KaiSpeak</span>
-          <span class="text-[11px] sm:text-xs md:text-xs font-black text-indigo-500 tracking-wider mt-1 sm:mt-1.5 select-none flex items-center gap-1 leading-none">
-            <span class="text-[9px] text-amber-500">✨</span>
-            <span>奇妙星語言</span>
-          </span>
-        </div>
+      <!-- Brand Logo (Pure V3 Jelly Badge, KaiSpeak is already in the 3D logo!) -->
+      <div class="flex items-center cursor-pointer select-none shrink-0 group" onclick="switchAppMode('quest')" title="KaiSpeak 首頁">
+        <img src="images/ui/KaiSpeak_logo_V3_trans.png" alt="KaiSpeak" class="h-10 sm:h-12 md:h-13 w-auto object-contain drop-shadow-[0_4px_10px_rgba(79,70,229,0.18)] group-hover:scale-105 transition-all duration-300 shrink-0">
       </div>
 
-      <!-- Right Controls: Profile & Status Badges (Smooth tablet & mobile adaptation) -->
+      <!-- Right Controls: Profile & Status Badges (Streamlined & slim) -->
       <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
         
         <!-- Student Profile Button -->
-        <button onclick="toggleProfileModal()" title="切換學員 / 家庭多小朋友管理" class="jelly-btn-3d px-2.5 sm:px-3.5 py-1.5 rounded-2xl bg-gradient-to-r from-violet-50 to-indigo-50 hover:from-violet-100 hover:to-indigo-100 text-violet-900 border-2 border-violet-200 border-b-[3px] border-b-violet-300 text-xs font-bold transition flex items-center gap-1.5 sm:gap-2 shadow-xs active:translate-y-0.5 whitespace-nowrap">
-          <span id="headerProfileAvatar" class="text-base sm:text-lg">👦</span>
+        <button onclick="toggleProfileModal()" title="切換學員 / 家庭多小朋友管理" class="jelly-btn-3d px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl bg-gradient-to-r from-violet-50 to-indigo-50 hover:from-violet-100 hover:to-indigo-100 text-violet-900 border border-violet-200 border-b-2 border-b-violet-300 text-xs font-bold transition flex items-center gap-1.5 shadow-xs active:translate-y-0.5 whitespace-nowrap">
+          <span id="headerProfileAvatar" class="text-sm sm:text-base">👦</span>
           <div class="text-left leading-tight">
             <div class="flex items-center gap-1">
               <span id="headerProfileName" class="font-black text-xs text-violet-950">Kai 寶貝</span>
@@ -358,57 +354,57 @@
         </button>
 
         <!-- Streak Badge -->
-        <button onclick="toggleStreakShieldModal()" title="查看打卡守護紀錄與補簽" class="jelly-btn-3d px-2 sm:px-3 py-1.5 rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50 hover:from-amber-100 hover:to-orange-100 text-amber-900 border-2 border-amber-200 border-b-[3px] border-b-amber-400 text-xs font-black transition flex items-center gap-1 shadow-xs active:translate-y-0.5 whitespace-nowrap">
-          <span class="text-sm sm:text-base">🔥</span>
-          <span class="hidden md:inline">連續:</span>
+        <button onclick="toggleStreakShieldModal()" title="查看打卡守護紀錄與補簽" class="jelly-btn-3d px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-xl bg-gradient-to-r from-amber-50 to-orange-50 hover:from-amber-100 hover:to-orange-100 text-amber-900 border border-amber-200 border-b-2 border-b-amber-400 text-xs font-black transition flex items-center gap-1 shadow-xs active:translate-y-0.5 whitespace-nowrap">
+          <span class="text-xs sm:text-sm">🔥</span>
+          <span class="hidden md:inline text-[11px]">連續:</span>
           <span id="headerStreakNum" class="font-mono text-xs sm:text-sm text-amber-600 font-extrabold">525</span>
-          <span>天</span>
+          <span class="text-[11px]">天</span>
           <span id="mobileStreakNum" class="hidden">525</span>
         </button>
 
         <!-- Energy Badge -->
-        <button onclick="toggleStreakShieldModal()" title="開啟能量補簽商城" class="jelly-btn-3d px-2 sm:px-3 py-1.5 rounded-2xl bg-gradient-to-r from-indigo-50 to-purple-50 hover:from-indigo-100 hover:to-purple-100 text-indigo-900 border-2 border-indigo-200 border-b-[3px] border-b-indigo-400 text-xs font-black transition flex items-center gap-1 shadow-xs active:translate-y-0.5 whitespace-nowrap">
-          <span class="text-sm sm:text-base text-indigo-600">⚡</span>
-          <span class="hidden md:inline">能量:</span>
+        <button onclick="toggleStreakShieldModal()" title="開啟能量補簽商城" class="jelly-btn-3d px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-xl bg-gradient-to-r from-indigo-50 to-purple-50 hover:from-indigo-100 hover:to-purple-100 text-indigo-900 border border-indigo-200 border-b-2 border-b-indigo-400 text-xs font-black transition flex items-center gap-1 shadow-xs active:translate-y-0.5 whitespace-nowrap">
+          <span class="text-xs sm:text-sm text-indigo-600">⚡</span>
+          <span class="hidden md:inline text-[11px]">能量:</span>
           <span id="headerEnergyNum" class="font-mono text-xs sm:text-sm text-indigo-600 font-extrabold">350</span>
-          <span class="hidden md:inline">點</span>
+          <span class="hidden md:inline text-[11px]">點</span>
           <span id="mobileEnergyNum" class="hidden">350</span>
         </button>
 
         <!-- Logout Button -->
-        <button onclick="logoutToGate()" title="登出學員 / 返回登入門戶" class="jelly-btn-3d px-2 sm:px-3 py-1.5 rounded-2xl bg-rose-50 hover:bg-rose-100 text-rose-700 border-2 border-rose-200 border-b-[3px] border-b-rose-300 text-xs font-bold transition flex items-center gap-1 shadow-xs active:translate-y-0.5 whitespace-nowrap">
+        <button onclick="logoutToGate()" title="登出學員 / 返回登入門戶" class="jelly-btn-3d px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 border-b-2 border-b-rose-300 text-xs font-bold transition flex items-center gap-1 shadow-xs active:translate-y-0.5 whitespace-nowrap">
           <span>🚪</span>
-          <span class="hidden md:inline">登出</span>
+          <span class="hidden md:inline text-[11px]">登出</span>
           <span id="mobileProfileName" class="hidden">Kai</span>
         </button>
 
         <!-- QR Code & Log Modals -->
-        <button onclick="toggleLogModal()" class="jelly-btn-3d p-1.5 sm:p-2 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 border-2 border-slate-200 border-b-[3px] border-b-slate-300 text-xs font-bold transition flex items-center active:translate-y-0.5 shadow-xs" title="學習日誌">
+        <button onclick="toggleLogModal()" class="jelly-btn-3d p-1 sm:p-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 border-b-2 border-b-slate-300 text-xs font-bold transition flex items-center active:translate-y-0.5 shadow-xs" title="學習日誌">
           📊
         </button>
-        <button onclick="toggleQRModal()" class="jelly-btn-3d p-1.5 sm:p-2 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 border-2 border-slate-200 border-b-[3px] border-b-slate-300 text-xs font-bold transition flex items-center active:translate-y-0.5 shadow-xs" title="手機掃碼體驗">
+        <button onclick="toggleQRModal()" class="jelly-btn-3d p-1 sm:p-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 border-b-2 border-b-slate-300 text-xs font-bold transition flex items-center active:translate-y-0.5 shadow-xs" title="手機掃碼體驗">
           📱
         </button>
       </div>
     </div>
 
-    <!-- Bottom Row: 3 Mode Navigation Tabs (Dedicated grid, zero wrap, zero squeeze, tablet friendly!) -->
-    <nav class="w-full flex items-center justify-center pt-2 sm:pt-2.5">
-      <div class="w-full max-w-2xl grid grid-cols-3 gap-1.5 sm:gap-2.5 bg-slate-100/90 p-1 sm:p-1.5 rounded-2xl border border-slate-200/80 shadow-inner">
+    <!-- Bottom Row: Slim Streamlined Mode Tabs (細長流暢設計，釋放主視覺空間) -->
+    <nav class="w-full flex items-center justify-center pt-1.5 sm:pt-2">
+      <div class="w-full max-w-xl grid grid-cols-3 gap-1 sm:gap-2 bg-slate-100/90 p-0.5 sm:p-1 rounded-xl border border-slate-200/80 shadow-inner">
         
-        <button id="navQuestBtn" onclick="switchAppMode('quest')" class="flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-black shadow-[0_6px_16px_rgba(79,70,229,0.35)] border-b-[3px] border-indigo-900 transition active:scale-95 whitespace-nowrap select-none">
+        <button id="navQuestBtn" onclick="switchAppMode('quest')" class="flex items-center justify-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-black shadow-[0_4px_12px_rgba(79,70,229,0.30)] border-b-2 border-indigo-900 transition active:scale-95 whitespace-nowrap select-none">
           <span class="text-xs sm:text-sm font-extrabold whitespace-nowrap">🎯 每日任務</span>
-          <span class="text-[9px] sm:text-[10px] bg-amber-400 text-amber-950 px-1.5 py-0.2 rounded-full font-black shadow-xs shrink-0 hidden sm:inline-block whitespace-nowrap">10詞動態</span>
+          <span class="text-[9px] bg-amber-400 text-amber-950 px-1 py-0.2 rounded-full font-black shadow-xs shrink-0 hidden sm:inline-block whitespace-nowrap">10詞動態</span>
         </button>
 
-        <button id="navFreeBtn" onclick="switchAppMode('free')" class="flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl text-slate-600 hover:text-indigo-900 hover:bg-white/80 font-bold transition active:scale-95 whitespace-nowrap select-none">
+        <button id="navFreeBtn" onclick="switchAppMode('free')" class="flex items-center justify-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-slate-600 hover:text-indigo-900 hover:bg-white/80 font-bold transition active:scale-95 whitespace-nowrap select-none">
           <span class="text-xs sm:text-sm font-extrabold whitespace-nowrap">📚 自由練習</span>
-          <span class="text-[9px] sm:text-[10px] bg-slate-200 text-slate-600 px-1.5 py-0.2 rounded-full font-bold shrink-0 hidden sm:inline-block whitespace-nowrap">字卡·糾音</span>
+          <span class="text-[9px] bg-slate-200 text-slate-600 px-1 py-0.2 rounded-full font-bold shrink-0 hidden sm:inline-block whitespace-nowrap">字卡·糾音</span>
         </button>
 
-        <button id="navAdventureBtn" onclick="switchAppMode('adventure')" class="flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl text-slate-600 hover:text-indigo-900 hover:bg-white/80 font-bold transition active:scale-95 whitespace-nowrap select-none">
+        <button id="navAdventureBtn" onclick="switchAppMode('adventure')" class="flex items-center justify-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-slate-600 hover:text-indigo-900 hover:bg-white/80 font-bold transition active:scale-95 whitespace-nowrap select-none">
           <span class="text-xs sm:text-sm font-extrabold whitespace-nowrap">🗺️ 探險島</span>
-          <span class="text-[9px] sm:text-[10px] bg-indigo-100 text-indigo-700 px-1.5 py-0.2 rounded-full font-bold shrink-0 hidden sm:inline-block whitespace-nowrap">迷霧闖關</span>
+          <span class="text-[9px] bg-indigo-100 text-indigo-700 px-1 py-0.2 rounded-full font-bold shrink-0 hidden sm:inline-block whitespace-nowrap">迷霧闖關</span>
         </button>
 
       </div>
@@ -770,35 +766,35 @@
   <!-- ======================================================== -->
   <section id="viewDailyQuest" class="w-full max-w-6xl flex flex-col gap-3 md:gap-5">
     
-    <!-- Banner -->
-    <div class="bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-700 text-white p-4 sm:p-5 md:p-6 rounded-3xl shadow-lg shadow-indigo-100 flex flex-col md:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-3 sm:gap-4 w-full md:w-auto">
-        <div class="w-12 h-12 md:w-16 md:h-16 bg-white/10 backdrop-blur rounded-2xl flex items-center justify-center text-2xl md:text-4xl shadow-inner shrink-0">
+    <!-- Slim Streamlined Quest Banner -->
+    <div class="bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-700 text-white p-2.5 sm:p-3.5 rounded-2xl shadow-md shadow-indigo-100/70 flex flex-col md:flex-row items-center justify-between gap-2.5">
+      <div class="flex items-center gap-2.5 sm:gap-3.5 w-full md:w-auto">
+        <div class="w-10 h-10 sm:w-11 sm:h-11 bg-white/10 backdrop-blur rounded-xl flex items-center justify-center text-xl sm:text-2xl shadow-inner shrink-0">
           🎯
         </div>
         <div>
           <div class="flex items-center gap-2 flex-wrap">
-            <h2 class="text-base sm:text-lg md:text-xl font-bold">今日打卡任務 (動態 10 詞流)</h2>
-            <button onclick="toggleStreakShieldModal()" class="text-[10px] md:text-xs bg-amber-400 hover:bg-amber-300 text-amber-950 font-black px-2.5 py-0.5 rounded-full shadow-sm flex items-center gap-1 transition">
-              🔥 連續打卡第 <span id="questStreakDays">525</span> 天
+            <h2 class="text-sm sm:text-base font-extrabold">今日打卡任務 (動態 10 詞流)</h2>
+            <button onclick="toggleStreakShieldModal()" class="text-[9px] sm:text-[10px] bg-amber-400 hover:bg-amber-300 text-amber-950 font-black px-2 py-0.2 rounded-full shadow-xs flex items-center gap-1 transition">
+              🔥 連續 <span id="questStreakDays">525</span> 天
             </button>
-            <button onclick="toggleStreakShieldModal()" class="text-[10px] md:text-xs bg-white/20 hover:bg-white/30 text-white font-extrabold px-2 py-0.5 rounded-full flex items-center gap-1 transition">
-              ⚡ 能量 <span id="bannerEnergyNum">350</span> 點
+            <button onclick="toggleStreakShieldModal()" class="text-[9px] sm:text-[10px] bg-white/20 hover:bg-white/30 text-white font-extrabold px-2 py-0.2 rounded-full flex items-center gap-1 transition">
+              ⚡ <span id="bannerEnergyNum">350</span> 點
             </button>
           </div>
-          <p class="text-xs text-indigo-100 mt-1">
+          <p class="text-[10px] sm:text-[11px] text-indigo-100 mt-0.5">
             4 個新詞 + 4 個複習 + 2 個熟悉 · 每詞隨機朗讀 2 句生活範例
           </p>
         </div>
       </div>
 
       <!-- Overall 10 Words Progress -->
-      <div class="flex items-center gap-3 md:gap-4 bg-white/10 backdrop-blur px-4 py-2.5 md:px-5 md:py-3 rounded-2xl border border-white/10 w-full md:w-auto justify-between">
+      <div class="flex items-center gap-3 bg-white/10 backdrop-blur px-3 py-1.5 sm:py-2 rounded-xl border border-white/10 w-full md:w-auto justify-between">
         <div class="text-left md:text-right">
-          <div class="text-[10px] md:text-[11px] text-indigo-200">今日詞彙進度</div>
-          <div class="text-base md:text-lg font-extrabold font-mono"><span id="questWordProgress">1</span> / 10 詞</div>
+          <div class="text-[9px] text-indigo-200">今日詞彙進度</div>
+          <div class="text-sm sm:text-base font-extrabold font-mono"><span id="questWordProgress">1</span> / 10 詞</div>
         </div>
-        <div class="w-24 md:w-32 bg-white/20 h-3 rounded-full overflow-hidden">
+        <div class="w-24 sm:w-28 bg-white/20 h-2.5 rounded-full overflow-hidden">
           <div id="questProgressBar" class="bg-amber-400 h-full rounded-full transition-all duration-500" style="width: 10%"></div>
         </div>
       </div>
@@ -1053,13 +1049,27 @@
         <div class="absolute -left-10 -top-10 w-48 h-48 bg-purple-400/20 rounded-full blur-2xl pointer-events-none"></div>
 
         <div class="flex-1 relative z-10 max-w-full">
-          <div class="flex items-center justify-center lg:justify-start gap-2 mb-2 flex-wrap">
-            <span id="freeHeroTargetType" class="text-xs font-black px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white border border-white/30 flex items-center gap-1 shadow-xs">
-              🎯 當前跟讀目標：單字
-            </span>
-            <button type="button" onclick="setFreeTargetToWord(); renderFreeCard();" id="freeHeroResetBtn" class="hidden text-xs bg-amber-400 hover:bg-amber-300 text-amber-950 px-3 py-1 rounded-full font-black transition active:scale-95 shadow-sm">
-              🔄 切換回單字
-            </button>
+          <div class="flex items-center justify-between gap-2 mb-2 flex-wrap">
+            <div class="flex items-center gap-2 flex-wrap">
+              <span id="freeHeroTargetType" class="text-xs font-black px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white border border-white/30 flex items-center gap-1 shadow-xs">
+                🎯 當前跟讀目標：單字
+              </span>
+              <button type="button" onclick="setFreeTargetToWord(); renderFreeCard(); playFreeTargetAudio();" id="freeHeroResetBtn" class="hidden text-xs bg-amber-400 hover:bg-amber-300 text-amber-950 px-3 py-1 rounded-full font-black transition active:scale-95 shadow-sm">
+                🔄 切換回單字
+              </button>
+            </div>
+            <!-- Quick Navigation Controls (Fluid continuous card & sentence switching) -->
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <button type="button" onclick="prevFreeWordCard()" class="px-2.5 py-1 rounded-xl bg-white/20 hover:bg-white/30 text-white font-bold text-xs transition active:scale-95" title="上一個單字卡">
+                ◀ 上一詞
+              </button>
+              <button type="button" onclick="nextFreeWordCard()" class="px-2.5 py-1 rounded-xl bg-white/20 hover:bg-white/30 text-white font-bold text-xs transition active:scale-95" title="下一個單字卡">
+                下一詞 ▶
+              </button>
+              <button type="button" id="freeHeroNextSentBtn" onclick="nextFreeSentenceStep()" class="hidden px-2.5 py-1 rounded-xl bg-emerald-400 hover:bg-emerald-300 text-emerald-950 font-black text-xs transition active:scale-95 shadow-sm" title="進入下一個例句">
+                下一句 ➔
+              </button>
+            </div>
           </div>
           <h2 id="freeActiveTargetText" class="text-3xl sm:text-4xl md:text-5xl font-black tracking-wide text-white drop-shadow-sm leading-tight mb-1 break-words">
             desk
@@ -1084,11 +1094,11 @@
 
       <div class="flex flex-col md:flex-row gap-6 items-start">
         
-        <!-- Word Card Info with Real Dynamic GIF Card Support -->
+        <!-- Word Card Info with Real Dynamic GIF Card Support (Visual Core) -->
         <div class="w-full md:w-1/3 flex flex-col items-center text-center p-5 bg-slate-50 rounded-2xl border border-slate-200 shrink-0">
-          <div class="relative w-36 h-36 sm:w-40 sm:h-40 rounded-3xl bg-white border-2 border-indigo-100 shadow-md flex items-center justify-center mb-3 overflow-hidden group">
+          <div class="relative w-44 h-44 sm:w-48 sm:h-48 md:w-56 md:h-56 rounded-3xl bg-white border-2 border-indigo-100 shadow-lg flex items-center justify-center mb-3 overflow-hidden group">
             <img id="freeCardImage" src="" alt="Dynamic Card" class="hidden w-full h-full object-cover group-hover:scale-105 transition duration-300">
-            <div id="freeEmoji" class="text-7xl md:text-8xl select-none group-hover:scale-110 transition duration-300">🪑</div>
+            <div id="freeEmoji" class="text-8xl sm:text-9xl select-none group-hover:scale-110 transition duration-300">🪑</div>
             <div class="absolute top-2 left-2 bg-indigo-900/80 backdrop-blur-sm text-white text-[9px] font-black px-2 py-0.5 rounded-full shadow-xs">
               動態圖卡
             </div>
@@ -1112,9 +1122,14 @@
             </div>
           </div>
           
-          <button type="button" onclick="setFreeTargetToWord(); renderFreeCard(); playFreeTargetAudio();" class="w-full py-2.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-black transition flex items-center justify-center gap-1.5 border border-indigo-200 active:scale-95 shadow-xs">
-            <span>🎯 選定此單字為跟讀目標</span>
-          </button>
+          <div class="flex flex-col gap-2 w-full">
+            <button type="button" onclick="setFreeTargetToWord(); renderFreeCard(); playFreeTargetAudio();" class="w-full py-2.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-black transition flex items-center justify-center gap-1.5 border border-indigo-200 active:scale-95 shadow-xs">
+              <span>🎯 選定此單字為跟讀目標</span>
+            </button>
+            <button type="button" onclick="startFirstSentenceForCurrentWord()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-50 to-orange-50 hover:from-amber-100 hover:to-orange-100 text-amber-900 text-xs font-black transition flex items-center justify-center gap-1.5 border border-amber-200 active:scale-95 shadow-xs">
+              <span>📖 挑戰本詞例句 (簡單➔進階)</span>
+            </button>
+          </div>
         </div>
 
         <!-- 9 Sentences Picker (Comfortable Cards) -->
@@ -1341,16 +1356,19 @@
       </div>
 
       <!-- Action Buttons -->
-      <div class="flex items-center gap-2 w-full">
-        <button type="button" onclick="retryRecordingFromModal()" class="flex-1 py-3 px-3 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 active:scale-95 text-white font-black text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-1.5">
-          <span>🔄</span> 再唸一次
-        </button>
-        <button type="button" onclick="replayAudioFromModal()" class="py-3 px-3.5 rounded-2xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-black text-xs sm:text-sm transition flex items-center justify-center gap-1 border border-indigo-200 active:scale-95">
-          <span>🔊</span> 重聽示範
-        </button>
-        <button type="button" onclick="closeSpeechDiagModal()" class="py-3 px-4 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs sm:text-sm transition active:scale-95">
-          完成關閉
-        </button>
+      <!-- Action Buttons Container (Dynamically rendered for Word vs Sentence next-step flow) -->
+      <div id="modalActionButtonsContainer" class="flex flex-col gap-2 w-full">
+        <div class="flex items-center gap-2 w-full">
+          <button type="button" onclick="retryRecordingFromModal()" class="flex-1 py-3 px-3 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 active:scale-95 text-white font-black text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-1.5">
+            <span>🔄</span> 再唸一次
+          </button>
+          <button type="button" onclick="replayAudioFromModal()" class="py-3 px-3.5 rounded-2xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-black text-xs sm:text-sm transition flex items-center justify-center gap-1 border border-indigo-200 active:scale-95">
+            <span>🔊</span> 重聽示範
+          </button>
+          <button type="button" onclick="closeSpeechDiagModal()" class="py-3 px-4 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs sm:text-sm transition active:scale-95">
+            完成關閉
+          </button>
+        </div>
       </div>
 
     </div>
@@ -1373,7 +1391,7 @@
       </div>
 
       <div class="text-[11px] font-mono text-slate-500 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200 mb-4 break-all">
-        https://honga0812.github.io/KaiSpeak/?v=19
+        https://honga0812.github.io/KaiSpeak/?v=20
       </div>
 
       <button onclick="toggleQRModal()" class="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
@@ -7496,14 +7514,18 @@
       const heroTarget = document.getElementById('freeActiveTargetText');
       const heroTrans = document.getElementById('freeActiveTargetTrans');
 
+      const heroNextSentBtn = document.getElementById('freeHeroNextSentBtn');
       if (freeActiveTarget === 'word') {
         if (heroType) heroType.innerHTML = '<span>🎯 當前跟讀目標：</span><span class="font-bold underline">單字</span>';
         if (heroResetBtn) heroResetBtn.classList.add('hidden');
+        if (heroNextSentBtn) heroNextSentBtn.classList.add('hidden');
         if (heroTarget) heroTarget.innerText = card.word;
         if (heroTrans) heroTrans.innerText = card.meaning;
       } else {
-        if (heroType) heroType.innerHTML = `<span>🎯 當前跟讀目標：</span><span class="font-bold underline">生活例句 (難度 ${freeScenarioIndex + 1})</span>`;
+        const lvlName = freeScenarioIndex === 0 ? '簡單' : (freeScenarioIndex === 1 ? '中等' : '進階');
+        if (heroType) heroType.innerHTML = `<span>🎯 當前跟讀目標：</span><span class="font-bold underline">例句 (難度 ${freeScenarioIndex + 1} · ${lvlName})</span>`;
         if (heroResetBtn) heroResetBtn.classList.remove('hidden');
+        if (heroNextSentBtn) heroNextSentBtn.classList.remove('hidden');
         if (heroTarget) heroTarget.innerText = freeActiveSentenceText;
         if (heroTrans) heroTrans.innerText = freeActiveSentenceTrans;
       }
@@ -7603,9 +7625,116 @@
       }
     }
 
+    let freeSentenceIndex = 0; // 0, 1, 2 inside current scenario
+
     function selectFreeScenario(sIdx) {
       freeScenarioIndex = sIdx;
+      freeSentenceIndex = 0;
+      const card = currentFreeCard();
+      const sc = (card.scenarios && card.scenarios[sIdx]) ? card.scenarios[sIdx] : card.scenarios[0];
+      if (sc && sc.sentences && sc.sentences.length > 0) {
+        setFreeTargetToSentence(sc.sentences[0], (sc.translations && sc.translations[0]) ? sc.translations[0] : "");
+      }
       renderFreeCard();
+      playFreeTargetAudio();
+      SoundEffects.playClick('tab');
+    }
+
+    function nextFreeWordCard() {
+      closeSpeechDiagModal();
+      freeCardIndex = (freeCardIndex + 1) % MASTER_VOCAB.length;
+      freeScenarioIndex = 0;
+      freeSentenceIndex = 0;
+      setFreeTargetToWord();
+      renderFreeCard();
+      playFreeTargetAudio();
+      SoundEffects.playClick('tab');
+    }
+
+    function prevFreeWordCard() {
+      closeSpeechDiagModal();
+      freeCardIndex = (freeCardIndex - 1 + MASTER_VOCAB.length) % MASTER_VOCAB.length;
+      freeScenarioIndex = 0;
+      freeSentenceIndex = 0;
+      setFreeTargetToWord();
+      renderFreeCard();
+      playFreeTargetAudio();
+      SoundEffects.playClick('tab');
+    }
+
+    function startFirstSentenceForCurrentWord() {
+      closeSpeechDiagModal();
+      freeScenarioIndex = 0;
+      freeSentenceIndex = 0;
+      const card = currentFreeCard();
+      const sc = card.scenarios[0];
+      const sent = sc.sentences[0];
+      const trans = (sc.translations && sc.translations[0]) ? sc.translations[0] : "";
+      setFreeTargetToSentence(sent, trans);
+      renderFreeCard();
+      playFreeTargetAudio();
+      SoundEffects.playClick('tab');
+    }
+
+    function nextFreeSentenceStep() {
+      closeSpeechDiagModal();
+      const card = currentFreeCard();
+      const currentSc = card.scenarios[freeScenarioIndex] || card.scenarios[0];
+      
+      if (freeSentenceIndex < (currentSc.sentences.length - 1)) {
+        freeSentenceIndex++;
+        const sent = currentSc.sentences[freeSentenceIndex];
+        const trans = (currentSc.translations && currentSc.translations[freeSentenceIndex]) ? currentSc.translations[freeSentenceIndex] : "";
+        setFreeTargetToSentence(sent, trans);
+        renderFreeCard();
+        playFreeTargetAudio();
+        SoundEffects.playClick('tab');
+      } else if (freeScenarioIndex < 2) {
+        freeScenarioIndex++;
+        freeSentenceIndex = 0;
+        const nextSc = card.scenarios[freeScenarioIndex];
+        const sent = nextSc.sentences[0];
+        const trans = (nextSc.translations && nextSc.translations[0]) ? nextSc.translations[0] : "";
+        setFreeTargetToSentence(sent, trans);
+        renderFreeCard();
+        playFreeTargetAudio();
+        SoundEffects.playClick('tab');
+      } else {
+        // All sentences finished for this word! Advance to next word card!
+        nextFreeWordCard();
+      }
+    }
+
+    function prevFreeSentenceStep() {
+      closeSpeechDiagModal();
+      const card = currentFreeCard();
+      if (freeSentenceIndex > 0) {
+        freeSentenceIndex--;
+      } else if (freeScenarioIndex > 0) {
+        freeScenarioIndex--;
+        const prevSc = card.scenarios[freeScenarioIndex];
+        freeSentenceIndex = prevSc.sentences.length - 1;
+      } else {
+        setFreeTargetToWord();
+        renderFreeCard();
+        playFreeTargetAudio();
+        return;
+      }
+      const sc = card.scenarios[freeScenarioIndex];
+      const sent = sc.sentences[freeSentenceIndex];
+      const trans = (sc.translations && sc.translations[freeSentenceIndex]) ? sc.translations[freeSentenceIndex] : "";
+      setFreeTargetToSentence(sent, trans);
+      renderFreeCard();
+      playFreeTargetAudio();
+      SoundEffects.playClick('tab');
+    }
+
+    function returnToWordFromModal() {
+      closeSpeechDiagModal();
+      setFreeTargetToWord();
+      renderFreeCard();
+      playFreeTargetAudio();
+      SoundEffects.playClick('pop');
     }
 
     function playFreeTargetAudio() {
@@ -8113,6 +8242,90 @@
       }
       document.getElementById('modalTeacherTip').innerText = tip;
 
+      // Dynamic Next Action Buttons (Word & Sentence progressive flow)
+      const actionsContainer = document.getElementById('modalActionButtonsContainer');
+      if (actionsContainer) {
+        if (mode === 'free') {
+          const card = currentFreeCard();
+          const nextCardIdx = (freeCardIndex + 1) % MASTER_VOCAB.length;
+          const nextWord = MASTER_VOCAB[nextCardIdx].word;
+
+          if (freeActiveTarget === 'word') {
+            actionsContainer.innerHTML = `
+              <div class="grid grid-cols-2 gap-2 w-full">
+                <button type="button" onclick="nextFreeWordCard()" class="jelly-btn-3d py-3.5 px-3 rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-purple-800 text-white font-black text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-1.5 active:scale-95 border-b-[3px] border-indigo-950">
+                  <span>➡️ 下一個單字</span>
+                  <span class="text-[10px] bg-white/20 px-1.5 py-0.2 rounded-full font-mono">${nextWord}</span>
+                </button>
+                <button type="button" onclick="startFirstSentenceForCurrentWord()" class="jelly-btn-3d py-3.5 px-3 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:to-orange-700 text-white font-black text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-1.5 active:scale-95 border-b-[3px] border-amber-800">
+                  <span>📖 挑戰本詞例句</span>
+                  <span class="text-[10px] bg-amber-900/30 px-1.5 py-0.2 rounded-full font-mono">簡單➔</span>
+                </button>
+              </div>
+
+              <div class="grid grid-cols-3 gap-2 w-full pt-1">
+                <button type="button" onclick="retryRecordingFromModal()" class="py-2.5 px-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition flex items-center justify-center gap-1 active:scale-95">
+                  <span>🔄</span> 再唸一次
+                </button>
+                <button type="button" onclick="replayAudioFromModal()" class="py-2.5 px-2 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-xs transition flex items-center justify-center gap-1 border border-indigo-200 active:scale-95">
+                  <span>🔊</span> 重聽示範
+                </button>
+                <button type="button" onclick="closeSpeechDiagModal()" class="py-2.5 px-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold text-xs transition active:scale-95">
+                  完成關閉
+                </button>
+              </div>
+            `;
+          } else {
+            const nextLevelNum = freeScenarioIndex + 2;
+            const isLastScenario = freeScenarioIndex >= 2;
+            const nextSentenceBtnText = isLastScenario 
+              ? `🌟 通關！進入下一個單字 (${nextWord}) ➡️` 
+              : `➡️ 下一個例句 (難度 ${nextLevelNum} · ${nextLevelNum === 2 ? '中等' : '進階'})`;
+
+            actionsContainer.innerHTML = `
+              <div class="grid grid-cols-2 gap-2 w-full">
+                <button type="button" onclick="nextFreeSentenceStep()" class="jelly-btn-3d py-3.5 px-2 sm:px-3 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-indigo-600 hover:from-emerald-600 hover:to-indigo-700 text-white font-black text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-1 active:scale-95 border-b-[3px] border-emerald-900">
+                  <span>${nextSentenceBtnText}</span>
+                </button>
+                <button type="button" onclick="returnToWordFromModal()" class="jelly-btn-3d py-3.5 px-3 rounded-2xl bg-indigo-50 hover:bg-indigo-100 text-indigo-900 font-black text-xs sm:text-sm shadow-xs transition flex items-center justify-center gap-1.5 active:scale-95 border-2 border-indigo-200 border-b-[3px] border-b-indigo-300">
+                  <span>🔤 回到單字</span>
+                  <span class="text-[10px] bg-indigo-200 text-indigo-800 px-1.5 py-0.2 rounded-full font-mono">${card.word}</span>
+                </button>
+              </div>
+
+              <div class="grid grid-cols-4 gap-1.5 w-full pt-1">
+                <button type="button" onclick="retryRecordingFromModal()" class="py-2 px-1 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition flex items-center justify-center gap-1 active:scale-95">
+                  <span>🔄</span> 重唸
+                </button>
+                <button type="button" onclick="replayAudioFromModal()" class="py-2 px-1 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-xs transition flex items-center justify-center gap-1 border border-indigo-100 active:scale-95">
+                  <span>🔊</span> 聽示範
+                </button>
+                <button type="button" onclick="nextFreeWordCard()" class="py-2 px-1 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-700 font-bold text-xs transition flex items-center justify-center gap-1 border border-purple-100 active:scale-95" title="跳至下一個字卡">
+                  <span>⏭️</span> 下個字
+                </button>
+                <button type="button" onclick="closeSpeechDiagModal()" class="py-2 px-1 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold text-xs transition active:scale-95">
+                  關閉
+                </button>
+              </div>
+            `;
+          }
+        } else {
+          actionsContainer.innerHTML = `
+            <div class="flex items-center gap-2 w-full">
+              <button type="button" onclick="retryRecordingFromModal()" class="flex-1 py-3 px-3 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 active:scale-95 text-white font-black text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-1.5">
+                <span>🔄</span> 再唸一次
+              </button>
+              <button type="button" onclick="replayAudioFromModal()" class="py-3 px-3.5 rounded-2xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-black text-xs sm:text-sm transition flex items-center justify-center gap-1 border border-indigo-200 active:scale-95">
+                <span>🔊</span> 重聽示範
+              </button>
+              <button type="button" onclick="closeSpeechDiagModal()" class="py-3 px-4 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs sm:text-sm transition active:scale-95">
+                完成關閉
+              </button>
+            </div>
+          `;
+        }
+      }
+
       modal.classList.remove('hidden');
     }
 
@@ -8440,7 +8653,7 @@
     function initQRCode() {
       const canvas = document.getElementById('qrCodeCanvas');
       if (canvas && window.QRCode) {
-        QRCode.toCanvas(canvas, "https://honga0812.github.io/KaiSpeak/?v=19", {
+        QRCode.toCanvas(canvas, "https://honga0812.github.io/KaiSpeak/?v=20", {
           width: 176,
           margin: 1,
           color: { dark: '#312E81', light: '#FFFFFF' }
