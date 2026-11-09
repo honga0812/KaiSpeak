@@ -110,7 +110,7 @@
       
       <!-- Top Branding -->
       <div class="flex flex-col items-center mb-1">
-        <img src="images/ui/KaiSpeak_logo_V2_trans.png" alt="KaiSpeak" class="h-28 sm:h-32 w-auto object-contain drop-shadow-[0_12px_24px_rgba(79,70,229,0.25)] hover:scale-105 transition duration-300">
+        <img src="images/ui/KaiSpeak_logo_V2_trans.png" alt="KaiSpeak" class="h-20 sm:h-24 md:h-28 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] hover:scale-105 transition duration-300">
         <h1 class="text-3xl sm:text-4xl font-black tracking-tight bg-gradient-to-r from-indigo-700 via-purple-600 to-indigo-900 bg-clip-text text-transparent mt-1 leading-none select-none">KaiSpeak</h1>
         <p class="text-xs text-slate-500 font-bold mt-2">少兒英語發音評測 · 家庭學員登入中心</p>
       </div>
@@ -299,106 +299,107 @@
 
 
   <!-- ======================================================== -->
-  <!-- TOP GLOBAL HEADER                                        -->
+  <!-- TOP GLOBAL HEADER (RESPONSIVE & TABLET OPTIMIZED)         -->
   <!-- ======================================================== -->
-  <header class="w-full max-w-6xl flex flex-col lg:flex-row items-center justify-between gap-3.5 p-3.5 sm:p-4 md:px-6 md:py-4 bg-white/95 backdrop-blur-md rounded-[32px] jelly-header mb-2 sticky top-2 z-40 transition-all">
-    <div class="flex items-center justify-between w-full lg:w-auto">
-      <div class="flex items-center gap-3 sm:gap-4 cursor-pointer select-none group" onclick="switchAppMode('quest')" title="KaiSpeak 首頁">
-        <img src="images/ui/KaiSpeak_logo_V2_trans.png" alt="KaiSpeak" class="h-16 sm:h-20 md:h-24 w-auto object-contain drop-shadow-[0_8px_18px_rgba(79,70,229,0.24)] group-hover:scale-105 group-hover:rotate-1 transition-all duration-300">
-        <span class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight bg-gradient-to-r from-indigo-700 via-purple-600 to-indigo-900 bg-clip-text text-transparent filter drop-shadow-sm leading-none">KaiSpeak</span>
+  <header class="w-full max-w-6xl bg-white/95 backdrop-blur-md rounded-3xl sm:rounded-[32px] jelly-header mb-3 sticky top-2 z-40 p-3 sm:p-4 shadow-[0_12px_30px_rgba(79,70,229,0.12)] border-2 border-white/90">
+    
+    <!-- Top Row: Brand Logo on Left, Learner & Status Pills on Right -->
+    <div class="w-full flex items-center justify-between gap-2 sm:gap-4 pb-2.5 sm:pb-3 border-b border-indigo-50/80">
+      
+      <!-- Brand Logo + Name (Clean & prominent, never wraps, never overlaps) -->
+      <div class="flex items-center gap-2.5 sm:gap-3 cursor-pointer select-none shrink-0 group" onclick="switchAppMode('quest')" title="KaiSpeak 首頁">
+        <img src="images/ui/KaiSpeak_logo_V2_trans.png" alt="KaiSpeak" class="h-11 sm:h-13 md:h-15 lg:h-16 w-auto object-contain drop-shadow-[0_4px_12px_rgba(79,70,229,0.2)] group-hover:scale-105 group-hover:rotate-1 transition-all duration-300">
+        <span class="text-2xl sm:text-3xl md:text-3xl lg:text-4xl font-black tracking-tight bg-gradient-to-r from-indigo-700 via-purple-600 to-indigo-900 bg-clip-text text-transparent filter drop-shadow-xs leading-none whitespace-nowrap">KaiSpeak</span>
       </div>
 
-      <!-- Mobile Top Quick Badges -->
-      <div class="flex lg:hidden items-center gap-1.5 sm:gap-2">
-        <button onclick="logoutToGate()" class="jelly-btn-3d px-2.5 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 border-b-2 border-b-rose-300 text-xs font-black flex items-center gap-1 shadow-sm active:translate-y-0.5" title="登出學員 / 返回登入門戶">
-          🚪 <span id="mobileProfileName">Kai</span>
+      <!-- Right Controls: Profile & Status Badges (Smooth tablet & mobile adaptation) -->
+      <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+        
+        <!-- Student Profile Button -->
+        <button onclick="toggleProfileModal()" title="切換學員 / 家庭多小朋友管理" class="jelly-btn-3d px-2.5 sm:px-3.5 py-1.5 rounded-2xl bg-gradient-to-r from-violet-50 to-indigo-50 hover:from-violet-100 hover:to-indigo-100 text-violet-900 border-2 border-violet-200 border-b-[3px] border-b-violet-300 text-xs font-bold transition flex items-center gap-1.5 sm:gap-2 shadow-xs active:translate-y-0.5 whitespace-nowrap">
+          <span id="headerProfileAvatar" class="text-base sm:text-lg">👦</span>
+          <div class="text-left leading-tight">
+            <div class="flex items-center gap-1">
+              <span id="headerProfileName" class="font-black text-xs text-violet-950">Kai 寶貝</span>
+              <span id="headerProfileGrade" class="hidden md:inline-block text-[9px] bg-violet-200 text-violet-800 px-1.5 py-0.2 rounded-full font-bold">國小二年級</span>
+            </div>
+            <div class="text-[9px] text-violet-600 font-bold hidden lg:flex items-center gap-1">
+              <span id="headerProfileLevelBadge">🟢 程度: 基礎入門</span>
+              <span class="text-violet-400">▾</span>
+            </div>
+          </div>
         </button>
-        <button onclick="toggleStreakShieldModal()" class="jelly-btn-3d px-2.5 py-1.5 rounded-xl bg-amber-50 text-amber-900 border border-amber-200 border-b-2 border-b-amber-400 text-xs font-black flex items-center gap-1 shadow-sm active:translate-y-0.5 transition">
-          🔥 <span id="mobileStreakNum">525</span>天
+
+        <!-- Streak Badge -->
+        <button onclick="toggleStreakShieldModal()" title="查看打卡守護紀錄與補簽" class="jelly-btn-3d px-2 sm:px-3 py-1.5 rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50 hover:from-amber-100 hover:to-orange-100 text-amber-900 border-2 border-amber-200 border-b-[3px] border-b-amber-400 text-xs font-black transition flex items-center gap-1 shadow-xs active:translate-y-0.5 whitespace-nowrap">
+          <span class="text-sm sm:text-base">🔥</span>
+          <span class="hidden md:inline">連續:</span>
+          <span id="headerStreakNum" class="font-mono text-xs sm:text-sm text-amber-600 font-extrabold">525</span>
+          <span>天</span>
+          <span id="mobileStreakNum" class="hidden">525</span>
         </button>
-        <button onclick="toggleStreakShieldModal()" class="jelly-btn-3d px-2.5 py-1.5 rounded-xl bg-indigo-50 text-indigo-800 border border-indigo-200 border-b-2 border-b-indigo-400 text-xs font-black flex items-center gap-1 shadow-sm active:translate-y-0.5 transition">
-          ⚡ <span id="mobileEnergyNum">350</span>
+
+        <!-- Energy Badge -->
+        <button onclick="toggleStreakShieldModal()" title="開啟能量補簽商城" class="jelly-btn-3d px-2 sm:px-3 py-1.5 rounded-2xl bg-gradient-to-r from-indigo-50 to-purple-50 hover:from-indigo-100 hover:to-purple-100 text-indigo-900 border-2 border-indigo-200 border-b-[3px] border-b-indigo-400 text-xs font-black transition flex items-center gap-1 shadow-xs active:translate-y-0.5 whitespace-nowrap">
+          <span class="text-sm sm:text-base text-indigo-600">⚡</span>
+          <span class="hidden md:inline">能量:</span>
+          <span id="headerEnergyNum" class="font-mono text-xs sm:text-sm text-indigo-600 font-extrabold">350</span>
+          <span class="hidden md:inline">點</span>
+          <span id="mobileEnergyNum" class="hidden">350</span>
         </button>
-        <button onclick="toggleQRModal()" class="jelly-btn-3d p-2 rounded-xl bg-slate-100 text-slate-700 border border-slate-200 border-b-2 border-b-slate-300 text-xs font-bold shadow-sm active:translate-y-0.5" title="掃碼">
+
+        <!-- Logout Button -->
+        <button onclick="logoutToGate()" title="登出學員 / 返回登入門戶" class="jelly-btn-3d px-2 sm:px-3 py-1.5 rounded-2xl bg-rose-50 hover:bg-rose-100 text-rose-700 border-2 border-rose-200 border-b-[3px] border-b-rose-300 text-xs font-bold transition flex items-center gap-1 shadow-xs active:translate-y-0.5 whitespace-nowrap">
+          <span>🚪</span>
+          <span class="hidden md:inline">登出</span>
+          <span id="mobileProfileName" class="hidden">Kai</span>
+        </button>
+
+        <!-- QR Code & Log Modals -->
+        <button onclick="toggleLogModal()" class="jelly-btn-3d p-1.5 sm:p-2 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 border-2 border-slate-200 border-b-[3px] border-b-slate-300 text-xs font-bold transition flex items-center active:translate-y-0.5 shadow-xs" title="學習日誌">
+          📊
+        </button>
+        <button onclick="toggleQRModal()" class="jelly-btn-3d p-1.5 sm:p-2 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 border-2 border-slate-200 border-b-[3px] border-b-slate-300 text-xs font-bold transition flex items-center active:translate-y-0.5 shadow-xs" title="手機掃碼體驗">
           📱
         </button>
       </div>
     </div>
 
-    <!-- Mode Navigation Tabs -->
-    <nav class="flex items-center bg-slate-100/90 p-1 md:p-1.5 rounded-2xl border border-slate-200/80 shadow-inner text-xs font-bold w-full lg:w-auto justify-center gap-1">
-      <button id="navQuestBtn" onclick="switchAppMode('quest')" class="flex-1 lg:flex-initial px-4 md:px-5 py-2 md:py-2.5 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-black shadow-[0_6px_16px_rgba(79,70,229,0.35)] border-b-[3px] border-indigo-900 transition flex items-center justify-center gap-1.5 active:scale-95">
-        <span>🎯 每日任務</span>
-        <span class="text-[9px] md:text-[10px] bg-amber-400 text-amber-950 px-1.5 py-0.2 rounded-full font-black shadow-xs">10詞動態</span>
-      </button>
-      <button id="navFreeBtn" onclick="switchAppMode('free')" class="flex-1 lg:flex-initial px-4 md:px-5 py-2 md:py-2.5 rounded-2xl text-slate-600 hover:text-indigo-900 hover:bg-white/80 font-bold transition flex items-center justify-center gap-1.5 active:scale-95">
-        <span>📚 自由練習</span>
-        <span class="text-[9px] md:text-[10px] bg-slate-200 text-slate-600 px-1.5 py-0.2 rounded-full font-bold">字卡·糾音</span>
-      </button>
-      <button id="navAdventureBtn" onclick="switchAppMode('adventure')" class="flex-1 lg:flex-initial px-4 md:px-5 py-2 md:py-2.5 rounded-2xl text-slate-600 hover:text-indigo-900 hover:bg-white/80 font-bold transition flex items-center justify-center gap-1.5 active:scale-95">
-        <span>🗺️ 探險島</span>
-        <span class="text-[9px] md:text-[10px] bg-indigo-100 text-indigo-700 px-1.5 py-0.2 rounded-full font-bold">迷霧闖關</span>
-      </button>
+    <!-- Bottom Row: 3 Mode Navigation Tabs (Dedicated grid, zero wrap, zero squeeze, tablet friendly!) -->
+    <nav class="w-full flex items-center justify-center pt-2 sm:pt-2.5">
+      <div class="w-full max-w-2xl grid grid-cols-3 gap-1.5 sm:gap-2.5 bg-slate-100/90 p-1 sm:p-1.5 rounded-2xl border border-slate-200/80 shadow-inner">
+        
+        <button id="navQuestBtn" onclick="switchAppMode('quest')" class="flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-black shadow-[0_6px_16px_rgba(79,70,229,0.35)] border-b-[3px] border-indigo-900 transition active:scale-95 whitespace-nowrap select-none">
+          <span class="text-xs sm:text-sm font-extrabold whitespace-nowrap">🎯 每日任務</span>
+          <span class="text-[9px] sm:text-[10px] bg-amber-400 text-amber-950 px-1.5 py-0.2 rounded-full font-black shadow-xs shrink-0 hidden sm:inline-block whitespace-nowrap">10詞動態</span>
+        </button>
+
+        <button id="navFreeBtn" onclick="switchAppMode('free')" class="flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl text-slate-600 hover:text-indigo-900 hover:bg-white/80 font-bold transition active:scale-95 whitespace-nowrap select-none">
+          <span class="text-xs sm:text-sm font-extrabold whitespace-nowrap">📚 自由練習</span>
+          <span class="text-[9px] sm:text-[10px] bg-slate-200 text-slate-600 px-1.5 py-0.2 rounded-full font-bold shrink-0 hidden sm:inline-block whitespace-nowrap">字卡·糾音</span>
+        </button>
+
+        <button id="navAdventureBtn" onclick="switchAppMode('adventure')" class="flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl text-slate-600 hover:text-indigo-900 hover:bg-white/80 font-bold transition active:scale-95 whitespace-nowrap select-none">
+          <span class="text-xs sm:text-sm font-extrabold whitespace-nowrap">🗺️ 探險島</span>
+          <span class="text-[9px] sm:text-[10px] bg-indigo-100 text-indigo-700 px-1.5 py-0.2 rounded-full font-bold shrink-0 hidden sm:inline-block whitespace-nowrap">迷霧闖關</span>
+        </button>
+
+      </div>
     </nav>
-
-    <!-- Desktop Navigation Controls -->
-    <div class="hidden lg:flex items-center gap-2">
-      <!-- Logout / Switch Gate Button -->
-      <button onclick="logoutToGate()" title="登出學員 / 返回登入門戶" class="jelly-btn-3d px-3 py-2 rounded-2xl bg-rose-50 hover:bg-rose-100 text-rose-700 border-2 border-rose-200 border-b-[3px] border-b-rose-300 text-xs font-bold transition flex items-center gap-1.5 shadow-sm active:translate-y-0.5">
-        <span>🚪</span>
-        <span>登出/切換</span>
-      </button>
-
-      <!-- Desktop Child Profile Switcher -->
-      <button onclick="toggleProfileModal()" title="切換學員 / 家庭多小朋友管理" class="jelly-btn-3d px-3.5 py-1.5 rounded-2xl bg-gradient-to-r from-violet-50 to-indigo-50 hover:from-violet-100 hover:to-indigo-100 text-violet-900 border-2 border-violet-200 border-b-[3px] border-b-violet-300 text-xs font-bold transition flex items-center gap-2 shadow-[0_4px_12px_rgba(139,92,246,0.12)] active:translate-y-0.5">
-        <span id="headerProfileAvatar" class="text-xl">👦</span>
-        <div class="text-left leading-tight">
-          <div class="flex items-center gap-1.5">
-            <span id="headerProfileName" class="font-black text-xs text-violet-950">Kai 寶貝</span>
-            <span id="headerProfileGrade" class="text-[9px] bg-violet-200 text-violet-800 px-1.5 py-0.2 rounded-full font-bold">國小二年級</span>
-          </div>
-          <div class="text-[9px] text-violet-600 font-bold flex items-center gap-1">
-            <span id="headerProfileLevelBadge">🟢 程度: 基礎入門</span>
-            <span class="text-violet-400">▾</span>
-          </div>
-        </div>
-      </button>
-
-      <button onclick="toggleStreakShieldModal()" title="查看打卡守護紀錄與補簽" class="jelly-btn-3d px-3.5 py-2 rounded-2xl bg-gradient-to-r from-amber-50 to-orange-50 hover:from-amber-100 hover:to-orange-100 text-amber-900 border-2 border-amber-200 border-b-[3px] border-b-amber-400 text-xs font-black transition flex items-center gap-1.5 shadow-[0_4px_14px_rgba(245,158,11,0.18)] active:translate-y-0.5">
-        <span class="text-base">🔥</span>
-        <span>連續打卡:</span>
-        <span id="headerStreakNum" class="font-mono text-sm text-amber-600 font-extrabold">525</span>
-        <span>天</span>
-      </button>
-
-      <button onclick="toggleStreakShieldModal()" title="開啟能量補簽商城" class="jelly-btn-3d px-3.5 py-2 rounded-2xl bg-gradient-to-r from-indigo-50 to-purple-50 hover:from-indigo-100 hover:to-purple-100 text-indigo-900 border-2 border-indigo-200 border-b-[3px] border-b-indigo-400 text-xs font-black transition flex items-center gap-1.5 shadow-[0_4px_14px_rgba(99,102,241,0.18)] active:translate-y-0.5">
-        <span class="text-base text-indigo-600">⚡</span>
-        <span>能量:</span>
-        <span id="headerEnergyNum" class="font-mono text-sm text-indigo-600 font-extrabold">350</span>
-        <span>點</span>
-      </button>
-
-      <button onclick="toggleQRModal()" class="jelly-btn-3d p-2.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 border-2 border-slate-200 border-b-[3px] border-b-slate-300 text-xs font-bold transition flex items-center active:translate-y-0.5 shadow-xs" title="手機掃碼體驗">
-        📱
-      </button>
-      <button onclick="toggleLogModal()" class="jelly-btn-3d p-2.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 border-2 border-slate-200 border-b-[3px] border-b-slate-300 text-xs font-bold transition flex items-center active:translate-y-0.5 shadow-xs" title="學習日誌">
-        📊
-      </button>
-    </div>
   </header>
 
   <!-- ======================================================== -->
   <!-- FEATURE HIGHLIGHTS PILL RIBBON                           -->
   <!-- ======================================================== -->
   <div class="w-full max-w-6xl flex items-center justify-center -mt-1 sm:-mt-2 mb-3 md:mb-5 px-2">
-    <div class="inline-flex items-center flex-wrap justify-center gap-2 sm:gap-3.5 px-4 sm:px-6 py-2 rounded-full bg-white/90 backdrop-blur-md border-2 border-indigo-100 shadow-[0_8px_20px_rgba(99,102,241,0.08)] text-slate-600 text-xs sm:text-sm font-black select-none hover:shadow-[0_8px_25px_rgba(99,102,241,0.14)] transition duration-200">
-      <span class="flex items-center gap-1.5 text-indigo-600"><span class="text-amber-500 animate-pulse">✨</span> 母語示範</span>
+    <div class="inline-flex items-center flex-wrap justify-center gap-2 sm:gap-3.5 px-4 sm:px-6 py-1.5 sm:py-2 rounded-full bg-white/90 backdrop-blur-md border border-indigo-100 shadow-[0_4px_16px_rgba(99,102,241,0.06)] text-slate-600 text-xs sm:text-sm font-black select-none hover:shadow-[0_8px_25px_rgba(99,102,241,0.12)] transition duration-200">
+      <span class="flex items-center gap-1.5 text-indigo-600 whitespace-nowrap"><span class="text-amber-500 animate-pulse">✨</span> 母語示範</span>
       <span class="text-indigo-200 hidden sm:inline">•</span>
-      <span class="flex items-center gap-1.5 text-purple-600"><span>🎬</span> 動態圖卡</span>
+      <span class="flex items-center gap-1.5 text-purple-600 whitespace-nowrap"><span>🎬</span> 動態圖卡</span>
       <span class="text-indigo-200 hidden sm:inline">•</span>
-      <span class="flex items-center gap-1.5 text-sky-600"><span>📐</span> 自適應雙欄</span>
+      <span class="flex items-center gap-1.5 text-sky-600 whitespace-nowrap"><span>📐</span> 自適應雙欄</span>
       <span class="text-indigo-200 hidden sm:inline">•</span>
-      <span class="flex items-center gap-1.5 text-rose-500"><span>🎁</span> 盲盒闖關</span>
+      <span class="flex items-center gap-1.5 text-rose-500 whitespace-nowrap"><span>🎁</span> 盲盒闖關</span>
     </div>
   </div>
 
@@ -6530,8 +6531,8 @@
       const bFree = document.getElementById('navFreeBtn');
       const bAdv = document.getElementById('navAdventureBtn');
 
-      const tabInactive = "flex-1 lg:flex-initial px-4 md:px-5 py-2 md:py-2.5 rounded-2xl text-slate-600 hover:text-indigo-900 hover:bg-white/80 font-bold transition flex items-center justify-center gap-1.5 active:scale-95";
-      const tabActive = "flex-1 lg:flex-initial px-4 md:px-5 py-2 md:py-2.5 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-black shadow-[0_6px_16px_rgba(79,70,229,0.35)] border-b-[3px] border-indigo-900 transition flex items-center justify-center gap-1.5 active:scale-95";
+      const tabInactive = "flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl text-slate-600 hover:text-indigo-900 hover:bg-white/80 font-bold transition active:scale-95 whitespace-nowrap select-none";
+      const tabActive = "flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-black shadow-[0_6px_16px_rgba(79,70,229,0.35)] border-b-[3px] border-indigo-900 transition active:scale-95 whitespace-nowrap select-none";
 
       [bQuest, bFree, bAdv].forEach(b => {
         b.className = tabInactive;
