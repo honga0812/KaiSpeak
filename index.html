@@ -6,6 +6,19 @@
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
+  <script>
+    // Automatic cache busting for GitHub Pages CDN
+    (function() {
+      try {
+        const LATEST_VER = "v17";
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get("v") !== LATEST_VER) {
+          urlParams.set("v", LATEST_VER);
+          window.location.replace(window.location.pathname + "?" + urlParams.toString() + window.location.hash);
+        }
+      } catch(e) {}
+    })();
+  </script>
   <title>KaiSpeak - 智慧少兒英語發音評測與任務系統</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="icon" type="image/png" sizes="64x64" href="images/ui/favicon.png">
@@ -407,7 +420,10 @@
   <!-- KICKOFF OVERLAY: STREAK CELEBRATION                      -->
   <!-- ======================================================== -->
   <div id="questKickoffOverlay" class="fixed inset-0 bg-slate-900/75 backdrop-blur-md z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto hidden">
-    <div class="bg-white rounded-3xl p-6 sm:p-8 md:p-10 max-w-lg w-full shadow-2xl border border-indigo-100 text-center flex flex-col items-center my-auto">
+    <div class="bg-white rounded-3xl p-6 sm:p-8 md:p-10 max-w-lg w-full shadow-2xl border border-indigo-100 text-center flex flex-col items-center my-auto relative">
+      
+      <!-- Top Right Corner Skip Button -->
+      <button onclick="skipQuestKickoffOverlay()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 font-black text-sm flex items-center justify-center transition shadow-xs active:scale-95" title="跳過今日挑戰，直接進入主頁">✕</button>
       
       <div class="relative mb-4 flex items-center justify-center">
         <div class="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-tr from-amber-400 via-orange-500 to-red-500 flex flex-col items-center justify-center text-white shadow-xl fire-glow animate-pulse">
@@ -462,8 +478,13 @@
         <span>🚀 點擊開始今日挑戰（延續連勝）</span>
       </button>
 
-      <div class="mt-3 text-[11px] text-slate-600 flex items-center gap-1 justify-center">
-        <span>💡 點選上方按鈕即可啟動聲音與麥克風權限</span>
+      <!-- Direct Skip Action Button -->
+      <button id="overlaySkipBtn" onclick="skipQuestKickoffOverlay()" class="w-full mt-2.5 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 hover:text-slate-900 text-xs sm:text-sm font-black transition flex items-center justify-center gap-1.5 active:scale-95 border border-slate-200 shadow-xs">
+        <span>⏭️ 先不挑戰，直接跳過進入主頁面</span>
+      </button>
+
+      <div class="mt-3 text-[11px] text-slate-500 flex items-center gap-1 justify-center">
+        <span>💡 可隨時在首頁點選「聽示範」或自由練習自主學習</span>
       </div>
     </div>
   </div>
@@ -1352,7 +1373,7 @@
       </div>
 
       <div class="text-[11px] font-mono text-slate-500 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200 mb-4 break-all">
-        https://honga0812.github.io/KaiSpeak/?v=14
+        https://honga0812.github.io/KaiSpeak/?v=17
       </div>
 
       <button onclick="toggleQRModal()" class="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
@@ -5732,8 +5753,10 @@
       SoundEffects.playShield();
       const countBox = document.getElementById('overlayCountdownBox');
       const startBtn = document.getElementById('overlayStartBtn');
+      const skipBtn = document.getElementById('overlaySkipBtn');
       if (countBox) countBox.classList.add('hidden');
       if (startBtn) startBtn.classList.remove('hidden');
+      if (skipBtn) skipBtn.classList.remove('hidden');
       document.getElementById('questKickoffOverlay').classList.remove('hidden');
     }
 
@@ -5830,8 +5853,10 @@
           // Reset kickoff overlay buttons & show for this logged in child
           const countBox = document.getElementById('overlayCountdownBox');
           const startBtn = document.getElementById('overlayStartBtn');
+          const skipBtn = document.getElementById('overlaySkipBtn');
           if (countBox) countBox.classList.add('hidden');
           if (startBtn) startBtn.classList.remove('hidden');
+          if (skipBtn) skipBtn.classList.remove('hidden');
           document.getElementById('questKickoffOverlay').classList.remove('hidden');
         }, 300);
       } else {
@@ -6490,6 +6515,8 @@
       } catch(e) {}
 
       document.getElementById('overlayStartBtn').classList.add('hidden');
+      const skipBtn = document.getElementById('overlaySkipBtn');
+      if (skipBtn) skipBtn.classList.add('hidden');
       const countBox = document.getElementById('overlayCountdownBox');
       const countNum = document.getElementById('overlayCountdownNum');
       countBox.classList.remove('hidden');
@@ -6513,6 +6540,18 @@
           runQuestAutoStep();
         }
       }, 900);
+    }
+
+    function skipQuestKickoffOverlay() {
+      if (overlayTimer) {
+        clearInterval(overlayTimer);
+        overlayTimer = null;
+      }
+      document.getElementById('questKickoffOverlay').classList.add('hidden');
+      questAutoPlay = false;
+      updatePauseUI();
+      setQuestStatus("瀏覽模式 · 點選「聽示範」或麥克風即可自主練習", "👀", "bg-slate-100 text-slate-700 border-slate-200");
+      renderQuestCard();
     }
 
     // --- App Mode Switcher ---
@@ -8267,7 +8306,7 @@
     function initQRCode() {
       const canvas = document.getElementById('qrCodeCanvas');
       if (canvas && window.QRCode) {
-        QRCode.toCanvas(canvas, "https://honga0812.github.io/KaiSpeak/?v=14", {
+        QRCode.toCanvas(canvas, "https://honga0812.github.io/KaiSpeak/?v=17", {
           width: 176,
           margin: 1,
           color: { dark: '#312E81', light: '#FFFFFF' }
