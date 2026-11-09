@@ -1134,7 +1134,7 @@
       </div>
 
       <div class="text-[11px] font-mono text-slate-500 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200 mb-4 break-all">
-        https://honga0812.github.io/KaiSpeak/?v=12
+        https://honga0812.github.io/KaiSpeak/?v=13
       </div>
 
       <button onclick="toggleQRModal()" class="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
@@ -6369,26 +6369,22 @@
 
       const targetText = document.getElementById('questTargetEnglish') ? document.getElementById('questTargetEnglish').innerText.trim() : "";
 
-      if (questSubStep === 0) {
-        // Step 0: Single Word
-        const card = currentQuestCard();
-        const audioSrc = card.audioWord || `audio/word_${card.id}.m4a`;
+      const audioSrc = getQuestAudioSrc();
+      if (audioSrc) {
         questAudioPlayer.src = audioSrc;
         questAudioPlayer.onended = finish;
-        questAudioPlayer.onerror = () => {
+        questAudioPlayer.onerror = (e) => {
+          console.warn("Audio file error or missing, falling back to TTS:", audioSrc, e);
           fallbackNaturalTTS(targetText, finish);
         };
         const playPromise = questAudioPlayer.play();
         if (playPromise !== undefined) {
           playPromise.catch(e => {
-            console.warn("Audio play blocked or missing, using TTS:", e);
+            console.warn("Audio play blocked, using TTS fallback:", e);
             fallbackNaturalTTS(targetText, finish);
           });
         }
       } else {
-        // Step 1 & 2: Graded Elementary Sentences!
-        // ALWAYS use natural TTS on the EXACT targetText displayed on screen!
-        // This guarantees 100% precision between what is heard and what is displayed.
         fallbackNaturalTTS(targetText, finish);
       }
     }
@@ -7063,22 +7059,48 @@
 
     function playFreeTargetAudio() {
       const card = currentFreeCard();
+      if (!card) return;
       if (freeActiveTarget === 'word') {
         const src = card.audioWord || `audio/word_${card.id}.m4a`;
         freeAudioPlayer.src = src;
         freeAudioPlayer.onerror = () => fallbackNaturalTTS(card.word, null);
         freeAudioPlayer.play().catch(() => fallbackNaturalTTS(card.word, null));
       } else {
-        const text = freeActiveSentenceText;
-        fallbackNaturalTTS(text, null);
+        let scIdx = freeScenarioIndex;
+        if (card.scenarios) {
+          card.scenarios.forEach((sc, idx) => {
+            if (sc.sentences && sc.sentences.includes(freeActiveSentenceText)) {
+              scIdx = idx;
+            }
+          });
+        }
+        const audioPath = `audio/sentence_${card.id}_${scIdx}_0.m4a`;
+        freeAudioPlayer.src = audioPath;
+        freeAudioPlayer.onerror = () => fallbackNaturalTTS(freeActiveSentenceText, null);
+        const playPromise = freeAudioPlayer.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => fallbackNaturalTTS(freeActiveSentenceText, null));
+        }
       }
     }
 
     function playFreeSentenceAudio(cardId, scIdx, sentIdx, exactText) {
+      if (freeAudioPlayer) {
+        freeAudioPlayer.pause();
+        freeAudioPlayer.currentTime = 0;
+      }
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+
       const card = MASTER_VOCAB.find(c => c.id === cardId);
       const text = exactText || (card && card.scenarios[scIdx] ? card.scenarios[scIdx].sentences[sentIdx] : "");
-      if (text) {
-        fallbackNaturalTTS(text, null);
+      const audioPath = `audio/sentence_${cardId}_${scIdx}_0.m4a`;
+      freeAudioPlayer.src = audioPath;
+      freeAudioPlayer.onerror = () => fallbackNaturalTTS(text, null);
+      const playPromise = freeAudioPlayer.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => fallbackNaturalTTS(text, null));
       }
     }
 
@@ -7541,8 +7563,8 @@
       window.speechSynthesis.cancel();
       const u = new SpeechSynthesisUtterance(text);
       u.lang = 'en-US';
-      u.rate = 0.86;
-      u.pitch = 1.05;
+      u.rate = 0.92;
+      u.pitch = 1.0;
 
       refreshVoices();
       const preferred = loadedVoices.filter(v => 
@@ -7644,7 +7666,7 @@
     function initQRCode() {
       const canvas = document.getElementById('qrCodeCanvas');
       if (canvas && window.QRCode) {
-        QRCode.toCanvas(canvas, "https://honga0812.github.io/KaiSpeak/?v=12", {
+        QRCode.toCanvas(canvas, "https://honga0812.github.io/KaiSpeak/?v=13", {
           width: 176,
           margin: 1,
           color: { dark: '#312E81', light: '#FFFFFF' }
