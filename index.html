@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "v18";
+        const LATEST_VER = "v19";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -1373,7 +1373,7 @@
       </div>
 
       <div class="text-[11px] font-mono text-slate-500 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200 mb-4 break-all">
-        https://honga0812.github.io/KaiSpeak/?v=18
+        https://honga0812.github.io/KaiSpeak/?v=19
       </div>
 
       <button onclick="toggleQRModal()" class="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
@@ -5776,6 +5776,7 @@
     function pressPinKey(digit) {
       if (enteredPin.length < 4) {
         enteredPin += digit;
+        SoundEffects.playClick('pop');
         updatePinDotsUI();
         if (enteredPin.length === 4) {
           setTimeout(verifyPin, 150);
@@ -5786,6 +5787,7 @@
     function backspacePinKey() {
       if (enteredPin.length > 0) {
         enteredPin = enteredPin.slice(0, -1);
+        SoundEffects.playClick('pop');
         updatePinDotsUI();
         document.getElementById('pinErrorMsg').innerText = "";
       }
@@ -6370,8 +6372,134 @@
           osc.start(now + i * 0.08);
           osc.stop(now + i * 0.08 + 0.46);
         });
+      },
+      playClick(type = 'default') {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+
+        if (type === 'tab') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(1100, now);
+          osc.frequency.exponentialRampToValueAtTime(750, now + 0.035);
+          gain.gain.setValueAtTime(0.07, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.045);
+        } else if (type === 'pop') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(850, now);
+          osc.frequency.exponentialRampToValueAtTime(420, now + 0.04);
+          gain.gain.setValueAtTime(0.08, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.045);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.05);
+        } else {
+          // Standard crisp tactile click
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(1350, now);
+          osc.frequency.exponentialRampToValueAtTime(580, now + 0.028);
+          gain.gain.setValueAtTime(0.065, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.032);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.04);
+        }
+      },
+      playCountdownTick(cd) {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const baseFreq = cd === 1 ? 1050 : (cd === 2 ? 850 : 680);
+        
+        [baseFreq, baseFreq * 1.5].forEach((f, idx) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = idx === 0 ? 'triangle' : 'sine';
+          osc.frequency.setValueAtTime(f, now);
+          osc.frequency.exponentialRampToValueAtTime(f * 0.92, now + 0.07);
+          gain.gain.setValueAtTime(0, now);
+          gain.gain.linearRampToValueAtTime(idx === 0 ? 0.22 : 0.12, now + 0.008);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + 0.10);
+        });
+      },
+      playCountdownGo() {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const notes = [
+          { f: 1046.50, t: 0.00, d: 0.14 },
+          { f: 1318.51, t: 0.07, d: 0.14 },
+          { f: 1567.98, t: 0.14, d: 0.28 }
+        ];
+        notes.forEach(n => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(n.f, now + n.t);
+          gain.gain.setValueAtTime(0, now + n.t);
+          gain.gain.linearRampToValueAtTime(0.22, now + n.t + 0.01);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + n.t + n.d);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now + n.t);
+          osc.stop(now + n.t + n.d + 0.02);
+        });
+      },
+      playSoftTick() {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(780, now);
+        gain.gain.setValueAtTime(0.035, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.05);
       }
     };
+
+    // Global Click Sound Feedback for All Interactive UI Elements
+    let lastUiClickTimestamp = 0;
+    document.addEventListener('pointerdown', (e) => {
+      try {
+        const now = Date.now();
+        if (now - lastUiClickTimestamp < 50) return;
+
+        const target = e.target;
+        const interactive = target.closest(
+          'button, a, input, select, textarea, label, [role="button"], [onclick], .jelly-btn-3d, .jelly-card, .jelly-pop, .tab-btn, .category-pill, .interactive-el'
+        );
+        if (!interactive) return;
+
+        if (interactive.disabled || interactive.getAttribute('aria-disabled') === 'true') return;
+
+        lastUiClickTimestamp = now;
+
+        if (interactive.classList.contains('tab-btn') || interactive.closest('nav') || interactive.id.includes('Mode') || interactive.id.includes('Tab')) {
+          SoundEffects.playClick('tab');
+        } else if (interactive.tagName === 'INPUT' || interactive.tagName === 'SELECT' || interactive.closest('#pinEntryModal')) {
+          SoundEffects.playClick('pop');
+        } else {
+          SoundEffects.playClick('default');
+        }
+      } catch (err) {}
+    }, { capture: true, passive: true });
 
     // ========================================================
     // DYNAMIC QUEST QUEUE SETUP (Adaptive SRS Based on History)
@@ -6523,14 +6651,17 @@
 
       let cd = 3;
       countNum.innerText = cd;
+      SoundEffects.playCountdownTick(cd);
 
       if (overlayTimer) clearInterval(overlayTimer);
       overlayTimer = setInterval(() => {
         cd--;
         if (cd > 0) {
           countNum.innerText = cd;
+          SoundEffects.playCountdownTick(cd);
         } else if (cd === 0) {
           countNum.innerText = "GO! 🎧";
+          SoundEffects.playCountdownGo();
         } else {
           clearInterval(overlayTimer);
           overlayTimer = null;
@@ -6891,6 +7022,9 @@
       questRecTimer = setInterval(() => {
         questCountdownVal--;
         updateHourglass(questCountdownVal, questMaxCountdown);
+        if (questCountdownVal <= 3 && questCountdownVal > 0) {
+          SoundEffects.playSoftTick();
+        }
         if (questCountdownVal <= 0) {
           clearInterval(questRecTimer);
           questRecTimer = null;
@@ -8306,7 +8440,7 @@
     function initQRCode() {
       const canvas = document.getElementById('qrCodeCanvas');
       if (canvas && window.QRCode) {
-        QRCode.toCanvas(canvas, "https://honga0812.github.io/KaiSpeak/?v=18", {
+        QRCode.toCanvas(canvas, "https://honga0812.github.io/KaiSpeak/?v=19", {
           width: 176,
           margin: 1,
           color: { dark: '#312E81', light: '#FFFFFF' }
