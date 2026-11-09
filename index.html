@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "v17";
+        const LATEST_VER = "v18";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -1373,7 +1373,7 @@
       </div>
 
       <div class="text-[11px] font-mono text-slate-500 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200 mb-4 break-all">
-        https://honga0812.github.io/KaiSpeak/?v=17
+        https://honga0812.github.io/KaiSpeak/?v=18
       </div>
 
       <button onclick="toggleQRModal()" class="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
@@ -8306,7 +8306,7 @@
     function initQRCode() {
       const canvas = document.getElementById('qrCodeCanvas');
       if (canvas && window.QRCode) {
-        QRCode.toCanvas(canvas, "https://honga0812.github.io/KaiSpeak/?v=17", {
+        QRCode.toCanvas(canvas, "https://honga0812.github.io/KaiSpeak/?v=18", {
           width: 176,
           margin: 1,
           color: { dark: '#312E81', light: '#FFFFFF' }
