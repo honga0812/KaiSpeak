@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "v25";
+        const LATEST_VER = "v26";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -1275,42 +1275,66 @@
   <!-- ADVENTURE STAGE CHALLENGE DIALOG MODAL                   -->
   <!-- ======================================================== -->
   <div id="advChallengeModal" class="fixed inset-0 bg-slate-900/65 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto hidden">
-    <div class="bg-white rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl border border-indigo-100 text-center flex flex-col items-center my-auto">
+    <div class="bg-white rounded-3xl p-4 sm:p-6 max-w-md w-full shadow-2xl border border-indigo-100 text-center flex flex-col items-center my-auto max-h-[94vh] overflow-y-auto">
       
-      <div class="flex items-center justify-between w-full pb-3 border-b border-slate-100 mb-3">
-        <span id="advModalStageTitle" class="text-xs font-bold text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-lg">第 1 關冒險挑戰</span>
-        <button onclick="closeAdvModal()" class="text-slate-400 hover:text-slate-600 font-bold text-lg p-1">✕</button>
+      <!-- Top Stage Navigation Header (Prev, Stage Title, Next, Close) -->
+      <div class="flex items-center justify-between w-full pb-2.5 border-b border-slate-100 mb-2.5">
+        <div class="flex items-center gap-1.5">
+          <button type="button" id="advModalPrevNavBtn" onclick="prevAdvStage()" class="hidden px-2 py-1 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition active:scale-95 flex items-center gap-0.5" title="上一關 (鍵盤 ◀)">
+            <span>◀</span> 上一關
+          </button>
+          <span id="advModalStageTitle" class="text-xs font-black text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-xl">第 1 關冒險挑戰</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <button type="button" id="advModalNextNavBtn" onclick="nextAdvStage()" class="px-2.5 py-1 rounded-xl bg-emerald-100 hover:bg-emerald-200 text-emerald-800 font-black text-xs transition active:scale-95 flex items-center gap-0.5" title="下一關 (鍵盤 ▶)">
+            下一關 <span>▶</span>
+          </button>
+          <button onclick="closeAdvModal()" class="text-slate-400 hover:text-slate-600 font-bold text-lg p-1" title="關閉返回探險地圖">✕</button>
+        </div>
       </div>
 
-      <div class="relative w-32 h-32 rounded-3xl bg-indigo-50/50 border border-indigo-100/60 shadow-sm flex items-center justify-center mb-3 overflow-hidden group">
+      <!-- Card Image / Emoji (Scaled compact) -->
+      <div class="relative w-28 h-28 sm:w-32 sm:h-32 rounded-3xl bg-indigo-50/50 border border-indigo-100/60 shadow-sm flex items-center justify-center mb-2 overflow-hidden group">
         <img id="advModalCardImage" src="" alt="Dynamic Card" class="hidden w-full h-full object-cover">
-        <div id="advModalEmoji" class="text-7xl select-none">🪑</div>
+        <div id="advModalEmoji" class="text-6xl sm:text-7xl select-none">🪑</div>
       </div>
-      <h3 id="advModalWord" class="text-3xl font-black text-indigo-950">desk</h3>
-      <div id="advModalPhonetic" class="text-xs text-slate-400 font-mono mt-0.5 mb-2">/dɛsk/</div>
-      <div id="advModalMeaning" class="text-xs font-bold text-slate-700 bg-slate-50 px-3 py-1 rounded-full border border-slate-100 mb-4">名詞：書桌，辦公桌</div>
+      <h3 id="advModalWord" class="text-2xl sm:text-3xl font-black text-indigo-950">desk</h3>
+      <div id="advModalPhonetic" class="text-xs text-slate-400 font-mono mt-0.5 mb-1.5">/dɛsk/</div>
+      <div id="advModalMeaning" class="text-xs font-bold text-slate-700 bg-slate-50 px-3 py-1 rounded-full border border-slate-100 mb-3">名詞：書桌，辦公桌</div>
 
       <!-- Current Stars on Stage -->
-      <div class="flex items-center gap-1.5 text-xl text-amber-500 mb-4">
-        <span>歷史最佳評星：</span>
+      <div class="flex items-center gap-1.5 text-base sm:text-lg text-amber-500 mb-2.5">
+        <span class="text-xs font-bold text-slate-500">歷史最佳評星：</span>
         <span id="advModalStarsDisplay">☆☆☆</span>
       </div>
 
-      <div id="advModalFeedbackBox" class="w-full text-xs font-bold text-indigo-700 bg-indigo-50 p-2.5 rounded-xl border border-indigo-200 mb-4 min-h-[38px] flex items-center justify-center">
+      <div id="advModalFeedbackBox" class="w-full text-xs font-bold text-indigo-700 bg-indigo-50 p-2 rounded-xl border border-indigo-200 mb-3 min-h-[34px] flex items-center justify-center text-center">
         點擊下方麥克風大聲朗讀，獲得至少 ⭐ 1 顆星解鎖下一關！
       </div>
 
-      <!-- Buttons -->
-      <div class="w-full flex flex-col gap-2.5">
+      <!-- Buttons: Audio Demo, Record, Early Finish, and Next Stage Guidance Button -->
+      <div class="w-full flex flex-col gap-2">
         <div class="flex gap-2">
-          <button onclick="playAdvModalAudio()" class="flex-1 py-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-bold rounded-xl border border-indigo-200 transition active:scale-95 flex items-center justify-center gap-1">
-            <span>🔊 聽範讀</span>
+          <button type="button" onclick="playAdvModalAudio()" class="flex-1 py-2.5 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-bold rounded-xl border border-indigo-200 transition active:scale-95 flex items-center justify-center gap-1 shadow-2xs">
+            <span>🔊 聽示範</span>
           </button>
-          <button id="advRecordBtn" onclick="toggleAdvRecord()" class="flex-1 py-2.5 bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white text-xs font-black rounded-xl shadow-md transition active:scale-95 flex items-center justify-center gap-1">
+          <button type="button" id="advRecordBtn" onclick="toggleAdvRecord()" class="flex-1 py-2.5 bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-600 hover:to-pink-700 text-white text-xs font-black rounded-xl shadow-md transition active:scale-95 flex items-center justify-center gap-1">
             <span id="advRecordIcon">🎙️</span>
             <span id="advRecordLabel">開始闖關朗讀</span>
           </button>
         </div>
+
+        <!-- Early Finish Evaluation Button -->
+        <button type="button" id="advEarlyFinishBtn" onclick="finishAdvRecordEarly()" class="hidden jelly-btn-3d w-full py-2.5 px-3 rounded-xl bg-gradient-to-b from-emerald-400 to-emerald-600 hover:from-emerald-300 text-white text-xs font-black shadow-md transition flex items-center justify-center gap-1.5 animate-pulse active:scale-95">
+          <span>⚡ 我念完了，立即評分！</span>
+        </button>
+
+        <!-- Prominent Next Stage Action Button (Guides continuous reading flow!) -->
+        <button type="button" id="advModalNextStageActionBtn" onclick="nextAdvStage()" class="jelly-btn-3d w-full py-2.5 sm:py-3 px-3 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-purple-800 text-white font-black text-xs sm:text-sm shadow-md shadow-indigo-300 transition flex items-center justify-center gap-1.5 active:scale-95 border-b-[2px] border-indigo-950">
+          <span>➡️ 前往下一關挑戰</span>
+          <span id="advModalNextWordBadge" class="text-[9px] bg-white/20 px-2 py-0.5 rounded-full font-mono font-bold">next</span>
+          <span class="text-[9px] opacity-75 hidden sm:inline">(快速鍵 ▶)</span>
+        </button>
       </div>
 
     </div>
@@ -40132,6 +40156,7 @@
     // --- Adventure Mode State (Fog of War, Mystery Island Pagination) ---
     const ADV_PAGE_SIZE = 10;
     let advIslandIndex = 0; // 0 to 4
+    let currentAdvIndex = 0; // 0 to MASTER_VOCAB.length - 1
     let currentAdvWord = null;
     let advAudioPlayer = new Audio();
 
@@ -40454,6 +40479,7 @@
 
     // Keyboard support for PIN entry
     window.addEventListener('keydown', (e) => {
+      // 1. PIN Modal
       const pinModal = document.getElementById('pinEntryModal');
       if (pinModal && !pinModal.classList.contains('hidden')) {
         if (e.key >= '0' && e.key <= '9') {
@@ -40462,6 +40488,69 @@
           backspacePinKey();
         } else if (e.key === 'Escape') {
           cancelPinEntry();
+        }
+        return;
+      }
+
+      // Ignore navigation shortcuts when user is typing in form inputs
+      if (e.target && (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA')) {
+        return;
+      }
+
+      // 2. Speech Diagnostic Modal navigation
+      const diagModal = document.getElementById('speechDiagModal');
+      if (diagModal && !diagModal.classList.contains('hidden')) {
+        if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === 'Enter') {
+          e.preventDefault();
+          if (lastDiagData && lastDiagData.mode === 'free') {
+            if (freeActiveTarget === 'word') {
+              nextFreeWordCard();
+            } else {
+              nextFreeSentenceStep();
+            }
+          } else if (lastDiagData && lastDiagData.mode === 'adventure') {
+            closeSpeechDiagModal();
+            nextAdvStage();
+          }
+        } else if (e.key === 'Escape') {
+          e.preventDefault();
+          closeSpeechDiagModal();
+        }
+        return;
+      }
+
+      // 3. Adventure Challenge Modal navigation
+      const advModal = document.getElementById('advChallengeModal');
+      if (advModal && !advModal.classList.contains('hidden')) {
+        if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === 'Enter') {
+          e.preventDefault();
+          nextAdvStage();
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          e.preventDefault();
+          prevAdvStage();
+        } else if (e.key === ' ' || e.key === 'Spacebar') {
+          e.preventDefault();
+          if (isRecording) {
+            finishAdvRecordEarly();
+          } else {
+            toggleAdvRecord();
+          }
+        } else if (e.key === 'Escape') {
+          e.preventDefault();
+          closeAdvModal();
+        }
+        return;
+      }
+
+      // 4. Free Practice shortcuts
+      const freeSection = document.getElementById('viewFree');
+      if (freeSection && !freeSection.classList.contains('hidden')) {
+        if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          nextFreeStep();
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          prevFreeStep();
         }
       }
     });
@@ -42732,8 +42821,39 @@
     }
 
     function openAdvStageChallenge(globalIdx) {
+      currentAdvIndex = globalIdx;
       currentAdvWord = MASTER_VOCAB[globalIdx];
       document.getElementById('advModalStageTitle').innerText = `第 ${globalIdx + 1} 關冒險挑戰`;
+      
+      const prevBtn = document.getElementById('advModalPrevNavBtn');
+      if (prevBtn) {
+        if (globalIdx > 0) {
+          prevBtn.classList.remove('hidden');
+        } else {
+          prevBtn.classList.add('hidden');
+        }
+      }
+
+      const nextIdx = globalIdx + 1;
+      const hasNext = nextIdx < MASTER_VOCAB.length;
+      const nextWord = hasNext ? MASTER_VOCAB[nextIdx].word : "";
+      const nextBadge = document.getElementById('advModalNextWordBadge');
+      if (nextBadge) {
+        nextBadge.innerText = nextWord || "全通關";
+      }
+
+      const nextActionBtn = document.getElementById('advModalNextStageActionBtn');
+      if (nextActionBtn) {
+        const stars = adventureStars[currentAdvWord.word] || 0;
+        if (stars >= 1) {
+          nextActionBtn.className = "jelly-btn-3d w-full py-2.5 sm:py-3 px-3 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-indigo-600 hover:from-emerald-600 text-white font-black text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-1.5 active:scale-95 border-b-[2px] border-emerald-950";
+          nextActionBtn.innerHTML = `<span>➡️ 前往下一關挑戰</span>${hasNext ? `<span class="text-[9px] bg-white/20 px-2 py-0.5 rounded-full font-mono font-bold">${nextWord}</span>` : ''} <span class="text-[9px] opacity-75 hidden sm:inline">(快速鍵 ▶)</span>`;
+        } else {
+          nextActionBtn.className = "jelly-btn-3d w-full py-2.5 sm:py-3 px-3 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-purple-800 text-white font-black text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-1.5 active:scale-95 border-b-[2px] border-indigo-950";
+          nextActionBtn.innerHTML = `<span>➡️ 前往下一關挑戰</span>${hasNext ? `<span class="text-[9px] bg-white/20 px-2 py-0.5 rounded-full font-mono font-bold">${nextWord}</span>` : ''} <span class="text-[9px] opacity-75 hidden sm:inline">(快速鍵 ▶)</span>`;
+        }
+      }
+
       document.getElementById('advModalEmoji').innerText = currentAdvWord.emoji;
       const advImg = document.getElementById('advModalCardImage');
       const advEmo = document.getElementById('advModalEmoji');
@@ -42750,12 +42870,53 @@
       document.getElementById('advModalStarsDisplay').innerText = '⭐'.repeat(stars) || '☆☆☆';
       document.getElementById('advModalFeedbackBox').innerText = "點擊下方麥克風大聲朗讀，獲得至少 ⭐ 1 顆星解鎖下一關！";
 
+      const earlyBtn = document.getElementById('advEarlyFinishBtn');
+      if (earlyBtn) earlyBtn.classList.add('hidden');
+
       document.getElementById('advChallengeModal').classList.remove('hidden');
     }
 
     function closeAdvModal() {
       if (isRecording) stopRecording();
       document.getElementById('advChallengeModal').classList.add('hidden');
+    }
+
+    function nextAdvStage() {
+      if (currentAdvIndex < MASTER_VOCAB.length - 1) {
+        const nextIdx = currentAdvIndex + 1;
+        const currentStars = adventureStars[currentAdvWord.word] || 0;
+        if (currentStars >= 1 || isAdventureStageUnlocked(nextIdx)) {
+          const targetIsland = Math.floor(nextIdx / ADV_PAGE_SIZE);
+          if (targetIsland !== advIslandIndex) {
+            selectAdventureIsland(targetIsland);
+          }
+          openAdvStageChallenge(nextIdx);
+          playAdvModalAudio();
+          setTimeout(() => {
+            const modal = document.getElementById('advChallengeModal');
+            if (!isRecording && modal && !modal.classList.contains('hidden')) {
+              toggleAdvRecord();
+            }
+          }, 1200);
+        } else {
+          SoundEffects.playNotice();
+          alert(`🔒 第 ${nextIdx + 1} 關被迷霧籠罩！\n\n請先在第 ${currentAdvIndex + 1} 關獲得至少 ⭐ 1 顆星，方可撥開迷霧解鎖下一關！`);
+        }
+      } else {
+        alert("🎉 恭喜！您已通關學習島所有 500 個單字冒險關卡！");
+      }
+    }
+
+    function prevAdvStage() {
+      if (currentAdvIndex > 0) {
+        const prevIdx = currentAdvIndex - 1;
+        const targetIsland = Math.floor(prevIdx / ADV_PAGE_SIZE);
+        if (targetIsland !== advIslandIndex) {
+          selectAdventureIsland(targetIsland);
+        }
+        openAdvStageChallenge(prevIdx);
+        playAdvModalAudio();
+      }
     }
 
     function playAdvModalAudio() {
@@ -42766,16 +42927,30 @@
       advAudioPlayer.play().catch(() => fallbackNaturalTTS(currentAdvWord.word, null));
     }
 
-    function toggleAdvRecord() {
+    function finishAdvRecordEarly() {
       if (isRecording && activeRecModule === 'adventure') {
         stopRecording();
         document.getElementById('advRecordLabel').innerText = "開始闖關朗讀";
         document.getElementById('advRecordIcon').innerText = "🎙️";
+        const earlyBtn = document.getElementById('advEarlyFinishBtn');
+        if (earlyBtn) earlyBtn.classList.add('hidden');
+        handleAdvSpeechEvaluation(lastInterimSpeech || "");
+      }
+    }
+
+    function toggleAdvRecord() {
+      const earlyBtn = document.getElementById('advEarlyFinishBtn');
+      if (isRecording && activeRecModule === 'adventure') {
+        stopRecording();
+        document.getElementById('advRecordLabel').innerText = "開始闖關朗讀";
+        document.getElementById('advRecordIcon').innerText = "🎙️";
+        if (earlyBtn) earlyBtn.classList.add('hidden');
       } else {
         activeRecModule = 'adventure';
-        document.getElementById('advRecordLabel').innerText = "正在錄音中(說完請稍候)...";
+        document.getElementById('advRecordLabel').innerText = "正在錄音中...";
         document.getElementById('advRecordIcon').innerText = "🔴";
         document.getElementById('advModalFeedbackBox').innerText = "聆聽中，請大聲朗讀單字...";
+        if (earlyBtn) earlyBtn.classList.remove('hidden');
         startRecording(onSpeechSuccess, onSpeechFail);
 
         setTimeout(() => {
@@ -42783,6 +42958,7 @@
             stopRecording();
             document.getElementById('advRecordLabel').innerText = "開始闖關朗讀";
             document.getElementById('advRecordIcon').innerText = "🎙️";
+            if (earlyBtn) earlyBtn.classList.add('hidden');
           }
         }, 5000);
       }
@@ -42791,6 +42967,8 @@
     function handleAdvSpeechEvaluation(spokenText) {
       document.getElementById('advRecordLabel').innerText = "開始闖關朗讀";
       document.getElementById('advRecordIcon').innerText = "🎙️";
+      const earlyBtn = document.getElementById('advEarlyFinishBtn');
+      if (earlyBtn) earlyBtn.classList.add('hidden');
 
       const targetText = currentAdvWord.word;
       const score = calculateScore(targetText, spokenText, maxAcousticEnergy);
@@ -42808,17 +42986,35 @@
         localStorage.setItem('kai_adventure_stars', JSON.stringify(adventureStars));
       }
 
-      document.getElementById('advModalStarsDisplay').innerText = '⭐'.repeat(Math.max(starEarned, prevStars)) || '☆☆☆';
+      const totalStageStars = Math.max(starEarned, prevStars);
+      document.getElementById('advModalStarsDisplay').innerText = '⭐'.repeat(totalStageStars) || '☆☆☆';
 
-      if (starEarned >= 1) {
-        document.getElementById('advModalFeedbackBox').innerText = `🎉 恭喜通關！得分：${score} 分，榮獲 ${'⭐'.repeat(starEarned)} 星！已成功撥開迷霧解鎖下一關！`;
+      const nextIdx = currentAdvIndex + 1;
+      const hasNext = nextIdx < MASTER_VOCAB.length;
+      const nextWord = hasNext ? MASTER_VOCAB[nextIdx].word : "";
+
+      const nextActionBtn = document.getElementById('advModalNextStageActionBtn');
+
+      if (totalStageStars >= 1) {
+        document.getElementById('advModalFeedbackBox').innerText = `🎉 恭喜通關！得分：${score} 分，榮獲 ${'⭐'.repeat(starEarned || 1)} 星！已成功撥開迷霧解鎖下一關！`;
         SoundEffects.playShield();
         renderAdventureMap();
+
+        if (nextActionBtn) {
+          nextActionBtn.className = "jelly-btn-3d w-full py-2.5 sm:py-3 px-3 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-indigo-600 hover:from-emerald-600 text-white font-black text-xs sm:text-sm shadow-lg shadow-emerald-500/30 transition flex items-center justify-center gap-1.5 active:scale-95 border-b-[2px] border-emerald-950 animate-pulse";
+          nextActionBtn.innerHTML = `<span>🎉 通關成功！前往下一關</span>${hasNext ? `<span class="text-[9px] bg-white/20 px-2 py-0.5 rounded-full font-mono font-bold">${nextWord}</span>` : ''} <span>➡️</span>`;
+        }
       } else {
-        document.getElementById('advModalFeedbackBox').innerText = `💪 得分：${score} 分！距離 1 顆星解鎖還差一點點，請再聽一次範讀並大聲朗讀！`;
+        document.getElementById('advModalFeedbackBox').innerText = `💪 得分：${score} 分！距離 1 顆星解鎖還差一點點，可再試一次或點擊「前往下一關」！`;
+        if (nextActionBtn) {
+          nextActionBtn.className = "jelly-btn-3d w-full py-2.5 sm:py-3 px-3 rounded-xl bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 hover:from-indigo-700 hover:to-purple-800 text-white font-black text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-1.5 active:scale-95 border-b-[2px] border-indigo-950";
+        }
       }
 
-      recordPracticeLog(currentAdvWord.word, targetText, score, starEarned >= 1 ? "冒險通關" : "冒險未通關", "探險島闖關");
+      recordPracticeLog(currentAdvWord.word, targetText, score, totalStageStars >= 1 ? "冒險通關" : "冒險未通關", "探險島闖關");
+
+      // Float the Pronunciation Diagnostic Sheet with Adventure Flow!
+      openSpeechDiagModal(targetText, spokenText, score, 'adventure');
     }
 
     // ========================================================
@@ -43110,6 +43306,40 @@
               </div>
             `;
           }
+        } else if (mode === 'adventure') {
+          const nextIdx = currentAdvIndex + 1;
+          const hasNext = nextIdx < MASTER_VOCAB.length;
+          const nextWord = hasNext ? MASTER_VOCAB[nextIdx].word : "";
+          const isPassed = score >= 60;
+
+          actionsContainer.innerHTML = `
+            <!-- Row 1: Primary Action Row for Adventure Mode (Unified: Retry on Left, Next Stage on Right!) -->
+            <div class="grid grid-cols-2 gap-2 w-full">
+              <!-- Left: Retry / Re-record -->
+              <button type="button" onclick="retryRecordingFromModal()" class="jelly-btn-3d py-2.5 sm:py-3 px-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-black text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-1 active:scale-95 border-b-[2px] border-amber-800" title="再唸一次衝擊三星">
+                <span>🔄 再挑戰一次</span>
+                <span class="text-[9px] bg-amber-900/40 px-1 py-0.2 rounded font-mono">衝三星⭐</span>
+              </button>
+              <!-- Right: PRIMARY NEXT ADVENTURE STAGE BUTTON (Fixed right-hand position!) -->
+              <button type="button" onclick="closeSpeechDiagModal(); nextAdvStage();" class="jelly-btn-3d py-2.5 sm:py-3 px-2 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-indigo-600 hover:from-emerald-600 hover:to-indigo-700 text-white font-black text-xs sm:text-sm shadow-md shadow-emerald-500/30 transition flex items-center justify-center gap-1 active:scale-95 border-b-[2px] border-emerald-950 ${isPassed ? 'ring-2 ring-emerald-400 animate-pulse' : ''}" title="進入下一關冒險 (快速鍵 ▶)">
+                <span>➡️ 前往下一關</span>
+                ${hasNext ? `<span class="text-[9px] bg-white/20 px-1 py-0.2 rounded font-mono font-bold">${nextWord}</span>` : ''}
+              </button>
+            </div>
+
+            <!-- Row 2: Secondary Tool Row (Fixed 3 tool buttons!) -->
+            <div class="grid grid-cols-3 gap-1.5 w-full pt-1">
+              <button type="button" onclick="replayAudioFromModal()" class="py-1.5 sm:py-2 px-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-bold text-[11px] sm:text-xs transition flex items-center justify-center gap-1 border border-indigo-100 active:scale-95">
+                <span>🔊</span> 聽示範
+              </button>
+              <button type="button" onclick="closeSpeechDiagModal();" class="py-1.5 sm:py-2 px-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-[11px] sm:text-xs transition flex items-center justify-center gap-1 active:scale-95">
+                🗺️ 關卡卡片
+              </button>
+              <button type="button" onclick="closeSpeechDiagModal(); closeAdvModal();" class="py-1.5 sm:py-2 px-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-500 font-bold text-[11px] sm:text-xs transition active:scale-95">
+                ✕ 回探險島
+              </button>
+            </div>
+          `;
         } else {
           actionsContainer.innerHTML = `
             <div class="flex items-center gap-2 w-full">
@@ -43140,7 +43370,7 @@
       if (!lastDiagData) return;
       if (lastDiagData.mode === 'free') {
         toggleFreePracticeRecord();
-      } else if (lastDiagData.mode === 'adv') {
+      } else if (lastDiagData.mode === 'adventure' || lastDiagData.mode === 'adv') {
         toggleAdvRecord();
       }
     }
@@ -43149,7 +43379,7 @@
       if (!lastDiagData) return;
       if (lastDiagData.mode === 'free') {
         playFreeTargetAudio();
-      } else if (lastDiagData.mode === 'adv') {
+      } else if (lastDiagData.mode === 'adventure' || lastDiagData.mode === 'adv') {
         playAdvModalAudio();
       }
     }
