@@ -44581,5 +44581,1843 @@
     "wordCode": "EN_W0500",
     "lang": "en-US",
     "audioWordCanonical": "audio/words/en_w0500_find.m4a"
+  },
+  {
+    "id": "wake_up",
+    "word": "wake up",
+    "wordCode": "EN_P0001",
+    "phonetic": "/weɪk ʌp/",
+    "meaning": "動詞片語：醒來，喚醒",
+    "emoji": "⏰",
+    "category": "phrases",
+    "level": "L1",
+    "role": "new",
+    "isPhrase": true,
+    "lang": "en-US",
+    "variants": [
+      "wake up",
+      "wakes up",
+      "waking up",
+      "woke up"
+    ],
+    "audioWord": "audio/word_wake_up.m4a",
+    "audioWordCanonical": "audio/phrases/en_p0001_wake_up.m4a",
+    "storyScene": "清晨小鳥在枝頭歌唱，Kai 揉揉眼睛醒來。",
+    "storyChapter": 1,
+    "storyChapterTitle": "🌟 生活高頻片語 · Daily Phrases",
+    "storyOrder": 1,
+    "scenarios": [
+      {
+        "tag": "難度 1 · 簡單啟蒙",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
+        "sentences": [
+          "Wake up, little Kai."
+        ],
+        "translations": [
+          "小凱，快快醒來囉。"
+        ]
+      },
+      {
+        "tag": "難度 2 · 生活日常",
+        "desc": "生活日常情境（適合鞏固日常口語表達）",
+        "sentences": [
+          "I wake up early today."
+        ],
+        "translations": [
+          "我今天很早就醒來了。"
+        ]
+      },
+      {
+        "tag": "難度 3 · 熟練拓展",
+        "desc": "情境思維拓展（建議連續登錄多日後挑戰）",
+        "sentences": [
+          "Little birds wake up at sunrise."
+        ],
+        "translations": [
+          "可愛的小鳥在太陽升起時醒來。"
+        ]
+      }
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Wake up, little Kai.",
+        "translation": "小凱，快快醒來囉。",
+        "sentenceCode": "EN_P0001_S1",
+        "audioSrc": "audio/sentence_wake_up_0_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0001_s1_wake_up.m4a",
+        "textHash": "52591ee2fd049339054b59e5e0e33e32"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "I wake up early today.",
+        "translation": "我今天很早就醒來了。",
+        "sentenceCode": "EN_P0001_S2",
+        "audioSrc": "audio/sentence_wake_up_1_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0001_s2_wake_up.m4a",
+        "textHash": "f77e99d60b72303273a739928f501701"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 熟練拓展",
+        "tag": "進階",
+        "text": "Little birds wake up at sunrise.",
+        "translation": "可愛的小鳥在太陽升起時醒來。",
+        "sentenceCode": "EN_P0001_S3",
+        "audioSrc": "audio/sentence_wake_up_2_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0001_s3_wake_up.m4a",
+        "textHash": "a7ad542624fce0335566cf71dc97c4d9"
+      }
+    ]
+  },
+  {
+    "id": "get_up",
+    "word": "get up",
+    "wordCode": "EN_P0002",
+    "phonetic": "/ɡɛt ʌp/",
+    "meaning": "動詞片語：起床，起身",
+    "emoji": "🛏️",
+    "category": "phrases",
+    "level": "L1",
+    "role": "new",
+    "isPhrase": true,
+    "lang": "en-US",
+    "variants": [
+      "get up",
+      "gets up",
+      "getting up",
+      "got up"
+    ],
+    "audioWord": "audio/word_get_up.m4a",
+    "audioWordCanonical": "audio/phrases/en_p0002_get_up.m4a",
+    "storyScene": "鬧鐘響起，Kai 伸個大大的懶腰從床上爬起來。",
+    "storyChapter": 1,
+    "storyChapterTitle": "🌟 生活高頻片語 · Daily Phrases",
+    "storyOrder": 2,
+    "scenarios": [
+      {
+        "tag": "難度 1 · 簡單啟蒙",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
+        "sentences": [
+          "Time to get up."
+        ],
+        "translations": [
+          "起床的時間到囉。"
+        ]
+      },
+      {
+        "tag": "難度 2 · 生活日常",
+        "desc": "生活日常情境（適合鞏固日常口語表達）",
+        "sentences": [
+          "I get up at seven."
+        ],
+        "translations": [
+          "我每天早晨七點鐘起床。"
+        ]
+      },
+      {
+        "tag": "難度 3 · 熟練拓展",
+        "desc": "情境思維拓展（建議連續登錄多日後挑戰）",
+        "sentences": [
+          "I stretch my arms and get up."
+        ],
+        "translations": [
+          "我伸伸懶腰從床上爬起來。"
+        ]
+      }
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Time to get up.",
+        "translation": "起床的時間到囉。",
+        "sentenceCode": "EN_P0002_S1",
+        "audioSrc": "audio/sentence_get_up_0_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0002_s1_get_up.m4a",
+        "textHash": "0e0bca0232c144112639c3019e62088e"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "I get up at seven.",
+        "translation": "我每天早晨七點鐘起床。",
+        "sentenceCode": "EN_P0002_S2",
+        "audioSrc": "audio/sentence_get_up_1_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0002_s2_get_up.m4a",
+        "textHash": "14307a554cc98e34b5bf0e9be58d10ce"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 熟練拓展",
+        "tag": "進階",
+        "text": "I stretch my arms and get up.",
+        "translation": "我伸伸懶腰從床上爬起來。",
+        "sentenceCode": "EN_P0002_S3",
+        "audioSrc": "audio/sentence_get_up_2_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0002_s3_get_up.m4a",
+        "textHash": "64b53f7a13d39ce91e773ef57f39beb0"
+      }
+    ]
+  },
+  {
+    "id": "wash_hands",
+    "word": "wash hands",
+    "wordCode": "EN_P0003",
+    "phonetic": "/wɑːʃ hændz/",
+    "meaning": "動詞片語：洗洗手",
+    "emoji": "🧼",
+    "category": "phrases",
+    "level": "L1",
+    "role": "new",
+    "isPhrase": true,
+    "lang": "en-US",
+    "variants": [
+      "wash hands",
+      "washes hands",
+      "washing hands",
+      "washed hands"
+    ],
+    "audioWord": "audio/word_wash_hands.m4a",
+    "audioWordCanonical": "audio/phrases/en_p0003_wash_hands.m4a",
+    "storyScene": "飯前便後用肥皂搓出很多白色泡泡洗洗手。",
+    "storyChapter": 1,
+    "storyChapterTitle": "🌟 生活高頻片語 · Daily Phrases",
+    "storyOrder": 3,
+    "scenarios": [
+      {
+        "tag": "難度 1 · 簡單啟蒙",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
+        "sentences": [
+          "Wash your hands now."
+        ],
+        "translations": [
+          "現在快去把手洗乾淨。"
+        ]
+      },
+      {
+        "tag": "難度 2 · 生活日常",
+        "desc": "生活日常情境（適合鞏固日常口語表達）",
+        "sentences": [
+          "Wash your hands with soap."
+        ],
+        "translations": [
+          "記得要用肥皂把手洗乾淨。"
+        ]
+      },
+      {
+        "tag": "難度 3 · 熟練拓展",
+        "desc": "情境思維拓展（建議連續登錄多日後挑戰）",
+        "sentences": [
+          "Wash hands before you eat meals."
+        ],
+        "translations": [
+          "吃東西之前一定要把雙手洗乾淨。"
+        ]
+      }
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Wash your hands now.",
+        "translation": "現在快去把手洗乾淨。",
+        "sentenceCode": "EN_P0003_S1",
+        "audioSrc": "audio/sentence_wash_hands_0_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0003_s1_wash_hands.m4a",
+        "textHash": "04510381e22a5100f5169a113e2e27d8"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Wash your hands with soap.",
+        "translation": "記得要用肥皂把手洗乾淨。",
+        "sentenceCode": "EN_P0003_S2",
+        "audioSrc": "audio/sentence_wash_hands_1_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0003_s2_wash_hands.m4a",
+        "textHash": "45e261c1c2cff587cd8c0aaf7b42e3d6"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 熟練拓展",
+        "tag": "進階",
+        "text": "Wash hands before you eat meals.",
+        "translation": "吃東西之前一定要把雙手洗乾淨。",
+        "sentenceCode": "EN_P0003_S3",
+        "audioSrc": "audio/sentence_wash_hands_2_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0003_s3_wash_hands.m4a",
+        "textHash": "201acf70e2166991d27c5ff8ab583316"
+      }
+    ]
+  },
+  {
+    "id": "brush_teeth",
+    "word": "brush teeth",
+    "wordCode": "EN_P0004",
+    "phonetic": "/brʌʃ tiːθ/",
+    "meaning": "動詞片語：刷刷牙",
+    "emoji": "🪥",
+    "category": "phrases",
+    "level": "L1",
+    "role": "new",
+    "isPhrase": true,
+    "lang": "en-US",
+    "variants": [
+      "brush teeth",
+      "brushes teeth",
+      "brushing teeth",
+      "brushed teeth"
+    ],
+    "audioWord": "audio/word_brush_teeth.m4a",
+    "audioWordCanonical": "audio/phrases/en_p0004_brush_teeth.m4a",
+    "storyScene": "拿著自己的專用牙刷，早晚咕嚕咕嚕刷牙漱口。",
+    "storyChapter": 1,
+    "storyChapterTitle": "🌟 生活高頻片語 · Daily Phrases",
+    "storyOrder": 4,
+    "scenarios": [
+      {
+        "tag": "難度 1 · 簡單啟蒙",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
+        "sentences": [
+          "Brush your teeth clean."
+        ],
+        "translations": [
+          "把你的牙齒刷乾淨。"
+        ]
+      },
+      {
+        "tag": "難度 2 · 生活日常",
+        "desc": "生活日常情境（適合鞏固日常口語表達）",
+        "sentences": [
+          "I brush teeth every morning."
+        ],
+        "translations": [
+          "我每天早晨都會刷牙。"
+        ]
+      },
+      {
+        "tag": "難度 3 · 熟練拓展",
+        "desc": "情境思維拓展（建議連續登錄多日後挑戰）",
+        "sentences": [
+          "Brush your teeth before you sleep."
+        ],
+        "translations": [
+          "晚上上床睡覺前一定要刷牙。"
+        ]
+      }
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Brush your teeth clean.",
+        "translation": "把你的牙齒刷乾淨。",
+        "sentenceCode": "EN_P0004_S1",
+        "audioSrc": "audio/sentence_brush_teeth_0_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0004_s1_brush_teeth.m4a",
+        "textHash": "0726281f543203d62b04cd59e45c037a"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "I brush teeth every morning.",
+        "translation": "我每天早晨都會刷牙。",
+        "sentenceCode": "EN_P0004_S2",
+        "audioSrc": "audio/sentence_brush_teeth_1_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0004_s2_brush_teeth.m4a",
+        "textHash": "447c6ccbcd54fd76c7462691669fc80f"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 熟練拓展",
+        "tag": "進階",
+        "text": "Brush your teeth before you sleep.",
+        "translation": "晚上上床睡覺前一定要刷牙。",
+        "sentenceCode": "EN_P0004_S3",
+        "audioSrc": "audio/sentence_brush_teeth_2_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0004_s3_brush_teeth.m4a",
+        "textHash": "c106047eb49cbfc0ba5eedb73c59fe9f"
+      }
+    ]
+  },
+  {
+    "id": "put_on",
+    "word": "put on",
+    "wordCode": "EN_P0005",
+    "phonetic": "/pʊt ɑːn/",
+    "meaning": "動詞片語：穿上，戴上",
+    "emoji": "👟",
+    "category": "phrases",
+    "level": "L1",
+    "role": "new",
+    "isPhrase": true,
+    "lang": "en-US",
+    "variants": [
+      "put on",
+      "puts on",
+      "putting on"
+    ],
+    "audioWord": "audio/word_put_on.m4a",
+    "audioWordCanonical": "audio/phrases/en_p0005_put_on.m4a",
+    "storyScene": "準備出門前，把外套和鞋子穿戴整齊。",
+    "storyChapter": 1,
+    "storyChapterTitle": "🌟 生活高頻片語 · Daily Phrases",
+    "storyOrder": 5,
+    "scenarios": [
+      {
+        "tag": "難度 1 · 簡單啟蒙",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
+        "sentences": [
+          "Put on your shoes."
+        ],
+        "translations": [
+          "穿上你的鞋子。"
+        ]
+      },
+      {
+        "tag": "難度 2 · 生活日常",
+        "desc": "生活日常情境（適合鞏固日常口語表達）",
+        "sentences": [
+          "Put on your warm coat."
+        ],
+        "translations": [
+          "穿上你溫暖的大衣外套。"
+        ]
+      },
+      {
+        "tag": "難度 3 · 熟練拓展",
+        "desc": "情境思維拓展（建議連續登錄多日後挑戰）",
+        "sentences": [
+          "Put on your coat before outside."
+        ],
+        "translations": [
+          "出門到戶外前先穿上厚外套。"
+        ]
+      }
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Put on your shoes.",
+        "translation": "穿上你的鞋子。",
+        "sentenceCode": "EN_P0005_S1",
+        "audioSrc": "audio/sentence_put_on_0_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0005_s1_put_on.m4a",
+        "textHash": "2db161f583934e6a317bdd4f6961f193"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Put on your warm coat.",
+        "translation": "穿上你溫暖的大衣外套。",
+        "sentenceCode": "EN_P0005_S2",
+        "audioSrc": "audio/sentence_put_on_1_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0005_s2_put_on.m4a",
+        "textHash": "1f097674706f8cef2b035b6a7f6b9653"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 熟練拓展",
+        "tag": "進階",
+        "text": "Put on your coat before outside.",
+        "translation": "出門到戶外前先穿上厚外套。",
+        "sentenceCode": "EN_P0005_S3",
+        "audioSrc": "audio/sentence_put_on_2_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0005_s3_put_on.m4a",
+        "textHash": "70f7980d886d8ddd1126f8e84312d182"
+      }
+    ]
+  },
+  {
+    "id": "take_off",
+    "word": "take off",
+    "wordCode": "EN_P0006",
+    "phonetic": "/teɪk ɔːf/",
+    "meaning": "動詞片語：脫下，摘下",
+    "emoji": "👢",
+    "category": "phrases",
+    "level": "L1",
+    "role": "new",
+    "isPhrase": true,
+    "lang": "en-US",
+    "variants": [
+      "take off",
+      "takes off",
+      "taking off",
+      "took off"
+    ],
+    "audioWord": "audio/word_take_off.m4a",
+    "audioWordCanonical": "audio/phrases/en_p0006_take_off.m4a",
+    "storyScene": "一進家門在玄關處把厚外套與鞋子脫下。",
+    "storyChapter": 1,
+    "storyChapterTitle": "🌟 生活高頻片語 · Daily Phrases",
+    "storyOrder": 6,
+    "scenarios": [
+      {
+        "tag": "難度 1 · 簡單啟蒙",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
+        "sentences": [
+          "Take off your shoes."
+        ],
+        "translations": [
+          "脫下你的鞋子。"
+        ]
+      },
+      {
+        "tag": "難度 2 · 生活日常",
+        "desc": "生活日常情境（適合鞏固日常口語表達）",
+        "sentences": [
+          "Take off your wet jacket."
+        ],
+        "translations": [
+          "脫下你淋濕的外套夾克。"
+        ]
+      },
+      {
+        "tag": "難度 3 · 熟練拓展",
+        "desc": "情境思維拓展（建議連續登錄多日後挑戰）",
+        "sentences": [
+          "Take off your boots at door."
+        ],
+        "translations": [
+          "進門時在玄關處把雨靴脫下來。"
+        ]
+      }
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Take off your shoes.",
+        "translation": "脫下你的鞋子。",
+        "sentenceCode": "EN_P0006_S1",
+        "audioSrc": "audio/sentence_take_off_0_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0006_s1_take_off.m4a",
+        "textHash": "c88ff45a11662e9ff4ab0549a18bbb00"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Take off your wet jacket.",
+        "translation": "脫下你淋濕的外套夾克。",
+        "sentenceCode": "EN_P0006_S2",
+        "audioSrc": "audio/sentence_take_off_1_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0006_s2_take_off.m4a",
+        "textHash": "d438f215cf7ba422eea3760c2828659c"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 熟練拓展",
+        "tag": "進階",
+        "text": "Take off your boots at door.",
+        "translation": "進門時在玄關處把雨靴脫下來。",
+        "sentenceCode": "EN_P0006_S3",
+        "audioSrc": "audio/sentence_take_off_2_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0006_s3_take_off.m4a",
+        "textHash": "f6974ac1e8c98e7e3106748755a62414"
+      }
+    ]
+  },
+  {
+    "id": "sit_down",
+    "word": "sit down",
+    "wordCode": "EN_P0007",
+    "phonetic": "/sɪt daʊn/",
+    "meaning": "動詞片語：坐下來",
+    "emoji": "🪑",
+    "category": "phrases",
+    "level": "L1",
+    "role": "new",
+    "isPhrase": true,
+    "lang": "en-US",
+    "variants": [
+      "sit down",
+      "sits down",
+      "sitting down",
+      "sat down"
+    ],
+    "audioWord": "audio/word_sit_down.m4a",
+    "audioWordCanonical": "audio/phrases/en_p0007_sit_down.m4a",
+    "storyScene": "回到小書桌前端正坐下，準備閱讀精彩繪本。",
+    "storyChapter": 1,
+    "storyChapterTitle": "🌟 生活高頻片語 · Daily Phrases",
+    "storyOrder": 7,
+    "scenarios": [
+      {
+        "tag": "難度 1 · 簡單啟蒙",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
+        "sentences": [
+          "Please sit down here."
+        ],
+        "translations": [
+          "請在這裡坐下來。"
+        ]
+      },
+      {
+        "tag": "難度 2 · 生活日常",
+        "desc": "生活日常情境（適合鞏固日常口語表達）",
+        "sentences": [
+          "Sit down on the chair."
+        ],
+        "translations": [
+          "在小椅子上坐端正。"
+        ]
+      },
+      {
+        "tag": "難度 3 · 熟練拓展",
+        "desc": "情境思維拓展（建議連續登錄多日後挑戰）",
+        "sentences": [
+          "Please sit down and read books."
+        ],
+        "translations": [
+          "請坐下來安靜閱讀好看的故事書。"
+        ]
+      }
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Please sit down here.",
+        "translation": "請在這裡坐下來。",
+        "sentenceCode": "EN_P0007_S1",
+        "audioSrc": "audio/sentence_sit_down_0_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0007_s1_sit_down.m4a",
+        "textHash": "ea110fe0fbdc1937e838fd321dc51e2b"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Sit down on the chair.",
+        "translation": "在小椅子上坐端正。",
+        "sentenceCode": "EN_P0007_S2",
+        "audioSrc": "audio/sentence_sit_down_1_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0007_s2_sit_down.m4a",
+        "textHash": "861ba3071d11aa90fa924343fa2d1d4b"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 熟練拓展",
+        "tag": "進階",
+        "text": "Please sit down and read books.",
+        "translation": "請坐下來安靜閱讀好看的故事書。",
+        "sentenceCode": "EN_P0007_S3",
+        "audioSrc": "audio/sentence_sit_down_2_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0007_s3_sit_down.m4a",
+        "textHash": "6dfba39ee670ae2acab1717556502b49"
+      }
+    ]
+  },
+  {
+    "id": "stand_up",
+    "word": "stand up",
+    "wordCode": "EN_P0008",
+    "phonetic": "/stænd ʌp/",
+    "meaning": "動詞片語：站起來",
+    "emoji": "🧍",
+    "category": "phrases",
+    "level": "L1",
+    "role": "new",
+    "isPhrase": true,
+    "lang": "en-US",
+    "variants": [
+      "stand up",
+      "stands up",
+      "standing up",
+      "stood up"
+    ],
+    "audioWord": "audio/word_stand_up.m4a",
+    "audioWordCanonical": "audio/phrases/en_p0008_stand_up.m4a",
+    "storyScene": "下課鈴響，Kai 開心地站起來伸展身體。",
+    "storyChapter": 1,
+    "storyChapterTitle": "🌟 生活高頻片語 · Daily Phrases",
+    "storyOrder": 8,
+    "scenarios": [
+      {
+        "tag": "難度 1 · 簡單啟蒙",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
+        "sentences": [
+          "Stand up with me."
+        ],
+        "translations": [
+          "跟我一起站起來。"
+        ]
+      },
+      {
+        "tag": "難度 2 · 生活日常",
+        "desc": "生活日常情境（適合鞏固日常口語表達）",
+        "sentences": [
+          "Students stand up to sing."
+        ],
+        "translations": [
+          "同學們站起來一起齊聲唱歌。"
+        ]
+      },
+      {
+        "tag": "難度 3 · 熟練拓展",
+        "desc": "情境思維拓展（建議連續登錄多日後挑戰）",
+        "sentences": [
+          "Stand up and stretch your arms."
+        ],
+        "translations": [
+          "站起來並向天空伸展你的雙臂。"
+        ]
+      }
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Stand up with me.",
+        "translation": "跟我一起站起來。",
+        "sentenceCode": "EN_P0008_S1",
+        "audioSrc": "audio/sentence_stand_up_0_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0008_s1_stand_up.m4a",
+        "textHash": "d0e9732786996b291c46d7c95a757b9d"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Students stand up to sing.",
+        "translation": "同學們站起來一起齊聲唱歌。",
+        "sentenceCode": "EN_P0008_S2",
+        "audioSrc": "audio/sentence_stand_up_1_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0008_s2_stand_up.m4a",
+        "textHash": "ebd4458046fe4de4d607675b83ad955a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 熟練拓展",
+        "tag": "進階",
+        "text": "Stand up and stretch your arms.",
+        "translation": "站起來並向天空伸展你的雙臂。",
+        "sentenceCode": "EN_P0008_S3",
+        "audioSrc": "audio/sentence_stand_up_2_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0008_s3_stand_up.m4a",
+        "textHash": "7d9afaa56bc56318771d3abddec8a2ed"
+      }
+    ]
+  },
+  {
+    "id": "look_at",
+    "word": "look at",
+    "wordCode": "EN_P0009",
+    "phonetic": "/lʊk æt/",
+    "meaning": "動詞片語：看著，注視",
+    "emoji": "👀",
+    "category": "phrases",
+    "level": "L1",
+    "role": "new",
+    "isPhrase": true,
+    "lang": "en-US",
+    "variants": [
+      "look at",
+      "looks at",
+      "looking at",
+      "looked at"
+    ],
+    "audioWord": "audio/word_look_at.m4a",
+    "audioWordCanonical": "audio/phrases/en_p0009_look_at.m4a",
+    "storyScene": "抬頭望向窗外蔚藍的天空與美麗的彩虹。",
+    "storyChapter": 1,
+    "storyChapterTitle": "🌟 生活高頻片語 · Daily Phrases",
+    "storyOrder": 9,
+    "scenarios": [
+      {
+        "tag": "難度 1 · 簡單啟蒙",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
+        "sentences": [
+          "Look at the star."
+        ],
+        "translations": [
+          "看看那顆閃爍的星星。"
+        ]
+      },
+      {
+        "tag": "難度 2 · 生活日常",
+        "desc": "生活日常情境（適合鞏固日常口語表達）",
+        "sentences": [
+          "Look at the blue sky."
+        ],
+        "translations": [
+          "抬頭看看蔚藍晴朗的天空。"
+        ]
+      },
+      {
+        "tag": "難度 3 · 熟練拓展",
+        "desc": "情境思維拓展（建議連續登錄多日後挑戰）",
+        "sentences": [
+          "Look at the pretty rainbow sky."
+        ],
+        "translations": [
+          "快看大雨過後掛在天邊的彩虹。"
+        ]
+      }
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Look at the star.",
+        "translation": "看看那顆閃爍的星星。",
+        "sentenceCode": "EN_P0009_S1",
+        "audioSrc": "audio/sentence_look_at_0_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0009_s1_look_at.m4a",
+        "textHash": "1cfee17fc78bb4506c765b58bd718627"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Look at the blue sky.",
+        "translation": "抬頭看看蔚藍晴朗的天空。",
+        "sentenceCode": "EN_P0009_S2",
+        "audioSrc": "audio/sentence_look_at_1_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0009_s2_look_at.m4a",
+        "textHash": "bdba658b3adf9f7a60dfaa3e5c6ac422"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 熟練拓展",
+        "tag": "進階",
+        "text": "Look at the pretty rainbow sky.",
+        "translation": "快看大雨過後掛在天邊的彩虹。",
+        "sentenceCode": "EN_P0009_S3",
+        "audioSrc": "audio/sentence_look_at_2_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0009_s3_look_at.m4a",
+        "textHash": "b93847b96174712d6c8c05b508e694e7"
+      }
+    ]
+  },
+  {
+    "id": "look_for",
+    "word": "look for",
+    "wordCode": "EN_P0010",
+    "phonetic": "/lʊk fɔːr/",
+    "meaning": "動詞片語：尋找",
+    "emoji": "🔍",
+    "category": "phrases",
+    "level": "L1",
+    "role": "new",
+    "isPhrase": true,
+    "lang": "en-US",
+    "variants": [
+      "look for",
+      "looks for",
+      "looking for",
+      "looked for"
+    ],
+    "audioWord": "audio/word_look_for.m4a",
+    "audioWordCanonical": "audio/phrases/en_p0010_look_for.m4a",
+    "storyScene": "在小房間裡仔細尋找心愛的小玩具與彩筆。",
+    "storyChapter": 1,
+    "storyChapterTitle": "🌟 生活高頻片語 · Daily Phrases",
+    "storyOrder": 10,
+    "scenarios": [
+      {
+        "tag": "難度 1 · 簡單啟蒙",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
+        "sentences": [
+          "Look for my pencil."
+        ],
+        "translations": [
+          "找一找我的小鉛筆在哪裡。"
+        ]
+      },
+      {
+        "tag": "難度 2 · 生活日常",
+        "desc": "生活日常情境（適合鞏固日常口語表達）",
+        "sentences": [
+          "I look for my toy."
+        ],
+        "translations": [
+          "我在房間尋找我心愛的玩具。"
+        ]
+      },
+      {
+        "tag": "難度 3 · 熟練拓展",
+        "desc": "情境思維拓展（建議連續登錄多日後挑戰）",
+        "sentences": [
+          "We look for seashells on beach."
+        ],
+        "translations": [
+          "我們在金黃色的沙灘上尋找貝殼。"
+        ]
+      }
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Look for my pencil.",
+        "translation": "找一找我的小鉛筆在哪裡。",
+        "sentenceCode": "EN_P0010_S1",
+        "audioSrc": "audio/sentence_look_for_0_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0010_s1_look_for.m4a",
+        "textHash": "8ddf01cf339ba8bb8008f8ae36d89ba4"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "I look for my toy.",
+        "translation": "我在房間尋找我心愛的玩具。",
+        "sentenceCode": "EN_P0010_S2",
+        "audioSrc": "audio/sentence_look_for_1_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0010_s2_look_for.m4a",
+        "textHash": "c4e3772719bb4158e05a305563e0aebf"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 熟練拓展",
+        "tag": "進階",
+        "text": "We look for seashells on beach.",
+        "translation": "我們在金黃色的沙灘上尋找貝殼。",
+        "sentenceCode": "EN_P0010_S3",
+        "audioSrc": "audio/sentence_look_for_2_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0010_s3_look_for.m4a",
+        "textHash": "9167abcc0195c05840e6b2061307072e"
+      }
+    ]
+  },
+  {
+    "id": "listen_to",
+    "word": "listen to",
+    "wordCode": "EN_P0011",
+    "phonetic": "/ˈlɪs.ən tuː/",
+    "meaning": "動詞片語：聆聽，認真聽",
+    "emoji": "🎧",
+    "category": "phrases",
+    "level": "L1",
+    "role": "new",
+    "isPhrase": true,
+    "lang": "en-US",
+    "variants": [
+      "listen to",
+      "listens to",
+      "listening to",
+      "listened to"
+    ],
+    "audioWord": "audio/word_listen_to.m4a",
+    "audioWordCanonical": "audio/phrases/en_p0011_listen_to.m4a",
+    "storyScene": "戴上耳機專注傾聽優美動聽的英文故事。",
+    "storyChapter": 1,
+    "storyChapterTitle": "🌟 生活高頻片語 · Daily Phrases",
+    "storyOrder": 11,
+    "scenarios": [
+      {
+        "tag": "難度 1 · 簡單啟蒙",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
+        "sentences": [
+          "Listen to the music."
+        ],
+        "translations": [
+          "聽聽優美動聽的音樂。"
+        ]
+      },
+      {
+        "tag": "難度 2 · 生活日常",
+        "desc": "生活日常情境（適合鞏固日常口語表達）",
+        "sentences": [
+          "Listen to the teacher speak."
+        ],
+        "translations": [
+          "認真專注聽老師說話講課。"
+        ]
+      },
+      {
+        "tag": "難度 3 · 熟練拓展",
+        "desc": "情境思維拓展（建議連續登錄多日後挑戰）",
+        "sentences": [
+          "I listen to sweet bedtime stories."
+        ],
+        "translations": [
+          "我每晚聆聽媽媽講溫馨睡前故事。"
+        ]
+      }
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Listen to the music.",
+        "translation": "聽聽優美動聽的音樂。",
+        "sentenceCode": "EN_P0011_S1",
+        "audioSrc": "audio/sentence_listen_to_0_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0011_s1_listen_to.m4a",
+        "textHash": "56ebd181f9f5b38824730cb5c08bd028"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Listen to the teacher speak.",
+        "translation": "認真專注聽老師說話講課。",
+        "sentenceCode": "EN_P0011_S2",
+        "audioSrc": "audio/sentence_listen_to_1_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0011_s2_listen_to.m4a",
+        "textHash": "90654c1b0f98a91d34ca3187c7d11fd9"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 熟練拓展",
+        "tag": "進階",
+        "text": "I listen to sweet bedtime stories.",
+        "translation": "我每晚聆聽媽媽講溫馨睡前故事。",
+        "sentenceCode": "EN_P0011_S3",
+        "audioSrc": "audio/sentence_listen_to_2_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0011_s3_listen_to.m4a",
+        "textHash": "47aeaa1a445f6f0894c9c8ad03a65c64"
+      }
+    ]
+  },
+  {
+    "id": "pick_up",
+    "word": "pick up",
+    "wordCode": "EN_P0012",
+    "phonetic": "/pɪk ʌp/",
+    "meaning": "動詞片語：撿起，拾起",
+    "emoji": "🏀",
+    "category": "phrases",
+    "level": "L1",
+    "role": "new",
+    "isPhrase": true,
+    "lang": "en-US",
+    "variants": [
+      "pick up",
+      "picks up",
+      "picking up",
+      "picked up"
+    ],
+    "audioWord": "audio/word_pick_up.m4a",
+    "audioWordCanonical": "audio/phrases/en_p0012_pick_up.m4a",
+    "storyScene": "伸出雙手把散落在地上的皮球和小積木撿起來。",
+    "storyChapter": 1,
+    "storyChapterTitle": "🌟 生活高頻片語 · Daily Phrases",
+    "storyOrder": 12,
+    "scenarios": [
+      {
+        "tag": "難度 1 · 簡單啟蒙",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
+        "sentences": [
+          "Pick up the ball."
+        ],
+        "translations": [
+          "把地上的皮球撿起來。"
+        ]
+      },
+      {
+        "tag": "難度 2 · 生活日常",
+        "desc": "生活日常情境（適合鞏固日常口語表達）",
+        "sentences": [
+          "Pick up toys from floor."
+        ],
+        "translations": [
+          "把散在地板上的玩具撿起來。"
+        ]
+      },
+      {
+        "tag": "難度 3 · 熟練拓展",
+        "desc": "情境思維拓展（建議連續登錄多日後挑戰）",
+        "sentences": [
+          "Pick up your crayons from table."
+        ],
+        "translations": [
+          "把散落在書桌上的彩色蠟筆收好。"
+        ]
+      }
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Pick up the ball.",
+        "translation": "把地上的皮球撿起來。",
+        "sentenceCode": "EN_P0012_S1",
+        "audioSrc": "audio/sentence_pick_up_0_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0012_s1_pick_up.m4a",
+        "textHash": "f5317d3553a1a4312386ce3ef2eaa8e8"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Pick up toys from floor.",
+        "translation": "把散在地板上的玩具撿起來。",
+        "sentenceCode": "EN_P0012_S2",
+        "audioSrc": "audio/sentence_pick_up_1_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0012_s2_pick_up.m4a",
+        "textHash": "81a780d869ee27b47f5abded55daba26"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 熟練拓展",
+        "tag": "進階",
+        "text": "Pick up your crayons from table.",
+        "translation": "把散落在書桌上的彩色蠟筆收好。",
+        "sentenceCode": "EN_P0012_S3",
+        "audioSrc": "audio/sentence_pick_up_2_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0012_s3_pick_up.m4a",
+        "textHash": "26111ec56fd8019642c4e481e78cebd6"
+      }
+    ]
+  },
+  {
+    "id": "clean_up",
+    "word": "clean up",
+    "wordCode": "EN_P0013",
+    "phonetic": "/kliːn ʌp/",
+    "meaning": "動詞片語：收拾乾淨，整理",
+    "emoji": "🧹",
+    "category": "phrases",
+    "level": "L1",
+    "role": "new",
+    "isPhrase": true,
+    "lang": "en-US",
+    "variants": [
+      "clean up",
+      "cleans up",
+      "cleaning up",
+      "cleaned up"
+    ],
+    "audioWord": "audio/word_clean_up.m4a",
+    "audioWordCanonical": "audio/phrases/en_p0013_clean_up.m4a",
+    "storyScene": "學習和玩耍結束後，把書桌與房間收拾得井井有條。",
+    "storyChapter": 1,
+    "storyChapterTitle": "🌟 生活高頻片語 · Daily Phrases",
+    "storyOrder": 13,
+    "scenarios": [
+      {
+        "tag": "難度 1 · 簡單啟蒙",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
+        "sentences": [
+          "Clean up the room."
+        ],
+        "translations": [
+          "把小房間整理乾淨。"
+        ]
+      },
+      {
+        "tag": "難度 2 · 生活日常",
+        "desc": "生活日常情境（適合鞏固日常口語表達）",
+        "sentences": [
+          "We clean up after play."
+        ],
+        "translations": [
+          "玩完玩具之後我們一起收拾乾淨。"
+        ]
+      },
+      {
+        "tag": "難度 3 · 熟練拓展",
+        "desc": "情境思維拓展（建議連續登錄多日後挑戰）",
+        "sentences": [
+          "Clean up your desk after study."
+        ],
+        "translations": [
+          "讀書學習完畢記得把書桌整理好。"
+        ]
+      }
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Clean up the room.",
+        "translation": "把小房間整理乾淨。",
+        "sentenceCode": "EN_P0013_S1",
+        "audioSrc": "audio/sentence_clean_up_0_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0013_s1_clean_up.m4a",
+        "textHash": "4edc27b8db8cf2a6bc4bd83f8e0b9020"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "We clean up after play.",
+        "translation": "玩完玩具之後我們一起收拾乾淨。",
+        "sentenceCode": "EN_P0013_S2",
+        "audioSrc": "audio/sentence_clean_up_1_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0013_s2_clean_up.m4a",
+        "textHash": "86249681f493065896466b6c9434ddbc"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 熟練拓展",
+        "tag": "進階",
+        "text": "Clean up your desk after study.",
+        "translation": "讀書學習完畢記得把書桌整理好。",
+        "sentenceCode": "EN_P0013_S3",
+        "audioSrc": "audio/sentence_clean_up_2_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0013_s3_clean_up.m4a",
+        "textHash": "09b810bb3371c4d14e7f28c13819014b"
+      }
+    ]
+  },
+  {
+    "id": "put_away",
+    "word": "put away",
+    "wordCode": "EN_P0014",
+    "phonetic": "/pʊt əˈweɪ/",
+    "meaning": "動詞片語：收好，歸位",
+    "emoji": "📦",
+    "category": "phrases",
+    "level": "L1",
+    "role": "new",
+    "isPhrase": true,
+    "lang": "en-US",
+    "variants": [
+      "put away",
+      "puts away",
+      "putting away"
+    ],
+    "audioWord": "audio/word_put_away.m4a",
+    "audioWordCanonical": "audio/phrases/en_p0014_put_away.m4a",
+    "storyScene": "將彩色積木放進收納盒，把故事書排回書架。",
+    "storyChapter": 1,
+    "storyChapterTitle": "🌟 生活高頻片語 · Daily Phrases",
+    "storyOrder": 14,
+    "scenarios": [
+      {
+        "tag": "難度 1 · 簡單啟蒙",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
+        "sentences": [
+          "Put away the toys."
+        ],
+        "translations": [
+          "把玩具收進盒子歸位。"
+        ]
+      },
+      {
+        "tag": "難度 2 · 生活日常",
+        "desc": "生活日常情境（適合鞏固日常口語表達）",
+        "sentences": [
+          "Put your story books away."
+        ],
+        "translations": [
+          "把看完的故事書放回書架上。"
+        ]
+      },
+      {
+        "tag": "難度 3 · 熟練拓展",
+        "desc": "情境思維拓展（建議連續登錄多日後挑戰）",
+        "sentences": [
+          "Put away your shoes in closet."
+        ],
+        "translations": [
+          "把外出鞋整齊收進門口的鞋櫃裡。"
+        ]
+      }
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Put away the toys.",
+        "translation": "把玩具收進盒子歸位。",
+        "sentenceCode": "EN_P0014_S1",
+        "audioSrc": "audio/sentence_put_away_0_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0014_s1_put_away.m4a",
+        "textHash": "0a7804582cb97829dbeeddf04a3d3bea"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Put your story books away.",
+        "translation": "把看完的故事書放回書架上。",
+        "sentenceCode": "EN_P0014_S2",
+        "audioSrc": "audio/sentence_put_away_1_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0014_s2_put_away.m4a",
+        "textHash": "a2acca4c8f13a6a74237df9464f10a57"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 熟練拓展",
+        "tag": "進階",
+        "text": "Put away your shoes in closet.",
+        "translation": "把外出鞋整齊收進門口的鞋櫃裡。",
+        "sentenceCode": "EN_P0014_S3",
+        "audioSrc": "audio/sentence_put_away_2_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0014_s3_put_away.m4a",
+        "textHash": "1649b128908319192a8db0e4502de396"
+      }
+    ]
+  },
+  {
+    "id": "turn_on",
+    "word": "turn on",
+    "wordCode": "EN_P0015",
+    "phonetic": "/tɜːrn ɑːn/",
+    "meaning": "動詞片語：打開（電器/燈）",
+    "emoji": "💡",
+    "category": "phrases",
+    "level": "L1",
+    "role": "new",
+    "isPhrase": true,
+    "lang": "en-US",
+    "variants": [
+      "turn on",
+      "turns on",
+      "turning on",
+      "turned on"
+    ],
+    "audioWord": "audio/word_turn_on.m4a",
+    "audioWordCanonical": "audio/phrases/en_p0015_turn_on.m4a",
+    "storyScene": "輕輕按下檯燈開關，溫暖柔和的黃光照亮了書桌。",
+    "storyChapter": 1,
+    "storyChapterTitle": "🌟 生活高頻片語 · Daily Phrases",
+    "storyOrder": 15,
+    "scenarios": [
+      {
+        "tag": "難度 1 · 簡單啟蒙",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
+        "sentences": [
+          "Turn on the lamp."
+        ],
+        "translations": [
+          "打開這盞檯燈。"
+        ]
+      },
+      {
+        "tag": "難度 2 · 生活日常",
+        "desc": "生活日常情境（適合鞏固日常口語表達）",
+        "sentences": [
+          "Turn on the desk lamp."
+        ],
+        "translations": [
+          "打開書桌上的閱讀檯燈。"
+        ]
+      },
+      {
+        "tag": "難度 3 · 熟練拓展",
+        "desc": "情境思維拓展（建議連續登錄多日後挑戰）",
+        "sentences": [
+          "Please turn on the study light."
+        ],
+        "translations": [
+          "天色暗了請把書房的大燈打開。"
+        ]
+      }
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Turn on the lamp.",
+        "translation": "打開這盞檯燈。",
+        "sentenceCode": "EN_P0015_S1",
+        "audioSrc": "audio/sentence_turn_on_0_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0015_s1_turn_on.m4a",
+        "textHash": "d555c227b4da7df398fef2052839559b"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Turn on the desk lamp.",
+        "translation": "打開書桌上的閱讀檯燈。",
+        "sentenceCode": "EN_P0015_S2",
+        "audioSrc": "audio/sentence_turn_on_1_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0015_s2_turn_on.m4a",
+        "textHash": "e3d53a75b3ab01dba918138acd31882a"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 熟練拓展",
+        "tag": "進階",
+        "text": "Please turn on the study light.",
+        "translation": "天色暗了請把書房的大燈打開。",
+        "sentenceCode": "EN_P0015_S3",
+        "audioSrc": "audio/sentence_turn_on_2_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0015_s3_turn_on.m4a",
+        "textHash": "e182e2bf9cf53fc30f0ef4ad87562c8f"
+      }
+    ]
+  },
+  {
+    "id": "turn_off",
+    "word": "turn off",
+    "wordCode": "EN_P0016",
+    "phonetic": "/tɜːrn ɔːf/",
+    "meaning": "動詞片語：關閉（電器/燈）",
+    "emoji": "🌑",
+    "category": "phrases",
+    "level": "L1",
+    "role": "new",
+    "isPhrase": true,
+    "lang": "en-US",
+    "variants": [
+      "turn off",
+      "turns off",
+      "turning off",
+      "turned off"
+    ],
+    "audioWord": "audio/word_turn_off.m4a",
+    "audioWordCanonical": "audio/phrases/en_p0016_turn_off.m4a",
+    "storyScene": "睡覺前輕按開關關掉房間的電燈，養成隨手節能好習慣。",
+    "storyChapter": 1,
+    "storyChapterTitle": "🌟 生活高頻片語 · Daily Phrases",
+    "storyOrder": 16,
+    "scenarios": [
+      {
+        "tag": "難度 1 · 簡單啟蒙",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
+        "sentences": [
+          "Turn off the light."
+        ],
+        "translations": [
+          "記得隨手把電燈關掉。"
+        ]
+      },
+      {
+        "tag": "難度 2 · 生活日常",
+        "desc": "生活日常情境（適合鞏固日常口語表達）",
+        "sentences": [
+          "Turn off the room fan."
+        ],
+        "translations": [
+          "把房間裡的電風扇關上。"
+        ]
+      },
+      {
+        "tag": "難度 3 · 熟練拓展",
+        "desc": "情境思維拓展（建議連續登錄多日後挑戰）",
+        "sentences": [
+          "Turn off the light before sleeping."
+        ],
+        "translations": [
+          "準備上床睡覺前記得把電燈關掉。"
+        ]
+      }
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Turn off the light.",
+        "translation": "記得隨手把電燈關掉。",
+        "sentenceCode": "EN_P0016_S1",
+        "audioSrc": "audio/sentence_turn_off_0_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0016_s1_turn_off.m4a",
+        "textHash": "45f0a366039eae503d2990633624b6d0"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Turn off the room fan.",
+        "translation": "把房間裡的電風扇關上。",
+        "sentenceCode": "EN_P0016_S2",
+        "audioSrc": "audio/sentence_turn_off_1_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0016_s2_turn_off.m4a",
+        "textHash": "5ea53a5a96592ca8d5db753bcea779fd"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 熟練拓展",
+        "tag": "進階",
+        "text": "Turn off the light before sleeping.",
+        "translation": "準備上床睡覺前記得把電燈關掉。",
+        "sentenceCode": "EN_P0016_S3",
+        "audioSrc": "audio/sentence_turn_off_2_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0016_s3_turn_off.m4a",
+        "textHash": "dabd0b35347e9b2c82a24d0b986ac260"
+      }
+    ]
+  },
+  {
+    "id": "play_with",
+    "word": "play with",
+    "wordCode": "EN_P0017",
+    "phonetic": "/pleɪ wɪð/",
+    "meaning": "動詞片語：和…一起玩",
+    "emoji": "🐕",
+    "category": "phrases",
+    "level": "L1",
+    "role": "new",
+    "isPhrase": true,
+    "lang": "en-US",
+    "variants": [
+      "play with",
+      "plays with",
+      "playing with",
+      "played with"
+    ],
+    "audioWord": "audio/word_play_with.m4a",
+    "audioWordCanonical": "audio/phrases/en_p0017_play_with.m4a",
+    "storyScene": "在陽光灑落的公園草地上和小狗好朋友一起丟皮球玩耍。",
+    "storyChapter": 1,
+    "storyChapterTitle": "🌟 生活高頻片語 · Daily Phrases",
+    "storyOrder": 17,
+    "scenarios": [
+      {
+        "tag": "難度 1 · 簡單啟蒙",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
+        "sentences": [
+          "Play with your puppy."
+        ],
+        "translations": [
+          "和你的小狗狗一起玩耍。"
+        ]
+      },
+      {
+        "tag": "難度 2 · 生活日常",
+        "desc": "生活日常情境（適合鞏固日常口語表達）",
+        "sentences": [
+          "Play with friends at school."
+        ],
+        "translations": [
+          "在學校和好朋友們開心地玩。"
+        ]
+      },
+      {
+        "tag": "難度 3 · 熟練拓展",
+        "desc": "情境思維拓展（建議連續登錄多日後挑戰）",
+        "sentences": [
+          "Children play with ball in park."
+        ],
+        "translations": [
+          "孩子們在公園草地上一起踢球玩耍。"
+        ]
+      }
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Play with your puppy.",
+        "translation": "和你的小狗狗一起玩耍。",
+        "sentenceCode": "EN_P0017_S1",
+        "audioSrc": "audio/sentence_play_with_0_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0017_s1_play_with.m4a",
+        "textHash": "adf198f4ba5a9abeb082bd5e155e7f79"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Play with friends at school.",
+        "translation": "在學校和好朋友們開心地玩。",
+        "sentenceCode": "EN_P0017_S2",
+        "audioSrc": "audio/sentence_play_with_1_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0017_s2_play_with.m4a",
+        "textHash": "8ff1e4ad630acc6c2ac00cb59bcb563d"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 熟練拓展",
+        "tag": "進階",
+        "text": "Children play with ball in park.",
+        "translation": "孩子們在公園草地上一起踢球玩耍。",
+        "sentenceCode": "EN_P0017_S3",
+        "audioSrc": "audio/sentence_play_with_2_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0017_s3_play_with.m4a",
+        "textHash": "d8a5270eddd9cbb8ad2d64194eb6a12b"
+      }
+    ]
+  },
+  {
+    "id": "line_up",
+    "word": "line up",
+    "wordCode": "EN_P0018",
+    "phonetic": "/laɪn ʌp/",
+    "meaning": "動詞片語：排隊站好",
+    "emoji": "🚶‍♂️",
+    "category": "phrases",
+    "level": "L1",
+    "role": "new",
+    "isPhrase": true,
+    "lang": "en-US",
+    "variants": [
+      "line up",
+      "lines up",
+      "lining up",
+      "lined up"
+    ],
+    "audioWord": "audio/word_line_up.m4a",
+    "audioWordCanonical": "audio/phrases/en_p0018_line_up.m4a",
+    "storyScene": "校園午餐時間到了，大家整齊排成一列依序洗手。",
+    "storyChapter": 1,
+    "storyChapterTitle": "🌟 生活高頻片語 · Daily Phrases",
+    "storyOrder": 18,
+    "scenarios": [
+      {
+        "tag": "難度 1 · 簡單啟蒙",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
+        "sentences": [
+          "Line up right now."
+        ],
+        "translations": [
+          "大家現在立刻排好隊。"
+        ]
+      },
+      {
+        "tag": "難度 2 · 生活日常",
+        "desc": "生活日常情境（適合鞏固日常口語表達）",
+        "sentences": [
+          "Students line up at door."
+        ],
+        "translations": [
+          "同學們在教室門口排成整齊隊伍。"
+        ]
+      },
+      {
+        "tag": "難度 3 · 熟練拓展",
+        "desc": "情境思維拓展（建議連續登錄多日後挑戰）",
+        "sentences": [
+          "Please line up to wash hands."
+        ],
+        "translations": [
+          "請大家排隊依序洗手吃午餐。"
+        ]
+      }
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Line up right now.",
+        "translation": "大家現在立刻排好隊。",
+        "sentenceCode": "EN_P0018_S1",
+        "audioSrc": "audio/sentence_line_up_0_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0018_s1_line_up.m4a",
+        "textHash": "3017174f12fa1b9fd900a5262395f8b5"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Students line up at door.",
+        "translation": "同學們在教室門口排成整齊隊伍。",
+        "sentenceCode": "EN_P0018_S2",
+        "audioSrc": "audio/sentence_line_up_1_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0018_s2_line_up.m4a",
+        "textHash": "e37aea401480d703db950d189509508e"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 熟練拓展",
+        "tag": "進階",
+        "text": "Please line up to wash hands.",
+        "translation": "請大家排隊依序洗手吃午餐。",
+        "sentenceCode": "EN_P0018_S3",
+        "audioSrc": "audio/sentence_line_up_2_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0018_s3_line_up.m4a",
+        "textHash": "743b344b783870595eee9341868a8aa1"
+      }
+    ]
+  },
+  {
+    "id": "give_a_hug",
+    "word": "give a hug",
+    "wordCode": "EN_P0019",
+    "phonetic": "/ɡɪv ə hʌɡ/",
+    "meaning": "動詞片語：給一個擁抱",
+    "emoji": "🤗",
+    "category": "phrases",
+    "level": "L1",
+    "role": "new",
+    "isPhrase": true,
+    "lang": "en-US",
+    "variants": [
+      "give a hug",
+      "gives a hug",
+      "giving a hug",
+      "gave a hug"
+    ],
+    "audioWord": "audio/word_give_a_hug.m4a",
+    "audioWordCanonical": "audio/phrases/en_p0019_give_a_hug.m4a",
+    "storyScene": "放學回家見到媽媽，熱情地張開雙臂給媽媽一個大大的擁抱。",
+    "storyChapter": 1,
+    "storyChapterTitle": "🌟 生活高頻片語 · Daily Phrases",
+    "storyOrder": 19,
+    "scenarios": [
+      {
+        "tag": "難度 1 · 簡單啟蒙",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
+        "sentences": [
+          "Give Mom a hug."
+        ],
+        "translations": [
+          "給媽媽一個溫暖的擁抱。"
+        ]
+      },
+      {
+        "tag": "難度 2 · 生活日常",
+        "desc": "生活日常情境（適合鞏固日常口語表達）",
+        "sentences": [
+          "Give your friend warm hug."
+        ],
+        "translations": [
+          "給身邊的好朋友一個溫暖擁抱。"
+        ]
+      },
+      {
+        "tag": "難度 3 · 熟練拓展",
+        "desc": "情境思維拓展（建議連續登錄多日後挑戰）",
+        "sentences": [
+          "Give Mom a big sweet hug."
+        ],
+        "translations": [
+          "給辛苦的媽媽一個甜甜的大擁抱。"
+        ]
+      }
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Give Mom a hug.",
+        "translation": "給媽媽一個溫暖的擁抱。",
+        "sentenceCode": "EN_P0019_S1",
+        "audioSrc": "audio/sentence_give_a_hug_0_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0019_s1_give_a_hug.m4a",
+        "textHash": "ce4ddeff869dc82bfe545fa2d1d78533"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "Give your friend warm hug.",
+        "translation": "給身邊的好朋友一個溫暖擁抱。",
+        "sentenceCode": "EN_P0019_S2",
+        "audioSrc": "audio/sentence_give_a_hug_1_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0019_s2_give_a_hug.m4a",
+        "textHash": "f492d34bbd96d6dad04f15305a4961e3"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 熟練拓展",
+        "tag": "進階",
+        "text": "Give Mom a big sweet hug.",
+        "translation": "給辛苦的媽媽一個甜甜的大擁抱。",
+        "sentenceCode": "EN_P0019_S3",
+        "audioSrc": "audio/sentence_give_a_hug_2_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0019_s3_give_a_hug.m4a",
+        "textHash": "7bdac964fb7852ec54f642110bc9a337"
+      }
+    ]
+  },
+  {
+    "id": "go_to_bed",
+    "word": "go to bed",
+    "wordCode": "EN_P0020",
+    "phonetic": "/ɡoʊ tuː bɛd/",
+    "meaning": "動詞片語：去上床睡覺",
+    "emoji": "🌙",
+    "category": "phrases",
+    "level": "L1",
+    "role": "new",
+    "isPhrase": true,
+    "lang": "en-US",
+    "variants": [
+      "go to bed",
+      "goes to bed",
+      "going to bed",
+      "went to bed"
+    ],
+    "audioWord": "audio/word_go_to_bed.m4a",
+    "audioWordCanonical": "audio/phrases/en_p0020_go_to_bed.m4a",
+    "storyScene": "喝完溫牛奶聽完睡前故事，Kai 鑽進柔軟的小被窩安穩入睡。",
+    "storyChapter": 1,
+    "storyChapterTitle": "🌟 生活高頻片語 · Daily Phrases",
+    "storyOrder": 20,
+    "scenarios": [
+      {
+        "tag": "難度 1 · 簡單啟蒙",
+        "desc": "基礎入門短句（適合低年級/初學啟蒙）",
+        "sentences": [
+          "Time to go bed."
+        ],
+        "translations": [
+          "該去上床睡覺囉。"
+        ]
+      },
+      {
+        "tag": "難度 2 · 生活日常",
+        "desc": "生活日常情境（適合鞏固日常口語表達）",
+        "sentences": [
+          "I go to bed early."
+        ],
+        "translations": [
+          "我每天早睡早起身體好。"
+        ]
+      },
+      {
+        "tag": "難度 3 · 熟練拓展",
+        "desc": "情境思維拓展（建議連續登錄多日後挑戰）",
+        "sentences": [
+          "I go to bed at nine."
+        ],
+        "translations": [
+          "我每天晚上九點準時上床睡覺。"
+        ]
+      }
+    ],
+    "gradedSentences": [
+      {
+        "level": 1,
+        "levelLabel": "簡單 · 初階短句",
+        "tag": "簡單",
+        "text": "Time to go bed.",
+        "translation": "該去上床睡覺囉。",
+        "sentenceCode": "EN_P0020_S1",
+        "audioSrc": "audio/sentence_go_to_bed_0_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0020_s1_go_to_bed.m4a",
+        "textHash": "9c9e9018fc43de06115a8dacf12459b0"
+      },
+      {
+        "level": 2,
+        "levelLabel": "中等 · 生活日常",
+        "tag": "中等",
+        "text": "I go to bed early.",
+        "translation": "我每天早睡早起身體好。",
+        "sentenceCode": "EN_P0020_S2",
+        "audioSrc": "audio/sentence_go_to_bed_1_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0020_s2_go_to_bed.m4a",
+        "textHash": "638a84ad7d7d9beed8f315b3d323c666"
+      },
+      {
+        "level": 3,
+        "levelLabel": "進階 · 熟練拓展",
+        "tag": "進階",
+        "text": "I go to bed at nine.",
+        "translation": "我每天晚上九點準時上床睡覺。",
+        "sentenceCode": "EN_P0020_S3",
+        "audioSrc": "audio/sentence_go_to_bed_2_0.m4a",
+        "audioSrcCanonical": "audio/sentences/en_p0020_s3_go_to_bed.m4a",
+        "textHash": "8632f579fa0fc9b0d5f0e74b2149a6c8"
+      }
+    ]
   }
 ]
