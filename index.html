@@ -143,23 +143,29 @@
         <h3 class="text-base sm:text-lg font-black text-slate-800 mb-1">
           👋 歡迎來到美音樂園！請選擇學員登入：
         </h3>
-        <p class="text-xs text-slate-500 mb-5">點選小朋友頭像並輸入 4 位數專屬密碼開始學習</p>
+        <p class="text-xs text-slate-500 mb-3.5">點選小朋友頭像即可直接進入，或輸入 4 位數安全密碼保護紀錄</p>
+
+        <!-- Quick 1-Click Entry Banner for Primary Profile (Kai) -->
+        <button type="button" onclick="directLoginAsProfile('child_kai')" class="w-full py-2.5 px-4 mb-4 rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 text-white font-black text-xs sm:text-sm shadow-md hover:shadow-lg hover:brightness-105 active:scale-95 transition flex items-center justify-center gap-2">
+          <span>⚡ 免密碼一鍵快速進入（以 Kai 寶貝 身份開始）</span>
+          <span class="text-base">➔</span>
+        </button>
 
         <!-- Children Cards Grid -->
-        <div id="gateProfilesGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-3 w-full mb-5">
+        <div id="gateProfilesGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-3 w-full mb-4">
           <!-- Dynamically populated -->
         </div>
 
         <!-- Add Child Button -->
-        <button onclick="showGateAddChildForm()" class="w-full py-3 px-4 rounded-2xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border-2 border-dashed border-indigo-300 font-black text-xs sm:text-sm transition flex items-center justify-center gap-2 active:scale-95 shadow-xs mb-4">
-          <span>➕ 新增第二位小朋友學員</span>
+        <button id="gateAddChildBtn" type="button" onclick="showGateAddChildForm()" class="w-full py-3 px-4 rounded-2xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border-2 border-dashed border-indigo-300 font-black text-xs sm:text-sm transition flex items-center justify-center gap-2 active:scale-95 shadow-xs mb-3.5">
+          <span id="gateAddChildBtnText">➕ 新增小朋友學員檔案</span>
         </button>
 
         <!-- Demo & Reset Quick Buttons -->
         <div class="flex items-center gap-3 text-[11px] text-slate-400 font-bold">
-          <button onclick="resetToDemoProfiles()" class="hover:text-indigo-600 underline">🔄 重置載入示範學員 (Kai 525天 / PIN: 1234)</button>
+          <button type="button" onclick="resetToDemoProfiles()" class="hover:text-indigo-600 underline">🔄 重置載入示範學員 (Kai 525天 / PIN: 1234)</button>
           <span>·</span>
-          <button onclick="clearAllProfilesForTesting()" class="hover:text-rose-600 underline">🗑️ 清空學員 (測試初次進入)</button>
+          <button type="button" onclick="clearAllProfilesForTesting()" class="hover:text-rose-600 underline">🗑️ 清空學員 (測試初次進入)</button>
         </div>
       </div>
 
@@ -169,13 +175,16 @@
           👶
         </div>
         <h3 id="gateCreateTitle" class="text-base sm:text-lg font-black text-slate-800 mb-1">
-          建立第一位小朋友學員檔案
+          建立小朋友學員檔案
         </h3>
-        <p id="gateCreateSubtitle" class="text-xs text-slate-500 mb-4">
-          支援相機拍照或相簿上傳真實照片，設定年級與 4 位數密碼保護紀錄！
+        <p id="gateCreateSubtitle" class="text-xs text-slate-500 mb-3">
+          支援相機拍照或相簿上傳真實照片，設定年級即可開始英語冒險！
         </p>
 
-        <div class="w-full text-left space-y-3.5 mb-5 bg-slate-50 p-4 sm:p-5 rounded-2xl border border-slate-200">
+        <!-- Inline Error Banner -->
+        <div id="gateCreateErrorMsg" class="hidden w-full p-2 mb-3 bg-rose-50 border border-rose-200 text-rose-600 rounded-xl text-xs font-bold text-center"></div>
+
+        <div class="w-full text-left space-y-3.5 mb-4 bg-slate-50 p-4 sm:p-5 rounded-2xl border border-slate-200">
           <div>
             <label class="text-xs font-bold text-slate-700 mb-1.5 block">1. 設定學員專屬大頭相片：</label>
             
@@ -219,25 +228,25 @@
 
           <div>
             <label class="text-xs font-bold text-slate-700 mb-1 block">
-              4. 設定 4 位數安全密碼（PIN 碼）：
-              <span class="text-[11px] text-slate-400 font-normal">（防止其他小朋友誤觸竄改）</span>
+              4. 設定 4 位數安全密碼（PIN 碼，預設為 1234）：
+              <span class="text-[11px] text-slate-400 font-normal">（可留空自動使用 1234）</span>
             </label>
-            <input type="password" maxlength="4" id="gateInputPin" placeholder="例如：1234（請輸入 4 位數字）" class="w-full px-3.5 py-2.5 text-sm rounded-xl border border-slate-300 focus:outline-none focus:border-indigo-600 font-mono tracking-widest font-black bg-white">
-            <span class="text-[10px] text-indigo-600 font-bold mt-1 block">💡 提示：建議使用 4 位數字（如生日或 1234）。家長緊急萬能碼為 8888。</span>
+            <input type="password" maxlength="4" id="gateInputPin" placeholder="例如：1234（留空則自動設為 1234）" class="w-full px-3.5 py-2.5 text-sm rounded-xl border border-slate-300 focus:outline-none focus:border-indigo-600 font-mono tracking-widest font-black bg-white">
+            <span class="text-[10px] text-indigo-600 font-bold mt-1 block">💡 提示：家長緊急萬能碼為 8888。</span>
           </div>
         </div>
 
         <div class="flex items-center gap-2 w-full">
-          <button onclick="confirmGateCreateProfile()" class="flex-1 py-3 px-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-black text-xs sm:text-sm shadow-lg shadow-indigo-200 transition active:scale-95">
+          <button type="button" onclick="confirmGateCreateProfile()" class="flex-1 py-3 px-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white font-black text-xs sm:text-sm shadow-lg shadow-indigo-200 transition active:scale-95">
             🌟 立即建立並開始學習
           </button>
-          <button id="gateCancelCreateBtn" onclick="cancelGateCreate()" class="hidden px-4 py-3 rounded-2xl bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-xs sm:text-sm transition">
+          <button type="button" id="gateCancelCreateBtn" onclick="cancelGateCreate()" class="px-5 py-3 rounded-2xl bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-xs sm:text-sm transition">
             返回
           </button>
         </div>
 
         <!-- Quick Demo Button on Create View if empty -->
-        <button id="gateQuickDemoBtn" onclick="resetToDemoProfiles()" class="mt-3 text-xs text-indigo-600 hover:text-indigo-800 underline font-bold">
+        <button id="gateQuickDemoBtn" type="button" onclick="resetToDemoProfiles()" class="mt-3 text-xs text-indigo-600 hover:text-indigo-800 underline font-bold">
           ⚡ 快速體驗：一鍵載入示範學員（Kai 525天 / PIN: 1234）
         </button>
       </div>
@@ -280,6 +289,11 @@
         <button onclick="pressPinKey('0')" class="py-3 rounded-2xl bg-slate-100 hover:bg-indigo-50 text-slate-800 font-mono text-xl font-bold active:scale-95 transition shadow-xs">0</button>
         <button onclick="backspacePinKey()" class="py-3 rounded-2xl bg-slate-100 hover:bg-amber-50 text-slate-600 font-bold text-base active:scale-95 transition">⌫</button>
       </div>
+
+      <!-- Direct Enter Bypass Button inside PIN modal -->
+      <button type="button" onclick="bypassPinLogin()" class="w-full py-2.5 px-4 mb-3 rounded-2xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-black text-xs transition active:scale-95 flex items-center justify-center gap-1.5 border border-indigo-200">
+        <span>🚀 免密碼直接進入學習</span>
+      </button>
 
       <div class="text-[10px] text-slate-400 font-medium">
         示範預設 PIN: <span class="font-mono text-indigo-600 font-bold">1234</span> · 家長通用萬能碼: <span class="font-mono text-indigo-600 font-bold">8888</span>
@@ -1740,12 +1754,53 @@
     let selectedPinProfile = null;
     let enteredPin = "";
 
+    function directLoginAsProfile(profileId) {
+      let target = profiles.find(p => p.id === profileId);
+      if (!target && profiles.length > 0) target = profiles[0];
+      if (!target) {
+        resetToDemoProfiles();
+        return;
+      }
+      currentProfileId = target.id;
+      isUserLoggedIn = true;
+      saveProfilesToStorage();
+      loadActiveProfileData();
+
+      initQuestQueue();
+      questWordIdx = 0;
+      questSubStep = 0;
+      renderQuestCard();
+
+      const pinModal = document.getElementById('pinEntryModal');
+      if (pinModal) pinModal.classList.add('hidden');
+      const gateOverlay = document.getElementById('profileGateOverlay');
+      if (gateOverlay) gateOverlay.classList.add('hidden');
+
+      SoundEffects.playShield();
+      const countBox = document.getElementById('overlayCountdownBox');
+      const startBtn = document.getElementById('overlayStartBtn');
+      const skipBtn = document.getElementById('overlaySkipBtn');
+      if (countBox) countBox.classList.add('hidden');
+      if (startBtn) startBtn.classList.remove('hidden');
+      if (skipBtn) skipBtn.classList.remove('hidden');
+      document.getElementById('questKickoffOverlay').classList.remove('hidden');
+    }
+
+    function bypassPinLogin() {
+      if (selectedPinProfile) {
+        directLoginAsProfile(selectedPinProfile.id);
+      } else if (profiles && profiles.length > 0) {
+        directLoginAsProfile(profiles[0].id);
+      }
+    }
+
     function renderGateScreen() {
       const gateSelectView = document.getElementById('gateProfileSelectView');
       const gateCreateView = document.getElementById('gateCreateProfileView');
       const cancelBtn = document.getElementById('gateCancelCreateBtn');
       const quickDemoBtn = document.getElementById('gateQuickDemoBtn');
       const grid = document.getElementById('gateProfilesGrid');
+      const addBtnText = document.getElementById('gateAddChildBtnText');
 
       updateGateAvatarPreview();
 
@@ -1773,13 +1828,17 @@
         gateSelectView.classList.remove('hidden');
         gateCreateView.classList.add('hidden');
 
+        if (addBtnText) {
+          addBtnText.innerText = `➕ 新增小朋友學員檔案 (第 ${profiles.length + 1} 位)`;
+        }
+
         if (grid) {
           grid.innerHTML = profiles.map(p => {
             const avatarHtml = (p.avatar && (p.avatar.startsWith('data:image') || p.avatar.startsWith('http') || p.avatar.startsWith('blob:')))
               ? `<img src="${p.avatar}" class="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover border-2 border-indigo-200 shadow-md mb-2 group-hover:scale-105 transition" alt="${p.name}">`
               : `<div class="text-4xl sm:text-5xl mb-2 group-hover:scale-110 transition duration-300">${p.avatar || '👦'}</div>`;
             return `
-              <div onclick="openPinModal('${p.id}')" class="p-3.5 sm:p-4 rounded-3xl bg-slate-50 hover:bg-indigo-50 border-2 border-slate-200 hover:border-indigo-400 text-center transition cursor-pointer active:scale-95 shadow-sm hover:shadow-md flex flex-col items-center group">
+              <div onclick="directLoginAsProfile('${p.id}')" class="p-3.5 sm:p-4 rounded-3xl bg-slate-50 hover:bg-indigo-50 border-2 border-slate-200 hover:border-indigo-400 text-center transition cursor-pointer active:scale-95 shadow-sm hover:shadow-md flex flex-col items-center group relative">
                 ${avatarHtml}
                 <div class="font-black text-xs sm:text-sm text-slate-900 group-hover:text-indigo-900 truncate max-w-full">${p.name}</div>
                 <div class="text-[9px] text-slate-500 font-bold bg-white px-2 py-0.5 rounded-full border border-slate-200 mt-1">${p.grade}</div>
@@ -1788,8 +1847,13 @@
                   <span>·</span>
                   <span>⚡ ${p.energyPoints || 0}</span>
                 </div>
-                <div class="mt-2 text-[10px] text-indigo-600 font-bold flex items-center gap-1 opacity-80 group-hover:opacity-100">
-                  <span>🔒 點擊解鎖</span>
+                <div class="mt-2.5 w-full flex items-center gap-1.5">
+                  <button type="button" onclick="event.stopPropagation(); directLoginAsProfile('${p.id}')" class="flex-1 py-1.5 px-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-[11px] shadow-xs active:scale-95 transition">
+                    🚀 直接進入
+                  </button>
+                  <button type="button" onclick="event.stopPropagation(); openPinModal('${p.id}')" class="p-1.5 rounded-xl bg-slate-200 hover:bg-indigo-100 text-slate-700 hover:text-indigo-700 font-bold text-[11px] transition active:scale-95" title="以 PIN 密碼解鎖">
+                    🔒
+                  </button>
                 </div>
               </div>
             `;
@@ -1811,30 +1875,47 @@
       if (cancelBtn) cancelBtn.classList.remove('hidden');
       const quickDemoBtn = document.getElementById('gateQuickDemoBtn');
       if (quickDemoBtn) quickDemoBtn.classList.add('hidden');
+      const errBox = document.getElementById('gateCreateErrorMsg');
+      if (errBox) { errBox.innerText = ""; errBox.classList.add('hidden'); }
 
-      document.getElementById('gateCreateTitle').innerText = "➕ 新增小朋友學員檔案";
-      document.getElementById('gateCreateSubtitle').innerText = "設定專屬頭像、年級與 4 位數密碼，各自記錄學習歷程！";
+      const nextNum = (profiles && profiles.length) ? profiles.length + 1 : 1;
+      document.getElementById('gateCreateTitle').innerText = `➕ 新增小朋友學員檔案 (第 ${nextNum} 位)`;
+      document.getElementById('gateCreateSubtitle').innerText = "支援相機拍照或相簿上傳，設定暱稱、年級與 4 位數密碼（預設 1234）！";
     }
 
     function cancelGateCreate() {
-      renderGateScreen();
+      if (!profiles || profiles.length === 0) {
+        resetToDemoProfiles();
+      } else {
+        renderGateScreen();
+      }
     }
 
     function confirmGateCreateProfile() {
       const nameInput = document.getElementById('gateInputName');
       const gradeSelect = document.getElementById('gateSelectGrade');
       const pinInput = document.getElementById('gateInputPin');
+      const errorMsg = document.getElementById('gateCreateErrorMsg');
 
-      const name = (nameInput ? nameInput.value : "").trim();
+      if (errorMsg) {
+        errorMsg.innerText = "";
+        errorMsg.classList.add('hidden');
+      }
+
+      let name = (nameInput ? nameInput.value : "").trim();
       const grade = gradeSelect ? gradeSelect.value : "國小二年級";
-      const pin = (pinInput ? pinInput.value : "").trim() || "1234";
+      let pin = (pinInput ? pinInput.value : "").trim();
 
       if (!name) {
-        alert("請輸入小朋友暱稱或英文名！");
-        return;
+        name = `小學員 ${profiles.length + 1}`;
       }
-      if (!/^\d{4}$/.test(pin)) {
-        alert("密碼請設定為 4 位數字（如 1234、生日等）！");
+      if (!pin) {
+        pin = "1234";
+      } else if (!/^\d{4}$/.test(pin)) {
+        if (errorMsg) {
+          errorMsg.innerText = "⚠️ 密碼請輸入 4 位純數字（例如 1234、生日等）！";
+          errorMsg.classList.remove('hidden');
+        }
         return;
       }
 
@@ -1842,7 +1923,7 @@
       const newProfile = {
         id: newId,
         name: name,
-        avatar: selectedCustomAvatar || selectedAvatarEmoji,
+        avatar: selectedCustomAvatar || selectedAvatarEmoji || '🧒',
         grade: grade,
         pin: pin,
         streakDays: 1,
@@ -3708,7 +3789,7 @@
       const heroPrevLabel = document.getElementById('freeHeroPrevLabel');
       const heroNextLabel = document.getElementById('freeHeroNextLabel');
       if (freeActiveTarget === 'word') {
-        if (heroType) heroType.innerHTML = '<span>🎯 當前跟讀目標：</span><span class="font-bold underline">${card.isPhrase ? '片語' : '單字'}</span>';
+        if (heroType) heroType.innerHTML = `<span>🎯 當前跟讀目標：</span><span class="font-bold underline">${card.isPhrase ? '片語' : '單字'}</span>`;
         if (heroResetBtn) heroResetBtn.classList.add('hidden');
         if (heroPrevLabel) heroPrevLabel.innerText = card.isPhrase ? "上一片語" : "上一詞";
         if (heroNextLabel) heroNextLabel.innerText = card.isPhrase ? "下一片語" : "下一詞";
