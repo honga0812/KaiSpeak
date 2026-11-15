@@ -6961,6 +6961,8 @@
       if (!confirm("確定要清除本機儲存的 Gemini API Key 嗎？清除後將改用離線情境知識庫。")) return;
       try {
         localStorage.removeItem('kaispeak_gemini_api_key');
+        localStorage.removeItem('kaispeak_gemini_active_model');
+        localStorage.removeItem('kaispeak_gemini_api_version');
         const input = document.getElementById('geminiApiKeyInput');
         if (input) input.value = '';
         updateGeminiApiKeyUI();
@@ -6971,6 +6973,79 @@
         }
         SoundEffects.playClick('switch');
       } catch(e) {}
+    }
+
+    async function autoDetectWorkingGeminiModel(key) {
+      // 1. Try querying ListModels API on v1 and v1beta
+      const versions = ['v1', 'v1beta'];
+      for (const ver of versions) {
+        try {
+          const resp = await fetch(`https://generativelanguage.googleapis.com/${ver}/models?key=${encodeURIComponent(key)}`);
+          if (resp.ok) {
+            const data = await resp.json();
+            const available = (data.models || [])
+              .filter(m => m.supportedGenerationMethods && m.supportedGenerationMethods.includes('generateContent'))
+              .map(m => m.name.replace(/^models\//, ''));
+
+            console.log(`Available Gemini models on ${ver}:`, available);
+
+            // Preferred models in priority order
+            const preferred = [
+              'gemini-1.5-flash',
+              'gemini-2.0-flash',
+              'gemini-2.0-flash-exp',
+              'gemini-1.5-flash-latest',
+              'gemini-1.5-flash-001',
+              'gemini-1.5-flash-002',
+              'gemini-1.5-pro',
+              'gemini-pro'
+            ];
+
+            let chosen = preferred.find(p => available.includes(p));
+            if (!chosen && available.length > 0) {
+              chosen = available.find(a => a.includes('flash')) || available[0];
+            }
+
+            if (chosen) {
+              return { model: chosen, version: ver };
+            }
+          }
+        } catch(e) {
+          console.warn(`ListModels on ${ver} failed:`, e);
+        }
+      }
+
+      // 2. Direct probe fallback candidates across versions
+      const candidates = [
+        { version: 'v1', model: 'gemini-1.5-flash' },
+        { version: 'v1beta', model: 'gemini-2.0-flash' },
+        { version: 'v1beta', model: 'gemini-1.5-flash-latest' },
+        { version: 'v1beta', model: 'gemini-1.5-flash' },
+        { version: 'v1', model: 'gemini-1.5-flash-latest' },
+        { version: 'v1beta', model: 'gemini-1.5-pro' }
+      ];
+
+      let lastError = null;
+      for (const cand of candidates) {
+        try {
+          const url = `https://generativelanguage.googleapis.com/${cand.version}/models/${cand.model}:generateContent?key=${encodeURIComponent(key)}`;
+          const resp = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ contents: [{ parts: [{ text: "ping" }] }] })
+          });
+          if (resp.ok) {
+            return cand;
+          } else {
+            const errJson = await resp.json().catch(() => ({}));
+            lastError = errJson.error?.message || `HTTP ${resp.status}`;
+          }
+        } catch(e) {
+          lastError = e.message;
+        }
+      }
+
+      throw new Error(lastError || "無法連通任何 Gemini 模型節點");
     }
 
     async function testGeminiApiKey() {
@@ -6987,32 +7062,17 @@
       if (btn) btn.innerHTML = "<span>⏳ 驗證中...</span>";
       if (resBox) {
         resBox.className = "p-2.5 rounded-xl text-xs font-bold text-left bg-indigo-50 text-indigo-700 border border-indigo-200 block";
-        resBox.innerText = "正在連線 Google Gemini 1.5 Flash 官方節點進行握手測試...";
+        resBox.innerText = "正在連線 Google AI 官方節點進行握手與可用模型自動適配...";
       }
 
       try {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(testKey)}`;
-        const testPayload = {
-          contents: [{ parts: [{ text: "Hello! Reply with exactly: OK" }] }]
-        };
-        const resp = await fetch(url, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(testPayload)
-        });
-
-        if (!resp.ok) {
-          const errData = await resp.json().catch(() => ({}));
-          const errMsg = errData.error?.message || `HTTP ${resp.status}`;
-          throw new Error(errMsg);
-        }
-
-        const data = await resp.json();
-        const replyText = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+        const detected = await autoDetectWorkingGeminiModel(testKey);
+        localStorage.setItem('kaispeak_gemini_active_model', detected.model);
+        localStorage.setItem('kaispeak_gemini_api_version', detected.version);
 
         if (resBox) {
           resBox.className = "p-2.5 rounded-xl text-xs font-bold text-left bg-emerald-50 text-emerald-800 border border-emerald-300 block";
-          resBox.innerHTML = `✅ <strong>連線成功！</strong> 成功接收到 Gemini 1.5 Flash 回應。此 Key 完全有效！`;
+          resBox.innerHTML = `✅ <strong>連線成功！</strong> 成功連通 Google Gemini 官方節點，已自動為您配置最佳模型：<strong>${detected.model}</strong> (API: ${detected.version})。`;
         }
         SoundEffects.playClick('unlock');
       } catch(err) {
@@ -7455,11 +7515,25 @@
     }
 
     // ========================================================
-    // GEMINI 1.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR
+    // GEMINI 1.5/2.0 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR
     // ========================================================
     async function callGeminiScenarioPlanner(userText, userLevel, apiKey) {
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(apiKey)}`;
-      
+      let activeModel = localStorage.getItem('kaispeak_gemini_active_model');
+      let activeVer = localStorage.getItem('kaispeak_gemini_api_version');
+
+      if (!activeModel || !activeVer) {
+        try {
+          const detected = await autoDetectWorkingGeminiModel(apiKey);
+          activeModel = detected.model;
+          activeVer = detected.version;
+          localStorage.setItem('kaispeak_gemini_active_model', activeModel);
+          localStorage.setItem('kaispeak_gemini_api_version', activeVer);
+        } catch(e) {
+          activeModel = 'gemini-1.5-flash';
+          activeVer = 'v1';
+        }
+      }
+
       const systemInstruction = `你是一位資深的國小雙語與資優英語教育專家。
 請依據使用者提供的情境主題，為台灣國小學生（兼顧日常活潑生活口語與資優挑戰）規劃專屬的自選生活情境英文微課堂。
 【核心要求】：
@@ -7500,25 +7574,55 @@
         }
       };
 
-      const resp = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
+      const attempts = [
+        { ver: activeVer, model: activeModel },
+        { ver: 'v1', model: 'gemini-1.5-flash' },
+        { ver: 'v1beta', model: 'gemini-2.0-flash' },
+        { ver: 'v1beta', model: 'gemini-1.5-flash-latest' },
+        { ver: 'v1beta', model: 'gemini-1.5-flash' }
+      ];
 
-      if (!resp.ok) {
-        const errText = await resp.text();
-        throw new Error(`Gemini API 請求失敗 (${resp.status}): ${errText}`);
+      const uniqueAttempts = [];
+      const seen = new Set();
+      for (const a of attempts) {
+        const k = `${a.ver}:${a.model}`;
+        if (!seen.has(k)) {
+          seen.add(k);
+          uniqueAttempts.push(a);
+        }
       }
 
-      const data = await resp.json();
-      const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-      if (!rawText) throw new Error("Gemini API 未回傳有效內容");
+      let lastErr = null;
+      for (const attempt of uniqueAttempts) {
+        try {
+          const url = `https://generativelanguage.googleapis.com/${attempt.ver}/models/${attempt.model}:generateContent?key=${encodeURIComponent(apiKey)}`;
+          const resp = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
 
-      const cleanJson = rawText.replace(/^```json\s*/i, '').replace(/```\s*$/i, '').trim();
-      const parsed = JSON.parse(cleanJson);
-      parsed.source = 'gemini';
-      return parsed;
+          if (resp.ok) {
+            const data = await resp.json();
+            const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (rawText) {
+              const cleanJson = rawText.replace(/^```json\s*/i, '').replace(/```\s*$/i, '').trim();
+              const parsed = JSON.parse(cleanJson);
+              parsed.source = 'gemini';
+              localStorage.setItem('kaispeak_gemini_active_model', attempt.model);
+              localStorage.setItem('kaispeak_gemini_api_version', attempt.ver);
+              return parsed;
+            }
+          } else {
+            const errJson = await resp.json().catch(() => ({}));
+            lastErr = errJson.error?.message || `HTTP ${resp.status}`;
+          }
+        } catch(e) {
+          lastErr = e.message;
+        }
+      }
+
+      throw new Error(lastErr || "無法連通 Gemini API 節點");
     }
 
     function executeScenarioIngestion(scenarioPkg, userLevel = 1) {
