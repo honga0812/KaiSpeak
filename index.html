@@ -1616,7 +1616,13 @@
             <p class="text-[10px] sm:text-[11px] text-slate-500">聊聊天、說說今天想做什麼，智能為你量身打造專屬單字與生活片語！</p>
           </div>
         </div>
-        <button type="button" onclick="closeKaiVoicePlannerModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 font-black text-sm flex items-center justify-center transition active:scale-95">✕</button>
+        <div class="flex items-center gap-1.5 shrink-0">
+          <button type="button" onclick="openGeminiApiKeyModal()" id="geminiApiKeyStatusBtn" class="px-2.5 py-1 rounded-xl text-[10px] font-bold border flex items-center gap-1 transition shadow-2xs active:scale-95 bg-slate-100 text-slate-600 border-slate-300 hover:bg-slate-200">
+            <span id="geminiApiKeyDot" class="w-2 h-2 rounded-full bg-slate-400"></span>
+            <span id="geminiApiKeyBtnText">🔑 設定 Gemini API</span>
+          </button>
+          <button type="button" onclick="closeKaiVoicePlannerModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 font-black text-sm flex items-center justify-center transition active:scale-95">✕</button>
+        </div>
       </div>
 
       <!-- Kai Greeting Chat Bubble -->
@@ -1828,6 +1834,78 @@
           </button>
         </div>
 
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- GEMINI 1.5 FLASH API KEY SETTINGS MODAL                   -->
+  <!-- ======================================================== -->
+  <div id="geminiApiKeyModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[99] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
+    <div class="bg-white rounded-3xl p-5 sm:p-6 max-w-lg w-full shadow-2xl border-2 border-indigo-200 flex flex-col gap-4 my-auto animate-in fade-in zoom-in-95 duration-200">
+      
+      <!-- Header -->
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-2.5">
+          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-white text-xl shadow-md shrink-0">
+            🔑
+          </div>
+          <div class="text-left">
+            <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
+              <span>Google Gemini 1.5 Flash API 設定</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">即時 AI 規劃師</span>
+            </h3>
+            <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeGeminiApiKeyModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 font-black text-sm flex items-center justify-center transition active:scale-95">✕</button>
+      </div>
+
+      <!-- Security / Privacy Notice Banner -->
+      <div class="p-3 rounded-2xl bg-amber-50 border border-amber-200 text-left flex items-start gap-2.5">
+        <span class="text-lg">🛡️</span>
+        <div class="text-xs text-amber-900 leading-relaxed font-medium">
+          <p class="font-bold text-amber-950 mb-0.5">本地隱私與安全保證</p>
+          <p class="text-[11px] text-amber-800">您的 API Key <strong>僅會安全儲存在您這台裝置的本機端（Local Storage）</strong>，發送請求時由瀏覽器直接連線 Google 官方 API，絕對不會傳送至任何第三方伺服器，對話紀錄亦不會留下任何金鑰痕跡。</p>
+        </div>
+      </div>
+
+      <!-- Input Field -->
+      <div class="flex flex-col gap-1.5 text-left">
+        <label for="geminiApiKeyInput" class="text-xs font-black text-slate-700 flex items-center justify-between">
+          <span>Google AI Studio API Key：</span>
+          <span id="geminiKeyStatusText" class="text-[10px] font-bold text-slate-400">未設定</span>
+        </label>
+        <div class="relative flex items-center">
+          <input type="password" id="geminiApiKeyInput" placeholder="請在此貼上 AIzaSy 開頭的 API Key..." class="w-full px-3.5 py-2.5 pr-10 rounded-xl border-2 border-slate-200 focus:border-indigo-500 focus:outline-none text-xs font-mono text-slate-800 transition">
+          <button type="button" onclick="toggleGeminiKeyVisibility()" class="absolute right-2.5 text-slate-400 hover:text-slate-700 text-sm">
+            <span id="geminiKeyEyeIcon">👁️</span>
+          </button>
+        </div>
+        <div class="flex items-center justify-between text-[11px] mt-1">
+          <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-800 font-bold underline flex items-center gap-1">
+            <span>👉 點此前往 Google AI Studio 免費獲取 Key</span>
+            <span>↗</span>
+          </a>
+          <span class="text-slate-400 text-[10px]">支援 gemini-1.5-flash</span>
+        </div>
+      </div>
+
+      <!-- Test Connection Feedback Box -->
+      <div id="geminiTestResultBox" class="hidden p-2.5 rounded-xl text-xs font-bold text-left"></div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2 pt-2 border-t border-slate-100">
+        <button type="button" id="btnTestGeminiKey" onclick="testGeminiApiKey()" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs active:scale-95 transition flex items-center gap-1">
+          <span>🧪 測試連線</span>
+        </button>
+        <button type="button" onclick="clearGeminiApiKey()" class="px-3.5 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold text-xs active:scale-95 transition">
+          <span>🗑️ 清除</span>
+        </button>
+        <button type="button" onclick="saveGeminiApiKey()" class="flex-1 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 text-white font-black text-xs shadow-md active:scale-95 transition flex items-center justify-center gap-1">
+          <span>💾 儲存並啟用</span>
+        </button>
       </div>
 
     </div>
@@ -6295,6 +6373,63 @@
 
     // Rich Topic Knowledge Base for Kids & Gifted English Learning
     const KNOWLEDGE_TOPICS = {
+      'piano_practice': {
+        title: '🎹 【黑白琴鍵與音樂律動】微課堂',
+        keywords: ['鋼琴', '彈鋼琴', '練琴', '彈琴', '琴鍵', '樂譜', '旋律', '節奏', '音樂', '練曲子', 'piano', 'play piano', 'practice piano', 'keyboard', 'sheet music', 'melody', 'rhythm'],
+        dialogues: [
+          [
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Kai, let us sit at the piano and practice the new song today.", zh: "Kai，今天讓我們坐在鋼琴前練習這首新曲子吧。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I can press the smooth piano keys and read the sheet music carefully.", zh: "我會按下平滑的琴鍵，並仔細看樂譜。" },
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Follow the gentle rhythm and keep your fingers curved nicely.", zh: "跟著輕柔的節奏，記得把手指拱成漂亮的手型喔。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Listen to the lovely melody, it sounds like dancing raindrops!", zh: "聽這段優美的旋律，聽起來就像跳舞的雨滴！" },
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "You play with wonderful passion, keep practicing happily!", zh: "你彈得充滿熱情，繼續開心地練習吧！" }
+          ]
+        ],
+        new_words: [
+          { word: "piano", ipa: "/piˈæn.oʊ/", meaning: "名詞：鋼琴，鍵盤樂器", emoji: "🎹", category: "toy_school",
+            s1: "Play the piano.", t1: "彈這架鋼琴。",
+            s2: "Practice the black piano.", t2: "練習這架黑色的鋼琴。",
+            s3: "Kai practices playing the piano every afternoon.", t3: "Kai 每天下午都會練習彈鋼琴。" },
+          { word: "music", ipa: "/ˈmjuː.zɪk/", meaning: "名詞：音樂，美妙樂聲", emoji: "🎵", category: "toy_school",
+            s1: "Listen to music.", t1: "聆聽音樂。",
+            s2: "The sweet music plays.", t2: "美妙的音樂響起。",
+            s3: "Gentle classical music fills the bright living room.", t3: "輕柔的古典音樂洋溢在明亮的客廳裡。" },
+          { word: "key", ipa: "/kiː/", meaning: "名詞：琴鍵，鋼琴鍵", emoji: "🎼", category: "toy_school",
+            s1: "Press the white key.", t1: "按下白色的琴鍵。",
+            s2: "Touch each piano key.", t2: "輕觸每一個鋼琴鍵。",
+            s3: "Pianists press black and white keys with nimble fingers.", t3: "鋼琴家用靈活的手指按下黑白琴鍵。" },
+          { word: "rhythm", ipa: "/ˈrɪð.əm/", meaning: "名詞：節奏，韻律拍子", emoji: "🥁", category: "toy_school",
+            s1: "Feel the rhythm.", t1: "感受這個節奏。",
+            s2: "Clap to steady rhythm.", t2: "跟著穩定的節奏拍手。",
+            s3: "Children tap feet to the lively musical rhythm.", t3: "孩子們跟著活潑的音樂節奏踏著節拍。" },
+          { word: "melody", ipa: "/ˈmɛl.ə.di/", meaning: "名詞：旋律，優美曲調", emoji: "🎶", category: "toy_school",
+            s1: "Hear the melody.", t1: "聽這段旋律。",
+            s2: "The gentle melody flows.", t2: "輕柔的旋律在流淌。",
+            s3: "The cheerful piano melody brings joy to everyone.", t3: "輕快愉悅的鋼琴旋律帶給大家無限歡樂。" },
+          { word: "practice", ipa: "/ˈpræk.tɪs/", meaning: "動詞/名詞：練習，反覆練習", emoji: "✨", category: "actions",
+            s1: "Practice every day.", t1: "每天都要練習。",
+            s2: "Diligent students practice songs.", t2: "勤奮的學生練習彈奏歌曲。",
+            s3: "Regular daily practice makes your performance shine.", t3: "規律的日常練習能讓你的演奏大放異彩。" }
+        ],
+        new_phrases: [
+          { word: "play piano", ipa: "/pleɪ piˈæn.oʊ/", meaning: "動詞片語：彈奏鋼琴", emoji: "🎹",
+            s1: "Please play piano now.", t1: "現在請彈奏鋼琴。",
+            s2: "Children play piano happily.", t2: "孩子們開心地彈鋼琴。",
+            s3: "Polite students play piano with good posture.", t3: "有禮貌的學生以優良的坐姿彈奏鋼琴。" },
+          { word: "hit the keys", ipa: "/hɪt ðə kiːz/", meaning: "動詞片語：敲擊琴鍵，彈按琴鍵", emoji: "🎹",
+            s1: "Gently hit the keys.", t1: "輕輕敲擊琴鍵。",
+            s2: "Kids hit the keys gently.", t2: "孩子們輕柔地按下琴鍵。",
+            s3: "Carefully hit the keys in rhythm during music class.", t3: "在音樂課上小心並有節奏地彈按琴鍵。" },
+          { word: "follow rhythm", ipa: "/ˈfɑː.loʊ ˈrɪð.əm/", meaning: "動詞片語：跟隨音樂節拍", emoji: "🥁",
+            s1: "Please follow rhythm.", t1: "請跟隨節拍。",
+            s2: "Musicians follow rhythm well.", t2: "音樂家們把節奏掌握得很好。",
+            s3: "Good students always follow rhythm and tempo accurately.", t3: "好學生總是準確地跟隨節拍與速度。" },
+          { word: "listen carefully", ipa: "/ˈlɪs.ən ˈkɛr.fəl.i/", meaning: "動詞片語：仔細聆聽，專心聽音", emoji: "👂",
+            s1: "Please listen carefully.", t1: "請仔細聆聽。",
+            s2: "Children listen carefully now.", t2: "孩子們現在專心地聽。",
+            s3: "Always listen carefully to the pitch and tempo changes.", t3: "隨時仔細聆聽音高與速度的細微變化。" }
+        ]
+      },
       'amusement_park': {
         title: '🎡 【夢幻兒童樂園與遊樂設施】微課堂',
         keywords: ['兒童樂園', '遊樂園', '遊樂場', '主題樂園', '樂園', '旋轉木馬', '雲霄飛車', '摩天輪', '碰碰車', '排隊', '身高限制', '年齡限制', '安全帶', '冰淇淋', '爆米花', '氣球', '玩設施', '買票', '門票', 'amusement park', 'theme park', 'carousel', 'roller coaster', 'ferris wheel', 'bumper car'],
@@ -6731,6 +6866,165 @@
       }
     };
 
+    // ========================================================
+    // GEMINI 1.5 FLASH API KEY CONFIGURATION & TEST ENGINE
+    // ========================================================
+    function getStoredGeminiApiKey() {
+      try {
+        return (localStorage.getItem('kaispeak_gemini_api_key') || '').trim();
+      } catch(e) {
+        return '';
+      }
+    }
+
+    function updateGeminiApiKeyUI() {
+      const key = getStoredGeminiApiKey();
+      const dot = document.getElementById('geminiApiKeyDot');
+      const text = document.getElementById('geminiApiKeyBtnText');
+      const btn = document.getElementById('geminiApiKeyStatusBtn');
+      const statusLabel = document.getElementById('geminiKeyStatusText');
+      const input = document.getElementById('geminiApiKeyInput');
+
+      if (key) {
+        if (dot) dot.className = "w-2 h-2 rounded-full bg-emerald-500 animate-pulse";
+        if (text) text.innerText = "🟢 Gemini 1.5 連線中";
+        if (btn) btn.className = "px-2.5 py-1 rounded-xl text-[10px] font-bold border flex items-center gap-1 transition shadow-2xs active:scale-95 bg-emerald-50 text-emerald-800 border-emerald-300 hover:bg-emerald-100";
+        if (statusLabel) {
+          statusLabel.innerText = "已設定 · 即時 AI 啟用中";
+          statusLabel.className = "text-[10px] font-bold text-emerald-600";
+        }
+        if (input && !input.value) {
+          input.value = key;
+        }
+      } else {
+        if (dot) dot.className = "w-2 h-2 rounded-full bg-slate-400";
+        if (text) text.innerText = "🔑 設定 Gemini API";
+        if (btn) btn.className = "px-2.5 py-1 rounded-xl text-[10px] font-bold border flex items-center gap-1 transition shadow-2xs active:scale-95 bg-slate-100 text-slate-600 border-slate-300 hover:bg-slate-200";
+        if (statusLabel) {
+          statusLabel.innerText = "未設定 (目前使用離線情境庫)";
+          statusLabel.className = "text-[10px] font-bold text-slate-400";
+        }
+      }
+    }
+
+    function openGeminiApiKeyModal() {
+      const modal = document.getElementById('geminiApiKeyModal');
+      if (!modal) return;
+      const key = getStoredGeminiApiKey();
+      const input = document.getElementById('geminiApiKeyInput');
+      if (input) input.value = key;
+      const resBox = document.getElementById('geminiTestResultBox');
+      if (resBox) resBox.classList.add('hidden');
+      updateGeminiApiKeyUI();
+      modal.classList.remove('hidden');
+      SoundEffects.playClick('open');
+    }
+
+    function closeGeminiApiKeyModal() {
+      const modal = document.getElementById('geminiApiKeyModal');
+      if (modal) modal.classList.add('hidden');
+      updateGeminiApiKeyUI();
+    }
+
+    function toggleGeminiKeyVisibility() {
+      const input = document.getElementById('geminiApiKeyInput');
+      const icon = document.getElementById('geminiKeyEyeIcon');
+      if (!input) return;
+      if (input.type === 'password') {
+        input.type = 'text';
+        if (icon) icon.innerText = '🙈';
+      } else {
+        input.type = 'password';
+        if (icon) icon.innerText = '👁️';
+      }
+    }
+
+    function saveGeminiApiKey() {
+      const input = document.getElementById('geminiApiKeyInput');
+      const val = (input ? input.value : '').trim();
+      if (!val) {
+        alert("請輸入有效的 Gemini API Key，或點選「清除」");
+        return;
+      }
+      try {
+        localStorage.setItem('kaispeak_gemini_api_key', val);
+        updateGeminiApiKeyUI();
+        SoundEffects.playClick('unlock');
+        alert("✅ Gemini API Key 已成功儲存於您的瀏覽器本地！即時 AI 規劃師功能已啟用。");
+        closeGeminiApiKeyModal();
+      } catch(e) {
+        alert("儲存失敗：" + e.message);
+      }
+    }
+
+    function clearGeminiApiKey() {
+      if (!confirm("確定要清除本機儲存的 Gemini API Key 嗎？清除後將改用離線情境知識庫。")) return;
+      try {
+        localStorage.removeItem('kaispeak_gemini_api_key');
+        const input = document.getElementById('geminiApiKeyInput');
+        if (input) input.value = '';
+        updateGeminiApiKeyUI();
+        const resBox = document.getElementById('geminiTestResultBox');
+        if (resBox) {
+          resBox.className = "p-2.5 rounded-xl text-xs font-bold text-left bg-slate-100 text-slate-700 border border-slate-200 block";
+          resBox.innerText = "已清除 API Key，當前處於離線知識庫模式。";
+        }
+        SoundEffects.playClick('switch');
+      } catch(e) {}
+    }
+
+    async function testGeminiApiKey() {
+      const input = document.getElementById('geminiApiKeyInput');
+      const testKey = (input ? input.value : '').trim() || getStoredGeminiApiKey();
+      const resBox = document.getElementById('geminiTestResultBox');
+      const btn = document.getElementById('btnTestGeminiKey');
+
+      if (!testKey) {
+        alert("請先在輸入框貼上 API Key 再進行連線測試！");
+        return;
+      }
+
+      if (btn) btn.innerHTML = "<span>⏳ 驗證中...</span>";
+      if (resBox) {
+        resBox.className = "p-2.5 rounded-xl text-xs font-bold text-left bg-indigo-50 text-indigo-700 border border-indigo-200 block";
+        resBox.innerText = "正在連線 Google Gemini 1.5 Flash 官方節點進行握手測試...";
+      }
+
+      try {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(testKey)}`;
+        const testPayload = {
+          contents: [{ parts: [{ text: "Hello! Reply with exactly: OK" }] }]
+        };
+        const resp = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(testPayload)
+        });
+
+        if (!resp.ok) {
+          const errData = await resp.json().catch(() => ({}));
+          const errMsg = errData.error?.message || `HTTP ${resp.status}`;
+          throw new Error(errMsg);
+        }
+
+        const data = await resp.json();
+        const replyText = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+
+        if (resBox) {
+          resBox.className = "p-2.5 rounded-xl text-xs font-bold text-left bg-emerald-50 text-emerald-800 border border-emerald-300 block";
+          resBox.innerHTML = `✅ <strong>連線成功！</strong> 成功接收到 Gemini 1.5 Flash 回應。此 Key 完全有效！`;
+        }
+        SoundEffects.playClick('unlock');
+      } catch(err) {
+        if (resBox) {
+          resBox.className = "p-2.5 rounded-xl text-xs font-bold text-left bg-rose-50 text-rose-800 border border-rose-300 block";
+          resBox.innerHTML = `❌ <strong>連線失敗：</strong> ${err.message}<br><span class="font-normal text-[11px] text-rose-700">請檢查 API Key 是否正確複製，或專案是否已啟用 Generative Language API。</span>`;
+        }
+      } finally {
+        if (btn) btn.innerHTML = "<span>🧪 測試連線</span>";
+      }
+    }
+
     function openKaiVoicePlannerModal() {
       const modal = document.getElementById('kaiVoicePlannerModal');
       if (!modal) return;
@@ -6849,23 +7143,41 @@
       }
     }
 
-    function executePlannerScenario() {
+    async function executePlannerScenario() {
       const inputEl = document.getElementById('plannerTextInput');
+      const submitBtn = document.querySelector('button[onclick="executePlannerScenario()"]');
+      const origBtnText = submitBtn ? submitBtn.innerText : "🔍 分析規劃";
       const userText = (inputEl ? inputEl.value : "").trim();
       if (!userText) {
         alert("請先說話或輸入你今天想做什麼、想學什麼喔！");
         return;
       }
 
-      const activeP = getActiveProfile();
-      const adaptive = getAdaptiveAnalysis(activeP);
-      const userLevel = adaptive.level;
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = "<span>⏳ AI 規劃中...</span>";
+      }
 
-      const plan = planScenarioFromText(userText, userLevel);
-      currentPlannedPlan = plan;
+      try {
+        const activeP = getActiveProfile();
+        const adaptive = getAdaptiveAnalysis(activeP);
+        const userLevel = adaptive.level;
 
-      renderPlannedResults(plan, adaptive);
-      SoundEffects.playClick('unlock');
+        const plan = await planScenarioFromText(userText, userLevel);
+        if (plan) {
+          currentPlannedPlan = plan;
+          renderPlannedResults(plan, adaptive);
+          SoundEffects.playClick('unlock');
+        }
+      } catch (e) {
+        console.error("Execution failed:", e);
+        alert("規劃失敗，請稍後重試：" + e.message);
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = `<span>${origBtnText}</span>`;
+        }
+      }
     }
 
     // ========================================================
@@ -7142,13 +7454,76 @@
       ];
     }
 
-    function planScenarioFromText(userText, userLevel = 1) {
-      const text = userText.toLowerCase().trim();
+    // ========================================================
+    // GEMINI 1.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR
+    // ========================================================
+    async function callGeminiScenarioPlanner(userText, userLevel, apiKey) {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(apiKey)}`;
+      
+      const systemInstruction = `你是一位資深的國小雙語與資優英語教育專家。
+請依據使用者提供的情境主題，為台灣國小學生（兼顧日常活潑生活口語與資優挑戰）規劃專屬的自選生活情境英文微課堂。
+【核心要求】：
+1. 必須嚴格輸出純 JSON 格式（不要使用 markdown 程式碼區塊包裹，也不要多餘廢話文字）。
+2. dialogue 必須圍繞該情境，產生 5~6 句媽媽與孩子 Kai 的真實生活雙語對話（生動自然、地道口語，具有啟發與正面鼓勵）。
+3. targetWords 必須精選 6 個生活常用名詞/動詞/形容詞，每個單字必須提供 3 級長度漸進例句（s1: 簡單入門短句 3~5字, s2: 生活日常中級 5~8字, s3: 資優拓展進階 7~11字）與對應繁體中文翻譯。category 請從 ['home', 'food', 'animal', 'nature', 'toy_school', 'daily_body', 'travel', 'clothes', 'colors_shapes', 'actions'] 中擇一。
+4. targetPhrases 必須精選 4 組生活高頻片語（動詞片語或生活語塊，2~3字），每個片語同樣提供 3 級漸進例句與翻譯。category 固定為 "phrases"。
+5. 句子長度要適中，單字難易度契合國小生活與資優升學，嚴禁生硬機械說教。`;
 
-      // 1. Resolve Scenario Package (Dialogue First -> 10 Vocab Extraction)
-      const scenarioPkg = resolveScenarioPackage(text, userLevel);
-      const bestThemeId = scenarioPkg.themeId;
-      const themeTitle = scenarioPkg.title;
+      const userPrompt = `【使用者自選情境】：${userText}
+【學生自適應等級】：Level ${userLevel}
+請依據上述情境，輸出嚴格符合以下結構的 JSON：
+{
+  "themeId": "custom_ai_topic",
+  "title": "情境微課堂標題（包含合適生活 Emoji，例如：🎹 【黑白琴鍵與音樂律動】微課堂）",
+  "dialogue": [
+    {"speaker": "Mom", "speakerLabel": "媽媽", "avatar": "👩", "en": "媽媽的英文句子", "zh": "繁體中文翻譯"},
+    {"speaker": "Kai", "speakerLabel": "Kai", "avatar": "👦", "en": "孩子的英文句子", "zh": "繁體中文翻譯"}
+  ],
+  "targetWords": [
+    {"word": "piano", "ipa": "/piˈæn.oʊ/", "meaning": "名詞：鋼琴", "emoji": "🎹", "category": "toy_school", "s1": "Play the piano.", "t1": "彈這架鋼琴。", "s2": "Practice the black piano.", "t2": "練習這架黑色的鋼琴。", "s3": "Kai practices playing the piano every afternoon.", "t3": "Kai 每天下午都會練習彈鋼琴。"}
+  ],
+  "targetPhrases": [
+    {"word": "play piano", "ipa": "/pleɪ piˈæn.oʊ/", "meaning": "動詞片語：彈奏鋼琴", "emoji": "🎹", "category": "phrases", "s1": "Please play piano now.", "t1": "現在請彈奏鋼琴。", "s2": "Children play piano happily.", "t2": "孩子們開心地彈鋼琴。", "s3": "Polite students play piano with good posture.", "t3": "有禮貌的學生以優良的坐姿彈奏鋼琴。"}
+  ]
+}`;
+
+      const payload = {
+        contents: [
+          {
+            role: "user",
+            parts: [{ text: `${systemInstruction}\n\n${userPrompt}` }]
+          }
+        ],
+        generationConfig: {
+          temperature: 0.35,
+          response_mime_type: "application/json"
+        }
+      };
+
+      const resp = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      if (!resp.ok) {
+        const errText = await resp.text();
+        throw new Error(`Gemini API 請求失敗 (${resp.status}): ${errText}`);
+      }
+
+      const data = await resp.json();
+      const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+      if (!rawText) throw new Error("Gemini API 未回傳有效內容");
+
+      const cleanJson = rawText.replace(/^```json\s*/i, '').replace(/```\s*$/i, '').trim();
+      const parsed = JSON.parse(cleanJson);
+      parsed.source = 'gemini';
+      return parsed;
+    }
+
+    function executeScenarioIngestion(scenarioPkg, userLevel = 1) {
+      const bestThemeId = scenarioPkg.themeId || "custom_topic";
+      const themeTitle = scenarioPkg.title || "✨ 【生活情境探索】微課堂";
       const plannedDialogue = scenarioPkg.dialogue;
 
       const existingWords = new Set(MASTER_VOCAB.map(v => v.word.toLowerCase()));
@@ -7159,7 +7534,7 @@
       let pCount = 0;
 
       // Ingest / link target words (6 words)
-      const resolvedWords = scenarioPkg.targetWords.slice(0, 6).map(nw => {
+      const resolvedWords = (scenarioPkg.targetWords || []).slice(0, 6).map(nw => {
         const lowerW = nw.word.toLowerCase();
         let matched = MASTER_VOCAB.find(v => v.word.toLowerCase() === lowerW);
         if (!matched && MASTER_VOCAB.length < MAX_SYSTEM_VOCAB_LIMIT) {
@@ -7203,7 +7578,7 @@
       });
 
       // Ingest / link target phrases (4 phrases)
-      const resolvedPhrases = scenarioPkg.targetPhrases.slice(0, 4).map(np => {
+      const resolvedPhrases = (scenarioPkg.targetPhrases || []).slice(0, 4).map(np => {
         const lowerP = np.word.toLowerCase();
         let matched = MASTER_VOCAB.find(v => v.word.toLowerCase() === lowerP);
         if (!matched && MASTER_VOCAB.length < MAX_SYSTEM_VOCAB_LIMIT) {
@@ -7292,10 +7667,34 @@
         title: themeTitle,
         items: plannedCards,
         newlyCreatedCount: newlyCreatedItems.length,
-        dialogue: plannedDialogue
+        dialogue: plannedDialogue,
+        source: scenarioPkg.source || 'local'
       };
 
       return planResult;
+    }
+
+    async function planScenarioFromText(userText, userLevel = 1) {
+      const text = userText.toLowerCase().trim();
+      const apiKey = getStoredGeminiApiKey();
+
+      // Priority 1: Real-time generation with Gemini 1.5 Flash
+      if (apiKey) {
+        try {
+          console.log("Calling Gemini 1.5 Flash for scenario:", text);
+          const aiPkg = await callGeminiScenarioPlanner(userText, userLevel, apiKey);
+          if (aiPkg && aiPkg.targetWords && aiPkg.targetWords.length > 0) {
+            console.log("Gemini 1.5 Flash generated successfully:", aiPkg);
+            return executeScenarioIngestion(aiPkg, userLevel);
+          }
+        } catch(err) {
+          console.warn("Gemini 1.5 Flash call failed, falling back to curated topics:", err);
+        }
+      }
+
+      // Priority 2: Fallback to Curated Knowledge Base (piano_practice, amusement_park, etc.)
+      const scenarioPkg = resolveScenarioPackage(text, userLevel);
+      return executeScenarioIngestion(scenarioPkg, userLevel);
     }
 
     // ========================================================
@@ -7868,8 +8267,9 @@
       if (!area || !titleEl || !listEl) return;
 
       titleEl.innerText = plan.title;
+      const sourceNotice = plan.source === 'gemini' ? '✨ [Gemini 1.5 Flash 即時生成] ' : '';
       const newNotice = plan.newlyCreatedCount > 0 ? ` (已為你智慧生成並收錄 ${plan.newlyCreatedCount} 個全新詞彙到資料庫！)` : '';
-      subtitleEl.innerText = `Kai 已為你挑選 6 個生活單字 + 4 組高頻片語（共 10 詞標準任務）！${newNotice}例句已自動適配你的自適應等級。`;
+      subtitleEl.innerText = `${sourceNotice}Kai 已為你挑選 6 個生活單字 + 4 組高頻片語（共 10 詞標準任務）！${newNotice}例句已自動適配你的自適應等級。`;
       badgeEl.innerText = adaptive.level === 1 ? '🟢 初階適配 (3~4詞)' : (adaptive.level === 2 ? '🟡 日常適配 (4~6詞)' : '🟣 熟練挑戰 (6~8詞)');
 
       // Update Database & AI Source Summary Pill Bar
@@ -8624,6 +9024,7 @@
       updateLogUI();
       initQRCode();
       updateVocabCountersUI();
+      updateGeminiApiKeyUI();
     });
   </script>
 </body>

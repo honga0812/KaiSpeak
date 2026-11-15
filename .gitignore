@@ -6,3 +6,5 @@ key.pem
 temp_script.js
 *.log
 audio/tts_cache/
+.env
+*.env
