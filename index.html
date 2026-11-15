@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "v26";
+        const LATEST_VER = "v27";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -18,7 +18,10 @@
         }
       } catch(e) {}
     })();
-  </script>
+  
+
+
+</script>
   <title>KaiSpeak - 智慧少兒英語發音評測與任務系統</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="icon" type="image/png" sizes="64x64" href="images/ui/favicon.png">
@@ -352,6 +355,13 @@
       <!-- Right Controls: Profile & Status Badges (Streamlined & slim) -->
       <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
         
+        <!-- Kai AI Voice Dialogue Planner Button -->
+        <button onclick="openKaiVoicePlannerModal()" title="AI 語音聊學 · 跟 Kai 說說今天想學什麼？" class="jelly-btn-3d px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-600 hover:to-teal-600 text-white border border-teal-300 border-b-2 border-b-teal-700 text-xs font-black transition flex items-center gap-1.5 shadow-xs active:translate-y-0.5 whitespace-nowrap">
+          <span class="text-xs sm:text-sm animate-pulse">🎙️</span>
+          <span class="hidden md:inline text-[11px]">語音聊學</span>
+          <span class="text-[9px] bg-white/30 text-white px-1.5 py-0.2 rounded-full font-extrabold hidden sm:inline-block">AI規劃</span>
+        </button>
+
         <!-- Student Profile Button -->
         <button onclick="toggleProfileModal()" title="切換學員 / 家庭多小朋友管理" class="jelly-btn-3d px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl bg-gradient-to-r from-violet-50 to-indigo-50 hover:from-violet-100 hover:to-indigo-100 text-violet-900 border border-violet-200 border-b-2 border-b-violet-300 text-xs font-bold transition flex items-center gap-1.5 shadow-xs active:translate-y-0.5 whitespace-nowrap">
           <span id="headerProfileAvatar" class="text-sm sm:text-base">👦</span>
@@ -772,6 +782,27 @@
   <!-- ======================================================== -->
   <section id="viewDailyQuest" class="w-full max-w-6xl flex flex-col gap-3 md:gap-5">
     
+    <!-- AI Voice Dialogue Learning Bar -->
+    <div class="w-full flex items-center justify-between p-2.5 sm:p-3 rounded-2xl bg-gradient-to-r from-teal-50 via-emerald-50 to-cyan-50 border border-teal-200 text-teal-950 shadow-xs">
+      <div class="flex items-center gap-2 sm:gap-3">
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-600 flex items-center justify-center text-white text-base shadow-xs shrink-0">
+          🎙️
+        </div>
+        <div class="text-left">
+          <div class="text-xs sm:text-sm font-black flex items-center gap-1.5 flex-wrap">
+            <span>今天想去哪裡或做什麼事情？跟 Kai 聊聊！</span>
+            <span class="text-[9px] bg-emerald-600 text-white px-1.5 py-0.2 rounded-full font-bold">自選情境微課堂</span>
+          </div>
+          <div class="text-[10px] text-teal-800 font-semibold mt-0.5">
+            用說的或打字告訴 Kai 你的想法，AI 即時從 1,000 組詞庫為你規劃專屬單字與片語！
+          </div>
+        </div>
+      </div>
+      <button onclick="openKaiVoicePlannerModal()" class="px-3 sm:px-4 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 text-white font-black text-xs shadow-sm active:scale-95 transition whitespace-nowrap shrink-0 flex items-center gap-1">
+        <span>✨</span><span>開始聊學</span>
+      </button>
+    </div>
+
     <!-- Slim Streamlined Quest Banner -->
     <div class="bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-700 text-white p-2.5 sm:p-3.5 rounded-2xl shadow-md shadow-indigo-100/70 flex flex-col md:flex-row items-center justify-between gap-2.5">
       <div class="flex items-center gap-2.5 sm:gap-3.5 w-full md:w-auto">
@@ -789,7 +820,7 @@
             </button>
           </div>
           <p class="text-[10px] sm:text-[11px] text-indigo-100 mt-0.5">
-            4 個新詞 + 4 個複習 + 2 個熟悉 · 每詞隨機朗讀 2 句生活範例
+            4 個新單字 + 2 組生活片語 + 3 個弱項複習 + 1 個熟練鞏固 · 依自適應階梯朗讀例句
           </p>
         </div>
       </div>
@@ -1143,6 +1174,7 @@
               <span id="freePhonetic" class="text-xs text-slate-400 font-mono">/dɛsk/</span>
             </div>
             <div id="freeMeaning" class="text-xs font-bold text-slate-700 bg-white px-3 py-1 rounded-full border border-indigo-100 shadow-2xs mt-1">名詞：書桌，辦公桌</div>
+            <div id="freeHeroTutorTip" class="w-full text-center text-[10px] sm:text-[11px] font-bold py-1 px-2.5 rounded-xl border mt-1.5 transition bg-indigo-50 text-indigo-800 border-indigo-200">🆕 全新未練習單字 · 快聽示範開口跟讀挑戰！</div>
 
             <!-- Kai Story Narrative Context Box (Compact 1-line tag) -->
             <div id="freeStorySceneBox" class="w-full mt-2 p-2 bg-gradient-to-r from-purple-50 via-pink-50 to-amber-50 rounded-xl border border-purple-200 text-left flex items-center gap-1.5 shadow-2xs">
@@ -1495,6 +1527,136 @@
   <!-- ======================================================== -->
   <!-- QR CODE MODAL FOR MOBILE / TABLET LIVE TESTING           -->
   <!-- ======================================================== -->
+  <!-- ======================================================== -->
+  <!-- KAI AI VOICE DIALOGUE LEARNING PLANNER MODAL             -->
+  <!-- ======================================================== -->
+  <div id="kaiVoicePlannerModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[88] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
+    <div class="bg-white rounded-3xl p-4 sm:p-6 max-w-xl w-full shadow-2xl border-2 border-emerald-200 flex flex-col gap-3.5 my-auto max-h-[92vh] overflow-y-auto">
+      
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between pb-2.5 border-b border-slate-100">
+        <div class="flex items-center gap-2.5">
+          <div class="relative w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-emerald-400 via-teal-500 to-cyan-500 flex items-center justify-center text-white text-xl shadow-md shrink-0">
+            🎙️
+            <span class="absolute -top-1 -right-1 w-3 h-3 bg-amber-400 rounded-full border-2 border-white animate-ping"></span>
+          </div>
+          <div class="text-left">
+            <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-2">
+              <span>Kai 隨身學習規劃師</span>
+              <span class="text-[9px] bg-emerald-100 text-emerald-800 border border-emerald-300 px-2 py-0.5 rounded-full font-bold">AI 語音聊學</span>
+            </h3>
+            <p class="text-[10px] sm:text-[11px] text-slate-500">聊聊天、說說今天想做什麼，智能為你量身打造專屬單字與生活片語！</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeKaiVoicePlannerModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 font-black text-sm flex items-center justify-center transition active:scale-95">✕</button>
+      </div>
+
+      <!-- Kai Greeting Chat Bubble -->
+      <div class="w-full flex items-start gap-2.5 p-3 sm:p-3.5 rounded-2xl bg-gradient-to-r from-emerald-50/80 via-teal-50/50 to-cyan-50/80 border border-emerald-200 shadow-xs">
+        <div class="w-9 h-9 rounded-full bg-amber-400 border-2 border-white shadow-sm flex items-center justify-center text-lg shrink-0">
+          👦
+        </div>
+        <div class="flex-1 text-left">
+          <div class="flex items-center justify-between mb-0.5">
+            <span class="text-[11px] font-black text-emerald-950">Kai 英語小夥伴</span>
+            <button onclick="playKaiVoiceGreeting()" class="text-[10px] text-emerald-700 hover:text-emerald-900 font-bold flex items-center gap-1 bg-white/80 px-2 py-0.5 rounded-full border border-emerald-200 shadow-2xs">
+              🔊 聽 Kai 說話
+            </button>
+          </div>
+          <p id="kaiSpeechGreetingText" class="text-xs text-slate-700 leading-relaxed font-medium">
+            “Hello! 你今天想學哪方面的英文呢？或是想去哪裡玩、做什麼事情呢？按麥克風告訴我吧！”
+          </p>
+        </div>
+      </div>
+
+      <!-- Voice Recording / Text Input Section -->
+      <div class="flex flex-col gap-2.5 bg-slate-50 p-3 sm:p-3.5 rounded-2xl border border-slate-200">
+        
+        <!-- Big Animated Voice Input Button -->
+        <div class="flex flex-col items-center justify-center py-2">
+          <button id="plannerMicBtn" type="button" onclick="togglePlannerVoiceRecognition()" class="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 hover:from-emerald-600 hover:to-teal-600 text-white font-black text-xs sm:text-sm shadow-lg shadow-teal-200/80 active:scale-95 transition flex items-center justify-center gap-2">
+            <span id="plannerMicIcon" class="text-lg">🎙️</span>
+            <span id="plannerMicLabel">點擊麥克風開始說話 (支援中/英文)</span>
+          </button>
+          <div id="plannerVoiceWaveStatus" class="hidden items-center gap-1 mt-2 text-[10px] font-bold text-emerald-700 animate-pulse">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+            <span>Kai 正在專心聆聽你的聲音... 請說出你的想法！</span>
+          </div>
+        </div>
+
+        <!-- Quick Scenario Bubble Pills -->
+        <div class="text-left">
+          <div class="text-[10px] font-bold text-slate-500 mb-1.5 flex items-center gap-1">
+            <span>💡 也可以點選生活情境靈感：</span>
+          </div>
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <button type="button" onclick="applyPlannerPrompt('我今天要去學校跟同學一起玩')" class="px-2.5 py-1 rounded-xl bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 text-slate-700 hover:text-indigo-900 text-[11px] font-bold transition shadow-2xs active:scale-95">
+              🏫 去學校跟同學一起玩
+            </button>
+            <button type="button" onclick="applyPlannerPrompt('我想學可愛小狗還有動物')" class="px-2.5 py-1 rounded-xl bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 text-slate-700 hover:text-indigo-900 text-[11px] font-bold transition shadow-2xs active:scale-95">
+              🐶 想學可愛小狗與動物
+            </button>
+            <button type="button" onclick="applyPlannerPrompt('我想吃美味點心與食物')" class="px-2.5 py-1 rounded-xl bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 text-slate-700 hover:text-indigo-900 text-[11px] font-bold transition shadow-2xs active:scale-95">
+              🍳 想吃美味點心與食物
+            </button>
+            <button type="button" onclick="applyPlannerPrompt('去公園騎腳踏車放風箏運動')" class="px-2.5 py-1 rounded-xl bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 text-slate-700 hover:text-indigo-900 text-[11px] font-bold transition shadow-2xs active:scale-95">
+              🚲 公園騎車放風箏運動
+            </button>
+            <button type="button" onclick="applyPlannerPrompt('我想畫畫做美勞折紙')" class="px-2.5 py-1 rounded-xl bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 text-slate-700 hover:text-indigo-900 text-[11px] font-bold transition shadow-2xs active:scale-95">
+              🎨 畫畫做美勞折紙
+            </button>
+            <button type="button" onclick="applyPlannerPrompt('早晨生活作息與整理房間')" class="px-2.5 py-1 rounded-xl bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 text-slate-700 hover:text-indigo-900 text-[11px] font-bold transition shadow-2xs active:scale-95">
+              🌅 晨光作息整理房間
+            </button>
+          </div>
+        </div>
+
+        <!-- Manual Text Input Fallback -->
+        <div class="flex items-center gap-1.5 mt-1">
+          <input type="text" id="plannerTextInput" placeholder="例如：我想去動物園看大象、想在教室看書..." class="flex-1 px-3 py-2 text-xs rounded-xl border border-slate-300 focus:outline-none focus:border-teal-500 font-bold bg-white" onkeydown="if(event.key==='Enter') executePlannerScenario()">
+          <button type="button" onclick="executePlannerScenario()" class="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs shadow-sm active:scale-95 transition shrink-0">
+            🔍 分析規劃
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Planned Custom Micro-Lesson Result Area -->
+      <div id="plannerResultsArea" class="hidden flex-col gap-3 text-left">
+        <div class="flex items-center justify-between bg-gradient-to-r from-violet-50 to-indigo-50 p-2.5 sm:p-3 rounded-2xl border border-indigo-200">
+          <div>
+            <h4 id="plannerResultTitle" class="text-xs sm:text-sm font-black text-indigo-950 flex items-center gap-1.5">
+              🏫 【快樂校園與好朋友同樂】專屬情境微課堂
+            </h4>
+            <p id="plannerResultSubtitle" class="text-[10px] text-indigo-700 font-medium mt-0.5">
+              Kai 已從詞庫為你挑選 2 個生活單字 + 2 組常用片語！例句已自動適配你的自適應難度。
+            </p>
+          </div>
+          <span id="plannerResultAdaptiveBadge" class="text-[9px] bg-indigo-600 text-white font-extrabold px-2 py-0.5 rounded-full shrink-0">
+            🟢 初階適配
+          </span>
+        </div>
+
+        <!-- 4 Recommended Cards Grid -->
+        <div id="plannerItemsList" class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <!-- Dynamically populated -->
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex items-center gap-2 pt-1">
+          <button type="button" onclick="applyVoicePlanToFreePractice()" class="flex-1 py-3 px-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 text-white font-black text-xs shadow-md active:scale-95 transition flex items-center justify-center gap-1.5">
+            <span>📚 一鍵載入自由練習</span>
+          </button>
+          <button type="button" onclick="applyVoicePlanToDailyQuest()" class="flex-1 py-3 px-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 text-white font-black text-xs shadow-md active:scale-95 transition flex items-center justify-center gap-1.5">
+            <span>🎯 展開此情境專屬任務</span>
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
   <div id="qrModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
     <div class="bg-white rounded-3xl p-6 max-w-sm w-full shadow-2xl border border-indigo-100 text-center flex flex-col items-center">
       <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-2xl mb-3">
@@ -1508,7 +1670,7 @@
       </div>
 
       <div class="text-[11px] font-mono text-slate-500 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200 mb-4 break-all">
-        https://honga0812.github.io/KaiSpeak/?v=21
+        https://honga0812.github.io/KaiSpeak/?v=27
       </div>
 
       <button onclick="toggleQRModal()" class="w-full py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition">
@@ -2789,45 +2951,74 @@
       } catch (err) {}
     }, { capture: true, passive: true });
 
-    // ========================================================
-    // DYNAMIC QUEST QUEUE SETUP (Adaptive SRS Based on History)
-    // 4 New, 4 Review/Weak, 2 Consolidate
+        // ========================================================
+    // DYNAMIC QUEST QUEUE SETUP (10 Items: 4 New Words + 2 Daily Phrases + 3 Weak + 1 Consolidate)
     // ========================================================
     function initQuestQueue() {
       const activeP = getActiveProfile();
       const adaptive = getAdaptiveAnalysis(activeP);
       const userLevel = adaptive.level; // 1: 初階, 2: 中階, 3: 高階
+      const userStreak = activeP.streakDays || 1;
 
-      // Find weak words from profile
+      // Find weak words from profile and practice logs
       const weakWordsSet = new Set(activeP.weakWords || practiceLogs.filter(l => l.score < 75).map(l => l.word));
       const masteredWordsSet = new Set(activeP.masteredWords || practiceLogs.filter(l => l.score >= 85).map(l => l.word));
 
-      // Separate pool
-      const weakPool = MASTER_VOCAB.filter(v => weakWordsSet.has(v.word) || v.role === 'review');
-      const consolidatePool = MASTER_VOCAB.filter(v => masteredWordsSet.has(v.word) || v.role === 'consolidate');
-      const newPool = MASTER_VOCAB.filter(v => !weakWordsSet.has(v.word) && !masteredWordsSet.has(v.word));
+      const phrasesPool = MASTER_VOCAB.filter(v => v.isPhrase || v.category === 'phrases');
+      const wordsPool = MASTER_VOCAB.filter(v => !v.isPhrase && v.category !== 'phrases');
 
       const shuf = arr => [...arr].sort(() => 0.5 - Math.random());
 
-      const selected = [
-        ...shuf(newPool).slice(0, 4),
-        ...shuf(weakPool).slice(0, 4),
-        ...shuf(consolidatePool).slice(0, 2)
-      ];
+      // --- 1. Guaranteed 2 High-Frequency Daily Phrasal Chunks ---
+      const pWeak = phrasesPool.filter(p => weakWordsSet.has(p.word));
+      const pNew = phrasesPool.filter(p => !weakWordsSet.has(p.word) && !masteredWordsSet.has(p.word));
+      const pCons = phrasesPool.filter(p => masteredWordsSet.has(p.word));
 
-      let fallbackIdx = 0;
-      const shufAll = shuf(MASTER_VOCAB);
-      while (selected.length < 10 && fallbackIdx < shufAll.length) {
-        if (!selected.includes(shufAll[fallbackIdx])) {
-          selected.push(shufAll[fallbackIdx]);
+      const pickedPhrases = [];
+      if (pWeak.length > 0) {
+        pickedPhrases.push(shuf(pWeak)[0]);
+      }
+      const shufPNew = shuf(pNew);
+      for (const p of shufPNew) {
+        if (pickedPhrases.length >= 2) break;
+        if (!pickedPhrases.includes(p)) pickedPhrases.push(p);
+      }
+      const shufAllPhrases = shuf(phrasesPool);
+      let pIdx = 0;
+      while (pickedPhrases.length < 2 && pIdx < shufAllPhrases.length) {
+        if (!pickedPhrases.includes(shufAllPhrases[pIdx])) {
+          pickedPhrases.push(shufAllPhrases[pIdx]);
         }
-        fallbackIdx++;
+        pIdx++;
       }
 
-      // Assign 2 age-appropriate sentences according to the child's adaptive level and streak!
-      const userStreak = activeP.streakDays || 1;
-      questQueue = selected.map(wordObj => {
-        const g = wordObj.gradedSentences;
+      // --- 2. Guaranteed 8 Words: 4 New + 3 Weak + 1 Consolidate ---
+      const wNew = wordsPool.filter(w => !weakWordsSet.has(w.word) && !masteredWordsSet.has(w.word));
+      const wWeak = wordsPool.filter(w => weakWordsSet.has(w.word) || w.role === 'review');
+      const wCons = wordsPool.filter(w => masteredWordsSet.has(w.word) || w.role === 'consolidate');
+
+      const pickedWords = [
+        ...shuf(wNew).slice(0, 4),
+        ...shuf(wWeak).slice(0, 3),
+        ...shuf(wCons).slice(0, 1)
+      ];
+
+      // Backfill words to 8 if needed
+      const shufAllWords = shuf(wordsPool);
+      let wIdx = 0;
+      while (pickedWords.length < 8 && wIdx < shufAllWords.length) {
+        if (!pickedWords.includes(shufAllWords[wIdx])) {
+          pickedWords.push(shufAllWords[wIdx]);
+        }
+        wIdx++;
+      }
+
+      // Combine to exactly 10 items (8 words + 2 phrases) and shuffle order
+      const final10 = shuf([...pickedWords, ...pickedPhrases]);
+
+      // Assign 2 age-appropriate sentences according to adaptive level and streak!
+      questQueue = final10.map(itemObj => {
+        const g = itemObj.gradedSentences;
         let picked = [];
         if (userLevel === 1 || userStreak < 5) {
           // 初期入門 (連續天數 < 5 或初階)：嚴格鎖定 Level 1 + Level 2，絕不出現 Level 3 拓展句！
@@ -2850,10 +3041,13 @@
         }
 
         return {
-          ...wordObj,
+          ...itemObj,
           _dailySentences: picked
         };
       });
+
+      questWordIdx = 0;
+      questSubStep = 0;
     }
 
     // ========================================================
@@ -3008,6 +3202,11 @@
         vFree.classList.remove('hidden');
         vAdv.classList.add('hidden');
         bFree.className = tabActive;
+        freePage = 0;
+        const list = getFilteredFreeVocab();
+        if (list.length > 0) {
+          freeCardIndex = MASTER_VOCAB.findIndex(c => c.word === list[0].word);
+        }
         renderFreeGrid();
         renderFreeCard();
         freeAutoShadowing = true;
@@ -3078,10 +3277,13 @@
 
       if (questSubStep === 0) {
         engEl.innerText = card.word;
-        chiEl.innerText = card.meaning || "單字釋義";
+        chiEl.innerText = card.meaning || (card.isPhrase ? "動詞片語釋義" : "單字釋義");
         phoEl.innerText = card.phonetic || "";
         phoEl.classList.remove('hidden');
-        badgeEl.innerText = "單字釋義";
+        badgeEl.innerText = card.isPhrase ? "🌟 生活片語語塊 · Daily Chunk" : "核心生活單字";
+        badgeEl.className = card.isPhrase 
+          ? "px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-black bg-emerald-100 text-emerald-800 border border-emerald-300 shadow-2xs" 
+          : "px-2.5 py-0.5 rounded-full text-[10px] sm:text-[11px] font-black bg-indigo-100 text-indigo-800 border border-indigo-200 shadow-2xs";
       } else {
         const sentItem = (card._dailySentences && card._dailySentences[questSubStep - 1]) 
           ? card._dailySentences[questSubStep - 1] 
@@ -3589,19 +3791,76 @@
       advanceQuestStep();
     }
 
+        // ========================================================
+    // INTELLIGENT WORD PRACTICE ANALYTICS (Per-Child Adaptive Stats)
     // ========================================================
-    // MODE 2: FREE PRACTICE (分類字卡 · 隨機抽卡 · 分頁 · 發音診斷)
+    function getWordPracticeStats(wordText, profile) {
+      const p = profile || getActiveProfile();
+      const logs = (practiceLogs || []).filter(l => l.word === wordText && (!l.profileId || l.profileId === p.id));
+      const count = logs.length;
+      if (count === 0) {
+        return {
+          count: 0,
+          avgScore: 0,
+          lastScore: 0,
+          status: 'unpracticed', // 🆕 未練新詞
+          label: '未練新詞',
+          badgeClass: 'bg-indigo-50 text-indigo-700 border-indigo-200'
+        };
+      }
+      const avg = Math.round(logs.reduce((sum, l) => sum + (l.score || 0), 0) / count);
+      const last = logs[logs.length - 1].score || 0;
+      const isWeak = (p.weakWords || []).includes(wordText) || avg < 75 || count < 3;
+      const isMastered = (p.masteredWords || []).includes(wordText) || (count >= 3 && avg >= 85);
+      
+      if (isMastered) {
+        return {
+          count,
+          avgScore: avg,
+          lastScore: last,
+          status: 'mastered', // ⭐ 已掌握
+          label: `已掌握 (${avg}分)`,
+          badgeClass: 'bg-emerald-50 text-emerald-800 border-emerald-200'
+        };
+      } else {
+        return {
+          count,
+          avgScore: avg,
+          lastScore: last,
+          status: 'needs_practice', // ⚠️ 待加強
+          label: `待鞏固 (${count}次·${avg}分)`,
+          badgeClass: 'bg-amber-50 text-amber-800 border-amber-200'
+        };
+      }
+    }
+
+    // Custom Scenario Storage
+    window._customScenarioList = [];
+    window._customScenarioTitle = "";
+
+    // ========================================================
+    // MODE 2: FREE PRACTICE (分類字卡 · 數據分析三階排序 · 發音診斷)
     // ========================================================
     function getFilteredFreeVocab() {
+      const activeP = getActiveProfile();
       let pool = MASTER_VOCAB;
+      
+      if (freeCategory === 'custom_scenario' && window._customScenarioList && window._customScenarioList.length > 0) {
+        return window._customScenarioList;
+      }
+
       if (freeCategory === 'weak') {
-        const weakSet = new Set(practiceLogs.filter(l => l.score < 75).map(l => l.word));
+        const weakSet = new Set([
+          ...(activeP.weakWords || []),
+          ...practiceLogs.filter(l => l.score < 75).map(l => l.word)
+        ]);
         pool = MASTER_VOCAB.filter(c => weakSet.has(c.word));
       } else if (freeCategory === 'story') {
         pool = MASTER_VOCAB.filter(c => !c.isPhrase).sort((a, b) => (a.storyOrder || 0) - (b.storyOrder || 0));
         if (selectedStoryChapter !== 'all') {
           pool = pool.filter(c => c.storyChapter === selectedStoryChapter);
         }
+        return pool; // Story mode retains chronological sequence
       } else if (freeCategory === 'phrases') {
         pool = MASTER_VOCAB.filter(c => c.category === 'phrases' || c.isPhrase);
       } else if (freeCategory === 'all') {
@@ -3616,7 +3875,42 @@
         }
         return freeShuffledList;
       }
-      return pool;
+
+      // --- Data-Driven Dynamic Tiered Sorting for this Account ---
+      // Tier 1: Unpracticed words/phrases placed at FRONT with pseudo-random shuffle (fresh words every time!)
+      // Tier 2: Developing / Weak words placed in MIDDLE, sorted by lowest score first for reinforcement
+      // Tier 3: Mastered / High scoring words placed at END, sorted by practice count
+      const tier1_unpracticed = [];
+      const tier2_developing = [];
+      const tier3_mastered = [];
+
+      pool.forEach(item => {
+        const stats = getWordPracticeStats(item.word, activeP);
+        if (stats.status === 'unpracticed') {
+          tier1_unpracticed.push({ item, stats });
+        } else if (stats.status === 'needs_practice') {
+          tier2_developing.push({ item, stats });
+        } else {
+          tier3_mastered.push({ item, stats });
+        }
+      });
+
+      // Pseudo-random shuffle for Tier 1 using child ID + current hour/day seed
+      const seed = (activeP.id || 'kai').split('').reduce((acc, c) => acc + c.charCodeAt(0), 0) + new Date().getDate();
+      const pseudoShuffle = (arr) => {
+        const copy = [...arr];
+        for (let i = copy.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.abs(Math.sin(seed + i)) * (i + 1));
+          [copy[i], copy[j]] = [copy[j], copy[i]];
+        }
+        return copy;
+      };
+
+      const sortedTier1 = pseudoShuffle(tier1_unpracticed).map(x => x.item);
+      const sortedTier2 = tier2_developing.sort((a, b) => a.stats.avgScore - b.stats.avgScore).map(x => x.item);
+      const sortedTier3 = tier3_mastered.sort((a, b) => b.stats.count - a.stats.count).map(x => x.item);
+
+      return [...sortedTier1, ...sortedTier2, ...sortedTier3];
     }
 
     function filterStoryChapter(chap) {
@@ -3728,15 +4022,20 @@
           ? `<span class="text-[8px] px-1 py-0.2 rounded font-bold ${isActive ? 'bg-purple-800 text-purple-200' : 'bg-purple-100 text-purple-800'}">第${c.storyChapter}幕</span>`
           : '';
 
+        const stats = getWordPracticeStats(c.word, getActiveProfile());
+        const statusBadge = `<span class="text-[9px] px-1.5 py-0.2 rounded-md font-bold border ${stats.badgeClass}">${stats.label}</span>`;
+        const phraseBadge = c.isPhrase ? '<span class="text-[8px] bg-emerald-600 text-white font-extrabold px-1 py-0.2 rounded shadow-2xs">片語</span>' : '';
+
         cardEl.innerHTML = `
           <span class="text-3xl select-none">${c.emoji}</span>
           <div class="overflow-hidden flex-1">
             <div class="flex items-center justify-between gap-1">
               <span class="font-bold text-xs truncate">${c.word}</span>
-              <div class="flex items-center gap-1">${storyPill}${scoreBadge}</div>
+              <div class="flex items-center gap-1">${phraseBadge}${storyPill}</div>
             </div>
             <div class="text-[10px] ${isActive ? 'text-indigo-100' : 'text-slate-600'} truncate">${c.phonetic}</div>
-            <div class="text-[10px] ${isActive ? 'text-indigo-200' : 'text-slate-600'} truncate">${c.meaning}</div>
+            <div class="text-[10px] ${isActive ? 'text-indigo-200' : 'text-slate-600'} truncate mb-0.5">${c.meaning}</div>
+            <div class="mt-0.5">${statusBadge}</div>
           </div>
         `;
         container.appendChild(cardEl);
@@ -3787,6 +4086,26 @@
 
       if (freeActiveTarget === 'word') {
         setFreeTargetToWord();
+      }
+
+      // Update Hero Tutor Tip
+      const heroTutorEl = document.getElementById('freeHeroTutorTip');
+      if (heroTutorEl) {
+        const stats = getWordPracticeStats(card.word, getActiveProfile());
+        let tipText = "";
+        let tipStyle = "";
+        if (stats.count === 0) {
+          tipText = "🆕 全新未練習單字 · 快聽聽示範開口跟讀挑戰！";
+          tipStyle = "bg-indigo-50 text-indigo-800 border-indigo-200";
+        } else if (stats.status === 'needs_practice') {
+          tipText = `⚠️ 已練 ${stats.count} 次 (均分 ${stats.avgScore} 分) · 建議再跟讀一次鞏固記憶！`;
+          tipStyle = "bg-amber-50 text-amber-900 border-amber-200";
+        } else {
+          tipText = `⭐ 熟練掌握 (歷史均分 ${stats.avgScore} 分) · 溫故知新維持最佳手感！`;
+          tipStyle = "bg-emerald-50 text-emerald-900 border-emerald-200";
+        }
+        heroTutorEl.className = `w-full text-center text-[10px] sm:text-[11px] font-bold py-1 px-2.5 rounded-xl border mt-1.5 transition ${tipStyle}`;
+        heroTutorEl.innerText = tipText;
       }
 
       // Update Hero Stage
@@ -5246,7 +5565,7 @@
     function initQRCode() {
       const canvas = document.getElementById('qrCodeCanvas');
       if (canvas && window.QRCode) {
-        QRCode.toCanvas(canvas, "https://honga0812.github.io/KaiSpeak/?v=21", {
+        QRCode.toCanvas(canvas, "https://honga0812.github.io/KaiSpeak/?v=27", {
           width: 176,
           margin: 1,
           color: { dark: '#312E81', light: '#FFFFFF' }
@@ -5267,6 +5586,387 @@
     }
 
     function pad(n) { return n < 10 ? '0' + n : n; }
+
+    // ========================================================
+    // KAI AI VOICE DIALOGUE LEARNING PLANNER (語音聊學規劃師)
+    // ========================================================
+    let plannerSpeechRecognition = null;
+    let isPlannerListening = false;
+    let currentPlannedPlan = null;
+
+    const SCENARIO_THEMES = {
+      'school': {
+        title: '🏫 【快樂校園與好朋友同樂】微課堂',
+        keywords: ['學校', '同學', '玩', '朋友', '上課', '校園', '老師', '教室', '做功課', '作業', '課本', '筆記', '放學', '操場', 'school', 'friend', 'play', 'class', 'teacher', 'homework'],
+        preferred_words: ['friend', 'school', 'desk', 'pencil', 'book', 'teacher', 'eraser', 'ruler'],
+        preferred_phrases: ['play together', 'make friends', 'share toys', 'listen politely', 'raise hand', 'take notes', 'clean desk', 'arrive at school']
+      },
+      'animals': {
+        title: '🐶 【萌寵動物與大自然夥伴】微課堂',
+        keywords: ['小狗', '狗狗', '動物', '小貓', '寵物', '鳥', '獅子', '老虎', '兔子', '熊', '熊貓', '大象', '昆蟲', 'dog', 'puppy', 'cat', 'animal', 'pet'],
+        preferred_words: ['puppy', 'kitten', 'rabbit', 'hamster', 'lion', 'tiger', 'bear', 'monkey'],
+        preferred_phrases: ['feed puppy', 'walk puppy', 'take care of', 'observe nature', 'pet animal', 'catch ball']
+      },
+      'food': {
+        title: '🍳 【美味餐點與廚房烘焙】微課堂',
+        keywords: ['吃', '喝', '食物', '美味', '午餐', '晚餐', '早餐', '水果', '牛奶', '冰淇淋', '披薩', '麵包', '蛋糕', '餅乾', '果汁', 'eat', 'drink', 'food', 'lunch', 'dinner', 'cake'],
+        preferred_words: ['apple', 'bread', 'milk', 'cheese', 'juice', 'soup', 'pizza', 'cookie'],
+        preferred_phrases: ['eat lunch', 'eat dinner', 'drink milk', 'sip soup', 'taste food', 'chew slowly', 'bake cookies', 'wash fruit']
+      },
+      'sports_park': {
+        title: '🏃 【活力公園與戶外運動】微課堂',
+        keywords: ['公園', '運動', '跑', '跳', '踢球', '滑板車', '腳踏車', '放風箏', '溜滑梯', '鞦韆', '足球', '跳繩', '散步', 'park', 'sport', 'run', 'jump', 'bike', 'kite'],
+        preferred_words: ['park', 'ball', 'soccer', 'scooter', 'bicycle', 'kite', 'swing', 'slide'],
+        preferred_phrases: ['jump rope', 'slide down', 'swing high', 'kick soccer', 'throw ball', 'catch ball', 'ride scooter', 'ride bicycle', 'fly kite']
+      },
+      'home_routine': {
+        title: '🌅 【晨光作息與健康生活】微課堂',
+        keywords: ['家裡', '起床', '睡覺', '刷牙', '洗手', '穿衣服', '襪子', '洗臉', '整理', '床鋪', '打掃', '拖地', 'home', 'wake', 'sleep', 'brush', 'wash', 'clothes'],
+        preferred_words: ['bed', 'room', 'pillow', 'blanket', 'towel', 'mirror', 'soap', 'comb'],
+        preferred_phrases: ['wake up', 'get up', 'wash hands', 'brush teeth', 'put on socks', 'take off shoes', 'make bed', 'tidy up', 'fold clothes']
+      },
+      'art_creativity': {
+        title: '🎨 【奇妙色彩與手作美勞】微課堂',
+        keywords: ['畫畫', '畫圖', '做美勞', '折紙', '顏色', '塗色', '剪紙', '積木', '城堡', '連連看', '數數', 'art', 'draw', 'color', 'origami', 'paint', 'craft'],
+        preferred_words: ['color', 'paper', 'crayon', 'pencil', 'paint', 'brush', 'glue', 'scissors'],
+        preferred_phrases: ['draw picture', 'color in', 'cut out', 'glue down', 'craft origami', 'mix colors', 'build castle', 'connect dots']
+      },
+      'travel_outing': {
+        title: '🚗 【城市出行與圖書館漫遊】微課堂',
+        keywords: ['出去', '旅行', '圖書館', '借書', '公車', '巴士', '過馬路', '紅綠燈', '博物館', '買票', '問路', 'travel', 'bus', 'library', 'museum'],
+        preferred_words: ['bus', 'car', 'road', 'street', 'train', 'ticket', 'station', 'map'],
+        preferred_phrases: ['visit library', 'borrow book', 'catch bus', 'get on bus', 'get off bus', 'cross street', 'wait for green light', 'visit museum']
+      }
+    };
+
+    function openKaiVoicePlannerModal() {
+      const modal = document.getElementById('kaiVoicePlannerModal');
+      if (!modal) return;
+      modal.classList.remove('hidden');
+      SoundEffects.playClick('open');
+      
+      // Auto play friendly greeting voice
+      setTimeout(() => {
+        playKaiVoiceGreeting();
+      }, 400);
+    }
+
+    function closeKaiVoicePlannerModal() {
+      const modal = document.getElementById('kaiVoicePlannerModal');
+      if (modal) modal.classList.add('hidden');
+      if (isPlannerListening && plannerSpeechRecognition) {
+        plannerSpeechRecognition.stop();
+        isPlannerListening = false;
+        updatePlannerMicUI(false);
+      }
+    }
+
+    function playKaiVoiceGreeting() {
+      const greetingMsg = "Hello! What would you like to learn or do today? Tell me in Chinese or English!";
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(greetingMsg);
+        u.lang = 'en-US';
+        u.rate = 0.92;
+        window.speechSynthesis.speak(u);
+      }
+    }
+
+    function togglePlannerVoiceRecognition() {
+      const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRec) {
+        alert("您的瀏覽器暫不支援 Web Speech 語音輸入，請直接點選下方生活情境標籤或輸入文字！");
+        return;
+      }
+
+      if (isPlannerListening) {
+        if (plannerSpeechRecognition) plannerSpeechRecognition.stop();
+        isPlannerListening = false;
+        updatePlannerMicUI(false);
+        return;
+      }
+
+      try {
+        plannerSpeechRecognition = new SpeechRec();
+        plannerSpeechRecognition.lang = 'zh-TW'; // Listen in Mandarin / English
+        plannerSpeechRecognition.continuous = false;
+        plannerSpeechRecognition.interimResults = true;
+
+        plannerSpeechRecognition.onstart = () => {
+          isPlannerListening = true;
+          updatePlannerMicUI(true);
+        };
+
+        plannerSpeechRecognition.onresult = (e) => {
+          let transcript = "";
+          for (let i = e.resultIndex; i < e.results.length; ++i) {
+            transcript += e.results[i][0].transcript;
+          }
+          const inputEl = document.getElementById('plannerTextInput');
+          if (inputEl) inputEl.value = transcript;
+        };
+
+        plannerSpeechRecognition.onerror = (e) => {
+          console.warn("Planner voice recognition error:", e);
+          isPlannerListening = false;
+          updatePlannerMicUI(false);
+        };
+
+        plannerSpeechRecognition.onend = () => {
+          isPlannerListening = false;
+          updatePlannerMicUI(false);
+          const inputEl = document.getElementById('plannerTextInput');
+          if (inputEl && inputEl.value.trim().length > 0) {
+            executePlannerScenario();
+          }
+        };
+
+        plannerSpeechRecognition.start();
+      } catch (err) {
+        console.error("Speech recognition start failed:", err);
+        isPlannerListening = false;
+        updatePlannerMicUI(false);
+      }
+    }
+
+    function updatePlannerMicUI(listening) {
+      const btn = document.getElementById('plannerMicBtn');
+      const icon = document.getElementById('plannerMicIcon');
+      const label = document.getElementById('plannerMicLabel');
+      const wave = document.getElementById('plannerVoiceWaveStatus');
+
+      if (listening) {
+        if (btn) btn.className = "w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-rose-500 to-red-600 text-white font-black text-xs sm:text-sm shadow-lg shadow-rose-200 active:scale-95 transition flex items-center justify-center gap-2 animate-pulse";
+        if (icon) icon.innerText = "🔴";
+        if (label) label.innerText = "正在聆聽你的聲音... (說完自動分析)";
+        if (wave) { wave.classList.remove('hidden'); wave.classList.add('flex'); }
+      } else {
+        if (btn) btn.className = "w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-600 hover:from-emerald-600 hover:to-teal-600 text-white font-black text-xs sm:text-sm shadow-lg shadow-teal-200/80 active:scale-95 transition flex items-center justify-center gap-2";
+        if (icon) icon.innerText = "🎙️";
+        if (label) label.innerText = "點擊麥克風開始說話 (支援中/英文)";
+        if (wave) { wave.classList.add('hidden'); wave.classList.remove('flex'); }
+      }
+    }
+
+    function applyPlannerPrompt(text) {
+      const inputEl = document.getElementById('plannerTextInput');
+      if (inputEl) {
+        inputEl.value = text;
+        executePlannerScenario();
+      }
+    }
+
+    function executePlannerScenario() {
+      const inputEl = document.getElementById('plannerTextInput');
+      const userText = (inputEl ? inputEl.value : "").trim();
+      if (!userText) {
+        alert("請先說話或輸入你今天想做什麼、想學什麼喔！");
+        return;
+      }
+
+      const activeP = getActiveProfile();
+      const adaptive = getAdaptiveAnalysis(activeP);
+      const userLevel = adaptive.level;
+
+      const plan = planScenarioFromText(userText, userLevel);
+      currentPlannedPlan = plan;
+
+      // Render plan UI
+      renderPlannedResults(plan, adaptive);
+      SoundEffects.playClick('unlock');
+    }
+
+    function planScenarioFromText(userText, userLevel = 1) {
+      const text = userText.toLowerCase();
+
+      // 1. Score themes
+      const themeScores = {};
+      for (const [tId, tInfo] of Object.entries(SCENARIO_THEMES)) {
+        let s = 0;
+        for (const kw of tInfo.keywords) {
+          if (text.includes(kw.toLowerCase())) s += 3;
+        }
+        themeScores[tId] = s;
+      }
+
+      let bestThemeId = Object.keys(themeScores).reduce((a, b) => themeScores[a] > themeScores[b] ? a : b);
+      if (themeScores[bestThemeId] === 0) {
+        bestThemeId = 'school';
+      }
+      const themeData = SCENARIO_THEMES[bestThemeId];
+
+      const vocabMap = {};
+      MASTER_VOCAB.forEach(v => {
+        vocabMap[v.word.toLowerCase()] = v;
+      });
+
+      // Pick 2 words + 2 phrases
+      const pickedWords = [];
+      for (const w of themeData.preferred_words) {
+        const item = vocabMap[w.toLowerCase()];
+        if (item && !item.isPhrase && item.category !== 'phrases') {
+          pickedWords.push(item);
+        }
+        if (pickedWords.length >= 2) break;
+      }
+
+      const pickedPhrases = [];
+      for (const p of themeData.preferred_phrases) {
+        const item = vocabMap[p.toLowerCase()];
+        if (item && (item.isPhrase || item.category === 'phrases')) {
+          pickedPhrases.push(item);
+        }
+        if (pickedPhrases.length >= 2) break;
+      }
+
+      // Dynamic fallback if any empty
+      if (pickedWords.length < 2) {
+        const fallbackWords = MASTER_VOCAB.filter(v => !v.isPhrase && v.category !== 'phrases');
+        while (pickedWords.length < 2 && fallbackWords.length > 0) {
+          pickedWords.push(fallbackWords[pickedWords.length]);
+        }
+      }
+      if (pickedPhrases.length < 2) {
+        const fallbackPhrases = MASTER_VOCAB.filter(v => v.isPhrase || v.category === 'phrases');
+        while (pickedPhrases.length < 2 && fallbackPhrases.length > 0) {
+          pickedPhrases.push(fallbackPhrases[pickedPhrases.length]);
+        }
+      }
+
+      const allItems = [...pickedWords, ...pickedPhrases];
+      const plannedCards = allItems.map(item => {
+        const g = item.gradedSentences;
+        const lvlIdx = Math.max(0, Math.min(userLevel - 1, g.length - 1));
+        const targetSent = g[lvlIdx];
+        return {
+          itemRef: item,
+          code: item.wordCode,
+          word: item.word,
+          isPhrase: item.isPhrase || false,
+          phonetic: item.phonetic,
+          meaning: item.meaning,
+          emoji: item.emoji,
+          audioWord: item.audioWordCanonical || item.audioWord,
+          sentenceText: targetSent.text,
+          sentenceTrans: targetSent.translation,
+          sentenceAudio: targetSent.audioSrcCanonical || targetSent.audioSrc,
+          level: targetSent.level,
+          levelLabel: targetSent.levelLabel
+        };
+      });
+
+      return {
+        themeId: bestThemeId,
+        title: themeData.title,
+        items: plannedCards
+      };
+    }
+
+    function renderPlannedResults(plan, adaptive) {
+      const area = document.getElementById('plannerResultsArea');
+      const titleEl = document.getElementById('plannerResultTitle');
+      const subtitleEl = document.getElementById('plannerResultSubtitle');
+      const badgeEl = document.getElementById('plannerResultAdaptiveBadge');
+      const listEl = document.getElementById('plannerItemsList');
+
+      if (!area || !titleEl || !listEl) return;
+
+      titleEl.innerText = plan.title;
+      subtitleEl.innerText = `Kai 已為你挑選 2 個生活單字 + 2 組高頻片語！依你連續登錄 ${adaptive.streakDays || 1} 天推薦 ${adaptive.level === 1 ? '初階 3~4 詞短句' : (adaptive.level === 2 ? '日常 4~6 詞例句' : '進階 6~8 詞挑戰句')}。`;
+      badgeEl.innerText = adaptive.level === 1 ? '🟢 初階適配 (3~4詞)' : (adaptive.level === 2 ? '🟡 日常適配 (4~6詞)' : '🟣 熟練挑戰 (6~8詞)');
+
+      listEl.innerHTML = '';
+      plan.items.forEach(c => {
+        const card = document.createElement('div');
+        card.className = "p-2.5 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col gap-1.5 text-left";
+        card.innerHTML = `
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-1.5">
+              <span class="text-base">${c.emoji}</span>
+              <span class="text-xs font-black text-indigo-950">${c.word}</span>
+              <span class="text-[9px] text-slate-400 font-mono">${c.phonetic}</span>
+            </div>
+            <span class="text-[8px] px-1.5 py-0.2 rounded font-extrabold ${c.isPhrase ? 'bg-emerald-600 text-white' : 'bg-indigo-100 text-indigo-800'}">
+              ${c.isPhrase ? '片語語塊' : '生活單字'}
+            </span>
+          </div>
+          <div class="text-[10px] text-slate-600 font-semibold truncate">${c.meaning}</div>
+          <div class="bg-slate-50 p-1.5 rounded-xl border border-slate-100 flex items-center justify-between gap-1">
+            <div class="flex-1 min-w-0">
+              <div class="text-[11px] font-black text-slate-800 truncate">“${c.sentenceText}”</div>
+              <div class="text-[9px] text-slate-500 truncate">${c.sentenceTrans}</div>
+            </div>
+            <button type="button" onclick="playAudioFile('${c.sentenceAudio}')" class="px-2 py-1 bg-white hover:bg-slate-100 text-indigo-700 text-[10px] font-bold rounded-lg border border-slate-200 shadow-2xs shrink-0 flex items-center gap-0.5 active:scale-95" title="聆聽例句">
+              🔊
+            </button>
+          </div>
+        `;
+        listEl.appendChild(card);
+      });
+
+      area.classList.remove('hidden');
+      area.classList.add('flex');
+    }
+
+    function applyVoicePlanToFreePractice() {
+      if (!currentPlannedPlan || !currentPlannedPlan.items) return;
+
+      const rawItems = currentPlannedPlan.items.map(it => it.itemRef);
+      window._customScenarioList = rawItems;
+      window._customScenarioTitle = currentPlannedPlan.title;
+
+      // Show Custom Scenario Tab
+      const customTab = document.getElementById('customScenarioTabBtn');
+      const customLabel = document.getElementById('customScenarioTabLabel');
+      if (customTab && customLabel) {
+        customLabel.innerText = currentPlannedPlan.title.split(' ')[0] + ' 微課堂 (4)';
+        customTab.classList.remove('hidden');
+      }
+
+      closeKaiVoicePlannerModal();
+      switchAppMode('free');
+      setFreeCategory('custom_scenario');
+      
+      setTimeout(() => {
+        playFreeTargetAudio();
+      }, 400);
+    }
+
+    function applyVoicePlanToDailyQuest() {
+      if (!currentPlannedPlan || !currentPlannedPlan.items) return;
+
+      const rawItems = currentPlannedPlan.items.map(it => it.itemRef);
+      const activeP = getActiveProfile();
+      const adaptive = getAdaptiveAnalysis(activeP);
+      const userLevel = adaptive.level;
+
+      // Map to quest items with _dailySentences
+      questQueue = rawItems.map(itemObj => {
+        const g = itemObj.gradedSentences;
+        let picked = [];
+        if (userLevel === 1) {
+          picked = [
+            { text: g[0].text, translation: g[0].translation, level: 1, levelLabel: "簡單 · 初階短句", audioSrc: g[0].audioSrc },
+            { text: g[1].text, translation: g[1].translation, level: 2, levelLabel: "中等 · 生活日常", audioSrc: g[1].audioSrc }
+          ];
+        } else {
+          picked = [
+            { text: g[1].text, translation: g[1].translation, level: 2, levelLabel: "中等 · 生活日常", audioSrc: g[1].audioSrc },
+            { text: g[2].text, translation: g[2].translation, level: 3, levelLabel: "進階 · 熟練挑戰", audioSrc: g[2].audioSrc }
+          ];
+        }
+        return {
+          ...itemObj,
+          _dailySentences: picked
+        };
+      });
+
+      questWordIdx = 0;
+      questSubStep = 0;
+
+      closeKaiVoicePlannerModal();
+      switchAppMode('quest');
+    }
 
     window.addEventListener('DOMContentLoaded', () => {
       isUserLoggedIn = false;
