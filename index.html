@@ -132,7 +132,7 @@
         <div class="flex items-center gap-3.5 cursor-pointer select-none">
           <div class="relative shrink-0">
             <img src="images/ui/KaiSpeak_logo_V3_trans.png" alt="KaiSpeak" class="h-20 sm:h-24 md:h-28 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] hover:scale-105 transition duration-300 shrink-0">
-            <span class="absolute -bottom-1 -right-1 text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md border-2 border-white tracking-wider">v0.0.14</span>
+            <span class="absolute -bottom-1 -right-1 text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md border-2 border-white tracking-wider">v0.0.15</span>
           </div>
           <div class="flex flex-col justify-center text-left leading-none">
             <h1 class="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight bg-gradient-to-r from-indigo-800 via-indigo-600 to-purple-600 bg-clip-text text-transparent select-none leading-none">KaiSpeak</h1>
@@ -356,7 +356,7 @@
       <!-- Brand Logo (Pure V3 Jelly Badge, prominently sized to fill left brand area) -->
       <div class="relative flex items-center cursor-pointer select-none shrink-0 group py-0.5" onclick="switchAppMode('quest')" title="KaiSpeak 首頁">
         <img src="images/ui/KaiSpeak_logo_V3_trans.png" alt="KaiSpeak" class="h-16 sm:h-20 md:h-24 lg:h-28 w-auto object-contain drop-shadow-[0_8px_22px_rgba(79,70,229,0.25)] group-hover:scale-105 transition-all duration-300 shrink-0">
-        <span class="absolute -bottom-1 right-0 sm:right-1 text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md border-2 border-white tracking-wider">v0.0.14</span>
+        <span class="absolute -bottom-1 right-0 sm:right-1 text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md border-2 border-white tracking-wider">v0.0.15</span>
       </div>
 
       <!-- Right Controls: Profile & Status Badges (Streamlined & slim) -->
@@ -779,6 +779,56 @@
   </div>
 
   <!-- ======================================================== -->
+  <!-- STREAK TROPHY & TREASURE UNLOCK MODAL                    -->
+  <!-- ======================================================== -->
+  <div id="streakRewardModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[99] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
+    <div class="bg-gradient-to-b from-white via-amber-50/40 to-orange-50/40 rounded-3xl p-5 sm:p-7 max-w-sm sm:max-w-md w-full shadow-2xl border-2 border-amber-300 text-center flex flex-col items-center my-auto relative animate-in fade-in zoom-in-95 duration-200">
+      
+      <!-- Close button -->
+      <button onclick="closeStreakRewardModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 font-black text-sm flex items-center justify-center transition active:scale-95 absolute top-3.5 right-3.5">✕</button>
+
+      <!-- Trophy / Chest Visual -->
+      <div class="relative w-24 h-24 my-2 flex items-center justify-center">
+        <div class="absolute inset-0 rounded-full bg-gradient-to-tr from-amber-300/50 to-orange-400/40 blur-xl animate-pulse"></div>
+        <div id="rewardModalIcon" class="relative z-10 text-6xl select-none transform hover:scale-110 transition duration-300">
+          🏆
+        </div>
+      </div>
+
+      <!-- Title & Milestone Name -->
+      <div id="rewardModalBadge" class="text-xs font-black text-amber-800 bg-amber-100 border border-amber-300 px-3 py-0.5 rounded-full shadow-xs mb-1.5">
+        ✨ 達成連續 7 天打卡里程碑！
+      </div>
+
+      <h3 id="rewardModalTitle" class="text-xl sm:text-2xl font-black text-slate-900 mb-1">
+        星火青銅寶箱 & 白銀守護盾盃
+      </h3>
+      <p id="rewardModalDesc" class="text-xs text-slate-600 mb-3.5 leading-relaxed max-w-xs">
+        連續口語練習滿 1 週！習慣正在悄悄生根，語言自信全面啟航！
+      </p>
+
+      <!-- Reward Highlight Box -->
+      <div class="w-full bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 rounded-2xl p-3.5 text-white shadow-lg mb-4 flex items-center justify-around">
+        <div class="flex flex-col items-center">
+          <span class="text-[10px] text-amber-100 font-bold">獲得成就獎盃</span>
+          <span id="rewardModalTrophyName" class="text-xs sm:text-sm font-black mt-0.5">🥈 白銀守護盾盃</span>
+        </div>
+        <div class="w-0.5 h-10 bg-white/20"></div>
+        <div class="flex flex-col items-center">
+          <span class="text-[10px] text-amber-100 font-bold">寶箱獎勵能量</span>
+          <span id="rewardModalEnergyVal" class="text-xl sm:text-2xl font-black font-mono mt-0.5">+100 點</span>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <button id="rewardModalClaimBtn" onclick="confirmClaimStreakReward()" class="w-full py-3 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 text-white font-black text-xs sm:text-sm shadow-lg shadow-indigo-300 transition active:scale-95 flex items-center justify-center gap-1.5">
+        <span>🎉 開啟寶箱並收下榮譽！</span>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
   <!-- MODE 1: DAILY QUEST VIEW                                 -->
   <!-- ======================================================== -->
   <section id="viewDailyQuest" class="w-full max-w-6xl flex flex-col gap-3 md:gap-5">
@@ -836,6 +886,13 @@
           <div id="questProgressBar" class="bg-amber-400 h-full rounded-full transition-all duration-500" style="width: 10%"></div>
         </div>
       </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- STREAK TROPHIES & TREASURE CHEST MILESTONE SHOWCASE      -->
+    <!-- ======================================================== -->
+    <div id="streakTrophyShowcase" class="w-full bg-gradient-to-br from-amber-50/80 via-white to-orange-50/60 rounded-3xl p-3.5 sm:p-5 border-2 border-amber-200/90 shadow-sm flex flex-col gap-3 transition-all duration-300">
+      <!-- Injected by JS: renderStreakTrophyShowcase() -->
     </div>
 
     <!-- Step Indicators for Current Word: 1.單字發音 -> 2.隨機例句 1 -> 3.隨機例句 2 -->
@@ -1931,7 +1988,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">v0.0.14 · 即時 AI</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">v0.0.15 · 即時 AI</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -1965,7 +2022,7 @@
             <span>👉 點此前往 Google AI Studio 免費獲取 Key</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 v0.0.14 · 支援 gemini-2.0-flash / 2.0-flash-lite</span>
+          <span class="text-slate-400 text-[10px]">版本 v0.0.15 · 支援 gemini-2.0-flash / 2.0-flash-lite</span>
         </div>
       </div>
 
@@ -2296,7 +2353,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "v0.0.14";
+    const APP_VERSION = "v0.0.15";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // Immediate sanitization of legacy Gemini 1.5 or invalid 2.5 models from localStorage
@@ -2329,6 +2386,7 @@
         weakWords: ["banana", "clock"],
         masteredWords: ["cat", "dog", "apple", "sun"],
         adventureStars: {"desk": 3, "bed": 3, "cup": 2, "door": 3, "clock": 1},
+        claimedStreakMilestones: [],
         practiceLogs: []
       },
       {
@@ -2344,6 +2402,7 @@
         weakWords: ["rabbit", "friend"],
         masteredWords: ["baby", "milk"],
         adventureStars: {"desk": 2, "bed": 1},
+        claimedStreakMilestones: [],
         practiceLogs: []
       }
     ];
@@ -2754,6 +2813,7 @@
         weakWords: [],
         masteredWords: [],
         adventureStars: {},
+        claimedStreakMilestones: [],
         practiceLogs: []
       };
 
@@ -3035,6 +3095,11 @@
         saveProfilesToStorage();
       }
 
+      // Ensure every profile has claimedStreakMilestones array initialized
+      profiles.forEach(p => {
+        p.claimedStreakMilestones = p.claimedStreakMilestones || [];
+      });
+
       const savedCurId = localStorage.getItem('kai_current_profile_id');
       if (savedCurId && profiles.some(p => p.id === savedCurId)) {
         currentProfileId = savedCurId;
@@ -3058,6 +3123,7 @@
       localStorage.setItem('kai_energy_points', (p.energyPoints || 0).toString());
       localStorage.setItem('kai_practice_logs', JSON.stringify(p.practiceLogs || []));
       localStorage.setItem('kai_adventure_stars', JSON.stringify(p.adventureStars || {}));
+      localStorage.setItem('kai_claimed_streak_milestones', JSON.stringify(p.claimedStreakMilestones || []));
     }
 
     function loadActiveProfileData() {
@@ -3066,10 +3132,12 @@
       energyPoints = p.energyPoints || 0;
       practiceLogs = p.practiceLogs || [];
       adventureStars = p.adventureStars || {};
+      p.claimedStreakMilestones = p.claimedStreakMilestones || [];
 
       updateProfileHeaderUI();
       updateStreakAndEnergyUI();
       updateAdaptiveBadgeUI();
+      renderStreakTrophyShowcase();
     }
 
     function updateProfileHeaderUI() {
@@ -3432,6 +3500,7 @@
         weakWords: [],
         masteredWords: [],
         adventureStars: {},
+        claimedStreakMilestones: [],
         practiceLogs: []
       };
 
@@ -3861,6 +3930,7 @@
       });
 
       updateDailyCheckInUI();
+      renderStreakTrophyShowcase();
     }
 
     function updateDailyCheckInUI() {
@@ -3943,6 +4013,371 @@
       localStorage.setItem('kai_streak_days', streakDays.toString());
       updateStreakAndEnergyUI();
       SoundEffects.playShield();
+    }
+
+    // ========================================================
+    // STREAK TROPHIES & TREASURE CHEST MILESTONE ENGINE (v0.0.15)
+    // ========================================================
+    const STREAK_MILESTONES = [
+      {
+        id: "streak_3d",
+        days: 3,
+        icon: "🥉",
+        title: "啟航青銅星徽",
+        trophyName: "🥉 青銅啟航星",
+        chestName: "青銅啟航補給箱",
+        energyReward: 30,
+        honorTitle: "探索新星",
+        desc: "連續練習 3 天！戰勝開口第一步，學習火苗已然點燃！"
+      },
+      {
+        id: "streak_7d",
+        days: 7,
+        icon: "🥈",
+        title: "星火青銅寶箱 & 守護銀盾",
+        trophyName: "🥈 守護銀盾獎盃",
+        chestName: "星火青銅寶箱",
+        energyReward: 100,
+        honorTitle: "恆心守護者",
+        desc: "連續口語練習滿 1 週！習慣正在悄悄生根，語言自信全面啟航！"
+      },
+      {
+        id: "streak_14d",
+        days: 14,
+        icon: "🥇",
+        title: "勇氣白銀寶箱 & 勇者金劍",
+        trophyName: "🥇 勇者金劍獎盃",
+        chestName: "勇氣白銀寶箱",
+        energyReward: 200,
+        honorTitle: "雙週狂熱者",
+        desc: "連續打卡半個月！發音記憶已形成肌肉記憶，解鎖進階挑戰實力！"
+      },
+      {
+        id: "streak_30d",
+        days: 30,
+        icon: "🏆",
+        title: "月度冠軍金光寶箱 & 純金王座盃",
+        trophyName: "🏆 月冠純金榮譽獎盃",
+        chestName: "月度冠軍金光寶箱",
+        energyReward: 500,
+        honorTitle: "月度美語冠軍",
+        desc: "達成整整 1 個月持續練習！語言習慣堅如磐石，榮登月度冠軍榜！"
+      },
+      {
+        id: "streak_60d",
+        days: 60,
+        icon: "💎",
+        title: "雙月翡翠至尊寶箱 & 水晶之冠",
+        trophyName: "💎 璀璨翡翠水晶獎盃",
+        chestName: "雙月翡翠至尊寶箱",
+        energyReward: 800,
+        honorTitle: "翡翠傳奇學員",
+        desc: "連續 60 天無懼風雨打卡！美語自然流暢如母語，展現頂尖毅力！"
+      },
+      {
+        id: "streak_100d",
+        days: 100,
+        icon: "👑",
+        title: "百日神殿至尊寶箱 & 百日王者王冠盃",
+        trophyName: "👑 百日王者王冠盃",
+        chestName: "百日神殿至尊寶箱",
+        energyReward: 1500,
+        honorTitle: "百日傳奇大師",
+        desc: "破百天！100 天的堅持鑄就傳奇，成為發音神殿萬人景仰的大宗師！"
+      },
+      {
+        id: "streak_365d",
+        days: 365,
+        icon: "🌌",
+        title: "永恆星河神域寶藏 & 至尊神盃",
+        trophyName: "🌠 永恆守護神至尊神盃",
+        chestName: "永恆星河神域寶藏",
+        energyReward: 5000,
+        honorTitle: "年度永恆守護神",
+        desc: "整整 365 天！穿越四季春風秋雨，達成了極致的自我超越，神祇般的守護成就！"
+      }
+    ];
+
+    let currentSelectedStreakMilestone = null;
+
+    function getStreakHonorTitle(days) {
+      const d = parseInt(days) || 1;
+      if (d >= 365) return "🌌 年度永恆守護神";
+      if (d >= 100) return "👑 百日傳奇大師";
+      if (d >= 60) return "💎 翡翠傳奇學員";
+      if (d >= 30) return "🏆 月度美語冠軍";
+      if (d >= 14) return "🥇 雙週狂熱者";
+      if (d >= 7) return "🥈 恆心守護者";
+      if (d >= 3) return "🥉 探索新星";
+      return "🌱 初探新星";
+    }
+
+    function renderStreakTrophyShowcase() {
+      const showcaseEl = document.getElementById('streakTrophyShowcase');
+      if (!showcaseEl) return;
+
+      const p = getActiveProfile();
+      p.claimedStreakMilestones = p.claimedStreakMilestones || [];
+      const curStreak = p.streakDays || streakDays || 1;
+      const honorTitle = getStreakHonorTitle(curStreak);
+
+      const claimedCount = p.claimedStreakMilestones.length;
+      const totalCount = STREAK_MILESTONES.length;
+
+      // Find next milestone
+      const nextMilestone = STREAK_MILESTONES.find(m => curStreak < m.days);
+      const prevMilestoneIdx = nextMilestone ? STREAK_MILESTONES.indexOf(nextMilestone) - 1 : STREAK_MILESTONES.length - 1;
+      const prevDays = prevMilestoneIdx >= 0 ? STREAK_MILESTONES[prevMilestoneIdx].days : 0;
+      
+      let nextProgressHtml = '';
+      if (nextMilestone) {
+        const span = nextMilestone.days - prevDays;
+        const progressInSpan = Math.max(0, curStreak - prevDays);
+        const progressPct = Math.min(100, Math.round((progressInSpan / span) * 100));
+        const diff = nextMilestone.days - curStreak;
+        nextProgressHtml = `
+          <div class="w-full bg-white/95 rounded-2xl p-2.5 sm:p-3 border border-amber-200/90 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-2.5">
+            <div class="flex items-center gap-2 text-xs text-slate-800 w-full sm:w-auto">
+              <span class="text-base select-none">🎯</span>
+              <span>下一座目標：<strong>${nextMilestone.title}</strong>（還差 <strong class="text-orange-600 font-black">${diff}</strong> 天打卡即可解鎖！）</span>
+            </div>
+            <div class="flex items-center gap-2 w-full sm:w-56 shrink-0">
+              <div class="flex-1 bg-slate-100 h-2.5 rounded-full overflow-hidden border border-slate-200">
+                <div class="h-full bg-gradient-to-r from-amber-400 to-orange-500 rounded-full transition-all duration-500" style="width: ${progressPct}%;"></div>
+              </div>
+              <span class="text-[10px] font-mono font-black text-amber-900">${curStreak}/${nextMilestone.days}天 (${progressPct}%)</span>
+            </div>
+          </div>
+        `;
+      } else {
+        nextProgressHtml = `
+          <div class="w-full bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white rounded-2xl p-2.5 sm:p-3 font-bold text-xs shadow-xs flex items-center justify-center gap-2">
+            <span>👑 登峰造極！恭喜達成 365 天全部連續守護成就！殿堂至尊永恆守護神！</span>
+          </div>
+        `;
+      }
+
+      // Render cards
+      const cardsHtml = STREAK_MILESTONES.map(m => {
+        const isAchieved = curStreak >= m.days;
+        const isClaimed = p.claimedStreakMilestones.includes(m.id);
+
+        if (isAchieved && !isClaimed) {
+          // Claimable
+          return `
+            <div onclick="openStreakRewardModal('${m.id}')" class="p-3 rounded-2xl bg-gradient-to-b from-amber-100 via-amber-50 to-orange-100 border-2 border-amber-400 ring-2 ring-amber-300/80 shadow-md transform hover:-translate-y-1 hover:shadow-lg transition cursor-pointer flex flex-col items-center text-center relative overflow-hidden group">
+              <span class="absolute top-1 right-1 flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
+              </span>
+              <div class="text-[9px] font-black bg-amber-200 text-amber-900 px-2 py-0.2 rounded-full mb-1">
+                🔥 ${m.days}天達標
+              </div>
+              <div class="text-3xl sm:text-4xl my-1 select-none transform group-hover:scale-115 transition duration-300 animate-bounce">
+                ${m.icon}
+              </div>
+              <div class="text-xs font-black text-slate-900 line-clamp-1 mt-0.5" title="${m.trophyName}">
+                ${m.trophyName.split(' ')[1] || m.trophyName}
+              </div>
+              <div class="text-[10px] text-amber-700 font-extrabold font-mono mt-0.5">
+                ⚡ +${m.energyReward}
+              </div>
+              <button class="mt-2 w-full py-1 text-[10px] font-black rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-xs group-hover:brightness-105 active:scale-95 transition">
+                🎁 點我開箱！
+              </button>
+            </div>
+          `;
+        } else if (isClaimed) {
+          // Claimed
+          return `
+            <div onclick="openStreakRewardModal('${m.id}')" class="p-3 rounded-2xl bg-white/90 border border-emerald-300 shadow-xs hover:border-emerald-400 hover:shadow-sm transform hover:-translate-y-0.5 transition cursor-pointer flex flex-col items-center text-center relative group">
+              <div class="text-[9px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.2 rounded-full mb-1">
+                ✓ ${m.days}天典藏
+              </div>
+              <div class="text-3xl sm:text-4xl my-1 select-none transform group-hover:scale-110 transition duration-300 filter drop-shadow-sm">
+                ${m.icon}
+              </div>
+              <div class="text-xs font-bold text-slate-800 line-clamp-1 mt-0.5" title="${m.trophyName}">
+                ${m.trophyName.split(' ')[1] || m.trophyName}
+              </div>
+              <div class="text-[10px] text-emerald-600 font-bold font-mono mt-0.5">
+                已領取 +${m.energyReward}
+              </div>
+              <div class="mt-2 w-full py-1 text-[10px] font-bold rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200">
+                🎖️ 查看證書
+              </div>
+            </div>
+          `;
+        } else {
+          // Locked
+          const diffDays = m.days - curStreak;
+          return `
+            <div onclick="openStreakRewardModal('${m.id}')" class="p-3 rounded-2xl bg-slate-50/80 border border-slate-200/90 shadow-2xs hover:border-slate-300 hover:bg-slate-100/70 transition cursor-pointer flex flex-col items-center text-center relative opacity-85 hover:opacity-100 group">
+              <div class="text-[9px] font-semibold bg-slate-200/80 text-slate-600 px-2 py-0.2 rounded-full mb-1">
+                🔒 ${m.days}天解鎖
+              </div>
+              <div class="text-3xl sm:text-4xl my-1 select-none grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition duration-300">
+                ${m.icon}
+              </div>
+              <div class="text-xs font-semibold text-slate-600 line-clamp-1 mt-0.5" title="${m.trophyName}">
+                ${m.trophyName.split(' ')[1] || m.trophyName}
+              </div>
+              <div class="text-[10px] text-slate-400 font-mono mt-0.5">
+                ⚡ +${m.energyReward}
+              </div>
+              <div class="mt-2 w-full py-1 text-[10px] font-medium rounded-xl bg-slate-200/70 text-slate-500">
+                差 ${diffDays} 天
+              </div>
+            </div>
+          `;
+        }
+      }).join('');
+
+      showcaseEl.innerHTML = `
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 pb-2 border-b border-amber-200/70">
+          <div class="flex items-center gap-2.5">
+            <span class="text-2xl sm:text-3xl select-none">🏆</span>
+            <div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <h4 class="text-sm sm:text-base font-black text-slate-900 tracking-tight">連續守護榮譽殿堂 · 獎盃與寶藏</h4>
+                <span class="text-[10px] bg-gradient-to-r from-amber-500 to-orange-500 text-white font-black px-2.5 py-0.5 rounded-full shadow-xs tracking-wide">
+                  ${honorTitle}
+                </span>
+              </div>
+              <p class="text-[11px] text-slate-600 font-medium">每天完成口語打卡守護紀錄，開啟神殿能量寶箱與榮耀獎盃！</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 self-start sm:self-center shrink-0">
+            <span class="text-xs font-black text-amber-900 bg-amber-100/90 border border-amber-300 px-3 py-1 rounded-2xl shadow-xs">
+              🔥 連續 <strong>${curStreak}</strong> 天 · 已解鎖 <strong>${claimedCount}/${totalCount}</strong>
+            </span>
+          </div>
+        </div>
+
+        ${nextProgressHtml}
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5 sm:gap-3 w-full mt-1">
+          ${cardsHtml}
+        </div>
+      `;
+    }
+
+    function openStreakRewardModal(milestoneId) {
+      const m = STREAK_MILESTONES.find(x => x.id === milestoneId);
+      if (!m) return;
+      currentSelectedStreakMilestone = m;
+
+      const p = getActiveProfile();
+      p.claimedStreakMilestones = p.claimedStreakMilestones || [];
+      const curStreak = p.streakDays || streakDays || 1;
+      const isAchieved = curStreak >= m.days;
+      const isClaimed = p.claimedStreakMilestones.includes(m.id);
+
+      const modal = document.getElementById('streakRewardModal');
+      const iconEl = document.getElementById('rewardModalIcon');
+      const badgeEl = document.getElementById('rewardModalBadge');
+      const titleEl = document.getElementById('rewardModalTitle');
+      const descEl = document.getElementById('rewardModalDesc');
+      const trophyEl = document.getElementById('rewardModalTrophyName');
+      const energyEl = document.getElementById('rewardModalEnergyVal');
+      const claimBtn = document.getElementById('rewardModalClaimBtn');
+
+      if (iconEl) iconEl.innerText = m.icon;
+      if (trophyEl) trophyEl.innerText = m.trophyName;
+      if (energyEl) energyEl.innerText = `+${m.energyReward} 點`;
+
+      if (isAchieved && !isClaimed) {
+        // Can claim
+        if (badgeEl) {
+          badgeEl.className = "text-xs font-black text-amber-800 bg-amber-100 border border-amber-300 px-3 py-0.5 rounded-full shadow-xs mb-1.5 animate-pulse";
+          badgeEl.innerText = `🎉 恭喜達成連續 ${m.days} 天打卡里程碑！`;
+        }
+        if (titleEl) titleEl.innerText = `${m.chestName} & ${m.trophyName}`;
+        if (descEl) descEl.innerText = m.desc;
+        if (claimBtn) {
+          claimBtn.className = "w-full py-3 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 text-white font-black text-xs sm:text-sm shadow-lg shadow-orange-300 transition active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer";
+          claimBtn.innerHTML = `<span>🎁 立即開啟寶箱並領取 +${m.energyReward} 能量！</span>`;
+          claimBtn.onclick = confirmClaimStreakReward;
+        }
+      } else if (isClaimed) {
+        // Claimed already - Certificate view
+        if (badgeEl) {
+          badgeEl.className = "text-xs font-black text-emerald-800 bg-emerald-100 border border-emerald-300 px-3 py-0.5 rounded-full shadow-xs mb-1.5";
+          badgeEl.innerText = `✨ 榮譽成就已永久典藏 · 榮譽證書`;
+        }
+        if (titleEl) titleEl.innerText = `🏆 ${m.trophyName}`;
+        if (descEl) descEl.innerText = `${m.desc}\n（本成就已於達成連續 ${m.days} 天時解鎖入冊）`;
+        if (energyEl) energyEl.innerText = `已入帳 +${m.energyReward} 點`;
+        if (claimBtn) {
+          claimBtn.className = "w-full py-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 text-white font-black text-xs sm:text-sm shadow-md transition active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer";
+          claimBtn.innerHTML = `<span>🎉 奏響勝利號角慶祝！</span>`;
+          claimBtn.onclick = () => {
+            SoundEffects.playVictoryFanfare();
+            if (typeof launchCelebrationConfetti === 'function') launchCelebrationConfetti();
+          };
+        }
+      } else {
+        // Locked
+        const diff = m.days - curStreak;
+        if (badgeEl) {
+          badgeEl.className = "text-xs font-semibold text-slate-600 bg-slate-100 border border-slate-300 px-3 py-0.5 rounded-full shadow-xs mb-1.5";
+          badgeEl.innerText = `🔒 連續打卡第 ${m.days} 天解鎖（還差 ${diff} 天）`;
+        }
+        if (titleEl) titleEl.innerText = `神秘寶藏：${m.title}`;
+        if (descEl) descEl.innerText = `${m.desc}\n堅持每天完成 10 題核心發音與例句打卡，即將在第 ${m.days} 天自動為您開啟！`;
+        if (energyEl) energyEl.innerText = `+${m.energyReward} 點（解鎖後可領）`;
+        if (claimBtn) {
+          claimBtn.className = "w-full py-3 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 text-white font-black text-xs sm:text-sm shadow-md transition active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer";
+          claimBtn.innerHTML = `<span>💪 繼續加油！前往完成今日任務</span>`;
+          claimBtn.onclick = () => {
+            closeStreakRewardModal();
+            const qEl = document.getElementById('viewDailyQuest');
+            if (qEl) qEl.scrollIntoView({ behavior: 'smooth' });
+          };
+        }
+      }
+
+      if (modal) modal.classList.remove('hidden');
+    }
+
+    function confirmClaimStreakReward() {
+      if (!currentSelectedStreakMilestone) return;
+      const m = currentSelectedStreakMilestone;
+      const p = getActiveProfile();
+      p.claimedStreakMilestones = p.claimedStreakMilestones || [];
+
+      if (p.claimedStreakMilestones.includes(m.id)) {
+        closeStreakRewardModal();
+        return;
+      }
+
+      const curStreak = p.streakDays || streakDays || 1;
+      if (curStreak < m.days) {
+        alert("尚未達到該里程碑天數！");
+        return;
+      }
+
+      // Claim reward!
+      p.claimedStreakMilestones.push(m.id);
+      p.energyPoints = (p.energyPoints || 0) + m.energyReward;
+      energyPoints = p.energyPoints;
+
+      saveProfilesToStorage();
+      updateStreakAndEnergyUI();
+      renderStreakTrophyShowcase();
+
+      // Fanfare & Confetti
+      SoundEffects.playVictoryFanfare();
+      if (typeof launchCelebrationConfetti === 'function') launchCelebrationConfetti();
+
+      // Update modal to claimed state
+      openStreakRewardModal(m.id);
+    }
+
+    function closeStreakRewardModal() {
+      const modal = document.getElementById('streakRewardModal');
+      if (modal) modal.classList.add('hidden');
+      currentSelectedStreakMilestone = null;
     }
 
     // ========================================================
