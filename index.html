@@ -1654,8 +1654,11 @@
             <span>💡 也可以點選生活情境靈感：</span>
           </div>
           <div class="flex items-center gap-1.5 flex-wrap">
+            <button type="button" onclick="applyPlannerPrompt('我等一下要去兒童樂園玩旋轉木馬')" class="px-2.5 py-1 rounded-xl bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 text-slate-700 hover:text-indigo-900 text-[11px] font-bold transition shadow-2xs active:scale-95">
+              🎡 去兒童樂園玩旋轉木馬
+            </button>
             <button type="button" onclick="applyPlannerPrompt('我今天要去學校跟同學一起玩')" class="px-2.5 py-1 rounded-xl bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 text-slate-700 hover:text-indigo-900 text-[11px] font-bold transition shadow-2xs active:scale-95">
-              🏫 去學校跟同學一起玩
+              🏫 去學校跟同學上課
             </button>
             <button type="button" onclick="applyPlannerPrompt('我想學可愛小狗還有動物')" class="px-2.5 py-1 rounded-xl bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 text-slate-700 hover:text-indigo-900 text-[11px] font-bold transition shadow-2xs active:scale-95">
               🐶 想學可愛小狗與動物
@@ -5850,9 +5853,15 @@
     const MAX_SYSTEM_VOCAB_LIMIT = 5000;
 
     const SCENARIO_THEMES = {
+      'amusement_park': {
+        title: '🎡 【夢幻兒童樂園與遊樂設施】微課堂',
+        keywords: ['兒童樂園', '遊樂園', '遊樂場', '主題樂園', '樂園', '旋轉木馬', '雲霄飛車', '摩天輪', '碰碰車', '排隊', '身高限制', '年齡限制', '安全帶', '冰淇淋', '爆米花', '氣球', '玩設施', '買票', '門票', 'amusement park', 'theme park', 'carousel', 'roller coaster', 'ferris wheel', 'bumper car'],
+        preferred_words: ['ticket', 'carousel', 'ferris wheel', 'roller coaster', 'bumper car', 'safety', 'height', 'park', 'snack'],
+        preferred_phrases: ['ride carousel', 'buckle up seatbelt', 'check height limit', 'have so much fun', 'wait in line', 'eat ice cream', 'buy ticket']
+      },
       'school': {
         title: '🏫 【快樂校園與好朋友同樂】微課堂',
-        keywords: ['學校', '同學', '玩', '朋友', '上課', '校園', '老師', '教室', '做功課', '作業', '課本', '筆記', '放學', '操場', 'school', 'friend', 'play', 'class', 'teacher', 'homework'],
+        keywords: ['學校', '同學', '朋友', '上課', '校園', '老師', '教室', '做功課', '作業', '課本', '筆記', '放學', '操場', 'school', 'friend', 'class', 'teacher', 'homework'],
         preferred_words: ['friend', 'school', 'desk', 'pencil', 'book', 'teacher', 'eraser', 'ruler'],
         preferred_phrases: ['play together', 'make friends', 'share toys', 'listen politely', 'raise hand', 'take notes', 'clean desk', 'arrive at school']
       },
@@ -5896,6 +5905,54 @@
 
     // Rich Topic Knowledge Base for Kids & Gifted English Learning
     const KNOWLEDGE_TOPICS = {
+      'amusement_park': {
+        title: '🎡 【夢幻兒童樂園與遊樂設施】微課堂',
+        keywords: ['兒童樂園', '遊樂園', '遊樂場', '主題樂園', '樂園', '旋轉木馬', '雲霄飛車', '摩天輪', '碰碰車', '排隊', '身高限制', '年齡限制', '安全帶', '冰淇淋', '爆米花', '氣球', '玩設施', '買票', '門票', 'amusement park', 'theme park', 'carousel', 'roller coaster', 'ferris wheel', 'bumper car'],
+        new_words: [
+          { word: "carousel", ipa: "/ˈkær.ə.sɛl/", meaning: "名詞：旋轉木馬，旋轉遊樂設施", emoji: "🎠", category: "toy_school",
+            s1: "Ride the big carousel.", t1: "搭乘巨大的旋轉木馬。",
+            s2: "The carousel horses spin round.", t2: "旋轉木馬的木馬轉圈圈。",
+            s3: "Children ride the colorful carousel with joy.", t3: "孩子們開心地搭乘五彩繽紛的旋轉木馬。" },
+          { word: "ferris wheel", ipa: "/ˈfɛr.ɪs wiːl/", meaning: "名詞：摩天輪，觀景旋轉大輪", emoji: "🎡", category: "toy_school",
+            s1: "See the ferris wheel.", t1: "看那座摩天輪。",
+            s2: "The giant ferris wheel spins.", t2: "巨大的摩天輪緩緩旋轉。",
+            s3: "We see whole amusement park from ferris wheel.", t3: "我們從摩天輪上看見整座遊樂園的全景。" },
+          { word: "roller coaster", ipa: "/ˈroʊ.lɚ ˌkoʊ.stɚ/", meaning: "名詞：雲霄飛車，過山車", emoji: "🎢", category: "toy_school",
+            s1: "Watch the roller coaster.", t1: "看那輛雲霄飛車。",
+            s2: "The fast roller coaster zooms.", t2: "快速的雲霄飛車呼嘯而過。",
+            s3: "The exciting roller coaster speeds down fast.", t3: "刺激的雲霄飛車飛快地俯衝而下。" },
+          { word: "bumper car", ipa: "/ˈbʌm.pɚ kɑːr/", meaning: "名詞：碰碰車", emoji: "🚗", category: "toy_school",
+            s1: "Drive the bumper car.", t1: "開這輛碰碰車。",
+            s2: "We drive colorful bumper cars.", t2: "我們開著五顏六色的碰碰車。",
+            s3: "Happy kids bump each other in bumper cars.", t3: "快樂的孩子們開著碰碰車互相碰撞玩耍。" },
+          { word: "safety", ipa: "/ˈseɪf.ti/", meaning: "名詞：安全，安全規則", emoji: "🛡️", category: "daily",
+            s1: "Safety comes first here.", t1: "在這裡安全第一。",
+            s2: "Always follow amusement park safety.", t2: "時刻遵守遊樂園的安全守則。",
+            s3: "Always follow safety rules before riding attractions.", t3: "在搭乘任何遊樂設施前務必遵守安全規則。" },
+          { word: "height", ipa: "/haɪt/", meaning: "名詞：身高，遊樂設施身高規定", emoji: "📏", category: "daily_body",
+            s1: "Check your full height.", t1: "檢查你的全身身高。",
+            s2: "The ride has height limits.", t2: "這項遊樂設施有身高限制規定。",
+            s3: "Park staff checks your height before entry.", t3: "樂園工作人員在入場前會檢查你的身高。" }
+        ],
+        new_phrases: [
+          { word: "ride carousel", ipa: "/raɪd ˈkær.ə.sɛl/", meaning: "動詞片語：搭乘夢幻旋轉木馬", emoji: "🎠",
+            s1: "Please ride carousel now.", t1: "請搭乘旋轉木馬。",
+            s2: "Happy children ride carousel together.", t2: "快樂的孩子們一起搭旋轉木馬。",
+            s3: "Little kids ride carousel with their parents.", t3: "小小朋友跟著爸爸媽媽一起搭乘夢幻旋轉木馬。" },
+          { word: "buckle up seatbelt", ipa: "/ˈbʌk.əl ʌp ˈsiːt.bɛlt/", meaning: "動詞片語：繫好安全帶，注意安全", emoji: "💺",
+            s1: "Please buckle up seatbelt.", t1: "請繫好安全帶。",
+            s2: "Always buckle up seatbelt safely.", t2: "隨時繫好安全帶確保安全。",
+            s3: "Carefully buckle up seatbelt before the ride starts.", t3: "在設施啟動之前務必仔細把安全帶繫牢。" },
+          { word: "check height limit", ipa: "/tʃɛk haɪt ˈlɪm.ɪt/", meaning: "動詞片語：檢查身高限制，符合年齡規定", emoji: "📏",
+            s1: "Please check height limit.", t1: "請確認身高限制。",
+            s2: "Staff checks height limit carefully.", t2: "工作人員仔細檢查身高規定。",
+            s3: "Visitors must check height limit before entering rides.", t3: "遊客在搭乘設施前必須先確認身高是否達標。" },
+          { word: "have so much fun", ipa: "/hæv soʊ mʌtʃ fʌn/", meaning: "動詞片語：玩得超級開心，度過歡樂時光", emoji: "🎉",
+            s1: "Have so much fun.", t1: "玩得超級開心。",
+            s2: "Kids have so much fun.", t2: "孩子們玩得超級盡興。",
+            s3: "Families have so much fun at theme parks.", t3: "全家人在主題樂園裡度過了無比歡樂的時光。" }
+        ]
+      },
       'space': {
         title: '🚀 【外太空探險與火箭】微課堂',
         keywords: ['太空', '宇宙', '火箭', '外星人', '星球', '月球', '太陽系', '太空人', '望遠鏡', '流星', 'space', 'rocket', 'planet', 'moon', 'astronaut', 'star', 'alien', 'galaxy', 'telescope'],
@@ -6225,22 +6282,32 @@
         }
       }
 
-      // 2. Score existing themes
+      // 2. Score themes with compound word priority (longer matches get much higher weight)
       const themeScores = {};
       for (const [tId, tInfo] of Object.entries(SCENARIO_THEMES)) {
         let s = 0;
         for (const kw of tInfo.keywords) {
-          if (text.includes(kw.toLowerCase())) s += 3;
+          const kwLower = kw.toLowerCase();
+          if (text.includes(kwLower)) {
+            s += kwLower.length >= 3 ? 15 : (kwLower.length === 2 ? 6 : 1);
+          }
         }
         themeScores[tId] = s;
       }
 
-      let bestThemeId = Object.keys(themeScores).reduce((a, b) => themeScores[a] > themeScores[b] ? a : b);
-      if (themeScores[bestThemeId] === 0) {
-        bestThemeId = customTopicKey ? customTopicKey : 'school';
+      let bestThemeId = customTopicKey;
+      if (!bestThemeId) {
+        const topScoring = Object.keys(themeScores).reduce((a, b) => themeScores[a] > themeScores[b] ? a : b);
+        if (themeScores[topScoring] > 0) {
+          bestThemeId = topScoring;
+        } else {
+          bestThemeId = 'home_routine';
+        }
       }
 
-      const themeTitle = customTopicKey ? KNOWLEDGE_TOPICS[customTopicKey].title : SCENARIO_THEMES[bestThemeId].title;
+      const themeTitle = (customTopicKey && KNOWLEDGE_TOPICS[customTopicKey]) 
+        ? KNOWLEDGE_TOPICS[customTopicKey].title 
+        : (SCENARIO_THEMES[bestThemeId] ? SCENARIO_THEMES[bestThemeId].title : '🎯 【專屬自選學習】微課堂');
 
       // Extract 6 Words + 4 Phrases = 10 Items Total
       const wordsPool = MASTER_VOCAB.filter(v => !v.isPhrase && v.category !== 'phrases');
@@ -6337,6 +6404,23 @@
 
       // Curated dialogue banks with multiple randomized conversational angles
       const THEME_DIALOGUES = {
+        'amusement_park': [
+          [
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Kai, we have arrived at the amusement park! Let us buy ticket at the entrance first.", zh: "Kai，我們到達兒童樂園了！我們先在入口買門票吧。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Yay! Can we ride carousel and see the giant ferris wheel first?", zh: "太棒了！我們可以先搭旋轉木馬，去看巨大的摩天輪嗎？" },
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Sure! But park staff must check height limit to keep your safety.", zh: "當然可以！但是樂園工作人員要先檢查身高限制，以維護你的安全喔。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I am tall enough! Remember to buckle up seatbelt and wait in line patiently.", zh: "我已經夠高了！搭設施要記得繫好安全帶，還要耐心排隊。" },
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "After the exciting rides, let us eat cold ice cream and enjoy some snacks!", zh: "搭完刺激的設施之後，我們去吃冰涼的冰淇淋、品嚐好吃的點心吧！" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "We will have so much fun together in the amusement park today!", zh: "我們今天在兒童樂園一定會玩得超級開心！" }
+          ],
+          [
+            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Look at that thrilling roller coaster and colorful bumper cars, Kai!", zh: "Kai你看，那輛刺激的雲霄飛車還有五彩繽紛的碰碰車！" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Can we drive bumper cars together Dad? I promise to follow safety rules!", zh: "爸爸我們可以一起開碰碰車嗎？我保證會遵守安全規則！" },
+            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Always buckle up seatbelt and check height limit before entering any ride.", zh: "在進入任何設施前，一定要繫好安全帶並確認符合身高限制。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I will! Let us wait in line politely and buy ticket right now.", zh: "我會的！我們有禮貌地排隊，現在就去買門票吧。" },
+            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "You are growing up so fast. Have so much fun today, my champion!", zh: "你長大得好快。今天在樂園玩得盡興點，我的小冠軍！" }
+          ]
+        ],
         'space': [
           [
             { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Good morning Kai! Look at the shiny rocket preparing to blast off into space!", zh: "早安 Kai！看那枚閃亮的火箭正準備發射升空進入太空！" },
@@ -6541,6 +6625,197 @@
         .replace(/"/g, '&quot;');
     }
 
+    // ========================================================
+    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER
+    // ========================================================
+    const KaiSpeechEngine = {
+      preferredVoice: null,
+      activeUtterance: null,
+      activeAudio: null,
+      heartbeatTimer: null,
+      watchdogTimer: null,
+
+      init() {
+        if (!('speechSynthesis' in window)) return;
+        const pickVoice = () => {
+          try {
+            const voices = window.speechSynthesis.getVoices();
+            if (!voices || voices.length === 0) return;
+            const topVoices = ['samantha', 'google us english', 'ava', 'allison', 'victoria', 'alex', 'jenny'];
+            for (const name of topVoices) {
+              const v = voices.find(vo => vo.name.toLowerCase().includes(name) && (!vo.lang || vo.lang.startsWith('en')));
+              if (v) {
+                this.preferredVoice = v;
+                break;
+              }
+            }
+            if (!this.preferredVoice) {
+              this.preferredVoice = voices.find(vo => vo.lang === 'en-US') || voices.find(vo => vo.lang.startsWith('en')) || voices[0];
+            }
+          } catch(e) {}
+        };
+        pickVoice();
+        window.speechSynthesis.onvoiceschanged = pickVoice;
+      },
+
+      speak(text, rate = 0.92, onEndCallback = null) {
+        if (!text || !text.trim()) {
+          if (onEndCallback) onEndCallback();
+          return;
+        }
+
+        const cleanText = text.trim();
+        const serverTtsUrl = `/api/tts?text=${encodeURIComponent(cleanText)}&rate=${Math.round(rate * 165)}`;
+        
+        let localPlayer = new Audio();
+        let serverFailed = false;
+
+        const cleanupTimers = () => {
+          if (this.heartbeatTimer) { clearInterval(this.heartbeatTimer); this.heartbeatTimer = null; }
+          if (this.watchdogTimer) { clearTimeout(this.watchdogTimer); this.watchdogTimer = null; }
+        };
+
+        const tryWebSpeechApi = () => {
+          if (!('speechSynthesis' in window)) {
+            if (onEndCallback) onEndCallback();
+            return;
+          }
+
+          cleanupTimers();
+
+          // Safe cancel with 35ms breather to prevent WebKit cancel-drop bug
+          if (window.speechSynthesis.speaking || window.speechSynthesis.pending) {
+            window.speechSynthesis.cancel();
+          }
+
+          setTimeout(() => {
+            try {
+              window.speechSynthesis.resume();
+              const u = new SpeechSynthesisUtterance(cleanText);
+              u.lang = 'en-US';
+              u.rate = rate;
+              if (this.preferredVoice) {
+                u.voice = this.preferredVoice;
+              }
+
+              // Hold global reference to defeat Chrome GC bug!
+              this.activeUtterance = u;
+              window._activeUtteranceRef = u;
+
+              let hasEnded = false;
+              const finish = () => {
+                if (hasEnded) return;
+                hasEnded = true;
+                cleanupTimers();
+                this.activeUtterance = null;
+                window._activeUtteranceRef = null;
+                if (onEndCallback) onEndCallback();
+              };
+
+              u.onend = finish;
+              u.onerror = (e) => {
+                console.warn("WebSpeech error:", e);
+                finish();
+              };
+
+              // Watchdog safety timeout (Chrome bug where onend never fires for long sentences)
+              const wordCount = cleanText.split(/\s+/).length;
+              const estMs = Math.max(1500, (wordCount / (rate * 2.8)) * 1000 + 1800);
+              this.watchdogTimer = setTimeout(() => {
+                if (!hasEnded && this.activeUtterance === u) {
+                  finish();
+                }
+              }, estMs + 4000);
+
+              // Chrome heartbeat
+              this.heartbeatTimer = setInterval(() => {
+                if (window.speechSynthesis.speaking) {
+                  window.speechSynthesis.pause();
+                  window.speechSynthesis.resume();
+                } else {
+                  cleanupTimers();
+                }
+              }, 8000);
+
+              window.speechSynthesis.speak(u);
+            } catch(err) {
+              console.error("WebSpeech API speak error:", err);
+              if (onEndCallback) onEndCallback();
+            }
+          }, 40);
+        };
+
+        // Attempt server TTS first (macOS Samantha native AAC)
+        localPlayer.src = serverTtsUrl;
+        this.activeAudio = localPlayer;
+        let playedSuccessfully = false;
+
+        const playPromise = localPlayer.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            playedSuccessfully = true;
+            localPlayer.onended = () => {
+              this.activeAudio = null;
+              if (onEndCallback) onEndCallback();
+            };
+          }).catch(err => {
+            serverFailed = true;
+            tryWebSpeechApi();
+          });
+        } else {
+          tryWebSpeechApi();
+        }
+
+        localPlayer.onerror = () => {
+          if (!playedSuccessfully && !serverFailed) {
+            serverFailed = true;
+            tryWebSpeechApi();
+          }
+        };
+      },
+
+      stop() {
+        if (this.heartbeatTimer) { clearInterval(this.heartbeatTimer); this.heartbeatTimer = null; }
+        if (this.watchdogTimer) { clearTimeout(this.watchdogTimer); this.watchdogTimer = null; }
+        if (this.activeAudio) {
+          try { this.activeAudio.pause(); } catch(e){}
+          this.activeAudio = null;
+        }
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.cancel();
+        }
+        this.activeUtterance = null;
+        window._activeUtteranceRef = null;
+      }
+    };
+
+    function playAudioFile(audioUrl, fallbackText = "") {
+      if (audioUrl) {
+        const a = new Audio(audioUrl);
+        let hasStarted = false;
+        const p = a.play();
+        if (p !== undefined) {
+          p.then(() => {
+            hasStarted = true;
+          }).catch(err => {
+            if (fallbackText) {
+              KaiSpeechEngine.speak(fallbackText, 0.92);
+            }
+          });
+        }
+        a.onerror = () => {
+          if (!hasStarted && fallbackText) {
+            KaiSpeechEngine.speak(fallbackText, 0.92);
+          }
+        };
+        return;
+      }
+
+      if (fallbackText) {
+        KaiSpeechEngine.speak(fallbackText, 0.92);
+      }
+    }
+
     function playDialogueWord(cleanWord, el) {
       if (!cleanWord) return;
       if (el) {
@@ -6553,13 +6828,9 @@
       // Check if matches MASTER_VOCAB with pre-recorded audio
       const matched = MASTER_VOCAB.find(v => v.word.toLowerCase() === cleanWord.toLowerCase());
       if (matched && (matched.audioWordCanonical || matched.audioWord)) {
-        const audioUrl = matched.audioWordCanonical || matched.audioWord;
-        const a = new Audio(audioUrl);
-        a.play().catch(() => {
-          speakViaTTS(cleanWord, 0.9);
-        });
+        playAudioFile(matched.audioWordCanonical || matched.audioWord, cleanWord);
       } else {
-        speakViaTTS(cleanWord, 0.9);
+        KaiSpeechEngine.speak(cleanWord, 0.9);
       }
     }
 
@@ -6569,7 +6840,7 @@
       if (!turn) return;
 
       highlightDialogueBubble(lineIdx);
-      speakViaTTS(turn.en, 0.92, () => {
+      KaiSpeechEngine.speak(turn.en, 0.92, () => {
         unhighlightDialogueBubble(lineIdx);
       });
     }
@@ -6589,19 +6860,7 @@
     }
 
     function speakViaTTS(text, rate = 0.9, onEndCallback = null) {
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const u = new SpeechSynthesisUtterance(text);
-        u.lang = 'en-US';
-        u.rate = rate;
-        if (onEndCallback) {
-          u.onend = onEndCallback;
-          u.onerror = onEndCallback;
-        }
-        window.speechSynthesis.speak(u);
-      } else if (onEndCallback) {
-        onEndCallback();
-      }
+      KaiSpeechEngine.speak(text, rate, onEndCallback);
     }
 
     function togglePlayFullDialogue() {
@@ -6639,7 +6898,7 @@
 
       highlightDialogueBubble(idx);
 
-      speakViaTTS(turn.en, 0.92, () => {
+      KaiSpeechEngine.speak(turn.en, 0.92, () => {
         unhighlightDialogueBubble(idx);
         if (!isFullDialoguePlaying) return;
         currentDialoguePlaybackIndex++;
@@ -6651,9 +6910,7 @@
 
     function stopFullDialoguePlayback() {
       isFullDialoguePlaying = false;
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-      }
+      KaiSpeechEngine.stop();
       if (currentPlannedPlan && currentPlannedPlan.dialogue) {
         for (let i = 0; i < currentPlannedPlan.dialogue.length; i++) {
           unhighlightDialogueBubble(i);
@@ -6804,7 +7061,7 @@
               <div class="text-[11px] font-black text-slate-800 truncate">“${c.sentenceText}”</div>
               <div class="text-[9px] text-slate-500 truncate">${c.sentenceTrans}</div>
             </div>
-            <button type="button" onclick="playAudioFile('${c.sentenceAudio}')" class="px-2 py-1 bg-white hover:bg-slate-100 text-indigo-700 text-[10px] font-bold rounded-lg border border-slate-200 shadow-2xs shrink-0 flex items-center gap-0.5 active:scale-95" title="聆聽例句">
+            <button type="button" onclick="playAudioFile('${c.sentenceAudio}', '${escapeHtml(c.sentenceText).replace(/'/g, "\\'")}')" class="px-2 py-1 bg-white hover:bg-slate-100 text-indigo-700 text-[10px] font-bold rounded-lg border border-slate-200 shadow-2xs shrink-0 flex items-center gap-0.5 active:scale-95" title="聆聽例句">
               🔊
             </button>
           </div>
@@ -6903,6 +7160,7 @@
       if ('speechSynthesis' in window) window.speechSynthesis.cancel();
       if (isRecording) stopRecording();
 
+      KaiSpeechEngine.init();
       initProfileStore();
       renderGateScreen();
       

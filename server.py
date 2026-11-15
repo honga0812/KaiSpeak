@@ -5,12 +5,16 @@ import json
 import threading
 import subprocess
 import time
+import urllib.parse
+import hashlib
 
 HTTP_PORT = 8088
 HTTPS_PORT = 8443
 DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 MAX_VOCAB_LIMIT = 5000
 QUEUE_FILE = os.path.join(DIRECTORY, 'content_generation_queue.json')
+TTS_CACHE_DIR = os.path.join(DIRECTORY, 'audio', 'tts_cache')
+os.makedirs(TTS_CACHE_DIR, exist_ok=True)
 
 class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
@@ -29,6 +33,12 @@ class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
         self.send_response(200)
         self.end_headers()
 
+    def do_HEAD(self):
+        if self.path.startswith('/api/'):
+            self.do_GET()
+        else:
+            super().do_HEAD()
+
     def do_GET(self):
         if self.path == '/api/generation_queue_status':
             queue_data = {"lastUpdated": int(time.time()), "items": []}
@@ -43,6 +53,42 @@ class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(json.dumps(queue_data, ensure_ascii=False).encode('utf-8'))
             return
+
+        if self.path.startswith('/api/tts?'):
+            try:
+                parsed = urllib.parse.urlparse(self.path)
+                params = urllib.parse.parse_qs(parsed.query)
+                text = params.get('text', [''])[0].strip()
+                rate = params.get('rate', ['150'])[0].strip()
+                if not text:
+                    self.send_response(400)
+                    self.end_headers()
+                    return
+
+                text_hash = hashlib.md5(f"{text}_{rate}".encode('utf-8')).hexdigest()
+                cached_m4a = os.path.join(TTS_CACHE_DIR, f"{text_hash}.m4a")
+
+                if not os.path.exists(cached_m4a):
+                    temp_aiff = os.path.join(TTS_CACHE_DIR, f"{text_hash}.aiff")
+                    subprocess.run(['say', '-v', 'Samantha', '-r', str(rate), text, '-o', temp_aiff], check=True)
+                    subprocess.run(['afconvert', '-f', 'm4af', '-d', 'aac', '-b', '64000', temp_aiff, cached_m4a], check=True)
+                    if os.path.exists(temp_aiff):
+                        os.remove(temp_aiff)
+
+                with open(cached_m4a, 'rb') as f:
+                    audio_bytes = f.read()
+
+                self.send_response(200)
+                self.send_header('Content-Type', 'audio/mp4')
+                self.send_header('Content-Length', str(len(audio_bytes)))
+                self.end_headers()
+                self.wfile.write(audio_bytes)
+                return
+            except Exception as e:
+                self.send_response(500)
+                self.end_headers()
+                self.wfile.write(str(e).encode('utf-8'))
+                return
 
         super().do_GET()
 
