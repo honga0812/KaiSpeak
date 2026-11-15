@@ -6929,6 +6929,10 @@
     // ========================================================
     function getStoredGeminiApiKey() {
       try {
+        if (localStorage.getItem('kaispeak_gemini_active_model') === 'gemini-1.5-flash') {
+          localStorage.removeItem('kaispeak_gemini_active_model');
+          localStorage.removeItem('kaispeak_gemini_api_version');
+        }
         return (localStorage.getItem('kaispeak_gemini_api_key') || '').trim();
       } catch(e) {
         return '';
@@ -7065,25 +7069,30 @@
 
             console.log(`Available Gemini models on ${ver}:`, available);
 
-            // Preferred models in priority order
-            const preferred = [
-              'gemini-2.0-flash',
-              'gemini-1.5-flash-latest',
-              'gemini-1.5-flash-001',
-              'gemini-1.5-flash-002',
-              'gemini-1.5-flash',
-              'gemini-2.0-flash-exp',
-              'gemini-1.5-pro',
-              'gemini-pro'
-            ];
+            if (available.length > 0) {
+              // Preferred models in priority order
+              const preferred = [
+                'gemini-2.0-flash',
+                'gemini-2.5-flash',
+                'gemini-1.5-flash-latest',
+                'gemini-1.5-flash-001',
+                'gemini-1.5-flash-002',
+                'gemini-2.0-flash-exp',
+                'gemini-1.5-pro',
+                'gemini-pro'
+              ];
 
-            let chosen = preferred.find(p => available.includes(p));
-            if (!chosen && available.length > 0) {
-              chosen = available.find(a => a.includes('flash')) || available[0];
-            }
+              let chosen = preferred.find(p => available.includes(p));
+              if (!chosen) {
+                chosen = available.find(a => a.includes('flash') && !a.includes('image')) ||
+                         available.find(a => a.includes('flash')) ||
+                         available.find(a => a.includes('pro')) ||
+                         available[0];
+              }
 
-            if (chosen) {
-              return { model: chosen, version: ver };
+              if (chosen) {
+                return { model: chosen, version: ver, allAvailable: available };
+              }
             }
           }
         } catch(e) {
@@ -7091,14 +7100,14 @@
         }
       }
 
-      // 2. Direct probe fallback candidates across versions
+      // 2. Direct probe fallback candidates across versions (NEVER probe gemini-1.5-flash on v1beta)
       const candidates = [
         { version: 'v1beta', model: 'gemini-2.0-flash' },
+        { version: 'v1beta', model: 'gemini-2.5-flash' },
         { version: 'v1beta', model: 'gemini-1.5-flash-latest' },
         { version: 'v1beta', model: 'gemini-1.5-flash-001' },
         { version: 'v1beta', model: 'gemini-1.5-flash-002' },
         { version: 'v1', model: 'gemini-1.5-flash' },
-        { version: 'v1beta', model: 'gemini-1.5-flash' },
         { version: 'v1beta', model: 'gemini-2.0-flash-exp' },
         { version: 'v1beta', model: 'gemini-1.5-pro' }
       ];
@@ -7113,7 +7122,7 @@
             body: JSON.stringify({ contents: [{ parts: [{ text: "ping" }] }] })
           });
           if (resp.ok) {
-            return cand;
+            return { model: cand.model, version: cand.version, allAvailable: [cand.model] };
           } else {
             const errJson = await resp.json().catch(() => ({}));
             lastError = errJson.error?.message || `HTTP ${resp.status}`;
@@ -7150,7 +7159,10 @@
 
         if (resBox) {
           resBox.className = "p-2.5 rounded-xl text-xs font-bold text-left bg-emerald-50 text-emerald-800 border border-emerald-300 block";
-          resBox.innerHTML = `✅ <strong>連線成功！</strong> 成功連通 Google Gemini 官方節點，已自動為您配置最佳模型：<strong>${detected.model}</strong> (API: ${detected.version})。`;
+          const modelListPreview = detected.allAvailable && detected.allAvailable.length > 0 
+            ? `<div class="mt-1 text-[11px] font-normal text-emerald-700">可用模型清單：${detected.allAvailable.slice(0, 3).join(', ')}${detected.allAvailable.length > 3 ? ' 等' : ''}</div>`
+            : '';
+          resBox.innerHTML = `✅ <strong>連線成功！</strong> 成功連通 Google Gemini 官方節點，已自動為您配置最佳模型：<strong>${detected.model}</strong> (API: ${detected.version})。${modelListPreview}`;
         }
         SoundEffects.playClick('unlock');
       } catch(err) {
@@ -7596,12 +7608,20 @@
     // GEMINI 1.5/2.0 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR
     // ========================================================
     async function callGeminiScenarioPlanner(userText, userLevel, apiKey) {
+      // 1. Invalidate stale model names (e.g. gemini-1.5-flash on v1beta)
       let activeModel = localStorage.getItem('kaispeak_gemini_active_model');
       let activeVer = localStorage.getItem('kaispeak_gemini_api_version');
+      if (activeModel === 'gemini-1.5-flash' && activeVer === 'v1beta') {
+        localStorage.removeItem('kaispeak_gemini_active_model');
+        localStorage.removeItem('kaispeak_gemini_api_version');
+        activeModel = null;
+        activeVer = null;
+      }
 
+      let detected = null;
       if (!activeModel || !activeVer) {
         try {
-          const detected = await autoDetectWorkingGeminiModel(apiKey);
+          detected = await autoDetectWorkingGeminiModel(apiKey);
           activeModel = detected.model;
           activeVer = detected.version;
           localStorage.setItem('kaispeak_gemini_active_model', activeModel);
@@ -7639,25 +7659,35 @@
   ]
 }`;
 
-      const rawAttempts = [
-        { ver: activeVer, model: activeModel },
+      // Assemble candidates
+      const rawAttempts = [];
+      if (activeModel && activeVer && !(activeVer === 'v1beta' && activeModel === 'gemini-1.5-flash')) {
+        rawAttempts.push({ ver: activeVer, model: activeModel });
+      }
+      if (detected && Array.isArray(detected.allAvailable)) {
+        detected.allAvailable.forEach(m => {
+          rawAttempts.push({ ver: detected.version, model: m });
+        });
+      }
+      rawAttempts.push(
         { ver: 'v1beta', model: 'gemini-2.0-flash' },
+        { ver: 'v1beta', model: 'gemini-2.5-flash' },
         { ver: 'v1beta', model: 'gemini-1.5-flash-latest' },
         { ver: 'v1beta', model: 'gemini-1.5-flash-001' },
         { ver: 'v1beta', model: 'gemini-1.5-flash-002' },
-        { ver: 'v1', model: 'gemini-1.5-flash' },
-        { ver: 'v1beta', model: 'gemini-1.5-flash' }
-      ];
+        { ver: 'v1', model: 'gemini-1.5-flash' }
+      );
 
       const uniqueAttempts = [];
       const seen = new Set();
       for (const a of rawAttempts) {
-        if (a && a.ver && a.model) {
-          const k = `${a.ver}:${a.model}`;
-          if (!seen.has(k)) {
-            seen.add(k);
-            uniqueAttempts.push(a);
-          }
+        if (!a || !a.ver || !a.model) continue;
+        // Never call gemini-1.5-flash on v1beta
+        if (a.ver === 'v1beta' && a.model === 'gemini-1.5-flash') continue;
+        const k = `${a.ver}:${a.model}`;
+        if (!seen.has(k)) {
+          seen.add(k);
+          uniqueAttempts.push(a);
         }
       }
 
@@ -7716,6 +7746,8 @@
         }
       }
 
+      // If all attempts failed, clear cached active model so next turn rediscovers models
+      localStorage.removeItem('kaispeak_gemini_active_model');
       throw new Error(lastErr || "無法連通 Gemini API 節點");
     }
 
