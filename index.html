@@ -7659,31 +7659,29 @@
   ]
 }`;
 
-      // Assemble candidates
+      // Assemble candidates (pure modern models, completely remove obsolete 1.5-flash)
       const rawAttempts = [];
-      if (activeModel && activeVer && !(activeVer === 'v1beta' && activeModel === 'gemini-1.5-flash')) {
+      if (activeModel && activeVer && !activeModel.includes('1.5-flash')) {
         rawAttempts.push({ ver: activeVer, model: activeModel });
       }
       if (detected && Array.isArray(detected.allAvailable)) {
         detected.allAvailable.forEach(m => {
-          rawAttempts.push({ ver: detected.version, model: m });
+          if (!m.includes('1.5-flash')) {
+            rawAttempts.push({ ver: detected.version, model: m });
+          }
         });
       }
       rawAttempts.push(
-        { ver: 'v1beta', model: 'gemini-2.0-flash' },
         { ver: 'v1beta', model: 'gemini-2.5-flash' },
-        { ver: 'v1beta', model: 'gemini-1.5-flash-latest' },
-        { ver: 'v1beta', model: 'gemini-1.5-flash-001' },
-        { ver: 'v1beta', model: 'gemini-1.5-flash-002' },
-        { ver: 'v1', model: 'gemini-1.5-flash' }
+        { ver: 'v1beta', model: 'gemini-2.0-flash' },
+        { ver: 'v1beta', model: 'gemini-2.0-flash-exp' }
       );
 
       const uniqueAttempts = [];
       const seen = new Set();
       for (const a of rawAttempts) {
         if (!a || !a.ver || !a.model) continue;
-        // Never call gemini-1.5-flash on v1beta
-        if (a.ver === 'v1beta' && a.model === 'gemini-1.5-flash') continue;
+        if (a.model.includes('1.5-flash')) continue;
         const k = `${a.ver}:${a.model}`;
         if (!seen.has(k)) {
           seen.add(k);
@@ -7704,9 +7702,11 @@
               ],
               generationConfig: useMime ? {
                 temperature: 0.35,
+                maxOutputTokens: 2500,
                 responseMimeType: "application/json"
               } : {
-                temperature: 0.35
+                temperature: 0.35,
+                maxOutputTokens: 2500
               }
             };
 
@@ -7719,24 +7719,44 @@
 
             if (resp.ok) {
               const data = await resp.json();
-              const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+              const candidate = data?.candidates?.[0];
+              const parts = candidate?.content?.parts || [];
+
+              // Extract actual answer text, skipping reasoning/thought parts (Gemini 2.5 feature)
+              let rawText = '';
+              for (let i = parts.length - 1; i >= 0; i--) {
+                if (parts[i] && parts[i].text && !parts[i].thought) {
+                  rawText = parts[i].text;
+                  break;
+                }
+              }
+              if (!rawText && parts.length > 0) {
+                rawText = parts[parts.length - 1].text || '';
+              }
+
               if (rawText) {
                 let cleanJson = rawText.trim();
                 cleanJson = cleanJson.replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/i, '').trim();
                 const jsonMatch = cleanJson.match(/\{[\s\S]*\}/);
                 if (jsonMatch) cleanJson = jsonMatch[0];
-                const parsed = JSON.parse(cleanJson);
-                if (parsed && Array.isArray(parsed.targetWords) && parsed.targetWords.length > 0) {
-                  parsed.source = 'gemini';
-                  parsed.modelUsed = attempt.model;
-                  localStorage.setItem('kaispeak_gemini_active_model', attempt.model);
-                  localStorage.setItem('kaispeak_gemini_api_version', attempt.ver);
-                  return parsed;
+                try {
+                  const parsed = JSON.parse(cleanJson);
+                  if (parsed && Array.isArray(parsed.targetWords) && parsed.targetWords.length > 0) {
+                    parsed.source = 'gemini';
+                    parsed.modelUsed = attempt.model;
+                    localStorage.setItem('kaispeak_gemini_active_model', attempt.model);
+                    localStorage.setItem('kaispeak_gemini_api_version', attempt.ver);
+                    return parsed;
+                  }
+                } catch(pe) {
+                  console.warn("JSON parse error:", pe, rawText);
+                  lastErr = `JSON 解析錯誤: ${pe.message}`;
                 }
               }
             } else {
               const errJson = await resp.json().catch(() => ({}));
               lastErr = errJson.error?.message || `HTTP ${resp.status}`;
+              console.warn(`Attempt ${attempt.model} (${attempt.ver}) failed:`, lastErr);
               if (resp.status !== 400) break;
             }
           } catch(e) {
