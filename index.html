@@ -1654,26 +1654,29 @@
             <span>💡 也可以點選生活情境靈感：</span>
           </div>
           <div class="flex items-center gap-1.5 flex-wrap">
+            <button type="button" onclick="applyPlannerPrompt('我現在不想吃飯，肚子不餓')" class="px-2.5 py-1 rounded-xl bg-amber-50 hover:bg-amber-100 border border-amber-300 text-amber-900 text-[11px] font-black transition shadow-2xs active:scale-95">
+              🍽️ 我不想吃飯 / 肚子不餓
+            </button>
             <button type="button" onclick="applyPlannerPrompt('我等一下要去兒童樂園玩旋轉木馬')" class="px-2.5 py-1 rounded-xl bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 text-slate-700 hover:text-indigo-900 text-[11px] font-bold transition shadow-2xs active:scale-95">
               🎡 去兒童樂園玩旋轉木馬
+            </button>
+            <button type="button" onclick="applyPlannerPrompt('去動物園看可愛企鵝還有長頸鹿')" class="px-2.5 py-1 rounded-xl bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 text-slate-700 hover:text-indigo-900 text-[11px] font-bold transition shadow-2xs active:scale-95">
+              🐧 去動物園看企鵝長頸鹿
             </button>
             <button type="button" onclick="applyPlannerPrompt('我今天要去學校跟同學一起玩')" class="px-2.5 py-1 rounded-xl bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 text-slate-700 hover:text-indigo-900 text-[11px] font-bold transition shadow-2xs active:scale-95">
               🏫 去學校跟同學上課
             </button>
+            <button type="button" onclick="applyPlannerPrompt('跌倒了膝蓋好痛要擦藥貼OK繃')" class="px-2.5 py-1 rounded-xl bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 text-slate-700 hover:text-indigo-900 text-[11px] font-bold transition shadow-2xs active:scale-95">
+              🩹 跌倒膝蓋痛貼OK繃
+            </button>
+            <button type="button" onclick="applyPlannerPrompt('去夜市買珍珠奶茶還有美味小吃')" class="px-2.5 py-1 rounded-xl bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 text-slate-700 hover:text-indigo-900 text-[11px] font-bold transition shadow-2xs active:scale-95">
+              🧋 逛夜市買珍珠奶茶
+            </button>
             <button type="button" onclick="applyPlannerPrompt('我想學可愛小狗還有動物')" class="px-2.5 py-1 rounded-xl bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 text-slate-700 hover:text-indigo-900 text-[11px] font-bold transition shadow-2xs active:scale-95">
               🐶 想學可愛小狗與動物
             </button>
-            <button type="button" onclick="applyPlannerPrompt('我想吃美味點心與食物')" class="px-2.5 py-1 rounded-xl bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 text-slate-700 hover:text-indigo-900 text-[11px] font-bold transition shadow-2xs active:scale-95">
-              🍳 想吃美味點心與食物
-            </button>
             <button type="button" onclick="applyPlannerPrompt('去公園騎腳踏車放風箏運動')" class="px-2.5 py-1 rounded-xl bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 text-slate-700 hover:text-indigo-900 text-[11px] font-bold transition shadow-2xs active:scale-95">
               🚲 公園騎車放風箏運動
-            </button>
-            <button type="button" onclick="applyPlannerPrompt('我想畫畫做美勞折紙')" class="px-2.5 py-1 rounded-xl bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 text-slate-700 hover:text-indigo-900 text-[11px] font-bold transition shadow-2xs active:scale-95">
-              🎨 畫畫做美勞折紙
-            </button>
-            <button type="button" onclick="applyPlannerPrompt('早晨生活作息與整理房間')" class="px-2.5 py-1 rounded-xl bg-white hover:bg-indigo-50 border border-slate-200 hover:border-indigo-300 text-slate-700 hover:text-indigo-900 text-[11px] font-bold transition shadow-2xs active:scale-95">
-              🌅 晨光作息整理房間
             </button>
           </div>
         </div>
@@ -1732,9 +1735,49 @@
           </div>
         </div>
 
-        <!-- 10 Recommended Cards Grid -->
-        <div id="plannerItemsList" class="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-[34vh] overflow-y-auto pr-1">
-          <!-- Dynamically populated -->
+        <!-- 10 Recommended Cards Paged Carousel & List View Container -->
+        <div class="flex flex-col gap-2.5 rounded-2xl bg-white border-2 border-indigo-100 shadow-xs p-3 sm:p-4">
+          
+          <!-- Carousel Navigation Toolbar -->
+          <div class="flex items-center justify-between pb-2 border-b border-indigo-50 flex-wrap gap-2">
+            <div class="flex items-center gap-2">
+              <span class="text-xs sm:text-sm font-black text-indigo-950 flex items-center gap-1.5">
+                <span>🎴 本課 10 詞分頁學習卡</span>
+                <span id="plannerCarouselCounter" class="text-[10px] sm:text-xs bg-indigo-100 text-indigo-800 font-black px-2.5 py-0.5 rounded-full border border-indigo-200">
+                  第 1 / 10 詞
+                </span>
+              </span>
+            </div>
+
+            <!-- Dots Indicator / Direct Selector -->
+            <div id="plannerCarouselDots" class="flex items-center gap-1 overflow-x-auto max-w-full py-0.5">
+              <!-- Dynamically populated 10 dots -->
+            </div>
+
+            <!-- Flip Controls & View Mode Toggle -->
+            <div class="flex items-center gap-1.5 ml-auto">
+              <button type="button" onclick="prevPlannerCarouselItem()" class="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold active:scale-95 transition flex items-center gap-1" title="上一個詞">
+                <span>◀ 上一詞</span>
+              </button>
+              <button type="button" onclick="nextPlannerCarouselItem()" class="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shadow-2xs active:scale-95 transition flex items-center gap-1" title="下一個詞">
+                <span>下一詞 ▶</span>
+              </button>
+              <button type="button" onclick="togglePlannerItemsViewMode()" id="plannerViewModeBtn" class="px-2.5 py-1 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-slate-600 text-[11px] font-bold active:scale-95 transition" title="切換檢視模式">
+                📋 一覽模式
+              </button>
+            </div>
+          </div>
+
+          <!-- Paged Carousel Focus Card Container (Default) -->
+          <div id="plannerCarouselFocusCard" class="w-full">
+            <!-- Dynamically populated hero card with 3 graded sentences -->
+          </div>
+
+          <!-- All Items Full List Container (Hidden by default, shown when user toggles 一覽模式) -->
+          <div id="plannerItemsList" class="hidden grid-cols-1 sm:grid-cols-2 gap-2 max-h-[38vh] overflow-y-auto pr-1">
+            <!-- Dynamically populated grid cards -->
+          </div>
+
         </div>
 
         <!-- Parent-Child Dialogue Story Section (中英文對照 · 點擊單字同步念出) -->
@@ -6027,11 +6070,41 @@
     const MAX_SYSTEM_VOCAB_LIMIT = 5000;
 
     const SCENARIO_THEMES = {
+      'refuse_food': {
+        title: '🍽️ 【營養餐桌與好習慣養成】微課堂',
+        keywords: ['不想吃', '不吃飯', '吃不下', '肚子不餓', '不餓', '不要吃', '不想吃菜', '挑食', '吃青菜', '不想吃晚餐', '不要吃飯', '青菜', '花椰菜', '蔬菜', '好飽', '吃太飽', 'not eat', 'not hungry', 'refuse food', 'eat dinner', 'broccoli'],
+        preferred_words: ['dinner', 'broccoli', 'vegetable', 'spoon', 'healthy', 'snack'],
+        preferred_phrases: ['not hungry', 'take a bite', 'good for you', 'eat up']
+      },
       'amusement_park': {
         title: '🎡 【夢幻兒童樂園與遊樂設施】微課堂',
         keywords: ['兒童樂園', '遊樂園', '遊樂場', '主題樂園', '樂園', '旋轉木馬', '雲霄飛車', '摩天輪', '碰碰車', '排隊', '身高限制', '年齡限制', '安全帶', '冰淇淋', '爆米花', '氣球', '玩設施', '買票', '門票', 'amusement park', 'theme park', 'carousel', 'roller coaster', 'ferris wheel', 'bumper car'],
         preferred_words: ['ticket', 'carousel', 'ferris wheel', 'roller coaster', 'bumper car', 'safety', 'height', 'park', 'snack'],
         preferred_phrases: ['ride carousel', 'buckle up seatbelt', 'check height limit', 'have so much fun', 'wait in line', 'eat ice cream', 'buy ticket']
+      },
+      'zoo_animals': {
+        title: '🐧 【野生動物園與大自然探險】微課堂',
+        keywords: ['動物園', '看動物', '企鵝', '長頸鹿', '大象', '猴子', '獅子', '熊貓', 'zoo', 'penguin', 'giraffe', 'elephant'],
+        preferred_words: ['zoo', 'penguin', 'giraffe', 'elephant', 'feather', 'ticket'],
+        preferred_phrases: ['visit zoo', 'watch penguin swim', 'feed giraffe', 'take photos']
+      },
+      'hurt_care': {
+        title: '🩹 【健康護理與勇敢看醫生】微課堂',
+        keywords: ['跌倒', '痛', '膝蓋', '流血', '擦傷', '受傷', '看醫生', '吃藥', '發燒', '生病', '護理', 'ok繃', 'hurt', 'fall', 'knee', 'doctor', 'medicine', 'sick'],
+        preferred_words: ['knee', 'bandage', 'doctor', 'medicine', 'careful', 'rest'],
+        preferred_phrases: ['fall down', 'put on bandage', 'see a doctor', 'take medicine']
+      },
+      'night_market': {
+        title: '🧋 【熱鬧夜市與傳統小吃】微課堂',
+        keywords: ['夜市', '珍珠奶茶', '珍奶', '雞排', '地瓜球', '小吃', '逛夜市', '買飲料', '買點心', 'night market', 'bubble tea'],
+        preferred_words: ['market', 'bubble tea', 'snack', 'straw', 'sweet', 'coin'],
+        preferred_phrases: ['visit night market', 'drink bubble tea', 'order food', 'share with family']
+      },
+      'airplane_flight': {
+        title: '✈️ 【空中飛行與世界旅行】微課堂',
+        keywords: ['飛機', '機場', '搭飛機', '出國', '白雲', '行李', '空服員', '旅行', 'airplane', 'airport', 'flight', 'cloud'],
+        preferred_words: ['airplane', 'airport', 'cloud', 'window', 'luggage', 'seat'],
+        preferred_phrases: ['take airplane', 'look out window', 'fasten seatbelt', 'enjoy flight']
       },
       'school': {
         title: '🏫 【快樂校園與好朋友同樂】微課堂',
@@ -6222,6 +6295,296 @@
             s2: "Students study bones in lab.", t2: "學生在實驗室研究骨骼。",
             s3: "Smart students study bones with great interest.", t3: "聰明的學生帶著濃厚興趣研究骨骼化石。" }
         ]
+      },
+      'refuse_food': {
+        title: '🍽️ 【營養餐桌與好習慣養成】微課堂',
+        keywords: ['不想吃', '不吃飯', '吃不下', '肚子不餓', '不餓', '不要吃', '不想吃菜', '挑食', '吃青菜', '不想吃晚餐', '不要吃飯', '青菜', '花椰菜', '蔬菜', '好飽', '吃太飽', 'not eat', 'not hungry', 'refuse food', 'eat dinner', 'broccoli'],
+        dialogues: [
+          [
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Kai, dinner is ready! Please come and sit at the dining table.", zh: "Kai，晚餐準備好囉！快來餐桌坐好。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Mom, I am not hungry. I do not want to eat dinner today.", zh: "媽媽，我不餓。我今天不想吃晚餐。" },
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Just take a bite of the green broccoli. It is very good for you!", zh: "只要咬一小口綠色花椰菜就好。這對你身體很好喔！" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Can I drink some sweet juice or eat a snack instead?", zh: "那我可以用喝甜甜果汁或吃點心代替嗎？" },
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Eat your vegetables first. Healthy food helps you grow up strong.", zh: "先把蔬菜吃完。健康的食物會幫助你健康長壯喔。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Okay, I will eat up three spoons of warm rice!", zh: "好吧，我會把三大湯匙的米飯吃光光！" }
+          ]
+        ],
+        new_words: [
+          { word: "dinner", ipa: "/ˈdɪn.ɚ/", meaning: "名詞：晚餐，晚飯", emoji: "🍲", category: "food",
+            s1: "Eat your dinner.", t1: "吃你的晚餐。",
+            s2: "Warm dinner is ready now.", t2: "熱騰騰的晚餐好囉。",
+            s3: "Family sits together for delicious dinner.", t3: "全家人坐在一起享用美味晚餐。" },
+          { word: "broccoli", ipa: "/ˈbrɑː.kəl.i/", meaning: "名詞：花椰菜，綠色西蘭花", emoji: "🥦", category: "food",
+            s1: "Broccoli is green.", t1: "花椰菜是綠色的。",
+            s2: "Eat fresh green broccoli now.", t2: "現在吃新鮮的綠色花椰菜。",
+            s3: "Green broccoli is full of healthy vitamins.", t3: "綠色花椰菜富含健康的維他命。" },
+          { word: "vegetable", ipa: "/ˈvɛdʒ.tə.bəl/", meaning: "名詞：蔬菜，青菜", emoji: "🥗", category: "food",
+            s1: "Eat your vegetables.", t1: "吃你的蔬菜。",
+            s2: "Fresh vegetables taste very good.", t2: "新鮮蔬菜吃起來很美味。",
+            s3: "Eating fresh vegetables makes you grow strong.", t3: "吃新鮮蔬菜能讓你長得強壯。" },
+          { word: "spoon", ipa: "/spuːn/", meaning: "名詞：湯匙，勺子", emoji: "🥄", category: "daily",
+            s1: "Hold your spoon.", t1: "握住你的湯匙。",
+            s2: "Use a clean spoon nicely.", t2: "好好使用乾淨的湯匙。",
+            s3: "Please eat three more spoons of rice.", t3: "請再吃完三大湯匙的米飯吧。" },
+          { word: "healthy", ipa: "/ˈhɛl.θi/", meaning: "形容詞：健康的，有益健康的", emoji: "🍎", category: "daily_body",
+            s1: "Stay strong and healthy.", t1: "保持強壯與健康。",
+            s2: "Healthy food gives good energy.", t2: "健康食物提供良好的活力。",
+            s3: "Eating balanced meals keeps your body healthy.", t3: "飲食均衡能讓你的身體保持健康。" },
+          { word: "snack", ipa: "/snæk/", meaning: "名詞：點心，零食", emoji: "🍪", category: "food",
+            s1: "Have a snack.", t1: "吃點心吧。",
+            s2: "Eat fruit snacks after dinner.", t2: "吃完晚餐後再吃水果點心。",
+            s3: "Finish your dinner before eating any snack.", t3: "在吃任何點心之前要先吃完晚餐。" }
+        ],
+        new_phrases: [
+          { word: "not hungry", ipa: "/nɑːt ˈhʌŋ.ɡri/", meaning: "片語：肚子不餓，還沒有食慾", emoji: "😌",
+            s1: "I am not hungry.", t1: "我現在肚子不餓。",
+            s2: "He says he is not hungry.", t2: "他說他現在還不覺得餓。",
+            s3: "Even when not hungry, drink warm water.", t3: "即使肚子不餓，也要喝點溫開水。" },
+          { word: "take a bite", ipa: "/teɪk ə baɪt/", meaning: "動詞片語：咬一小口，嘗試嚐嚐看", emoji: "👄",
+            s1: "Just take a bite.", t1: "只要咬一小口就好。",
+            s2: "Please take a small bite.", t2: "現在請先嚐嚐咬一小口。",
+            s3: "Try to take a bite of each dish.", t3: "每道菜都試著咬一小口嚐嚐看。" },
+          { word: "good for you", ipa: "/ɡʊd fɔːr juː/", meaning: "片語：對你有益，對身體有幫助", emoji: "👍",
+            s1: "It is good for you.", t1: "這對你的身體有益。",
+            s2: "Fresh green vegetables are good for you.", t2: "新鮮的綠色蔬菜對你很有幫助。",
+            s3: "Eating colorful fruits is good for you.", t3: "多吃豐富的水果永遠對你有好處。" },
+          { word: "eat up", ipa: "/iːt ʌp/", meaning: "動詞片語：吃光光，把食物吃完", emoji: "😋",
+            s1: "Please eat up now.", t1: "請現在吃光光吧。",
+            s2: "Good kids eat up rice.", t2: "好孩子會把碗裡的米飯吃光光。",
+            s3: "Try your best to eat up vegetables.", t3: "盡你最大的努力把蔬菜全部吃光光。" }
+        ]
+      },
+      'zoo_animals': {
+        title: '🐧 【野生動物園與大自然探險】微課堂',
+        keywords: ['動物園', '看動物', '企鵝', '長頸鹿', '大象', '猴子', '獅子', '熊貓', 'zoo', 'penguin', 'giraffe', 'elephant'],
+        dialogues: [
+          [
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "We are at the zoo, Kai! Let us buy ticket and visit zoo animals.", zh: "我們到動物園了，Kai！我們先買票，然後看動物吧。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Can we watch penguin swim in the cold blue pool first?", zh: "我們可以先去看可愛的企鵝在冰涼的藍色水池裡游泳嗎？" },
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Look! The cute penguin has waterproof feathers to swim fast.", zh: "你看！可愛的企鵝長著防水的羽毛，游得好快呀。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "And look at that tall giraffe! Can we feed giraffe with leaves?", zh: "還有看那隻好高的長頸鹿！我們可以拿樹葉餵長頸鹿嗎？" },
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Yes! And let us take photos with the friendly giant elephant.", zh: "可以喔！我們還能跟親切的巨大長鼻象一起拍照留念呢。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Visiting the lively zoo with Mom is so exciting!", zh: "跟媽媽一起來逛生機勃勃的動物園真是太刺激了！" }
+          ]
+        ],
+        new_words: [
+          { word: "zoo", ipa: "/zuː/", meaning: "名詞：動物園", emoji: "🦁", category: "nature",
+            s1: "Go to the zoo.", t1: "去動物園。",
+            s2: "We visit the big zoo today.", t2: "我們今天參觀大動物園。",
+            s3: "Children see many amazing animals at zoo.", t3: "孩子們在動物園看見許多神奇的動物。" },
+          { word: "penguin", ipa: "/ˈpɛŋ.ɡwɪn/", meaning: "名詞：企鵝", emoji: "🐧", category: "nature",
+            s1: "See the cute penguin.", t1: "看那隻可愛的企鵝。",
+            s2: "The black penguin waddles fast.", t2: "黑白相間的企鵝搖搖晃晃走得快。",
+            s3: "Little penguins dive into cold water joyfully.", t3: "小企鵝開心地跳進冰涼的水中。" },
+          { word: "giraffe", ipa: "/dʒɪˈræf/", meaning: "名詞：長頸鹿", emoji: "🦒", category: "nature",
+            s1: "Look at the giraffe.", t1: "看那隻長頸鹿。",
+            s2: "The tall giraffe eats leaves.", t2: "高高的長頸鹿吃著樹葉。",
+            s3: "The graceful giraffe reaches high green trees.", t3: "優雅的長頸鹿能搆到高高的綠樹。" },
+          { word: "elephant", ipa: "/ˈɛl.ə.fənt/", meaning: "名詞：大象", emoji: "🐘", category: "nature",
+            s1: "See the big elephant.", t1: "看那隻大象。",
+            s2: "The gray elephant sprays water.", t2: "灰色的大象噴出清涼的水。",
+            s3: "The gentle elephant uses its long trunk.", t3: "溫和的大象靈巧地運用牠的長鼻子。" },
+          { word: "feather", ipa: "/ˈfɛð.ɚ/", meaning: "名詞：羽毛", emoji: "🪶", category: "nature",
+            s1: "Touch the soft feather.", t1: "摸摸柔軟的羽毛。",
+            s2: "Birds have soft colorful feathers.", t2: "鳥兒長著柔軟繽紛的羽毛。",
+            s3: "Penguins have dense waterproof feathers for swimming.", t3: "企鵝長著濃密防水的羽毛方便游泳。" },
+          { word: "ticket", ipa: "/ˈtɪk.ɪt/", meaning: "名詞：門票，票券", emoji: "🎟️", category: "travel",
+            s1: "Hold your entry ticket.", t1: "拿好你的入場門票。",
+            s2: "Dad buys zoo entrance tickets.", t2: "爸爸買好了動物園入場門票。",
+            s3: "Always keep your zoo ticket safe inside.", t3: "在園區內隨時保管好你的動物園門票。" }
+        ],
+        new_phrases: [
+          { word: "visit zoo", ipa: "/ˈvɪz.ɪt zuː/", meaning: "動詞片語：參觀動物園", emoji: "🦁",
+            s1: "Please visit zoo today.", t1: "今天請參觀動物園。",
+            s2: "Happy kids visit zoo together.", t2: "快樂的孩子們一起參觀動物園。",
+            s3: "Families visit zoo on sunny weekend mornings.", t3: "全家人在陽光明媚的週末早晨參觀動物園。" },
+          { word: "watch penguin swim", ipa: "/wɑːtʃ ˈpɛŋ.ɡwɪn swɪm/", meaning: "動詞片語：看可愛企鵝游泳", emoji: "🐧",
+            s1: "Watch penguin swim fast.", t1: "看企鵝游得好快。",
+            s2: "Kids love to watch penguin swim.", t2: "孩子們最喜歡看企鵝游泳。",
+            s3: "Children gather around pool to watch penguin swim.", t3: "孩子們聚集在水池周圍看企鵝歡快地游泳。" },
+          { word: "feed giraffe", ipa: "/fiːd dʒɪˈræf/", meaning: "動詞片語：餵食溫馴的長頸鹿", emoji: "🦒",
+            s1: "Gently feed giraffe now.", t1: "現在溫柔地餵長頸鹿。",
+            s2: "Kids feed giraffe green leaves.", t2: "孩子們餵長頸鹿吃綠色樹葉。",
+            s3: "Visitors gently feed giraffe with fresh tree leaves.", t3: "遊客們用新鮮樹葉溫柔地餵食高高的長頸鹿。" },
+          { word: "take photos", ipa: "/teɪk ˈfoʊ.toʊz/", meaning: "動詞片語：拍照留念，合影", emoji: "📷",
+            s1: "Smile and take photos.", t1: "微笑拍照留念。",
+            s2: "We take photos with animals.", t2: "我們和可愛動物合影拍照。",
+            s3: "Parents take photos to remember the joyful moments.", t3: "家長拍照記錄這充滿歡樂的美好時光。" }
+        ]
+      },
+      'hurt_care': {
+        title: '🩹 【健康護理與勇敢看醫生】微課堂',
+        keywords: ['跌倒', '痛', '膝蓋', '流血', '擦傷', '受傷', '看醫生', '吃藥', '發燒', '生病', '護理', 'ok繃', 'hurt', 'fall', 'knee', 'doctor', 'medicine', 'sick'],
+        dialogues: [
+          [
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Oh no, Kai! Did you fall down and hurt your knee?", zh: "哎呀 Kai！你跌倒撞傷膝蓋了嗎？" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Ouch! My knee hurts a little. I should be more careful.", zh: "好痛喔！我的膝蓋有一點點痛。我應該要更小心的。" },
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Do not cry, my brave boy. Let us wash it and put on bandage.", zh: "別哭，我勇敢的寶貝。我們先清洗傷口，然後貼上 OK 繃。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Will we need to see a doctor or take medicine?", zh: "我們需要去看醫生或者吃藥藥嗎？" },
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "It is just a tiny scrape. You only need to rest and drink water.", zh: "這只是小小的擦傷。你只要好好休息、多喝溫水就可以了。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "The colorful bandage looks cool! Thank you Mom for caring for me.", zh: "這塊彩色的 OK 繃看起來好酷！謝謝媽媽細心照顧我。" }
+          ]
+        ],
+        new_words: [
+          { word: "knee", ipa: "/niː/", meaning: "名詞：膝蓋", emoji: "🦵", category: "daily_body",
+            s1: "Bend your right knee.", t1: "彎曲你的右膝蓋。",
+            s2: "Protect your knee while running.", t2: "跑步時保護好你的膝蓋。",
+            s3: "The boy gently rubs his scraped knee.", t3: "小男孩輕輕揉著自己擦傷的膝蓋。" },
+          { word: "bandage", ipa: "/ˈbæn.dɪdʒ/", meaning: "名詞：繃帶，OK 繃", emoji: "🩹", category: "daily",
+            s1: "Put on a bandage.", t1: "貼上 OK 繃。",
+            s2: "The clean bandage stops bleeding.", t2: "乾淨的繃帶能止住出血。",
+            s3: "Mom puts a cute colorful bandage on.", t3: "媽媽為他貼上了一片可愛的彩色 OK 繃。" },
+          { word: "doctor", ipa: "/ˈdɑːk.tɚ/", meaning: "名詞：醫生，醫師", emoji: "👨‍⚕️", category: "toy_school",
+            s1: "Visit the kind doctor.", t1: "看親切的醫生。",
+            s2: "The good doctor helps patients.", t2: "好醫生熱心幫助病人。",
+            s3: "The gentle doctor checks your temperature carefully.", t3: "溫柔的醫生仔細地為你檢查體溫。" },
+          { word: "medicine", ipa: "/ˈmɛd.ə.sɪn/", meaning: "名詞：藥物，良藥", emoji: "💊", category: "daily",
+            s1: "Take your sweet medicine.", t1: "吃你的甜甜藥水。",
+            s2: "The right medicine heals sickness.", t2: "對症的藥物能治癒疾病。",
+            s3: "Take prescribed medicine with plenty of water.", t3: "遵照醫囑搭配充沛的水分服藥。" },
+          { word: "careful", ipa: "/ˈkɛr.fəl/", meaning: "形容詞：小心翼翼的，謹慎的", emoji: "⚠️", category: "daily",
+            s1: "Always be very careful.", t1: "隨時要非常小心。",
+            s2: "Be careful on wet floors.", t2: "在潮濕的地板上要當心。",
+            s3: "Careful children watch steps when going downstairs.", t3: "謹慎的孩子下樓梯時都會注意腳步。" },
+          { word: "rest", ipa: "/rɛst/", meaning: "名詞/動詞：休息，靜養", emoji: "🛌", category: "daily",
+            s1: "Take a quiet rest.", t1: "好好安靜休息。",
+            s2: "Get plenty of good rest.", t2: "獲得充足良好的休息。",
+            s3: "Resting in warm bed helps you recover.", t3: "在溫暖的床上好好休息能幫你迅速康復。" }
+        ],
+        new_phrases: [
+          { word: "fall down", ipa: "/fɔːl daʊn/", meaning: "動詞片語：跌倒，摔倒", emoji: "🏃",
+            s1: "Do not fall down.", t1: "不要跌倒喔。",
+            s2: "Kids stand up when falling down.", t2: "孩子跌倒時會自己站起來。",
+            s3: "Brave kids stand up quickly after falling down.", t3: "勇敢的孩子跌倒後會快速勇敢地站起來。" },
+          { word: "put on bandage", ipa: "/pʊt ɑːn ˈbæn.dɪdʒ/", meaning: "動詞片語：貼上繃帶，貼 OK 繃", emoji: "🩹",
+            s1: "Please put on bandage.", t1: "請貼上 OK 繃。",
+            s2: "Mom helps put on bandage.", t2: "媽媽幫忙貼好 OK 繃。",
+            s3: "Clean the scratch before you put on bandage.", t3: "在貼上 OK 繃之前務必先清潔好刮痕傷口。" },
+          { word: "see a doctor", ipa: "/siː ə ˈdɑːk.tɚ/", meaning: "動詞片語：看醫生，就醫檢查", emoji: "🩺",
+            s1: "Go see a doctor.", t1: "去給醫生看看。",
+            s2: "Sick children see a doctor.", t2: "生病的孩子要去看醫生。",
+            s3: "When feeling ill, you should see a doctor.", t3: "當感覺身體不舒服時，應該儘早去看醫生。" },
+          { word: "take medicine", ipa: "/teɪk ˈmɛd.ə.sɪn/", meaning: "動詞片語：吃藥，按時服藥", emoji: "💊",
+            s1: "Please take medicine on time.", t1: "請按時吃藥。",
+            s2: "Brave kids take medicine nicely.", t2: "勇敢的孩子會乖乖吃藥。",
+            s3: "Remember to take medicine after warm meals.", t3: "記得在吃完溫暖的飯菜後按時吃藥。" }
+        ]
+      },
+      'night_market': {
+        title: '🧋 【熱鬧夜市與傳統小吃】微課堂',
+        keywords: ['夜市', '珍珠奶茶', '珍奶', '雞排', '地瓜球', '小吃', '逛夜市', '買飲料', '買點心', 'night market', 'bubble tea'],
+        dialogues: [
+          [
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "The night market is so bright, Kai! Let us visit night market stalls.", zh: "夜市好明亮熱鬧喔，Kai！我們去逛逛夜市攤位吧。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Can we drink bubble tea with a big straw, Mom?", zh: "媽媽，我們可以用大吸管喝好喝的珍珠奶茶嗎？" },
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Sure! Remember to order food politely and check your sweet snack.", zh: "當然可以！記得有禮貌地向老闆點餐，並看好你的甜點心。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I have a shiny coin in my pocket to pay the friendly cashier!", zh: "我的口袋裡有一枚亮晶晶的硬幣，可以付給親切的老闆！" },
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Good job! Let us share with family and enjoy the delicious food.", zh: "太棒了！我們買回去跟全家人一起分享美味的小吃吧。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Walking through the lively market is my favorite evening activity!", zh: "漫步在熱鬧的夜市是我最喜歡的傍晚活動！" }
+          ]
+        ],
+        new_words: [
+          { word: "market", ipa: "/ˈmɑːr.kɪt/", meaning: "名詞：夜市，市集", emoji: "🏮", category: "travel",
+            s1: "Visit the night market.", t1: "逛夜市市集。",
+            s2: "The busy market sells snacks.", t2: "熱鬧的市集販售小吃。",
+            s3: "Crowds gather at the vibrant night market.", t3: "人群聚集在生機蓬勃的夜市裡。" },
+          { word: "bubble tea", ipa: "/ˈbʌb.əl tiː/", meaning: "名詞：珍珠奶茶，波霸奶茶", emoji: "🧋", category: "food",
+            s1: "Drink delicious bubble tea.", t1: "喝美味的珍珠奶茶。",
+            s2: "The sweet bubble tea has pearls.", t2: "甜甜的珍奶裡有黑糖珍珠。",
+            s3: "Chewy tapioca pearls make bubble tea so tasty.", t3: "Q 彈的珍珠讓珍珠奶茶變得無比美味。" },
+          { word: "snack", ipa: "/snæk/", meaning: "名詞：小吃，點心", emoji: "🍠", category: "food",
+            s1: "Taste this warm snack.", t1: "嚐嚐這份熱點心。",
+            s2: "We buy tasty street snacks.", t2: "我們買美味的街頭小吃。",
+            s3: "Night markets offer countless tasty local snacks.", t3: "夜市提供了數不勝數的道地美味小吃。" },
+          { word: "straw", ipa: "/strɑː/", meaning: "名詞：吸管", emoji: "🥤", category: "daily",
+            s1: "Use a wide straw.", t1: "使用粗吸管。",
+            s2: "Drink fresh juice through straw.", t2: "用吸管喝新鮮果汁。",
+            s3: "Use a wide straw to sip chewy pearls.", t3: "用粗吸管吸起 Q 彈的珍珠。" },
+          { word: "sweet", ipa: "/swiːt/", meaning: "形容詞：甜美的，可口的", emoji: "🍬", category: "food",
+            s1: "Taste the sweet candy.", t1: "品嚐甜甜的糖果。",
+            s2: "The ripe fruits taste sweet.", t2: "成熟的水果吃起來很甜。",
+            s3: "The delicious dessert has a pleasant sweet flavor.", t3: "這份美味的甜點擁有令人愉悅的甜味。" },
+          { word: "coin", ipa: "/kɔɪn/", meaning: "名詞：硬幣，零錢", emoji: "🪙", category: "daily",
+            s1: "Count your shiny coin.", t1: "數數你的亮硬幣。",
+            s2: "Pay with one round coin.", t2: "用一枚圓形硬幣付款。",
+            s3: "Keep coins safely in your small wallet.", t3: "把硬幣安全地收在你的小皮夾裡。" }
+        ],
+        new_phrases: [
+          { word: "visit night market", ipa: "/ˈvɪz.ɪt naɪt ˈmɑːr.kɪt/", meaning: "動詞片語：逛熱鬧夜市", emoji: "🏮",
+            s1: "Let us visit night market.", t1: "我們去逛夜市吧。",
+            s2: "Families visit night market happily.", t2: "全家人開心地逛夜市。",
+            s3: "Tourists visit night market to taste local food.", t3: "遊客們逛夜市品嚐當地的道地美食。" },
+          { word: "drink bubble tea", ipa: "/drɪŋk ˈbʌb.əl tiː/", meaning: "動詞片語：喝美味珍珠奶茶", emoji: "🧋",
+            s1: "Please drink bubble tea.", t1: "請喝珍珠奶茶。",
+            s2: "Kids drink bubble tea together.", t2: "孩子們一起喝珍珠奶茶。",
+            s3: "Friends drink bubble tea on warm summer evenings.", t3: "朋友們在溫暖的夏夜一起喝珍珠奶茶。" },
+          { word: "order food", ipa: "/ˈɔːr.dɚ fuːd/", meaning: "動詞片語：點餐，點選美味小吃", emoji: "📋",
+            s1: "Please order food politely.", t1: "請有禮貌地點餐。",
+            s2: "We order food at stalls.", t2: "我們在攤位前點餐。",
+            s3: "Politely order food when it is your turn.", t3: "輪到你時有禮貌地向老闆點餐。" },
+          { word: "share with family", ipa: "/ʃɛr wɪð ˈfæm.əl.i/", meaning: "動詞片語：與家人一同分享", emoji: "👨‍👩‍👧‍👦",
+            s1: "Please share with family.", t1: "請與家人分享。",
+            s2: "Good kids share with family.", t2: "好孩子會與家人分享。",
+            s3: "Always share delicious treats with your loving family.", t3: "隨時與親愛的家人一同分享美味的小吃甜點。" }
+        ]
+      },
+      'airplane_flight': {
+        title: '✈️ 【空中飛行與世界旅行】微課堂',
+        keywords: ['飛機', '機場', '搭飛機', '出國', '白雲', '行李', '空服員', '旅行', 'airplane', 'airport', 'flight', 'cloud'],
+        dialogues: [
+          [
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Kai, we are at the airport! Let us check our luggage and take airplane.", zh: "Kai，我們到機場了！我們先託運行李，然後準備搭飛機。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Can I sit by the window to look out window at the white cloud?", zh: "我可以坐在靠窗座位，看著窗外白白的雲朵嗎？" },
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Yes! But remember to fasten seatbelt when the flight takes off.", zh: "可以喔！但是飛機起飛時一定要繫緊安全帶喔。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "The friendly flight attendant gives us sweet apple juice!", zh: "親切的空服員叔叔阿姨給了我們甜甜的蘋果汁！" },
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Sit back and enjoy flight as we soar high above the blue ocean.", zh: "靠著椅背享受飛行吧，我們正在蔚藍的大海上方翱翔呢。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Flying in the sky like a bird is the coolest adventure!", zh: "像小鳥一樣在天空中飛翔真是最酷的冒險了！" }
+          ]
+        ],
+        new_words: [
+          { word: "airplane", ipa: "/ˈɛr.pleɪn/", meaning: "名詞：飛機，客機", emoji: "✈️", category: "travel",
+            s1: "See the big airplane.", t1: "看這架大飛機。",
+            s2: "The silver airplane flies high.", t2: "銀色的飛機飛得好高。",
+            s3: "Modern airplanes carry passengers across the world.", t3: "現代客機載著旅客飛越世界各地。" },
+          { word: "airport", ipa: "/ˈɛr.pɔːrt/", meaning: "名詞：機場，航廈", emoji: "🛫", category: "travel",
+            s1: "Arrive at the airport.", t1: "到達機場。",
+            s2: "The busy airport has gates.", t2: "繁忙的機場有許多登機門。",
+            s3: "Travelers check in luggage at the international airport.", t3: "旅客們在國際機場辦理行李託運。" },
+          { word: "cloud", ipa: "/klaʊd/", meaning: "名詞：雲朵，白雲", emoji: "☁️", category: "nature",
+            s1: "Look at white cloud.", t1: "看白白的雲朵。",
+            s2: "Fluffy white clouds float peacefully.", t2: "蓬鬆的白雲平靜地漂浮著。",
+            s3: "The airplane flies smoothly above thick white clouds.", t3: "飛機平穩地在厚厚的白雲上方飛行。" },
+          { word: "window", ipa: "/ˈwɪn.doʊ/", meaning: "名詞：窗戶，機窗", emoji: "🪟", category: "daily",
+            s1: "Look out the window.", t1: "看向窗外。",
+            s2: "Sit next to clean window.", t2: "坐在乾淨的窗戶旁邊。",
+            s3: "Children love peering through the clear airplane window.", t3: "孩子們最喜歡隔著透亮的機窗向外看。" },
+          { word: "luggage", ipa: "/ˈlʌɡ.ɪdʒ/", meaning: "名詞：行李，旅行箱", emoji: "🧳", category: "travel",
+            s1: "Pack your neat luggage.", t1: "打包整齊的行李。",
+            s2: "Roll your heavy luggage carefully.", t2: "小心拖著你的沉重行李。",
+            s3: "Families tag their luggage before departure.", t3: "出發前全家人為行李貼上標籤。" },
+          { word: "seat", ipa: "/siːt/", meaning: "名詞：座位，客艙座椅", emoji: "💺", category: "daily",
+            s1: "Find your assigned seat.", t1: "找到指定的座位。",
+            s2: "Sit in comfortable airplane seat.", t2: "坐在舒服的飛機座位上。",
+            s3: "Passengers remain seated comfortably during the smooth flight.", t3: "在平穩的飛行過程中，乘客們舒適地坐在座位上。" }
+        ],
+        new_phrases: [
+          { word: "take airplane", ipa: "/teɪk ˈɛr.pleɪn/", meaning: "動詞片語：搭乘飛機出行", emoji: "✈️",
+            s1: "We take airplane today.", t1: "我們今天搭乘飛機。",
+            s2: "Kids love to take airplane.", t2: "孩子們喜歡搭乘飛機。",
+            s3: "Families take airplane to travel to exciting destinations.", t3: "全家人搭乘飛機前往令人興奮的旅遊勝地。" },
+          { word: "look out window", ipa: "/lʊk aʊt ˈwɪn.doʊ/", meaning: "動詞片語：向窗外眺望風景", emoji: "👀",
+            s1: "Please look out window.", t1: "請看向窗外風景。",
+            s2: "Children look out window happily.", t2: "孩子們開心地眺望窗外。",
+            s3: "Passers gaze at distant mountains and look out window.", t3: "乘客們遙望遠方的高山並向窗外眺望風景。" },
+          { word: "fasten seatbelt", ipa: "/ˈfæs.ən ˈsiːt.bɛlt/", meaning: "動詞片語：繫緊安全帶", emoji: "💺",
+            s1: "Please fasten seatbelt now.", t1: "請現在繫好安全帶。",
+            s2: "Passengers fasten seatbelt during flight.", t2: "乘客在飛行中繫好安全帶。",
+            s3: "Always fasten seatbelt securely when sitting down.", t3: "坐下時務必隨時安全繫緊安全帶。" },
+          { word: "enjoy flight", ipa: "/ɪnˈdʒɔɪ flaɪt/", meaning: "動詞片語：享受舒適飛行旅程", emoji: "✨",
+            s1: "Please enjoy your flight.", t1: "請享受飛行旅程。",
+            s2: "We enjoy flight with juice.", t2: "我們邊喝果汁邊享受飛行。",
+            s3: "Passengers relax comfortably and enjoy flight together.", t3: "乘客們放鬆心情，一同享受這趟舒適的飛行。" }
+        ]
       }
     };
 
@@ -6360,132 +6723,389 @@
       SoundEffects.playClick('unlock');
     }
 
-    // --- AI Lexicon Synthesis & Deduplication Engine (Max 5,000 Safety Limit) ---
-    function planScenarioFromText(userText, userLevel = 1) {
-      const text = userText.toLowerCase();
+    // ========================================================
+    // CURATED THEME DIALOGUES BANK
+    // ========================================================
+    const THEME_DIALOGUES = {
+      'amusement_park': [
+        [
+          { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Kai, we have arrived at the amusement park! Let us buy ticket at the entrance first.", zh: "Kai，我們到達兒童樂園了！我們先在入口買門票吧。" },
+          { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Yay! Can we ride carousel and see the giant ferris wheel first?", zh: "太棒了！我們可以先搭旋轉木馬，去看巨大的摩天輪嗎？" },
+          { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Sure! But park staff must check height limit to keep your safety.", zh: "當然可以！但是樂園工作人員要先檢查身高限制，以維護你的安全喔。" },
+          { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I am tall enough! Remember to buckle up seatbelt and wait in line patiently.", zh: "我已經夠高了！搭設施要記得繫好安全帶，還要耐心排隊。" },
+          { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "After the exciting rides, let us eat cold ice cream and enjoy some snacks!", zh: "搭完刺激的設施之後，我們去吃冰涼的冰淇淋、品嚐好吃的點心吧！" },
+          { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "We will have so much fun together in the amusement park today!", zh: "我們今天在兒童樂園一定會玩得超級開心！" }
+        ],
+        [
+          { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Look at that thrilling roller coaster and colorful bumper cars, Kai!", zh: "Kai你看，那輛刺激的雲霄飛車還有五彩繽紛的碰碰車！" },
+          { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Can we drive bumper cars together Dad? I promise to follow safety rules!", zh: "爸爸我們可以一起開碰碰車嗎？我保證會遵守安全規則！" },
+          { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Always buckle up seatbelt and check height limit before entering any ride.", zh: "在進入任何設施前，一定要繫好安全帶並確認符合身高限制。" },
+          { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I will! Let us wait in line politely and buy ticket right now.", zh: "我會的！我們有禮貌地排隊，現在就去買門票吧。" },
+          { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "You are growing up so fast. Have so much fun today, my champion!", zh: "你長大得好快。今天在樂園玩得盡興點，我的小冠軍！" }
+        ]
+      ],
+      'space': [
+        [
+          { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Good morning Kai! Look at the shiny rocket preparing to blast off into space!", zh: "早安 Kai！看那枚閃亮的火箭正準備發射升空進入太空！" },
+          { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Wow! Can an astronaut float in space and land on moon?", zh: "哇！太空人可以在太空中漂浮，還能登陸月球嗎？" },
+          { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Yes! We can also gaze at stars and find the glowing planet tonight.", zh: "可以的！我們今晚還能一起仰望星空，尋找那顆發光的星球呢。" },
+          { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I will use our new telescope to observe a distant galaxy!", zh: "我要用我們的新望遠鏡來觀察遙遠的銀河系！" },
+          { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Look, a bright meteor is flying fast, let us make a wish together!", zh: "看，一顆明亮的流星飛速劃過，我們一起許個願吧！" },
+          { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I wish to become a brave astronaut and explore space!", zh: "我許願有一天能成為勇敢的太空人探索宇宙！" }
+        ],
+        [
+          { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Are you ready for our science night to gaze at stars together, Kai?", zh: "Kai，你準備好今晚的科學之夜，跟爸爸一起仰望星空了嗎？" },
+          { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Yes Dad! Look at that bright planet and the sparkling galaxy!", zh: "好的爸爸！看那顆明亮的星球和閃耀的星系！" },
+          { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "The powerful rocket will blast off to carry astronauts into space.", zh: "強大的火箭會點火發射，把太空人送上太空。" },
+          { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I want to land on moon and study space rocks with my telescope!", zh: "我想登陸月球，並用我的望遠鏡研究太空岩石！" },
+          { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "You are the most curious little astronomer in the universe!", zh: "你真是全宇宙最好奇的小小天文學家！" }
+        ]
+      ],
+      'dinosaur': [
+        [
+          { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Kai, we are going to explore cave and dig up fossils in the museum today!", zh: "Kai，我們今天要去博物館探索神祕洞穴並挖掘化石！" },
+          { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Look Dad! That huge dinosaur skeleton can roar so powerfully!", zh: "爸爸你看！那具巨大的恐龍骨架好像會威猛地吼叫！" },
+          { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Be careful of its sharp claw. Those beasts became extinct long ago.", zh: "小心牠鋒利的爪子。那些古代巨獸很久以前就滅絕了。" },
+          { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I want to track footsteps and study bones like a junior scientist!", zh: "我想像小小科學家一樣追蹤腳印並仔細研究骨骼！" },
+          { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "You have the keen eyes of a real paleontologist!", zh: "你擁有真正古生物學家的敏銳雙眼！" }
+        ],
+        [
+          { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Welcome to the prehistoric park! Can you dig up fossils in the sandbox?", zh: "歡迎來到史前公園！你可以在沙池裡挖掘化石嗎？" },
+          { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I found an ancient fossil! Did the huge dinosaur have a sharp claw?", zh: "我發現了一塊古老化石！巨大的恐龍長著鋒利的爪子嗎？" },
+          { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Yes, predators used sharp claws to hunt before they went extinct.", zh: "是的，掠食恐龍在絕種之前就是用鋒利的爪子捕獵。" },
+          { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Let's study bones and explore cave together, Mom!", zh: "媽媽，我們一起研究骨骼並探索神祕岩洞吧！" },
+          { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Such a thrilling adventure with my brave little explorer!", zh: "跟我的勇敢小探險家一起冒險真是太刺激了！" }
+        ]
+      ],
+      'school': [
+        [
+          { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Good morning Kai! Time to pack your bag and arrive at school on time.", zh: "早安 Kai！該收拾書包，準時出發去學校囉。" },
+          { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Yes Mom! I am excited to meet my friend and play together today.", zh: "好的媽媽！我很興奮今天能見到好朋友並一起玩耍。" },
+          { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Remember to clean desk and listen politely when the teacher speaks.", zh: "在老師說話時要記得整理書桌，有禮貌地專心聆聽喔。" },
+          { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I will raise hand to share ideas and take notes in my notebook!", zh: "我會舉手分享想法，還會在筆記本上記好筆記！" },
+          { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Wonderful! Have a marvelous and joyful school day.", zh: "太棒了！祝你有個精彩又快樂的校園時光。" }
+        ],
+        [
+          { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Kai, do you have your pencil, ruler, and book ready for school?", zh: "Kai，你的鉛筆、尺子和課本都準備好帶去學校了嗎？" },
+          { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Everything is ready Dad! I will share toys and make friends at recess.", zh: "全都準備好了爸爸！下課時我會分享玩具、結交好朋友。" },
+          { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Always be polite to your teacher and classmates.", zh: "對老師和同學要時時刻刻保持禮貌喔。" },
+          { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I will clean desk and listen carefully during every class!", zh: "我每一節課都會把書桌收乾淨，並認真聆聽！" },
+          { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Proud of you, my smart little student!", zh: "以你為榮，我的聰明小小好學生！" }
+        ]
+      ],
+      'animals': [
+        [
+          { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Look Kai, that adorable puppy is wagging its tail happily!", zh: "Kai你看，那隻可愛的幼犬正開心地搖著尾巴！" },
+          { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Can we pet animal gently and feed puppy some healthy treats?", zh: "我們可以溫柔地摸摸牠，餵小狗吃點健康零食嗎？" },
+          { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Sure! Let's walk puppy in the green park and observe nature.", zh: "當然可以！我們牽小狗去綠意盎然的公園散步，觀察大自然吧。" },
+          { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I want to catch ball and run on the grass with our puppy!", zh: "我想跟我們的小狗在草地上玩接球並奔跑！" },
+          { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Animals make our lives joyful when we care for them with love.", zh: "當我們用愛心照顧小動物時，生活就會充滿快樂。" }
+        ]
+      ],
+      'food': [
+        [
+          { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Kai, let's eat lunch together and taste food in our sunny kitchen.", zh: "Kai，我們一起在陽光明媚的廚房吃午餐品嚐美食吧。" },
+          { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Can we bake cookies and drink milk for afternoon snack?", zh: "下午點心我們可以烤餅乾、喝牛奶嗎？" },
+          { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Of course! Remember to wash fruit first and chew slowly.", zh: "當然可以！記得先洗水果，吃東西時要細嚼慢嚥喔。" },
+          { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "The hot soup smells delicious, I will sip soup carefully!", zh: "熱騰騰的湯聞起來好香，我會小心啜飲！" },
+          { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Enjoy your healthy meal, my lovely little chef!", zh: "好好享用健康的一餐，我的可愛小廚師！" }
+        ]
+      ],
+      'sports_park': [
+        [
+          { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "The sunshine is wonderful! Let's ride scooter to the community park.", zh: "陽光真美好！我們騎滑板車去社區公園吧。" },
+          { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Yay! I want to kick soccer and throw ball with you Dad!", zh: "太好了！我想跟爸爸一起踢足球和丟球！" },
+          { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "We can also swing high, slide down, and fly kite today.", zh: "我們今天還可以盪得高高的、溜滑梯，還能放風箏呢。" },
+          { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Watch me jump rope and run fast like a champion!", zh: "看我跳繩，跑得像冠軍一樣飛快！" },
+          { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Exercise keeps your body strong and your smile bright!", zh: "運動讓你的身體強健，笑容燦爛！" }
+        ]
+      ],
+      'home_routine': [
+        [
+          { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Good morning Kai! Time to wake up and make bed nicely.", zh: "早安 Kai！該起床並把床鋪整理整齊囉。" },
+          { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I am up Mom! I will brush teeth and wash hands right now.", zh: "我起床了媽媽！我現在就去刷牙和洗手。" },
+          { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Put on socks and fold clothes before we eat breakfast.", zh: "在吃早餐前，把襪子穿好並把衣服折好喔。" },
+          { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "My bedroom is tidy and clean, ready for an awesome day!", zh: "我的房間現在乾淨整潔，準備好迎接美好的一天！" },
+          { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Good habits make every morning smooth and cheerful!", zh: "良好的生活習慣讓每個早晨都輕鬆愉快！" }
+        ]
+      ],
+      'art_creativity': [
+        [
+          { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Let's take out our crayons and draw picture on the desk, Kai!", zh: "Kai，我們拿出蠟筆，在桌上畫畫吧！" },
+          { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I want to mix colors and craft origami animals with paper!", zh: "我想調配顏色，還想用紙折出摺紙動物！" },
+          { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "You can cut out shapes carefully and glue down each piece.", zh: "你可以小心剪出圖案，把每一塊彩紙黏貼上去。" },
+          { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Look at my castle painting, it is full of bright magic!", zh: "看我畫的城堡，充滿了明亮的魔法！" },
+          { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Your artwork is brilliant and filled with creativity!", zh: "你的藝術作品棒極了，充滿了無限創意！" }
+        ]
+      ],
+      'travel_outing': [
+        [
+          { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Kai, we are taking the city bus to visit library this afternoon.", zh: "Kai，我們今天下午要搭市區公車去圖書館。" },
+          { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Can I borrow book about science and train adventures?", zh: "我可以借一本關於科學和火車冒險的書嗎？" },
+          { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Yes! Remember to wait for green light before we cross street.", zh: "可以！在過馬路之前，記得一定要等綠燈亮起喔。" },
+          { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I always remember safety rules when we travel together.", zh: "我們一起出門時，我總是牢記安全規則。" },
+          { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Let's catch bus now and enjoy our wonderful trip!", zh: "我們現在去搭公車，享受美好的旅程吧！" }
+        ]
+      ]
+    };
 
-      // Check if text matches custom Knowledge Topics (e.g. space, dinosaur)
-      let customTopicKey = null;
-      for (const [k, topic] of Object.entries(KNOWLEDGE_TOPICS)) {
-        if (topic.keywords.some(kw => text.includes(kw.toLowerCase()))) {
-          customTopicKey = k;
-          break;
+    // ========================================================
+    // DIALOGUE-FIRST SCENARIO RESOLUTION & LEXICON EXTRACTION
+    // ========================================================
+    function resolveScenarioPackage(text, userLevel = 1) {
+      const lower = text.toLowerCase().trim();
+
+      // 1. Direct Keyword Matching on Knowledge Topics (Dialogue first + Words/Phrases)
+      for (const [key, topic] of Object.entries(KNOWLEDGE_TOPICS)) {
+        if (topic.keywords && topic.keywords.some(kw => lower.includes(kw.toLowerCase()))) {
+          const variants = topic.dialogues || (THEME_DIALOGUES && THEME_DIALOGUES[key]) || [];
+          const pickedDialogue = variants.length > 0 
+            ? variants[Math.floor(Math.random() * variants.length)]
+            : generateFallbackDialogueForTopic(topic, text);
+          return {
+            themeId: key,
+            title: topic.title,
+            dialogue: pickedDialogue,
+            targetWords: topic.new_words || [],
+            targetPhrases: topic.new_phrases || []
+          };
         }
       }
+
+      // 2. Scenario Themes Matching
+      for (const [key, tInfo] of Object.entries(SCENARIO_THEMES)) {
+        if (tInfo.keywords && tInfo.keywords.some(kw => lower.includes(kw.toLowerCase()))) {
+          const variants = (KNOWLEDGE_TOPICS[key] && KNOWLEDGE_TOPICS[key].dialogues) || (THEME_DIALOGUES && THEME_DIALOGUES[key]) || [];
+          const pickedDialogue = variants.length > 0 ? variants[0] : generateDynamicFallbackDialogue(text, tInfo.title);
+          return {
+            themeId: key,
+            title: tInfo.title,
+            dialogue: pickedDialogue,
+            targetWords: (KNOWLEDGE_TOPICS[key] && KNOWLEDGE_TOPICS[key].new_words) ? KNOWLEDGE_TOPICS[key].new_words : getPreferredWordsForTheme(key),
+            targetPhrases: (KNOWLEDGE_TOPICS[key] && KNOWLEDGE_TOPICS[key].new_phrases) ? KNOWLEDGE_TOPICS[key].new_phrases : getPreferredPhrasesForTheme(key)
+          };
+        }
+      }
+
+      // 3. Open Prompt Intelligent Generative Synthesizer
+      return synthesizeOpenScenarioPackage(text, userLevel);
+    }
+
+    function synthesizeOpenScenarioPackage(userText, userLevel = 1) {
+      const cleanPrompt = userText.trim().replace(/[!?,。，！？]/g, '');
+      const title = `🌟 【${cleanPrompt || '自選探索'} · 每日英語】微課堂`;
+
+      const dialogue = [
+        { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: `Kai, today let us explore something wonderful together!`, zh: `Kai，今天讓我們一起探索美好的事物吧！` },
+        { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: `Yes Mom! I want to practice speaking and learn new words.`, zh: `好的媽媽！我想練習開口說話並學新單字。` },
+        { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: `Remember to listen carefully and speak with a clear voice.`, zh: `記得仔細聆聽，並用清晰響亮的聲音練習發音喔。` },
+        { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: `I will try my best to read every sentence nicely!`, zh: `我會盡我最大的努力好好朗讀每一個句子！` },
+        { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: `You are a curious explorer! Let us begin our fun lesson.`, zh: `你真是一位充滿好奇心的小小探險家！我們開始有趣的課程吧。` },
+        { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: `Yay! Learning English with Mom gives me so much joy!`, zh: `太棒了！跟媽媽一起學英文帶給我好多快樂！` }
+      ];
+
+      const targetWords = [
+        { word: "practice", ipa: "/ˈpræk.tɪs/", meaning: "動詞/名詞：練習，實踐", emoji: "📝", category: "toy_school",
+          s1: "Practice every day.", t1: "每天認真練習。",
+          s2: "We practice speaking English nicely.", t2: "我們好好練習開口說英文。",
+          s3: "Daily practice makes your pronunciation very clear.", t3: "每天練習能讓你的發音變得非常清晰。" },
+        { word: "curious", ipa: "/ˈkjʊr.i.əs/", meaning: "形容詞：好奇的，求知若渴的", emoji: "🔍", category: "toy_school",
+          s1: "Stay always curious.", t1: "隨時保持好奇心。",
+          s2: "Curious kids ask smart questions.", t2: "好奇的孩子會提出聰明的問題。",
+          s3: "Curious students discover wonderful new things daily.", t3: "求知若渴的學生每天都會發現美好的新事物。" },
+        { word: "explore", ipa: "/ɪkˈsplɔːr/", meaning: "動詞：探索，探尋", emoji: "🧭", category: "travel",
+          s1: "Explore the world.", t1: "探索這個世界。",
+          s2: "We explore nature together happily.", t2: "我們開心地一起探索大自然。",
+          s3: "Brave young scouts love to explore outdoors.", t3: "勇敢的年輕童軍最喜歡在戶外探險。" },
+        { word: "voice", ipa: "/vɔɪs/", meaning: "名詞：聲音，嗓音", emoji: "🗣️", category: "daily_body",
+          s1: "Use clear voice.", t1: "使用清晰的聲音。",
+          s2: "Speak with a friendly voice.", t2: "用親切的聲音開口說話。",
+          s3: "Read aloud with a confident clear voice.", t3: "用自信清晰的聲音大聲朗讀。" },
+        { word: "effort", ipa: "/ˈɛf.ɚt/", meaning: "名詞：努力，盡力", emoji: "💪", category: "toy_school",
+          s1: "Make good effort.", t1: "付出良好的努力。",
+          s2: "Your effort brings great success.", t2: "你的努力會帶來很棒的成果。",
+          s3: "Children achieve goals through their continuous effort.", t3: "孩子們透過持續不懈的努力達成目標。" },
+        { word: "wonder", ipa: "/ˈwʌn.dɚ/", meaning: "名詞：奇妙，驚奇", emoji: "✨", category: "nature",
+          s1: "See the wonder.", t1: "看這份奇妙。",
+          s2: "Nature is full of wonder.", t2: "大自然充滿了無盡的奇妙。",
+          s3: "Curious minds look at world with wonder.", t3: "好奇的心靈帶著驚奇讚嘆的眼光看待世界。" }
+      ];
+
+      const targetPhrases = [
+        { word: "learn new things", ipa: "/lɜːrn nuː θɪŋz/", meaning: "動詞片語：學習新知識，探索新事物", emoji: "📚",
+          s1: "Please learn new things.", t1: "請學習新知識。",
+          s2: "Kids love to learn new things.", t2: "孩子們喜歡學習新事物。",
+          s3: "Reading good books helps you learn new things.", t3: "閱讀好書能幫助你隨時學習豐富的新知識。" },
+        { word: "try your best", ipa: "/traɪ jʊr bɛst/", meaning: "動詞片語：盡全力，盡自己最大努力", emoji: "🌟",
+          s1: "Always try your best.", t1: "隨時盡你最大的努力。",
+          s2: "Good students try their best.", t2: "好學生在每件事上都會全力以赴。",
+          s3: "No matter what happens, always try your best.", t3: "無論遇到什麼挑戰，隨時都要盡自己最大的努力。" },
+        { word: "read aloud", ipa: "/riːd əˈlaʊd/", meaning: "動詞片語：大聲朗讀，清楚朗誦", emoji: "📖",
+          s1: "Please read aloud now.", t1: "請現在大聲朗讀。",
+          s2: "Children read aloud with smiles.", t2: "孩子們帶著微笑大聲朗讀。",
+          s3: "Confidently read aloud to improve your oral skills.", t3: "自信地大聲朗讀能迅速提升你的英語口語能力。" },
+        { word: "have so much joy", ipa: "/hæv soʊ mʌtʃ dʒɔɪ/", meaning: "動詞片語：感到無比歡樂，擁有滿滿喜悅", emoji: "🎉",
+          s1: "Have so much joy.", t1: "擁有滿滿的歡樂。",
+          s2: "Happy kids have so much joy.", t2: "快樂的孩子們擁有滿滿的喜悅。",
+          s3: "Families have so much joy learning together happily.", t3: "全家人開心地一起學習，享受著滿滿的歡樂時光。" }
+      ];
+
+      return {
+        themeId: 'custom_open',
+        title: title,
+        dialogue: dialogue,
+        targetWords: targetWords,
+        targetPhrases: targetPhrases
+      };
+    }
+
+    function getPreferredWordsForTheme(themeId) {
+      const tInfo = SCENARIO_THEMES[themeId];
+      if (!tInfo || !tInfo.preferred_words) return [];
+      return tInfo.preferred_words.map(w => {
+        const found = MASTER_VOCAB.find(v => v.word.toLowerCase() === w.toLowerCase());
+        return found || {
+          word: w, ipa: "/ˈwɜːrd/", meaning: w, emoji: "📖", category: "daily",
+          s1: `Look at the ${w}.`, t1: `看這項事物。`,
+          s2: `We use ${w} in daily life.`, t2: `我們在生活中運用它。`,
+          s3: `Children practice using ${w} correctly in speech.`, t3: `孩子們在說話中正確運用這個字。`
+        };
+      });
+    }
+
+    function getPreferredPhrasesForTheme(themeId) {
+      const tInfo = SCENARIO_THEMES[themeId];
+      if (!tInfo || !tInfo.preferred_phrases) return [];
+      return tInfo.preferred_phrases.map(p => {
+        const found = MASTER_VOCAB.find(v => v.word.toLowerCase() === p.toLowerCase());
+        return found || {
+          word: p, ipa: "/freɪz/", meaning: p, emoji: "✨", category: "phrases",
+          s1: `Please ${p} now.`, t1: `請做好這件事。`,
+          s2: `Good children ${p} nicely.`, t2: `好孩子會認真做好這件事。`,
+          s3: `Always remember to ${p} when you practice speaking.`, t3: `練習口語時記得隨時運用這個片語。`
+        };
+      });
+    }
+
+    function generateDynamicFallbackDialogue(prompt, title) {
+      return [
+        { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: `Kai, let's explore ${title.replace(/[【】微課堂]/g, '')} together today!`, zh: `Kai，今天讓我們一起探索這個生活情境吧！` },
+        { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: `That sounds exciting Mom! What are we going to do first?`, zh: `聽起來好令人興奮喔媽媽！我們第一步要做什麼呢？` },
+        { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: `Let's follow good habits and speak English aloud with joy!`, zh: `讓我們養成好習慣，並開心地大聲練習英語朗讀吧！` },
+        { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: `I am ready! I will pronounce each word clearly.`, zh: `我準備好了！我會把每一個單字都念得清清楚楚。` },
+        { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: `You are making wonderful progress every single day!`, zh: `你每一天都有很棒的進步喔！` }
+      ];
+    }
+
+    function planScenarioFromText(userText, userLevel = 1) {
+      const text = userText.toLowerCase().trim();
+
+      // 1. Resolve Scenario Package (Dialogue First -> 10 Vocab Extraction)
+      const scenarioPkg = resolveScenarioPackage(text, userLevel);
+      const bestThemeId = scenarioPkg.themeId;
+      const themeTitle = scenarioPkg.title;
+      const plannedDialogue = scenarioPkg.dialogue;
 
       const existingWords = new Set(MASTER_VOCAB.map(v => v.word.toLowerCase()));
       const newlyCreatedItems = [];
+      const nextWIdx = MASTER_VOCAB.filter(v => !v.isPhrase && v.category !== 'phrases').length + 1;
+      const nextPIdx = MASTER_VOCAB.filter(v => v.isPhrase || v.category === 'phrases').length + 1;
+      let wCount = 0;
+      let pCount = 0;
 
-      // 1. If custom topic matched and not yet in MASTER_VOCAB, generate and ingest dynamically!
-      if (customTopicKey && MASTER_VOCAB.length < MAX_SYSTEM_VOCAB_LIMIT) {
-        const topicData = KNOWLEDGE_TOPICS[customTopicKey];
-        const nextWIdx = MASTER_VOCAB.filter(v => !v.isPhrase && v.category !== 'phrases').length + 1;
-        const nextPIdx = MASTER_VOCAB.filter(v => v.isPhrase || v.category === 'phrases').length + 1;
-        let wCount = 0;
-        let pCount = 0;
-
-        topicData.new_words.forEach(nw => {
-          if (!existingWords.has(nw.word.toLowerCase()) && MASTER_VOCAB.length < MAX_SYSTEM_VOCAB_LIMIT) {
-            const code = `EN_W${String(nextWIdx + wCount).padStart(4, '0')}`;
-            wCount++;
-            const entry = {
-              id: nw.word,
-              word: nw.word,
-              wordCode: code,
-              phonetic: nw.ipa,
-              meaning: nw.meaning,
-              emoji: nw.emoji,
-              category: nw.category || "nature",
-              level: "L2",
-              role: "new",
-              variants: [nw.word, nw.word + "s"],
-              audioWord: `audio/word_${nw.word}.m4a`,
-              audioWordCanonical: `audio/words/${code.toLowerCase()}_${nw.word}.m4a`,
-              storyScene: `在自選生活情境中探索運用 ${nw.word}。`,
-              storyChapter: 1,
-              storyOrder: 1,
-              gradedSentences: [
-                { level: 1, levelLabel: "簡單 · 初階短句", tag: "簡單", text: nw.s1, translation: nw.t1, sentenceCode: `${code}_S1`, audioSrc: `audio/sentence_${nw.word}_0_0.m4a`, audioSrcCanonical: `audio/sentences/${code.toLowerCase()}_s1_${nw.word}.m4a` },
-                { level: 2, levelLabel: "中等 · 生活日常", tag: "中等", text: nw.s2, translation: nw.t2, sentenceCode: `${code}_S2`, audioSrc: `audio/sentence_${nw.word}_1_0.m4a`, audioSrcCanonical: `audio/sentences/${code.toLowerCase()}_s2_${nw.word}.m4a` },
-                { level: 3, levelLabel: "進階 · 熟練挑戰", tag: "進階", text: nw.s3, translation: nw.t3, sentenceCode: `${code}_S3`, audioSrc: `audio/sentence_${nw.word}_2_0.m4a`, audioSrcCanonical: `audio/sentences/${code.toLowerCase()}_s3_${nw.word}.m4a` }
-              ]
-            };
-            MASTER_VOCAB.push(entry);
-            newlyCreatedItems.push(entry);
-            existingWords.add(nw.word.toLowerCase());
-          }
-        });
-
-        topicData.new_phrases.forEach(np => {
-          if (!existingWords.has(np.word.toLowerCase()) && MASTER_VOCAB.length < MAX_SYSTEM_VOCAB_LIMIT) {
-            const cleanId = np.word.replace(/\s+/g, '_');
-            const code = `EN_P${String(nextPIdx + pCount).padStart(4, '0')}`;
-            pCount++;
-            const entry = {
-              id: cleanId,
-              word: np.word,
-              wordCode: code,
-              phonetic: np.ipa,
-              meaning: np.meaning,
-              emoji: np.emoji,
-              category: "phrases",
-              level: "L2",
-              role: "new",
-              isPhrase: true,
-              variants: [np.word],
-              audioWord: `audio/word_${cleanId}.m4a`,
-              audioWordCanonical: `audio/phrases/${code.toLowerCase()}_${cleanId}.m4a`,
-              storyScene: `在自選高頻生活語塊中熟練表達 ${np.word}。`,
-              storyChapter: 1,
-              storyOrder: 1,
-              gradedSentences: [
-                { level: 1, levelLabel: "簡單 · 初階短句", tag: "簡單", text: np.s1, translation: np.t1, sentenceCode: `${code}_S1`, audioSrc: `audio/sentence_${cleanId}_0_0.m4a`, audioSrcCanonical: `audio/sentences/${code.toLowerCase()}_s1_${cleanId}.m4a` },
-                { level: 2, levelLabel: "中等 · 生活日常", tag: "中等", text: np.s2, translation: np.t2, sentenceCode: `${code}_S2`, audioSrc: `audio/sentence_${cleanId}_1_0.m4a`, audioSrcCanonical: `audio/sentences/${code.toLowerCase()}_s2_${cleanId}.m4a` },
-                { level: 3, levelLabel: "進階 · 熟練拓展", tag: "進階", text: np.s3, translation: np.t3, sentenceCode: `${code}_S3`, audioSrc: `audio/sentence_${cleanId}_2_0.m4a`, audioSrcCanonical: `audio/sentences/${code.toLowerCase()}_s3_${cleanId}.m4a` }
-              ]
-            };
-            MASTER_VOCAB.push(entry);
-            newlyCreatedItems.push(entry);
-            existingWords.add(np.word.toLowerCase());
-          }
-        });
-
-        // Persist newly created items to localStorage and background server API
-        if (newlyCreatedItems.length > 0) {
-          persistNewItemsToDatabase(newlyCreatedItems);
+      // Ingest / link target words (6 words)
+      const resolvedWords = scenarioPkg.targetWords.slice(0, 6).map(nw => {
+        const lowerW = nw.word.toLowerCase();
+        let matched = MASTER_VOCAB.find(v => v.word.toLowerCase() === lowerW);
+        if (!matched && MASTER_VOCAB.length < MAX_SYSTEM_VOCAB_LIMIT) {
+          const code = `EN_W${String(nextWIdx + wCount).padStart(4, '0')}`;
+          wCount++;
+          matched = {
+            id: nw.word,
+            word: nw.word,
+            wordCode: code,
+            phonetic: nw.ipa || "/ˈwɜːrd/",
+            meaning: nw.meaning || nw.word,
+            emoji: nw.emoji || "📖",
+            category: nw.category || "daily",
+            level: "L2",
+            role: "new",
+            isPhrase: false,
+            variants: [nw.word, nw.word + "s"],
+            audioWord: `/api/tts?text=${encodeURIComponent(nw.word)}&rate=152`,
+            audioWordCanonical: `/api/tts?text=${encodeURIComponent(nw.word)}&rate=152`,
+            storyScene: `在自選生活情境中探索運用 ${nw.word}。`,
+            storyChapter: 1,
+            storyOrder: 1,
+            gradedSentences: [
+              { level: 1, levelLabel: "簡單 · 初階短句", tag: "簡單", text: nw.s1, translation: nw.t1, sentenceCode: `${code}_S1`, audioSrc: `/api/tts?text=${encodeURIComponent(nw.s1)}&rate=152`, audioSrcCanonical: `/api/tts?text=${encodeURIComponent(nw.s1)}&rate=152` },
+              { level: 2, levelLabel: "中等 · 生活日常", tag: "中等", text: nw.s2, translation: nw.t2, sentenceCode: `${code}_S2`, audioSrc: `/api/tts?text=${encodeURIComponent(nw.s2)}&rate=152`, audioSrcCanonical: `/api/tts?text=${encodeURIComponent(nw.s2)}&rate=152` },
+              { level: 3, levelLabel: "進階 · 熟練挑戰", tag: "進階", text: nw.s3, translation: nw.t3, sentenceCode: `${code}_S3`, audioSrc: `/api/tts?text=${encodeURIComponent(nw.s3)}&rate=152`, audioSrcCanonical: `/api/tts?text=${encodeURIComponent(nw.s3)}&rate=152` }
+            ]
+          };
+          MASTER_VOCAB.push(matched);
+          newlyCreatedItems.push(matched);
+          existingWords.add(lowerW);
+        } else if (matched && (!matched.gradedSentences || matched.gradedSentences.length < 3) && nw.s1) {
+          matched.gradedSentences = [
+            { level: 1, levelLabel: "簡單 · 初階短句", tag: "簡單", text: nw.s1, translation: nw.t1, sentenceCode: `${matched.wordCode || 'EN'}_S1`, audioSrc: `/api/tts?text=${encodeURIComponent(nw.s1)}&rate=152` },
+            { level: 2, levelLabel: "中等 · 生活日常", tag: "中等", text: nw.s2, translation: nw.t2, sentenceCode: `${matched.wordCode || 'EN'}_S2`, audioSrc: `/api/tts?text=${encodeURIComponent(nw.s2)}&rate=152` },
+            { level: 3, levelLabel: "進階 · 熟練挑戰", tag: "進階", text: nw.s3, translation: nw.t3, sentenceCode: `${matched.wordCode || 'EN'}_S3`, audioSrc: `/api/tts?text=${encodeURIComponent(nw.s3)}&rate=152` }
+          ];
         }
+        return matched;
+      });
+
+      // Ingest / link target phrases (4 phrases)
+      const resolvedPhrases = scenarioPkg.targetPhrases.slice(0, 4).map(np => {
+        const lowerP = np.word.toLowerCase();
+        let matched = MASTER_VOCAB.find(v => v.word.toLowerCase() === lowerP);
+        if (!matched && MASTER_VOCAB.length < MAX_SYSTEM_VOCAB_LIMIT) {
+          const cleanId = np.word.replace(/\s+/g, '_');
+          const code = `EN_P${String(nextPIdx + pCount).padStart(4, '0')}`;
+          pCount++;
+          matched = {
+            id: cleanId,
+            word: np.word,
+            wordCode: code,
+            phonetic: np.ipa || "/freɪz/",
+            meaning: np.meaning || np.word,
+            emoji: np.emoji || "✨",
+            category: "phrases",
+            level: "L2",
+            role: "new",
+            isPhrase: true,
+            variants: [np.word],
+            audioWord: `/api/tts?text=${encodeURIComponent(np.word)}&rate=152`,
+            audioWordCanonical: `/api/tts?text=${encodeURIComponent(np.word)}&rate=152`,
+            storyScene: `在自選高頻生活語塊中熟練表達 ${np.word}。`,
+            storyChapter: 1,
+            storyOrder: 1,
+            gradedSentences: [
+              { level: 1, levelLabel: "簡單 · 初階短句", tag: "簡單", text: np.s1, translation: np.t1, sentenceCode: `${code}_S1`, audioSrc: `/api/tts?text=${encodeURIComponent(np.s1)}&rate=152`, audioSrcCanonical: `/api/tts?text=${encodeURIComponent(np.s1)}&rate=152` },
+              { level: 2, levelLabel: "中等 · 生活日常", tag: "中等", text: np.s2, translation: np.t2, sentenceCode: `${code}_S2`, audioSrc: `/api/tts?text=${encodeURIComponent(np.s2)}&rate=152`, audioSrcCanonical: `/api/tts?text=${encodeURIComponent(np.s2)}&rate=152` },
+              { level: 3, levelLabel: "進階 · 熟練拓展", tag: "進階", text: np.s3, translation: np.t3, sentenceCode: `${code}_S3`, audioSrc: `/api/tts?text=${encodeURIComponent(np.s3)}&rate=152`, audioSrcCanonical: `/api/tts?text=${encodeURIComponent(np.s3)}&rate=152` }
+            ]
+          };
+          MASTER_VOCAB.push(matched);
+          newlyCreatedItems.push(matched);
+          existingWords.add(lowerP);
+        } else if (matched && (!matched.gradedSentences || matched.gradedSentences.length < 3) && np.s1) {
+          matched.gradedSentences = [
+            { level: 1, levelLabel: "簡單 · 初階短句", tag: "簡單", text: np.s1, translation: np.t1, sentenceCode: `${matched.wordCode || 'EN'}_S1`, audioSrc: `/api/tts?text=${encodeURIComponent(np.s1)}&rate=152` },
+            { level: 2, levelLabel: "中等 · 生活日常", tag: "中等", text: np.s2, translation: np.t2, sentenceCode: `${matched.wordCode || 'EN'}_S2`, audioSrc: `/api/tts?text=${encodeURIComponent(np.s2)}&rate=152` },
+            { level: 3, levelLabel: "進階 · 熟練拓展", tag: "進階", text: np.s3, translation: np.t3, sentenceCode: `${matched.wordCode || 'EN'}_S3`, audioSrc: `/api/tts?text=${encodeURIComponent(np.s3)}&rate=152` }
+          ];
+        }
+        return matched;
+      });
+
+      // Persist newly created items to database
+      if (newlyCreatedItems.length > 0) {
+        persistNewItemsToDatabase(newlyCreatedItems);
       }
 
-      // 2. Score themes with compound word priority (longer matches get much higher weight)
-      const themeScores = {};
-      for (const [tId, tInfo] of Object.entries(SCENARIO_THEMES)) {
-        let s = 0;
-        for (const kw of tInfo.keywords) {
-          const kwLower = kw.toLowerCase();
-          if (text.includes(kwLower)) {
-            s += kwLower.length >= 3 ? 15 : (kwLower.length === 2 ? 6 : 1);
-          }
-        }
-        themeScores[tId] = s;
-      }
-
-      let bestThemeId = customTopicKey;
-      if (!bestThemeId) {
-        const topScoring = Object.keys(themeScores).reduce((a, b) => themeScores[a] > themeScores[b] ? a : b);
-        if (themeScores[topScoring] > 0) {
-          bestThemeId = topScoring;
-        } else {
-          bestThemeId = 'home_routine';
-        }
-      }
-
-      const themeTitle = (customTopicKey && KNOWLEDGE_TOPICS[customTopicKey]) 
-        ? KNOWLEDGE_TOPICS[customTopicKey].title 
-        : (SCENARIO_THEMES[bestThemeId] ? SCENARIO_THEMES[bestThemeId].title : '🎯 【專屬自選學習】微課堂');
-
-      // Extract 6 Words + 4 Phrases = 10 Items Total
-      const wordsPool = MASTER_VOCAB.filter(v => !v.isPhrase && v.category !== 'phrases');
-      const phrasesPool = MASTER_VOCAB.filter(v => v.isPhrase || v.category === 'phrases');
+      const allSelected10 = [...resolvedWords.filter(Boolean), ...resolvedPhrases.filter(Boolean)];
 
       const newlyCreatedItemWords = new Set(newlyCreatedItems.map(i => i.word.toLowerCase()));
       let customVocabWords = new Set();
@@ -6494,42 +7114,10 @@
         cv.forEach(i => customVocabWords.add(i.word.toLowerCase()));
       } catch(e) {}
 
-      // Identify topic-specific preferred words & phrases
-      let priorityWords = [];
-      let priorityPhrases = [];
-      if (customTopicKey && KNOWLEDGE_TOPICS[customTopicKey]) {
-        const top = KNOWLEDGE_TOPICS[customTopicKey];
-        priorityWords = (top.new_words || []).map(w => w.word.toLowerCase());
-        priorityPhrases = (top.new_phrases || []).map(p => p.word.toLowerCase());
-      } else if (SCENARIO_THEMES[bestThemeId]) {
-        priorityWords = (SCENARIO_THEMES[bestThemeId].preferred_words || []).map(w => w.toLowerCase());
-        priorityPhrases = (SCENARIO_THEMES[bestThemeId].preferred_phrases || []).map(p => p.toLowerCase());
-      }
-
-      // Rank words with contextual relevance and priority boost
-      const scoreItem = (item, isPh = false) => {
-        let sc = 0;
-        const w = item.word.toLowerCase();
-        const m = (item.meaning || '').toLowerCase();
-        const priList = isPh ? priorityPhrases : priorityWords;
-        if (priList.includes(w)) sc += 100;
-        if (newlyCreatedItemWords.has(w)) sc += 50;
-        if (text.includes(w) || w.includes(text)) sc += 15;
-        if (text.split('').some(ch => m.includes(ch))) sc += 2;
-        return sc;
-      };
-
-      const sortedWords = [...wordsPool].sort((a, b) => scoreItem(b, false) - scoreItem(a, false));
-      const sortedPhrases = [...phrasesPool].sort((a, b) => scoreItem(b, true) - scoreItem(a, true));
-
-      const selectedWords = sortedWords.slice(0, 6);
-      const selectedPhrases = sortedPhrases.slice(0, 4);
-      const allSelected10 = [...selectedWords, ...selectedPhrases];
-
       const plannedCards = allSelected10.map(item => {
-        const g = item.gradedSentences;
-        const lvlIdx = Math.max(0, Math.min(userLevel - 1, g.length - 1));
-        const targetSent = g[lvlIdx];
+        const g = item.gradedSentences || [];
+        const lvlIdx = Math.max(0, Math.min(userLevel - 1, Math.max(0, g.length - 1)));
+        const targetSent = g[lvlIdx] || { text: item.word, translation: item.meaning, level: 1, levelLabel: "簡單短句" };
         const isNew = newlyCreatedItemWords.has(item.word.toLowerCase()) || 
                       customVocabWords.has(item.word.toLowerCase()) || 
                       Boolean(item.isNewlyGenerated);
@@ -6547,7 +7135,8 @@
           sentenceTrans: targetSent.translation,
           sentenceAudio: targetSent.audioSrcCanonical || targetSent.audioSrc,
           level: targetSent.level,
-          levelLabel: targetSent.levelLabel
+          levelLabel: targetSent.levelLabel,
+          gradedSentences: g
         };
       });
 
@@ -6555,11 +7144,9 @@
         themeId: bestThemeId,
         title: themeTitle,
         items: plannedCards,
-        newlyCreatedCount: newlyCreatedItems.length
+        newlyCreatedCount: newlyCreatedItems.length,
+        dialogue: plannedDialogue
       };
-
-      // Generate Parent-Child Dialogue matching this micro-lesson
-      planResult.dialogue = generateParentChildDialogue(planResult, text, false);
 
       return planResult;
     }
@@ -6575,130 +7162,6 @@
       const items = plan.items || [];
       const words = items.filter(i => !i.isPhrase).map(i => i.word);
       const phrases = items.filter(i => i.isPhrase).map(i => i.word);
-
-      // Curated dialogue banks with multiple randomized conversational angles
-      const THEME_DIALOGUES = {
-        'amusement_park': [
-          [
-            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Kai, we have arrived at the amusement park! Let us buy ticket at the entrance first.", zh: "Kai，我們到達兒童樂園了！我們先在入口買門票吧。" },
-            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Yay! Can we ride carousel and see the giant ferris wheel first?", zh: "太棒了！我們可以先搭旋轉木馬，去看巨大的摩天輪嗎？" },
-            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Sure! But park staff must check height limit to keep your safety.", zh: "當然可以！但是樂園工作人員要先檢查身高限制，以維護你的安全喔。" },
-            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I am tall enough! Remember to buckle up seatbelt and wait in line patiently.", zh: "我已經夠高了！搭設施要記得繫好安全帶，還要耐心排隊。" },
-            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "After the exciting rides, let us eat cold ice cream and enjoy some snacks!", zh: "搭完刺激的設施之後，我們去吃冰涼的冰淇淋、品嚐好吃的點心吧！" },
-            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "We will have so much fun together in the amusement park today!", zh: "我們今天在兒童樂園一定會玩得超級開心！" }
-          ],
-          [
-            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Look at that thrilling roller coaster and colorful bumper cars, Kai!", zh: "Kai你看，那輛刺激的雲霄飛車還有五彩繽紛的碰碰車！" },
-            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Can we drive bumper cars together Dad? I promise to follow safety rules!", zh: "爸爸我們可以一起開碰碰車嗎？我保證會遵守安全規則！" },
-            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Always buckle up seatbelt and check height limit before entering any ride.", zh: "在進入任何設施前，一定要繫好安全帶並確認符合身高限制。" },
-            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I will! Let us wait in line politely and buy ticket right now.", zh: "我會的！我們有禮貌地排隊，現在就去買門票吧。" },
-            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "You are growing up so fast. Have so much fun today, my champion!", zh: "你長大得好快。今天在樂園玩得盡興點，我的小冠軍！" }
-          ]
-        ],
-        'space': [
-          [
-            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Good morning Kai! Look at the shiny rocket preparing to blast off into space!", zh: "早安 Kai！看那枚閃亮的火箭正準備發射升空進入太空！" },
-            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Wow! Can an astronaut float in space and land on moon?", zh: "哇！太空人可以在太空中漂浮，還能登陸月球嗎？" },
-            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Yes! We can also gaze at stars and find the glowing planet tonight.", zh: "可以的！我們今晚還能一起仰望星空，尋找那顆發光的星球呢。" },
-            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I will use our new telescope to observe a distant galaxy!", zh: "我要用我們的新望遠鏡來觀察遙遠的銀河系！" },
-            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Look, a bright meteor is flying fast, let us make a wish together!", zh: "看，一顆明亮的流星飛速劃過，我們一起許個願吧！" },
-            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I wish to become a brave astronaut and explore space!", zh: "我許願有一天能成為勇敢的太空人探索宇宙！" }
-          ],
-          [
-            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Are you ready for our science night to gaze at stars together, Kai?", zh: "Kai，你準備好今晚的科學之夜，跟爸爸一起仰望星空了嗎？" },
-            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Yes Dad! Look at that bright planet and the sparkling galaxy!", zh: "好的爸爸！看那顆明亮的星球和閃耀的星系！" },
-            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "The powerful rocket will blast off to carry astronauts into space.", zh: "強大的火箭會點火發射，把太空人送上太空。" },
-            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I want to land on moon and study space rocks with my telescope!", zh: "我想登陸月球，並用我的望遠鏡研究太空岩石！" },
-            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "You are the most curious little astronomer in the universe!", zh: "你真是全宇宙最好奇的小小天文學家！" }
-          ]
-        ],
-        'dinosaur': [
-          [
-            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Kai, we are going to explore cave and dig up fossils in the museum today!", zh: "Kai，我們今天要去博物館探索神祕洞穴並挖掘化石！" },
-            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Look Dad! That huge dinosaur skeleton can roar so powerfully!", zh: "爸爸你看！那具巨大的恐龍骨架好像會威猛地吼叫！" },
-            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Be careful of its sharp claw. Those beasts became extinct long ago.", zh: "小心牠鋒利的爪子。那些古代巨獸很久以前就滅絕了。" },
-            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I want to track footsteps and study bones like a junior scientist!", zh: "我想像小小科學家一樣追蹤腳印並仔細研究骨骼！" },
-            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "You have the keen eyes of a real paleontologist!", zh: "你擁有真正古生物學家的敏銳雙眼！" }
-          ],
-          [
-            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Welcome to the prehistoric park! Can you dig up fossils in the sandbox?", zh: "歡迎來到史前公園！你可以在沙池裡挖掘化石嗎？" },
-            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I found an ancient fossil! Did the huge dinosaur have a sharp claw?", zh: "我發現了一塊古老化石！巨大的恐龍長著鋒利的爪子嗎？" },
-            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Yes, predators used sharp claws to hunt before they went extinct.", zh: "是的，掠食恐龍在絕種之前就是用鋒利的爪子捕獵。" },
-            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Let's study bones and explore cave together, Mom!", zh: "媽媽，我們一起研究骨骼並探索神祕岩洞吧！" },
-            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Such a thrilling adventure with my brave little explorer!", zh: "跟我的勇敢小探險家一起冒險真是太刺激了！" }
-          ]
-        ],
-        'school': [
-          [
-            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Good morning Kai! Time to pack your bag and arrive at school on time.", zh: "早安 Kai！該收拾書包，準時出發去學校囉。" },
-            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Yes Mom! I am excited to meet my friend and play together today.", zh: "好的媽媽！我很興奮今天能見到好朋友並一起玩耍。" },
-            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Remember to clean desk and listen politely when the teacher speaks.", zh: "在老師說話時要記得整理書桌，有禮貌地專心聆聽喔。" },
-            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I will raise hand to share ideas and take notes in my notebook!", zh: "我會舉手分享想法，還會在筆記本上記好筆記！" },
-            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Wonderful! Have a marvelous and joyful school day.", zh: "太棒了！祝你有個精彩又快樂的校園時光。" }
-          ],
-          [
-            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Kai, do you have your pencil, ruler, and book ready for school?", zh: "Kai，你的鉛筆、尺子和課本都準備好帶去學校了嗎？" },
-            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Everything is ready Dad! I will share toys and make friends at recess.", zh: "全都準備好了爸爸！下課時我會分享玩具、結交好朋友。" },
-            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Always be polite to your teacher and classmates.", zh: "對老師和同學要時時刻刻保持禮貌喔。" },
-            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I will clean desk and listen carefully during every class!", zh: "我每一節課都會把書桌收乾淨，並認真聆聽！" },
-            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Proud of you, my smart little student!", zh: "以你為榮，我的聰明小小好學生！" }
-          ]
-        ],
-        'animals': [
-          [
-            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Look Kai, that adorable puppy is wagging its tail happily!", zh: "Kai你看，那隻可愛的幼犬正開心地搖著尾巴！" },
-            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Can we pet animal gently and feed puppy some healthy treats?", zh: "我們可以溫柔地摸摸牠，餵小狗吃點健康零食嗎？" },
-            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Sure! Let's walk puppy in the green park and observe nature.", zh: "當然可以！我們牽小狗去綠意盎然的公園散步，觀察大自然吧。" },
-            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I want to catch ball and run on the grass with our puppy!", zh: "我想跟我們的小狗在草地上玩接球並奔跑！" },
-            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Animals make our lives joyful when we care for them with love.", zh: "當我們用愛心照顧小動物時，生活就會充滿快樂。" }
-          ]
-        ],
-        'food': [
-          [
-            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Kai, let's eat lunch together and taste food in our sunny kitchen.", zh: "Kai，我們一起在陽光明媚的廚房吃午餐品嚐美食吧。" },
-            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Can we bake cookies and drink milk for afternoon snack?", zh: "下午點心我們可以烤餅乾、喝牛奶嗎？" },
-            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Of course! Remember to wash fruit first and chew slowly.", zh: "當然可以！記得先洗水果，吃東西時要細嚼慢嚥喔。" },
-            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "The hot soup smells delicious, I will sip soup carefully!", zh: "熱騰騰的湯聞起來好香，我會小心啜飲！" },
-            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Enjoy your healthy meal, my lovely little chef!", zh: "好好享用健康的一餐，我的可愛小廚師！" }
-          ]
-        ],
-        'sports_park': [
-          [
-            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "The sunshine is wonderful! Let's ride scooter to the community park.", zh: "陽光真美好！我們騎滑板車去社區公園吧。" },
-            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Yay! I want to kick soccer and throw ball with you Dad!", zh: "太好了！我想跟爸爸一起踢足球和丟球！" },
-            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "We can also swing high, slide down, and fly kite today.", zh: "我們今天還可以盪得高高的、溜滑梯，還能放風箏呢。" },
-            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Watch me jump rope and run fast like a champion!", zh: "看我跳繩，跑得像冠軍一樣飛快！" },
-            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Exercise keeps your body strong and your smile bright!", zh: "運動讓你的身體強健，笑容燦爛！" }
-          ]
-        ],
-        'home_routine': [
-          [
-            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Good morning Kai! Time to wake up and make bed nicely.", zh: "早安 Kai！該起床並把床鋪整理整齊囉。" },
-            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I am up Mom! I will brush teeth and wash hands right now.", zh: "我起床了媽媽！我現在就去刷牙和洗手。" },
-            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Put on socks and fold clothes before we eat breakfast.", zh: "在吃早餐前，把襪子穿好並把衣服折好喔。" },
-            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "My bedroom is tidy and clean, ready for an awesome day!", zh: "我的房間現在乾淨整潔，準備好迎接美好的一天！" },
-            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Good habits make every morning smooth and cheerful!", zh: "良好的生活習慣讓每個早晨都輕鬆愉快！" }
-          ]
-        ],
-        'art_creativity': [
-          [
-            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Let's take out our crayons and draw picture on the desk, Kai!", zh: "Kai，我們拿出蠟筆，在桌上畫畫吧！" },
-            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I want to mix colors and craft origami animals with paper!", zh: "我想調配顏色，還想用紙折出摺紙動物！" },
-            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "You can cut out shapes carefully and glue down each piece.", zh: "你可以小心剪出圖案，把每一塊彩紙黏貼上去。" },
-            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Look at my castle painting, it is full of bright magic!", zh: "看我畫的城堡，充滿了明亮的魔法！" },
-            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Your artwork is brilliant and filled with creativity!", zh: "你的藝術作品棒極了，充滿了無限創意！" }
-          ]
-        ],
-        'travel_outing': [
-          [
-            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Kai, we are taking the city bus to visit library this afternoon.", zh: "Kai，我們今天下午要搭市區公車去圖書館。" },
-            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Can I borrow book about science and train adventures?", zh: "我可以借一本關於科學和火車冒險的書嗎？" },
-            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Yes! Remember to wait for green light before we cross street.", zh: "可以！在過馬路之前，記得一定要等綠燈亮起喔。" },
-            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I always remember safety rules when we travel together.", zh: "我們一起出門時，我總是牢記安全規則。" },
-            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Let's catch bus now and enjoy our wonderful trip!", zh: "我們現在去搭公車，享受美好的旅程吧！" }
-          ]
-        ]
-      };
 
       // 1. Pick from curated dialogues if theme matches
       if (THEME_DIALOGUES[themeId]) {
@@ -7244,6 +7707,22 @@
         listEl.appendChild(card);
       });
 
+      // Reset Carousel State & Render Focus Card 0
+      currentPlannerAdaptiveLevel = (adaptive && adaptive.level) ? adaptive.level : 1;
+      currentPlannerCarouselIndex = 0;
+      isPlannerListViewMode = false;
+
+      const toggleBtn = document.getElementById('plannerViewModeBtn');
+      if (toggleBtn) toggleBtn.innerText = '📋 一覽模式';
+      const focusCardEl = document.getElementById('plannerCarouselFocusCard');
+      if (focusCardEl) focusCardEl.classList.remove('hidden');
+      if (listEl) {
+        listEl.classList.add('hidden');
+        listEl.classList.remove('grid');
+      }
+
+      renderPlannerCarouselFocusCard(0);
+
       // Render Parent-Child Dialogue
       if (plan.dialogue) {
         renderPlannedDialogue(plan.dialogue, plan.items);
@@ -7251,6 +7730,207 @@
 
       area.classList.remove('hidden');
       area.classList.add('flex');
+    }
+
+    // ========================================================
+    // PLANNER 10-CARD CAROUSEL & DETAILED FOCUS VIEWER
+    // ========================================================
+    let currentPlannerCarouselIndex = 0;
+    let isPlannerListViewMode = false;
+    let currentPlannerAdaptiveLevel = 1;
+
+    function renderPlannerCarouselFocusCard(idx) {
+      if (!currentPlannedPlan || !currentPlannedPlan.items || currentPlannedPlan.items.length === 0) return;
+      const total = currentPlannedPlan.items.length;
+      idx = Math.max(0, Math.min(idx, total - 1));
+      currentPlannerCarouselIndex = idx;
+
+      const counterEl = document.getElementById('plannerCarouselCounter');
+      if (counterEl) {
+        counterEl.innerText = `第 ${idx + 1} / ${total} 詞`;
+      }
+
+      renderPlannerDots(idx, total);
+
+      const focusCardEl = document.getElementById('plannerCarouselFocusCard');
+      if (!focusCardEl) return;
+
+      const c = currentPlannedPlan.items[idx];
+      const isNew = c.isNewlyGenerated;
+
+      const sourceBadgeHtml = isNew
+        ? `<span class="text-[9px] sm:text-[10px] px-2.5 py-0.5 rounded-full font-black bg-amber-100 text-amber-900 border border-amber-300 flex items-center gap-1 shadow-2xs">
+             <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-ping"></span>
+             ✨ AI 新生成 · 排程建檔中
+           </span>`
+        : `<span class="text-[9px] sm:text-[10px] px-2.5 py-0.5 rounded-full font-bold bg-blue-50 text-blue-700 border border-blue-200 flex items-center gap-1 shadow-2xs">
+             📚 題庫收錄 · 語音完整
+           </span>`;
+
+      const queueNoticeHtml = isNew
+        ? `<div class="mt-2 p-2.5 rounded-xl bg-amber-50/90 border border-amber-200 flex items-center justify-between text-[10px] text-amber-900 font-bold">
+             <span class="flex items-center gap-1.5">
+               <span>⚙️ 後台狀態：</span>
+               <span class="text-amber-800 font-medium">已安全記錄資料庫，背景排程合成語音中</span>
+             </span>
+             <span class="text-[9px] bg-amber-200 text-amber-900 px-1.5 py-0.5 rounded font-mono">${c.code}</span>
+           </div>`
+        : '';
+
+      const sentences = (c.gradedSentences && c.gradedSentences.length > 0)
+        ? c.gradedSentences
+        : (c.itemRef && c.itemRef.gradedSentences && c.itemRef.gradedSentences.length > 0)
+          ? c.itemRef.gradedSentences
+          : [
+              { level: 1, levelLabel: "基礎短句", text: `I see ${c.word}.`, translation: `我看見${c.meaning}。` },
+              { level: 2, levelLabel: "日常實用", text: `We use ${c.word} today.`, translation: `我們今天使用${c.meaning}。` },
+              { level: 3, levelLabel: "進階拓展", text: `Practice ${c.word} to speak fluent English.`, translation: `練習${c.meaning}能說流利英文。` }
+            ];
+
+      const userLvl = currentPlannerAdaptiveLevel || 1;
+
+      const sentencesHtml = sentences.map((s, sIdx) => {
+        const sLvl = s.level || (sIdx + 1);
+        const isCurrentLevel = sLvl === userLvl;
+        const badgeColor = sIdx === 0 ? 'bg-emerald-100 text-emerald-800 border-emerald-300' 
+          : (sIdx === 1 ? 'bg-blue-100 text-blue-800 border-blue-300' : 'bg-purple-100 text-purple-800 border-purple-300');
+        const wordCount = s.text ? s.text.trim().split(/\s+/).length : 0;
+        const safeText = escapeHtml(s.text || '').replace(/'/g, "\\'");
+        const safeAudio = s.audioSrc || '';
+
+        return `
+          <div class="p-3 rounded-xl ${isCurrentLevel ? 'bg-indigo-50/90 border-2 border-indigo-300 shadow-2xs' : 'bg-slate-50 border border-slate-200'} flex items-center justify-between gap-3 transition">
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-1.5 mb-1 flex-wrap">
+                <span class="text-[9px] px-2 py-0.5 rounded-full font-black border ${badgeColor}">
+                  L${sLvl} · ${s.levelLabel || (sIdx === 0 ? '簡單短句 (3-4詞)' : (sIdx === 1 ? '日常實用 (4-6詞)' : '資優挑戰 (6-8詞)'))}
+                </span>
+                <span class="text-[9px] text-slate-400 font-bold">(${wordCount} 詞)</span>
+                ${isCurrentLevel ? '<span class="text-[9px] bg-indigo-600 text-white px-1.5 py-0.2 rounded font-black tracking-wide">★ 當前自適應推薦</span>' : ''}
+              </div>
+              <div class="text-sm sm:text-base font-black text-slate-900 tracking-tight leading-snug">
+                “${escapeHtml(s.text || '')}”
+              </div>
+              <div class="text-[11px] sm:text-xs text-slate-600 font-bold mt-1">
+                ${escapeHtml(s.translation || '')}
+              </div>
+            </div>
+            <button type="button" onclick="playAudioFile('${safeAudio}', '${safeText}')" class="px-3 py-2 bg-white hover:bg-slate-100 text-indigo-700 text-xs font-black rounded-xl border border-slate-200 shadow-xs shrink-0 flex items-center gap-1 active:scale-95 transition" title="朗讀此例句">
+              <span>🔊</span><span class="hidden sm:inline">發音</span>
+            </button>
+          </div>
+        `;
+      }).join('');
+
+      const safeWord = escapeHtml(c.word).replace(/'/g, "\\'");
+      const safeWordAudio = c.audioWord || '';
+
+      focusCardEl.innerHTML = `
+        <div class="rounded-2xl p-4 sm:p-5 ${
+          isNew 
+            ? 'bg-gradient-to-br from-amber-50/50 via-white to-amber-50/30 border-2 border-amber-300' 
+            : 'bg-gradient-to-br from-indigo-50/40 via-white to-white border-2 border-indigo-100'
+        } shadow-sm flex flex-col gap-3.5 transition-all">
+          
+          <!-- Card Header: Word, Badges, TTS Action -->
+          <div class="flex items-center justify-between flex-wrap gap-2 pb-3 border-b border-slate-100">
+            <div class="flex items-center gap-3">
+              <span class="text-3xl sm:text-4xl p-2 bg-white rounded-2xl shadow-xs border border-slate-100">${c.emoji}</span>
+              <div>
+                <div class="flex items-center gap-2">
+                  <h4 class="text-xl sm:text-2xl font-black text-indigo-950 tracking-tight">${c.word}</h4>
+                  <button type="button" onclick="playAudioFile('${safeWordAudio}', '${safeWord}')" class="px-2.5 py-1 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-black shadow-xs flex items-center gap-1 active:scale-95 transition" title="朗讀單字/片語">
+                    <span>🔊</span><span>念詞</span>
+                  </button>
+                </div>
+                <div class="flex items-center gap-2 mt-0.5">
+                  <span class="text-xs sm:text-sm font-mono text-slate-400 font-semibold">${c.phonetic}</span>
+                  <span class="text-xs sm:text-sm font-bold text-slate-700">· ${c.meaning}</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center gap-1.5 flex-wrap">
+              ${sourceBadgeHtml}
+              <span class="text-[10px] sm:text-xs px-2.5 py-1 rounded-xl font-black ${c.isPhrase ? 'bg-emerald-600 text-white shadow-2xs' : 'bg-indigo-100 text-indigo-800'}">
+                ${c.isPhrase ? '片語語塊' : '生活單字'}
+              </span>
+            </div>
+          </div>
+
+          <!-- Graded Sentences Area (L1 / L2 / L3) -->
+          <div class="flex flex-col gap-2">
+            <div class="flex items-center justify-between text-xs font-black text-slate-700">
+              <span class="flex items-center gap-1">
+                <span>📚 3 級適配例句（國小常用 · 升學資優拓展）：</span>
+              </span>
+              <span class="text-[10px] text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded-full font-bold">點擊 🔊 即可清晰朗讀</span>
+            </div>
+            <div class="flex flex-col gap-2">
+              ${sentencesHtml}
+            </div>
+          </div>
+
+          ${queueNoticeHtml}
+        </div>
+      `;
+    }
+
+    function renderPlannerDots(activeIdx, total) {
+      const dotsContainer = document.getElementById('plannerCarouselDots');
+      if (!dotsContainer) return;
+      dotsContainer.innerHTML = '';
+      for (let i = 0; i < total; i++) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        const isActive = i === activeIdx;
+        btn.className = `w-6 h-6 sm:w-7 sm:h-7 rounded-lg text-[10px] sm:text-xs font-black transition-all flex items-center justify-center shrink-0 cursor-pointer ${
+          isActive
+            ? 'bg-indigo-600 text-white shadow-xs scale-105 ring-2 ring-indigo-300'
+            : 'bg-slate-100 hover:bg-slate-200 text-slate-600'
+        }`;
+        btn.innerText = (i + 1).toString();
+        btn.title = `跳至第 ${i + 1} 詞`;
+        btn.onclick = () => renderPlannerCarouselFocusCard(i);
+        dotsContainer.appendChild(btn);
+      }
+    }
+
+    function prevPlannerCarouselItem() {
+      if (!currentPlannedPlan || !currentPlannedPlan.items || currentPlannedPlan.items.length === 0) return;
+      const total = currentPlannedPlan.items.length;
+      currentPlannerCarouselIndex = (currentPlannerCarouselIndex - 1 + total) % total;
+      renderPlannerCarouselFocusCard(currentPlannerCarouselIndex);
+    }
+
+    function nextPlannerCarouselItem() {
+      if (!currentPlannedPlan || !currentPlannedPlan.items || currentPlannedPlan.items.length === 0) return;
+      const total = currentPlannedPlan.items.length;
+      currentPlannerCarouselIndex = (currentPlannerCarouselIndex + 1) % total;
+      renderPlannerCarouselFocusCard(currentPlannerCarouselIndex);
+    }
+
+    function togglePlannerItemsViewMode() {
+      isPlannerListViewMode = !isPlannerListViewMode;
+      const focusCardEl = document.getElementById('plannerCarouselFocusCard');
+      const listEl = document.getElementById('plannerItemsList');
+      const toggleBtn = document.getElementById('plannerViewModeBtn');
+
+      if (isPlannerListViewMode) {
+        if (focusCardEl) focusCardEl.classList.add('hidden');
+        if (listEl) {
+          listEl.classList.remove('hidden');
+          listEl.classList.add('grid');
+        }
+        if (toggleBtn) toggleBtn.innerText = '🎴 分頁模式';
+      } else {
+        if (focusCardEl) focusCardEl.classList.remove('hidden');
+        if (listEl) {
+          listEl.classList.add('hidden');
+          listEl.classList.remove('grid');
+        }
+        if (toggleBtn) toggleBtn.innerText = '📋 一覽模式';
+        renderPlannerCarouselFocusCard(currentPlannerCarouselIndex);
+      }
     }
 
     // ========================================================
@@ -7601,17 +8281,27 @@
 
       // Map to standard 10 quest items with _dailySentences
       questQueue = rawItems.map(itemObj => {
-        const g = itemObj.gradedSentences;
+        const g = (itemObj.gradedSentences && itemObj.gradedSentences.length > 0)
+          ? itemObj.gradedSentences
+          : [
+              { text: itemObj.sentence || itemObj.word, translation: itemObj.meaning, level: 1, levelLabel: "簡單 · 初階短句", audioSrc: itemObj.audioSentence || '' },
+              { text: `We use ${itemObj.word} today.`, translation: `我們今天使用${itemObj.meaning}。`, level: 2, levelLabel: "中等 · 生活日常", audioSrc: '' },
+              { text: `Practice ${itemObj.word} to learn English.`, translation: `練習${itemObj.meaning}來學習英文。`, level: 3, levelLabel: "進階 · 熟練挑戰", audioSrc: '' }
+            ];
+        const g0 = g[0] || { text: itemObj.word, translation: itemObj.meaning, level: 1, levelLabel: "簡單 · 初階短句", audioSrc: '' };
+        const g1 = g[1] || g0;
+        const g2 = g[2] || g1;
+
         let picked = [];
         if (userLevel === 1) {
           picked = [
-            { text: g[0].text, translation: g[0].translation, level: 1, levelLabel: "簡單 · 初階短句", audioSrc: g[0].audioSrc },
-            { text: g[1].text, translation: g[1].translation, level: 2, levelLabel: "中等 · 生活日常", audioSrc: g[1].audioSrc }
+            { text: g0.text, translation: g0.translation, level: 1, levelLabel: "簡單 · 初階短句", audioSrc: g0.audioSrc },
+            { text: g1.text, translation: g1.translation, level: 2, levelLabel: "中等 · 生活日常", audioSrc: g1.audioSrc }
           ];
         } else {
           picked = [
-            { text: g[1].text, translation: g[1].translation, level: 2, levelLabel: "中等 · 生活日常", audioSrc: g[1].audioSrc },
-            { text: g[2].text, translation: g[2].translation, level: 3, levelLabel: "進階 · 熟練挑戰", audioSrc: g[2].audioSrc }
+            { text: g1.text, translation: g1.translation, level: 2, levelLabel: "中等 · 生活日常", audioSrc: g1.audioSrc },
+            { text: g2.text, translation: g2.translation, level: 3, levelLabel: "進階 · 熟練挑戰", audioSrc: g2.audioSrc }
           ];
         }
         return {
