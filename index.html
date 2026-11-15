@@ -1530,6 +1530,70 @@
   <!-- ======================================================== -->
   <!-- KAI AI VOICE DIALOGUE LEARNING PLANNER MODAL             -->
   <!-- ======================================================== -->
+  <!-- ======================================================== -->
+  <!-- MISSED STREAK SHIELD & ENERGY REPAIR ALERT MODAL         -->
+  <!-- ======================================================== -->
+  <div id="streakMissedAlertModal" class="fixed inset-0 bg-slate-900/85 backdrop-blur-md z-[90] hidden flex items-center justify-center p-3.5 sm:p-6 overflow-y-auto">
+    <div class="bg-white rounded-3xl p-5 sm:p-6 max-w-md w-full shadow-2xl border-4 border-amber-400 flex flex-col items-center text-center my-auto relative animate-bounce-short">
+      
+      <!-- Top Alert Icon with Pulsing Flame -->
+      <div class="w-18 h-18 sm:w-20 sm:h-20 rounded-full bg-gradient-to-tr from-amber-400 via-orange-500 to-red-500 flex flex-col items-center justify-center text-white shadow-xl mb-3 border-4 border-white ring-4 ring-amber-200">
+        <span class="text-3xl sm:text-4xl animate-pulse">🚨</span>
+      </div>
+
+      <h3 class="text-lg sm:text-xl font-black text-slate-800 mb-1 flex items-center justify-center gap-1.5">
+        <span>連續打卡守護警報！</span>
+      </h3>
+      
+      <div class="w-full bg-rose-50 border border-rose-200 rounded-2xl p-3 my-2 text-left">
+        <p class="text-xs sm:text-sm text-rose-900 font-bold leading-relaxed">
+          ⚠️ Kai 發現你已經漏掉了 <span id="missedDaysNum" class="text-rose-600 font-mono text-base font-black">1</span> 天沒有打卡囉！
+        </p>
+        <p class="text-[11px] text-rose-700 mt-1">
+          若不進行能量補簽，累積的 <span class="font-bold underline text-amber-800">🔥 <span id="missedStreakCurrentNum">525</span> 天</span> 連勝紀錄將會中斷並歸零！
+        </p>
+      </div>
+
+      <!-- Cost & Balance Summary Box -->
+      <div class="w-full bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-3 border border-amber-200 mb-3.5 text-xs text-amber-950 flex items-center justify-around">
+        <div class="text-center">
+          <div class="text-[10px] text-amber-800 font-semibold">補簽天數</div>
+          <div class="text-base font-black text-amber-600 font-mono"><span id="missedDaysStat">1</span> 天</div>
+        </div>
+        <div class="h-8 w-px bg-amber-200"></div>
+        <div class="text-center">
+          <div class="text-[10px] text-amber-800 font-semibold">所需能量 (每天100點)</div>
+          <div class="text-base font-black text-amber-600 font-mono"><span id="missedCostEnergyNum">100</span> 點</div>
+        </div>
+        <div class="h-8 w-px bg-amber-200"></div>
+        <div class="text-center">
+          <div class="text-[10px] text-amber-800 font-semibold">目前能量餘額</div>
+          <div class="text-base font-black text-indigo-600 font-mono"><span id="missedUserEnergyNum">350</span> 點</div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="w-full flex flex-col gap-2">
+        <button id="repairStreakActionBtn" onclick="executeBatchStreakRepair()" class="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:to-orange-600 text-white font-black text-xs sm:text-sm shadow-lg shadow-orange-200 active:scale-95 transition flex items-center justify-center gap-2">
+          <span>🛡️ 立即使用能量補簽，連續守護！</span>
+        </button>
+
+        <button onclick="abandonStreakRestart()" class="w-full py-2.5 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-700 font-bold text-xs transition active:scale-95">
+          💔 放棄連勝，從今天重新開始計算
+        </button>
+      </div>
+
+      <!-- Debug Simulation Bar (For User Testing) -->
+      <div class="mt-3 pt-2 border-t border-slate-100 w-full flex items-center justify-center gap-1.5 text-[10px] text-slate-400">
+        <span>模擬測試：</span>
+        <button type="button" onclick="simulateMissedDays(1)" class="px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold">漏1天</button>
+        <button type="button" onclick="simulateMissedDays(2)" class="px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold">漏2天</button>
+        <button type="button" onclick="simulateMissedDays(0)" class="px-2 py-0.5 rounded bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold">正常無漏</button>
+      </div>
+
+    </div>
+  </div>
+
   <div id="kaiVoicePlannerModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[88] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
     <div class="bg-white rounded-3xl p-4 sm:p-6 max-w-xl w-full shadow-2xl border-2 border-emerald-200 flex flex-col gap-3.5 my-auto max-h-[92vh] overflow-y-auto">
       
@@ -1730,6 +1794,7 @@
         pin: "1234",
         streakDays: 525,
         energyPoints: 350,
+        lastCheckInDate: "2026-11-14", // Checked in yesterday (consecutive)
         scoreHistory: [88, 92, 85, 90, 95, 86, 91, 94],
         weakWords: ["banana", "clock"],
         masteredWords: ["cat", "dog", "apple", "sun"],
@@ -1744,6 +1809,7 @@
         pin: "1234",
         streakDays: 14,
         energyPoints: 120,
+        lastCheckInDate: "2026-11-14",
         scoreHistory: [70, 74, 76, 75, 78],
         weakWords: ["rabbit", "friend"],
         masteredWords: ["baby", "milk"],
@@ -1758,6 +1824,27 @@
     let earlyFinishTimer = null;
 
     // --- Quest Mode State (10 Words: Dynamic SRS Based on Practice History) ---
+    
+    // Load dynamically generated vocab from localStorage
+    try {
+      const savedCustom = localStorage.getItem('kaispeak_custom_vocab');
+      if (savedCustom) {
+        const parsed = JSON.parse(savedCustom);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          const existingWords = new Set(MASTER_VOCAB.map(v => v.word.toLowerCase()));
+          parsed.forEach(item => {
+            if (!existingWords.has(item.word.toLowerCase())) {
+              MASTER_VOCAB.push(item);
+              existingWords.add(item.word.toLowerCase());
+            }
+          });
+          console.log(`Loaded ${parsed.length} custom AI generated items from localStorage. Total: ${MASTER_VOCAB.length}`);
+        }
+      }
+    } catch(e) {
+      console.warn("Failed to load custom vocab from localStorage:", e);
+    }
+
     let questQueue = []; // 10 items
     let questWordIdx = 0; // 0 to 9
     let questSubStep = 0; // 0: Word, 1: Graded Sent 1, 2: Graded Sent 2
@@ -5587,12 +5674,123 @@
 
     function pad(n) { return n < 10 ? '0' + n : n; }
 
+
     // ========================================================
-    // KAI AI VOICE DIALOGUE LEARNING PLANNER (語音聊學規劃師)
+    // MISSED STREAK DETECTION & ENERGY REPAIR ENGINE
+    // ========================================================
+    function getMissedDays(profile) {
+      const p = profile || getActiveProfile();
+      if (!p.lastCheckInDate) {
+        return 0;
+      }
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const last = new Date(p.lastCheckInDate);
+      last.setHours(0, 0, 0, 0);
+      const diffTime = today.getTime() - last.getTime();
+      const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      
+      // diffDays === 0: checked in today
+      // diffDays === 1: checked in yesterday (0 missed)
+      // diffDays >= 2: missed (diffDays - 1) days
+      return diffDays >= 2 ? (diffDays - 1) : 0;
+    }
+
+    function checkMissedStreakOnStartup() {
+      const p = getActiveProfile();
+      const missed = getMissedDays(p);
+      if (missed > 0) {
+        showStreakMissedAlertModal(missed, p);
+      }
+    }
+
+    function showStreakMissedAlertModal(missed, profile) {
+      const p = profile || getActiveProfile();
+      const modal = document.getElementById('streakMissedAlertModal');
+      if (!modal) return;
+
+      document.getElementById('missedDaysNum').innerText = missed;
+      document.getElementById('missedStreakCurrentNum').innerText = p.streakDays || 1;
+      document.getElementById('missedDaysStat').innerText = missed;
+      document.getElementById('missedCostEnergyNum').innerText = missed * 100;
+      document.getElementById('missedUserEnergyNum').innerText = p.energyPoints || energyPoints;
+
+      modal.classList.remove('hidden');
+      SoundEffects.playClick('open');
+    }
+
+    function closeStreakMissedAlertModal() {
+      const modal = document.getElementById('streakMissedAlertModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function executeBatchStreakRepair() {
+      const p = getActiveProfile();
+      const missed = getMissedDays(p);
+      if (missed <= 0) {
+        closeStreakMissedAlertModal();
+        return;
+      }
+      const cost = missed * 100;
+      if ((p.energyPoints || 0) >= cost) {
+        p.energyPoints -= cost;
+        energyPoints = p.energyPoints;
+
+        // Set lastCheckInDate to yesterday so streak continues uninterrupted
+        const yest = new Date();
+        yest.setDate(yest.getDate() - 1);
+        p.lastCheckInDate = yest.toISOString().split('T')[0];
+
+        saveProfilesToStorage();
+        updateStreakAndEnergyUI();
+        SoundEffects.playShield();
+        closeStreakMissedAlertModal();
+        alert(`🎉 補簽守護成功！\n\n已成功消耗 ${cost} 點能量，修復了漏掉的 ${missed} 天打卡紀錄！\n您的連續打卡紀錄已成功守護延續在 🔥 ${p.streakDays} 天！`);
+      } else {
+        alert(`⚠️ 能量點數不足！\n\n修復 ${missed} 天打卡需消耗 ${cost} 點能量，目前餘額僅有 ${p.energyPoints || 0} 點。\n快去完成發音評測賺取能量，或點選下方除錯按鈕模擬充能！`);
+      }
+    }
+
+    function abandonStreakRestart() {
+      const p = getActiveProfile();
+      p.streakDays = 1;
+      streakDays = 1;
+      const yest = new Date();
+      yest.setDate(yest.getDate() - 1);
+      p.lastCheckInDate = yest.toISOString().split('T')[0];
+      saveProfilesToStorage();
+      updateStreakAndEnergyUI();
+      closeStreakMissedAlertModal();
+      alert("已重設連續打卡天數，從今天重新開始第 1 天挑戰！每天堅持開口，累積新紀錄！");
+    }
+
+    function simulateMissedDays(days) {
+      const p = getActiveProfile();
+      const d = new Date();
+      d.setDate(d.getDate() - (days + 1));
+      p.lastCheckInDate = d.toISOString().split('T')[0];
+      saveProfilesToStorage();
+      closeStreakMissedAlertModal();
+      if (days > 0) {
+        setTimeout(() => {
+          showStreakMissedAlertModal(days, p);
+        }, 150);
+      } else {
+        alert("已重設為【正常連續無漏簽】狀態！");
+      }
+    }
+
+
+    // ========================================================
+    // KAI AI VOICE DIALOGUE LEARNING PLANNER (語音聊學規劃師 · 10詞微課堂)
     // ========================================================
     let plannerSpeechRecognition = null;
     let isPlannerListening = false;
     let currentPlannedPlan = null;
+    let isCustomTopicQuest = false;
+    let customTopicTitle = "";
+
+    const MAX_SYSTEM_VOCAB_LIMIT = 5000;
 
     const SCENARIO_THEMES = {
       'school': {
@@ -5639,13 +5837,112 @@
       }
     };
 
+    // Rich Topic Knowledge Base for Kids & Gifted English Learning
+    const KNOWLEDGE_TOPICS = {
+      'space': {
+        title: '🚀 【外太空探險與火箭】微課堂',
+        keywords: ['太空', '宇宙', '火箭', '外星人', '星球', '月球', '太陽系', '太空人', '望遠鏡', '流星', 'space', 'rocket', 'planet', 'moon', 'astronaut', 'star', 'alien', 'galaxy', 'telescope'],
+        new_words: [
+          { word: "rocket", ipa: "/ˈrɑː.kɪt/", meaning: "名詞：火箭，太空火箭", emoji: "🚀", category: "travel",
+            s1: "Look at the rocket.", t1: "看那枚火箭。",
+            s2: "The shiny rocket flies high.", t2: "閃亮的火箭飛得很高。",
+            s3: "The brave astronaut rides the fast rocket.", t3: "勇敢的太空人搭乘快速的火箭。" },
+          { word: "planet", ipa: "/ˈplæn.ɪt/", meaning: "名詞：行星，星球", emoji: "🪐", category: "nature",
+            s1: "See the big planet.", t1: "看那個大行星。",
+            s2: "Our blue planet is beautiful.", t2: "我們藍色的地球行星真美麗。",
+            s3: "Many bright planets circle around the sun.", t3: "許多明亮的行星圍繞著太陽旋轉。" },
+          { word: "astronaut", ipa: "/ˈæs.trə.nɑːt/", meaning: "名詞：太空人，宇航員", emoji: "👨‍🚀", category: "toy_school",
+            s1: "He is an astronaut.", t1: "他是一位太空人。",
+            s2: "The astronaut floats in space.", t2: "太空人在外太空漂浮。",
+            s3: "The brave astronaut visits the distant moon.", t3: "勇敢的太空人造訪了遙遠的月球。" },
+          { word: "galaxy", ipa: "/ˈɡæl.ək.si/", meaning: "名詞：星系，銀河", emoji: "🌌", category: "nature",
+            s1: "See the starry galaxy.", t1: "看繁星點點的星系。",
+            s2: "The glowing galaxy is huge.", t2: "發光的星系非常巨大。",
+            s3: "We see a sparkling galaxy through telescope.", t3: "我們透過望遠鏡看見閃耀的星系。" },
+          { word: "telescope", ipa: "/ˈtɛl.ə.skoʊp/", meaning: "名詞：望遠鏡，天文望遠鏡", emoji: "🔭", category: "toy_school",
+            s1: "Use the new telescope.", t1: "使用這架新望遠鏡。",
+            s2: "Look through the long telescope.", t2: "透過長長的望遠鏡觀察。",
+            s3: "We observe shining stars with our telescope.", t3: "我們用望遠鏡觀察夜空中閃亮的星星。" },
+          { word: "meteor", ipa: "/ˈmiː.ti.ɔːr/", meaning: "名詞：流星，隕石", emoji: "☄️", category: "nature",
+            s1: "Make a wish meteor.", t1: "對流星許個願望。",
+            s2: "The bright meteor shoots fast.", t2: "明亮的流星飛速劃過。",
+            s3: "A brilliant meteor lights up night sky.", t3: "一顆璀璨的流星照亮了夜空。" }
+        ],
+        new_phrases: [
+          { word: "blast off", ipa: "/blæst ɔːf/", meaning: "動詞片語：點火發射升空", emoji: "🛫",
+            s1: "Please blast off now.", t1: "請現在發射升空。",
+            s2: "Rockets blast off into space.", t2: "火箭點火發射升入太空。",
+            s3: "Giant space rockets blast off with fire.", t3: "巨大的太空火箭伴隨著烈火點火發射升空。" },
+          { word: "gaze at stars", ipa: "/ɡeɪz æt stɑːrz/", meaning: "動詞片語：仰望星空，凝望繁星", emoji: "✨",
+            s1: "Please gaze at stars.", t1: "請抬頭凝望繁星。",
+            s2: "Children gaze at stars tonight.", t2: "孩子們今晚仰望璀璨星空。",
+            s3: "Happy kids gaze at stars every night.", t3: "快樂的孩子們每晚都抬頭凝望滿天繁星。" },
+          { word: "float in space", ipa: "/floʊt ɪn speɪs/", meaning: "動詞片語：在太空中漂浮漫遊", emoji: "🛰️",
+            s1: "Please float in space.", t1: "請在太空中輕輕漂浮。",
+            s2: "Astronauts float in space safely.", t2: "太空人在太空中安全漂浮。",
+            s3: "Brave explorers float in space without gravity.", t3: "勇敢的探險家在無重力太空中漫遊漂浮。" },
+          { word: "land on moon", ipa: "/lænd ɑːn muːn/", meaning: "動詞片語：登陸月球表面", emoji: "🌕",
+            s1: "Please land on moon.", t1: "請登陸月球表面。",
+            s2: "Spacecraft land on moon gently.", t2: "太空船平穩登陸月球表面。",
+            s3: "Excited astronauts land on moon for science.", t3: "興奮的太空人為了科學探索登陸月球表面。" }
+        ]
+      },
+      'dinosaur': {
+        title: '🦖 【史前恐龍與化石探秘】微課堂',
+        keywords: ['恐龍', '暴龍', '化石', '骨頭', '侏羅紀', '史前', 'dinosaur', 't-rex', 'fossil', 'bone', 'museum', 'jurassic', 'volcano'],
+        new_words: [
+          { word: "dinosaur", ipa: "/ˈdaɪ.nə.sɔːr/", meaning: "名詞：恐龍", emoji: "🦖", category: "animal",
+            s1: "See the big dinosaur.", t1: "看這隻巨大的恐龍。",
+            s2: "The green dinosaur roars loudly.", t2: "綠色的恐龍大聲吼叫。",
+            s3: "Gigantic prehistoric dinosaurs walked on the earth.", t3: "龐大的史前恐龍曾經漫步在地球表面。" },
+          { word: "fossil", ipa: "/ˈfɑː.səl/", meaning: "名詞：化石", emoji: "🦴", category: "nature",
+            s1: "Find an old fossil.", t1: "發現一塊古老化石。",
+            s2: "We discover an ancient fossil.", t2: "我們發現了一塊古老化石。",
+            s3: "Scientists carefully dig out an ancient fossil.", t3: "科學家們小心翼翼地挖掘出一塊古老化石。" },
+          { word: "skeleton", ipa: "/ˈskɛl.ə.tən/", meaning: "名詞：骨架，骨骼", emoji: "☠️", category: "daily_body",
+            s1: "Look at the skeleton.", t1: "看看這副骨架。",
+            s2: "The dinosaur skeleton is tall.", t2: "這具恐龍骨架非常高大。",
+            s3: "The museum displays a giant dinosaur skeleton.", t3: "博物館裡陳列著一具巨大的恐龍骨架。" },
+          { word: "roar", ipa: "/rɔːr/", meaning: "動詞：吼叫，大聲咆哮", emoji: "🦁", category: "actions",
+            s1: "Hear the loud roar.", t1: "聽聽那聲響亮吼叫。",
+            s2: "Brave beasts roar with power.", t2: "勇敢的猛獸威猛地吼叫。",
+            s3: "Fierce ancient predators roar across the valley.", t3: "兇猛的古代掠食者在山谷間大聲咆哮。" },
+          { word: "claw", ipa: "/klɔː/", meaning: "名詞：爪子，尖銳腳爪", emoji: "🦅", category: "animal",
+            s1: "Watch the sharp claw.", t1: "小心尖銳的爪子。",
+            s2: "The eagle has sharp claws.", t2: "老鷹擁有鋒利的爪子。",
+            s3: "The predatory dinosaur had sharp hunting claws.", t3: "掠食恐龍長著用來捕獵的鋒利爪子。" },
+          { word: "extinct", ipa: "/ɪkˈstɪŋkt/", meaning: "形容詞：滅絕的，絕種的", emoji: "🪨", category: "nature",
+            s1: "The dinosaurs are extinct.", t1: "恐龍已經絕種了。",
+            s2: "Ancient creatures became extinct long.", t2: "古代生物很久以前便已滅絕。",
+            s3: "Many fascinating ancient species are now extinct.", t3: "許多迷人的古代物種如今都已經滅絕了。" }
+        ],
+        new_phrases: [
+          { word: "dig up fossils", ipa: "/dɪɡ ʌp ˈfɑː.səlz/", meaning: "動詞片語：挖掘出土古老化石", emoji: "⛏️",
+            s1: "Please dig up fossils.", t1: "請挖掘古老化石。",
+            s2: "Children dig up fossils carefully.", t2: "孩子們小心挖掘古老化石。",
+            s3: "Young scientists dig up fossils in sand.", t3: "年輕的小小科學家在沙地裡挖掘化石。" },
+          { word: "explore cave", ipa: "/ɪkˈsplɔːr keɪv/", meaning: "動詞片語：探索神祕岩洞", emoji: "🪨",
+            s1: "Please explore cave now.", t1: "請現在探索岩洞。",
+            s2: "Brave kids explore cave together.", t2: "勇敢的孩子們一起探索洞穴。",
+            s3: "Adventurous scouts explore dark caves with flashlights.", t3: "冒險的童軍拿著手電筒探索幽暗的洞穴。" },
+          { word: "track footsteps", ipa: "/træk ˈfʊt.stɛps/", meaning: "動詞片語：追蹤巨大恐龍腳印", emoji: "🐾",
+            s1: "Please track footsteps.", t1: "請追蹤巨大腳印。",
+            s2: "Hikers track footsteps along path.", t2: "登山者沿著小徑追蹤腳印。",
+            s3: "Curious scouts track footsteps across the muddy ground.", t3: "好奇的童軍在泥濘的地面上追蹤腳印。" },
+          { word: "study bones", ipa: "/ˈstʌd.i boʊnz/", meaning: "動詞片語：研究化石骨骼結構", emoji: "🔬",
+            s1: "Please study bones now.", t1: "請仔細研究骨骼。",
+            s2: "Students study bones in lab.", t2: "學生在實驗室研究骨骼。",
+            s3: "Smart students study bones with great interest.", t3: "聰明的學生帶著濃厚興趣研究骨骼化石。" }
+        ]
+      }
+    };
+
     function openKaiVoicePlannerModal() {
       const modal = document.getElementById('kaiVoicePlannerModal');
       if (!modal) return;
       modal.classList.remove('hidden');
       SoundEffects.playClick('open');
       
-      // Auto play friendly greeting voice
       setTimeout(() => {
         playKaiVoiceGreeting();
       }, 400);
@@ -5688,7 +5985,7 @@
 
       try {
         plannerSpeechRecognition = new SpeechRec();
-        plannerSpeechRecognition.lang = 'zh-TW'; // Listen in Mandarin / English
+        plannerSpeechRecognition.lang = 'zh-TW';
         plannerSpeechRecognition.continuous = false;
         plannerSpeechRecognition.interimResults = true;
 
@@ -5771,15 +6068,107 @@
       const plan = planScenarioFromText(userText, userLevel);
       currentPlannedPlan = plan;
 
-      // Render plan UI
       renderPlannedResults(plan, adaptive);
       SoundEffects.playClick('unlock');
     }
 
+    // --- AI Lexicon Synthesis & Deduplication Engine (Max 5,000 Safety Limit) ---
     function planScenarioFromText(userText, userLevel = 1) {
       const text = userText.toLowerCase();
 
-      // 1. Score themes
+      // Check if text matches custom Knowledge Topics (e.g. space, dinosaur)
+      let customTopicKey = null;
+      for (const [k, topic] of Object.entries(KNOWLEDGE_TOPICS)) {
+        if (topic.keywords.some(kw => text.includes(kw.toLowerCase()))) {
+          customTopicKey = k;
+          break;
+        }
+      }
+
+      const existingWords = new Set(MASTER_VOCAB.map(v => v.word.toLowerCase()));
+      const newlyCreatedItems = [];
+
+      // 1. If custom topic matched and not yet in MASTER_VOCAB, generate and ingest dynamically!
+      if (customTopicKey && MASTER_VOCAB.length < MAX_SYSTEM_VOCAB_LIMIT) {
+        const topicData = KNOWLEDGE_TOPICS[customTopicKey];
+        const nextWIdx = MASTER_VOCAB.filter(v => !v.isPhrase && v.category !== 'phrases').length + 1;
+        const nextPIdx = MASTER_VOCAB.filter(v => v.isPhrase || v.category === 'phrases').length + 1;
+        let wCount = 0;
+        let pCount = 0;
+
+        topicData.new_words.forEach(nw => {
+          if (!existingWords.has(nw.word.toLowerCase()) && MASTER_VOCAB.length < MAX_SYSTEM_VOCAB_LIMIT) {
+            const code = `EN_W${String(nextWIdx + wCount).padStart(4, '0')}`;
+            wCount++;
+            const entry = {
+              id: nw.word,
+              word: nw.word,
+              wordCode: code,
+              phonetic: nw.ipa,
+              meaning: nw.meaning,
+              emoji: nw.emoji,
+              category: nw.category || "nature",
+              level: "L2",
+              role: "new",
+              variants: [nw.word, nw.word + "s"],
+              audioWord: `audio/word_${nw.word}.m4a`,
+              audioWordCanonical: `audio/words/${code.toLowerCase()}_${nw.word}.m4a`,
+              storyScene: `在自選生活情境中探索運用 ${nw.word}。`,
+              storyChapter: 1,
+              storyOrder: 1,
+              gradedSentences: [
+                { level: 1, levelLabel: "簡單 · 初階短句", tag: "簡單", text: nw.s1, translation: nw.t1, sentenceCode: `${code}_S1`, audioSrc: `audio/sentence_${nw.word}_0_0.m4a`, audioSrcCanonical: `audio/sentences/${code.toLowerCase()}_s1_${nw.word}.m4a` },
+                { level: 2, levelLabel: "中等 · 生活日常", tag: "中等", text: nw.s2, translation: nw.t2, sentenceCode: `${code}_S2`, audioSrc: `audio/sentence_${nw.word}_1_0.m4a`, audioSrcCanonical: `audio/sentences/${code.toLowerCase()}_s2_${nw.word}.m4a` },
+                { level: 3, levelLabel: "進階 · 熟練挑戰", tag: "進階", text: nw.s3, translation: nw.t3, sentenceCode: `${code}_S3`, audioSrc: `audio/sentence_${nw.word}_2_0.m4a`, audioSrcCanonical: `audio/sentences/${code.toLowerCase()}_s3_${nw.word}.m4a` }
+              ]
+            };
+            MASTER_VOCAB.push(entry);
+            newlyCreatedItems.push(entry);
+            existingWords.add(nw.word.toLowerCase());
+          }
+        });
+
+        topicData.new_phrases.forEach(np => {
+          if (!existingWords.has(np.word.toLowerCase()) && MASTER_VOCAB.length < MAX_SYSTEM_VOCAB_LIMIT) {
+            const cleanId = np.word.replace(/\s+/g, '_');
+            const code = `EN_P${String(nextPIdx + pCount).padStart(4, '0')}`;
+            pCount++;
+            const entry = {
+              id: cleanId,
+              word: np.word,
+              wordCode: code,
+              phonetic: np.ipa,
+              meaning: np.meaning,
+              emoji: np.emoji,
+              category: "phrases",
+              level: "L2",
+              role: "new",
+              isPhrase: true,
+              variants: [np.word],
+              audioWord: `audio/word_${cleanId}.m4a`,
+              audioWordCanonical: `audio/phrases/${code.toLowerCase()}_${cleanId}.m4a`,
+              storyScene: `在自選高頻生活語塊中熟練表達 ${np.word}。`,
+              storyChapter: 1,
+              storyOrder: 1,
+              gradedSentences: [
+                { level: 1, levelLabel: "簡單 · 初階短句", tag: "簡單", text: np.s1, translation: np.t1, sentenceCode: `${code}_S1`, audioSrc: `audio/sentence_${cleanId}_0_0.m4a`, audioSrcCanonical: `audio/sentences/${code.toLowerCase()}_s1_${cleanId}.m4a` },
+                { level: 2, levelLabel: "中等 · 生活日常", tag: "中等", text: np.s2, translation: np.t2, sentenceCode: `${code}_S2`, audioSrc: `audio/sentence_${cleanId}_1_0.m4a`, audioSrcCanonical: `audio/sentences/${code.toLowerCase()}_s2_${cleanId}.m4a` },
+                { level: 3, levelLabel: "進階 · 熟練拓展", tag: "進階", text: np.s3, translation: np.t3, sentenceCode: `${code}_S3`, audioSrc: `audio/sentence_${cleanId}_2_0.m4a`, audioSrcCanonical: `audio/sentences/${code.toLowerCase()}_s3_${cleanId}.m4a` }
+              ]
+            };
+            MASTER_VOCAB.push(entry);
+            newlyCreatedItems.push(entry);
+            existingWords.add(np.word.toLowerCase());
+          }
+        });
+
+        // Persist newly created items to localStorage and background server API
+        if (newlyCreatedItems.length > 0) {
+          persistNewItemsToDatabase(newlyCreatedItems);
+        }
+      }
+
+      // 2. Score existing themes
       const themeScores = {};
       for (const [tId, tInfo] of Object.entries(SCENARIO_THEMES)) {
         let s = 0;
@@ -5791,50 +6180,33 @@
 
       let bestThemeId = Object.keys(themeScores).reduce((a, b) => themeScores[a] > themeScores[b] ? a : b);
       if (themeScores[bestThemeId] === 0) {
-        bestThemeId = 'school';
-      }
-      const themeData = SCENARIO_THEMES[bestThemeId];
-
-      const vocabMap = {};
-      MASTER_VOCAB.forEach(v => {
-        vocabMap[v.word.toLowerCase()] = v;
-      });
-
-      // Pick 2 words + 2 phrases
-      const pickedWords = [];
-      for (const w of themeData.preferred_words) {
-        const item = vocabMap[w.toLowerCase()];
-        if (item && !item.isPhrase && item.category !== 'phrases') {
-          pickedWords.push(item);
-        }
-        if (pickedWords.length >= 2) break;
+        bestThemeId = customTopicKey ? customTopicKey : 'school';
       }
 
-      const pickedPhrases = [];
-      for (const p of themeData.preferred_phrases) {
-        const item = vocabMap[p.toLowerCase()];
-        if (item && (item.isPhrase || item.category === 'phrases')) {
-          pickedPhrases.push(item);
-        }
-        if (pickedPhrases.length >= 2) break;
-      }
+      const themeTitle = customTopicKey ? KNOWLEDGE_TOPICS[customTopicKey].title : SCENARIO_THEMES[bestThemeId].title;
 
-      // Dynamic fallback if any empty
-      if (pickedWords.length < 2) {
-        const fallbackWords = MASTER_VOCAB.filter(v => !v.isPhrase && v.category !== 'phrases');
-        while (pickedWords.length < 2 && fallbackWords.length > 0) {
-          pickedWords.push(fallbackWords[pickedWords.length]);
-        }
-      }
-      if (pickedPhrases.length < 2) {
-        const fallbackPhrases = MASTER_VOCAB.filter(v => v.isPhrase || v.category === 'phrases');
-        while (pickedPhrases.length < 2 && fallbackPhrases.length > 0) {
-          pickedPhrases.push(fallbackPhrases[pickedPhrases.length]);
-        }
-      }
+      // Extract 6 Words + 4 Phrases = 10 Items Total
+      const wordsPool = MASTER_VOCAB.filter(v => !v.isPhrase && v.category !== 'phrases');
+      const phrasesPool = MASTER_VOCAB.filter(v => v.isPhrase || v.category === 'phrases');
 
-      const allItems = [...pickedWords, ...pickedPhrases];
-      const plannedCards = allItems.map(item => {
+      // Rank words by relevance to user text
+      const scoreItem = (item) => {
+        let sc = 0;
+        const w = item.word.toLowerCase();
+        const m = (item.meaning || '').toLowerCase();
+        if (text.includes(w) || w.includes(text)) sc += 10;
+        if (text.split('').some(ch => m.includes(ch))) sc += 2;
+        return sc;
+      };
+
+      const sortedWords = [...wordsPool].sort((a, b) => scoreItem(b) - scoreItem(a));
+      const sortedPhrases = [...phrasesPool].sort((a, b) => scoreItem(b) - scoreItem(a));
+
+      const selectedWords = sortedWords.slice(0, 6);
+      const selectedPhrases = sortedPhrases.slice(0, 4);
+      const allSelected10 = [...selectedWords, ...selectedPhrases];
+
+      const plannedCards = allSelected10.map(item => {
         const g = item.gradedSentences;
         const lvlIdx = Math.max(0, Math.min(userLevel - 1, g.length - 1));
         const targetSent = g[lvlIdx];
@@ -5857,9 +6229,51 @@
 
       return {
         themeId: bestThemeId,
-        title: themeData.title,
-        items: plannedCards
+        title: themeTitle,
+        items: plannedCards,
+        newlyCreatedCount: newlyCreatedItems.length
       };
+    }
+
+    function persistNewItemsToDatabase(newItems) {
+      try {
+        const saved = JSON.parse(localStorage.getItem('kaispeak_custom_vocab') || '[]');
+        const combined = [...saved, ...newItems];
+        localStorage.setItem('kaispeak_custom_vocab', JSON.stringify(combined));
+        console.log(`Saved ${newItems.length} new items to localStorage.`);
+      } catch(e) {
+        console.warn("localStorage save failed:", e);
+      }
+
+      // Sync to server.py backend if available
+      try {
+        fetch('/api/save_custom_vocab', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ newItems })
+        }).then(r => r.json()).then(res => {
+          console.log("Server synced custom vocab:", res);
+        }).catch(err => {
+          console.log("Server API not reachable, running offline (localStorage active)");
+        });
+      } catch(e) {}
+
+      // Refresh UI category counter & pager
+      updateVocabCountersUI();
+    }
+
+    function updateVocabCountersUI() {
+      const wordsCount = MASTER_VOCAB.filter(v => !v.isPhrase && v.category !== 'phrases').length;
+      const phrasesCount = MASTER_VOCAB.filter(v => v.isPhrase || v.category === 'phrases').length;
+
+      const allBtn = document.querySelector('.free-cat-btn[data-cat="all"]');
+      if (allBtn) allBtn.innerText = `全部單字 (${wordsCount})`;
+
+      const phraseBtn = document.querySelector('.free-cat-btn[data-cat="phrases"]');
+      if (phraseBtn) {
+        const badge = phraseBtn.querySelector('span:last-child');
+        if (badge) badge.innerText = `${phrasesCount} 常用語塊`;
+      }
     }
 
     function renderPlannedResults(plan, adaptive) {
@@ -5872,7 +6286,8 @@
       if (!area || !titleEl || !listEl) return;
 
       titleEl.innerText = plan.title;
-      subtitleEl.innerText = `Kai 已為你挑選 2 個生活單字 + 2 組高頻片語！依你連續登錄 ${adaptive.streakDays || 1} 天推薦 ${adaptive.level === 1 ? '初階 3~4 詞短句' : (adaptive.level === 2 ? '日常 4~6 詞例句' : '進階 6~8 詞挑戰句')}。`;
+      const newNotice = plan.newlyCreatedCount > 0 ? ` (已為你智慧生成並收錄 ${plan.newlyCreatedCount} 個全新詞彙到資料庫！)` : '';
+      subtitleEl.innerText = `Kai 已為你挑選 6 個生活單字 + 4 組高頻片語（共 10 詞標準任務）！${newNotice}例句已自動適配你的自適應等級。`;
       badgeEl.innerText = adaptive.level === 1 ? '🟢 初階適配 (3~4詞)' : (adaptive.level === 2 ? '🟡 日常適配 (4~6詞)' : '🟣 熟練挑戰 (6~8詞)');
 
       listEl.innerHTML = '';
@@ -5908,30 +6323,6 @@
       area.classList.add('flex');
     }
 
-    function applyVoicePlanToFreePractice() {
-      if (!currentPlannedPlan || !currentPlannedPlan.items) return;
-
-      const rawItems = currentPlannedPlan.items.map(it => it.itemRef);
-      window._customScenarioList = rawItems;
-      window._customScenarioTitle = currentPlannedPlan.title;
-
-      // Show Custom Scenario Tab
-      const customTab = document.getElementById('customScenarioTabBtn');
-      const customLabel = document.getElementById('customScenarioTabLabel');
-      if (customTab && customLabel) {
-        customLabel.innerText = currentPlannedPlan.title.split(' ')[0] + ' 微課堂 (4)';
-        customTab.classList.remove('hidden');
-      }
-
-      closeKaiVoicePlannerModal();
-      switchAppMode('free');
-      setFreeCategory('custom_scenario');
-      
-      setTimeout(() => {
-        playFreeTargetAudio();
-      }, 400);
-    }
-
     function applyVoicePlanToDailyQuest() {
       if (!currentPlannedPlan || !currentPlannedPlan.items) return;
 
@@ -5940,7 +6331,10 @@
       const adaptive = getAdaptiveAnalysis(activeP);
       const userLevel = adaptive.level;
 
-      // Map to quest items with _dailySentences
+      isCustomTopicQuest = true;
+      customTopicTitle = currentPlannedPlan.title;
+
+      // Map to standard 10 quest items with _dailySentences
       questQueue = rawItems.map(itemObj => {
         const g = itemObj.gradedSentences;
         let picked = [];
@@ -5966,9 +6360,44 @@
 
       closeKaiVoicePlannerModal();
       switchAppMode('quest');
+
+      // Update Quest Banner Title with Custom Topic
+      const questBannerTitle = document.querySelector('#viewDailyQuest h2');
+      if (questBannerTitle) {
+        questBannerTitle.innerHTML = `<span>🎯 今日自選任務：${customTopicTitle} (10詞)</span>`;
+      }
+      const questBannerSub = document.querySelector('#viewDailyQuest p.text-indigo-100');
+      if (questBannerSub) {
+        questBannerSub.innerText = `自選情境 10 詞打卡流 · 6 個單字 + 4 組生活片語 · 完成即可正式打卡！`;
+      }
     }
 
-    window.addEventListener('DOMContentLoaded', () => {
+    function applyVoicePlanToFreePractice() {
+      if (!currentPlannedPlan || !currentPlannedPlan.items) return;
+
+      const rawItems = currentPlannedPlan.items.map(it => it.itemRef);
+      window._customScenarioList = rawItems;
+      window._customScenarioTitle = currentPlannedPlan.title;
+
+      // Show Custom Scenario Tab in Free Practice
+      const customTab = document.getElementById('customScenarioTabBtn');
+      const customLabel = document.getElementById('customScenarioTabLabel');
+      if (customTab && customLabel) {
+        customLabel.innerText = currentPlannedPlan.title.split(' ')[0] + ` (${rawItems.length})`;
+        customTab.classList.remove('hidden');
+      }
+
+      closeKaiVoicePlannerModal();
+      switchAppMode('free');
+      setFreeCategory('custom_scenario');
+      
+      setTimeout(() => {
+        playFreeTargetAudio();
+      }, 400);
+    }
+
+
+        window.addEventListener('DOMContentLoaded', () => {
       isUserLoggedIn = false;
       questAutoPlay = false;
       if (questAudioPlayer) questAudioPlayer.pause();
