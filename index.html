@@ -1687,13 +1687,14 @@
 
       <!-- Planned Custom Micro-Lesson Result Area -->
       <div id="plannerResultsArea" class="hidden flex-col gap-3 text-left">
+        <!-- Header -->
         <div class="flex items-center justify-between bg-gradient-to-r from-violet-50 to-indigo-50 p-2.5 sm:p-3 rounded-2xl border border-indigo-200">
           <div>
             <h4 id="plannerResultTitle" class="text-xs sm:text-sm font-black text-indigo-950 flex items-center gap-1.5">
               🏫 【快樂校園與好朋友同樂】專屬情境微課堂
             </h4>
             <p id="plannerResultSubtitle" class="text-[10px] text-indigo-700 font-medium mt-0.5">
-              Kai 已從詞庫為你挑選 2 個生活單字 + 2 組常用片語！例句已自動適配你的自適應難度。
+              Kai 已為你挑選 6 個生活單字 + 4 組高頻片語！例句已自動適配你的自適應難度。
             </p>
           </div>
           <span id="plannerResultAdaptiveBadge" class="text-[9px] bg-indigo-600 text-white font-extrabold px-2 py-0.5 rounded-full shrink-0">
@@ -1701,9 +1702,65 @@
           </span>
         </div>
 
-        <!-- 4 Recommended Cards Grid -->
-        <div id="plannerItemsList" class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        <!-- Database & AI Source Summary Pill Bar -->
+        <div id="plannerSourceStatsBar" class="flex items-center justify-between gap-2 px-3 py-1.5 rounded-xl bg-slate-100/90 border border-slate-200 text-[10px]">
+          <div class="flex items-center gap-2">
+            <span id="statExistingCount" class="font-bold text-slate-700 flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+              📚 題庫收錄：6 詞
+            </span>
+            <span class="text-slate-300">|</span>
+            <span id="statAiGeneratedCount" class="font-bold text-amber-800 flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-amber-500 animate-ping"></span>
+              ✨ AI 新生成：4 詞
+            </span>
+          </div>
+          <span id="statBackendSyncStatus" class="text-[9px] text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
+            ✓ 資料庫已同步記錄
+          </span>
+        </div>
+
+        <!-- Notification Banner when newly created words exist -->
+        <div id="plannerNewWordsNotice" class="hidden p-2.5 rounded-xl bg-amber-50/80 border border-amber-200 text-[10px] text-amber-900 items-start gap-2">
+          <span class="text-base shrink-0">💡</span>
+          <div class="flex-1">
+            <div class="font-bold">發現全新探索詞彙！已登記至學習資料庫</div>
+            <div class="text-[9px] text-amber-700 leading-tight mt-0.5">標記為「✨ AI 新生成」的詞彙已安全寫入資料庫並排程至後台；系統已即時備妥美式分級例句，後台將自動接力合成標準語音與圖片素材！</div>
+          </div>
+        </div>
+
+        <!-- 10 Recommended Cards Grid -->
+        <div id="plannerItemsList" class="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-[34vh] overflow-y-auto pr-1">
           <!-- Dynamically populated -->
+        </div>
+
+        <!-- Parent-Child Dialogue Story Section (中英文對照 · 點擊單字同步念出) -->
+        <div class="p-3 sm:p-3.5 rounded-2xl bg-gradient-to-br from-indigo-50/60 via-purple-50/40 to-pink-50/40 border-2 border-indigo-200/80 shadow-xs flex flex-col gap-2.5">
+          <div class="flex items-center justify-between border-b border-indigo-100 pb-2">
+            <div>
+              <h5 class="text-xs sm:text-sm font-black text-indigo-950 flex items-center gap-1.5">
+                <span>📖 親子日常對話短文</span>
+                <span class="text-[9px] bg-purple-100 text-purple-800 border border-purple-300 px-2 py-0.5 rounded-full font-bold">中英對照 · 點字發音</span>
+              </h5>
+              <p class="text-[10px] text-indigo-600 font-medium mt-0.5">
+                👉 點擊短文中的任一英文單字，即可同步聽發音！
+              </p>
+            </div>
+            <div class="flex items-center gap-1.5 shrink-0">
+              <button id="playFullDialogueBtn" type="button" onclick="togglePlayFullDialogue()" class="px-2.5 py-1 rounded-xl bg-white hover:bg-indigo-50 border border-indigo-200 text-indigo-700 hover:text-indigo-900 font-bold text-[10px] shadow-2xs active:scale-95 transition flex items-center gap-1">
+                <span id="playFullDialogueIcon">▶️</span>
+                <span id="playFullDialogueLabel">播放整篇對話</span>
+              </button>
+              <button type="button" onclick="regenerateDialogueOnly()" class="p-1 rounded-xl bg-white hover:bg-slate-100 border border-slate-200 text-slate-600 hover:text-slate-800 text-[11px] shadow-2xs active:scale-95 transition" title="隨機換一篇對話短文">
+                🎲
+              </button>
+            </div>
+          </div>
+
+          <!-- Dialogue Bubbles Container -->
+          <div id="plannerDialogueContainer" class="flex flex-col gap-2 max-h-[30vh] overflow-y-auto pr-1">
+            <!-- Dynamically populated dialogue lines -->
+          </div>
         </div>
 
         <!-- Action Buttons -->
@@ -1712,7 +1769,7 @@
             <span>📚 一鍵載入自由練習</span>
           </button>
           <button type="button" onclick="applyVoicePlanToDailyQuest()" class="flex-1 py-3 px-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 text-white font-black text-xs shadow-md active:scale-95 transition flex items-center justify-center gap-1.5">
-            <span>🎯 展開此情境專屬任務</span>
+            <span>🎯 展開此情境專屬任務 (10詞)</span>
           </button>
         </div>
 
@@ -6189,18 +6246,40 @@
       const wordsPool = MASTER_VOCAB.filter(v => !v.isPhrase && v.category !== 'phrases');
       const phrasesPool = MASTER_VOCAB.filter(v => v.isPhrase || v.category === 'phrases');
 
-      // Rank words by relevance to user text
-      const scoreItem = (item) => {
+      const newlyCreatedItemWords = new Set(newlyCreatedItems.map(i => i.word.toLowerCase()));
+      let customVocabWords = new Set();
+      try {
+        const cv = JSON.parse(localStorage.getItem('kaispeak_custom_vocab') || '[]');
+        cv.forEach(i => customVocabWords.add(i.word.toLowerCase()));
+      } catch(e) {}
+
+      // Identify topic-specific preferred words & phrases
+      let priorityWords = [];
+      let priorityPhrases = [];
+      if (customTopicKey && KNOWLEDGE_TOPICS[customTopicKey]) {
+        const top = KNOWLEDGE_TOPICS[customTopicKey];
+        priorityWords = (top.new_words || []).map(w => w.word.toLowerCase());
+        priorityPhrases = (top.new_phrases || []).map(p => p.word.toLowerCase());
+      } else if (SCENARIO_THEMES[bestThemeId]) {
+        priorityWords = (SCENARIO_THEMES[bestThemeId].preferred_words || []).map(w => w.toLowerCase());
+        priorityPhrases = (SCENARIO_THEMES[bestThemeId].preferred_phrases || []).map(p => p.toLowerCase());
+      }
+
+      // Rank words with contextual relevance and priority boost
+      const scoreItem = (item, isPh = false) => {
         let sc = 0;
         const w = item.word.toLowerCase();
         const m = (item.meaning || '').toLowerCase();
-        if (text.includes(w) || w.includes(text)) sc += 10;
+        const priList = isPh ? priorityPhrases : priorityWords;
+        if (priList.includes(w)) sc += 100;
+        if (newlyCreatedItemWords.has(w)) sc += 50;
+        if (text.includes(w) || w.includes(text)) sc += 15;
         if (text.split('').some(ch => m.includes(ch))) sc += 2;
         return sc;
       };
 
-      const sortedWords = [...wordsPool].sort((a, b) => scoreItem(b) - scoreItem(a));
-      const sortedPhrases = [...phrasesPool].sort((a, b) => scoreItem(b) - scoreItem(a));
+      const sortedWords = [...wordsPool].sort((a, b) => scoreItem(b, false) - scoreItem(a, false));
+      const sortedPhrases = [...phrasesPool].sort((a, b) => scoreItem(b, true) - scoreItem(a, true));
 
       const selectedWords = sortedWords.slice(0, 6);
       const selectedPhrases = sortedPhrases.slice(0, 4);
@@ -6210,11 +6289,15 @@
         const g = item.gradedSentences;
         const lvlIdx = Math.max(0, Math.min(userLevel - 1, g.length - 1));
         const targetSent = g[lvlIdx];
+        const isNew = newlyCreatedItemWords.has(item.word.toLowerCase()) || 
+                      customVocabWords.has(item.word.toLowerCase()) || 
+                      Boolean(item.isNewlyGenerated);
         return {
           itemRef: item,
           code: item.wordCode,
           word: item.word,
           isPhrase: item.isPhrase || false,
+          isNewlyGenerated: isNew,
           phonetic: item.phonetic,
           meaning: item.meaning,
           emoji: item.emoji,
@@ -6227,12 +6310,370 @@
         };
       });
 
-      return {
+      const planResult = {
         themeId: bestThemeId,
         title: themeTitle,
         items: plannedCards,
         newlyCreatedCount: newlyCreatedItems.length
       };
+
+      // Generate Parent-Child Dialogue matching this micro-lesson
+      planResult.dialogue = generateParentChildDialogue(planResult, text, false);
+
+      return planResult;
+    }
+
+    // ========================================================
+    // PARENT-CHILD INTERACTIVE DIALOGUE GENERATOR & PLAYER
+    // ========================================================
+    let currentDialoguePlaybackIndex = -1;
+    let isFullDialoguePlaying = false;
+
+    function generateParentChildDialogue(plan, userText = "", randomize = false) {
+      const themeId = plan.themeId;
+      const items = plan.items || [];
+      const words = items.filter(i => !i.isPhrase).map(i => i.word);
+      const phrases = items.filter(i => i.isPhrase).map(i => i.word);
+
+      // Curated dialogue banks with multiple randomized conversational angles
+      const THEME_DIALOGUES = {
+        'space': [
+          [
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Good morning Kai! Look at the shiny rocket preparing to blast off into space!", zh: "早安 Kai！看那枚閃亮的火箭正準備發射升空進入太空！" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Wow! Can an astronaut float in space and land on moon?", zh: "哇！太空人可以在太空中漂浮，還能登陸月球嗎？" },
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Yes! We can also gaze at stars and find the glowing planet tonight.", zh: "可以的！我們今晚還能一起仰望星空，尋找那顆發光的星球呢。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I will use our new telescope to observe a distant galaxy!", zh: "我要用我們的新望遠鏡來觀察遙遠的銀河系！" },
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Look, a bright meteor is flying fast, let us make a wish together!", zh: "看，一顆明亮的流星飛速劃過，我們一起許個願吧！" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I wish to become a brave astronaut and explore space!", zh: "我許願有一天能成為勇敢的太空人探索宇宙！" }
+          ],
+          [
+            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Are you ready for our science night to gaze at stars together, Kai?", zh: "Kai，你準備好今晚的科學之夜，跟爸爸一起仰望星空了嗎？" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Yes Dad! Look at that bright planet and the sparkling galaxy!", zh: "好的爸爸！看那顆明亮的星球和閃耀的星系！" },
+            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "The powerful rocket will blast off to carry astronauts into space.", zh: "強大的火箭會點火發射，把太空人送上太空。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I want to land on moon and study space rocks with my telescope!", zh: "我想登陸月球，並用我的望遠鏡研究太空岩石！" },
+            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "You are the most curious little astronomer in the universe!", zh: "你真是全宇宙最好奇的小小天文學家！" }
+          ]
+        ],
+        'dinosaur': [
+          [
+            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Kai, we are going to explore cave and dig up fossils in the museum today!", zh: "Kai，我們今天要去博物館探索神祕洞穴並挖掘化石！" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Look Dad! That huge dinosaur skeleton can roar so powerfully!", zh: "爸爸你看！那具巨大的恐龍骨架好像會威猛地吼叫！" },
+            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Be careful of its sharp claw. Those beasts became extinct long ago.", zh: "小心牠鋒利的爪子。那些古代巨獸很久以前就滅絕了。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I want to track footsteps and study bones like a junior scientist!", zh: "我想像小小科學家一樣追蹤腳印並仔細研究骨骼！" },
+            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "You have the keen eyes of a real paleontologist!", zh: "你擁有真正古生物學家的敏銳雙眼！" }
+          ],
+          [
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Welcome to the prehistoric park! Can you dig up fossils in the sandbox?", zh: "歡迎來到史前公園！你可以在沙池裡挖掘化石嗎？" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I found an ancient fossil! Did the huge dinosaur have a sharp claw?", zh: "我發現了一塊古老化石！巨大的恐龍長著鋒利的爪子嗎？" },
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Yes, predators used sharp claws to hunt before they went extinct.", zh: "是的，掠食恐龍在絕種之前就是用鋒利的爪子捕獵。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Let's study bones and explore cave together, Mom!", zh: "媽媽，我們一起研究骨骼並探索神祕岩洞吧！" },
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Such a thrilling adventure with my brave little explorer!", zh: "跟我的勇敢小探險家一起冒險真是太刺激了！" }
+          ]
+        ],
+        'school': [
+          [
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Good morning Kai! Time to pack your bag and arrive at school on time.", zh: "早安 Kai！該收拾書包，準時出發去學校囉。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Yes Mom! I am excited to meet my friend and play together today.", zh: "好的媽媽！我很興奮今天能見到好朋友並一起玩耍。" },
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Remember to clean desk and listen politely when the teacher speaks.", zh: "在老師說話時要記得整理書桌，有禮貌地專心聆聽喔。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I will raise hand to share ideas and take notes in my notebook!", zh: "我會舉手分享想法，還會在筆記本上記好筆記！" },
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Wonderful! Have a marvelous and joyful school day.", zh: "太棒了！祝你有個精彩又快樂的校園時光。" }
+          ],
+          [
+            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Kai, do you have your pencil, ruler, and book ready for school?", zh: "Kai，你的鉛筆、尺子和課本都準備好帶去學校了嗎？" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Everything is ready Dad! I will share toys and make friends at recess.", zh: "全都準備好了爸爸！下課時我會分享玩具、結交好朋友。" },
+            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Always be polite to your teacher and classmates.", zh: "對老師和同學要時時刻刻保持禮貌喔。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I will clean desk and listen carefully during every class!", zh: "我每一節課都會把書桌收乾淨，並認真聆聽！" },
+            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Proud of you, my smart little student!", zh: "以你為榮，我的聰明小小好學生！" }
+          ]
+        ],
+        'animals': [
+          [
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Look Kai, that adorable puppy is wagging its tail happily!", zh: "Kai你看，那隻可愛的幼犬正開心地搖著尾巴！" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Can we pet animal gently and feed puppy some healthy treats?", zh: "我們可以溫柔地摸摸牠，餵小狗吃點健康零食嗎？" },
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Sure! Let's walk puppy in the green park and observe nature.", zh: "當然可以！我們牽小狗去綠意盎然的公園散步，觀察大自然吧。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I want to catch ball and run on the grass with our puppy!", zh: "我想跟我們的小狗在草地上玩接球並奔跑！" },
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Animals make our lives joyful when we care for them with love.", zh: "當我們用愛心照顧小動物時，生活就會充滿快樂。" }
+          ]
+        ],
+        'food': [
+          [
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Kai, let's eat lunch together and taste food in our sunny kitchen.", zh: "Kai，我們一起在陽光明媚的廚房吃午餐品嚐美食吧。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Can we bake cookies and drink milk for afternoon snack?", zh: "下午點心我們可以烤餅乾、喝牛奶嗎？" },
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Of course! Remember to wash fruit first and chew slowly.", zh: "當然可以！記得先洗水果，吃東西時要細嚼慢嚥喔。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "The hot soup smells delicious, I will sip soup carefully!", zh: "熱騰騰的湯聞起來好香，我會小心啜飲！" },
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Enjoy your healthy meal, my lovely little chef!", zh: "好好享用健康的一餐，我的可愛小廚師！" }
+          ]
+        ],
+        'sports_park': [
+          [
+            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "The sunshine is wonderful! Let's ride scooter to the community park.", zh: "陽光真美好！我們騎滑板車去社區公園吧。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Yay! I want to kick soccer and throw ball with you Dad!", zh: "太好了！我想跟爸爸一起踢足球和丟球！" },
+            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "We can also swing high, slide down, and fly kite today.", zh: "我們今天還可以盪得高高的、溜滑梯，還能放風箏呢。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Watch me jump rope and run fast like a champion!", zh: "看我跳繩，跑得像冠軍一樣飛快！" },
+            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Exercise keeps your body strong and your smile bright!", zh: "運動讓你的身體強健，笑容燦爛！" }
+          ]
+        ],
+        'home_routine': [
+          [
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Good morning Kai! Time to wake up and make bed nicely.", zh: "早安 Kai！該起床並把床鋪整理整齊囉。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I am up Mom! I will brush teeth and wash hands right now.", zh: "我起床了媽媽！我現在就去刷牙和洗手。" },
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Put on socks and fold clothes before we eat breakfast.", zh: "在吃早餐前，把襪子穿好並把衣服折好喔。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "My bedroom is tidy and clean, ready for an awesome day!", zh: "我的房間現在乾淨整潔，準備好迎接美好的一天！" },
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Good habits make every morning smooth and cheerful!", zh: "良好的生活習慣讓每個早晨都輕鬆愉快！" }
+          ]
+        ],
+        'art_creativity': [
+          [
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Let's take out our crayons and draw picture on the desk, Kai!", zh: "Kai，我們拿出蠟筆，在桌上畫畫吧！" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I want to mix colors and craft origami animals with paper!", zh: "我想調配顏色，還想用紙折出摺紙動物！" },
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "You can cut out shapes carefully and glue down each piece.", zh: "你可以小心剪出圖案，把每一塊彩紙黏貼上去。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Look at my castle painting, it is full of bright magic!", zh: "看我畫的城堡，充滿了明亮的魔法！" },
+            { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: "Your artwork is brilliant and filled with creativity!", zh: "你的藝術作品棒極了，充滿了無限創意！" }
+          ]
+        ],
+        'travel_outing': [
+          [
+            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Kai, we are taking the city bus to visit library this afternoon.", zh: "Kai，我們今天下午要搭市區公車去圖書館。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "Can I borrow book about science and train adventures?", zh: "我可以借一本關於科學和火車冒險的書嗎？" },
+            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Yes! Remember to wait for green light before we cross street.", zh: "可以！在過馬路之前，記得一定要等綠燈亮起喔。" },
+            { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: "I always remember safety rules when we travel together.", zh: "我們一起出門時，我總是牢記安全規則。" },
+            { speaker: "Dad", speakerLabel: "爸爸", avatar: "👨", en: "Let's catch bus now and enjoy our wonderful trip!", zh: "我們現在去搭公車，享受美好的旅程吧！" }
+          ]
+        ]
+      };
+
+      // 1. Pick from curated dialogues if theme matches
+      if (THEME_DIALOGUES[themeId]) {
+        const variants = THEME_DIALOGUES[themeId];
+        const pickedIdx = randomize ? Math.floor(Math.random() * variants.length) : 0;
+        return variants[pickedIdx];
+      }
+
+      // 2. Dynamic Conversational Engine for any custom topic
+      const w1 = words[0] || "adventure";
+      const w2 = words[1] || "discovery";
+      const w3 = words[2] || "surprise";
+      const p1 = phrases[0] || "explore world";
+      const p2 = phrases[1] || "learn new things";
+
+      return [
+        { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: `Good morning Kai! Today let us explore ${w1} and ${p1} together!`, zh: `早安 Kai！今天讓我們一起探索 ${w1}，並一起 ${p1} 吧！` },
+        { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: `That sounds fun Mom! I want to discover a ${w2} and ${p2}!`, zh: `聽起來好好玩媽媽！我想發現一個 ${w2}，並且 ${p2}！` },
+        { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: `Remember to look closely at the ${w3} while we practice speaking.`, zh: `在我們練習開口說話的時候，記得仔細觀察 ${w3} 喔。` },
+        { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: `I will speak clearly and practice with my best effort!`, zh: `我會把發音念得很清楚，盡我最大的努力來練習！` },
+        { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: `You are making wonderful progress every single day, keep going!`, zh: `你每一天都有很棒的進步，繼續加油喔！` }
+      ];
+    }
+
+    function renderPlannedDialogue(dialogue, targetItems) {
+      const container = document.getElementById('plannerDialogueContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      dialogue.forEach((turn, idx) => {
+        const isChild = turn.speaker.toLowerCase() === 'kai' || turn.speakerLabel === 'Kai';
+        const bubble = document.createElement('div');
+        bubble.id = `dialogueTurn_${idx}`;
+        bubble.className = `p-2.5 rounded-2xl border transition-all duration-300 flex items-start gap-2.5 text-left ${
+          isChild 
+            ? 'bg-purple-50/70 border-purple-200 ml-4 sm:ml-6' 
+            : 'bg-white border-indigo-100 mr-4 sm:mr-6'
+        }`;
+
+        const interactiveEnHtml = renderInteractiveSentence(turn.en, targetItems);
+
+        bubble.innerHTML = `
+          <div class="w-8 h-8 rounded-full ${isChild ? 'bg-amber-300' : 'bg-indigo-100'} border border-white shadow-2xs flex items-center justify-center text-sm shrink-0">
+            ${turn.avatar}
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center justify-between gap-1 mb-0.5">
+              <span class="text-[10px] font-black ${isChild ? 'text-purple-900' : 'text-indigo-950'} flex items-center gap-1">
+                <span>${turn.speakerLabel}</span>
+                <span class="text-[8px] font-normal text-slate-400">(${turn.speaker})</span>
+              </span>
+              <button type="button" onclick="playDialogueLine(${idx})" class="text-[10px] text-indigo-600 hover:text-indigo-900 bg-white/90 hover:bg-white px-2 py-0.5 rounded-full border border-indigo-200 shadow-2xs font-bold flex items-center gap-1 active:scale-95 transition" title="聆聽整句">
+                🔊 聽這句
+              </button>
+            </div>
+            <div class="text-xs sm:text-[13px] font-medium text-slate-800 leading-relaxed dialogue-en-text">
+              ${interactiveEnHtml}
+            </div>
+            <div class="text-[10px] sm:text-[11px] text-slate-500 font-medium mt-1 border-t border-slate-100/80 pt-1">
+              ${turn.zh}
+            </div>
+          </div>
+        `;
+        container.appendChild(bubble);
+      });
+    }
+
+    function renderInteractiveSentence(enText, targetItems) {
+      const targetTokens = new Set();
+      (targetItems || []).forEach(item => {
+        item.word.toLowerCase().split(/\s+/).forEach(w => {
+          const c = w.replace(/[^a-z0-9]/g, '');
+          if (c) targetTokens.add(c);
+        });
+      });
+
+      // Split into words while keeping delimiters
+      const parts = enText.split(/([a-zA-Z0-9'-]+)/g);
+      return parts.map(part => {
+        const clean = part.toLowerCase().replace(/[^a-z0-9]/g, '');
+        if (!clean) {
+          return escapeHtml(part);
+        }
+        const isTarget = targetTokens.has(clean);
+        const tokenClasses = isTarget
+          ? 'font-black text-indigo-700 bg-amber-200/70 px-1 py-0.5 rounded border-b-2 border-amber-400 hover:bg-amber-300 cursor-pointer shadow-2xs transition'
+          : 'cursor-pointer px-0.5 py-0.2 rounded hover:bg-amber-100 hover:text-indigo-900 transition text-slate-800';
+
+        return `<span class="dialogue-word-token ${tokenClasses}" onclick="playDialogueWord('${clean}', this)" title="點擊發音: ${clean}">${escapeHtml(part)}</span>`;
+      }).join('');
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    function playDialogueWord(cleanWord, el) {
+      if (!cleanWord) return;
+      if (el) {
+        el.classList.add('bg-amber-400', 'text-indigo-950', 'ring-2', 'ring-amber-500', 'scale-110');
+        setTimeout(() => {
+          el.classList.remove('bg-amber-400', 'text-indigo-950', 'ring-2', 'ring-amber-500', 'scale-110');
+        }, 500);
+      }
+
+      // Check if matches MASTER_VOCAB with pre-recorded audio
+      const matched = MASTER_VOCAB.find(v => v.word.toLowerCase() === cleanWord.toLowerCase());
+      if (matched && (matched.audioWordCanonical || matched.audioWord)) {
+        const audioUrl = matched.audioWordCanonical || matched.audioWord;
+        const a = new Audio(audioUrl);
+        a.play().catch(() => {
+          speakViaTTS(cleanWord, 0.9);
+        });
+      } else {
+        speakViaTTS(cleanWord, 0.9);
+      }
+    }
+
+    function playDialogueLine(lineIdx) {
+      if (!currentPlannedPlan || !currentPlannedPlan.dialogue) return;
+      const turn = currentPlannedPlan.dialogue[lineIdx];
+      if (!turn) return;
+
+      highlightDialogueBubble(lineIdx);
+      speakViaTTS(turn.en, 0.92, () => {
+        unhighlightDialogueBubble(lineIdx);
+      });
+    }
+
+    function highlightDialogueBubble(idx) {
+      const bubble = document.getElementById(`dialogueTurn_${idx}`);
+      if (bubble) {
+        bubble.classList.add('ring-2', 'ring-indigo-400', 'shadow-md');
+      }
+    }
+
+    function unhighlightDialogueBubble(idx) {
+      const bubble = document.getElementById(`dialogueTurn_${idx}`);
+      if (bubble) {
+        bubble.classList.remove('ring-2', 'ring-indigo-400', 'shadow-md');
+      }
+    }
+
+    function speakViaTTS(text, rate = 0.9, onEndCallback = null) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = 'en-US';
+        u.rate = rate;
+        if (onEndCallback) {
+          u.onend = onEndCallback;
+          u.onerror = onEndCallback;
+        }
+        window.speechSynthesis.speak(u);
+      } else if (onEndCallback) {
+        onEndCallback();
+      }
+    }
+
+    function togglePlayFullDialogue() {
+      if (isFullDialoguePlaying) {
+        stopFullDialoguePlayback();
+        return;
+      }
+      startFullDialoguePlayback();
+    }
+
+    function startFullDialoguePlayback() {
+      if (!currentPlannedPlan || !currentPlannedPlan.dialogue || currentPlannedPlan.dialogue.length === 0) return;
+      isFullDialoguePlaying = true;
+      currentDialoguePlaybackIndex = 0;
+
+      const btn = document.getElementById('playFullDialogueBtn');
+      const icon = document.getElementById('playFullDialogueIcon');
+      const label = document.getElementById('playFullDialogueLabel');
+      if (icon) icon.innerText = "⏹️";
+      if (label) label.innerText = "停止朗讀";
+      if (btn) btn.className = "px-2.5 py-1 rounded-xl bg-amber-50 hover:bg-amber-100 border border-amber-300 text-amber-800 font-bold text-[10px] shadow-2xs active:scale-95 transition flex items-center gap-1";
+
+      playNextDialogueTurn();
+    }
+
+    function playNextDialogueTurn() {
+      if (!isFullDialoguePlaying || !currentPlannedPlan || !currentPlannedPlan.dialogue) return;
+      if (currentDialoguePlaybackIndex >= currentPlannedPlan.dialogue.length) {
+        stopFullDialoguePlayback();
+        return;
+      }
+
+      const idx = currentDialoguePlaybackIndex;
+      const turn = currentPlannedPlan.dialogue[idx];
+
+      highlightDialogueBubble(idx);
+
+      speakViaTTS(turn.en, 0.92, () => {
+        unhighlightDialogueBubble(idx);
+        if (!isFullDialoguePlaying) return;
+        currentDialoguePlaybackIndex++;
+        setTimeout(() => {
+          playNextDialogueTurn();
+        }, 400); // 400ms pause between turns
+      });
+    }
+
+    function stopFullDialoguePlayback() {
+      isFullDialoguePlaying = false;
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+      if (currentPlannedPlan && currentPlannedPlan.dialogue) {
+        for (let i = 0; i < currentPlannedPlan.dialogue.length; i++) {
+          unhighlightDialogueBubble(i);
+        }
+      }
+      const btn = document.getElementById('playFullDialogueBtn');
+      const icon = document.getElementById('playFullDialogueIcon');
+      const label = document.getElementById('playFullDialogueLabel');
+      if (icon) icon.innerText = "▶️";
+      if (label) label.innerText = "播放整篇對話";
+      if (btn) btn.className = "px-2.5 py-1 rounded-xl bg-white hover:bg-indigo-50 border border-indigo-200 text-indigo-700 hover:text-indigo-900 font-bold text-[10px] shadow-2xs active:scale-95 transition flex items-center gap-1";
+    }
+
+    function regenerateDialogueOnly() {
+      if (!currentPlannedPlan) return;
+      stopFullDialoguePlayback();
+      const newDialogue = generateParentChildDialogue(currentPlannedPlan, "", true);
+      currentPlannedPlan.dialogue = newDialogue;
+      renderPlannedDialogue(newDialogue, currentPlannedPlan.items);
+      SoundEffects.playClick('switch');
     }
 
     function persistNewItemsToDatabase(newItems) {
@@ -6290,20 +6731,72 @@
       subtitleEl.innerText = `Kai 已為你挑選 6 個生活單字 + 4 組高頻片語（共 10 詞標準任務）！${newNotice}例句已自動適配你的自適應等級。`;
       badgeEl.innerText = adaptive.level === 1 ? '🟢 初階適配 (3~4詞)' : (adaptive.level === 2 ? '🟡 日常適配 (4~6詞)' : '🟣 熟練挑戰 (6~8詞)');
 
+      // Update Database & AI Source Summary Pill Bar
+      const existingItems = plan.items.filter(i => !i.isNewlyGenerated);
+      const aiNewItems = plan.items.filter(i => i.isNewlyGenerated);
+
+      const statExistingEl = document.getElementById('statExistingCount');
+      if (statExistingEl) {
+        statExistingEl.innerHTML = `<span class="w-2 h-2 rounded-full bg-blue-500 shrink-0"></span><span>📚 題庫收錄：${existingItems.length} 詞</span>`;
+      }
+      const statAiEl = document.getElementById('statAiGeneratedCount');
+      if (statAiEl) {
+        statAiEl.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-500 shrink-0 ${aiNewItems.length > 0 ? 'animate-ping' : ''}"></span><span>✨ AI 新生成：${aiNewItems.length} 詞</span>`;
+      }
+
+      const noticeEl = document.getElementById('plannerNewWordsNotice');
+      if (noticeEl) {
+        if (aiNewItems.length > 0) {
+          noticeEl.classList.remove('hidden');
+          noticeEl.classList.add('flex');
+        } else {
+          noticeEl.classList.add('hidden');
+          noticeEl.classList.remove('flex');
+        }
+      }
+
       listEl.innerHTML = '';
       plan.items.forEach(c => {
         const card = document.createElement('div');
-        card.className = "p-2.5 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col gap-1.5 text-left";
+        const isNew = c.isNewlyGenerated;
+        card.className = `p-2.5 rounded-2xl shadow-xs flex flex-col gap-1.5 text-left transition ${
+          isNew 
+            ? 'border-2 border-amber-300 bg-gradient-to-br from-amber-50/50 via-white to-white' 
+            : 'border border-slate-200 bg-white'
+        }`;
+
+        const sourceBadgeHtml = isNew
+          ? `<span class="text-[8px] px-2 py-0.5 rounded-full font-black bg-amber-100 text-amber-900 border border-amber-300 flex items-center gap-1 shadow-2xs">
+               <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-ping"></span>
+               ✨ AI 新生成 · 排程建檔中
+             </span>`
+          : `<span class="text-[8px] px-2 py-0.5 rounded-full font-bold bg-blue-50 text-blue-700 border border-blue-200 flex items-center gap-1 shadow-2xs">
+               📚 題庫收錄 · 語音完整
+             </span>`;
+
+        const queueNoticeHtml = isNew
+          ? `<div class="mt-0.5 px-2 py-1 rounded-lg bg-amber-100/70 border border-amber-200 flex items-center justify-between text-[9px] text-amber-900 font-bold">
+               <span class="flex items-center gap-1">
+                 <span>⚙️ 後台狀態：</span>
+                 <span class="text-amber-800 font-medium">已安全記錄資料庫，背景排程合成語音中</span>
+               </span>
+               <span class="text-[8px] bg-amber-200 text-amber-900 px-1 py-0.2 rounded font-mono">${c.code}</span>
+             </div>`
+          : '';
+
         card.innerHTML = `
-          <div class="flex items-center justify-between">
+          <div class="flex items-center justify-between flex-wrap gap-1">
             <div class="flex items-center gap-1.5">
               <span class="text-base">${c.emoji}</span>
               <span class="text-xs font-black text-indigo-950">${c.word}</span>
               <span class="text-[9px] text-slate-400 font-mono">${c.phonetic}</span>
             </div>
-            <span class="text-[8px] px-1.5 py-0.2 rounded font-extrabold ${c.isPhrase ? 'bg-emerald-600 text-white' : 'bg-indigo-100 text-indigo-800'}">
-              ${c.isPhrase ? '片語語塊' : '生活單字'}
-            </span>
+            <div class="flex items-center gap-1">
+              ${sourceBadgeHtml}
+              <span class="text-[8px] px-1.5 py-0.5 rounded font-extrabold ${c.isPhrase ? 'bg-emerald-600 text-white' : 'bg-indigo-100 text-indigo-800'}">
+                ${c.isPhrase ? '片語語塊' : '生活單字'}
+              </span>
+            </div>
           </div>
           <div class="text-[10px] text-slate-600 font-semibold truncate">${c.meaning}</div>
           <div class="bg-slate-50 p-1.5 rounded-xl border border-slate-100 flex items-center justify-between gap-1">
@@ -6315,9 +6808,15 @@
               🔊
             </button>
           </div>
+          ${queueNoticeHtml}
         `;
         listEl.appendChild(card);
       });
+
+      // Render Parent-Child Dialogue
+      if (plan.dialogue) {
+        renderPlannedDialogue(plan.dialogue, plan.items);
+      }
 
       area.classList.remove('hidden');
       area.classList.add('flex');

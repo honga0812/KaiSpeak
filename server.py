@@ -4,11 +4,13 @@ import os
 import json
 import threading
 import subprocess
+import time
 
 HTTP_PORT = 8088
 HTTPS_PORT = 8443
 DIRECTORY = os.path.dirname(os.path.abspath(__file__))
 MAX_VOCAB_LIMIT = 5000
+QUEUE_FILE = os.path.join(DIRECTORY, 'content_generation_queue.json')
 
 class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
@@ -27,6 +29,23 @@ class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
         self.send_response(200)
         self.end_headers()
 
+    def do_GET(self):
+        if self.path == '/api/generation_queue_status':
+            queue_data = {"lastUpdated": int(time.time()), "items": []}
+            if os.path.exists(QUEUE_FILE):
+                try:
+                    with open(QUEUE_FILE, 'r', encoding='utf-8') as f:
+                        queue_data = json.load(f)
+                except Exception:
+                    pass
+            self.send_response(200)
+            self.send_header('Content-Type', 'application/json; charset=utf-8')
+            self.end_headers()
+            self.wfile.write(json.dumps(queue_data, ensure_ascii=False).encode('utf-8'))
+            return
+
+        super().do_GET()
+
     def do_POST(self):
         if self.path == '/api/save_custom_vocab':
             try:
@@ -41,6 +60,7 @@ class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
 
                 existing_words = {item['word'].lower() for item in vocab}
                 added_count = 0
+                added_items = []
 
                 for item in new_items:
                     if len(vocab) >= MAX_VOCAB_LIMIT:
@@ -49,11 +69,36 @@ class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
                         vocab.append(item)
                         existing_words.add(item['word'].lower())
                         added_count += 1
+                        added_items.append(item)
                         # Spawn background audio synthesis
                         threading.Thread(target=self._synthesize_item_audio, args=(item,), daemon=True).start()
 
                 with open(vocab_path, 'w', encoding='utf-8') as f:
                     json.dump(vocab, f, ensure_ascii=False, indent=2)
+
+                # Update queue file for backend processing status
+                if added_items:
+                    queue_data = {"lastUpdated": int(time.time()), "items": []}
+                    if os.path.exists(QUEUE_FILE):
+                        try:
+                            with open(QUEUE_FILE, 'r', encoding='utf-8') as qf:
+                                queue_data = json.load(qf)
+                        except Exception:
+                            pass
+                    for it in added_items:
+                        code = it.get('wordCode', '')
+                        queue_data['items'].append({
+                            "wordCode": code,
+                            "word": it['word'],
+                            "isPhrase": it.get('isPhrase', False),
+                            "category": it.get('category'),
+                            "audioStatus": "synthesizing",
+                            "imageStatus": "pending_generation",
+                            "examplesStatus": "ready_3_levels",
+                            "createdAt": time.strftime("%Y-%m-%d %H:%M:%S")
+                        })
+                    with open(QUEUE_FILE, 'w', encoding='utf-8') as qf:
+                        json.dump(queue_data, qf, ensure_ascii=False, indent=2)
 
                 # Update audio manifest
                 manifest_path = os.path.join(DIRECTORY, 'audio_manifest.json')
@@ -92,7 +137,8 @@ class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
                     "status": "ok",
                     "addedCount": added_count,
                     "totalItems": len(vocab),
-                    "maxLimit": MAX_VOCAB_LIMIT
+                    "maxLimit": MAX_VOCAB_LIMIT,
+                    "backendQueue": f"{len(added_items)} items queued for asset synthesis"
                 }
                 self.send_response(200)
                 self.send_header('Content-Type', 'application/json; charset=utf-8')
@@ -128,6 +174,19 @@ class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
                     subprocess.run(['say', '-v', 'Samantha', '-r', '155', s['text'], '-o', temp_aiff], check=True)
                     subprocess.run(['afconvert', '-f', 'm4af', '-d', 'aac', '-b', '64000', temp_aiff, s_path], check=True)
                     if os.path.exists(temp_aiff): os.remove(temp_aiff)
+
+            # Update queue file status
+            if os.path.exists(QUEUE_FILE):
+                try:
+                    with open(QUEUE_FILE, 'r', encoding='utf-8') as qf:
+                        q_data = json.load(qf)
+                    for q_item in q_data.get('items', []):
+                        if q_item.get('wordCode') == item.get('wordCode'):
+                            q_item['audioStatus'] = 'ready'
+                    with open(QUEUE_FILE, 'w', encoding='utf-8') as qf:
+                        json.dump(q_data, qf, ensure_ascii=False, indent=2)
+                except Exception:
+                    pass
         except Exception as e:
             pass
 
