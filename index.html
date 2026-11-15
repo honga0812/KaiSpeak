@@ -132,7 +132,7 @@
         <div class="flex items-center gap-3.5 cursor-pointer select-none">
           <div class="relative shrink-0">
             <img src="images/ui/KaiSpeak_logo_V3_trans.png" alt="KaiSpeak" class="h-20 sm:h-24 md:h-28 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] hover:scale-105 transition duration-300 shrink-0">
-            <span class="absolute -bottom-1 -right-1 text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md border-2 border-white tracking-wider">v0.0.12</span>
+            <span class="absolute -bottom-1 -right-1 text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md border-2 border-white tracking-wider">v0.0.13</span>
           </div>
           <div class="flex flex-col justify-center text-left leading-none">
             <h1 class="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight bg-gradient-to-r from-indigo-800 via-indigo-600 to-purple-600 bg-clip-text text-transparent select-none leading-none">KaiSpeak</h1>
@@ -356,7 +356,7 @@
       <!-- Brand Logo (Pure V3 Jelly Badge, prominently sized to fill left brand area) -->
       <div class="relative flex items-center cursor-pointer select-none shrink-0 group py-0.5" onclick="switchAppMode('quest')" title="KaiSpeak 首頁">
         <img src="images/ui/KaiSpeak_logo_V3_trans.png" alt="KaiSpeak" class="h-16 sm:h-20 md:h-24 lg:h-28 w-auto object-contain drop-shadow-[0_8px_22px_rgba(79,70,229,0.25)] group-hover:scale-105 transition-all duration-300 shrink-0">
-        <span class="absolute -bottom-1 right-0 sm:right-1 text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md border-2 border-white tracking-wider">v0.0.12</span>
+        <span class="absolute -bottom-1 right-0 sm:right-1 text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md border-2 border-white tracking-wider">v0.0.13</span>
       </div>
 
       <!-- Right Controls: Profile & Status Badges (Streamlined & slim) -->
@@ -1941,7 +1941,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">v0.0.12 · 即時 AI</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">v0.0.13 · 即時 AI</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -1975,7 +1975,7 @@
             <span>👉 點此前往 Google AI Studio 免費獲取 Key</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 v0.0.12 · 支援 gemini-2.5-flash / 2.0-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 v0.0.13 · 支援 gemini-2.0-flash / 2.0-flash-lite</span>
         </div>
       </div>
 
@@ -2306,13 +2306,13 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "v0.0.12";
+    const APP_VERSION = "v0.0.13";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
-    // Immediate sanitization of legacy Gemini 1.5 models from localStorage
+    // Immediate sanitization of legacy Gemini 1.5 or invalid 2.5 models from localStorage
     try {
       const storedM = localStorage.getItem('kaispeak_gemini_active_model');
-      if (!storedM || storedM.includes('1.5')) {
+      if (!storedM || storedM.includes('2.5') || storedM === 'gemini-2.5-flash') {
         localStorage.removeItem('kaispeak_gemini_active_model');
         localStorage.removeItem('kaispeak_gemini_api_version');
       }
@@ -8395,25 +8395,27 @@
             const data = await resp.json();
             const available = (data.models || [])
               .filter(m => m.supportedGenerationMethods && m.supportedGenerationMethods.includes('generateContent'))
-              .map(m => m.name.replace(/^models\//, ''))
-              .filter(m => !m.includes('1.5')); // Strictly exclude 1.5
+              .map(m => m.name.replace(/^models\//, ''));
 
             console.log(`Available Gemini models on ${ver}:`, available);
 
             if (available.length > 0) {
-              // Preferred models in priority order (pure modern 2.5/2.0 series)
+              // Preferred models in priority order (pure modern Gemini 2.0 series)
               const preferred = [
-                'gemini-2.5-flash',
                 'gemini-2.0-flash',
+                'gemini-2.0-flash-001',
                 'gemini-2.0-flash-lite',
-                'gemini-2.0-flash-exp'
+                'gemini-2.0-flash-lite-preview-02-05',
+                'gemini-2.0-flash-exp',
+                'gemini-1.5-flash'
               ];
 
               let chosen = preferred.find(p => available.includes(p));
               if (!chosen) {
-                chosen = available.find(a => (a.includes('2.5') || a.includes('2.0')) && a.includes('flash')) ||
-                         available.find(a => (a.includes('2.5') || a.includes('2.0'))) ||
-                         available.find(a => !a.includes('1.5'));
+                chosen = available.find(a => a.includes('2.0') && a.includes('flash')) ||
+                         available.find(a => a.includes('2.0')) ||
+                         available.find(a => a.includes('flash')) ||
+                         available[0];
               }
 
               if (chosen) {
@@ -8426,12 +8428,13 @@
         }
       }
 
-      // 2. Direct probe fallback candidates across versions (pure modern Gemini 2.x endpoints)
+      // 2. Direct probe fallback candidates across versions (pure modern Gemini 2.0 endpoints)
       const candidates = [
-        { version: 'v1beta', model: 'gemini-2.5-flash' },
         { version: 'v1beta', model: 'gemini-2.0-flash' },
+        { version: 'v1beta', model: 'gemini-2.0-flash-001' },
         { version: 'v1beta', model: 'gemini-2.0-flash-lite' },
-        { version: 'v1beta', model: 'gemini-2.0-flash-exp' }
+        { version: 'v1beta', model: 'gemini-2.0-flash-exp' },
+        { version: 'v1beta', model: 'gemini-1.5-flash' }
       ];
 
       let lastError = null;
@@ -8454,7 +8457,7 @@
         }
       }
 
-      throw new Error(lastError || "無法連通任何 Gemini 2.5/2.0 模型節點");
+      throw new Error(lastError || "無法連通任何 Gemini 2.0 模型節點");
     }
 
     async function testGeminiApiKey() {
@@ -9118,10 +9121,10 @@
     // GEMINI 1.5/2.0 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR
     // ========================================================
     async function callGeminiScenarioPlanner(userText, userLevel, apiKey) {
-      // 1. Invalidate stale/obsolete model names (e.g. gemini-1.5-flash)
+      // 1. Invalidate stale/obsolete model names (e.g. gemini-1.5-flash or legacy gemini-2.5-flash)
       let activeModel = localStorage.getItem('kaispeak_gemini_active_model');
       let activeVer = localStorage.getItem('kaispeak_gemini_api_version');
-      if (activeModel && activeModel.includes('1.5')) {
+      if (activeModel && (activeModel.includes('2.5') || activeModel.includes('1.5') || activeModel === 'gemini-2.5-flash')) {
         localStorage.removeItem('kaispeak_gemini_active_model');
         localStorage.removeItem('kaispeak_gemini_api_version');
         activeModel = null;
@@ -9137,7 +9140,7 @@
           localStorage.setItem('kaispeak_gemini_active_model', activeModel);
           localStorage.setItem('kaispeak_gemini_api_version', activeVer);
         } catch(e) {
-          activeModel = 'gemini-2.5-flash';
+          activeModel = 'gemini-2.0-flash';
           activeVer = 'v1beta';
         }
       }
@@ -9169,30 +9172,31 @@
   ]
 }`;
 
-      // Assemble candidates (pure modern models, completely remove obsolete 1.5-flash)
+      // Assemble candidates (pure modern models with fallback)
       const rawAttempts = [];
-      if (activeModel && activeVer && !activeModel.includes('1.5')) {
+      if (activeModel && activeVer && !activeModel.includes('2.5')) {
         rawAttempts.push({ ver: activeVer, model: activeModel });
       }
       if (detected && Array.isArray(detected.allAvailable)) {
         detected.allAvailable.forEach(m => {
-          if (!m.includes('1.5')) {
+          if (!m.includes('2.5')) {
             rawAttempts.push({ ver: detected.version, model: m });
           }
         });
       }
       rawAttempts.push(
-        { ver: 'v1beta', model: 'gemini-2.5-flash' },
         { ver: 'v1beta', model: 'gemini-2.0-flash' },
+        { ver: 'v1beta', model: 'gemini-2.0-flash-001' },
         { ver: 'v1beta', model: 'gemini-2.0-flash-lite' },
-        { ver: 'v1beta', model: 'gemini-2.0-flash-exp' }
+        { ver: 'v1beta', model: 'gemini-2.0-flash-exp' },
+        { ver: 'v1beta', model: 'gemini-1.5-flash' }
       );
 
       const uniqueAttempts = [];
       const seen = new Set();
       for (const a of rawAttempts) {
         if (!a || !a.ver || !a.model) continue;
-        if (a.model.includes('1.5')) continue;
+        if (a.model.includes('2.5')) continue;
         const k = `${a.ver}:${a.model}`;
         if (!seen.has(k)) {
           seen.add(k);
@@ -9213,16 +9217,16 @@
               ],
               generationConfig: useMime ? {
                 temperature: 0.35,
-                maxOutputTokens: 2500,
+                maxOutputTokens: 4096,
                 responseMimeType: "application/json"
               } : {
                 temperature: 0.35,
-                maxOutputTokens: 2500
+                maxOutputTokens: 4096
               }
             };
 
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 18000);
+            const timeoutId = setTimeout(() => controller.abort(), 25000);
             const url = `https://generativelanguage.googleapis.com/${attempt.ver}/models/${attempt.model}:generateContent?key=${encodeURIComponent(apiKey)}`;
             let resp;
             try {
@@ -9241,7 +9245,6 @@
               const candidate = data?.candidates?.[0];
               const parts = candidate?.content?.parts || [];
 
-              // Extract actual answer text, skipping reasoning/thought parts (Gemini 2.5 feature)
               let rawText = '';
               for (let i = parts.length - 1; i >= 0; i--) {
                 if (parts[i] && parts[i].text && !parts[i].thought) {
@@ -9282,7 +9285,7 @@
               if (resp.status !== 400) break;
             }
           } catch(e) {
-            lastErr = e.name === 'AbortError' ? '連線逾時（超過 18 秒）' : e.message;
+            lastErr = e.name === 'AbortError' ? '連線逾時（超過 25 秒）' : e.message;
             break;
           }
         }
@@ -10037,10 +10040,10 @@ ${existingSnippet || "無"}
   ]
 }`;
 
-      let activeModel = localStorage.getItem('kaispeak_gemini_active_model') || 'gemini-2.5-flash';
+      let activeModel = localStorage.getItem('kaispeak_gemini_active_model') || 'gemini-2.0-flash';
       let activeVer = localStorage.getItem('kaispeak_gemini_api_version') || 'v1beta';
-      if (activeModel.includes('1.5')) {
-        activeModel = 'gemini-2.5-flash';
+      if (activeModel.includes('2.5') || activeModel.includes('1.5') || activeModel === 'gemini-2.5-flash') {
+        activeModel = 'gemini-2.0-flash';
         activeVer = 'v1beta';
         localStorage.removeItem('kaispeak_gemini_active_model');
         localStorage.removeItem('kaispeak_gemini_api_version');
@@ -10048,17 +10051,17 @@ ${existingSnippet || "無"}
 
       const rawAttempts = [
         { ver: activeVer, model: activeModel },
-        { ver: 'v1beta', model: 'gemini-2.5-flash' },
         { ver: 'v1beta', model: 'gemini-2.0-flash' },
+        { ver: 'v1beta', model: 'gemini-2.0-flash-001' },
         { ver: 'v1beta', model: 'gemini-2.0-flash-lite' },
-        { ver: 'v1beta', model: 'gemini-2.0-flash-exp' }
+        { ver: 'v1beta', model: 'gemini-1.5-flash' }
       ];
 
       const uniqueAttempts = [];
       const seen = new Set();
       for (const a of rawAttempts) {
         if (!a || !a.ver || !a.model) continue;
-        if (a.model.includes('1.5')) continue;
+        if (a.model.includes('2.5')) continue;
         const k = `${a.ver}:${a.model}`;
         if (!seen.has(k)) {
           seen.add(k);
@@ -10079,16 +10082,16 @@ ${existingSnippet || "無"}
               ],
               generationConfig: useMime ? {
                 temperature: 0.7,
-                maxOutputTokens: 1200,
+                maxOutputTokens: 2000,
                 responseMimeType: "application/json"
               } : {
                 temperature: 0.7,
-                maxOutputTokens: 1200
+                maxOutputTokens: 2000
               }
             };
 
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 15000);
+            const timeoutId = setTimeout(() => controller.abort(), 20000);
             const url = `https://generativelanguage.googleapis.com/${attempt.ver}/models/${attempt.model}:generateContent?key=${encodeURIComponent(apiKey)}`;
             let resp;
             try {
@@ -10138,7 +10141,7 @@ ${existingSnippet || "無"}
               if (resp.status !== 400) break;
             }
           } catch(e) {
-            lastErr = e.name === 'AbortError' ? '連線逾時（超過 15 秒）' : e.message;
+            lastErr = e.name === 'AbortError' ? '連線逾時（超過 20 秒）' : e.message;
             break;
           }
         }
