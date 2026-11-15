@@ -3720,42 +3720,75 @@
       setQuestStatus("正在播放母語示範發音，請仔細聽...", "🔊", "bg-indigo-100 text-indigo-800 animate-pulse border-indigo-200");
       playQuestDemoAudio(() => {
         if (!isUserLoggedIn || !questAutoPlay) return;
-        startQuestAutoRecord();
+        // 450ms visual and acoustic breather to avoid hardware speaker echo
+        setQuestStatus("聽完囉！換你大聲念...", "🎧", "bg-indigo-50 text-indigo-700 font-bold border-indigo-200");
+        setTimeout(() => {
+          if (!isUserLoggedIn || !questAutoPlay) return;
+          startQuestAutoRecord();
+        }, 450);
       });
     }
 
     function getQuestAudioSrc() {
       const card = currentQuestCard();
       if (!card) return "";
+
       if (questSubStep === 0) {
-        if (card.audioWord && !card.audioWord.includes('undefined')) return card.audioWord;
-        if (typeof card.id === 'string' && (card.id.startsWith('cust_') || card.id.startsWith('gen_'))) {
-          return `/api/tts?text=${encodeURIComponent(card.word)}&rate=152`;
+        // Step 0: Single Word or Phrase
+        if (card.audioWord && typeof card.audioWord === 'string' && !card.audioWord.includes('undefined')) {
+          return card.audioWord;
+        }
+        if (card.audioWordCanonical && typeof card.audioWordCanonical === 'string' && !card.audioWordCanonical.includes('undefined')) {
+          return card.audioWordCanonical;
+        }
+        // AI-generated, phrases, or custom items -> direct high quality TTS
+        if (card.isNewlyGenerated || card.isPhrase || (typeof card.id === 'string' && (card.id.startsWith('cust_') || card.id.startsWith('gen_') || card.id.includes('_') || card.id.includes(' ')))) {
+          return `/api/tts?text=${encodeURIComponent(card.word.trim())}&rate=152`;
         }
         return `audio/word_${card.id}.m4a`;
       } else {
+        // Step 1 or 2: Graded Sentences
         const sentItem = (card._dailySentences && card._dailySentences[questSubStep - 1]);
-        if (sentItem && sentItem.audioSrc && !sentItem.audioSrc.includes('undefined')) return sentItem.audioSrc;
-        if (sentItem && sentItem.text) {
-          return `/api/tts?text=${encodeURIComponent(sentItem.text)}&rate=152`;
+        if (sentItem) {
+          if (sentItem.audioSrc && typeof sentItem.audioSrc === 'string' && !sentItem.audioSrc.includes('undefined')) {
+            return sentItem.audioSrc;
+          }
+          if (sentItem.audioSrcCanonical && typeof sentItem.audioSrcCanonical === 'string' && !sentItem.audioSrcCanonical.includes('undefined')) {
+            return sentItem.audioSrcCanonical;
+          }
+          if (sentItem.text && sentItem.text.trim()) {
+            return `/api/tts?text=${encodeURIComponent(sentItem.text.trim())}&rate=152`;
+          }
         }
-        if (typeof card.id === 'string' && (card.id.startsWith('cust_') || card.id.startsWith('gen_'))) {
-          const fallbackText = (card.gradedSentences && card.gradedSentences[0]) ? card.gradedSentences[0].text : card.word;
+        if (card.isNewlyGenerated || card.isPhrase || (typeof card.id === 'string' && (card.id.startsWith('cust_') || card.id.startsWith('gen_') || card.id.includes('_') || card.id.includes(' ')))) {
+          const fallbackText = (card.gradedSentences && card.gradedSentences[questSubStep - 1]) 
+            ? card.gradedSentences[questSubStep - 1].text 
+            : (card.gradedSentences && card.gradedSentences[0] ? card.gradedSentences[0].text : card.word);
           return `/api/tts?text=${encodeURIComponent(fallbackText)}&rate=152`;
         }
         return `audio/sentence_${card.id}_0_0.m4a`;
       }
     }
 
+    let currentDemoAudioPlayId = 0;
+
     function playQuestDemoAudio(onEndCallback) {
+      currentDemoAudioPlayId++;
+      const thisPlayId = currentDemoAudioPlayId;
+
+      // Fully silence and detach previous audio element to prevent any dual-play
       if (questAudioPlayer) {
         questAudioPlayer.pause();
-        questAudioPlayer.currentTime = 0;
+        questAudioPlayer.onended = null;
+        questAudioPlayer.onerror = null;
+        questAudioPlayer.removeAttribute('src');
+        try { questAudioPlayer.load(); } catch(e){}
       }
       KaiSpeechEngine.stop();
 
       let hasEnded = false;
       const finish = () => {
+        if (thisPlayId !== currentDemoAudioPlayId) return;
         if (!hasEnded) {
           hasEnded = true;
           if (onEndCallback) onEndCallback();
@@ -3763,24 +3796,56 @@
       };
 
       const targetText = document.getElementById('questTargetEnglish') ? document.getElementById('questTargetEnglish').innerText.trim() : "";
-
       const audioSrc = getQuestAudioSrc();
-      if (audioSrc) {
+
+      // Guard: strictly single fallback execution per play attempt
+      let fallbackTriggered = false;
+      const runFallbackTTS = (reason) => {
+        if (thisPlayId !== currentDemoAudioPlayId) return;
+        if (fallbackTriggered) return;
+        fallbackTriggered = true;
+
+        console.warn(`[QuestAudio] Fallback to TTS (${reason}):`, targetText);
+        if (questAudioPlayer) {
+          questAudioPlayer.pause();
+          questAudioPlayer.onended = null;
+          questAudioPlayer.onerror = null;
+          questAudioPlayer.removeAttribute('src');
+          try { questAudioPlayer.load(); } catch(e){}
+        }
+
+        if (!targetText) {
+          finish();
+          return;
+        }
+
+        KaiSpeechEngine.speak(targetText, 0.92, finish);
+      };
+
+      if (!audioSrc) {
+        runFallbackTTS("no_audio_src");
+        return;
+      }
+
+      try {
         questAudioPlayer.src = audioSrc;
-        questAudioPlayer.onended = finish;
-        questAudioPlayer.onerror = (e) => {
-          console.warn("Audio file error or missing, falling back to KaiSpeechEngine:", audioSrc, e);
-          fallbackNaturalTTS(targetText, finish);
+        questAudioPlayer.onended = () => {
+          if (thisPlayId !== currentDemoAudioPlayId) return;
+          finish();
         };
+        questAudioPlayer.onerror = (e) => {
+          runFallbackTTS("audio_element_error");
+        };
+
         const playPromise = questAudioPlayer.play();
         if (playPromise !== undefined) {
           playPromise.catch(e => {
-            console.warn("Audio play blocked, using TTS fallback:", e);
-            fallbackNaturalTTS(targetText, finish);
+            if (thisPlayId !== currentDemoAudioPlayId) return;
+            runFallbackTTS("play_promise_rejected: " + (e && e.name));
           });
         }
-      } else {
-        fallbackNaturalTTS(targetText, finish);
+      } catch(err) {
+        runFallbackTTS("sync_exception");
       }
     }
 
@@ -3815,8 +3880,17 @@
       return 10; // 10s for Level 1
     }
 
+    let questRecordStartTime = 0;
+
     function checkEarlyFinishSpoken(currentText) {
       if (!isRecording || activeRecModule !== 'quest') return;
+
+      // Echo Blanking Guard: Do not allow premature early finish within the first 700ms
+      // Prevents hardware speaker echo/reverberation from automatically scoring
+      if (Date.now() - questRecordStartTime < 700) {
+        return;
+      }
+
       const targetText = document.getElementById('questTargetEnglish').innerText;
       if (!targetText) return;
 
@@ -3859,7 +3933,7 @@
           if (isRecording && activeRecModule === 'quest') {
             finishQuestRecordEarly();
           }
-        }, 400);
+        }, 450);
       }
     }
 
@@ -3877,6 +3951,7 @@
 
     function startQuestAutoRecord() {
       if (!questAutoPlay) return;
+      questRecordStartTime = Date.now();
       setQuestStatus("輪到你啦，請大聲朗讀！(沙漏倒數計時中...)", "🎙️", "bg-rose-100 text-rose-800 font-extrabold border-rose-200");
       
       const ring = document.getElementById('questMicRing');
@@ -4811,33 +4886,74 @@
         audioPath = `audio/sentence_${card.id}_${scIdx}_0.m4a`;
       }
 
-      freeAudioPlayer.src = audioPath;
-      freeAudioPlayer.onended = finish;
-      freeAudioPlayer.onerror = () => fallbackNaturalTTS(targetText, finish);
+      let freeFallbackDone = false;
+      const doFreeFallback = (reason) => {
+        if (freeFallbackDone) return;
+        freeFallbackDone = true;
+        if (freeAudioPlayer) {
+          freeAudioPlayer.pause();
+          freeAudioPlayer.onended = null;
+          freeAudioPlayer.onerror = null;
+          freeAudioPlayer.removeAttribute('src');
+          try { freeAudioPlayer.load(); } catch(e){}
+        }
+        fallbackNaturalTTS(targetText, finish);
+      };
 
-      const playPromise = freeAudioPlayer.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => fallbackNaturalTTS(targetText, finish));
+      try {
+        freeAudioPlayer.src = audioPath;
+        freeAudioPlayer.onended = finish;
+        freeAudioPlayer.onerror = () => doFreeFallback("free_audio_element_error");
+
+        const playPromise = freeAudioPlayer.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(e => doFreeFallback("free_play_rejected"));
+        }
+      } catch(err) {
+        doFreeFallback("free_sync_error");
       }
     }
 
     function playFreeSentenceAudio(cardId, scIdx, sentIdx, exactText) {
       if (freeAudioPlayer) {
         freeAudioPlayer.pause();
-        freeAudioPlayer.currentTime = 0;
+        freeAudioPlayer.onended = null;
+        freeAudioPlayer.onerror = null;
+        freeAudioPlayer.removeAttribute('src');
+        try { freeAudioPlayer.load(); } catch(e){}
       }
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-      }
+      KaiSpeechEngine.stop();
 
       const card = MASTER_VOCAB.find(c => c.id === cardId);
-      const text = exactText || (card && card.scenarios[scIdx] ? card.scenarios[scIdx].sentences[sentIdx] : "");
-      const audioPath = `audio/sentence_${cardId}_${scIdx}_0.m4a`;
-      freeAudioPlayer.src = audioPath;
-      freeAudioPlayer.onerror = () => fallbackNaturalTTS(text, null);
-      const playPromise = freeAudioPlayer.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(() => fallbackNaturalTTS(text, null));
+      const text = exactText || (card && card.scenarios && card.scenarios[scIdx] ? card.scenarios[scIdx].sentences[sentIdx] : "");
+      let audioPath = `audio/sentence_${cardId}_${scIdx}_0.m4a`;
+      if (!card || card.isNewlyGenerated || !text) {
+        audioPath = `/api/tts?text=${encodeURIComponent(text || '')}&rate=152`;
+      }
+
+      let fallbackDone = false;
+      const doFallback = () => {
+        if (fallbackDone) return;
+        fallbackDone = true;
+        if (freeAudioPlayer) {
+          freeAudioPlayer.pause();
+          freeAudioPlayer.onended = null;
+          freeAudioPlayer.onerror = null;
+          freeAudioPlayer.removeAttribute('src');
+          try { freeAudioPlayer.load(); } catch(e){}
+        }
+        fallbackNaturalTTS(text, null);
+      };
+
+      try {
+        freeAudioPlayer.src = audioPath;
+        freeAudioPlayer.onerror = doFallback;
+        const playPromise = freeAudioPlayer.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(doFallback);
+        }
+      } catch(e) {
+        doFallback();
       }
     }
 
@@ -7296,6 +7412,8 @@
       },
 
       speak(text, rate = 0.92, onEndCallback = null) {
+        this.stop(); // Stop any currently playing utterance or server audio immediately!
+
         if (!text || !text.trim()) {
           if (onEndCallback) onEndCallback();
           return;
@@ -7306,6 +7424,19 @@
         
         let localPlayer = new Audio();
         let serverFailed = false;
+
+        const abortLocalPlayer = () => {
+          try {
+            localPlayer.pause();
+            localPlayer.onended = null;
+            localPlayer.onerror = null;
+            localPlayer.removeAttribute('src');
+            localPlayer.load();
+          } catch(e){}
+          if (this.activeAudio === localPlayer) {
+            this.activeAudio = null;
+          }
+        };
 
         const cleanupTimers = () => {
           if (this.heartbeatTimer) { clearInterval(this.heartbeatTimer); this.heartbeatTimer = null; }
@@ -7320,9 +7451,9 @@
 
           cleanupTimers();
 
-          // Safe cancel with 35ms breather to prevent WebKit cancel-drop bug
+          // Safe cancel with breather to prevent WebKit cancel-drop bug
           if (window.speechSynthesis.speaking || window.speechSynthesis.pending) {
-            window.speechSynthesis.cancel();
+            try { window.speechSynthesis.cancel(); } catch(e){}
           }
 
           setTimeout(() => {
@@ -7387,39 +7518,48 @@
         this.activeAudio = localPlayer;
         let playedSuccessfully = false;
 
-        const playPromise = localPlayer.play();
-        if (playPromise !== undefined) {
-          playPromise.then(() => {
-            playedSuccessfully = true;
-            localPlayer.onended = () => {
-              this.activeAudio = null;
-              if (onEndCallback) onEndCallback();
-            };
-          }).catch(err => {
-            serverFailed = true;
-            tryWebSpeechApi();
-          });
-        } else {
-          tryWebSpeechApi();
-        }
+        localPlayer.onended = () => {
+          this.activeAudio = null;
+          if (onEndCallback) onEndCallback();
+        };
 
         localPlayer.onerror = () => {
           if (!playedSuccessfully && !serverFailed) {
             serverFailed = true;
+            abortLocalPlayer();
             tryWebSpeechApi();
           }
         };
+
+        const playPromise = localPlayer.play();
+        if (playPromise !== undefined) {
+          playPromise.then(() => {
+            playedSuccessfully = true;
+          }).catch(err => {
+            if (!playedSuccessfully && !serverFailed) {
+              serverFailed = true;
+              abortLocalPlayer();
+              tryWebSpeechApi();
+            }
+          });
+        }
       },
 
       stop() {
         if (this.heartbeatTimer) { clearInterval(this.heartbeatTimer); this.heartbeatTimer = null; }
         if (this.watchdogTimer) { clearTimeout(this.watchdogTimer); this.watchdogTimer = null; }
         if (this.activeAudio) {
-          try { this.activeAudio.pause(); } catch(e){}
+          try {
+            this.activeAudio.pause();
+            this.activeAudio.onended = null;
+            this.activeAudio.onerror = null;
+            this.activeAudio.removeAttribute('src');
+            this.activeAudio.load();
+          } catch(e){}
           this.activeAudio = null;
         }
         if ('speechSynthesis' in window) {
-          window.speechSynthesis.cancel();
+          try { window.speechSynthesis.cancel(); } catch(e){}
         }
         this.activeUtterance = null;
         window._activeUtteranceRef = null;
@@ -7430,19 +7570,34 @@
       if (audioUrl) {
         const a = new Audio(audioUrl);
         let hasStarted = false;
+        let fallbackDone = false;
+
+        const triggerFallback = () => {
+          if (fallbackDone) return;
+          fallbackDone = true;
+          try {
+            a.pause();
+            a.onended = null;
+            a.onerror = null;
+            a.removeAttribute('src');
+            a.load();
+          } catch(e){}
+          if (fallbackText) {
+            KaiSpeechEngine.speak(fallbackText, 0.92);
+          }
+        };
+
         const p = a.play();
         if (p !== undefined) {
           p.then(() => {
             hasStarted = true;
           }).catch(err => {
-            if (fallbackText) {
-              KaiSpeechEngine.speak(fallbackText, 0.92);
-            }
+            triggerFallback();
           });
         }
         a.onerror = () => {
-          if (!hasStarted && fallbackText) {
-            KaiSpeechEngine.speak(fallbackText, 0.92);
+          if (!hasStarted) {
+            triggerFallback();
           }
         };
         return;
@@ -8325,6 +8480,10 @@
       if (questBannerSub) {
         questBannerSub.innerText = `自選情境 10 詞打卡流 · 6 個單字 + 4 組生活片語 · 完成即可正式打卡！`;
       }
+
+      questAutoPlay = true;
+      updatePauseUI();
+      runQuestAutoStep();
     }
 
     function applyVoicePlanToFreePractice() {
