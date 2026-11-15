@@ -132,7 +132,7 @@
         <div class="flex items-center gap-3.5 cursor-pointer select-none">
           <div class="relative shrink-0">
             <img src="images/ui/KaiSpeak_logo_V3_trans.png" alt="KaiSpeak" class="h-20 sm:h-24 md:h-28 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] hover:scale-105 transition duration-300 shrink-0">
-            <span class="absolute -bottom-1 -right-1 text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md border-2 border-white tracking-wider">v0.0.11</span>
+            <span class="absolute -bottom-1 -right-1 text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md border-2 border-white tracking-wider">v0.0.12</span>
           </div>
           <div class="flex flex-col justify-center text-left leading-none">
             <h1 class="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight bg-gradient-to-r from-indigo-800 via-indigo-600 to-purple-600 bg-clip-text text-transparent select-none leading-none">KaiSpeak</h1>
@@ -356,7 +356,7 @@
       <!-- Brand Logo (Pure V3 Jelly Badge, prominently sized to fill left brand area) -->
       <div class="relative flex items-center cursor-pointer select-none shrink-0 group py-0.5" onclick="switchAppMode('quest')" title="KaiSpeak 首頁">
         <img src="images/ui/KaiSpeak_logo_V3_trans.png" alt="KaiSpeak" class="h-16 sm:h-20 md:h-24 lg:h-28 w-auto object-contain drop-shadow-[0_8px_22px_rgba(79,70,229,0.25)] group-hover:scale-105 transition-all duration-300 shrink-0">
-        <span class="absolute -bottom-1 right-0 sm:right-1 text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md border-2 border-white tracking-wider">v0.0.11</span>
+        <span class="absolute -bottom-1 right-0 sm:right-1 text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md border-2 border-white tracking-wider">v0.0.12</span>
       </div>
 
       <!-- Right Controls: Profile & Status Badges (Streamlined & slim) -->
@@ -1941,7 +1941,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">v0.0.11 · 即時 AI</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">v0.0.12 · 即時 AI</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -1975,7 +1975,7 @@
             <span>👉 點此前往 Google AI Studio 免費獲取 Key</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 v0.0.11 · 支援 gemini-2.5-flash / 2.0-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 v0.0.12 · 支援 gemini-2.5-flash / 2.0-flash</span>
         </div>
       </div>
 
@@ -2241,40 +2241,58 @@
   </div>
 
   <!-- ======================================================== -->
-  <!-- PRACTICE LOG MODAL                                       -->
+  <!-- PRACTICE LOG & MULTI-DIMENSIONAL ANALYTICS MODAL           -->
   <!-- ======================================================== -->
-  <div id="logModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 hidden">
-    <div class="bg-white rounded-3xl p-5 sm:p-6 max-w-3xl w-full shadow-2xl border border-indigo-100 flex flex-col max-h-[90vh]">
-      <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-3">
+  <div id="logModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4 hidden">
+    <div class="bg-white rounded-3xl p-4 sm:p-6 max-w-4xl w-full shadow-2xl border border-indigo-100 flex flex-col max-h-[92vh]">
+      
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-2.5">
         <div class="flex items-center gap-2.5">
           <span class="text-2xl">📊</span>
           <div>
-            <h3 class="text-base font-black text-slate-900">發音評測紀錄與閱讀時間多維度統計</h3>
-            <p class="text-[11px] text-slate-500 font-medium">完整記錄年/月/日/時/分 · 每日、每月與年度閱讀時長分析 · 驅動個人化推薦練習</p>
+            <div class="flex items-center gap-2">
+              <h3 class="text-sm sm:text-base font-black text-slate-900 leading-tight">發音評測紀錄與閱讀時長/次數統計</h3>
+              <span id="logViewScopeBadge" class="text-[9px] font-black px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200">👤 個人學員數據</span>
+            </div>
+            <p class="text-[10px] sm:text-[11px] text-slate-500 font-medium">完整記錄年/月/日/時/分 · 單字與例句次數統計 · 成長弧形圖與長條圖分析</p>
           </div>
         </div>
-        <button onclick="toggleLogModal()" class="text-slate-400 hover:text-slate-600 font-bold text-lg p-1">✕</button>
+        <div class="flex items-center gap-2">
+          <button type="button" id="btnToggleLogAdminMode" onclick="toggleLogAdminMode()" class="px-2.5 py-1 rounded-xl text-xs font-bold transition flex items-center gap-1 bg-slate-100 hover:bg-slate-200 text-slate-700 active:scale-95" title="切換家長/管理員全景視圖">
+            <span id="logAdminIcon">🔐</span>
+            <span id="logAdminLabel">管理者模式</span>
+          </button>
+          <button onclick="toggleLogModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 font-black text-sm flex items-center justify-center transition active:scale-95">✕</button>
+        </div>
       </div>
 
-      <!-- Multi-Dimensional Time Analytics Dashboard (Year / Month / Day & Mistakes) -->
-      <div id="logAnalyticsDashboard" class="mb-3">
+      <!-- Account & Profile Scope Bar (Personal in Student Mode, Full switcher in Admin Mode) -->
+      <div id="logProfileFilterBar" class="mb-2">
         <!-- Injected by JS -->
       </div>
 
-      <!-- Profile Selector & Filter Bar -->
-      <div id="logProfileFilterBar" class="flex items-center justify-between gap-2 mb-2.5 flex-wrap text-xs font-bold text-slate-600">
+      <!-- Year / Month / Quick Range Filter Bar -->
+      <div id="logTimeFilterBar" class="bg-slate-50/90 border border-slate-200/90 rounded-2xl p-2 sm:p-2.5 mb-2.5 flex items-center justify-between gap-2 flex-wrap text-xs">
         <!-- Injected by JS -->
       </div>
 
-      <div id="logTableContainer" class="flex-1 overflow-y-auto hide-scrollbar text-xs border border-slate-100 rounded-2xl p-1">
+      <!-- Analytics Dashboard & Visual Charts (Cards + Bar Chart + Arc Gauge) -->
+      <div id="logAnalyticsDashboard" class="mb-2.5 overflow-y-auto max-h-[38vh] hide-scrollbar">
         <!-- Injected by JS -->
       </div>
 
-      <div class="pt-3 border-t border-slate-100 flex items-center justify-between mt-3 flex-wrap gap-2">
-        <button onclick="exportLogsCSV()" class="px-4 py-2 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 text-xs font-bold rounded-xl border border-indigo-200 transition flex items-center gap-1.5 shadow-2xs">
-          <span>📥 匯出 CSV 完整學習時間記錄 (含年月日時分)</span>
+      <!-- Log Records Table with Year/Month scope and word/sentence breakdown -->
+      <div id="logTableContainer" class="flex-1 overflow-y-auto hide-scrollbar text-xs border border-slate-100 rounded-2xl p-1 min-h-[160px]">
+        <!-- Injected by JS -->
+      </div>
+
+      <!-- Bottom Actions -->
+      <div class="pt-2.5 border-t border-slate-100 flex items-center justify-between mt-2 flex-wrap gap-2">
+        <button onclick="exportLogsCSV()" class="px-3.5 py-2 bg-indigo-50 text-indigo-700 hover:bg-indigo-100 text-xs font-bold rounded-xl border border-indigo-200 transition flex items-center gap-1.5 shadow-2xs active:scale-95">
+          <span>📥 匯出當前篩選 CSV 記錄 (含年月日時分)</span>
         </button>
-        <button onclick="clearAllLogs()" class="px-4 py-2 bg-rose-50 text-rose-700 hover:bg-rose-100 text-xs font-bold rounded-xl border border-rose-200 transition">
+        <button onclick="clearAllLogs()" class="px-3.5 py-2 bg-rose-50 text-rose-700 hover:bg-rose-100 text-xs font-bold rounded-xl border border-rose-200 transition active:scale-95">
           🗑️ 清空所有記錄
         </button>
       </div>
@@ -2288,7 +2306,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "v0.0.11";
+    const APP_VERSION = "v0.0.12";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // Immediate sanitization of legacy Gemini 1.5 models from localStorage
@@ -2407,8 +2425,7 @@
     let freeActiveSentenceText = "";
     let freeActiveSentenceTrans = "";
 
-    // --- Log Analytics Filter State ---
-    let selectedLogProfileFilter = 'all'; // 'all' or profile.id
+    // --- Log Analytics Filter State (configured below with Admin & Time filters)
 
     // --- Adventure Mode State (Fog of War, Mystery Island Pagination) ---
     const ADV_PAGE_SIZE = 10;
@@ -6701,8 +6718,84 @@
       return Array.from(logMap.values()).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
     }
 
+    let isLogAdminMode = false;
+    let selectedLogProfileFilter = null; // null => auto-lock to currentProfileId
+    let selectedLogYear = 'all'; // 'all' | '2026' | '2025'...
+    let selectedLogMonth = 'all'; // 'all' | '01' | '02' ... '12'
+    let selectedLogTimeQuick = 'all'; // 'all' | 'this_year' | 'this_month' | 'today'
+    let logActiveChartTab = 'bar'; // 'bar' | 'arc'
+
+    function isWordLog(l) {
+      if (!l) return true;
+      if (l.mode && (l.mode.includes('單字') || l.mode === '自由練習-單字')) return true;
+      if (l.mode && (l.mode.includes('例句') || l.mode.includes('短文') || l.mode.includes('對話'))) return false;
+      const s = (l.sentence || '').trim();
+      const w = (l.word || '').trim();
+      if (s === w || !s) return true;
+      const wordCount = s.split(/\s+/).filter(Boolean).length;
+      return wordCount <= 2;
+    }
+
     function selectLogProfileFilter(pId) {
       selectedLogProfileFilter = pId;
+      updateLogUI();
+    }
+
+    function toggleLogAdminMode() {
+      if (isLogAdminMode) {
+        isLogAdminMode = false;
+        selectedLogProfileFilter = currentProfileId;
+        updateLogUI();
+        return;
+      }
+      const p = getActiveProfile();
+      const pin = prompt(`🔐 【家長/管理者驗證】\n\n請輸入 4 位數 PIN 碼以開啟多學員總覽管理模式：\n（萬能家長碼為 8888，預設為 1234）`);
+      if (!pin) return;
+      if (pin === (p.pin || "1234") || pin === "8888" || pin === "1234") {
+        isLogAdminMode = true;
+        SoundEffects.playShield();
+        updateLogUI();
+      } else {
+        alert("⚠️ PIN 碼不正確！無法開啟管理者模式。");
+      }
+    }
+
+    function changeLogYearFilter(val) {
+      selectedLogYear = val;
+      selectedLogTimeQuick = 'custom';
+      updateLogUI();
+    }
+
+    function changeLogMonthFilter(val) {
+      selectedLogMonth = val;
+      selectedLogTimeQuick = 'custom';
+      updateLogUI();
+    }
+
+    function setLogQuickTime(range) {
+      selectedLogTimeQuick = range;
+      const now = new Date();
+      const curY = String(now.getFullYear());
+      const curM = String(now.getMonth() + 1).padStart(2, '0');
+
+      if (range === 'all') {
+        selectedLogYear = 'all';
+        selectedLogMonth = 'all';
+      } else if (range === 'this_year') {
+        selectedLogYear = curY;
+        selectedLogMonth = 'all';
+      } else if (range === 'this_month') {
+        selectedLogYear = curY;
+        selectedLogMonth = curM;
+      } else if (range === 'today') {
+        selectedLogYear = curY;
+        selectedLogMonth = curM;
+      }
+      updateLogUI();
+    }
+
+    function switchLogChartTab(tab) {
+      logActiveChartTab = tab;
       updateLogUI();
     }
 
@@ -6764,34 +6857,77 @@
     function updateLogUI() {
       const container = document.getElementById('logTableContainer');
       const filterBar = document.getElementById('logProfileFilterBar');
+      const timeFilterBar = document.getElementById('logTimeFilterBar');
       const dashboard = document.getElementById('logAnalyticsDashboard');
+      const scopeBadge = document.getElementById('logViewScopeBadge');
+      const adminBtn = document.getElementById('btnToggleLogAdminMode');
+      const adminIcon = document.getElementById('logAdminIcon');
+      const adminLabel = document.getElementById('logAdminLabel');
       if (!container) return;
+
+      const activeProfile = getActiveProfile();
+
+      // 1. Enforce Privacy vs Admin Mode
+      if (!isLogAdminMode) {
+        selectedLogProfileFilter = currentProfileId;
+        if (scopeBadge) {
+          scopeBadge.className = "text-[9px] font-black px-2.5 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-200 flex items-center gap-1";
+          scopeBadge.innerHTML = `<span>👤 個人學員數據 · ${activeProfile.name}</span>`;
+        }
+        if (adminBtn) {
+          adminBtn.className = "px-2.5 py-1 rounded-xl text-xs font-bold transition flex items-center gap-1 bg-slate-100 hover:bg-slate-200 text-slate-700 active:scale-95";
+          if (adminIcon) adminIcon.innerText = "🔐";
+          if (adminLabel) adminLabel.innerText = "管理者模式";
+        }
+      } else {
+        if (scopeBadge) {
+          scopeBadge.className = "text-[9px] font-black px-2.5 py-0.5 rounded-full bg-purple-100 text-purple-800 border border-purple-300 flex items-center gap-1 animate-pulse";
+          scopeBadge.innerHTML = `<span>👑 管理者總覽全景 (已解鎖)</span>`;
+        }
+        if (adminBtn) {
+          adminBtn.className = "px-2.5 py-1 rounded-xl text-xs font-bold transition flex items-center gap-1 bg-purple-600 text-white hover:bg-purple-700 active:scale-95 shadow-sm";
+          if (adminIcon) adminIcon.innerText = "🔓";
+          if (adminLabel) adminLabel.innerText = "退出管理者模式";
+        }
+      }
 
       const allLogs = getAllPracticeLogs();
 
-      // 1. Render Profile Filter Bar
+      // 2. Render Profile Scope Bar
       if (filterBar) {
-        let filterHtml = `<div class="flex items-center gap-1.5 overflow-x-auto hide-scrollbar py-0.5 w-full">`;
-        const isAllActive = selectedLogProfileFilter === 'all';
-        filterHtml += `
-          <button onclick="selectLogProfileFilter('all')" class="px-3 py-1 rounded-xl text-xs font-bold transition whitespace-nowrap active:scale-95 ${isAllActive ? 'bg-indigo-600 text-white shadow-sm' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}">
-            🌐 全部學員 (${allLogs.length})
-          </button>
-        `;
-        profiles.forEach(p => {
-          const pLogs = allLogs.filter(l => l.profileId === p.id);
-          const isActive = selectedLogProfileFilter === p.id;
-          const avHtml = renderAvatarHtml(p.avatar, "w-4 h-4 rounded-full object-cover inline-block", "inline-block");
+        if (!isLogAdminMode) {
+          filterBar.innerHTML = `
+            <div class="px-3 py-2 rounded-2xl bg-indigo-50/70 border border-indigo-100 flex items-center justify-between text-xs text-indigo-900">
+              <div class="flex items-center gap-2 font-bold">
+                <span class="text-sm">🔒</span>
+                <span>個人學習隱私空間：目前僅顯示【${activeProfile.name}】的評測與閱讀數據</span>
+              </div>
+              <span class="text-[10px] text-indigo-600 hidden sm:inline-block">家長/教師如需比對全體學員請點右上角「管理者模式」</span>
+            </div>
+          `;
+        } else {
+          let filterHtml = `<div class="flex items-center gap-1.5 overflow-x-auto hide-scrollbar py-0.5 w-full">`;
+          const isAllActive = selectedLogProfileFilter === 'all';
           filterHtml += `
-            <button onclick="selectLogProfileFilter('${p.id}')" class="px-3 py-1 rounded-xl text-xs font-bold transition whitespace-nowrap flex items-center gap-1.5 active:scale-95 ${isActive ? 'bg-indigo-600 text-white shadow-sm' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}">
-              ${avHtml}
-              <span>${p.name}</span>
-              <span class="text-[10px] opacity-80 font-mono">(${pLogs.length})</span>
+            <button onclick="selectLogProfileFilter('all')" class="px-3 py-1 rounded-xl text-xs font-bold transition whitespace-nowrap active:scale-95 ${isAllActive ? 'bg-purple-700 text-white shadow-sm' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}">
+              🌐 全部學員 (${allLogs.length})
             </button>
           `;
-        });
-        filterHtml += `</div>`;
-        filterBar.innerHTML = filterHtml;
+          profiles.forEach(p => {
+            const pLogs = allLogs.filter(l => l.profileId === p.id);
+            const isActive = selectedLogProfileFilter === p.id;
+            const avHtml = renderAvatarHtml(p.avatar, "w-4 h-4 rounded-full object-cover inline-block", "inline-block");
+            filterHtml += `
+              <button onclick="selectLogProfileFilter('${p.id}')" class="px-3 py-1 rounded-xl text-xs font-bold transition whitespace-nowrap flex items-center gap-1.5 active:scale-95 ${isActive ? 'bg-purple-700 text-white shadow-sm' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}">
+                ${avHtml}
+                <span>${p.name}</span>
+                <span class="text-[10px] opacity-80 font-mono">(${pLogs.length})</span>
+              </button>
+            `;
+          });
+          filterHtml += `</div>`;
+          filterBar.innerHTML = filterHtml;
+        }
       }
 
       // Filter logs by selected profile
@@ -6799,60 +6935,147 @@
         ? allLogs
         : allLogs.filter(l => l.profileId === selectedLogProfileFilter);
 
-      // 2. Compute Multi-Dimensional Reading Time & Progress Analytics
+      // Collect available years from activeLogs
+      const yearsSet = new Set();
+      const thisYearNum = new Date().getFullYear();
+      yearsSet.add(String(thisYearNum));
+      activeLogs.forEach(l => {
+        if (l.year) yearsSet.add(String(l.year));
+        else if (l.timestamp) {
+          const y = l.timestamp.slice(0, 4);
+          if (/^\d{4}$/.test(y)) yearsSet.add(y);
+        }
+      });
+      const sortedYears = Array.from(yearsSet).sort((a, b) => b - a);
+
+      // 3. Render Year / Month / Quick Range Filter Bar
+      if (timeFilterBar) {
+        timeFilterBar.innerHTML = `
+          <div class="flex items-center gap-2 flex-wrap flex-1">
+            <!-- Year Dropdown -->
+            <div class="flex items-center gap-1">
+              <span class="text-[11px] font-bold text-slate-500">📅 年份：</span>
+              <select onchange="changeLogYearFilter(this.value)" class="bg-white border border-slate-300 rounded-xl px-2 py-1 text-xs font-bold text-slate-800 focus:outline-none focus:border-indigo-500 shadow-2xs">
+                <option value="all" ${selectedLogYear === 'all' ? 'selected' : ''}>全部年份 (歷年總覽)</option>
+                ${sortedYears.map(y => `<option value="${y}" ${selectedLogYear === String(y) ? 'selected' : ''}>${y} 年</option>`).join('')}
+              </select>
+            </div>
+
+            <!-- Month Dropdown -->
+            <div class="flex items-center gap-1">
+              <span class="text-[11px] font-bold text-slate-500">🗓️ 月份：</span>
+              <select onchange="changeLogMonthFilter(this.value)" class="bg-white border border-slate-300 rounded-xl px-2 py-1 text-xs font-bold text-slate-800 focus:outline-none focus:border-indigo-500 shadow-2xs">
+                <option value="all" ${selectedLogMonth === 'all' ? 'selected' : ''}>全年度全部月份</option>
+                ${[1,2,3,4,5,6,7,8,9,10,11,12].map(m => {
+                  const mStr = String(m).padStart(2, '0');
+                  return `<option value="${mStr}" ${selectedLogMonth === mStr ? 'selected' : ''}>${m} 月</option>`;
+                }).join('')}
+              </select>
+            </div>
+
+            <!-- Quick Filter Pills -->
+            <div class="flex items-center gap-1 ml-auto sm:ml-2">
+              <button onclick="setLogQuickTime('all')" class="px-2.5 py-1 rounded-xl text-[11px] font-bold transition active:scale-95 ${selectedLogTimeQuick === 'all' ? 'bg-indigo-600 text-white shadow-2xs' : 'bg-slate-200/80 text-slate-700 hover:bg-slate-300'}">全部</button>
+              <button onclick="setLogQuickTime('this_year')" class="px-2.5 py-1 rounded-xl text-[11px] font-bold transition active:scale-95 ${selectedLogTimeQuick === 'this_year' ? 'bg-indigo-600 text-white shadow-2xs' : 'bg-slate-200/80 text-slate-700 hover:bg-slate-300'}">今年</button>
+              <button onclick="setLogQuickTime('this_month')" class="px-2.5 py-1 rounded-xl text-[11px] font-bold transition active:scale-95 ${selectedLogTimeQuick === 'this_month' ? 'bg-indigo-600 text-white shadow-2xs' : 'bg-slate-200/80 text-slate-700 hover:bg-slate-300'}">本月</button>
+              <button onclick="setLogQuickTime('today')" class="px-2.5 py-1 rounded-xl text-[11px] font-bold transition active:scale-95 ${selectedLogTimeQuick === 'today' ? 'bg-indigo-600 text-white shadow-2xs' : 'bg-slate-200/80 text-slate-700 hover:bg-slate-300'}">今日</button>
+            </div>
+          </div>
+        `;
+      }
+
+      // 4. Apply Year & Month Filtering
       const now = new Date();
-      const thisYear = now.getFullYear();
-      const curMonth = String(now.getMonth() + 1).padStart(2, '0');
-      const curDay = String(now.getDate()).padStart(2, '0');
-      const todayDateStr = `${thisYear}/${curMonth}/${curDay}`;
-      const todayDayStr = `${thisYear}-${curMonth}-${curDay}`;
-      const thisMonthStr = `${thisYear}-${curMonth}`;
+      const thisYearStr = String(now.getFullYear());
+      const thisMonthStr = String(now.getMonth() + 1).padStart(2, '0');
+      const todayDateStr = `${thisYearStr}/${thisMonthStr}/${String(now.getDate()).padStart(2, '0')}`;
+      const todayDayStr = `${thisYearStr}-${thisMonthStr}-${String(now.getDate()).padStart(2, '0')}`;
 
-      const todayLogs = activeLogs.filter(l => {
-        if (l.day === todayDayStr || l.dateStr === todayDateStr) return true;
-        if (l.timestamp && l.timestamp.startsWith(todayDayStr)) return true;
-        return false;
+      const filteredLogs = activeLogs.filter(l => {
+        if (selectedLogTimeQuick === 'today') {
+          if (l.day === todayDayStr || l.dateStr === todayDateStr) return true;
+          if (l.timestamp && l.timestamp.startsWith(todayDayStr)) return true;
+          return false;
+        }
+        if (selectedLogYear !== 'all') {
+          const lYear = String(l.year || (l.timestamp ? l.timestamp.slice(0, 4) : ''));
+          if (lYear !== selectedLogYear) return false;
+        }
+        if (selectedLogMonth !== 'all') {
+          const lMonth = String(l.month || (l.timestamp ? l.timestamp.slice(0, 7) : ''));
+          const lMM = lMonth.slice(5, 7) || (l.timestamp ? l.timestamp.slice(5, 7) : '');
+          if (lMM !== selectedLogMonth) return false;
+        }
+        return true;
       });
 
-      const monthLogs = activeLogs.filter(l => {
-        if (l.month === thisMonthStr) return true;
-        if (l.timestamp && l.timestamp.startsWith(thisMonthStr)) return true;
-        return false;
+      // 5. Compute Detailed Stats for Filtered Range: Words vs Sentences, Duration, Mastery
+      let filteredWordCount = 0;
+      let filteredSentenceCount = 0;
+      const filteredWordsSet = new Set();
+
+      filteredLogs.forEach(l => {
+        if (isWordLog(l)) {
+          filteredWordCount++;
+        } else {
+          filteredSentenceCount++;
+        }
+        if (l.word) filteredWordsSet.add(l.word.trim().toLowerCase());
       });
 
-      const yearLogs = activeLogs.filter(l => {
-        if (l.year === thisYear) return true;
-        if (l.timestamp && l.timestamp.startsWith(String(thisYear))) return true;
-        return false;
-      });
+      const filteredTotalCount = filteredLogs.length;
+      const filteredDurationSeconds = filteredLogs.reduce((sum, l) => sum + estimateLogDuration(l), 0);
+      const filteredGoodCount = filteredLogs.filter(l => (l.score || 0) >= 75).length;
+      const filteredAccuracy = filteredTotalCount > 0 ? Math.round((filteredGoodCount / filteredTotalCount) * 100) : 0;
+      const filteredAvgScore = filteredTotalCount > 0 ? Math.round(filteredLogs.reduce((s, l) => s + (l.score || 0), 0) / filteredTotalCount) : 0;
 
-      const todaySeconds = todayLogs.reduce((sum, l) => sum + estimateLogDuration(l), 0);
-      const monthSeconds = monthLogs.reduce((sum, l) => sum + estimateLogDuration(l), 0);
-      const yearSeconds = yearLogs.reduce((sum, l) => sum + estimateLogDuration(l), 0);
+      // Calculate Month-over-Month Growth (This Month vs Last Month)
+      const prevDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+      const prevYearStr = String(prevDate.getFullYear());
+      const prevMonthStr = String(prevDate.getMonth() + 1).padStart(2, '0');
+      const curMonthKey = `${thisYearStr}-${thisMonthStr}`;
+      const prevMonthKey = `${prevYearStr}-${prevMonthStr}`;
 
-      const todayAccCount = todayLogs.filter(l => (l.score || 0) >= 75).length;
-      const todayAccuracy = todayLogs.length > 0 ? Math.round((todayAccCount / todayLogs.length) * 100) : 0;
-      const todayAvgScore = todayLogs.length > 0 ? Math.round(todayLogs.reduce((s, l) => s + (l.score || 0), 0) / todayLogs.length) : 0;
+      const curMonthLogs = activeLogs.filter(l => (l.month === curMonthKey) || (l.timestamp && l.timestamp.startsWith(curMonthKey)));
+      const prevMonthLogs = activeLogs.filter(l => (l.month === prevMonthKey) || (l.timestamp && l.timestamp.startsWith(prevMonthKey)));
 
-      // Unique days practiced this month
-      const monthDaysSet = new Set();
-      monthLogs.forEach(l => {
-        const d = l.day || (l.dateStr ? l.dateStr.replace(/\//g, '-') : (l.timestamp ? l.timestamp.slice(0, 10) : ''));
-        if (d) monthDaysSet.add(d);
-      });
-      const monthDaysCount = monthDaysSet.size;
+      const curMonthSeconds = curMonthLogs.reduce((s, l) => s + estimateLogDuration(l), 0);
+      const prevMonthSeconds = prevMonthLogs.reduce((s, l) => s + estimateLogDuration(l), 0);
+      const curMonthWords = curMonthLogs.filter(l => isWordLog(l)).length;
+      const curMonthSentences = curMonthLogs.filter(l => !isWordLog(l)).length;
+      const prevMonthWords = prevMonthLogs.filter(l => isWordLog(l)).length;
+      const prevMonthSentences = prevMonthLogs.filter(l => !isWordLog(l)).length;
 
-      // Words mastered this month
-      const monthMasteredSet = new Set(monthLogs.filter(l => (l.score || 0) >= 85).map(l => l.word));
+      function calcGrowth(cur, prev) {
+        if (prev === 0) return cur > 0 ? 100 : 0;
+        return Math.round(((cur - prev) / prev) * 100);
+      }
+      const durGrowth = calcGrowth(curMonthSeconds, prevMonthSeconds);
+      const wordGrowth = calcGrowth(curMonthWords, prevMonthWords);
+      const sentGrowth = calcGrowth(curMonthSentences, prevMonthSentences);
 
-      // Calculate Top Weak Words from activeLogs
+      // Monthly Breakdown for Bar Chart (12 Months of target year)
+      const targetYearForChart = selectedLogYear !== 'all' ? selectedLogYear : thisYearStr;
+      const monthlyStats = [];
+      for (let m = 1; m <= 12; m++) {
+        const mStr = String(m).padStart(2, '0');
+        const key = `${targetYearForChart}-${mStr}`;
+        const mLogs = activeLogs.filter(l => (l.month === key) || (l.timestamp && l.timestamp.startsWith(key)));
+        const words = mLogs.filter(l => isWordLog(l)).length;
+        const sentences = mLogs.filter(l => !isWordLog(l)).length;
+        const duration = mLogs.reduce((s, l) => s + estimateLogDuration(l), 0);
+        monthlyStats.push({ month: m, mStr, words, sentences, total: words + sentences, duration });
+      }
+
+      const maxCountInYear = Math.max(10, ...monthlyStats.map(s => Math.max(s.words, s.sentences)));
+
+      // Top Weak / Mistakes Bar
       const weakCounts = {};
-      activeLogs.filter(l => (l.score || 0) < 75).forEach(l => {
+      filteredLogs.filter(l => (l.score || 0) < 75).forEach(l => {
         const w = (l.word || "").trim();
         if (w) weakCounts[w] = (weakCounts[w] || 0) + 1;
       });
       const sortedWeak = Object.entries(weakCounts).sort((a, b) => b[1] - a[1]).slice(0, 5);
-
       let weakBadgesHtml = '';
       if (sortedWeak.length > 0) {
         weakBadgesHtml = sortedWeak.map(([w, cnt]) => `
@@ -6862,56 +7085,209 @@
           </span>
         `).join('');
       } else {
-        weakBadgesHtml = `<span class="text-xs text-slate-400 font-medium">✨ 棒極了！目前沒有待加強的高頻錯詞。</span>`;
+        weakBadgesHtml = `<span class="text-xs text-slate-400 font-medium">✨ 棒極了！此期間沒有待加強的高頻錯詞。</span>`;
       }
 
-      // Render Dashboard
+      // Generate SVG Bar Chart
+      const chartWidth = 600;
+      const chartHeight = 150;
+      const chartMarginLeft = 35;
+      const chartMarginRight = 15;
+      const chartMarginBottom = 25;
+      const chartMarginTop = 15;
+      const innerW = chartWidth - chartMarginLeft - chartMarginRight;
+      const innerH = chartHeight - chartMarginTop - chartMarginBottom;
+      const groupWidth = innerW / 12;
+      const barW = Math.max(7, Math.min(13, groupWidth * 0.36));
+
+      let barChartSvg = `
+        <svg viewBox="0 0 ${chartWidth} ${chartHeight}" class="w-full h-auto select-none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Background Grid lines -->
+          <line x1="${chartMarginLeft}" y1="${chartMarginTop}" x2="${chartWidth - chartMarginRight}" y2="${chartMarginTop}" stroke="#E2E8F0" stroke-dasharray="3,3" stroke-width="1"/>
+          <line x1="${chartMarginLeft}" y1="${chartMarginTop + innerH / 2}" x2="${chartWidth - chartMarginRight}" y2="${chartMarginTop + innerH / 2}" stroke="#E2E8F0" stroke-dasharray="3,3" stroke-width="1"/>
+          <line x1="${chartMarginLeft}" y1="${chartMarginTop + innerH}" x2="${chartWidth - chartMarginRight}" y2="${chartMarginTop + innerH}" stroke="#CBD5E1" stroke-width="1.5"/>
+
+          <!-- Y Axis Labels -->
+          <text x="${chartMarginLeft - 6}" y="${chartMarginTop + 4}" text-anchor="end" font-size="9" fill="#94A3B8" font-family="monospace">${maxCountInYear}</text>
+          <text x="${chartMarginLeft - 6}" y="${chartMarginTop + innerH / 2 + 3}" text-anchor="end" font-size="9" fill="#94A3B8" font-family="monospace">${Math.round(maxCountInYear / 2)}</text>
+          <text x="${chartMarginLeft - 6}" y="${chartMarginTop + innerH + 3}" text-anchor="end" font-size="9" fill="#94A3B8" font-family="monospace">0</text>
+      `;
+
+      monthlyStats.forEach((s, idx) => {
+        const cx = chartMarginLeft + idx * groupWidth + groupWidth / 2;
+        const wH = (s.words / maxCountInYear) * innerH;
+        const sH = (s.sentences / maxCountInYear) * innerH;
+        const wY = chartMarginTop + innerH - wH;
+        const sY = chartMarginTop + innerH - sH;
+
+        const isCurrentMonthHighlight = String(s.month).padStart(2, '0') === selectedLogMonth;
+
+        barChartSvg += `
+          <!-- Month Column Group -->
+          <g class="cursor-pointer" onclick="changeLogMonthFilter('${s.mStr}')">
+            ${isCurrentMonthHighlight ? `<rect x="${cx - groupWidth/2 + 2}" y="${chartMarginTop}" width="${groupWidth - 4}" height="${innerH}" fill="#EEF2FF" rx="6" />` : ''}
+            
+            <!-- Word Count Bar (Purple) -->
+            <rect x="${cx - barW - 1.5}" y="${wY}" width="${barW}" height="${Math.max(wH, 0)}" rx="3" fill="#6366F1">
+              <title>${targetYearForChart}年${s.month}月 單字朗讀: ${s.words}次</title>
+            </rect>
+            ${s.words > 0 ? `<text x="${cx - barW / 2 - 1.5}" y="${Math.max(chartMarginTop + 9, wY - 3)}" text-anchor="middle" font-size="8" font-weight="bold" fill="#4F46E5">${s.words}</text>` : ''}
+
+            <!-- Sentence Count Bar (Emerald) -->
+            <rect x="${cx + 1.5}" y="${sY}" width="${barW}" height="${Math.max(sH, 0)}" rx="3" fill="#10B981">
+              <title>${targetYearForChart}年${s.month}月 例句朗讀: ${s.sentences}次</title>
+            </rect>
+            ${s.sentences > 0 ? `<text x="${cx + barW / 2 + 1.5}" y="${Math.max(chartMarginTop + 9, sY - 3)}" text-anchor="middle" font-size="8" font-weight="bold" fill="#059669">${s.sentences}</text>` : ''}
+
+            <!-- X Axis Month Label -->
+            <text x="${cx}" y="${chartHeight - 6}" text-anchor="middle" font-size="9" font-weight="${isCurrentMonthHighlight ? 'bold' : 'normal'}" fill="${isCurrentMonthHighlight ? '#4338CA' : '#64748B'}">${s.month}月</text>
+          </g>
+        `;
+      });
+      barChartSvg += `</svg>`;
+
+      // Generate SVG Arc Growth Gauge (Tab 2)
+      // Radius = 60, circumference = 2 * PI * 60 ~= 377
+      // Semi circle stroke length = 188.5
+      const arcLen = 188.5;
+      const durProgress = Math.min(100, Math.max(0, durGrowth >= 0 ? Math.min(100, 50 + durGrowth / 2) : Math.max(0, 50 + durGrowth / 2)));
+      const durOffset = arcLen - (durProgress / 100) * arcLen;
+      const accOffset = arcLen - (filteredAccuracy / 100) * arcLen;
+
+      let arcGaugeSvg = `
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 items-center p-3 bg-gradient-to-r from-violet-50/50 to-indigo-50/50 rounded-2xl border border-indigo-100">
+          <!-- Arc 1: Duration MoM Growth Gauge -->
+          <div class="flex flex-col items-center text-center">
+            <div class="relative w-44 h-24 flex items-end justify-center">
+              <svg viewBox="0 0 160 90" class="w-full h-full">
+                <!-- Track -->
+                <path d="M 20 80 A 60 60 0 0 1 140 80" fill="none" stroke="#E2E8F0" stroke-width="12" stroke-linecap="round"/>
+                <!-- Value Arc -->
+                <path d="M 20 80 A 60 60 0 0 1 140 80" fill="none" stroke="${durGrowth >= 0 ? '#10B981' : '#F43F5E'}" stroke-width="12" stroke-linecap="round"
+                  stroke-dasharray="${arcLen}" stroke-dashoffset="${durOffset}"/>
+              </svg>
+              <div class="absolute bottom-0 flex flex-col items-center">
+                <span class="text-xl sm:text-2xl font-black font-mono ${durGrowth >= 0 ? 'text-emerald-700' : 'text-rose-700'}">${durGrowth >= 0 ? '+' : ''}${durGrowth}%</span>
+                <span class="text-[10px] font-bold text-slate-500">閱讀時長月成長</span>
+              </div>
+            </div>
+            <div class="text-[11px] text-slate-600 mt-2 font-medium">
+              本月: <strong>${formatPracticeDuration(curMonthSeconds)}</strong> · 上月: <strong>${formatPracticeDuration(prevMonthSeconds)}</strong>
+            </div>
+          </div>
+
+          <!-- Arc 2: Mastery Rate Gauge -->
+          <div class="flex flex-col items-center text-center">
+            <div class="relative w-44 h-24 flex items-end justify-center">
+              <svg viewBox="0 0 160 90" class="w-full h-full">
+                <!-- Track -->
+                <path d="M 20 80 A 60 60 0 0 1 140 80" fill="none" stroke="#E2E8F0" stroke-width="12" stroke-linecap="round"/>
+                <!-- Value Arc -->
+                <path d="M 20 80 A 60 60 0 0 1 140 80" fill="none" stroke="#6366F1" stroke-width="12" stroke-linecap="round"
+                  stroke-dasharray="${arcLen}" stroke-dashoffset="${accOffset}"/>
+              </svg>
+              <div class="absolute bottom-0 flex flex-col items-center">
+                <span class="text-xl sm:text-2xl font-black font-mono text-indigo-700">${filteredAccuracy}%</span>
+                <span class="text-[10px] font-bold text-slate-500">綜合口語掌握率</span>
+              </div>
+            </div>
+            <div class="text-[11px] text-slate-600 mt-2 font-medium">
+              均分: <strong>${filteredAvgScore} 分</strong> · 評測通過率 <strong>${filteredAccuracy}%</strong>
+            </div>
+          </div>
+        </div>
+      `;
+
+      // 6. Render Analytics Dashboard Content
       if (dashboard) {
         dashboard.innerHTML = `
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 mb-2.5">
-            <!-- Card 1: 今日閱讀時長 -->
-            <div class="bg-gradient-to-br from-indigo-50/90 to-purple-50/90 border border-indigo-100/90 rounded-2xl p-3 flex flex-col justify-between shadow-2xs">
-              <div class="flex items-center justify-between text-indigo-800 text-xs font-black">
-                <span class="flex items-center gap-1.5"><span>⏱️</span> 今日閱讀時長</span>
-                <span class="text-[10px] bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full font-extrabold font-mono">${todayLogs.length} 次</span>
+          <!-- 4 Metric Cards for Filtered Range -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-2.5">
+            <!-- Card 1: 閱讀總時長 -->
+            <div class="bg-indigo-50/80 border border-indigo-100 rounded-2xl p-2.5 flex flex-col justify-between shadow-2xs">
+              <div class="flex items-center justify-between text-indigo-900 text-xs font-black">
+                <span class="flex items-center gap-1"><span>⏱️</span> 閱讀時長</span>
+                <span class="text-[10px] bg-indigo-100 text-indigo-700 px-1.5 py-0.2 rounded-full font-mono">${filteredTotalCount} 次</span>
               </div>
-              <div class="mt-2">
-                <div class="text-xl sm:text-2xl font-black text-indigo-950 font-mono tracking-tight">${formatPracticeDuration(todaySeconds)}</div>
-                <div class="text-[11px] text-slate-500 mt-1 flex items-center justify-between">
-                  <span>掌握率: <strong class="${todayAccuracy >= 80 ? 'text-emerald-600' : 'text-amber-600'}">${todayAccuracy}%</strong></span>
-                  <span>均分: <strong>${todayAvgScore}</strong> 分</span>
+              <div class="mt-1.5">
+                <div class="text-lg sm:text-xl font-black text-indigo-950 font-mono tracking-tight">${formatPracticeDuration(filteredDurationSeconds)}</div>
+                <div class="text-[10px] text-slate-500 mt-0.5 truncate">
+                  篩選區間累計時長
                 </div>
               </div>
             </div>
 
-            <!-- Card 2: 本月閱讀統計 -->
-            <div class="bg-gradient-to-br from-emerald-50/90 to-teal-50/90 border border-emerald-100/90 rounded-2xl p-3 flex flex-col justify-between shadow-2xs">
+            <!-- Card 2: 單字閱讀次數 -->
+            <div class="bg-purple-50/80 border border-purple-100 rounded-2xl p-2.5 flex flex-col justify-between shadow-2xs">
+              <div class="flex items-center justify-between text-purple-900 text-xs font-black">
+                <span class="flex items-center gap-1"><span>🔤</span> 單字次數</span>
+                <span class="text-[10px] bg-purple-100 text-purple-700 px-1.5 py-0.2 rounded-full font-mono">${filteredWordsSet.size} 個詞</span>
+              </div>
+              <div class="mt-1.5">
+                <div class="text-lg sm:text-xl font-black text-purple-950 font-mono tracking-tight">${filteredWordCount} <span class="text-xs font-bold text-slate-500">次</span></div>
+                <div class="text-[10px] text-slate-500 mt-0.5 truncate">
+                  月成長: <strong class="${wordGrowth >= 0 ? 'text-emerald-600' : 'text-rose-600'}">${wordGrowth >= 0 ? '+' : ''}${wordGrowth}%</strong>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card 3: 例句閱讀次數 -->
+            <div class="bg-emerald-50/80 border border-emerald-100 rounded-2xl p-2.5 flex flex-col justify-between shadow-2xs">
               <div class="flex items-center justify-between text-emerald-900 text-xs font-black">
-                <span class="flex items-center gap-1.5"><span>📅</span> 本月閱讀時長 (${curMonth}月)</span>
-                <span class="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-full font-extrabold font-mono">打卡 ${monthDaysCount} 天</span>
+                <span class="flex items-center gap-1"><span>💬</span> 例句次數</span>
+                <span class="text-[10px] bg-emerald-100 text-emerald-700 px-1.5 py-0.2 rounded-full font-mono">情境語境</span>
               </div>
-              <div class="mt-2">
-                <div class="text-xl sm:text-2xl font-black text-emerald-950 font-mono tracking-tight">${formatPracticeDuration(monthSeconds)}</div>
-                <div class="text-[11px] text-slate-500 mt-1 flex items-center justify-between">
-                  <span>本月累計: <strong class="text-emerald-700">${monthLogs.length}</strong> 次</span>
-                  <span>熟練: <strong class="text-emerald-700">${monthMasteredSet.size}</strong> 詞</span>
+              <div class="mt-1.5">
+                <div class="text-lg sm:text-xl font-black text-emerald-950 font-mono tracking-tight">${filteredSentenceCount} <span class="text-xs font-bold text-slate-500">次</span></div>
+                <div class="text-[10px] text-slate-500 mt-0.5 truncate">
+                  月成長: <strong class="${sentGrowth >= 0 ? 'text-emerald-600' : 'text-rose-600'}">${sentGrowth >= 0 ? '+' : ''}${sentGrowth}%</strong>
                 </div>
               </div>
             </div>
 
-            <!-- Card 3: 年度累積時長 -->
-            <div class="bg-gradient-to-br from-amber-50/90 to-orange-50/90 border border-amber-100/90 rounded-2xl p-3 flex flex-col justify-between shadow-2xs">
+            <!-- Card 4: 掌握率與均分 -->
+            <div class="bg-amber-50/80 border border-amber-100 rounded-2xl p-2.5 flex flex-col justify-between shadow-2xs">
               <div class="flex items-center justify-between text-amber-950 text-xs font-black">
-                <span class="flex items-center gap-1.5"><span>🏆</span> ${thisYear} 年度閱讀累積</span>
-                <span class="text-[10px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-extrabold font-mono">年度總結</span>
+                <span class="flex items-center gap-1"><span>🎯</span> 掌握率</span>
+                <span class="text-[10px] bg-amber-100 text-amber-800 px-1.5 py-0.2 rounded-full font-mono">${filteredAvgScore}分</span>
               </div>
-              <div class="mt-2">
-                <div class="text-xl sm:text-2xl font-black text-amber-950 font-mono tracking-tight">${formatPracticeDuration(yearSeconds)}</div>
-                <div class="text-[11px] text-slate-500 mt-1 flex items-center justify-between">
-                  <span>年度評測: <strong class="text-amber-800">${yearLogs.length}</strong> 題次</span>
-                  <span class="text-[10px] text-slate-400">持續進步中</span>
+              <div class="mt-1.5">
+                <div class="text-lg sm:text-xl font-black text-amber-950 font-mono tracking-tight">${filteredAccuracy}%</div>
+                <div class="text-[10px] text-slate-500 mt-0.5 truncate">
+                  熟練率 (>=75分)
                 </div>
               </div>
+            </div>
+          </div>
+
+          <!-- Chart Switcher Tabs & Chart Canvas -->
+          <div class="bg-slate-50/90 border border-slate-200/90 rounded-2xl p-3 mb-2.5">
+            <div class="flex items-center justify-between mb-2 pb-1.5 border-b border-slate-200/60 flex-wrap gap-2">
+              <div class="flex items-center gap-2">
+                <button onclick="switchLogChartTab('bar')" class="px-2.5 py-1 rounded-xl text-xs font-black transition flex items-center gap-1.5 active:scale-95 ${logActiveChartTab === 'bar' ? 'bg-indigo-600 text-white shadow-2xs' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'}">
+                  <span>📊 閱讀次數長條圖 (${targetYearForChart}年)</span>
+                </button>
+                <button onclick="switchLogChartTab('arc')" class="px-2.5 py-1 rounded-xl text-xs font-black transition flex items-center gap-1.5 active:scale-95 ${logActiveChartTab === 'arc' ? 'bg-indigo-600 text-white shadow-2xs' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'}">
+                  <span>📈 月度成長弧形圖 (趨勢)</span>
+                </button>
+              </div>
+
+              <!-- Bar Legend (shown when Bar Tab is active) -->
+              ${logActiveChartTab === 'bar' ? `
+                <div class="flex items-center gap-3 text-[11px] font-bold text-slate-600">
+                  <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-indigo-500 inline-block"></span> 單字閱讀次數 (次)</span>
+                  <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-emerald-500 inline-block"></span> 例句朗讀次數 (次)</span>
+                </div>
+              ` : `
+                <div class="text-[11px] font-bold text-slate-500">
+                  <span>對比上月成長率與掌握率</span>
+                </div>
+              `}
+            </div>
+
+            <!-- Tab Content -->
+            <div>
+              ${logActiveChartTab === 'bar' ? barChartSvg : arcGaugeSvg}
             </div>
           </div>
 
@@ -6927,9 +7303,15 @@
         `;
       }
 
-      // 3. Render Table Content
-      if (activeLogs.length === 0) {
-        container.innerHTML = '<div class="text-center py-10 text-slate-400 font-medium">目前尚無練習評測記錄，開始今日挑戰或自由練習試試吧！</div>';
+      // 7. Render Table Content
+      if (filteredLogs.length === 0) {
+        container.innerHTML = `
+          <div class="text-center py-10 text-slate-400 font-medium">
+            <span class="text-2xl block mb-1">🔍</span>
+            所選時間範圍（${selectedLogYear !== 'all' ? selectedLogYear + '年' : '歷年'} ${selectedLogMonth !== 'all' ? selectedLogMonth + '月' : ''}）尚無練習評測記錄。<br>
+            可切換為「全部」或選擇其他年份月份檢視！
+          </div>
+        `;
         return;
       }
 
@@ -6938,6 +7320,7 @@
           <thead>
             <tr class="border-b border-slate-200 text-slate-500 text-[11px] font-bold bg-slate-50/50 sticky top-0 backdrop-blur-xs">
               <th class="py-2.5 px-2.5">時間 (年/月/日 時:分)</th>
+              <th class="px-2">類別</th>
               <th class="px-2">學員</th>
               <th class="px-2">朗讀內容與單字</th>
               <th class="px-2 text-center">得分</th>
@@ -6948,8 +7331,9 @@
           <tbody>
       `;
 
-      activeLogs.slice(0, 100).forEach(l => {
+      filteredLogs.slice(0, 100).forEach(l => {
         const isGood = (l.score || 0) >= 75;
+        const isWord = isWordLog(l);
         const d = new Date(l.timestamp || Date.now());
         const dateStr = l.dateStr || `${d.getFullYear()}/${pad(d.getMonth() + 1)}/${pad(d.getDate())}`;
         const timeStr = l.timeStr || `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
@@ -6958,9 +7342,15 @@
 
         html += `
           <tr class="border-b border-slate-100 hover:bg-slate-50/80 transition-colors">
-            <td class="py-2.5 px-2.5 text-slate-600 font-mono whitespace-nowrap">
+            <td class="py-2 px-2.5 text-slate-600 font-mono whitespace-nowrap">
               <div class="text-[11px] font-bold text-slate-700 leading-tight">${dateStr}</div>
               <div class="text-[10px] text-slate-400 font-medium">${timeStr}</div>
+            </td>
+            <td class="px-2 whitespace-nowrap">
+              ${isWord 
+                ? `<span class="px-2 py-0.5 rounded-lg text-[10px] font-black bg-purple-100 text-purple-800 border border-purple-200">🔤 單字</span>`
+                : `<span class="px-2 py-0.5 rounded-lg text-[10px] font-black bg-emerald-100 text-emerald-800 border border-emerald-200">💬 例句</span>`
+              }
             </td>
             <td class="px-2 whitespace-nowrap">
               <span class="px-2 py-0.5 rounded-lg text-[10px] font-black bg-indigo-50 text-indigo-700 border border-indigo-100">${pName}</span>
@@ -6993,13 +7383,38 @@
         ? allLogs
         : allLogs.filter(l => l.profileId === selectedLogProfileFilter);
 
-      if (activeLogs.length === 0) {
-        alert("尚無記錄可匯出！");
+      // Apply current time filters (Year & Month & Today)
+      const now = new Date();
+      const thisYearStr = String(now.getFullYear());
+      const thisMonthStr = String(now.getMonth() + 1).padStart(2, '0');
+      const todayDateStr = `${thisYearStr}/${thisMonthStr}/${String(now.getDate()).padStart(2, '0')}`;
+      const todayDayStr = `${thisYearStr}-${thisMonthStr}-${String(now.getDate()).padStart(2, '0')}`;
+
+      const filteredLogs = activeLogs.filter(l => {
+        if (selectedLogTimeQuick === 'today') {
+          if (l.day === todayDayStr || l.dateStr === todayDateStr) return true;
+          if (l.timestamp && l.timestamp.startsWith(todayDayStr)) return true;
+          return false;
+        }
+        if (selectedLogYear !== 'all') {
+          const lYear = String(l.year || (l.timestamp ? l.timestamp.slice(0, 4) : ''));
+          if (lYear !== selectedLogYear) return false;
+        }
+        if (selectedLogMonth !== 'all') {
+          const lMonth = String(l.month || (l.timestamp ? l.timestamp.slice(0, 7) : ''));
+          const lMM = lMonth.slice(5, 7) || (l.timestamp ? l.timestamp.slice(5, 7) : '');
+          if (lMM !== selectedLogMonth) return false;
+        }
+        return true;
+      });
+
+      if (filteredLogs.length === 0) {
+        alert("當前篩選條件下尚無記錄可匯出！");
         return;
       }
 
-      let csv = "時間 (年/月/日 時:分:秒),學員,單字,朗讀內容,得分,評級,練習模式,閱讀時長(秒)\n";
-      activeLogs.forEach(l => {
+      let csv = "時間 (年/月/日 時:分:秒),類別,學員,單字,朗讀內容,得分,評級,練習模式,閱讀時長(秒)\n";
+      filteredLogs.forEach(l => {
         const d = new Date(l.timestamp || Date.now());
         const y = d.getFullYear();
         const m = pad(d.getMonth() + 1);
@@ -7012,7 +7427,8 @@
         const dur = estimateLogDuration(l);
         const sent = (l.sentence || l.word || "").replace(/"/g, '""');
         const word = (l.word || "").replace(/"/g, '""');
-        csv += `"${fullTimeStr}","${pName}","${word}","${sent}",${l.score || 0},"${l.tag || ''}","${l.mode || ''}",${dur}\n`;
+        const category = isWordLog(l) ? "單字" : "例句/短文";
+        csv += `"${fullTimeStr}","${category}","${pName}","${word}","${sent}",${l.score || 0},"${l.tag || ''}","${l.mode || ''}",${dur}\n`;
       });
 
       const blob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), csv], { type: 'text/csv;charset=utf-8;' });
@@ -7020,7 +7436,8 @@
       const a = document.createElement('a');
       a.href = url;
       const targetLabel = selectedLogProfileFilter === 'all' ? '全部學員' : ((profiles.find(p => p.id === selectedLogProfileFilter) || {}).name || '學員');
-      a.download = `KaiSpeak_學習評測與閱讀時長_${targetLabel}_${new Date().toISOString().slice(0, 10)}.csv`;
+      const timeLabel = selectedLogYear !== 'all' ? `${selectedLogYear}年${selectedLogMonth !== 'all' ? selectedLogMonth + '月' : ''}` : '歷年總覽';
+      a.download = `KaiSpeak_學習評測與閱讀統計_${targetLabel}_${timeLabel}_${new Date().toISOString().slice(0, 10)}.csv`;
       a.click();
       URL.revokeObjectURL(url);
     }
@@ -7074,7 +7491,12 @@
     function toggleLogModal() {
       const m = document.getElementById('logModal');
       m.classList.toggle('hidden');
-      if (!m.classList.contains('hidden')) updateLogUI();
+      if (!m.classList.contains('hidden')) {
+        if (!isLogAdminMode) {
+          selectedLogProfileFilter = currentProfileId;
+        }
+        updateLogUI();
+      }
     }
 
     function pad(n) { return n < 10 ? '0' + n : n; }
