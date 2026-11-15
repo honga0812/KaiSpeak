@@ -1764,6 +1764,11 @@
           <div id="plannerDialogueContainer" class="flex flex-col gap-2 max-h-[30vh] overflow-y-auto pr-1">
             <!-- Dynamically populated dialogue lines -->
           </div>
+
+          <!-- Dedicated Large Print Dialogue Unit Entry Button -->
+          <button type="button" onclick="openDialogueStoryUnitWithPreloader()" class="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 hover:from-purple-700 hover:to-indigo-700 text-white font-black text-xs shadow-sm flex items-center justify-center gap-2 active:scale-95 transition">
+            <span>📱 進入「親子情境對話短文」專屬大字單元 (iPad 平板模式) →</span>
+          </button>
         </div>
 
         <!-- Action Buttons -->
@@ -1771,11 +1776,179 @@
           <button type="button" onclick="applyVoicePlanToFreePractice()" class="flex-1 py-3 px-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 text-white font-black text-xs shadow-md active:scale-95 transition flex items-center justify-center gap-1.5">
             <span>📚 一鍵載入自由練習</span>
           </button>
-          <button type="button" onclick="applyVoicePlanToDailyQuest()" class="flex-1 py-3 px-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 text-white font-black text-xs shadow-md active:scale-95 transition flex items-center justify-center gap-1.5">
+          <button type="button" onclick="startQuestAssetPreloaderAndLaunch()" class="flex-1 py-3 px-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 text-white font-black text-xs shadow-md active:scale-95 transition flex items-center justify-center gap-1.5">
             <span>🎯 展開此情境專屬任務 (10詞)</span>
           </button>
         </div>
 
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 1. TASK ASSET LOADING MODAL                              -->
+  <!-- ======================================================== -->
+  <div id="taskAssetLoadingModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[95] hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border-2 border-indigo-200 text-center flex flex-col items-center gap-4 animate-in fade-in zoom-in-95 duration-200">
+      
+      <!-- Mascot / Icon Animation -->
+      <div class="relative w-20 h-20 flex items-center justify-center">
+        <div class="absolute inset-0 rounded-full border-4 border-indigo-100 border-t-indigo-600 animate-spin"></div>
+        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500 to-purple-600 text-white flex items-center justify-center text-3xl shadow-inner shadow-indigo-300">
+          🤖
+        </div>
+      </div>
+
+      <!-- Title & Subtitle -->
+      <div>
+        <h3 class="text-lg sm:text-xl font-black text-slate-900">
+          正在準備情境任務資產
+        </h3>
+        <p class="text-xs text-slate-500 mt-1 font-medium">
+          後台即時建檔並快取 10 詞與生活例句的示範發音
+        </p>
+      </div>
+
+      <!-- Progress Bar Container -->
+      <div class="w-full bg-slate-100 rounded-full h-4 overflow-hidden border border-slate-200 p-0.5 relative shadow-inner">
+        <div id="taskAssetProgressBar" class="h-full rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 transition-all duration-200 relative" style="width: 0%;">
+          <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
+        </div>
+      </div>
+
+      <!-- Progress Percentage & Counter -->
+      <div class="flex items-center justify-between w-full text-xs font-bold text-slate-600 px-1">
+        <span id="taskAssetStepLabel">正在初始化...</span>
+        <span id="taskAssetProgressPct" class="text-indigo-600 font-extrabold text-sm">0%</span>
+      </div>
+
+      <!-- Current Word Badge -->
+      <div class="w-full bg-indigo-50/80 border border-indigo-100 rounded-2xl py-2 px-3 text-center">
+        <p class="text-[11px] text-indigo-700 font-bold truncate" id="taskAssetCurrentWordName">
+          準備中...
+        </p>
+      </div>
+
+      <!-- Completion Notice -->
+      <div id="taskAssetCompletionNotice" class="hidden text-xs font-black text-emerald-600 flex items-center gap-1.5 animate-bounce">
+        <span>🎉 語音資產準備完成！即將進入 10 詞每日打卡任務...</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 2. DIALOGUE ASSET LOADING MODAL                          -->
+  <!-- ======================================================== -->
+  <div id="dialogueAssetLoadingModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[95] hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border-2 border-purple-200 text-center flex flex-col items-center gap-4 animate-in fade-in zoom-in-95 duration-200">
+      
+      <!-- Mascot / Icon Animation -->
+      <div class="relative w-20 h-20 flex items-center justify-center">
+        <div class="absolute inset-0 rounded-full border-4 border-purple-100 border-t-purple-600 animate-spin"></div>
+        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 text-white flex items-center justify-center text-3xl shadow-inner shadow-purple-300">
+          📖
+        </div>
+      </div>
+
+      <!-- Title & Subtitle -->
+      <div>
+        <h3 class="text-lg sm:text-xl font-black text-slate-900">
+          正在暖機對話短文語音
+        </h3>
+        <p class="text-xs text-slate-500 mt-1 font-medium">
+          預熱高品質語音模型與快取對話音訊，確保零延遲朗讀
+        </p>
+      </div>
+
+      <!-- Progress Bar Container -->
+      <div class="w-full bg-slate-100 rounded-full h-4 overflow-hidden border border-slate-200 p-0.5 relative shadow-inner">
+        <div id="dialogueAssetProgressBar" class="h-full rounded-full bg-gradient-to-r from-purple-500 via-indigo-500 to-teal-500 transition-all duration-200 relative" style="width: 0%;">
+          <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
+        </div>
+      </div>
+
+      <!-- Progress Percentage & Counter -->
+      <div class="flex items-center justify-between w-full text-xs font-bold text-slate-600 px-1">
+        <span id="dialogueAssetStepLabel">正在暖機語音模型...</span>
+        <span id="dialogueAssetProgressPct" class="text-purple-600 font-extrabold text-sm">0%</span>
+      </div>
+
+      <!-- Current Line Badge -->
+      <div class="w-full bg-purple-50/80 border border-purple-100 rounded-2xl py-2 px-3 text-center">
+        <p class="text-[11px] text-purple-700 font-bold truncate" id="dialogueAssetCurrentLine">
+          準備中...
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 3. DEDICATED DIALOGUE STORY UNIT MODAL (iPad Portrait)    -->
+  <!-- ======================================================== -->
+  <div id="dialogueStoryUnitModal" class="fixed inset-0 bg-slate-900/85 backdrop-blur-md z-[90] hidden flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-hidden">
+    <div class="bg-gradient-to-b from-indigo-50/90 via-white to-purple-50/60 rounded-3xl shadow-2xl border-2 border-indigo-200/90 max-w-4xl w-full h-[94vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+      
+      <!-- Top Navigation Bar -->
+      <div class="px-4 py-3 sm:px-6 sm:py-3.5 bg-white/95 border-b border-indigo-100/90 flex items-center justify-between gap-2 shrink-0">
+        <div class="flex items-center gap-2">
+          <button type="button" onclick="closeDialogueStoryUnitModal()" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 text-xs font-bold shadow-2xs flex items-center gap-1 active:scale-95 transition">
+            <span>← 返回規劃</span>
+          </button>
+          <div class="flex items-center gap-1.5 ml-1">
+            <span class="text-xl sm:text-2xl" id="dialogueUnitTopicIcon">🎡</span>
+            <h3 id="dialogueUnitTopicTitle" class="text-sm sm:text-lg font-black text-slate-900 truncate max-w-[200px] sm:max-w-md">
+              親子情境沉浸對話
+            </h3>
+            <span class="hidden md:inline-block px-2.5 py-0.5 rounded-full bg-indigo-100 text-indigo-700 text-[10px] font-black border border-indigo-200">
+              iPad 直式沉浸單元
+            </span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-1.5 shrink-0">
+          <button type="button" onclick="regenerateDialogueInUnit()" class="px-3 py-1.5 rounded-xl bg-white hover:bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-bold shadow-2xs flex items-center gap-1 active:scale-95 transition" title="隨機換一篇對話短文">
+            <span>🎲 換一篇短文</span>
+          </button>
+          <button type="button" onclick="closeDialogueStoryUnitModal()" class="w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold flex items-center justify-center text-sm transition" title="關閉">
+            ✕
+          </button>
+        </div>
+      </div>
+
+      <!-- Dialogue Playback Control Bar -->
+      <div class="px-4 py-2.5 sm:px-6 sm:py-3 bg-indigo-50/70 border-b border-indigo-100 flex items-center justify-between gap-3 shrink-0 flex-wrap">
+        <div class="flex items-center gap-2">
+          <button id="unitPlayFullDialogueBtn" type="button" onclick="togglePlayFullDialogueInUnit()" class="px-4 py-2 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 text-white font-black text-xs sm:text-sm shadow-md active:scale-95 transition flex items-center gap-2">
+            <span id="unitPlayFullIcon">▶️</span>
+            <span id="unitPlayFullLabel">播放整篇對話朗讀</span>
+          </button>
+          <button id="unitSpeechRateBtn" type="button" onclick="toggleDialogueSpeechRate()" class="px-3 py-2 rounded-xl bg-white border border-indigo-200 text-indigo-800 text-xs font-bold shadow-2xs hover:bg-indigo-50 transition flex items-center gap-1">
+            <span>⚡ 語速：</span>
+            <span id="unitRateLabel" class="font-extrabold text-indigo-600">正常 1.0x</span>
+          </button>
+        </div>
+
+        <div class="text-[11px] sm:text-xs text-indigo-700 font-medium flex items-center gap-1 bg-white/80 px-3 py-1.5 rounded-xl border border-indigo-100 shadow-2xs">
+          <span>💡 提示：點擊任何單字立即朗讀，點擊 🔊 播放整句</span>
+        </div>
+      </div>
+
+      <!-- Dialogue Bubbles Large Print Scroll Area -->
+      <div id="unitDialogueBubblesContainer" class="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-6">
+        <!-- Dynamically rendered large print dialogue bubbles -->
+      </div>
+
+      <!-- Bottom Sticky Action Footer -->
+      <div class="px-4 py-3 sm:px-6 sm:py-3.5 bg-white/95 border-t border-indigo-100 flex items-center justify-between gap-2.5 shrink-0">
+        <button type="button" onclick="applyVoicePlanToFreePractice()" class="py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs sm:text-sm shadow-2xs active:scale-95 transition flex items-center gap-1.5">
+          <span>📚 一鍵載入自由練習</span>
+        </button>
+        <button type="button" onclick="startQuestAssetPreloaderAndLaunch()" class="flex-1 max-w-md py-3 px-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 text-white font-black text-xs sm:text-sm shadow-lg shadow-indigo-200 active:scale-95 transition flex items-center justify-center gap-2">
+          <span>🎯 展開此情境專屬任務 (10詞打卡) →</span>
+        </button>
       </div>
 
     </div>
@@ -3492,8 +3665,13 @@
       }
     }
 
+    let isQuestStepEvaluating = false;
+    let questAdvanceTimer = null;
+
     function runQuestAutoStep() {
       if (!isUserLoggedIn || !questAutoPlay) return;
+      isQuestStepEvaluating = false;
+      if (questAdvanceTimer) { clearTimeout(questAdvanceTimer); questAdvanceTimer = null; }
       renderQuestCard();
 
       setQuestStatus("正在播放母語示範發音，請仔細聽...", "🔊", "bg-indigo-100 text-indigo-800 animate-pulse border-indigo-200");
@@ -3505,11 +3683,23 @@
 
     function getQuestAudioSrc() {
       const card = currentQuestCard();
+      if (!card) return "";
       if (questSubStep === 0) {
-        return card.audioWord || `audio/word_${card.id}.m4a`;
+        if (card.audioWord && !card.audioWord.includes('undefined')) return card.audioWord;
+        if (typeof card.id === 'string' && (card.id.startsWith('cust_') || card.id.startsWith('gen_'))) {
+          return `/api/tts?text=${encodeURIComponent(card.word)}&rate=152`;
+        }
+        return `audio/word_${card.id}.m4a`;
       } else {
         const sentItem = (card._dailySentences && card._dailySentences[questSubStep - 1]);
-        if (sentItem && sentItem.audioSrc) return sentItem.audioSrc;
+        if (sentItem && sentItem.audioSrc && !sentItem.audioSrc.includes('undefined')) return sentItem.audioSrc;
+        if (sentItem && sentItem.text) {
+          return `/api/tts?text=${encodeURIComponent(sentItem.text)}&rate=152`;
+        }
+        if (typeof card.id === 'string' && (card.id.startsWith('cust_') || card.id.startsWith('gen_'))) {
+          const fallbackText = (card.gradedSentences && card.gradedSentences[0]) ? card.gradedSentences[0].text : card.word;
+          return `/api/tts?text=${encodeURIComponent(fallbackText)}&rate=152`;
+        }
         return `audio/sentence_${card.id}_0_0.m4a`;
       }
     }
@@ -3519,9 +3709,7 @@
         questAudioPlayer.pause();
         questAudioPlayer.currentTime = 0;
       }
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-      }
+      KaiSpeechEngine.stop();
 
       let hasEnded = false;
       const finish = () => {
@@ -3538,7 +3726,7 @@
         questAudioPlayer.src = audioSrc;
         questAudioPlayer.onended = finish;
         questAudioPlayer.onerror = (e) => {
-          console.warn("Audio file error or missing, falling back to TTS:", audioSrc, e);
+          console.warn("Audio file error or missing, falling back to KaiSpeechEngine:", audioSrc, e);
           fallbackNaturalTTS(targetText, finish);
         };
         const playPromise = questAudioPlayer.play();
@@ -3712,6 +3900,9 @@
     }
 
     function handleQuestSpeechEvaluation(spokenText) {
+      if (isQuestStepEvaluating) return;
+      isQuestStepEvaluating = true;
+
       if (earlyFinishTimer) { clearTimeout(earlyFinishTimer); earlyFinishTimer = null; }
       if (questRecTimer) { clearInterval(questRecTimer); questRecTimer = null; }
       const ring = document.getElementById('questMicRing');
@@ -3766,7 +3957,8 @@
       const typeStr = questSubStep === 0 ? "每日任務-單字" : `每日任務-例句${questSubStep}`;
       recordPracticeLog(card.word, targetText, score, isGood ? "已熟練" : "待加強", typeStr);
 
-      setTimeout(() => {
+      if (questAdvanceTimer) clearTimeout(questAdvanceTimer);
+      questAdvanceTimer = setTimeout(() => {
         if (questAutoPlay) {
           advanceQuestStep();
         }
@@ -3881,6 +4073,8 @@
     }
 
     function advanceQuestStep() {
+      if (questAdvanceTimer) { clearTimeout(questAdvanceTimer); questAdvanceTimer = null; }
+      isQuestStepEvaluating = false;
       questSubStep++;
       if (questSubStep > 2) {
         questSubStep = 0;
@@ -5602,31 +5796,11 @@
     }
 
     function fallbackNaturalTTS(text, onEndCb) {
-      if (!('speechSynthesis' in window) || !text) {
+      if (!text || !text.trim()) {
         if (onEndCb) onEndCb();
         return;
       }
-      window.speechSynthesis.cancel();
-      const u = new SpeechSynthesisUtterance(text);
-      u.lang = 'en-US';
-      u.rate = 0.92;
-      u.pitch = 1.0;
-
-      refreshVoices();
-      const preferred = loadedVoices.filter(v => 
-        (v.lang === 'en-US' || v.lang === 'en_US' || v.lang.startsWith('en')) && 
-        (v.name.includes('Samantha') || v.name.includes('Ava') || v.name.includes('Karen') || 
-         v.name.includes('Natural') || v.name.includes('Neural') || v.name.includes('Google') || 
-         v.name.includes('Siri') || v.name.includes('Flo') || v.name.includes('Junior') || v.name.includes('Sandy'))
-      );
-      if (preferred.length > 0) u.voice = preferred[0];
-
-      if (onEndCb) {
-        u.onend = () => onEndCb();
-        u.onerror = () => onEndCb();
-      }
-
-      window.speechSynthesis.speak(u);
+      KaiSpeechEngine.speak(text, 0.92, onEndCb);
     }
 
     // ========================================================
@@ -7077,6 +7251,341 @@
 
       area.classList.remove('hidden');
       area.classList.add('flex');
+    }
+
+    // ========================================================
+    // DEDICATED DIALOGUE UNIT & ASSET PRELOADER ENGINE
+    // ========================================================
+    async function startQuestAssetPreloaderAndLaunch() {
+      if (!currentPlannedPlan || !currentPlannedPlan.items || currentPlannedPlan.items.length === 0) return;
+
+      // Close dialogue unit if open
+      closeDialogueStoryUnitModal();
+
+      const modal = document.getElementById('taskAssetLoadingModal');
+      const progressBar = document.getElementById('taskAssetProgressBar');
+      const progressPct = document.getElementById('taskAssetProgressPct');
+      const stepLabel = document.getElementById('taskAssetStepLabel');
+      const wordNameLabel = document.getElementById('taskAssetCurrentWordName');
+      const completionNotice = document.getElementById('taskAssetCompletionNotice');
+
+      if (modal) modal.classList.remove('hidden');
+      if (completionNotice) completionNotice.classList.add('hidden');
+      if (progressBar) progressBar.style.width = '0%';
+      if (progressPct) progressPct.innerText = '0%';
+      if (stepLabel) stepLabel.innerText = '正在初始化情境語音...';
+      if (wordNameLabel) wordNameLabel.innerText = '';
+
+      const items = currentPlannedPlan.items;
+      const total = items.length;
+
+      for (let i = 0; i < total; i++) {
+        const itemWrapper = items[i];
+        const item = itemWrapper.itemRef;
+        const word = item.word;
+
+        const currentPercent = Math.round(((i) / total) * 100);
+        if (progressBar) progressBar.style.width = `${currentPercent}%`;
+        if (progressPct) progressPct.innerText = `${currentPercent}%`;
+        if (stepLabel) stepLabel.innerText = `正在預載與快取語音資產 (${i + 1}/${total})`;
+        if (wordNameLabel) wordNameLabel.innerText = `單字 / 片語：${word}`;
+
+        // 1. Preload word audio
+        const wordTtsUrl = `/api/tts?text=${encodeURIComponent(word.trim())}&rate=152`;
+        try {
+          const resp = await fetch(wordTtsUrl, { method: 'GET', cache: 'force-cache' });
+          if (resp.ok) {
+            item.audioWord = wordTtsUrl;
+          }
+        } catch(e) {
+          item.audioWord = wordTtsUrl;
+        }
+
+        // 2. Preload graded sentences audio
+        if (item.gradedSentences && item.gradedSentences.length > 0) {
+          for (let s = 0; s < item.gradedSentences.length; s++) {
+            const sent = item.gradedSentences[s];
+            if (sent && sent.text) {
+              const sentTtsUrl = `/api/tts?text=${encodeURIComponent(sent.text.trim())}&rate=152`;
+              try {
+                const sResp = await fetch(sentTtsUrl, { method: 'GET', cache: 'force-cache' });
+                if (sResp.ok) {
+                  sent.audioSrc = sentTtsUrl;
+                }
+              } catch(e) {
+                sent.audioSrc = sentTtsUrl;
+              }
+            }
+          }
+        }
+
+        await new Promise(r => setTimeout(r, 60));
+      }
+
+      if (progressBar) progressBar.style.width = '100%';
+      if (progressPct) progressPct.innerText = '100%';
+      if (stepLabel) stepLabel.innerText = '✅ 所有 10 詞及例句語音資產準備完成！';
+      if (wordNameLabel) wordNameLabel.innerText = '即將進入情境打卡任務...';
+      if (completionNotice) completionNotice.classList.remove('hidden');
+
+      await new Promise(r => setTimeout(r, 450));
+
+      if (modal) modal.classList.add('hidden');
+      applyVoicePlanToDailyQuest();
+    }
+
+    let unitDialogueSpeechRate = 1.0;
+    let isUnitFullDialoguePlaying = false;
+    let unitDialoguePlaybackIndex = 0;
+
+    function toggleDialogueSpeechRate() {
+      if (unitDialogueSpeechRate === 1.0) {
+        unitDialogueSpeechRate = 0.85;
+      } else {
+        unitDialogueSpeechRate = 1.0;
+      }
+      const label = document.getElementById('unitRateLabel');
+      if (label) {
+        label.innerText = unitDialogueSpeechRate === 1.0 ? '正常 1.0x' : '慢速 0.85x';
+      }
+      SoundEffects.playClick('switch');
+    }
+
+    async function openDialogueStoryUnitWithPreloader() {
+      if (!currentPlannedPlan || !currentPlannedPlan.dialogue || currentPlannedPlan.dialogue.length === 0) return;
+
+      const modal = document.getElementById('dialogueAssetLoadingModal');
+      const progressBar = document.getElementById('dialogueAssetProgressBar');
+      const progressPct = document.getElementById('dialogueAssetProgressPct');
+      const stepLabel = document.getElementById('dialogueAssetStepLabel');
+      const lineLabel = document.getElementById('dialogueAssetCurrentLine');
+
+      if (modal) modal.classList.remove('hidden');
+      if (progressBar) progressBar.style.width = '0%';
+      if (progressPct) progressPct.innerText = '0%';
+      if (stepLabel) stepLabel.innerText = '正在暖機對話語音模型...';
+
+      const dialogue = currentPlannedPlan.dialogue;
+      const total = dialogue.length;
+
+      for (let i = 0; i < total; i++) {
+        const turn = dialogue[i];
+        const currentPercent = Math.round(((i) / total) * 100);
+        if (progressBar) progressBar.style.width = `${currentPercent}%`;
+        if (progressPct) progressPct.innerText = `${currentPercent}%`;
+        if (stepLabel) stepLabel.innerText = `正在預熱對話語音模型 (${i + 1}/${total})`;
+        if (lineLabel) lineLabel.innerText = `${turn.speaker}: ${turn.en.slice(0, 36)}...`;
+
+        const ttsUrl = `/api/tts?text=${encodeURIComponent(turn.en.trim())}&rate=152`;
+        try {
+          await fetch(ttsUrl, { method: 'GET', cache: 'force-cache' });
+        } catch(e) {}
+
+        await new Promise(r => setTimeout(r, 50));
+      }
+
+      try {
+        KaiSpeechEngine.init();
+      } catch(e) {}
+
+      if (progressBar) progressBar.style.width = '100%';
+      if (progressPct) progressPct.innerText = '100%';
+      if (stepLabel) stepLabel.innerText = '✅ 對話語音模型已準備就緒！';
+      if (lineLabel) lineLabel.innerText = '即將進入 iPad 平板專屬單元...';
+
+      await new Promise(r => setTimeout(r, 350));
+
+      if (modal) modal.classList.add('hidden');
+      openDialogueStoryUnitModal();
+    }
+
+    function openDialogueStoryUnitModal() {
+      if (!currentPlannedPlan) return;
+      const modal = document.getElementById('dialogueStoryUnitModal');
+      if (!modal) return;
+
+      const titleEl = document.getElementById('dialogueUnitTopicTitle');
+      if (titleEl) titleEl.innerText = `${currentPlannedPlan.title} · 親子對話`;
+
+      renderDialogueUnitLargePrint(currentPlannedPlan.dialogue, currentPlannedPlan.items);
+      modal.classList.remove('hidden');
+    }
+
+    function closeDialogueStoryUnitModal() {
+      stopFullDialoguePlaybackInUnit();
+      const modal = document.getElementById('dialogueStoryUnitModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function renderDialogueUnitLargePrint(dialogue, targetItems) {
+      const container = document.getElementById('unitDialogueBubblesContainer');
+      if (!container) return;
+      container.innerHTML = '';
+
+      dialogue.forEach((turn, idx) => {
+        const isChild = turn.speaker.toLowerCase() === 'kai' || turn.speakerLabel === 'Kai';
+        const bubble = document.createElement('div');
+        bubble.id = `unitDialogueTurn_${idx}`;
+        bubble.className = `p-4 sm:p-6 md:p-7 rounded-3xl border-2 transition-all duration-300 flex items-start gap-3.5 sm:gap-5 text-left ${
+          isChild 
+            ? 'bg-gradient-to-r from-purple-50/95 to-indigo-50/80 border-purple-200/90 ml-2 sm:ml-8 md:ml-16 shadow-sm' 
+            : 'bg-white/95 border-indigo-100 mr-2 sm:mr-8 md:mr-16 shadow-sm'
+        }`;
+
+        const interactiveEnHtml = renderInteractiveSentenceLargePrint(turn.en, targetItems);
+
+        bubble.innerHTML = `
+          <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl ${isChild ? 'bg-amber-300' : 'bg-indigo-100'} border-2 border-white shadow-sm flex items-center justify-center text-2xl sm:text-3xl shrink-0">
+            ${turn.avatar}
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center justify-between gap-2 mb-1.5 sm:mb-2 border-b border-slate-100 pb-1.5">
+              <div class="flex items-center gap-1.5">
+                <span class="text-xs sm:text-base font-black ${isChild ? 'text-purple-900' : 'text-indigo-950'}">
+                  ${turn.speakerLabel}
+                </span>
+                <span class="text-[10px] sm:text-xs font-semibold text-slate-400">
+                  (${turn.speaker})
+                </span>
+              </div>
+              <button type="button" onclick="playUnitDialogueLine(${idx})" class="text-xs sm:text-sm text-indigo-700 hover:text-indigo-950 bg-white hover:bg-indigo-50 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full border border-indigo-200 shadow-2xs font-extrabold flex items-center gap-1 active:scale-95 transition" title="聆聽整句示範">
+                🔊 聽整句示範
+              </button>
+            </div>
+            <div class="text-lg sm:text-2xl md:text-3xl font-extrabold text-slate-800 leading-snug sm:leading-relaxed dialogue-en-large tracking-tight">
+              ${interactiveEnHtml}
+            </div>
+            <div class="text-sm sm:text-base md:text-lg text-slate-500 font-semibold mt-2.5 pt-2 border-t border-slate-100/90">
+              ${turn.zh}
+            </div>
+          </div>
+        `;
+        container.appendChild(bubble);
+      });
+    }
+
+    function renderInteractiveSentenceLargePrint(enText, targetItems) {
+      const targetTokens = new Set();
+      (targetItems || []).forEach(item => {
+        item.word.toLowerCase().split(/\s+/).forEach(w => {
+          const c = w.replace(/[^a-z0-9]/g, '');
+          if (c) targetTokens.add(c);
+        });
+      });
+
+      const parts = enText.split(/([a-zA-Z0-9'-]+)/g);
+      return parts.map(part => {
+        const clean = part.toLowerCase().replace(/[^a-z0-9]/g, '');
+        if (!clean) {
+          return escapeHtml(part);
+        }
+        const isTarget = targetTokens.has(clean);
+        const tokenClasses = isTarget
+          ? 'font-black text-indigo-950 bg-amber-200/90 px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-xl border-2 border-amber-300 hover:bg-amber-300 cursor-pointer shadow-xs inline-flex items-center gap-0.5 active:scale-95 transition-all'
+          : 'cursor-pointer px-1 py-0.5 rounded-lg hover:bg-indigo-100 hover:text-indigo-900 transition-colors text-slate-800 inline-block active:scale-95';
+
+        const starBadge = isTarget ? '<span class="text-xs">✨</span>' : '';
+        return `<span class="dialogue-word-token ${tokenClasses}" onclick="playDialogueWord('${clean}', this)" title="點擊發音: ${clean}">${starBadge}${escapeHtml(part)}</span>`;
+      }).join('');
+    }
+
+    function playUnitDialogueLine(lineIdx) {
+      if (!currentPlannedPlan || !currentPlannedPlan.dialogue) return;
+      const turn = currentPlannedPlan.dialogue[lineIdx];
+      if (!turn) return;
+
+      highlightUnitDialogueBubble(lineIdx);
+      const effectiveRate = unitDialogueSpeechRate === 1.0 ? 0.92 : 0.82;
+      KaiSpeechEngine.speak(turn.en, effectiveRate, () => {
+        unhighlightUnitDialogueBubble(lineIdx);
+      });
+    }
+
+    function highlightUnitDialogueBubble(idx) {
+      const bubble = document.getElementById(`unitDialogueTurn_${idx}`);
+      if (bubble) {
+        bubble.classList.add('ring-4', 'ring-indigo-400', 'bg-indigo-50/90', 'shadow-xl', 'scale-[1.01]');
+        bubble.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    function unhighlightUnitDialogueBubble(idx) {
+      const bubble = document.getElementById(`unitDialogueTurn_${idx}`);
+      if (bubble) {
+        bubble.classList.remove('ring-4', 'ring-indigo-400', 'bg-indigo-50/90', 'shadow-xl', 'scale-[1.01]');
+      }
+    }
+
+    function togglePlayFullDialogueInUnit() {
+      if (isUnitFullDialoguePlaying) {
+        stopFullDialoguePlaybackInUnit();
+        return;
+      }
+      startFullDialoguePlaybackInUnit();
+    }
+
+    function startFullDialoguePlaybackInUnit() {
+      if (!currentPlannedPlan || !currentPlannedPlan.dialogue || currentPlannedPlan.dialogue.length === 0) return;
+      isUnitFullDialoguePlaying = true;
+      unitDialoguePlaybackIndex = 0;
+
+      const btn = document.getElementById('unitPlayFullDialogueBtn');
+      const icon = document.getElementById('unitPlayFullIcon');
+      const label = document.getElementById('unitPlayFullLabel');
+      if (icon) icon.innerText = "⏹️";
+      if (label) label.innerText = "停止朗讀";
+      if (btn) btn.className = "px-4 py-2 rounded-2xl bg-gradient-to-r from-amber-500 to-rose-500 hover:from-amber-600 text-white font-black text-xs sm:text-sm shadow-md active:scale-95 transition flex items-center gap-2";
+
+      playNextDialogueTurnInUnit();
+    }
+
+    function playNextDialogueTurnInUnit() {
+      if (!isUnitFullDialoguePlaying || !currentPlannedPlan || !currentPlannedPlan.dialogue) return;
+      if (unitDialoguePlaybackIndex >= currentPlannedPlan.dialogue.length) {
+        stopFullDialoguePlaybackInUnit();
+        return;
+      }
+
+      const idx = unitDialoguePlaybackIndex;
+      const turn = currentPlannedPlan.dialogue[idx];
+
+      highlightUnitDialogueBubble(idx);
+      const effectiveRate = unitDialogueSpeechRate === 1.0 ? 0.92 : 0.82;
+
+      KaiSpeechEngine.speak(turn.en, effectiveRate, () => {
+        unhighlightUnitDialogueBubble(idx);
+        if (!isUnitFullDialoguePlaying) return;
+        unitDialoguePlaybackIndex++;
+        setTimeout(() => {
+          playNextDialogueTurnInUnit();
+        }, 450);
+      });
+    }
+
+    function stopFullDialoguePlaybackInUnit() {
+      isUnitFullDialoguePlaying = false;
+      KaiSpeechEngine.stop();
+      if (currentPlannedPlan && currentPlannedPlan.dialogue) {
+        for (let i = 0; i < currentPlannedPlan.dialogue.length; i++) {
+          unhighlightUnitDialogueBubble(i);
+        }
+      }
+      const btn = document.getElementById('unitPlayFullDialogueBtn');
+      const icon = document.getElementById('unitPlayFullIcon');
+      const label = document.getElementById('unitPlayFullLabel');
+      if (icon) icon.innerText = "▶️";
+      if (label) label.innerText = "播放整篇對話朗讀";
+      if (btn) btn.className = "px-4 py-2 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 text-white font-black text-xs sm:text-sm shadow-md active:scale-95 transition flex items-center gap-2";
+    }
+
+    function regenerateDialogueInUnit() {
+      if (!currentPlannedPlan) return;
+      stopFullDialoguePlaybackInUnit();
+      const newDialogue = generateParentChildDialogue(currentPlannedPlan, "", true);
+      currentPlannedPlan.dialogue = newDialogue;
+      renderPlannedDialogue(newDialogue, currentPlannedPlan.items);
+      renderDialogueUnitLargePrint(newDialogue, currentPlannedPlan.items);
+      SoundEffects.playClick('switch');
     }
 
     function applyVoicePlanToDailyQuest() {
