@@ -132,7 +132,7 @@
         <div class="flex items-center gap-3.5 cursor-pointer select-none">
           <div class="relative shrink-0">
             <img src="images/ui/KaiSpeak_logo_V3_trans.png" alt="KaiSpeak" class="h-20 sm:h-24 md:h-28 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] hover:scale-105 transition duration-300 shrink-0">
-            <span class="absolute -bottom-1 -right-1 text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md border-2 border-white tracking-wider">v0.0.13</span>
+            <span class="absolute -bottom-1 -right-1 text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md border-2 border-white tracking-wider">v0.0.14</span>
           </div>
           <div class="flex flex-col justify-center text-left leading-none">
             <h1 class="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight bg-gradient-to-r from-indigo-800 via-indigo-600 to-purple-600 bg-clip-text text-transparent select-none leading-none">KaiSpeak</h1>
@@ -356,7 +356,7 @@
       <!-- Brand Logo (Pure V3 Jelly Badge, prominently sized to fill left brand area) -->
       <div class="relative flex items-center cursor-pointer select-none shrink-0 group py-0.5" onclick="switchAppMode('quest')" title="KaiSpeak 首頁">
         <img src="images/ui/KaiSpeak_logo_V3_trans.png" alt="KaiSpeak" class="h-16 sm:h-20 md:h-24 lg:h-28 w-auto object-contain drop-shadow-[0_8px_22px_rgba(79,70,229,0.25)] group-hover:scale-105 transition-all duration-300 shrink-0">
-        <span class="absolute -bottom-1 right-0 sm:right-1 text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md border-2 border-white tracking-wider">v0.0.13</span>
+        <span class="absolute -bottom-1 right-0 sm:right-1 text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md border-2 border-white tracking-wider">v0.0.14</span>
       </div>
 
       <!-- Right Controls: Profile & Status Badges (Streamlined & slim) -->
@@ -535,85 +535,85 @@
     <!-- Fullscreen Confetti Particle Canvas -->
     <canvas id="celebrationConfettiCanvas" class="fixed inset-0 pointer-events-none z-10 w-full h-full"></canvas>
 
-    <div class="bg-gradient-to-b from-white via-amber-50/40 to-indigo-50/50 rounded-3xl p-4 sm:p-6 max-w-md w-full max-h-[94vh] overflow-y-auto shadow-2xl border-2 border-amber-300 text-center flex flex-col items-center my-auto relative z-20 transform transition-all duration-500">
+    <div class="bg-gradient-to-b from-white via-amber-50/40 to-indigo-50/50 rounded-3xl p-6 sm:p-8 max-w-lg sm:max-w-xl w-full max-h-[92vh] overflow-y-auto shadow-2xl border-2 border-amber-300 text-center flex flex-col items-center my-auto relative z-20 transform transition-all duration-500">
       
-      <!-- Crown Badge on Top -->
-      <div class="absolute -top-4 px-4 py-1 bg-gradient-to-r from-amber-400 via-orange-500 to-amber-500 text-white font-black text-xs rounded-full shadow-lg border-2 border-white flex items-center gap-1.5 animate-bounce">
+      <!-- Crown Badge on Top (Clean stationary badge, NO bounce) -->
+      <div class="absolute -top-4 px-5 py-1.5 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white font-black text-xs sm:text-sm rounded-full shadow-lg border-2 border-white flex items-center gap-1.5">
         👑 今日挑戰大獲全勝！
       </div>
 
-      <!-- KAI MASCOT CELEBRATION ANIMATION (Proportional Video Asset - Compact Sized) -->
-      <div id="kaiMascotContainer" class="relative my-2 flex items-center justify-center">
-        <div class="absolute w-24 h-24 rounded-full bg-gradient-to-tr from-amber-300/40 to-indigo-400/30 blur-lg animate-pulse"></div>
+      <!-- KAI MASCOT CELEBRATION ANIMATION (Generously sized & prominent) -->
+      <div id="kaiMascotContainer" class="relative my-3 flex items-center justify-center">
+        <div class="absolute w-36 h-36 rounded-full bg-gradient-to-tr from-amber-300/40 to-indigo-400/30 blur-xl animate-pulse"></div>
         
-        <!-- Animated Kai Mascot Video Card (Aspect 9:16 proportional, web optimized) -->
-        <div id="kaiMascotImgWrapper" class="relative z-10 w-16 sm:w-18 aspect-[9/16] rounded-2xl overflow-hidden shadow-lg border-2 border-amber-300 bg-amber-50 flex items-center justify-center transform transition duration-500 hover:scale-105">
+        <!-- Animated Kai Mascot Video Card (Aspect 9:16 proportional, enlarged) -->
+        <div id="kaiMascotImgWrapper" class="relative z-10 w-28 sm:w-32 aspect-[9/16] rounded-2xl overflow-hidden shadow-xl border-2 border-amber-300 bg-amber-50 flex items-center justify-center transform transition duration-500 hover:scale-105">
           <video autoplay loop muted playsinline poster="images/ui/kai_actions/kai_cheer_thumb.jpg" class="w-full h-full object-cover">
             <source src="images/ui/kai_actions/kai_cheer_web.mp4" type="video/mp4">
           </video>
-          <div class="absolute bottom-0.5 inset-x-1 bg-amber-950/75 backdrop-blur-xs text-white text-[9px] font-black py-0.5 rounded text-center">
+          <div class="absolute bottom-1 inset-x-1 bg-amber-950/75 backdrop-blur-xs text-white text-[10px] sm:text-xs font-black py-0.5 rounded-lg text-center">
             🎉 Kai 為你歡呼！
           </div>
         </div>
       </div>
 
       <!-- Mascot Tagline -->
-      <div class="text-[11px] font-black text-indigo-700 bg-white px-3 py-0.5 rounded-full border border-indigo-100 shadow-xs mb-2">
+      <div class="text-xs sm:text-sm font-black text-indigo-700 bg-white px-4 py-1 rounded-full border border-indigo-100 shadow-xs mb-2">
         🌟 Kai 正在為你的堅持歡呼慶祝！
       </div>
 
-      <h3 class="text-xl sm:text-2xl font-black text-slate-900 mb-1 leading-tight">
+      <h3 class="text-2xl sm:text-3xl font-black text-slate-900 mb-1 leading-tight">
         太棒了！今日打卡挑戰大成功！
       </h3>
-      <p class="text-[11px] sm:text-xs text-slate-500 mb-3 leading-relaxed">
+      <p class="text-xs sm:text-sm text-slate-500 mb-4 leading-relaxed max-w-md">
         恭喜完成 10 個核心單字與 20 句情境例句！美語語感與發音再次大幅提升！
       </p>
 
       <!-- GIANT STREAK COUNT INCREMENT CEREMONY -->
-      <div class="w-full bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 p-3 sm:p-3.5 rounded-2xl text-white shadow-lg shadow-orange-200/80 mb-3 flex items-center justify-around relative overflow-hidden">
+      <div class="w-full bg-gradient-to-r from-amber-500 via-orange-500 to-red-500 p-4 rounded-2xl text-white shadow-lg shadow-orange-200/80 mb-4 flex items-center justify-around relative overflow-hidden">
         
         <!-- Streak Counter with Animation -->
         <div class="flex flex-col items-center">
-          <span class="text-[9px] uppercase font-black tracking-widest text-amber-100">連續打卡天數</span>
+          <span class="text-[10px] uppercase font-black tracking-widest text-amber-100">連續打卡天數</span>
           <div class="flex items-center gap-1.5 mt-0.5">
-            <span class="text-xl">🔥</span>
-            <span id="compStreakAnimNum" class="text-3xl sm:text-4xl font-black font-mono tracking-tighter transition-all duration-500">526</span>
-            <span class="text-xs font-bold">天</span>
+            <span class="text-2xl">🔥</span>
+            <span id="compStreakAnimNum" class="text-4xl sm:text-5xl font-black font-mono tracking-tighter transition-all duration-500">526</span>
+            <span class="text-sm font-bold">天</span>
           </div>
           <!-- Animated +1 badge -->
-          <div id="compStreakPlusBadge" class="mt-0.5 bg-yellow-300 text-amber-950 font-black text-[10px] px-2.5 py-0.5 rounded-full shadow transform transition-all duration-500">
+          <div id="compStreakPlusBadge" class="mt-1 bg-yellow-300 text-amber-950 font-black text-[11px] px-3 py-0.5 rounded-full shadow transform transition-all duration-500">
             ✨ 連續天數 +1 天！
           </div>
         </div>
 
         <!-- Divider line -->
-        <div class="w-0.5 h-12 bg-white/20"></div>
+        <div class="w-0.5 h-14 bg-white/20"></div>
 
         <!-- Energy Gained with Animation -->
         <div class="flex flex-col items-center">
-          <span class="text-[9px] uppercase font-black tracking-widest text-amber-100">今日打卡獎勵</span>
+          <span class="text-[10px] uppercase font-black tracking-widest text-amber-100">今日打卡獎勵</span>
           <div class="flex items-center gap-1 mt-0.5">
-            <span class="text-xl">⚡</span>
-            <span class="text-2xl sm:text-3xl font-black font-mono">+50</span>
-            <span class="text-[11px] font-bold">能量</span>
+            <span class="text-2xl">⚡</span>
+            <span class="text-3xl sm:text-4xl font-black font-mono">+50</span>
+            <span class="text-xs font-bold">能量</span>
           </div>
-          <div id="compEnergyPlusBadge" class="mt-0.5 bg-white text-indigo-900 font-black text-[9px] px-2 py-0.5 rounded-full shadow">
+          <div id="compEnergyPlusBadge" class="mt-1 bg-white text-indigo-900 font-black text-[10px] px-2.5 py-0.5 rounded-full shadow">
             總能量: <span id="compTotalEnergy" class="font-mono">400</span> 點
           </div>
         </div>
       </div>
 
       <!-- Action Choice Buttons -->
-      <div class="w-full flex flex-col gap-2">
-        <button onclick="startNextQuestRound()" class="w-full py-2.5 sm:py-3 bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-xl text-xs sm:text-sm font-black shadow-lg shadow-indigo-300 transition transform active:scale-95 flex items-center justify-center gap-1.5">
+      <div class="w-full flex flex-col gap-2.5">
+        <button onclick="startNextQuestRound()" class="w-full py-3 sm:py-3.5 bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white rounded-2xl text-xs sm:text-sm font-black shadow-lg shadow-indigo-300 transition transform active:scale-95 flex items-center justify-center gap-1.5">
           <span>🚀 繼續挑戰下一輪任務（額外加練 10 詞）</span>
         </button>
 
-        <div class="flex gap-2">
-          <button onclick="closeCompletionAndSwitch('free')" class="flex-1 py-2 sm:py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 text-[11px] sm:text-xs font-bold rounded-xl transition active:scale-95 flex items-center justify-center gap-1">
+        <div class="flex gap-2.5">
+          <button onclick="closeCompletionAndSwitch('free')" class="flex-1 py-2.5 sm:py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold rounded-2xl transition active:scale-95 flex items-center justify-center gap-1">
             <span>📚 前往自由字卡練習</span>
           </button>
-          <button onclick="closeCompletionAndSwitch('adventure')" class="flex-1 py-2 sm:py-2.5 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 text-[11px] sm:text-xs font-bold rounded-xl transition active:scale-95 flex items-center justify-center gap-1">
+          <button onclick="closeCompletionAndSwitch('adventure')" class="flex-1 py-2.5 sm:py-3 bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 text-xs font-bold rounded-2xl transition active:scale-95 flex items-center justify-center gap-1">
             <span>🗺️ 前往探險島闖關</span>
           </button>
         </div>
@@ -701,21 +701,21 @@
   <!-- ======================================================== -->
   <!-- STREAK SHIELD & ENERGY CENTER MODAL                      -->
   <!-- ======================================================== -->
-  <div id="streakShieldModal" class="fixed inset-0 bg-slate-900/65 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto hidden">
-    <div class="bg-white rounded-3xl p-4 sm:p-5 max-w-md w-full max-h-[94vh] overflow-y-auto shadow-2xl border border-amber-100 text-center flex flex-col items-center my-auto">
+  <div id="streakShieldModal" class="fixed inset-0 bg-slate-900/65 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto hidden">
+    <div class="bg-white rounded-3xl p-4 sm:p-5 max-w-sm sm:max-w-md w-full shadow-2xl border border-amber-100 text-center flex flex-col items-center my-auto">
       
-      <div class="flex items-center justify-between w-full pb-2.5 border-b border-slate-100 mb-3">
+      <div class="flex items-center justify-between w-full pb-2 border-b border-slate-100 mb-2.5">
         <div class="flex items-center gap-2">
-          <span class="text-xl sm:text-2xl">🛡️</span>
+          <span class="text-xl">🛡️</span>
           <h3 class="text-sm sm:text-base font-black text-slate-900">連續打卡守護與能量補簽中心</h3>
         </div>
         <button onclick="toggleStreakShieldModal()" class="text-slate-400 hover:text-slate-600 font-bold text-lg p-1">✕</button>
       </div>
 
-      <!-- Kai Shield Guardian Action Video & Streak Circle (Compact Sized) -->
-      <div class="flex items-center justify-center gap-3.5 mb-2.5">
-        <!-- Kai Shield Video (9:16 aspect ratio scaled proportionally) -->
-        <div class="relative w-13 sm:w-15 aspect-[9/16] rounded-xl overflow-hidden shadow-md border-2 border-amber-300 bg-amber-50 shrink-0">
+      <!-- Kai Shield Guardian Action Video & Streak Circle (Clean Compact Display) -->
+      <div class="flex items-center justify-center gap-4 mb-2">
+        <!-- Kai Shield Video (Aspect 9:16 cleanly sized to avoid overflowing viewport) -->
+        <div class="relative w-20 sm:w-24 aspect-[9/16] rounded-2xl overflow-hidden shadow-md border-2 border-amber-300 bg-amber-50 shrink-0">
           <video autoplay loop muted playsinline poster="images/ui/kai_actions/kai_shield_thumb.jpg" class="w-full h-full object-cover">
             <source src="images/ui/kai_actions/kai_shield_web.mp4" type="video/mp4">
           </video>
@@ -724,45 +724,39 @@
           </div>
         </div>
 
-        <div class="w-16 h-16 sm:w-18 sm:h-18 rounded-full bg-gradient-to-tr from-amber-400 to-orange-500 flex flex-col items-center justify-center text-white shadow-md shrink-0">
-          <span class="text-xl">🔥</span>
-          <span id="modalStreakNum" class="text-xl sm:text-2xl font-black font-mono leading-none mt-0.5">525</span>
-          <span class="text-[8px] font-bold text-amber-100">連續天數</span>
+        <div class="flex flex-col items-center justify-center gap-1.5 shrink-0">
+          <div class="w-18 h-18 sm:w-20 sm:h-20 rounded-2xl bg-gradient-to-tr from-amber-400 to-orange-500 flex flex-col items-center justify-center text-white shadow-md">
+            <span class="text-xl">🔥</span>
+            <span id="modalStreakNum" class="text-2xl sm:text-3xl font-black font-mono leading-none mt-0.5">525</span>
+            <span class="text-[8px] font-bold text-amber-100">連續天數</span>
+          </div>
+          <span class="text-[9px] font-extrabold text-amber-800 bg-amber-100 px-2 py-0.5 rounded-full border border-amber-200">
+            🏆 傳奇守護者
+          </span>
         </div>
       </div>
 
-      <div class="text-xs sm:text-sm font-bold text-slate-800 mb-1">榮譽稱號：<span class="text-amber-600 font-black">🏆 傳奇守護者</span></div>
-      <p class="text-[11px] sm:text-xs text-slate-500 mb-3 leading-relaxed">
-        堅持是不斷進步的階梯！即使偶爾忘記打卡，也可使用儲備能量進行「安全補簽」，守護辛苦累積的心血！
+      <p class="text-[11px] text-slate-500 mb-2 leading-relaxed">
+        堅持是不斷進步的階梯！即使偶爾忘記打卡，也可使用儲備能量進行「安全補簽」！
       </p>
 
-      <div class="w-full bg-indigo-50 border border-indigo-200 rounded-xl p-2.5 sm:p-3 mb-2.5 text-left flex items-center justify-between">
+      <div class="w-full bg-indigo-50 border border-indigo-200 rounded-xl p-2.5 mb-2 text-left flex items-center justify-between">
         <div>
-          <div class="text-[11px] text-indigo-700 font-bold">目前可用閃電能量：</div>
-          <div class="text-xl sm:text-2xl font-black font-mono text-indigo-950 flex items-center gap-1 mt-0.5">
+          <div class="text-[10px] text-indigo-700 font-bold">目前可用閃電能量：</div>
+          <div class="text-xl font-black font-mono text-indigo-950 flex items-center gap-1 mt-0.5">
             <span>⚡</span> <span id="modalEnergyNum">350</span> <span class="text-[10px] font-normal text-slate-500">點</span>
           </div>
         </div>
         <div class="text-right">
-          <span class="text-[10px] sm:text-xs font-extrabold text-amber-800 bg-amber-100 px-2 py-0.5 rounded-full">
+          <span class="text-[10px] font-extrabold text-amber-800 bg-amber-100 px-2 py-0.5 rounded-full">
             補簽消耗：100 點/天
           </span>
         </div>
       </div>
 
-      <div class="w-full bg-slate-50 rounded-xl p-2.5 text-left text-[11px] text-slate-600 mb-3 border border-slate-200/70 space-y-1">
-        <div class="font-bold text-slate-700 mb-0.5">⚡ 能量獲得與消耗規則：</div>
-        <div class="flex items-center justify-between">
-          <span>🎯 完成每日 10 詞朗讀任務：</span>
-          <span class="font-bold text-emerald-600">+50 點</span>
-        </div>
-        <div class="flex items-center justify-between">
-          <span>🌟 評測單句得分 ≥ 85 分：</span>
-          <span class="font-bold text-emerald-600">+5 點</span>
-        </div>
-        <div class="flex items-center justify-between">
-          <span>🛡️ 遺漏打卡進行「能量補簽」：</span>
-          <span class="font-bold text-rose-600">-100 點</span>
+      <div class="w-full bg-slate-50 rounded-xl p-2 text-left text-[10px] text-slate-600 mb-2.5 border border-slate-200/70 space-y-0.5">
+        <div class="font-bold text-slate-700">⚡ 能量規則：每日任務 +50 點 · 優秀發音 +5 點 · 補簽 -100 點</div>
+      </div>
         </div>
       </div>
 
@@ -867,15 +861,9 @@
       
       <!-- LEFT PANE: Content Card -->
       <div class="md:col-span-7 flex flex-col gap-3">
-        <div id="questStateBanner" class="w-full p-2.5 md:p-3 rounded-2xl bg-indigo-50 border border-indigo-100 text-center font-bold text-indigo-800 text-xs sm:text-sm flex items-center justify-between gap-2 shadow-inner transition-all duration-300">
-          <div class="flex items-center gap-2">
-            <span id="questStateIcon" class="text-lg md:text-xl">🔊</span>
-            <span id="questStateText">點選上方「開始挑戰」或播放範讀</span>
-          </div>
-          <div class="flex items-center gap-1.5 shrink-0 bg-white/90 border border-indigo-200/80 rounded-xl px-2 py-1 shadow-2xs">
-            <img src="images/ui/kai_actions/kai_headphone.png" alt="Kai 聽示範" class="w-7 h-12 object-cover rounded-lg aspect-[9/16] shrink-0 border border-indigo-100 shadow-2xs">
-            <span class="text-[10px] font-black text-indigo-700 hidden sm:inline">Kai 專心聆聽</span>
-          </div>
+        <div id="questStateBanner" class="w-full p-2.5 md:p-3 rounded-2xl bg-indigo-50 border border-indigo-100 text-center font-bold text-indigo-800 text-xs sm:text-sm flex items-center justify-center gap-2 shadow-inner transition-all duration-300">
+          <span id="questStateIcon" class="text-lg md:text-xl">🔊</span>
+          <span id="questStateText">點選上方「開始挑戰」或播放範讀</span>
         </div>
 
         <div class="flex-1 bg-white rounded-3xl p-6 md:p-8 shadow-xl shadow-indigo-100/70 border border-indigo-50 flex flex-col items-center justify-center text-center relative min-h-[300px] md:min-h-[380px]">
@@ -953,15 +941,7 @@
             </div>
           </div>
 
-          <div class="flex items-center justify-center gap-3 sm:gap-4 my-1">
-            <!-- Kai Mic Invite Video (Proportionally Compact: Aspect 9:16) -->
-            <div class="relative w-11 sm:w-13 aspect-[9/16] rounded-xl overflow-hidden shadow-md border-2 border-indigo-200 bg-indigo-50 shrink-0">
-              <video autoplay loop muted playsinline poster="images/ui/kai_actions/kai_mic_invite_thumb.jpg" class="w-full h-full object-cover">
-                <source src="images/ui/kai_actions/kai_mic_invite_web.mp4" type="video/mp4">
-              </video>
-              <div class="absolute bottom-0.5 inset-x-0.5 bg-indigo-950/70 backdrop-blur-xs text-[8px] sm:text-[9px] text-white font-black rounded py-0.5 text-center leading-none">換你囉！</div>
-            </div>
-
+          <div class="flex items-center justify-center my-2">
             <div class="relative flex items-center justify-center">
               <div id="questMicRing" class="absolute w-28 h-28 md:w-32 md:h-32 rounded-full bg-rose-400/40 hidden pulse-ring"></div>
               <button id="questMicBtn" onclick="toggleQuestManualRecord()" class="jelly-pop relative z-10 w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-tr from-indigo-600 via-indigo-700 to-purple-600 text-white shadow-xl shadow-indigo-300 border-4 border-white ring-4 ring-indigo-200/60 flex flex-col items-center justify-center transition active:scale-90 focus:outline-none cursor-pointer">
@@ -1325,25 +1305,35 @@
   <!-- ======================================================== -->
   <section id="viewAdventure" class="w-full max-w-6xl hidden flex-col gap-4">
     
-    <div class="bg-white rounded-3xl p-4 sm:p-5 shadow-sm border border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-3.5">
-        <!-- Kai Explorer Action Video (Aspect 9:16 scaled proportionally - Compact) -->
-        <div class="relative w-10 sm:w-12 aspect-[9/16] rounded-xl overflow-hidden shadow-md border-2 border-indigo-200 bg-indigo-50 shrink-0">
+    <div class="bg-white rounded-3xl p-4 sm:p-6 shadow-sm border border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-4 sm:gap-5 w-full sm:w-auto">
+        <!-- Kai Explorer Action Video (Largely and prominently presented on the left) -->
+        <div class="relative w-20 sm:w-24 md:w-28 aspect-[9/16] rounded-2xl overflow-hidden shadow-lg border-2 border-indigo-300 bg-gradient-to-b from-indigo-50 to-purple-50 shrink-0 transform hover:scale-105 transition duration-300">
           <video autoplay loop muted playsinline poster="images/ui/kai_actions/kai_explore_thumb.jpg" class="w-full h-full object-cover">
             <source src="images/ui/kai_actions/kai_explore_web.mp4" type="video/mp4">
           </video>
-          <div class="absolute bottom-0.5 inset-x-0.5 bg-indigo-950/70 backdrop-blur-xs text-[8px] text-white font-black rounded py-0.5 text-center leading-none">探險中</div>
+          <div class="absolute bottom-1 inset-x-1 bg-indigo-950/80 backdrop-blur-xs text-[10px] sm:text-[11px] text-white font-black rounded-lg py-0.5 text-center leading-none shadow-xs">
+            🧭 探險引導員
+          </div>
         </div>
-        <div>
-          <h2 class="text-base sm:text-lg font-bold text-slate-800 flex items-center gap-2">
-            🗺️ 英語發音探險島 (盲盒迷霧解鎖)
-          </h2>
-          <p class="text-xs text-slate-500 mt-0.5">迷霧盲盒機制 · 闖過當前關卡獲取至少 ⭐ 1 顆星方可撥開迷霧解鎖下一關！</p>
+        <div class="flex flex-col gap-1.5">
+          <div class="flex items-center gap-2 flex-wrap">
+            <h2 class="text-base sm:text-xl font-black text-slate-900 flex items-center gap-1.5">
+              <span>🗺️ 英語發音探險島</span>
+            </h2>
+            <span class="text-[10px] sm:text-xs bg-indigo-100 text-indigo-800 font-extrabold px-2.5 py-0.5 rounded-full border border-indigo-200">
+              盲盒迷霧闖關
+            </span>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
+            🧭 <strong>Kai 探險引導：</strong>每關口語朗讀取得至少 ⭐ 1 顆星，即可撥開迷霧解鎖下一關與島嶼驗收大測驗！
+          </p>
         </div>
       </div>
-      <div class="flex items-center gap-2 bg-amber-50 px-4 py-2 rounded-2xl border border-amber-200 text-xs font-black text-amber-900 shrink-0">
-        <span>⭐ 累積解鎖星星:</span>
-        <span id="advTotalStars" class="text-base text-amber-600">0</span> / 150
+      <div class="flex items-center gap-2 bg-gradient-to-r from-amber-50 to-orange-50 px-4 py-2.5 rounded-2xl border border-amber-200 text-xs sm:text-sm font-black text-amber-900 shrink-0 shadow-2xs">
+        <span class="text-base">⭐</span>
+        <span>累積解鎖星星:</span>
+        <span id="advTotalStars" class="text-lg text-amber-600 font-mono font-black">0</span> / 150
       </div>
     </div>
 
@@ -1941,7 +1931,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">v0.0.13 · 即時 AI</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">v0.0.14 · 即時 AI</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -1975,7 +1965,7 @@
             <span>👉 點此前往 Google AI Studio 免費獲取 Key</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 v0.0.13 · 支援 gemini-2.0-flash / 2.0-flash-lite</span>
+          <span class="text-slate-400 text-[10px]">版本 v0.0.14 · 支援 gemini-2.0-flash / 2.0-flash-lite</span>
         </div>
       </div>
 
@@ -2306,7 +2296,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "v0.0.13";
+    const APP_VERSION = "v0.0.14";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // Immediate sanitization of legacy Gemini 1.5 or invalid 2.5 models from localStorage
