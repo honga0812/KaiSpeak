@@ -1042,6 +1042,10 @@
         <span>生活故事 · Kai's Day</span>
         <span class="text-[9px] bg-purple-600 text-white px-2 py-0.5 rounded-full font-extrabold tracking-wider">10 幕故事</span>
       </button>
+      <button onclick="setFreeCategory('ai_generated')" id="aiGeneratedCatBtn" class="free-cat-btn hidden px-3.5 py-1.5 rounded-xl font-bold bg-amber-50 text-amber-900 border border-amber-300 hover:bg-amber-100 whitespace-nowrap shadow-sm flex items-center gap-1 active:scale-95 transition" data-cat="ai_generated">
+        <span>✨ AI 拓展新詞</span>
+        <span id="aiGeneratedCountBadge" class="text-[10px] bg-amber-500 text-white px-1.5 py-0.5 rounded-full font-bold">0</span>
+      </button>
       <button onclick="setFreeCategory('weak')" class="free-cat-btn px-3.5 py-1.5 rounded-xl font-bold bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100 whitespace-nowrap" data-cat="weak">⚠️ 錯詞本 (<span id="weakCountBadge">0</span>)</button>
       <button onclick="setFreeCategory('home')" class="free-cat-btn px-3.5 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="home">🏠 家居 (80)</button>
       <button onclick="setFreeCategory('food')" class="free-cat-btn px-3.5 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap" data-cat="food">🍎 飲食 (80)</button>
@@ -2101,6 +2105,19 @@
 
     // --- Quest Mode State (10 Words: Dynamic SRS Based on Practice History) ---
     
+    // Category normalizer for 10 life domains + phrases
+    function normalizeCategory(cat) {
+      if (!cat) return 'daily_body';
+      const c = String(cat).toLowerCase().trim();
+      const valid = ['home', 'food', 'animal', 'nature', 'toy_school', 'daily_body', 'travel', 'clothes', 'colors_shapes', 'actions', 'phrases'];
+      if (valid.includes(c)) return c;
+      if (c === 'daily' || c === 'body' || c === 'health') return 'daily_body';
+      if (c === 'school' || c === 'toy') return 'toy_school';
+      if (c === 'colors' || c === 'shapes') return 'colors_shapes';
+      if (c === 'outdoors' || c === 'traffic') return 'travel';
+      return 'daily_body';
+    }
+
     // Load dynamically generated vocab from localStorage
     try {
       const savedCustom = localStorage.getItem('kaispeak_custom_vocab');
@@ -2110,6 +2127,8 @@
           const existingWords = new Set(MASTER_VOCAB.map(v => v.word.toLowerCase()));
           parsed.forEach(item => {
             if (!existingWords.has(item.word.toLowerCase())) {
+              item.isNewlyGenerated = true;
+              item.category = normalizeCategory(item.category);
               MASTER_VOCAB.push(item);
               existingWords.add(item.word.toLowerCase());
             }
@@ -3565,6 +3584,7 @@
         vFree.classList.remove('hidden');
         vAdv.classList.add('hidden');
         bFree.className = tabActive;
+        updateVocabCountersUI();
         freePage = 0;
         const list = getFilteredFreeVocab();
         if (list.length > 0) {
@@ -4322,6 +4342,8 @@
         return pool; // Story mode retains chronological sequence
       } else if (freeCategory === 'phrases') {
         pool = MASTER_VOCAB.filter(c => c.category === 'phrases' || c.isPhrase);
+      } else if (freeCategory === 'ai_generated') {
+        pool = MASTER_VOCAB.filter(c => c.isNewlyGenerated);
       } else if (freeCategory === 'all') {
         pool = MASTER_VOCAB.filter(c => !c.isPhrase);
       } else {
@@ -4484,13 +4506,14 @@
         const stats = getWordPracticeStats(c.word, getActiveProfile());
         const statusBadge = `<span class="text-[9px] px-1.5 py-0.2 rounded-md font-bold border ${stats.badgeClass}">${stats.label}</span>`;
         const phraseBadge = c.isPhrase ? '<span class="text-[8px] bg-emerald-600 text-white font-extrabold px-1 py-0.2 rounded shadow-2xs">片語</span>' : '';
+        const aiBadge = c.isNewlyGenerated ? '<span class="text-[8px] bg-amber-500 text-white font-extrabold px-1 py-0.2 rounded shadow-2xs">✨ AI</span>' : '';
 
         cardEl.innerHTML = `
           <span class="text-3xl select-none">${c.emoji}</span>
           <div class="overflow-hidden flex-1">
             <div class="flex items-center justify-between gap-1">
               <span class="font-bold text-xs truncate">${c.word}</span>
-              <div class="flex items-center gap-1">${phraseBadge}${storyPill}</div>
+              <div class="flex items-center gap-1">${phraseBadge}${aiBadge}${storyPill}</div>
             </div>
             <div class="text-[10px] ${isActive ? 'text-indigo-100' : 'text-slate-600'} truncate">${c.phonetic}</div>
             <div class="text-[10px] ${isActive ? 'text-indigo-200' : 'text-slate-600'} truncate mb-0.5">${c.meaning}</div>
@@ -4680,6 +4703,8 @@
             btn.className = "free-cat-btn active px-3.5 py-1.5 rounded-xl font-black bg-gradient-to-r from-purple-700 to-indigo-700 text-white shadow-md whitespace-nowrap flex items-center gap-1.5";
           } else if (cat === 'phrases') {
             btn.className = "free-cat-btn active px-3.5 py-1.5 rounded-xl font-black bg-gradient-to-r from-emerald-600 to-teal-700 text-white shadow-md whitespace-nowrap flex items-center gap-1.5";
+          } else if (cat === 'ai_generated') {
+            btn.className = "free-cat-btn active px-3.5 py-1.5 rounded-xl font-black bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-md whitespace-nowrap flex items-center gap-1.5";
           } else {
             btn.className = "free-cat-btn active px-3.5 py-1.5 rounded-xl font-bold bg-indigo-600 text-white shadow-sm whitespace-nowrap";
           }
@@ -4688,6 +4713,8 @@
             btn.className = "free-cat-btn px-3.5 py-1.5 rounded-xl font-black bg-gradient-to-r from-amber-100 via-purple-100 to-indigo-100 text-purple-950 border border-purple-300 hover:from-amber-200 hover:to-purple-200 whitespace-nowrap shadow-sm flex items-center gap-1.5";
           } else if (bCat === 'phrases') {
             btn.className = "free-cat-btn px-3.5 py-1.5 rounded-xl font-black bg-gradient-to-r from-emerald-100 via-teal-100 to-cyan-100 text-emerald-950 border border-emerald-300 hover:from-emerald-200 hover:to-teal-200 whitespace-nowrap shadow-sm flex items-center gap-1.5";
+          } else if (bCat === 'ai_generated') {
+            btn.className = "free-cat-btn px-3.5 py-1.5 rounded-xl font-bold bg-amber-50 text-amber-900 border border-amber-300 hover:bg-amber-100 whitespace-nowrap shadow-sm flex items-center gap-1.5";
           } else {
             btn.className = "free-cat-btn px-3.5 py-1.5 rounded-xl font-semibold bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap";
           }
@@ -6288,7 +6315,7 @@
             s1: "Drive the bumper car.", t1: "開這輛碰碰車。",
             s2: "We drive colorful bumper cars.", t2: "我們開著五顏六色的碰碰車。",
             s3: "Happy kids bump each other in bumper cars.", t3: "快樂的孩子們開著碰碰車互相碰撞玩耍。" },
-          { word: "safety", ipa: "/ˈseɪf.ti/", meaning: "名詞：安全，安全規則", emoji: "🛡️", category: "daily",
+          { word: "safety", ipa: "/ˈseɪf.ti/", meaning: "名詞：安全，安全規則", emoji: "🛡️", category: "daily_body",
             s1: "Safety comes first here.", t1: "在這裡安全第一。",
             s2: "Always follow amusement park safety.", t2: "時刻遵守遊樂園的安全守則。",
             s3: "Always follow safety rules before riding attractions.", t3: "在搭乘任何遊樂設施前務必遵守安全規則。" },
@@ -6438,7 +6465,7 @@
             s1: "Eat your vegetables.", t1: "吃你的蔬菜。",
             s2: "Fresh vegetables taste very good.", t2: "新鮮蔬菜吃起來很美味。",
             s3: "Eating fresh vegetables makes you grow strong.", t3: "吃新鮮蔬菜能讓你長得強壯。" },
-          { word: "spoon", ipa: "/spuːn/", meaning: "名詞：湯匙，勺子", emoji: "🥄", category: "daily",
+          { word: "spoon", ipa: "/spuːn/", meaning: "名詞：湯匙，勺子", emoji: "🥄", category: "home",
             s1: "Hold your spoon.", t1: "握住你的湯匙。",
             s2: "Use a clean spoon nicely.", t2: "好好使用乾淨的湯匙。",
             s3: "Please eat three more spoons of rice.", t3: "請再吃完三大湯匙的米飯吧。" },
@@ -6546,7 +6573,7 @@
             s1: "Bend your right knee.", t1: "彎曲你的右膝蓋。",
             s2: "Protect your knee while running.", t2: "跑步時保護好你的膝蓋。",
             s3: "The boy gently rubs his scraped knee.", t3: "小男孩輕輕揉著自己擦傷的膝蓋。" },
-          { word: "bandage", ipa: "/ˈbæn.dɪdʒ/", meaning: "名詞：繃帶，OK 繃", emoji: "🩹", category: "daily",
+          { word: "bandage", ipa: "/ˈbæn.dɪdʒ/", meaning: "名詞：繃帶，OK 繃", emoji: "🩹", category: "daily_body",
             s1: "Put on a bandage.", t1: "貼上 OK 繃。",
             s2: "The clean bandage stops bleeding.", t2: "乾淨的繃帶能止住出血。",
             s3: "Mom puts a cute colorful bandage on.", t3: "媽媽為他貼上了一片可愛的彩色 OK 繃。" },
@@ -6554,15 +6581,15 @@
             s1: "Visit the kind doctor.", t1: "看親切的醫生。",
             s2: "The good doctor helps patients.", t2: "好醫生熱心幫助病人。",
             s3: "The gentle doctor checks your temperature carefully.", t3: "溫柔的醫生仔細地為你檢查體溫。" },
-          { word: "medicine", ipa: "/ˈmɛd.ə.sɪn/", meaning: "名詞：藥物，良藥", emoji: "💊", category: "daily",
+          { word: "medicine", ipa: "/ˈmɛd.ə.sɪn/", meaning: "名詞：藥物，良藥", emoji: "💊", category: "daily_body",
             s1: "Take your sweet medicine.", t1: "吃你的甜甜藥水。",
             s2: "The right medicine heals sickness.", t2: "對症的藥物能治癒疾病。",
             s3: "Take prescribed medicine with plenty of water.", t3: "遵照醫囑搭配充沛的水分服藥。" },
-          { word: "careful", ipa: "/ˈkɛr.fəl/", meaning: "形容詞：小心翼翼的，謹慎的", emoji: "⚠️", category: "daily",
+          { word: "careful", ipa: "/ˈkɛr.fəl/", meaning: "形容詞：小心翼翼的，謹慎的", emoji: "⚠️", category: "daily_body",
             s1: "Always be very careful.", t1: "隨時要非常小心。",
             s2: "Be careful on wet floors.", t2: "在潮濕的地板上要當心。",
             s3: "Careful children watch steps when going downstairs.", t3: "謹慎的孩子下樓梯時都會注意腳步。" },
-          { word: "rest", ipa: "/rɛst/", meaning: "名詞/動詞：休息，靜養", emoji: "🛌", category: "daily",
+          { word: "rest", ipa: "/rɛst/", meaning: "名詞/動詞：休息，靜養", emoji: "🛌", category: "daily_body",
             s1: "Take a quiet rest.", t1: "好好安靜休息。",
             s2: "Get plenty of good rest.", t2: "獲得充足良好的休息。",
             s3: "Resting in warm bed helps you recover.", t3: "在溫暖的床上好好休息能幫你迅速康復。" }
@@ -6612,7 +6639,7 @@
             s1: "Taste this warm snack.", t1: "嚐嚐這份熱點心。",
             s2: "We buy tasty street snacks.", t2: "我們買美味的街頭小吃。",
             s3: "Night markets offer countless tasty local snacks.", t3: "夜市提供了數不勝數的道地美味小吃。" },
-          { word: "straw", ipa: "/strɑː/", meaning: "名詞：吸管", emoji: "🥤", category: "daily",
+          { word: "straw", ipa: "/strɑː/", meaning: "名詞：吸管", emoji: "🥤", category: "food",
             s1: "Use a wide straw.", t1: "使用粗吸管。",
             s2: "Drink fresh juice through straw.", t2: "用吸管喝新鮮果汁。",
             s3: "Use a wide straw to sip chewy pearls.", t3: "用粗吸管吸起 Q 彈的珍珠。" },
@@ -6620,7 +6647,7 @@
             s1: "Taste the sweet candy.", t1: "品嚐甜甜的糖果。",
             s2: "The ripe fruits taste sweet.", t2: "成熟的水果吃起來很甜。",
             s3: "The delicious dessert has a pleasant sweet flavor.", t3: "這份美味的甜點擁有令人愉悅的甜味。" },
-          { word: "coin", ipa: "/kɔɪn/", meaning: "名詞：硬幣，零錢", emoji: "🪙", category: "daily",
+          { word: "coin", ipa: "/kɔɪn/", meaning: "名詞：硬幣，零錢", emoji: "🪙", category: "daily_body",
             s1: "Count your shiny coin.", t1: "數數你的亮硬幣。",
             s2: "Pay with one round coin.", t2: "用一枚圓形硬幣付款。",
             s3: "Keep coins safely in your small wallet.", t3: "把硬幣安全地收在你的小皮夾裡。" }
@@ -6670,7 +6697,7 @@
             s1: "Look at white cloud.", t1: "看白白的雲朵。",
             s2: "Fluffy white clouds float peacefully.", t2: "蓬鬆的白雲平靜地漂浮著。",
             s3: "The airplane flies smoothly above thick white clouds.", t3: "飛機平穩地在厚厚的白雲上方飛行。" },
-          { word: "window", ipa: "/ˈwɪn.doʊ/", meaning: "名詞：窗戶，機窗", emoji: "🪟", category: "daily",
+          { word: "window", ipa: "/ˈwɪn.doʊ/", meaning: "名詞：窗戶，機窗", emoji: "🪟", category: "home",
             s1: "Look out the window.", t1: "看向窗外。",
             s2: "Sit next to clean window.", t2: "坐在乾淨的窗戶旁邊。",
             s3: "Children love peering through the clear airplane window.", t3: "孩子們最喜歡隔著透亮的機窗向外看。" },
@@ -6678,7 +6705,7 @@
             s1: "Pack your neat luggage.", t1: "打包整齊的行李。",
             s2: "Roll your heavy luggage carefully.", t2: "小心拖著你的沉重行李。",
             s3: "Families tag their luggage before departure.", t3: "出發前全家人為行李貼上標籤。" },
-          { word: "seat", ipa: "/siːt/", meaning: "名詞：座位，客艙座椅", emoji: "💺", category: "daily",
+          { word: "seat", ipa: "/siːt/", meaning: "名詞：座位，客艙座椅", emoji: "💺", category: "travel",
             s1: "Find your assigned seat.", t1: "找到指定的座位。",
             s2: "Sit in comfortable airplane seat.", t2: "坐在舒服的飛機座位上。",
             s3: "Passengers remain seated comfortably during the smooth flight.", t3: "在平穩的飛行過程中，乘客們舒適地坐在座位上。" }
@@ -7083,7 +7110,7 @@
       return tInfo.preferred_words.map(w => {
         const found = MASTER_VOCAB.find(v => v.word.toLowerCase() === w.toLowerCase());
         return found || {
-          word: w, ipa: "/ˈwɜːrd/", meaning: w, emoji: "📖", category: "daily",
+          word: w, ipa: "/ˈwɜːrd/", meaning: w, emoji: "📖", category: "daily_body",
           s1: `Look at the ${w}.`, t1: `看這項事物。`,
           s2: `We use ${w} in daily life.`, t2: `我們在生活中運用它。`,
           s3: `Children practice using ${w} correctly in speech.`, t3: `孩子們在說話中正確運用這個字。`
@@ -7142,10 +7169,11 @@
             id: nw.word,
             word: nw.word,
             wordCode: code,
+            isNewlyGenerated: true,
             phonetic: nw.ipa || "/ˈwɜːrd/",
             meaning: nw.meaning || nw.word,
             emoji: nw.emoji || "📖",
-            category: nw.category || "daily",
+            category: normalizeCategory(nw.category),
             level: "L2",
             role: "new",
             isPhrase: false,
@@ -7186,6 +7214,7 @@
             id: cleanId,
             word: np.word,
             wordCode: code,
+            isNewlyGenerated: true,
             phonetic: np.ipa || "/freɪz/",
             meaning: np.meaning || np.word,
             emoji: np.emoji || "✨",
@@ -7779,9 +7808,23 @@
       updateVocabCountersUI();
     }
 
+    const FREE_CATEGORY_META = {
+      home: { label: "家居", icon: "🏠" },
+      food: { label: "飲食", icon: "🍎" },
+      animal: { label: "動物", icon: "🐶" },
+      nature: { label: "自然", icon: "🌿" },
+      toy_school: { label: "校園", icon: "🎒" },
+      daily_body: { label: "身心", icon: "❤️" },
+      travel: { label: "交通", icon: "🚗" },
+      clothes: { label: "服飾", icon: "👗" },
+      colors_shapes: { label: "色彩", icon: "🎨" },
+      actions: { label: "律動", icon: "🏃" }
+    };
+
     function updateVocabCountersUI() {
       const wordsCount = MASTER_VOCAB.filter(v => !v.isPhrase && v.category !== 'phrases').length;
       const phrasesCount = MASTER_VOCAB.filter(v => v.isPhrase || v.category === 'phrases').length;
+      const aiCount = MASTER_VOCAB.filter(v => v.isNewlyGenerated).length;
 
       const allBtn = document.querySelector('.free-cat-btn[data-cat="all"]');
       if (allBtn) allBtn.innerText = `全部單字 (${wordsCount})`;
@@ -7791,6 +7834,28 @@
         const badge = phraseBtn.querySelector('span:last-child');
         if (badge) badge.innerText = `${phrasesCount} 常用語塊`;
       }
+
+      // AI Generated Category Button & Badge
+      const aiBtn = document.getElementById('aiGeneratedCatBtn');
+      const aiBadge = document.getElementById('aiGeneratedCountBadge');
+      if (aiBtn) {
+        if (aiCount > 0) {
+          aiBtn.classList.remove('hidden');
+          if (aiBadge) aiBadge.innerText = aiCount;
+        } else {
+          aiBtn.classList.add('hidden');
+        }
+      }
+
+      // Dynamic counts for all 10 life categories
+      Object.keys(FREE_CATEGORY_META).forEach(catKey => {
+        const catBtn = document.querySelector(`.free-cat-btn[data-cat="${catKey}"]`);
+        if (catBtn) {
+          const count = MASTER_VOCAB.filter(v => !v.isPhrase && v.category === catKey).length;
+          const meta = FREE_CATEGORY_META[catKey];
+          catBtn.innerText = `${meta.icon} ${meta.label} (${count})`;
+        }
+      });
     }
 
     function renderPlannedResults(plan, adaptive) {
@@ -8558,6 +8623,7 @@
       updateStreakAndEnergyUI();
       updateLogUI();
       initQRCode();
+      updateVocabCountersUI();
     });
   </script>
 </body>
