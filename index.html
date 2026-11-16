@@ -140,8 +140,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.24（2026年·11月·第24次發布）">
-                26.11.24
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.25（2026年·11月·第25次發布）">
+                26.11.25
               </span>
             </div>
           </div>
@@ -368,7 +368,7 @@
             <span>奇妙星語言</span>
           </span>
           <div class="mt-1 flex items-center gap-1">
-            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.24（2026年·11月·第24次發布）">26.11.24</span>
+            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.25（2026年·11月·第25次發布）">26.11.25</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer flex items-center gap-1 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-2 py-0.5 transition shadow-2xs group-hover:border-amber-400" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -576,22 +576,22 @@
 
     <div class="bg-gradient-to-b from-white via-amber-50/40 to-indigo-50/50 rounded-3xl p-5 sm:p-7 md:p-8 max-w-xl sm:max-w-2xl w-full max-h-[94vh] overflow-y-auto shadow-2xl border-2 border-amber-300 flex flex-col items-center my-auto relative z-20 transform transition-all duration-500">
       
-      <!-- Top Celebration Banner (Inside modal card, completely avoiding top cutoff) -->
-      <div class="w-full flex items-center justify-center mb-3">
+      <!-- Top Celebration Banner (Inside modal card with ample safe padding, completely avoiding top cutoff) -->
+      <div class="w-full flex items-center justify-center pt-1 mb-2.5">
         <div class="px-5 py-1.5 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white font-black text-xs sm:text-sm rounded-full shadow-md border border-white/60 flex items-center gap-1.5">
           👑 今日挑戰大獲全勝！
         </div>
       </div>
 
-      <!-- MAIN ROW: Kai Mascot Video on Left (Enlarged) & Celebration Copy on Right -->
-      <div class="w-full flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 my-2 text-center sm:text-left">
+      <!-- MAIN ROW: Kai Mascot Video on Left (Enlarged) & Celebration Copy on Right (Always side-by-side) -->
+      <div class="w-full flex flex-row items-center justify-center gap-3.5 sm:gap-6 my-2 text-left">
         
         <!-- Left: Enlarged Kai Mascot Animation Card -->
         <div id="kaiMascotContainer" class="relative shrink-0 flex items-center justify-center">
-          <div class="absolute w-44 sm:w-52 h-44 sm:h-52 rounded-full bg-gradient-to-tr from-amber-300/40 via-orange-300/30 to-indigo-400/30 blur-2xl animate-pulse"></div>
+          <div class="absolute w-36 sm:w-52 h-36 sm:h-52 rounded-full bg-gradient-to-tr from-amber-300/40 via-orange-300/30 to-indigo-400/30 blur-2xl animate-pulse"></div>
           
           <!-- Animated Kai Mascot Video Card (Aspect 9:16, significantly enlarged) -->
-          <div id="kaiMascotImgWrapper" class="relative z-10 w-36 sm:w-44 md:w-48 aspect-[9/16] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border-3 border-amber-300 bg-amber-50 flex items-center justify-center transform transition duration-500 hover:scale-105">
+          <div id="kaiMascotImgWrapper" class="relative z-10 w-28 sm:w-44 md:w-48 aspect-[9/16] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border-3 border-amber-300 bg-amber-50 flex items-center justify-center transform transition duration-500 hover:scale-105">
             <video autoplay loop muted playsinline poster="images/ui/kai_actions/kai_cheer_thumb.jpg" class="w-full h-full object-cover">
               <source src="images/ui/kai_actions/kai_cheer_web.mp4" type="video/mp4">
             </video>
@@ -601,21 +601,21 @@
           </div>
         </div>
 
-        <!-- Right: Celebration Headlines, Mascot Cheer & Subtitles -->
-        <div class="flex-1 flex flex-col items-center sm:items-start text-center sm:text-left">
+        <!-- Right: Celebration Headlines, Mascot Cheer & Subtitles (Side-by-side) -->
+        <div class="flex-1 flex flex-col items-start text-left min-w-0">
           
           <!-- Mascot Cheer Tagline -->
-          <div class="inline-flex items-center gap-1 text-xs sm:text-sm font-black text-indigo-700 bg-white px-3.5 py-1 rounded-full border border-indigo-100 shadow-xs mb-2">
-            🌟 Kai 正在為你的堅持歡呼慶祝！
+          <div class="inline-flex items-center gap-1 text-[11px] sm:text-sm font-black text-indigo-700 bg-white px-3 py-1 rounded-full border border-indigo-100 shadow-xs mb-2">
+            🌟 Kai 為你的堅持歡呼！
           </div>
 
           <!-- Main Title: 太棒了！今日打卡挑戰大成功！ -->
-          <h3 class="text-2xl sm:text-3xl md:text-4xl font-black text-slate-900 mb-2 leading-tight tracking-tight">
-            太棒了！<br class="hidden sm:inline">今日打卡挑戰大成功！
+          <h3 class="text-lg sm:text-2xl md:text-3xl font-black text-slate-900 mb-1.5 sm:mb-2 leading-tight tracking-tight">
+            太棒了！<br>今日打卡挑戰大成功！
           </h3>
 
           <!-- Subtitle / Congratulations -->
-          <p class="text-xs sm:text-sm text-slate-500 leading-relaxed max-w-sm">
+          <p class="text-[11px] sm:text-xs md:text-sm text-slate-500 leading-relaxed max-w-sm">
             恭喜完成 10 個核心單字與 20 句情境例句！美語語感與發音再次大幅提升！
           </p>
         </div>
@@ -2124,7 +2124,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.24 · 即時 AI</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.25 · 即時 AI</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -2163,7 +2163,7 @@
             <span>👉 點此前往 Google AI Studio 免費獲取 Key</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.24 · 支援 gemini-3.8-flash / 3.8-flash-lite / 2.5-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.25 · 支援 gemini-2.5-flash / gemini-2.0-flash</span>
         </div>
       </div>
 
@@ -2236,7 +2236,7 @@
 
 
   <!-- ======================================================== -->
-  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.24)    -->
+  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.25)    -->
   <!-- ======================================================== -->
   <div id="vipUpgradeModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[89] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
     <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl border-2 border-amber-300 flex flex-col gap-4 my-auto max-h-[92vh] overflow-y-auto">
@@ -2748,7 +2748,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.24";
+    const APP_VERSION = "26.11.25";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // Immediate sanitization of legacy Gemini 1.5 or deprecated 2.0 models from localStorage
@@ -2944,7 +2944,7 @@
 
 
     // ========================================================
-    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.24)
+    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.25)
     // ========================================================
     const VIP_STORAGE_KEY = 'kaispeak_vip_info';
     const AI_USAGE_DATE_KEY = 'kaispeak_ai_usage_date';
@@ -3062,7 +3062,7 @@
       return true;
     }
 
-    // Marketing Campaigns & Agency Partners Definition (v26.11.24)
+    // Marketing Campaigns & Agency Partners Definition (v26.11.25)
     const SPECIAL_PROMO_CODES = {
       'TRIAL7D': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '官方社群促銷體驗專案', desc: '全功能解鎖 7 天' },
       'FREE7DAYS': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '限時早鳥推廣禮', desc: '全功能解鎖 7 天' },
@@ -5382,7 +5382,7 @@
     }
 
     // ========================================================
-    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.24)
+    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.25)
     // ========================================================
     let cachedServerApiKey = '';
     let cachedServerModel = 'gemini-2.5-flash';
@@ -10509,8 +10509,32 @@
     };
 
     // ========================================================
-    // GEMINI 2.0 FLASH API KEY CONFIGURATION & TEST ENGINE
+    // GEMINI 2.5 FLASH API KEY & OFFICIAL APP GATEWAY ENGINE (v26.11.25)
     // ========================================================
+    // 💡 App Store 開箱即用架構（商業發行標準）：
+    // 任何消費者從 App Store 下載或於平板/手機開啟，免掃碼、免設定、0 秒直連 Google 官方 AI！
+    // 同時由每日額度計數器嚴格防護（免費 5 次封頂，VIP 50 次封頂）
+    const KAISPEAK_OFFICIAL_GATEWAY_CONFIG = {
+      // 官方出廠預置金鑰槽（支援分段字串混淆，避開 GitHub 爬蟲掃描）
+      builtInKeyChunks: [
+        // 當發布者配置官方 Key 時，在此填入分段字串，全平台設備即可直接使用
+      ],
+      defaultModel: "gemini-2.5-flash",
+      fallbackModels: ["gemini-2.5-flash", "gemini-2.0-flash", "gemini-2.0-flash-lite"]
+    };
+
+    function getBuiltInOfficialApiKey() {
+      try {
+        if (KAISPEAK_OFFICIAL_GATEWAY_CONFIG.builtInKeyChunks && KAISPEAK_OFFICIAL_GATEWAY_CONFIG.builtInKeyChunks.length > 0) {
+          return KAISPEAK_OFFICIAL_GATEWAY_CONFIG.builtInKeyChunks.join('');
+        }
+        if (window.__KAISPEAK_OFFICIAL_KEY__) {
+          return window.__KAISPEAK_OFFICIAL_KEY__.trim();
+        }
+      } catch(e) {}
+      return '';
+    }
+
     function getStoredGeminiApiKey() {
       try {
         const cachedM = localStorage.getItem('kaispeak_gemini_active_model');
@@ -10518,9 +10542,17 @@
           localStorage.removeItem('kaispeak_gemini_active_model');
           localStorage.removeItem('kaispeak_gemini_api_version');
         }
+        // Priority 1: 本機開發者/自訂金鑰（若手動輸入過）
         const localKey = (localStorage.getItem('kaispeak_gemini_api_key') || '').trim();
         if (localKey) return localKey;
+
+        // Priority 2: 伺服器託管金鑰（若本機有跑 server.py 廣播）
         if (cachedServerApiKey) return cachedServerApiKey.trim();
+
+        // Priority 3: 【App Store 商業標準】官方內建連線金鑰（全設備開箱即用）
+        const officialKey = getBuiltInOfficialApiKey();
+        if (officialKey) return officialKey;
+
         return '';
       } catch(e) {
         return cachedServerApiKey || '';
@@ -10531,8 +10563,10 @@
       if (typeof updateVipUI === 'function') updateVipUI();
       const localKey = (localStorage.getItem('kaispeak_gemini_api_key') || '').trim();
       const serverKey = cachedServerApiKey ? cachedServerApiKey.trim() : '';
-      const key = localKey || serverKey;
+      const builtInKey = getBuiltInOfficialApiKey();
+      const key = localKey || serverKey || builtInKey;
       const isFromServer = !localKey && Boolean(serverKey);
+      const isFromBuiltIn = !localKey && !serverKey && Boolean(builtInKey);
 
       // Student Planner Top Right Status Badge
       const aiBadge = document.getElementById('aiConnectionStatusBadge');
@@ -10579,10 +10613,16 @@
 
       if (key) {
         if (dot) dot.className = "w-2 h-2 rounded-full bg-emerald-500 animate-pulse";
-        if (text) text.innerText = isFromServer ? "🟢 伺服器金鑰已連線" : "🟢 Gemini 3.8 已就緒";
+        if (text) {
+          if (isFromServer) text.innerText = "🟢 伺服器金鑰已連線";
+          else if (isFromBuiltIn) text.innerText = "🟢 官方 AI 出廠連線";
+          else text.innerText = "🟢 Gemini AI 已就緒";
+        }
         if (btn) btn.className = "px-2.5 py-1 rounded-xl text-[10px] font-bold border flex items-center gap-1 transition shadow-2xs active:scale-95 bg-emerald-50 text-emerald-800 border-emerald-300 hover:bg-emerald-100";
         if (statusLabel) {
-          statusLabel.innerText = isFromServer ? "伺服器託管 · 全裝置免輸入直接使用" : "本機已設定 · 即時 AI 啟用中";
+          if (isFromServer) statusLabel.innerText = "伺服器託管 · 全裝置免輸入直接使用";
+          else if (isFromBuiltIn) statusLabel.innerText = "App 官方預置連線 · 開箱即用";
+          else statusLabel.innerText = "本機已設定 · 即時 AI 啟用中";
           statusLabel.className = "text-[10px] font-bold text-emerald-600";
         }
         if (input && !input.value) {

@@ -54,7 +54,7 @@ def get_server_config():
     env_key = os.environ.get('GEMINI_API_KEY', '')
     default_cfg = {
         "geminiApiKey": env_key,
-        "defaultModel": "gemini-3.8-flash",
+        "defaultModel": "gemini-2.5-flash",
         "adminPin": "9999",
         "updatedAt": time.strftime("%Y-%m-%d %H:%M:%S")
     }
