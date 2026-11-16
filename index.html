@@ -140,8 +140,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.21（2026年·11月·第21次發布）">
-                26.11.21
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.22（2026年·11月·第22次發布）">
+                26.11.22
               </span>
             </div>
           </div>
@@ -357,7 +357,7 @@
     <!-- Top Row: Brand Identity (Left) & Learner Profile / Status & System Utilities (Right) -->
     <div class="w-full flex items-center justify-between gap-2 sm:gap-4 pb-2 border-b border-indigo-50/80 flex-wrap sm:flex-nowrap">
       
-      <!-- Brand Logo + 奇妙星語言 + Version 26.11.21 Lockup -->
+      <!-- Brand Logo + 奇妙星語言 + Version 26.11.22 Lockup -->
       <div class="flex items-center gap-2 sm:gap-3 cursor-pointer select-none shrink-0 group py-0.5" onclick="switchAppMode('quest')" title="KaiSpeak 首頁">
         <div class="shrink-0 flex items-center">
           <img src="images/ui/KaiSpeak_logo_V3_trans.png" alt="KaiSpeak" class="h-12 sm:h-14 md:h-16 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] group-hover:scale-105 transition-all duration-300 shrink-0">
@@ -368,7 +368,7 @@
             <span>奇妙星語言</span>
           </span>
           <div class="mt-1 flex items-center gap-1">
-            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.21（2026年·11月·第21次發布）">26.11.21</span>
+            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.22（2026年·11月·第22次發布）">26.11.22</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer flex items-center gap-1 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-2 py-0.5 transition shadow-2xs group-hover:border-amber-400" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -2105,7 +2105,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.21 · 即時 AI</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.22 · 即時 AI</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -2144,7 +2144,7 @@
             <span>👉 點此前往 Google AI Studio 免費獲取 Key</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.21 · 支援 gemini-3.8-flash / 3.8-flash-lite / 2.5-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.22 · 支援 gemini-3.8-flash / 3.8-flash-lite / 2.5-flash</span>
         </div>
       </div>
 
@@ -2217,7 +2217,7 @@
 
 
   <!-- ======================================================== -->
-  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.21)    -->
+  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.22)    -->
   <!-- ======================================================== -->
   <div id="vipUpgradeModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[89] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
     <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl border-2 border-amber-300 flex flex-col gap-4 my-auto max-h-[92vh] overflow-y-auto">
@@ -2237,6 +2237,16 @@
           </div>
         </div>
         <button type="button" onclick="closeVipUpgradeModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 font-black text-sm flex items-center justify-center transition active:scale-95">✕</button>
+      </div>
+
+      <!-- Apple App Store Compliance & Multiplatform Dual-Track Tabs -->
+      <div class="flex items-center gap-1.5 p-1 bg-amber-100/70 rounded-2xl text-xs font-bold">
+        <button type="button" onclick="switchVipModalPayTab('license')" id="vipPayTabLicenseBtn" class="flex-1 py-1.5 rounded-xl bg-white text-amber-900 shadow-xs font-black transition flex items-center justify-center gap-1">
+          <span>🎟️ 啟動碼 / 代理優惠碼</span>
+        </button>
+        <button type="button" onclick="switchVipModalPayTab('apple')" id="vipPayTabAppleBtn" class="flex-1 py-1.5 rounded-xl text-amber-800 hover:text-amber-950 transition flex items-center justify-center gap-1">
+          <span>🍎 Apple App Store 訂閱</span>
+        </button>
       </div>
 
       <!-- Dynamic Context Banner -->
@@ -2276,20 +2286,63 @@
         </div>
       </div>
 
-      <!-- License Key Redemption Section -->
-      <div class="p-4 rounded-2xl bg-gradient-to-r from-amber-50 via-yellow-50 to-orange-50 border border-amber-200 flex flex-col gap-2.5">
+      <!-- Panel 1: License Key & Agency Code Section -->
+      <div id="vipLicensePanel" class="p-4 rounded-2xl bg-gradient-to-r from-amber-50 via-yellow-50 to-orange-50 border border-amber-200 flex flex-col gap-2.5">
         <label class="text-xs font-black text-amber-950 flex items-center justify-between">
-          <span>🔑 輸入 VIP 數位啟動碼（即刻升級）：</span>
-          <span class="text-[10px] text-amber-700 font-normal">支援年度卡 / 創始序號</span>
+          <span>🔑 兌換 VIP 學習卡 / 代理商授權碼 / 行銷活動體驗碼：</span>
+          <span class="text-[10px] text-amber-700 font-normal">支援機構代碼 / KOL 折扣碼</span>
         </label>
         <div class="flex items-center gap-2">
-          <input type="text" id="vipLicenseKeyInput" placeholder="請貼上 8 碼啟動碼 (例: VIP888 或 KAI-xxxx)" class="flex-1 px-3.5 py-2.5 rounded-xl border border-amber-300 focus:outline-none focus:border-amber-600 text-xs font-mono font-bold bg-white text-slate-900 uppercase">
+          <input type="text" id="vipLicenseKeyInput" placeholder="輸入序號 (如: VIP888, TRIAL7D, KAI-AGENCY-xxxx)" class="flex-1 px-3.5 py-2.5 rounded-xl border border-amber-300 focus:outline-none focus:border-amber-600 text-xs font-mono font-bold bg-white text-slate-900 uppercase">
           <button type="button" onclick="handleVipRedemptionSubmit()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 text-white font-black text-xs shadow-md active:scale-95 transition flex items-center gap-1 shrink-0">
-            <span>🚀 啟用 VIP</span>
+            <span>🚀 啟用特權</span>
           </button>
         </div>
-        <div class="text-[10px] text-amber-700 leading-tight">
-          💡 提示：若您已於賣場、LINE Pay 或體驗營獲得啟動碼，在此輸入即可 1 秒將本機解鎖為 VIP 旗艦會員！
+        <div class="text-[10px] text-amber-700 flex items-center justify-between flex-wrap gap-1">
+          <span>💡 支援 7 天試用碼 <code class="bg-white/80 px-1 py-0.2 rounded font-mono font-bold">TRIAL7D</code>、暑期卡 <code class="bg-white/80 px-1 py-0.2 rounded font-mono font-bold">SUMMER2026</code></span>
+          <span class="text-slate-500 text-[9px]">符合 Apple 條款 3.1.3(b) 多平台服務</span>
+        </div>
+      </div>
+
+      <!-- Panel 2: Apple App Store In-App Purchase (IAP) Panel (iOS Compliance) -->
+      <div id="vipAppleIapPanel" class="hidden p-4 rounded-2xl bg-gradient-to-r from-slate-50 to-slate-100 border border-slate-300 flex flex-col gap-3">
+        <div class="flex items-start gap-2.5">
+          <span class="text-2xl">🍏</span>
+          <div>
+            <h4 class="text-xs font-black text-slate-900">Apple App Store 官方訂閱（iOS 原生安全支付）</h4>
+            <p class="text-[10px] text-slate-500 mt-0.5">符合 Apple Review Guidelines 3.1.1 內購規範 · 支援 Face ID / Touch ID 1 秒付款</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2 text-xs">
+          <!-- Monthly Tier -->
+          <div class="p-3 rounded-xl bg-white border border-slate-200 flex flex-col justify-between">
+            <div>
+              <div class="text-[11px] font-black text-slate-700">月度暢聊方案</div>
+              <div class="text-base font-black text-slate-900 font-mono mt-1">NT$ 299 <span class="text-[10px] text-slate-400 font-normal">/ 月</span></div>
+              <div class="text-[9px] text-slate-500 mt-1">每日 50 次 AI · 支援 5 位小朋友</div>
+            </div>
+            <button type="button" onclick="triggerAppleIapSimulation('monthly')" class="mt-2.5 w-full py-2 rounded-lg bg-slate-900 hover:bg-black text-white text-[11px] font-bold active:scale-95 transition flex items-center justify-center gap-1 shadow-xs">
+              <span> Face ID 訂閱</span>
+            </button>
+          </div>
+
+          <!-- Yearly Tier (Best Value) -->
+          <div class="p-3 rounded-xl bg-gradient-to-b from-amber-50 to-yellow-50 border-2 border-amber-400 flex flex-col justify-between relative shadow-xs">
+            <span class="absolute -top-2 right-2 text-[9px] bg-gradient-to-r from-amber-500 to-orange-500 text-white px-1.5 py-0.2 rounded font-black">最受歡迎 80%</span>
+            <div>
+              <div class="text-[11px] font-black text-amber-950">年度旗艦特惠方案</div>
+              <div class="text-base font-black text-amber-800 font-mono mt-1">NT$ 1,490 <span class="text-[10px] text-amber-600 font-normal">/ 年</span></div>
+              <div class="text-[9px] text-amber-700 mt-1">平均每月僅 $124 · 全家 5 位共享</div>
+            </div>
+            <button type="button" onclick="triggerAppleIapSimulation('yearly')" class="mt-2.5 w-full py-2 rounded-lg bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 text-white text-[11px] font-black active:scale-95 transition flex items-center justify-center gap-1 shadow-sm">
+              <span> Face ID 訂閱</span>
+            </button>
+          </div>
+        </div>
+        
+        <div class="text-[9px] text-slate-400 leading-tight">
+          🔒 訂閱將透過您的 Apple ID 帳戶安全扣款，並在 Apple 帳號設定中隨時可管理或取消自動續訂。
         </div>
       </div>
 
@@ -2676,7 +2729,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.21";
+    const APP_VERSION = "26.11.22";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // Immediate sanitization of legacy Gemini 1.5 or deprecated 2.0 models from localStorage
@@ -2872,7 +2925,7 @@
 
 
     // ========================================================
-    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.21)
+    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.22)
     // ========================================================
     const VIP_STORAGE_KEY = 'kaispeak_vip_info';
     const AI_USAGE_DATE_KEY = 'kaispeak_ai_usage_date';
@@ -2915,6 +2968,7 @@
             isVip: true,
             planType: info.planType || 'yearly',
             title: info.title || '👑 VIP 旗艦會員',
+            agencyTag: info.agencyTag || '官方直營',
             licenseKey: info.licenseKey || 'PRE-ACTIVATED',
             activatedAt: info.activatedAt || '2026-11-16',
             expiresAt: info.expiresAt || null
@@ -2989,35 +3043,79 @@
       return true;
     }
 
+    // Marketing Campaigns & Agency Partners Definition (v26.11.22)
+    const SPECIAL_PROMO_CODES = {
+      'TRIAL7D': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '官方社群促銷體驗專案', desc: '全功能解鎖 7 天' },
+      'FREE7DAYS': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '限時早鳥推廣禮', desc: '全功能解鎖 7 天' },
+      'SUMMER2026': { days: 30, planType: 'summer_30d', title: '☀️ 暑期特訓 30天 VIP 卡', agencyTag: '2026 暑期衝刺專案', desc: '全功能解鎖 30 天' },
+      'HAPPYKIDS': { days: 30, planType: 'agency_happykids', title: '🏫 快樂幼兒園合作體驗卡', agencyTag: '合作機構：快樂幼兒園', desc: '園所專屬 30 天' },
+      'AGENCY888': { days: 90, planType: 'agency_partner', title: '🏛️ 代理商特許 90天成長卡', agencyTag: '特約經銷商通路', desc: '代理特約 90 天' }
+    };
+
     function activateVipLicense(inputCode, showSuccessAlert = true) {
       const code = (inputCode || '').trim().toUpperCase();
       if (!code) {
-        alert("請輸入 VIP 啟動碼！");
+        alert("請輸入 VIP 啟動碼或活動優惠碼！");
         return false;
       }
 
-      const isValidStatic = VALID_VIP_CODES.some(c => c.toUpperCase() === code);
-      const isValidPattern = /^KAI-[A-Z0-9]{4,16}$/i.test(code);
+      // 1. Check special campaign / agency promo codes
+      let promoMatch = SPECIAL_PROMO_CODES[code];
 
-      // Check admin generated batch keys
+      // 2. Check standard static keys
+      const isValidStatic = VALID_VIP_CODES.some(c => c.toUpperCase() === code);
+      const isAgencyPattern = /^KAI-AGENCY-[A-Z0-9]{4,12}$/i.test(code);
+      const isKolPattern = /^KAI-KOL-[A-Z0-9]{4,12}$/i.test(code);
+      const isTrialPattern = /^KAI-TRIAL-[A-Z0-9]{4,12}$/i.test(code);
+      const isValidGeneralPattern = /^KAI-[A-Z0-9]{4,16}$/i.test(code);
+
+      // 3. Check admin generated batch keys
       let isValidAdminBatch = false;
       try {
         const batchKeys = JSON.parse(localStorage.getItem(ADMIN_BATCH_KEYS_KEY) || '[]');
         if (batchKeys.includes(code)) isValidAdminBatch = true;
       } catch(e){}
 
-      if (!isValidStatic && !isValidPattern && !isValidAdminBatch) {
-        alert("❌ 啟動碼格式錯誤或無效！\n\n請確認您的 8 碼序號（例如 VIP888 或 KAI-xxxx），或洽詢客服管理員領取。");
+      if (!promoMatch && !isValidStatic && !isValidGeneralPattern && !isValidAdminBatch) {
+        alert("❌ 啟動碼或優惠序號無效！\n\n請確認您的代碼（例如：VIP888、TRIAL7D 或 KAI-xxxx），或洽詢合作代理商或管理員獲取。");
         return false;
+      }
+
+      let days = 365;
+      let planType = 'yearly';
+      let title = '👑 VIP 旗艦會員';
+      let agencyTag = '官方旗艦直營';
+
+      if (promoMatch) {
+        days = promoMatch.days;
+        planType = promoMatch.planType;
+        title = promoMatch.title;
+        agencyTag = promoMatch.agencyTag;
+      } else if (isAgencyPattern) {
+        days = 365;
+        planType = 'agency_annual';
+        title = '🏛️ 代理機構年度 VIP 卡';
+        agencyTag = '合作代理商 / 幼兒園通路';
+      } else if (isKolPattern) {
+        days = 365;
+        planType = 'kol_annual';
+        title = '🌟 KOL 網紅推薦年卡';
+        agencyTag = '網紅 / 團購推薦分銷專案';
+      } else if (isTrialPattern) {
+        days = 14;
+        planType = 'trial_14d';
+        title = '🎁 14天體驗促銷卡';
+        agencyTag = '行銷活動發行體驗券';
       }
 
       const vipData = {
         isVip: true,
-        planType: 'yearly',
-        title: '👑 VIP 旗艦會員',
+        planType: planType,
+        title: title,
+        agencyTag: agencyTag,
         licenseKey: code,
         activatedAt: new Date().toISOString(),
-        expiresAt: new Date(Date.now() + 365 * 24 * 3600 * 1000).toISOString()
+        expiresAt: new Date(Date.now() + days * 24 * 3600 * 1000).toISOString()
       };
 
       localStorage.setItem(VIP_STORAGE_KEY, JSON.stringify(vipData));
@@ -3048,6 +3146,58 @@
         localStorage.removeItem(VIP_STORAGE_KEY);
       }
       updateVipUI();
+    }
+
+
+    function switchVipModalPayTab(tab) {
+      const licenseBtn = document.getElementById('vipPayTabLicenseBtn');
+      const appleBtn = document.getElementById('vipPayTabAppleBtn');
+      const licensePanel = document.getElementById('vipLicensePanel');
+      const applePanel = document.getElementById('vipAppleIapPanel');
+
+      if (tab === 'apple') {
+        if (appleBtn) appleBtn.className = "flex-1 py-1.5 rounded-xl bg-white text-slate-900 shadow-xs font-black transition flex items-center justify-center gap-1";
+        if (licenseBtn) licenseBtn.className = "flex-1 py-1.5 rounded-xl text-amber-800 hover:text-amber-950 transition flex items-center justify-center gap-1 font-bold";
+        if (licensePanel) licensePanel.classList.add('hidden');
+        if (applePanel) applePanel.classList.remove('hidden');
+      } else {
+        if (licenseBtn) licenseBtn.className = "flex-1 py-1.5 rounded-xl bg-white text-amber-900 shadow-xs font-black transition flex items-center justify-center gap-1";
+        if (appleBtn) appleBtn.className = "flex-1 py-1.5 rounded-xl text-amber-800 hover:text-amber-950 transition flex items-center justify-center gap-1 font-bold";
+        if (licensePanel) licensePanel.classList.remove('hidden');
+        if (applePanel) applePanel.classList.add('hidden');
+      }
+    }
+
+    function triggerAppleIapSimulation(plan) {
+      SoundEffects.playClick('open');
+      const planName = plan === 'yearly' ? '年度旗艦方案 (NT$ 1,490/年)' : '月度暢聊方案 (NT$ 299/月)';
+      const days = plan === 'yearly' ? 365 : 30;
+
+      // In native iOS wrapper (Capacitor/Cordova/Swift), this calls window.StoreKit.purchase()
+      if (window.StoreKit && typeof window.StoreKit.purchase === 'function') {
+        window.StoreKit.purchase(plan);
+        return;
+      }
+
+      // Web preview / Simulator feedback
+      const confirmPay = confirm(` 【Apple App Store 內購 (StoreKit 模擬)】\n\n商品：KaiSpeak 奇妙星 ${planName}\n帳戶：Apple ID 快捷安全支付 (Face ID / 密碼)\n\n是否確認完成訂閱？`);
+      if (confirmPay) {
+        const vipData = {
+          isVip: true,
+          planType: 'apple_iap_' + plan,
+          title: '👑 VIP 旗艦會員 (Apple ID 訂閱)',
+          agencyTag: 'Apple App Store In-App Purchase',
+          licenseKey: 'APPLE-IAP-' + Date.now().toString(36).toUpperCase(),
+          activatedAt: new Date().toISOString(),
+          expiresAt: new Date(Date.now() + days * 24 * 3600 * 1000).toISOString()
+        };
+        localStorage.setItem(VIP_STORAGE_KEY, JSON.stringify(vipData));
+        SoundEffects.playScore(100);
+        SoundEffects.playShield();
+        updateVipUI();
+        alert(`🎉 Apple In-App Purchase 訂閱成功！\n\n已成功開通 ${planName}！每日 50 次 AI 聊學與全地圖功能已全面解鎖。`);
+        closeVipUpgradeModal();
+      }
     }
 
     function openVipUpgradeModal(reason = 'default', extra = '') {
@@ -5213,7 +5363,7 @@
     }
 
     // ========================================================
-    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.21)
+    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.22)
     // ========================================================
     let cachedServerApiKey = '';
     let cachedServerModel = 'gemini-3.8-flash';
@@ -5636,7 +5786,8 @@
                   <div class="text-xs text-slate-600 mt-1 flex flex-col gap-0.5">
                     <span>• AI 語音額度：今日已用 <strong>${quotaUsed}</strong> 次 / 每日上限 <strong>${quotaLimit}</strong> 次（剩餘 <strong>${quotaRemaining}</strong> 次）</span>
                     <span>• 學員人數限制：目前 <strong>${profiles.length}</strong> 位 / 上限 <strong>${isVip ? 5 : 1}</strong> 位</span>
-                    <span>• 到期日：${vipInfo.expiresAt ? new Date(vipInfo.expiresAt).toLocaleDateString() : (isVip ? '永久有效' : '尚未開通')}</span>
+                    <span>• 授權來源與代理通路：<strong>${vipInfo.agencyTag || (isVip ? '官方直營' : '無')}</strong></span>
+                    <span>• 序號與到期日：<span class="font-mono text-indigo-700 font-bold">${vipInfo.licenseKey || '-'}</span> · ${vipInfo.expiresAt ? new Date(vipInfo.expiresAt).toLocaleDateString() : (isVip ? '永久有效' : '尚未開通')}</span>
                   </div>
                 </div>
               </div>
@@ -5657,9 +5808,17 @@
                   <h4 class="text-xs font-black text-slate-800">🎟️ 開店 App 授權碼發放池 (License Keys)</h4>
                   <p class="text-[10px] text-slate-500">家長於賣場 / LINE Pay / 體驗營購買後，複製任一組啟動碼發給家長即可：</p>
                 </div>
-                <button type="button" onclick="regenerateAdminVipBatchKeys();" class="px-2.5 py-1 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-black text-[11px] border border-indigo-200 active:scale-95 transition">
-                  🎲 隨機產生 5 組新序號
-                </button>
+                <div class="flex items-center gap-1.5 flex-wrap">
+                  <button type="button" onclick="regenerateAdminVipBatchKeys('KAI-AGENCY-');" class="px-2 py-1 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-black text-[10px] border border-indigo-200 active:scale-95 transition">
+                    🏛️ 代理機構碼
+                  </button>
+                  <button type="button" onclick="regenerateAdminVipBatchKeys('KAI-KOL-');" class="px-2 py-1 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-800 font-black text-[10px] border border-amber-200 active:scale-95 transition">
+                    🌟 網紅團購碼
+                  </button>
+                  <button type="button" onclick="regenerateAdminVipBatchKeys('KAI-TRIAL-');" class="px-2 py-1 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 font-black text-[10px] border border-emerald-200 active:scale-95 transition">
+                    🎁 體驗促銷碼
+                  </button>
+                </div>
               </div>
 
               <div id="adminVipKeysList" class="flex flex-col gap-2">
@@ -5887,10 +6046,12 @@
       }
 
       const allKeys = [
-        { key: 'VIP888', desc: '官方全能特權啟動碼（示範與永久測試用）', tag: '旗艦通行' },
-        { key: 'KAISPEAK2026', desc: '2026 奇妙星年度旗艦卡（365天）', tag: '年度熱銷' },
-        { key: 'STAR-VIP-YEAR', desc: '少兒美語家庭旗艦卡（支援 5 位學員）', tag: '家庭專用' },
-        ...storedBatch.map(k => ({ key: k, desc: '開店 App / 賣場獨立發行專屬授權序號', tag: '隨機序號' }))
+        { key: 'VIP888', desc: '官方全能旗艦啟動碼（示範與測試用 · 365天）', tag: '直營旗艦' },
+        { key: 'TRIAL7D', desc: '行銷活動 7 天全功能免費體驗碼（推廣拉新專用）', tag: '活動促銷' },
+        { key: 'SUMMER2026', desc: '2026 暑期特訓 30 天 VIP 暢聊卡', tag: '季節專案' },
+        { key: 'HAPPYKIDS', desc: '快樂幼兒園機構合作專屬體驗碼（30天）', tag: '機構合作' },
+        { key: 'AGENCY888', desc: '特約經銷商通路 90 天成長卡', tag: '代理商專用' },
+        ...storedBatch.map(k => ({ key: k, desc: '經銷商 / 開店賣場發行專屬授權序號', tag: '批次序號' }))
       ];
 
       container.innerHTML = allKeys.map(item => `
@@ -5907,11 +6068,11 @@
       `).join('');
     }
 
-    function regenerateAdminVipBatchKeys() {
+    function regenerateAdminVipBatchKeys(prefix = 'KAI-AGENCY-') {
       const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
       const newKeys = [];
       for (let i = 0; i < 5; i++) {
-        let code = 'KAI-';
+        let code = prefix;
         for (let j = 0; j < 4; j++) code += chars.charAt(Math.floor(Math.random() * chars.length));
         code += '-';
         for (let j = 0; j < 4; j++) code += chars.charAt(Math.floor(Math.random() * chars.length));
@@ -5920,7 +6081,7 @@
       localStorage.setItem(ADMIN_BATCH_KEYS_KEY, JSON.stringify(newKeys));
       SoundEffects.playClick('unlock');
       renderAdminVipKeysList();
-      showToastNotification("✨ 已成功生成 5 組全新 VIP 授權碼！點擊複製即可傳送給家長！", 4000);
+      showToastNotification(`✨ 已成功生成 5 組全新【${prefix}】授權碼！點擊複製即可發送。`, 4000);
     }
 
     function copyVipKeyToClipboard(keyStr) {
