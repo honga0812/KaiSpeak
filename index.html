@@ -4706,6 +4706,25 @@
           </div>
         `;
       }
+
+      // Fast-path: GitHub Pages or Local file is pure static host (no Python backend running at origin)
+      if (window.location.hostname.endsWith('github.io') || window.location.protocol === 'file:') {
+        adminOverviewData = {
+          config: {
+            geminiApiKey: localStorage.getItem('kaispeak_gemini_api_key') || cachedServerApiKey || '',
+            defaultModel: localStorage.getItem('kaispeak_gemini_active_model') || cachedServerModel || 'gemini-3.8-flash',
+            adminPin: "9999",
+            updatedAt: "本機儲存 (GitHub Pages 靜態模式)"
+          },
+          stats: { totalVisits: 1, totalApiCalls: 0, uniqueIps: ["本機裝置端點"] },
+          logs: [],
+          profiles: profiles,
+          isStaticMode: true
+        };
+        renderAdminTabContent();
+        return;
+      }
+
       try {
         const resp = await fetch('/api/admin/overview?pin=9999');
         const ct = resp.headers.get('content-type') || '';
@@ -4716,13 +4735,13 @@
             cachedServerModel = adminOverviewData.config.defaultModel || 'gemini-3.8-flash';
           }
         } else {
-          // GitHub Pages or Static server mode
+          // Fallback static mode
           adminOverviewData = {
             config: {
               geminiApiKey: localStorage.getItem('kaispeak_gemini_api_key') || cachedServerApiKey || '',
               defaultModel: localStorage.getItem('kaispeak_gemini_active_model') || cachedServerModel || 'gemini-3.8-flash',
               adminPin: "9999",
-              updatedAt: "本機儲存 (GitHub Pages 靜態模式)"
+              updatedAt: "本機儲存 (靜態模式)"
             },
             stats: { totalVisits: 1, totalApiCalls: 0, uniqueIps: ["本機裝置端點"] },
             logs: [],
@@ -4809,7 +4828,7 @@
                   <span>🧪 測試連線</span>
                 </button>
                 <button type="button" onclick="saveAdminServerConfig()" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 text-white font-black text-xs shadow-md active:scale-95 transition flex items-center justify-center gap-1.5">
-                  <span>💾 儲存並廣播至後端伺服器 (所有裝置生效)</span>
+                  <span>${isStatic ? '💾 儲存 API 金鑰與模型 (本機立即生效)' : '💾 儲存並廣播至後端伺服器 (所有裝置生效)'}</span>
                 </button>
               </div>
             </div>
@@ -4944,7 +4963,15 @@
       cachedServerModel = modelVal;
       updateGeminiApiKeyUI();
 
-      // 2. Safely attempt sync to backend server without crashing on GitHub Pages (static 404 HTML)
+      // 2. Fast-path: When running on GitHub Pages (static host), no Python backend is listening at origin
+      if (window.location.hostname.endsWith('github.io') || window.location.protocol === 'file:') {
+        SoundEffects.playClick('unlock');
+        alert(`🎉 API 金鑰與模型設定成功！\n\n【當前環境】：GitHub Pages 雲端靜態版\n【生效模型】：${modelVal}\n\n金鑰已安全保存在本機瀏覽器中，所有 AI 即時發音評測與語音微課堂已全面生效啟用！\n\n💡 提示：若需全家多設備免輸入自動共享，可在本地電腦運行 Python 伺服器 (server.py) 並以區網 IP 連線。`);
+        loadAdminOverview();
+        return;
+      }
+
+      // 3. For local server or custom backend, attempt sync
       try {
         const resp = await fetch('/api/admin/config', {
           method: 'POST',
@@ -4961,19 +4988,15 @@
           alert(`✅ 伺服器全域 API 金鑰與模型設定成功！\n\n已成功廣播至後端伺服器（模型：【${modelVal}】），所有同網段連線的平板、手機與電腦皆已立即繼承此設定！`);
           loadAdminOverview();
           return;
-        } else if (resp.status === 404 || ct.includes('text/html')) {
-          // Detected GitHub Pages static host
+        } else {
           SoundEffects.playClick('unlock');
-          alert(`🎉 API 金鑰與模型設定已成功儲存至本機！\n\n【當前環境】：GitHub Pages 靜態網站託管\n【生效模型】：${modelVal}\n\n本裝置已可直接暢享 Gemini 即時 AI 規劃師功能！\n\n💡 提示：因 GitHub Pages 為公開靜態網頁（無本機 Python 後端常駐），全域共享僅在各裝置本地生效。若要「全家平板/手機免輸入自動共享」，請於客廳電腦啟動 server.py 並以區網 IP 連線即可！`);
+          alert(`🎉 API 金鑰與模型設定已成功儲存至本機！\n\n【生效模型】：${modelVal}\n本裝置已可直接暢享 Gemini 即時 AI 規劃師功能！`);
           loadAdminOverview();
           return;
-        } else {
-          const err = await resp.json().catch(() => ({}));
-          alert("伺服器回應異常：" + (err.message || '未知錯誤'));
         }
       } catch(e) {
         SoundEffects.playClick('unlock');
-        alert(`🎉 API 金鑰與模型設定已成功儲存至本機！\n\n【當前環境】：靜態/離線託管模式\n【生效模型】：${modelVal}\n\n本裝置已可直接暢享 Gemini 即時 AI 規劃師功能！`);
+        alert(`🎉 API 金鑰與模型設定已成功儲存至本機！\n\n【生效模型】：${modelVal}\n本裝置已可直接暢享 Gemini 即時 AI 規劃師功能！`);
         loadAdminOverview();
       }
     }
@@ -4992,6 +5015,12 @@
       localStorage.setItem('kaispeak_gemini_active_model', 'gemini-3.8-flash');
       updateGeminiApiKeyUI();
       SoundEffects.playShield();
+
+      if (window.location.hostname.endsWith('github.io') || window.location.protocol === 'file:') {
+        alert("🎉 API Key 已成功儲存於本機瀏覽器！\n\n當前裝置已可立即使用 AI 即時情境微課堂功能。");
+        closeGeminiApiKeyModal();
+        return;
+      }
 
       try {
         const resp = await fetch('/api/admin/config', {
