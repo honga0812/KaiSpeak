@@ -140,8 +140,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.23（2026年·11月·第23次發布）">
-                26.11.23
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.24（2026年·11月·第24次發布）">
+                26.11.24
               </span>
             </div>
           </div>
@@ -357,7 +357,7 @@
     <!-- Top Row: Brand Identity (Left) & Learner Profile / Status & System Utilities (Right) -->
     <div class="w-full flex items-center justify-between gap-2 sm:gap-4 pb-2 border-b border-indigo-50/80 flex-wrap sm:flex-nowrap">
       
-      <!-- Brand Logo + 奇妙星語言 + Version 26.11.23 Lockup -->
+      <!-- Brand Logo + 奇妙星語言 + Version 26.11.24 Lockup -->
       <div class="flex items-center gap-2 sm:gap-3 cursor-pointer select-none shrink-0 group py-0.5" onclick="switchAppMode('quest')" title="KaiSpeak 首頁">
         <div class="shrink-0 flex items-center">
           <img src="images/ui/KaiSpeak_logo_V3_trans.png" alt="KaiSpeak" class="h-12 sm:h-14 md:h-16 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] group-hover:scale-105 transition-all duration-300 shrink-0">
@@ -368,7 +368,7 @@
             <span>奇妙星語言</span>
           </span>
           <div class="mt-1 flex items-center gap-1">
-            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.23（2026年·11月·第23次發布）">26.11.23</span>
+            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.24（2026年·11月·第24次發布）">26.11.24</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer flex items-center gap-1 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-2 py-0.5 transition shadow-2xs group-hover:border-amber-400" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -1898,6 +1898,20 @@
         </div>
       </div>
 
+      <!-- Device Gemini Key Status Notice Banner (Informative & Transparent) -->
+      <div id="deviceGeminiKeyBanner" class="hidden p-2.5 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-950 flex items-center justify-between gap-2 shadow-2xs">
+        <div class="flex items-center gap-2">
+          <span class="text-base">💡</span>
+          <div class="text-[11px] leading-tight">
+            <span class="font-black text-amber-900">目前為【本機情境庫備援模式】（不扣除每日 AI 額度）</span>
+            <div class="text-[10px] text-amber-700">若想使用 Google 官方 Gemini 旗艦大模型 100% 自由對話，可同步金鑰：</div>
+          </div>
+        </div>
+        <button type="button" onclick="openIpadKeySyncModal()" class="px-2.5 py-1 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-black text-[10px] shadow-xs active:scale-95 transition whitespace-nowrap">
+          📱 掃碼同步
+        </button>
+      </div>
+
       <!-- Voice Recording / Text Input Section -->
       <div class="flex flex-col gap-2.5 bg-slate-50 p-3 sm:p-3.5 rounded-2xl border border-slate-200">
         
@@ -2110,7 +2124,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.23 · 即時 AI</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.24 · 即時 AI</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -2149,7 +2163,7 @@
             <span>👉 點此前往 Google AI Studio 免費獲取 Key</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.23 · 支援 gemini-3.8-flash / 3.8-flash-lite / 2.5-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.24 · 支援 gemini-3.8-flash / 3.8-flash-lite / 2.5-flash</span>
         </div>
       </div>
 
@@ -2222,7 +2236,7 @@
 
 
   <!-- ======================================================== -->
-  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.23)    -->
+  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.24)    -->
   <!-- ======================================================== -->
   <div id="vipUpgradeModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[89] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
     <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl border-2 border-amber-300 flex flex-col gap-4 my-auto max-h-[92vh] overflow-y-auto">
@@ -2734,7 +2748,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.23";
+    const APP_VERSION = "26.11.24";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // Immediate sanitization of legacy Gemini 1.5 or deprecated 2.0 models from localStorage
@@ -2755,7 +2769,7 @@
       if (syncKey && syncKey.trim().length > 10) {
         const cleanKey = syncKey.trim();
         localStorage.setItem('kaispeak_gemini_api_key', cleanKey);
-        localStorage.setItem('kaispeak_gemini_active_model', 'gemini-3.8-flash');
+        localStorage.setItem('kaispeak_gemini_active_model', 'gemini-2.5-flash');
         localStorage.setItem('kaispeak_gemini_api_version', 'v1beta');
         
         // Clear params from address bar for security
@@ -2930,7 +2944,7 @@
 
 
     // ========================================================
-    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.23)
+    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.24)
     // ========================================================
     const VIP_STORAGE_KEY = 'kaispeak_vip_info';
     const AI_USAGE_DATE_KEY = 'kaispeak_ai_usage_date';
@@ -3048,7 +3062,7 @@
       return true;
     }
 
-    // Marketing Campaigns & Agency Partners Definition (v26.11.23)
+    // Marketing Campaigns & Agency Partners Definition (v26.11.24)
     const SPECIAL_PROMO_CODES = {
       'TRIAL7D': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '官方社群促銷體驗專案', desc: '全功能解鎖 7 天' },
       'FREE7DAYS': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '限時早鳥推廣禮', desc: '全功能解鎖 7 天' },
@@ -5368,10 +5382,10 @@
     }
 
     // ========================================================
-    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.23)
+    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.24)
     // ========================================================
     let cachedServerApiKey = '';
-    let cachedServerModel = 'gemini-3.8-flash';
+    let cachedServerModel = 'gemini-2.5-flash';
     let isAdminSessionUnlocked = false;
     let adminCurrentTab = 'key'; // 'key' | 'profiles' | 'logs'
     let adminOverviewData = null;
@@ -5385,7 +5399,7 @@
           const data = await resp.json();
           if (data && data.geminiApiKey) {
             cachedServerApiKey = data.geminiApiKey.trim();
-            cachedServerModel = data.defaultModel || 'gemini-3.8-flash';
+            cachedServerModel = data.defaultModel || 'gemini-2.5-flash';
             console.log("%c [Server Config] Centralized Gemini API key loaded from backend ", "color: #10B981; font-weight: bold;");
             updateGeminiApiKeyUI();
           }
@@ -5498,7 +5512,7 @@
         adminOverviewData = {
           config: {
             geminiApiKey: localStorage.getItem('kaispeak_gemini_api_key') || cachedServerApiKey || '',
-            defaultModel: localStorage.getItem('kaispeak_gemini_active_model') || cachedServerModel || 'gemini-3.8-flash',
+            defaultModel: localStorage.getItem('kaispeak_gemini_active_model') || cachedServerModel || 'gemini-2.5-flash',
             adminPin: "9999",
             updatedAt: "本機儲存 (GitHub Pages 靜態模式)"
           },
@@ -5518,14 +5532,14 @@
           adminOverviewData = await resp.json();
           if (adminOverviewData.config && adminOverviewData.config.geminiApiKey) {
             cachedServerApiKey = adminOverviewData.config.geminiApiKey;
-            cachedServerModel = adminOverviewData.config.defaultModel || 'gemini-3.8-flash';
+            cachedServerModel = adminOverviewData.config.defaultModel || 'gemini-2.5-flash';
           }
         } else {
           // Fallback static mode
           adminOverviewData = {
             config: {
               geminiApiKey: localStorage.getItem('kaispeak_gemini_api_key') || cachedServerApiKey || '',
-              defaultModel: localStorage.getItem('kaispeak_gemini_active_model') || cachedServerModel || 'gemini-3.8-flash',
+              defaultModel: localStorage.getItem('kaispeak_gemini_active_model') || cachedServerModel || 'gemini-2.5-flash',
               adminPin: "9999",
               updatedAt: "本機儲存 (靜態模式)"
             },
@@ -5539,7 +5553,7 @@
         adminOverviewData = {
           config: {
             geminiApiKey: localStorage.getItem('kaispeak_gemini_api_key') || cachedServerApiKey || '',
-            defaultModel: localStorage.getItem('kaispeak_gemini_active_model') || cachedServerModel || 'gemini-3.8-flash',
+            defaultModel: localStorage.getItem('kaispeak_gemini_active_model') || cachedServerModel || 'gemini-2.5-flash',
             adminPin: "9999",
             updatedAt: "本機儲存 (離線模式)"
           },
@@ -5638,8 +5652,8 @@
               <div>
                 <label class="text-xs font-black text-slate-700 block mb-1">預設 AI 模型核心：</label>
                 <select id="adminGlobalModelSelect" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-bold bg-white focus:border-indigo-600">
-                  <option value="gemini-3.8-flash" ${(!data.config.defaultModel || data.config.defaultModel === 'gemini-3.8-flash' || data.config.defaultModel === 'gemini-2.0-flash') ? 'selected' : ''}>gemini-3.8-flash（Google 官方指定推薦 · 最新世代超極速旗艦核心）</option>
-                  <option value="gemini-3.8-flash-lite" ${data.config.defaultModel === 'gemini-3.8-flash-lite' ? 'selected' : ''}>gemini-3.8-flash-lite（超低延遲 · 極致節能）</option>
+                  <option value="gemini-2.5-flash" ${(!data.config.defaultModel || data.config.defaultModel === 'gemini-2.5-flash' || data.config.defaultModel === 'gemini-2.0-flash') ? 'selected' : ''}>gemini-2.5-flash（Google 官方旗艦推薦 · 最新極速核心）</option>
+                  <option value="gemini-2.0-flash" ${data.config.defaultModel === 'gemini-2.0-flash' ? 'selected' : ''}>gemini-2.0-flash（超低延遲 · 極致節能）</option>
                   <option value="gemini-2.5-flash" ${data.config.defaultModel === 'gemini-2.5-flash' ? 'selected' : ''}>gemini-2.5-flash（穩定相容款）</option>
                   <option value="gemini-2.0-flash" ${data.config.defaultModel === 'gemini-2.0-flash' ? '' : ''}>gemini-2.0-flash（經典相容備援）</option>
                 </select>
@@ -5840,7 +5854,7 @@
       const input = document.getElementById('adminGlobalApiKeyInput');
       const select = document.getElementById('adminGlobalModelSelect');
       const keyVal = input ? input.value.trim() : '';
-      const modelVal = select ? select.value : 'gemini-3.8-flash';
+      const modelVal = select ? select.value : 'gemini-2.5-flash';
 
       // 1. Always reliably save locally to current browser storage first
       if (keyVal) {
@@ -5902,7 +5916,7 @@
       // Always save locally first
       cachedServerApiKey = key;
       localStorage.setItem('kaispeak_gemini_api_key', key);
-      localStorage.setItem('kaispeak_gemini_active_model', 'gemini-3.8-flash');
+      localStorage.setItem('kaispeak_gemini_active_model', 'gemini-2.5-flash');
       updateGeminiApiKeyUI();
       SoundEffects.playShield();
 
@@ -5919,7 +5933,7 @@
           body: JSON.stringify({
             pin: "9999",
             geminiApiKey: key,
-            defaultModel: "gemini-3.8-flash"
+            defaultModel: "gemini-2.5-flash"
           })
         });
         const ct = resp.headers.get('content-type') || '';
@@ -6018,7 +6032,7 @@
         if (urlKey && urlKey.trim()) {
           const cleanKey = urlKey.trim();
           localStorage.setItem('kaispeak_gemini_api_key', cleanKey);
-          localStorage.setItem('kaispeak_gemini_active_model', 'gemini-3.8-flash');
+          localStorage.setItem('kaispeak_gemini_active_model', 'gemini-2.5-flash');
           urlParams.delete('key');
           urlParams.delete('geminiKey');
           const newSearch = urlParams.toString();
@@ -10536,6 +10550,16 @@
         }
       }
 
+      // Sync Notice Banner in Voice Modal
+      const devBanner = document.getElementById('deviceGeminiKeyBanner');
+      if (devBanner) {
+        if (key) {
+          devBanner.classList.add('hidden');
+        } else {
+          devBanner.classList.remove('hidden');
+        }
+      }
+
       const dot = document.getElementById('geminiApiKeyDot');
       const text = document.getElementById('geminiApiKeyBtnText');
       const btn = document.getElementById('geminiApiKeyStatusBtn');
@@ -10784,8 +10808,8 @@
             if (available.length > 0) {
               // Preferred models in priority order (Google modern Gemini 3.8 / 2.5 / 2.0 series)
               const preferred = [
-                'gemini-3.8-flash',
-                'gemini-3.8-flash-lite',
+                'gemini-2.5-flash',
+                'gemini-2.0-flash',
                 'gemini-2.5-flash',
                 'gemini-2.0-flash',
                 'gemini-2.0-flash-001',
@@ -10815,8 +10839,8 @@
 
       // 2. Direct probe fallback candidates across versions (modern Gemini 3.8 / 2.5 / 2.0 endpoints)
       const candidates = [
-        { version: 'v1beta', model: 'gemini-3.8-flash' },
-        { version: 'v1beta', model: 'gemini-3.8-flash-lite' },
+        { version: 'v1beta', model: 'gemini-2.5-flash' },
+        { version: 'v1beta', model: 'gemini-2.0-flash' },
         { version: 'v1beta', model: 'gemini-2.5-flash' },
         { version: 'v1beta', model: 'gemini-2.0-flash' },
         { version: 'v1beta', model: 'gemini-2.0-flash-001' },
@@ -11096,8 +11120,12 @@
         return;
       }
 
-      // Daily AI Quota Check & Consumption (Free: 5/day, VIP: 50/day)
-      if (!checkAndConsumeAiQuota()) {
+      // 1. Quota Check (Only block if quota is exhausted for genuine AI)
+      const remainingQuota = getRemainingAiQuota();
+      const hasApiKey = Boolean(getStoredGeminiApiKey());
+      if (hasApiKey && remainingQuota <= 0) {
+        SoundEffects.playClick('close');
+        openVipUpgradeModal('quota_exhausted');
         return;
       }
 
@@ -11118,6 +11146,18 @@
         if (plan) {
           plan.userScenarioText = userText;
           currentPlannedPlan = plan;
+
+          // FAIRNESS RULE: ONLY consume quota when successfully generated by genuine Google Gemini AI!
+          if (plan.source === 'gemini') {
+            recordAiUsage();
+            updateAiQuotaUI();
+            const newRemaining = getRemainingAiQuota();
+            showToastNotification(`✨ Google Gemini 旗艦大模型生成成功！（已消耗 1 次額度 · 今日剩餘 ${newRemaining} 次）`, 4000);
+          } else {
+            // Local fallback / offline mode: 0 quota consumed!
+            showToastNotification("📦 本課堂由離線情境備援庫提供，未消耗任何每日 AI 額度（額度保留）", 4500);
+          }
+
           renderPlannedResults(plan, adaptive);
           SoundEffects.playClick('unlock');
           finishAiPlanningProgressModal();
@@ -11614,7 +11654,74 @@
         };
       }
 
-      // Default: Universal Smart Synthesis (緊扣使用者輸入)
+      // Default: Universal Smart Synthesis (Intelligently Search MASTER_VOCAB by matching keywords!)
+      let dynamicWords = [];
+      let dynamicPhrases = [];
+
+      try {
+        if (typeof MASTER_VOCAB !== 'undefined' && Array.isArray(MASTER_VOCAB)) {
+          const matchedVocabs = MASTER_VOCAB.filter(v => {
+            if (!v) return false;
+            const m = (v.meaning || '').toLowerCase();
+            const w = (v.word || '').toLowerCase();
+            return cleanPrompt.toLowerCase().includes(w) || 
+                   m.split(/[:，、\s]/).some(part => part.length >= 2 && cleanPrompt.includes(part));
+          });
+
+          if (matchedVocabs.length > 0) {
+            matchedVocabs.forEach(mv => {
+              if (mv.isPhrase) {
+                if (dynamicPhrases.length < 4 && !dynamicPhrases.some(p => p.word === mv.word)) {
+                  dynamicPhrases.push({
+                    word: mv.word, ipa: mv.phonetic || "/freɪz/", meaning: mv.meaning || mv.word, emoji: mv.emoji || "✨", category: "phrases",
+                    s1: mv.gradedSentences?.[0]?.text || `Please ${mv.word}.`, t1: mv.gradedSentences?.[0]?.translation || `請做好這件事。`,
+                    s2: mv.gradedSentences?.[1]?.text || `Children ${mv.word} happily.`, t2: mv.gradedSentences?.[1]?.translation || `孩子們開心地做好這件事。`,
+                    s3: mv.gradedSentences?.[2]?.text || `Always remember to ${mv.word}.`, t3: mv.gradedSentences?.[2]?.translation || `隨時記得做好這件事。`
+                  });
+                }
+              } else {
+                if (dynamicWords.length < 6 && !dynamicWords.some(w => w.word === mv.word)) {
+                  dynamicWords.push({
+                    word: mv.word, ipa: mv.phonetic || "/wɜːrd/", meaning: mv.meaning || mv.word, emoji: mv.emoji || "📝", category: mv.category || "toy_school",
+                    s1: mv.gradedSentences?.[0]?.text || `Look at the ${mv.word}.`, t1: mv.gradedSentences?.[0]?.translation || `看這個。`,
+                    s2: mv.gradedSentences?.[1]?.text || `The ${mv.word} is very useful.`, t2: mv.gradedSentences?.[1]?.translation || `這個非常實用。`,
+                    s3: mv.gradedSentences?.[2]?.text || `We learn about ${mv.word} in daily life.`, t3: mv.gradedSentences?.[2]?.translation || `我們在日常生活中認識它。`
+                  });
+                }
+              }
+            });
+          }
+        }
+      } catch(e){}
+
+      // Fill remaining words with standard adaptive words if less than 6
+      const fallbackWordBank = [
+        { word: "practice", ipa: "/ˈpræk.tɪs/", meaning: "動詞/名詞：認真練習", emoji: "📝", category: "toy_school", s1: "Practice speaking daily.", t1: "每天認真練習開口說話。", s2: "We practice with bright smiles.", t2: "我們帶著燦爛微笑認真練習。", s3: "Daily practice makes your pronunciation clear.", t3: "每天練習能讓你的口語發音變得清晰。" },
+        { word: "explore", ipa: "/ɪkˈsplɔːr/", meaning: "動詞：探索生活", emoji: "🧭", category: "travel", s1: "Explore the world.", t1: "勇敢探索這個世界。", s2: "We explore nature together happily.", t2: "我們開心地一起探索大自然。", s3: "Brave young scouts love to explore new places.", t3: "勇敢的小朋友最喜歡探索新事物。" },
+        { word: "curious", ipa: "/ˈkjʊr.i.əs/", meaning: "形容詞：好奇求知的", emoji: "🔍", category: "toy_school", s1: "Stay always curious.", t1: "隨時保持好奇心。", s2: "Curious kids ask smart questions.", t2: "好奇的孩子會提出聰明的問題。", s3: "Curious students discover wonderful new things daily.", t3: "求知若渴的學生每天都會發現美好事物。" },
+        { word: "voice", ipa: "/vɔɪs/", meaning: "名詞：清晰的聲音", emoji: "🗣️", category: "daily_body", s1: "Use a clear voice.", t1: "使用清晰響亮的聲音。", s2: "Speak with a friendly voice.", t2: "用親切友善的聲音開口說話。", s3: "Read aloud with a confident clear voice.", t3: "用自信清晰的聲音大聲朗讀。" },
+        { word: "effort", ipa: "/ˈɛf.ɚt/", meaning: "名詞：堅持努力", emoji: "💪", category: "toy_school", s1: "Make continuous effort.", t1: "付出持續不斷的努力。", s2: "Your effort brings great success.", t2: "你的努力會帶來很棒的成果。", s3: "Children achieve goals through continuous effort.", t3: "孩子們透過持續努力達成目標。" },
+        { word: "wonder", ipa: "/ˈwʌn.dɚ/", meaning: "名詞：驚奇奇妙", emoji: "✨", category: "nature", s1: "Look at the wonder.", t1: "看這份奇妙。", s2: "The world is full of wonder.", t2: "這個世界充滿了無盡的奇妙。", s3: "Curious minds look at everyday life with wonder.", t3: "帶著好奇讚嘆的眼光看待日常生活。" }
+      ];
+
+      const fallbackPhraseBank = [
+        { word: "learn new things", ipa: "/lɜːrn nuː θɪŋz/", meaning: "動詞片語：學習新事物", emoji: "📚", s1: "Please learn new things.", t1: "請學習新知識。", s2: "Kids love to learn new things.", t2: "孩子們喜歡隨時學習新事物。", s3: "Exploring helps you learn new things daily.", t3: "探索能幫助你隨時吸收豐富新知識。" },
+        { word: "try your best", ipa: "/traɪ jʊr bɛst/", meaning: "動詞片語：全力以赴", emoji: "🌟", s1: "Always try your best.", t1: "隨時全力以赴。", s2: "Brave kids try your best happily.", t2: "勇敢的孩子開心地全力以赴。", s3: "Whenever you face challenges, always try your best.", t3: "無論何時面對挑戰，都要全力以赴。" },
+        { word: "speak with courage", ipa: "/spiːk wɪð ˈkɝː.ɪdʒ/", meaning: "動詞片語：勇敢開口說話", emoji: "🗣️", s1: "Please speak with courage.", t1: "請勇敢大聲說話。", s2: "Students speak with courage in class.", t2: "學生們在課堂上勇敢大聲發言。", s3: "Stand up tall and speak with courage.", t3: "挺起胸膛勇敢大聲開口表達。" },
+        { word: "grow every day", ipa: "/ɡroʊ ˈɛv.ri deɪ/", meaning: "動詞片語：天天茁壯成長", emoji: "🌱", s1: "We grow every day.", t1: "我們天天都在進步成長。", s2: "Healthy children grow every day.", t2: "健康的孩子每天都在茁壯成長。", s3: "Speaking English helps you grow every day.", t3: "開口說英文能幫助你天天進步成長。" }
+      ];
+
+      for (const fw of fallbackWordBank) {
+        if (dynamicWords.length < 6 && !dynamicWords.some(dw => dw.word === fw.word)) {
+          dynamicWords.push(fw);
+        }
+      }
+      for (const fp of fallbackPhraseBank) {
+        if (dynamicPhrases.length < 4 && !dynamicPhrases.some(dp => dp.word === fp.word)) {
+          dynamicPhrases.push(fp);
+        }
+      }
+
       return {
         themeId: 'custom_open',
         title: `✨ 【${cleanPrompt || '生活自選探索'}】專屬生活微課堂`,
@@ -11626,54 +11733,12 @@
           { speaker: "Mom", speakerLabel: "媽媽", avatar: "👩", en: `You are growing smarter and more confident every day, my little champion!`, zh: `你每一天都變得更聰明也更自信了，我的小冠軍！` },
           { speaker: "Kai", speakerLabel: "Kai", avatar: "👦", en: `Thank you Mom! Learning with you fills my heart with joy!`, zh: `謝謝媽媽！跟媽媽一起學習讓我的心裡裝滿了快樂！` }
         ],
-        targetWords: [
-          { word: "practice", ipa: "/ˈpræk.tɪs/", meaning: "動詞/名詞：認真練習，實踐", emoji: "📝", category: "toy_school",
-            s1: "Practice speaking daily.", t1: "每天認真練習開口說話。",
-            s2: "We practice with bright smiles.", t2: "我們帶著燦爛微笑認真練習。",
-            s3: "Daily practice makes your pronunciation very fluent and clear.", t3: "每天練習能讓你的口語發音變得非常流暢清晰。" },
-          { word: "curious", ipa: "/ˈkjʊr.i.əs/", meaning: "形容詞：好奇的，求知若渴的", emoji: "🔍", category: "toy_school",
-            s1: "Stay always curious.", t1: "隨時保持好奇心。",
-            s2: "Curious kids ask smart questions.", t2: "好奇的孩子會提出聰明的問題。",
-            s3: "Curious students discover wonderful new things around them daily.", t3: "求知若渴的學生每天都會發現周遭美好的新事物。" },
-          { word: "explore", ipa: "/ɪkˈsplɔːr/", meaning: "動詞：探索，探尋世界", emoji: "🧭", category: "travel",
-            s1: "Explore the world.", t1: "勇敢探索這個世界。",
-            s2: "We explore nature together happily.", t2: "我們開心地一起探索大自然。",
-            s3: "Brave young scouts love to explore new places with parents.", t3: "勇敢的年輕童軍最喜歡和爸爸媽媽一起探索新環境。" },
-          { word: "voice", ipa: "/vɔɪs/", meaning: "名詞：聲音，響亮嗓音", emoji: "🗣️", category: "daily_body",
-            s1: "Use a clear voice.", t1: "使用清晰響亮的聲音。",
-            s2: "Speak with a friendly voice.", t2: "用親切友善的聲音開口說話。",
-            s3: "Read aloud with a confident clear voice to show courage.", t3: "用自信清晰的聲音大聲朗讀，展現你的勇氣。" },
-          { word: "effort", ipa: "/ˈɛf.ɚt/", meaning: "名詞：努力，堅持不懈", emoji: "💪", category: "toy_school",
-            s1: "Make continuous effort.", t1: "付出持續不斷的努力。",
-            s2: "Your effort brings great success.", t2: "你的努力會帶來很棒的成果。",
-            s3: "Children achieve goals through their continuous positive effort.", t3: "孩子們透過持續不懈的努力達成心中目標。" },
-          { word: "wonder", ipa: "/ˈwʌn.dɚ/", meaning: "名詞：驚奇，奇妙", emoji: "✨", category: "nature",
-            s1: "Look at the wonder.", t1: "看這份奇妙。",
-            s2: "The world is full of wonder.", t2: "這個世界充滿了無盡的奇妙。",
-            s3: "Curious minds look at everyday life with wonder and awe.", t3: "好奇的心靈帶著驚奇讚嘆的眼光看待日常生活。" }
-        ],
-        targetPhrases: [
-          { word: "learn new things", ipa: "/lɜːrn nuː θɪŋz/", meaning: "動詞片語：學習新知識，探索新事物", emoji: "📚",
-            s1: "Please learn new things.", t1: "請學習新知識。",
-            s2: "Kids love to learn new things.", t2: "孩子們喜歡隨時學習新事物。",
-            s3: "Exploring and reading helps you learn new things daily.", t3: "探索與閱讀能幫助你隨時吸收豐富的新知識。" },
-          { word: "try your best", ipa: "/traɪ jʊr bɛst/", meaning: "動詞片語：盡全力，全力以赴", emoji: "🌟",
-            s1: "Always try your best.", t1: "隨時盡你最大的努力。",
-            s2: "Good students try their best.", t2: "好學生在每件事上都會全力以赴。",
-            s3: "No matter how big the challenge, always try your best.", t3: "無論遇到多大的挑戰，隨時都要盡自己最大的努力。" },
-          { word: "read aloud", ipa: "/riːd əˈlaʊd/", meaning: "動詞片語：大聲朗讀，朗誦出聲", emoji: "📖",
-            s1: "Please read aloud now.", t1: "請現在大聲朗讀出來。",
-            s2: "Children read aloud with smiles.", t2: "孩子們帶著微笑大聲朗讀句子。",
-            s3: "Confidently read aloud to master fluent oral English skills.", t3: "自信地大聲朗讀能迅速掌握一口流利的英語能力。" },
-          { word: "have so much joy", ipa: "/hæv soʊ mʌtʃ dʒɔɪ/", meaning: "動詞片語：感到無比歡樂，收穫滿滿喜悅", emoji: "🎉",
-            s1: "Have so much joy today.", t1: "今天收穫滿滿的歡樂。",
-            s2: "Happy kids have so much joy.", t2: "快樂的孩子們擁有滿滿的喜悅。",
-            s3: "Families have so much joy learning together happily every day.", t3: "全家人開心地一起學習，享受著滿滿的歡樂時光。" }
-        ]
+        targetWords: dynamicWords,
+        targetPhrases: dynamicPhrases
       };
     }
 
-    function getPreferredWordsForTheme(themeId) {
+        function getPreferredWordsForTheme(themeId) {
       const tInfo = SCENARIO_THEMES[themeId];
       if (!tInfo || !tInfo.preferred_words) return [];
       return tInfo.preferred_words.map(w => {
@@ -11807,14 +11872,13 @@
     // GEMINI 3.8 / 2.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR
     // ========================================================
     async function callGeminiScenarioPlanner(userText, userLevel, apiKey) {
-      // 1. Invalidate stale/deprecated models from localStorage
+      // 1. Ensure valid official model from localStorage
       let activeModel = localStorage.getItem('kaispeak_gemini_active_model');
-      let activeVer = localStorage.getItem('kaispeak_gemini_api_version');
-      if (activeModel && (activeModel.includes('2.0') || activeModel.includes('1.5'))) {
-        localStorage.removeItem('kaispeak_gemini_active_model');
-        localStorage.removeItem('kaispeak_gemini_api_version');
-        activeModel = null;
-        activeVer = null;
+      let activeVer = localStorage.getItem('kaispeak_gemini_api_version') || 'v1beta';
+      if (!activeModel || activeModel.includes('3.8')) {
+        activeModel = 'gemini-2.5-flash';
+        localStorage.setItem('kaispeak_gemini_active_model', activeModel);
+        localStorage.setItem('kaispeak_gemini_api_version', activeVer);
       }
 
       let detected = null;
@@ -11826,7 +11890,7 @@
           localStorage.setItem('kaispeak_gemini_active_model', activeModel);
           localStorage.setItem('kaispeak_gemini_api_version', activeVer);
         } catch(e) {
-          activeModel = 'gemini-3.8-flash';
+          activeModel = 'gemini-2.5-flash';
           activeVer = 'v1beta';
         }
       }
@@ -11869,8 +11933,8 @@
         });
       }
       rawAttempts.push(
-        { ver: 'v1beta', model: 'gemini-3.8-flash' },
-        { ver: 'v1beta', model: 'gemini-3.8-flash-lite' },
+        { ver: 'v1beta', model: 'gemini-2.5-flash' },
+        { ver: 'v1beta', model: 'gemini-2.0-flash' },
         { ver: 'v1beta', model: 'gemini-2.5-flash' },
         { ver: 'v1beta', model: 'gemini-2.0-flash' },
         { ver: 'v1beta', model: 'gemini-1.5-flash' }
@@ -12723,10 +12787,10 @@ ${existingSnippet || "無"}
   ]
 }`;
 
-      let activeModel = localStorage.getItem('kaispeak_gemini_active_model') || 'gemini-3.8-flash';
+      let activeModel = localStorage.getItem('kaispeak_gemini_active_model') || 'gemini-2.5-flash';
       let activeVer = localStorage.getItem('kaispeak_gemini_api_version') || 'v1beta';
       if (activeModel.includes('2.0') || activeModel.includes('1.5')) {
-        activeModel = 'gemini-3.8-flash';
+        activeModel = 'gemini-2.5-flash';
         activeVer = 'v1beta';
         localStorage.removeItem('kaispeak_gemini_active_model');
         localStorage.removeItem('kaispeak_gemini_api_version');
@@ -12734,8 +12798,8 @@ ${existingSnippet || "無"}
 
       const rawAttempts = [
         { ver: activeVer, model: activeModel },
-        { ver: 'v1beta', model: 'gemini-3.8-flash' },
-        { ver: 'v1beta', model: 'gemini-3.8-flash-lite' },
+        { ver: 'v1beta', model: 'gemini-2.5-flash' },
+        { ver: 'v1beta', model: 'gemini-2.0-flash' },
         { ver: 'v1beta', model: 'gemini-2.5-flash' },
         { ver: 'v1beta', model: 'gemini-2.0-flash' },
         { ver: 'v1beta', model: 'gemini-1.5-flash' }
@@ -13024,8 +13088,38 @@ ${existingSnippet || "無"}
       if (!area || !titleEl || !listEl) return;
 
       titleEl.innerText = plan.title;
-      const modelTag = plan.modelUsed ? ` (${plan.modelUsed})` : '';
-      const sourceNotice = plan.source === 'gemini' ? `✨ [Google Gemini 即時生成${modelTag}] ` : '';
+      const isGemini = plan.source === 'gemini';
+      const modelTag = plan.modelUsed || 'gemini-2.5-flash';
+      const remainingQuota = getRemainingAiQuota();
+
+      // Prominent AI Source Transparency Banner (100% transparent to consumer)
+      let verifyBanner = document.getElementById('plannerAiSourceVerifyBanner');
+      if (!verifyBanner) {
+        verifyBanner = document.createElement('div');
+        verifyBanner.id = 'plannerAiSourceVerifyBanner';
+        titleEl.parentNode.insertBefore(verifyBanner, titleEl.nextSibling);
+      }
+      if (isGemini) {
+        verifyBanner.className = "my-2 p-2.5 rounded-2xl bg-emerald-50 border-2 border-emerald-300 text-emerald-950 text-xs font-black flex items-center justify-between shadow-xs";
+        verifyBanner.innerHTML = `
+          <div class="flex items-center gap-2">
+            <span class="text-base animate-pulse">✨</span>
+            <span>【Google 官方 Gemini 大模型即時生成】模型：<strong class="font-mono text-emerald-700">${modelTag}</strong></span>
+          </div>
+          <span class="text-[10px] bg-emerald-200 text-emerald-900 px-2 py-0.5 rounded-full font-bold">已扣除 1 次 AI 額度（剩餘 ${remainingQuota} 次）</span>
+        `;
+      } else {
+        verifyBanner.className = "my-2 p-2.5 rounded-2xl bg-amber-50 border-2 border-amber-300 text-amber-950 text-xs font-black flex items-center justify-between shadow-xs";
+        verifyBanner.innerHTML = `
+          <div class="flex items-center gap-2">
+            <span class="text-base">📦</span>
+            <span>【本機智慧情境庫備援模式】（本機尚未配置 API Key 或雲端連線失敗）</span>
+          </div>
+          <span class="text-[10px] bg-amber-200 text-amber-900 px-2 py-0.5 rounded-full font-bold">未扣除 AI 額度（額度保留）</span>
+        `;
+      }
+
+      const sourceNotice = isGemini ? `✨ [Google Gemini 即時生成 (${modelTag})] ` : '📦 [本機情境庫備援] ';
       const newNotice = plan.newlyCreatedCount > 0 ? ` (已為你智慧生成並收錄 ${plan.newlyCreatedCount} 個全新詞彙到資料庫！)` : '';
       subtitleEl.innerText = `${sourceNotice}Kai 已為你挑選 6 個生活單字 + 4 組高頻片語（共 10 詞標準任務）！${newNotice}例句已自動適配你的自適應等級。`;
       badgeEl.innerText = adaptive.level === 1 ? '🟢 初階適配 (3~4詞)' : (adaptive.level === 2 ? '🟡 日常適配 (4~6詞)' : '🟣 熟練挑戰 (6~8詞)');
