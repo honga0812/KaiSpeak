@@ -4596,7 +4596,8 @@
     async function initServerBackendSync() {
       try {
         const resp = await fetch('/api/config');
-        if (resp.ok) {
+        const ct = resp.headers.get('content-type') || '';
+        if (resp.ok && ct.includes('application/json')) {
           const data = await resp.json();
           if (data && data.geminiApiKey) {
             cachedServerApiKey = data.geminiApiKey.trim();
@@ -4642,10 +4643,10 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ profiles })
         });
-        if (resp.ok) {
+        const ct = resp.headers.get('content-type') || '';
+        if (resp.ok && ct.includes('application/json')) {
           const data = await resp.json();
           if (data && Array.isArray(data.profiles) && data.profiles.length > 0) {
-            // Update local profiles if server has more/updated profiles
             profiles = data.profiles;
             localStorage.setItem('kai_multi_profiles', JSON.stringify(profiles));
             loadActiveProfileData();
@@ -4707,15 +4708,41 @@
       }
       try {
         const resp = await fetch('/api/admin/overview?pin=9999');
-        if (resp.ok) {
+        const ct = resp.headers.get('content-type') || '';
+        if (resp.ok && ct.includes('application/json')) {
           adminOverviewData = await resp.json();
           if (adminOverviewData.config && adminOverviewData.config.geminiApiKey) {
             cachedServerApiKey = adminOverviewData.config.geminiApiKey;
             cachedServerModel = adminOverviewData.config.defaultModel || 'gemini-3.8-flash';
           }
+        } else {
+          // GitHub Pages or Static server mode
+          adminOverviewData = {
+            config: {
+              geminiApiKey: localStorage.getItem('kaispeak_gemini_api_key') || cachedServerApiKey || '',
+              defaultModel: localStorage.getItem('kaispeak_gemini_active_model') || cachedServerModel || 'gemini-3.8-flash',
+              adminPin: "9999",
+              updatedAt: "本機儲存 (GitHub Pages 靜態模式)"
+            },
+            stats: { totalVisits: 1, totalApiCalls: 0, uniqueIps: ["本機裝置端點"] },
+            logs: [],
+            profiles: profiles,
+            isStaticMode: true
+          };
         }
       } catch(e) {
-        console.warn("loadAdminOverview fallback:", e);
+        adminOverviewData = {
+          config: {
+            geminiApiKey: localStorage.getItem('kaispeak_gemini_api_key') || cachedServerApiKey || '',
+            defaultModel: localStorage.getItem('kaispeak_gemini_active_model') || cachedServerModel || 'gemini-3.8-flash',
+            adminPin: "9999",
+            updatedAt: "本機儲存 (離線模式)"
+          },
+          stats: { totalVisits: 1, totalApiCalls: 0, uniqueIps: ["本機裝置端點"] },
+          logs: [],
+          profiles: profiles,
+          isStaticMode: true
+        };
       }
       renderAdminTabContent();
     }
@@ -4732,6 +4759,7 @@
 
       if (adminCurrentTab === 'key') {
         const hasKey = Boolean(data.config.geminiApiKey);
+        const isStatic = Boolean(data.isStaticMode);
         content.innerHTML = `
           <div class="flex flex-col gap-4">
             <!-- Status Card -->
@@ -4739,13 +4767,15 @@
               <span class="text-2xl">${hasKey ? '🟢' : '🟡'}</span>
               <div class="flex-1 text-xs">
                 <div class="font-black ${hasKey ? 'text-emerald-950' : 'text-amber-950'} flex items-center justify-between">
-                  <span>${hasKey ? '伺服器統一金鑰：已啟用託管' : '伺服器統一金鑰：尚未配置'}</span>
+                  <span>${hasKey ? (isStatic ? '金鑰配置狀態：已於本機配置生效（GitHub Pages 靜態模式）' : '伺服器統一金鑰：已啟用託管') : '金鑰配置狀態：尚未設定'}</span>
                   <span class="text-[10px] text-slate-400 font-mono">${data.config.updatedAt || ''}</span>
                 </div>
                 <p class="mt-1 leading-relaxed ${hasKey ? 'text-emerald-800' : 'text-amber-800'}">
                   ${hasKey 
-                    ? '🎉 任何在客廳平板（iPad）、手機或電腦登入 KaiSpeak 的使用者，均自動繼承此金鑰直接享有 Google 最新 Gemini 3.8 / 2.5 即時 AI 規劃師，免個別手動填寫！' 
-                    : '目前後端尚未儲存 API Key。使用者切換至平板或新手機時需各自輸入。請於下方貼上 Google Gemini API Key 並一鍵儲存！'}
+                    ? (isStatic 
+                        ? '🎉 本機已配置 Google 最新 Gemini 3.8 官方金鑰與模型，本裝置已可直接暢享即時 AI 規劃師！若需全家多設備免輸入自動共享，可在本地電腦運行 Python 伺服器 (server.py)。' 
+                        : '🎉 任何在客廳平板（iPad）、手機或電腦登入 KaiSpeak 的使用者，均自動繼承此金鑰直接享有 Google 最新 Gemini 3.8 / 2.5 即時 AI 規劃師，免個別手動填寫！')
+                    : '目前尚未儲存 API Key。請於下方貼上 Google Gemini API Key，點選測試連線後一鍵儲存！'}
                 </p>
               </div>
             </div>
@@ -4903,6 +4933,18 @@
       const keyVal = input ? input.value.trim() : '';
       const modelVal = select ? select.value : 'gemini-3.8-flash';
 
+      // 1. Always reliably save locally to current browser storage first
+      if (keyVal) {
+        localStorage.setItem('kaispeak_gemini_api_key', keyVal);
+      } else {
+        localStorage.removeItem('kaispeak_gemini_api_key');
+      }
+      localStorage.setItem('kaispeak_gemini_active_model', modelVal);
+      cachedServerApiKey = keyVal;
+      cachedServerModel = modelVal;
+      updateGeminiApiKeyUI();
+
+      // 2. Safely attempt sync to backend server without crashing on GitHub Pages (static 404 HTML)
       try {
         const resp = await fetch('/api/admin/config', {
           method: 'POST',
@@ -4913,20 +4955,26 @@
             defaultModel: modelVal
           })
         });
-        if (resp.ok) {
-          cachedServerApiKey = keyVal;
-          cachedServerModel = modelVal;
-          localStorage.setItem('kaispeak_gemini_active_model', modelVal);
-          updateGeminiApiKeyUI();
+        const ct = resp.headers.get('content-type') || '';
+        if (resp.ok && ct.includes('application/json')) {
           SoundEffects.playClick('unlock');
-          alert(`✅ 伺服器全域 API 金鑰與模型設定成功！\n\n已切換至【${modelVal}】，所有登入的平板、手機與電腦皆已立即繼承此設定。`);
+          alert(`✅ 伺服器全域 API 金鑰與模型設定成功！\n\n已成功廣播至後端伺服器（模型：【${modelVal}】），所有同網段連線的平板、手機與電腦皆已立即繼承此設定！`);
           loadAdminOverview();
+          return;
+        } else if (resp.status === 404 || ct.includes('text/html')) {
+          // Detected GitHub Pages static host
+          SoundEffects.playClick('unlock');
+          alert(`🎉 API 金鑰與模型設定已成功儲存至本機！\n\n【當前環境】：GitHub Pages 靜態網站託管\n【生效模型】：${modelVal}\n\n本裝置已可直接暢享 Gemini 即時 AI 規劃師功能！\n\n💡 提示：因 GitHub Pages 為公開靜態網頁（無本機 Python 後端常駐），全域共享僅在各裝置本地生效。若要「全家平板/手機免輸入自動共享」，請於客廳電腦啟動 server.py 並以區網 IP 連線即可！`);
+          loadAdminOverview();
+          return;
         } else {
-          const err = await resp.json();
-          alert("儲存失敗：" + (err.message || '未知錯誤'));
+          const err = await resp.json().catch(() => ({}));
+          alert("伺服器回應異常：" + (err.message || '未知錯誤'));
         }
       } catch(e) {
-        alert("連線後端失敗：" + e.message);
+        SoundEffects.playClick('unlock');
+        alert(`🎉 API 金鑰與模型設定已成功儲存至本機！\n\n【當前環境】：靜態/離線託管模式\n【生效模型】：${modelVal}\n\n本裝置已可直接暢享 Gemini 即時 AI 規劃師功能！`);
+        loadAdminOverview();
       }
     }
 
@@ -4937,6 +4985,14 @@
         alert("請先輸入有效的 API Key！");
         return;
       }
+
+      // Always save locally first
+      cachedServerApiKey = key;
+      localStorage.setItem('kaispeak_gemini_api_key', key);
+      localStorage.setItem('kaispeak_gemini_active_model', 'gemini-3.8-flash');
+      updateGeminiApiKeyUI();
+      SoundEffects.playShield();
+
       try {
         const resp = await fetch('/api/admin/config', {
           method: 'POST',
@@ -4947,20 +5003,16 @@
             defaultModel: "gemini-3.8-flash"
           })
         });
-        if (resp.ok) {
-          cachedServerApiKey = key;
-          localStorage.setItem('kaispeak_gemini_api_key', key);
-          localStorage.setItem('kaispeak_gemini_active_model', 'gemini-3.8-flash');
-          updateGeminiApiKeyUI();
-          SoundEffects.playShield();
+        const ct = resp.headers.get('content-type') || '';
+        if (resp.ok && ct.includes('application/json')) {
           alert("🎉 恭喜！API Key 已成功同步儲存至後端伺服器！\n\n今後不論您在 iPad、手機或任何新裝置上開啟，都能免填寫直接使用 AI 即時功能！");
           closeGeminiApiKeyModal();
-        } else {
-          alert("同步至伺服器失敗，請確認伺服器是否正常運行。");
+          return;
         }
-      } catch(e) {
-        alert("連線後端失敗：" + e.message);
-      }
+      } catch(e) {}
+
+      alert("🎉 API Key 已成功儲存於本機瀏覽器！\n\n當前裝置已可立即使用 AI 即時情境微課堂功能。");
+      closeGeminiApiKeyModal();
     }
 
     async function testAdminKeyConnection() {
