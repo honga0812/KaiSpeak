@@ -140,8 +140,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.20（2026年·11月·第20次發布）">
-                26.11.20
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.21（2026年·11月·第21次發布）">
+                26.11.21
               </span>
             </div>
           </div>
@@ -357,7 +357,7 @@
     <!-- Top Row: Brand Identity (Left) & Learner Profile / Status & System Utilities (Right) -->
     <div class="w-full flex items-center justify-between gap-2 sm:gap-4 pb-2 border-b border-indigo-50/80 flex-wrap sm:flex-nowrap">
       
-      <!-- Brand Logo + 奇妙星語言 + Version 26.11.20 Lockup -->
+      <!-- Brand Logo + 奇妙星語言 + Version 26.11.21 Lockup -->
       <div class="flex items-center gap-2 sm:gap-3 cursor-pointer select-none shrink-0 group py-0.5" onclick="switchAppMode('quest')" title="KaiSpeak 首頁">
         <div class="shrink-0 flex items-center">
           <img src="images/ui/KaiSpeak_logo_V3_trans.png" alt="KaiSpeak" class="h-12 sm:h-14 md:h-16 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] group-hover:scale-105 transition-all duration-300 shrink-0">
@@ -368,7 +368,7 @@
             <span>奇妙星語言</span>
           </span>
           <div class="mt-1 flex items-center gap-1">
-            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.20（2026年·11月·第20次發布）">26.11.20</span>
+            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.21（2026年·11月·第21次發布）">26.11.21</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer flex items-center gap-1 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-2 py-0.5 transition shadow-2xs group-hover:border-amber-400" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -387,6 +387,7 @@
             <div class="flex items-center gap-1">
               <span id="headerProfileName" class="font-black text-xs text-violet-950">Kai 寶貝</span>
               <span id="headerProfileGrade" class="hidden md:inline-block text-[9px] bg-violet-200 text-violet-800 px-1.5 py-0.2 rounded-full font-bold">國小二年級</span>
+              <span id="headerVipBadge" onclick="event.stopPropagation(); openVipUpgradeModal('header_pill');" class="text-[9px] font-black px-1.5 py-0.2 rounded-md bg-amber-100 text-amber-800 border border-amber-300 hover:bg-amber-200 cursor-pointer shadow-2xs active:scale-95 transition" title="查看 VIP 權益或兌換啟動碼">🌿 Free</span>
             </div>
             <div class="text-[9px] text-violet-600 font-bold hidden md:flex items-center gap-1">
               <span id="headerProfileLevelBadge">🟢 程度: 基礎入門</span>
@@ -697,11 +698,19 @@
       </div>
 
       <!-- Profiles List -->
-      <div class="text-xs font-bold text-slate-600 mb-2 flex items-center justify-between">
-        <span>已建立學員檔案（點選立即切換）：</span>
-        <button onclick="toggleNewProfileForm()" class="text-indigo-600 hover:text-indigo-800 flex items-center gap-1 font-bold text-xs bg-indigo-50 px-2.5 py-1 rounded-xl border border-indigo-200">
-          <span>➕ 新增小朋友</span>
-        </button>
+      <div class="text-xs font-bold text-slate-600 mb-2 flex items-center justify-between flex-wrap gap-2">
+        <div class="flex items-center gap-2">
+          <span>已建立學員檔案：</span>
+          <span id="profileCapacityText" class="text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-bold">1/1 (免費版)</span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <button type="button" onclick="openVipUpgradeModal('profile_limit')" id="btnProfileUpgradeVip" class="text-amber-800 hover:text-amber-900 font-extrabold text-[10px] bg-gradient-to-r from-amber-100 to-yellow-200 px-2.5 py-1 rounded-xl border border-amber-300 shadow-2xs active:scale-95 transition">
+            👑 升級 VIP 支援 5 位
+          </button>
+          <button type="button" onclick="handleAddNewProfileClick()" class="text-indigo-600 hover:text-indigo-800 flex items-center gap-1 font-bold text-xs bg-indigo-50 px-2.5 py-1 rounded-xl border border-indigo-200 active:scale-95 transition">
+            <span>➕ 新增小朋友</span>
+          </button>
+        </div>
       </div>
 
       <div id="profileListContainer" class="flex flex-col gap-2.5 mb-4">
@@ -921,15 +930,18 @@
       </div>
 
       <!-- Admin Tabs Navigation -->
-      <div class="grid grid-cols-3 gap-1.5 p-1 bg-slate-100 rounded-2xl mb-4 text-xs font-bold">
+      <div class="grid grid-cols-4 gap-1.5 p-1 bg-slate-100 rounded-2xl mb-4 text-xs font-bold">
         <button id="adminTabBtnKey" onclick="switchAdminTab('key')" class="py-2 rounded-xl transition bg-white text-indigo-700 shadow-xs font-black">
-          🔑 API 金鑰託管
+          🔑 金鑰託管
         </button>
         <button id="adminTabBtnProfiles" onclick="switchAdminTab('profiles')" class="py-2 rounded-xl transition text-slate-600 hover:text-slate-900">
-          👥 全體學員帳號
+          👥 全體學員
         </button>
         <button id="adminTabBtnLogs" onclick="switchAdminTab('logs')" class="py-2 rounded-xl transition text-slate-600 hover:text-slate-900">
-          📱 設備與連線日誌
+          📱 連線日誌
+        </button>
+        <button id="adminTabBtnVip" onclick="switchAdminTab('vip')" class="py-2 rounded-xl transition text-slate-600 hover:text-slate-900">
+          👑 VIP 授權碼
         </button>
       </div>
 
@@ -1499,10 +1511,10 @@
     <div class="flex items-center justify-between bg-white px-4 py-2.5 rounded-2xl border border-indigo-50 shadow-sm text-xs font-bold gap-2 flex-wrap">
       <div class="flex items-center gap-1.5 overflow-x-auto hide-scrollbar">
         <button onclick="selectAdventureIsland(0)" id="islandTab0" class="adv-island-btn px-3 py-1.5 rounded-xl bg-indigo-600 text-white shadow-sm whitespace-nowrap">🏝️ 珊瑚島 (1-10)</button>
-        <button onclick="selectAdventureIsland(1)" id="islandTab1" class="adv-island-btn px-3 py-1.5 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap">🏝️ 翡翠島 (11-20)</button>
-        <button onclick="selectAdventureIsland(2)" id="islandTab2" class="adv-island-btn px-3 py-1.5 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap">🏝️ 寶石島 (21-30)</button>
-        <button onclick="selectAdventureIsland(3)" id="islandTab3" class="adv-island-btn px-3 py-1.5 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap">🏝️ 奇蹟島 (31-40)</button>
-        <button onclick="selectAdventureIsland(4)" id="islandTab4" class="adv-island-btn px-3 py-1.5 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap">🏝️ 榮譽島 (41-50)</button>
+        <button onclick="selectAdventureIsland(1)" id="islandTab1" class="adv-island-btn px-3 py-1.5 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap">🌿 翡翠島 (11-20) <span class="text-[9px] bg-amber-100 text-amber-800 px-1 py-0.2 rounded font-black ml-0.5">👑 VIP</span></button>
+        <button onclick="selectAdventureIsland(2)" id="islandTab2" class="adv-island-btn px-3 py-1.5 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap">💎 寶石島 (21-30) <span class="text-[9px] bg-amber-100 text-amber-800 px-1 py-0.2 rounded font-black ml-0.5">👑 VIP</span></button>
+        <button onclick="selectAdventureIsland(3)" id="islandTab3" class="adv-island-btn px-3 py-1.5 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap">🌋 奇蹟島 (31-40) <span class="text-[9px] bg-amber-100 text-amber-800 px-1 py-0.2 rounded font-black ml-0.5">👑 VIP</span></button>
+        <button onclick="selectAdventureIsland(4)" id="islandTab4" class="adv-island-btn px-3 py-1.5 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap">👑 榮譽島 (41-50) <span class="text-[9px] bg-amber-100 text-amber-800 px-1 py-0.2 rounded font-black ml-0.5">👑 VIP</span></button>
       </div>
       <div class="flex items-center gap-1">
         <button onclick="prevAdventureIsland()" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition active:scale-95">◀ 上一島</button>
@@ -1850,7 +1862,11 @@
             <p class="text-[10px] sm:text-[11px] text-slate-500">聊聊天、說說今天想做什麼，智能為你量身打造專屬單字與生活片語！</p>
           </div>
         </div>
-        <div class="flex items-center gap-1.5 shrink-0">
+        <div class="flex items-center gap-1.5 shrink-0 flex-wrap justify-end">
+          <div id="aiDailyQuotaBadge" class="px-2.5 py-1 rounded-xl text-[10px] font-bold border flex items-center gap-1 transition shadow-2xs bg-amber-50 text-amber-900 border-amber-200">
+            <span id="aiDailyQuotaText">今日額度: 5/5 次</span>
+            <button type="button" onclick="openVipUpgradeModal('voice_header')" id="btnVoiceHeaderVip" class="ml-1 px-1.5 py-0.2 rounded-md bg-gradient-to-r from-amber-500 to-orange-500 text-white font-extrabold hover:opacity-90 active:scale-95 text-[9px] shadow-2xs">👑 升級 VIP</button>
+          </div>
           <button type="button" onclick="handleAiStatusBadgeClick()" id="aiConnectionStatusBadge" class="px-2.5 py-1 rounded-xl text-[10px] font-bold border flex items-center gap-1.5 transition shadow-2xs active:scale-95 bg-slate-100 text-slate-600 border-slate-300 hover:bg-slate-200">
             <span id="aiConnectionStatusDot" class="w-2 h-2 rounded-full bg-slate-400"></span>
             <span id="aiConnectionStatusText">AI 狀態檢測中...</span>
@@ -2089,7 +2105,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.20 · 即時 AI</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.21 · 即時 AI</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -2128,7 +2144,7 @@
             <span>👉 點此前往 Google AI Studio 免費獲取 Key</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.20 · 支援 gemini-3.8-flash / 3.8-flash-lite / 2.5-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.21 · 支援 gemini-3.8-flash / 3.8-flash-lite / 2.5-flash</span>
         </div>
       </div>
 
@@ -2196,6 +2212,109 @@
           關閉
         </button>
       </div>
+    </div>
+  </div>
+
+
+  <!-- ======================================================== -->
+  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.21)    -->
+  <!-- ======================================================== -->
+  <div id="vipUpgradeModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[89] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
+    <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl border-2 border-amber-300 flex flex-col gap-4 my-auto max-h-[92vh] overflow-y-auto">
+      
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between pb-3 border-b border-amber-100">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-400 via-yellow-400 to-amber-600 flex items-center justify-center text-white text-2xl shadow-md shrink-0">
+            👑
+          </div>
+          <div class="text-left">
+            <h3 class="text-base sm:text-lg font-black text-slate-900 flex items-center gap-2">
+              <span>KaiSpeak 奇妙星</span>
+              <span class="text-[10px] bg-gradient-to-r from-amber-500 to-yellow-500 text-white px-2 py-0.5 rounded-full font-black shadow-xs">VIP 旗艦特權</span>
+            </h3>
+            <p class="text-xs text-amber-800 font-bold" id="vipModalSubtitle">解鎖每日 50 次 AI 暢聊 · 5 位小朋友獨立存檔 · 探險島全地圖</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeVipUpgradeModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 font-black text-sm flex items-center justify-center transition active:scale-95">✕</button>
+      </div>
+
+      <!-- Dynamic Context Banner -->
+      <div id="vipReasonBanner" class="p-3 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-900 font-bold flex items-start gap-2.5">
+        <span class="text-base">💡</span>
+        <div id="vipReasonText" class="flex-1 leading-relaxed">
+          歡迎體驗 KaiSpeak 奇妙星！升級 VIP 旗艦會員，享受每日 50 次 AI 語音聊學與全家多位小朋友獨立存檔！
+        </div>
+      </div>
+
+      <!-- Feature Comparison Table -->
+      <div class="rounded-2xl border border-slate-200 overflow-hidden text-xs">
+        <div class="grid grid-cols-3 bg-slate-100 font-black text-slate-700 p-2.5 text-center border-b border-slate-200">
+          <div>功能權益</div>
+          <div class="text-slate-500">🌿 免費體驗版</div>
+          <div class="text-amber-700 font-extrabold">👑 VIP 旗艦會員</div>
+        </div>
+        <div class="grid grid-cols-3 p-2.5 text-center border-b border-slate-100 items-center bg-white">
+          <div class="text-left font-bold text-slate-700">AI 語音聊學額度</div>
+          <div class="text-slate-500">每日 5 次</div>
+          <div class="text-emerald-700 font-black bg-emerald-50 py-1 rounded-lg">每日 50 次 (暢聊)</div>
+        </div>
+        <div class="grid grid-cols-3 p-2.5 text-center border-b border-slate-100 items-center bg-slate-50/50">
+          <div class="text-left font-bold text-slate-700">家庭學員人數</div>
+          <div class="text-slate-500">僅限 1 位</div>
+          <div class="text-indigo-700 font-black bg-indigo-50 py-1 rounded-lg">最高 5 位小朋友</div>
+        </div>
+        <div class="grid grid-cols-3 p-2.5 text-center border-b border-slate-100 items-center bg-white">
+          <div class="text-left font-bold text-slate-700">發音探險島地圖</div>
+          <div class="text-slate-500">限第 1 座珊瑚島</div>
+          <div class="text-purple-700 font-black bg-purple-50 py-1 rounded-lg">5 大島嶼全解鎖</div>
+        </div>
+        <div class="grid grid-cols-3 p-2.5 text-center items-center bg-slate-50/50">
+          <div class="text-left font-bold text-slate-700">AI 發音診斷週報</div>
+          <div class="text-slate-500">基礎星等評分</div>
+          <div class="text-amber-700 font-black bg-amber-50 py-1 rounded-lg">音素級糾音 + 週報</div>
+        </div>
+      </div>
+
+      <!-- License Key Redemption Section -->
+      <div class="p-4 rounded-2xl bg-gradient-to-r from-amber-50 via-yellow-50 to-orange-50 border border-amber-200 flex flex-col gap-2.5">
+        <label class="text-xs font-black text-amber-950 flex items-center justify-between">
+          <span>🔑 輸入 VIP 數位啟動碼（即刻升級）：</span>
+          <span class="text-[10px] text-amber-700 font-normal">支援年度卡 / 創始序號</span>
+        </label>
+        <div class="flex items-center gap-2">
+          <input type="text" id="vipLicenseKeyInput" placeholder="請貼上 8 碼啟動碼 (例: VIP888 或 KAI-xxxx)" class="flex-1 px-3.5 py-2.5 rounded-xl border border-amber-300 focus:outline-none focus:border-amber-600 text-xs font-mono font-bold bg-white text-slate-900 uppercase">
+          <button type="button" onclick="handleVipRedemptionSubmit()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 text-white font-black text-xs shadow-md active:scale-95 transition flex items-center gap-1 shrink-0">
+            <span>🚀 啟用 VIP</span>
+          </button>
+        </div>
+        <div class="text-[10px] text-amber-700 leading-tight">
+          💡 提示：若您已於賣場、LINE Pay 或體驗營獲得啟動碼，在此輸入即可 1 秒將本機解鎖為 VIP 旗艦會員！
+        </div>
+      </div>
+
+      <!-- Purchase / Contact Section (Similar to Shop App / Storefront) -->
+      <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+        <div>
+          <div class="font-extrabold text-slate-800">尚未擁有 VIP 啟動碼？</div>
+          <div class="text-[11px] text-slate-500 mt-0.5">年度旗艦特惠 <strong class="text-amber-600 font-mono">NT$ 1,490</strong> / 年（平均每月僅 $124，支援 5 位小朋友）</div>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <button type="button" onclick="contactVipSales()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-900 text-white font-bold text-xs shadow-xs active:scale-95 transition flex items-center gap-1">
+            <span>💬 諮詢獲取啟動卡</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Current VIP Active Status Card (Only shown if already VIP) -->
+      <div id="vipActiveStatusBox" class="hidden p-3 rounded-2xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-950 flex items-center justify-between">
+        <div>
+          <span class="font-black">👑 您目前已是 VIP 尊享會員</span>
+          <div class="text-[10px] text-emerald-700 mt-0.5" id="vipExpiresText">有效期至：2027-11-16</div>
+        </div>
+        <button type="button" onclick="setVipDirectly(false); closeVipUpgradeModal();" class="text-[10px] text-slate-400 hover:text-slate-600 underline">切換回免費版測試</button>
+      </div>
+
     </div>
   </div>
 
@@ -2557,7 +2676,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.20";
+    const APP_VERSION = "26.11.21";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // Immediate sanitization of legacy Gemini 1.5 or deprecated 2.0 models from localStorage
@@ -2587,6 +2706,18 @@
         urlObj.searchParams.delete('apiKey');
         const cleanPath = urlObj.pathname + (urlObj.search ? urlObj.search : '') + urlObj.hash;
         window.history.replaceState({}, document.title, cleanPath);
+      }
+
+      // Auto Ingest VIP License Key from URL (?vip=... or ?license=...)
+      const urlVip = urlObj.searchParams.get('vip') || urlObj.searchParams.get('license');
+      if (urlVip && urlVip.trim().length >= 4) {
+        setTimeout(() => {
+          activateVipLicense(urlVip.trim(), false);
+        }, 800);
+        urlObj.searchParams.delete('vip');
+        urlObj.searchParams.delete('license');
+        const cleanPath2 = urlObj.pathname + (urlObj.search ? urlObj.search : '') + urlObj.hash;
+        window.history.replaceState({}, document.title, cleanPath2);
         console.log("🎉 Successfully synchronized Gemini API Key from URL!");
         
         setTimeout(() => {
@@ -2739,7 +2870,329 @@
     let selectedCustomAvatar = null;
     let webcamStream = null;
 
-    function isImageAvatar(str) {
+
+    // ========================================================
+    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.21)
+    // ========================================================
+    const VIP_STORAGE_KEY = 'kaispeak_vip_info';
+    const AI_USAGE_DATE_KEY = 'kaispeak_ai_usage_date';
+    const AI_USAGE_COUNT_KEY = 'kaispeak_ai_usage_count';
+    const ADMIN_BATCH_KEYS_KEY = 'kaispeak_admin_batch_keys';
+
+    const VALID_VIP_CODES = [
+      'VIP888',
+      'VIP50',
+      'KAISPEAK2026',
+      'STAR-VIP-YEAR',
+      'MAGIC-KAI-VIP',
+      'HONGA-VIP-8888',
+      'LUCKY-VIP-2026'
+    ];
+
+    function isUserVip() {
+      try {
+        const raw = localStorage.getItem(VIP_STORAGE_KEY);
+        if (!raw) return false;
+        const info = JSON.parse(raw);
+        if (!info || !info.isVip) return false;
+        if (info.expiresAt) {
+          const exp = new Date(info.expiresAt).getTime();
+          if (Date.now() > exp) return false;
+        }
+        return true;
+      } catch(e) {
+        return false;
+      }
+    }
+
+    function getVipInfo() {
+      try {
+        const raw = localStorage.getItem(VIP_STORAGE_KEY);
+        if (!raw) return { isVip: false, planType: 'free', title: '🌿 免費體驗版' };
+        const info = JSON.parse(raw);
+        if (isUserVip()) {
+          return {
+            isVip: true,
+            planType: info.planType || 'yearly',
+            title: info.title || '👑 VIP 旗艦會員',
+            licenseKey: info.licenseKey || 'PRE-ACTIVATED',
+            activatedAt: info.activatedAt || '2026-11-16',
+            expiresAt: info.expiresAt || null
+          };
+        }
+        return { isVip: false, planType: 'free', title: '🌿 免費體驗版 (已過期)' };
+      } catch(e) {
+        return { isVip: false, planType: 'free', title: '🌿 免費體驗版' };
+      }
+    }
+
+    function getTodayDateStr() {
+      const d = new Date();
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    }
+
+    function getTodayAiUsageCount() {
+      try {
+        const today = getTodayDateStr();
+        const storedDate = localStorage.getItem(AI_USAGE_DATE_KEY);
+        if (storedDate !== today) {
+          localStorage.setItem(AI_USAGE_DATE_KEY, today);
+          localStorage.setItem(AI_USAGE_COUNT_KEY, '0');
+          return 0;
+        }
+        return parseInt(localStorage.getItem(AI_USAGE_COUNT_KEY) || '0', 10);
+      } catch(e) {
+        return 0;
+      }
+    }
+
+    function getDailyAiQuotaLimit() {
+      return isUserVip() ? 50 : 5;
+    }
+
+    function getRemainingAiQuota() {
+      const limit = getDailyAiQuotaLimit();
+      const used = getTodayAiUsageCount();
+      return Math.max(0, limit - used);
+    }
+
+    function recordAiUsage() {
+      try {
+        const today = getTodayDateStr();
+        const storedDate = localStorage.getItem(AI_USAGE_DATE_KEY);
+        let count = 0;
+        if (storedDate === today) {
+          count = parseInt(localStorage.getItem(AI_USAGE_COUNT_KEY) || '0', 10);
+        } else {
+          localStorage.setItem(AI_USAGE_DATE_KEY, today);
+        }
+        count += 1;
+        localStorage.setItem(AI_USAGE_COUNT_KEY, String(count));
+        return count;
+      } catch(e) {
+        return 1;
+      }
+    }
+
+    function checkAndConsumeAiQuota() {
+      const remaining = getRemainingAiQuota();
+      if (remaining <= 0) {
+        SoundEffects.playClick('close');
+        openVipUpgradeModal('quota_exhausted');
+        return false;
+      }
+      recordAiUsage();
+      updateAiQuotaUI();
+      return true;
+    }
+
+    function activateVipLicense(inputCode, showSuccessAlert = true) {
+      const code = (inputCode || '').trim().toUpperCase();
+      if (!code) {
+        alert("請輸入 VIP 啟動碼！");
+        return false;
+      }
+
+      const isValidStatic = VALID_VIP_CODES.some(c => c.toUpperCase() === code);
+      const isValidPattern = /^KAI-[A-Z0-9]{4,16}$/i.test(code);
+
+      // Check admin generated batch keys
+      let isValidAdminBatch = false;
+      try {
+        const batchKeys = JSON.parse(localStorage.getItem(ADMIN_BATCH_KEYS_KEY) || '[]');
+        if (batchKeys.includes(code)) isValidAdminBatch = true;
+      } catch(e){}
+
+      if (!isValidStatic && !isValidPattern && !isValidAdminBatch) {
+        alert("❌ 啟動碼格式錯誤或無效！\n\n請確認您的 8 碼序號（例如 VIP888 或 KAI-xxxx），或洽詢客服管理員領取。");
+        return false;
+      }
+
+      const vipData = {
+        isVip: true,
+        planType: 'yearly',
+        title: '👑 VIP 旗艦會員',
+        licenseKey: code,
+        activatedAt: new Date().toISOString(),
+        expiresAt: new Date(Date.now() + 365 * 24 * 3600 * 1000).toISOString()
+      };
+
+      localStorage.setItem(VIP_STORAGE_KEY, JSON.stringify(vipData));
+      SoundEffects.playScore(100);
+      SoundEffects.playShield();
+
+      updateVipUI();
+      if (showSuccessAlert) {
+        alert(`🎉 恭喜！VIP 旗艦特權啟動成功！\n\n【啟動方案】：👑 KaiSpeak 年度 VIP 旗艦卡\n【專屬特權】：\n✨ 每日 AI 語音聊學提升至 50 次\n👨‍👩‍👧‍👦 支援最高 5 位小朋友獨立存檔\n🗺️ 探險島 5 座島嶼全地圖解鎖\n\n全功能已立即生效！祝學習愉快！`);
+      }
+      closeVipUpgradeModal();
+      return true;
+    }
+
+    function setVipDirectly(enable, plan = 'yearly') {
+      if (enable) {
+        const vipData = {
+          isVip: true,
+          planType: plan,
+          title: '👑 VIP 旗艦會員',
+          licenseKey: 'ADMIN-DIRECT-ACTIVATE',
+          activatedAt: new Date().toISOString(),
+          expiresAt: new Date(Date.now() + 365 * 24 * 3600 * 1000).toISOString()
+        };
+        localStorage.setItem(VIP_STORAGE_KEY, JSON.stringify(vipData));
+        SoundEffects.playScore(100);
+      } else {
+        localStorage.removeItem(VIP_STORAGE_KEY);
+      }
+      updateVipUI();
+    }
+
+    function openVipUpgradeModal(reason = 'default', extra = '') {
+      const modal = document.getElementById('vipUpgradeModal');
+      const banner = document.getElementById('vipReasonBanner');
+      const reasonText = document.getElementById('vipReasonText');
+      const activeBox = document.getElementById('vipActiveStatusBox');
+      const expiresText = document.getElementById('vipExpiresText');
+      const keyInput = document.getElementById('vipLicenseKeyInput');
+
+      if (keyInput) keyInput.value = '';
+
+      const isVip = isUserVip();
+      if (activeBox) {
+        if (isVip) {
+          activeBox.classList.remove('hidden');
+          if (expiresText) {
+            const info = getVipInfo();
+            const expStr = info.expiresAt ? new Date(info.expiresAt).toLocaleDateString() : '永久有效';
+            expiresText.innerText = `尊享到期日：${expStr}（序號：${info.licenseKey || '已啟動'}）`;
+          }
+        } else {
+          activeBox.classList.add('hidden');
+        }
+      }
+
+      if (reasonText) {
+        if (reason === 'quota_exhausted') {
+          reasonText.innerHTML = `🚨 <strong>今日 5 次免費 AI 語音額度已全數用完！</strong><br/>每天凌晨 00:00 將自動重置 5 次，或立即輸入 VIP 啟動碼升級為<strong>每日 50 次全天暢聊</strong>！`;
+          if (banner) banner.className = "p-3 rounded-2xl bg-rose-50 border border-rose-200 text-xs text-rose-900 font-bold flex items-start gap-2.5";
+        } else if (reason === 'profile_limit') {
+          reasonText.innerHTML = `👨‍👩‍👧‍👦 <strong>免費體驗版僅支援 1 位小朋友獨立檔案！</strong><br/>升級 <strong>👑 VIP 旗艦會員</strong>即可支援 <strong>5 位學員</strong>，每位小朋友獨立紀錄連勝天數、獎盃與適應性評測！`;
+          if (banner) banner.className = "p-3 rounded-2xl bg-violet-50 border border-violet-200 text-xs text-violet-900 font-bold flex items-start gap-2.5";
+        } else if (reason === 'island_lock') {
+          reasonText.innerHTML = `🗺️ <strong>探險島【${extra || '進階地圖'}】為 VIP 旗艦專屬秘境！</strong><br/>升級 <strong>👑 VIP 旗艦會員</strong>立即啟航全地圖 5 大島嶼，挑戰深海與太空闖關！`;
+          if (banner) banner.className = "p-3 rounded-2xl bg-indigo-50 border border-indigo-200 text-xs text-indigo-900 font-bold flex items-start gap-2.5";
+        } else {
+          reasonText.innerHTML = `✨ <strong>升級 KaiSpeak 奇妙星 VIP 旗艦特權</strong><br/>每日 50 次 AI 暢聊 · 5 位學員獨立存檔 · 探險島全地圖 · 音素級糾音週報！`;
+          if (banner) banner.className = "p-3 rounded-2xl bg-amber-50 border border-amber-200 text-xs text-amber-900 font-bold flex items-start gap-2.5";
+        }
+      }
+
+      if (modal) modal.classList.remove('hidden');
+      SoundEffects.playClick('open');
+    }
+
+    function closeVipUpgradeModal() {
+      const modal = document.getElementById('vipUpgradeModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function handleVipRedemptionSubmit() {
+      const input = document.getElementById('vipLicenseKeyInput');
+      const code = input ? input.value : '';
+      activateVipLicense(code, true);
+    }
+
+    function contactVipSales() {
+      const mailTo = 'honga.ggai@gmail.com';
+      const mailSubject = encodeURIComponent('KaiSpeak報錯與諮詢 - 諮詢訂閱 VIP 啟動卡');
+      const mailBody = encodeURIComponent(`您好！我想了解並訂閱 KaiSpeak 奇妙星兒童美語 VIP 學習卡：\n\n- 方案類型：年度旗艦方案（NT$ 1,490/年）\n- 諮詢項目：付款方式（LINE Pay / 銀行轉帳 / 賣場超商）\n- 當前裝置：${navigator.userAgent.slice(0, 70)}\n- 諮詢時間：${new Date().toLocaleString()}`);
+      
+      try {
+        window.open(`mailto:${mailTo}?subject=${mailSubject}&body=${mailBody}`, '_blank');
+      } catch(e){}
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(mailTo).catch(()=>{});
+      }
+      showToastNotification(`📧 已開啟諮詢郵件！客服信箱 ${mailTo} 已複製至剪貼簿。`, 5000);
+    }
+
+    function updateVipUI() {
+      const isVip = isUserVip();
+      const vipInfo = getVipInfo();
+
+      // 1. Header VIP Badge
+      const headerVip = document.getElementById('headerVipBadge');
+      if (headerVip) {
+        if (isVip) {
+          headerVip.className = "text-[9px] font-black px-1.5 py-0.2 rounded-md bg-gradient-to-r from-amber-400 to-yellow-400 text-amber-950 border border-amber-300 shadow-2xs cursor-pointer active:scale-95 transition";
+          headerVip.innerText = "👑 VIP";
+          headerVip.title = "KaiSpeak 尊享 VIP 旗艦會員 (點擊查看權益)";
+        } else {
+          headerVip.className = "text-[9px] font-black px-1.5 py-0.2 rounded-md bg-amber-100 text-amber-800 border border-amber-300 hover:bg-amber-200 shadow-2xs cursor-pointer active:scale-95 transition";
+          headerVip.innerText = "🌿 Free";
+          headerVip.title = "當前為免費體驗版 (點擊升級 VIP)";
+        }
+      }
+
+      // 2. Profile Capacity
+      const capText = document.getElementById('profileCapacityText');
+      const upgBtn = document.getElementById('btnProfileUpgradeVip');
+      if (capText) {
+        capText.innerText = isVip ? `${profiles.length}/5 位 (👑 VIP 旗艦版)` : `${profiles.length}/1 位 (🌿 免費版)`;
+        capText.className = isVip ? "text-[10px] bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full font-black border border-amber-300" : "text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-bold";
+      }
+      if (upgBtn) {
+        if (isVip) {
+          upgBtn.classList.add('hidden');
+        } else {
+          upgBtn.classList.remove('hidden');
+        }
+      }
+
+      // 3. AI Daily Quota
+      updateAiQuotaUI();
+    }
+
+    function updateAiQuotaUI() {
+      const isVip = isUserVip();
+      const limit = getDailyAiQuotaLimit();
+      const remaining = getRemainingAiQuota();
+      const quotaText = document.getElementById('aiDailyQuotaText');
+      const quotaBadge = document.getElementById('aiDailyQuotaBadge');
+      const upgBtn = document.getElementById('btnVoiceHeaderVip');
+
+      if (quotaText) {
+        if (isVip) {
+          quotaText.innerHTML = `👑 VIP 額度: <strong class="text-amber-700 font-mono font-black">${remaining}/${limit}</strong> 次`;
+        } else {
+          quotaText.innerHTML = `今日免費: <strong class="text-amber-700 font-mono font-black">${remaining}/${limit}</strong> 次`;
+        }
+      }
+
+      if (quotaBadge) {
+        if (isVip) {
+          quotaBadge.className = "px-2.5 py-1 rounded-xl text-[10px] font-bold border flex items-center gap-1 transition shadow-2xs bg-amber-50 text-amber-900 border-amber-300";
+        } else {
+          quotaBadge.className = remaining <= 0
+            ? "px-2.5 py-1 rounded-xl text-[10px] font-bold border flex items-center gap-1 transition shadow-2xs bg-rose-50 text-rose-800 border-rose-300 animate-pulse"
+            : "px-2.5 py-1 rounded-xl text-[10px] font-bold border flex items-center gap-1 transition shadow-2xs bg-amber-50 text-amber-900 border-amber-200";
+        }
+      }
+
+      if (upgBtn) {
+        if (isVip) {
+          upgBtn.classList.add('hidden');
+        } else {
+          upgBtn.classList.remove('hidden');
+        }
+      }
+    }
+
+        function isImageAvatar(str) {
       if (!str || typeof str !== 'string') return false;
       const s = str.trim();
       return s.startsWith('data:image') || s.startsWith('http://') || s.startsWith('https://') || s.startsWith('blob:') || s.startsWith('images/') || s.includes(';base64,') || s.length > 50;
@@ -3400,6 +3853,7 @@
       if (oAvatar) setAvatarElement(oAvatar, p.avatar, "w-14 h-14 rounded-full object-cover");
       if (oName) oName.innerText = p.name;
       if (oAdaptive) oAdaptive.innerText = adaptive.title;
+      if (typeof updateVipUI === 'function') updateVipUI();
     }
 
     function getAdaptiveAnalysis(profile) {
@@ -3624,6 +4078,22 @@
 
     function renderProfileModalContent() {
       const activeP = getActiveProfile();
+      
+      // Update capacity badge and VIP upgrade button
+      const capText = document.getElementById('profileCapacityText');
+      const upgBtn = document.getElementById('btnProfileUpgradeVip');
+      const isVip = (typeof isUserVip === 'function') ? isUserVip() : false;
+      if (capText) {
+        capText.innerText = isVip ? `${profiles.length}/5 位 (👑 VIP 旗艦版)` : `${profiles.length}/1 位 (🌿 免費版)`;
+        capText.className = isVip ? "text-[10px] bg-amber-100 text-amber-900 px-2 py-0.5 rounded-full font-black border border-amber-300" : "text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-bold";
+      }
+      if (upgBtn) {
+        if (isVip) {
+          upgBtn.classList.add('hidden');
+        } else {
+          upgBtn.classList.remove('hidden');
+        }
+      }
       const adaptive = getAdaptiveAnalysis(activeP);
 
       // Render Active Banner
@@ -3709,12 +4179,35 @@
       renderProfileModalContent();
     }
 
+    function handleAddNewProfileClick() {
+      toggleNewProfileForm();
+    }
+
     function toggleNewProfileForm() {
+      if (!isUserVip() && profiles.length >= 1) {
+        toggleProfileModal();
+        openVipUpgradeModal('profile_limit');
+        return;
+      }
+      if (isUserVip() && profiles.length >= 5) {
+        alert("👑 VIP 旗艦會員最多支援 5 位小朋友獨立存檔！如需管理更多學員，請聯繫系統管理員。");
+        return;
+      }
       const form = document.getElementById('newProfileForm');
       if (form) form.classList.toggle('hidden');
     }
 
     function confirmCreateProfile() {
+      if (!isUserVip() && profiles.length >= 1) {
+        toggleNewProfileForm();
+        toggleProfileModal();
+        openVipUpgradeModal('profile_limit');
+        return;
+      }
+      if (isUserVip() && profiles.length >= 5) {
+        alert("👑 VIP 旗艦會員最多支援 5 位小朋友獨立存檔！");
+        return;
+      }
       const nameInput = document.getElementById('newProfileName');
       const gradeSelect = document.getElementById('newProfileGrade');
       const name = (nameInput ? nameInput.value : "").trim();
@@ -4720,7 +5213,7 @@
     }
 
     // ========================================================
-    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.20)
+    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.21)
     // ========================================================
     let cachedServerApiKey = '';
     let cachedServerModel = 'gemini-3.8-flash';
@@ -4821,7 +5314,7 @@
 
     function switchAdminTab(tabName) {
       adminCurrentTab = tabName;
-      ['key', 'profiles', 'logs'].forEach(t => {
+      ['key', 'profiles', 'logs', 'vip'].forEach(t => {
         const btn = document.getElementById('adminTabBtn' + t.charAt(0).toUpperCase() + t.slice(1));
         if (btn) {
           if (t === tabName) {
@@ -5122,6 +5615,60 @@
             </div>
           </div>
         `;
+      } else if (adminCurrentTab === 'vip') {
+        const isVip = isUserVip();
+        const vipInfo = getVipInfo();
+        const quotaUsed = getTodayAiUsageCount();
+        const quotaLimit = getDailyAiQuotaLimit();
+        const quotaRemaining = getRemainingAiQuota();
+
+        content.innerHTML = `
+          <div class="flex flex-col gap-4">
+            <!-- Current VIP State Card -->
+            <div class="p-4 rounded-2xl ${isVip ? 'bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-300' : 'bg-slate-50 border border-slate-200'} flex items-start justify-between gap-3">
+              <div class="flex items-start gap-3">
+                <span class="text-3xl">${isVip ? '👑' : '🌿'}</span>
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="text-sm font-black text-slate-900">${isVip ? '本機目前為：👑 VIP 尊享會員' : '本機目前為：🌿 免費體驗版'}</span>
+                    <span class="text-[10px] px-2 py-0.5 rounded-full font-black ${isVip ? 'bg-amber-200 text-amber-900' : 'bg-slate-200 text-slate-700'}">${isVip ? '已授權生效' : '未啟動 VIP'}</span>
+                  </div>
+                  <div class="text-xs text-slate-600 mt-1 flex flex-col gap-0.5">
+                    <span>• AI 語音額度：今日已用 <strong>${quotaUsed}</strong> 次 / 每日上限 <strong>${quotaLimit}</strong> 次（剩餘 <strong>${quotaRemaining}</strong> 次）</span>
+                    <span>• 學員人數限制：目前 <strong>${profiles.length}</strong> 位 / 上限 <strong>${isVip ? 5 : 1}</strong> 位</span>
+                    <span>• 到期日：${vipInfo.expiresAt ? new Date(vipInfo.expiresAt).toLocaleDateString() : (isVip ? '永久有效' : '尚未開通')}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex flex-col gap-1.5 shrink-0">
+                <button type="button" onclick="setVipDirectly(true); loadAdminOverview();" class="px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-black text-xs shadow-xs active:scale-95 transition">
+                  👑 一鍵開通 VIP
+                </button>
+                <button type="button" onclick="setVipDirectly(false); loadAdminOverview();" class="px-3 py-1.5 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold text-xs active:scale-95 transition">
+                  🌿 設為免費版
+                </button>
+              </div>
+            </div>
+
+            <!-- License Key Generator & Batch Pool -->
+            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col gap-3">
+              <div class="flex items-center justify-between">
+                <div>
+                  <h4 class="text-xs font-black text-slate-800">🎟️ 開店 App 授權碼發放池 (License Keys)</h4>
+                  <p class="text-[10px] text-slate-500">家長於賣場 / LINE Pay / 體驗營購買後，複製任一組啟動碼發給家長即可：</p>
+                </div>
+                <button type="button" onclick="regenerateAdminVipBatchKeys();" class="px-2.5 py-1 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 font-black text-[11px] border border-indigo-200 active:scale-95 transition">
+                  🎲 隨機產生 5 組新序號
+                </button>
+              </div>
+
+              <div id="adminVipKeysList" class="flex flex-col gap-2">
+                <!-- Injected by renderAdminVipKeysList() -->
+              </div>
+            </div>
+          </div>
+        `;
+        renderAdminVipKeysList();
       }
     }
 
@@ -5322,6 +5869,66 @@
       } catch(e) {
         console.warn("URL key auto-sync failed:", e);
       }
+    }
+
+
+    function renderAdminVipKeysList() {
+      const container = document.getElementById('adminVipKeysList');
+      if (!container) return;
+
+      let storedBatch = [];
+      try {
+        storedBatch = JSON.parse(localStorage.getItem(ADMIN_BATCH_KEYS_KEY) || '[]');
+      } catch(e){}
+
+      if (storedBatch.length === 0) {
+        storedBatch = ['KAI-YEAR-8888', 'KAI-YEAR-6666', 'KAI-VIP-9999', 'KAI-PRO-5555', 'KAI-STAR-7777'];
+        localStorage.setItem(ADMIN_BATCH_KEYS_KEY, JSON.stringify(storedBatch));
+      }
+
+      const allKeys = [
+        { key: 'VIP888', desc: '官方全能特權啟動碼（示範與永久測試用）', tag: '旗艦通行' },
+        { key: 'KAISPEAK2026', desc: '2026 奇妙星年度旗艦卡（365天）', tag: '年度熱銷' },
+        { key: 'STAR-VIP-YEAR', desc: '少兒美語家庭旗艦卡（支援 5 位學員）', tag: '家庭專用' },
+        ...storedBatch.map(k => ({ key: k, desc: '開店 App / 賣場獨立發行專屬授權序號', tag: '隨機序號' }))
+      ];
+
+      container.innerHTML = allKeys.map(item => `
+        <div class="p-2.5 bg-white rounded-xl border border-slate-200 flex items-center justify-between gap-2 shadow-2xs">
+          <div class="flex items-center gap-2">
+            <span class="font-mono font-black text-xs text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200 select-all">${item.key}</span>
+            <span class="text-[10px] text-slate-500 hidden sm:inline">${item.desc}</span>
+            <span class="text-[9px] bg-amber-100 text-amber-800 font-bold px-1.5 py-0.2 rounded">${item.tag}</span>
+          </div>
+          <button type="button" onclick="copyVipKeyToClipboard('${item.key}')" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs active:scale-95 transition flex items-center gap-1 shrink-0">
+            <span>📋 複製</span>
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function regenerateAdminVipBatchKeys() {
+      const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+      const newKeys = [];
+      for (let i = 0; i < 5; i++) {
+        let code = 'KAI-';
+        for (let j = 0; j < 4; j++) code += chars.charAt(Math.floor(Math.random() * chars.length));
+        code += '-';
+        for (let j = 0; j < 4; j++) code += chars.charAt(Math.floor(Math.random() * chars.length));
+        newKeys.push(code);
+      }
+      localStorage.setItem(ADMIN_BATCH_KEYS_KEY, JSON.stringify(newKeys));
+      SoundEffects.playClick('unlock');
+      renderAdminVipKeysList();
+      showToastNotification("✨ 已成功生成 5 組全新 VIP 授權碼！點擊複製即可傳送給家長！", 4000);
+    }
+
+    function copyVipKeyToClipboard(keyStr) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(keyStr).catch(()=>{});
+      }
+      SoundEffects.playClick('unlock');
+      showToastNotification(`📋 授權碼【${keyStr}】已複製至剪貼簿！可直接透過 LINE 或賣場聊聊發送給家長。`, 4000);
     }
 
     async function testAdminKeyConnection() {
@@ -7077,6 +7684,11 @@
     }
 
     function selectAdventureIsland(islandIdx) {
+      if (islandIdx > 0 && !isUserVip()) {
+        const islandCfg = (typeof ADVENTURE_ISLAND_CONFIG !== 'undefined' && ADVENTURE_ISLAND_CONFIG[islandIdx]) ? ADVENTURE_ISLAND_CONFIG[islandIdx].name : `第 ${islandIdx+1} 座島嶼`;
+        openVipUpgradeModal('island_lock', islandCfg);
+        return;
+      }
       advIslandIndex = islandIdx;
       document.querySelectorAll('.adv-island-btn').forEach((btn, idx) => {
         if (idx === islandIdx) {
@@ -9711,6 +10323,7 @@
     }
 
     function updateGeminiApiKeyUI() {
+      if (typeof updateVipUI === 'function') updateVipUI();
       const localKey = (localStorage.getItem('kaispeak_gemini_api_key') || '').trim();
       const serverKey = cachedServerApiKey ? cachedServerApiKey.trim() : '';
       const key = localKey || serverKey;
@@ -10290,6 +10903,11 @@
       const userText = (inputEl ? inputEl.value : "").trim();
       if (!userText) {
         alert("請先說話或輸入你今天想做什麼、想學什麼喔！");
+        return;
+      }
+
+      // Daily AI Quota Check & Consumption (Free: 5/day, VIP: 50/day)
+      if (!checkAndConsumeAiQuota()) {
         return;
       }
 
