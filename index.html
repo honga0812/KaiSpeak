@@ -132,7 +132,7 @@
         <div class="flex items-center gap-3.5 cursor-pointer select-none">
           <div class="relative shrink-0">
             <img src="images/ui/KaiSpeak_logo_V3_trans.png" alt="KaiSpeak" class="h-20 sm:h-24 md:h-28 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] hover:scale-105 transition duration-300 shrink-0">
-            <span class="absolute -bottom-1 -right-1 text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md border-2 border-white tracking-wider">v0.0.15</span>
+            <span class="absolute -bottom-1 -right-1 text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md border-2 border-white tracking-wider">v0.0.16</span>
           </div>
           <div class="flex flex-col justify-center text-left leading-none">
             <h1 class="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight bg-gradient-to-r from-indigo-800 via-indigo-600 to-purple-600 bg-clip-text text-transparent select-none leading-none">KaiSpeak</h1>
@@ -353,15 +353,28 @@
     <!-- Top Row: V3 Logo (Self-contained, filling left space with prominent 3D presence) & Learner Status Badges -->
     <div class="w-full flex items-center justify-between gap-3 sm:gap-6 pb-2 border-b border-indigo-50/80">
       
-      <!-- Brand Logo (Pure V3 Jelly Badge, prominently sized to fill left brand area) -->
-      <div class="relative flex items-center cursor-pointer select-none shrink-0 group py-0.5" onclick="switchAppMode('quest')" title="KaiSpeak 首頁">
-        <img src="images/ui/KaiSpeak_logo_V3_trans.png" alt="KaiSpeak" class="h-16 sm:h-20 md:h-24 lg:h-28 w-auto object-contain drop-shadow-[0_8px_22px_rgba(79,70,229,0.25)] group-hover:scale-105 transition-all duration-300 shrink-0">
-        <span class="absolute -bottom-1 right-0 sm:right-1 text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md border-2 border-white tracking-wider">v0.0.15</span>
+      <!-- Brand Logo (Pure V3 Jelly Badge, prominently sized to fill left brand area) & Mini Badges Ribbon -->
+      <div class="relative flex flex-col items-start select-none shrink-0 group py-0.5">
+        <div class="relative flex items-center cursor-pointer" onclick="switchAppMode('quest')" title="KaiSpeak 首頁">
+          <img src="images/ui/KaiSpeak_logo_V3_trans.png" alt="KaiSpeak" class="h-14 sm:h-18 md:h-22 lg:h-24 w-auto object-contain drop-shadow-[0_8px_22px_rgba(79,70,229,0.25)] group-hover:scale-105 transition-all duration-300 shrink-0">
+          <span class="absolute -bottom-1 right-0 sm:right-1 text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md border-2 border-white tracking-wider">v0.0.16</span>
+        </div>
+        <!-- Mini Unlocked Badges Ribbon below Logo -->
+        <div id="logoHonorBadgesBar" onclick="openHonorHallModal()" class="mt-1 cursor-pointer flex items-center gap-1 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-2 py-0.5 transition shadow-2xs group-hover:border-amber-400" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
+          <!-- Injected by JS: renderLogoHonorBadges() -->
+        </div>
       </div>
 
       <!-- Right Controls: Profile & Status Badges (Streamlined & slim) -->
       <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
         
+        <!-- Honor Hall Dedicated Button -->
+        <button onclick="openHonorHallModal()" title="連續守護榮譽殿堂 · 獎盃與寶藏" class="jelly-btn-3d px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-xl bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 hover:from-amber-500 hover:to-orange-500 text-white border border-amber-300 border-b-2 border-b-amber-600 text-xs font-black transition flex items-center gap-1 shadow-xs active:translate-y-0.5 whitespace-nowrap relative">
+          <span class="text-xs sm:text-sm">🏆</span>
+          <span class="hidden md:inline text-[11px]">榮譽殿堂</span>
+          <span id="headerHonorClaimDot" class="hidden absolute -top-1 -right-1 w-2.5 h-2.5 bg-rose-500 rounded-full border-2 border-white animate-ping"></span>
+        </button>
+
         <!-- Kai AI Voice Dialogue Planner Button -->
         <button onclick="openKaiVoicePlannerModal()" title="AI 語音聊學 · 跟 Kai 說說今天想學什麼？" class="jelly-btn-3d px-2 sm:px-3 py-1 sm:py-1.5 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-600 hover:to-teal-600 text-white border border-teal-300 border-b-2 border-b-teal-700 text-xs font-black transition flex items-center gap-1.5 shadow-xs active:translate-y-0.5 whitespace-nowrap">
           <span class="text-xs sm:text-sm animate-pulse">🎙️</span>
@@ -407,6 +420,11 @@
           <span>🚪</span>
           <span class="hidden md:inline text-[11px]">登出</span>
           <span id="mobileProfileName" class="hidden">Kai</span>
+        </button>
+
+        <!-- Admin Control Center Button -->
+        <button onclick="openAdminCenterModal()" class="jelly-btn-3d p-1 sm:p-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 border-b-2 border-b-indigo-300 text-xs font-bold transition flex items-center active:translate-y-0.5 shadow-xs" title="系統後台與多裝置控管中心（API Key 託管、訪客 IP 與設備記錄）">
+          ⚙️
         </button>
 
         <!-- QR Code & Log Modals -->
@@ -829,6 +847,67 @@
   </div>
 
   <!-- ======================================================== -->
+  <!-- DEDICATED HONOR HALL MODAL (連續守護榮譽殿堂獨立全景單元)   -->
+  <!-- ======================================================== -->
+  <div id="honorHallModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[95] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
+    <div class="bg-gradient-to-b from-amber-50/95 via-white to-orange-50/90 rounded-3xl p-4 sm:p-6 md:p-8 max-w-4xl w-full shadow-2xl border-2 border-amber-300 flex flex-col my-auto relative max-h-[92vh] overflow-y-auto animate-in fade-in zoom-in-95 duration-200">
+      
+      <!-- Close button -->
+      <button onclick="closeHonorHallModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 font-black text-sm flex items-center justify-center transition active:scale-95 absolute top-3.5 right-3.5 z-10" title="關閉榮譽殿堂">✕</button>
+
+      <!-- Dynamic Content Injection Container -->
+      <div id="honorHallModalContent" class="flex flex-col gap-3.5">
+        <!-- Injected by JS: renderHonorHallModalContent() -->
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- ADMIN CONTROL CENTER MODAL (系統後台與多裝置控管中心)    -->
+  <!-- ======================================================== -->
+  <div id="adminCenterModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[98] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
+    <div class="bg-white rounded-3xl p-4 sm:p-6 md:p-7 max-w-3xl w-full shadow-2xl border border-indigo-200 flex flex-col my-auto relative max-h-[92vh] overflow-y-auto animate-in fade-in zoom-in-95 duration-200">
+      
+      <!-- Close button -->
+      <button onclick="closeAdminCenterModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 font-black text-sm flex items-center justify-center transition active:scale-95 absolute top-3.5 right-3.5 z-10" title="關閉後台中心">✕</button>
+
+      <!-- Header -->
+      <div class="flex items-center gap-3 pb-3 border-b border-slate-100 mb-4 pr-10">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-600 to-purple-600 flex items-center justify-center text-white text-xl shadow-md shrink-0">
+          ⚙️
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h3 class="text-base sm:text-lg font-black text-slate-900">系統後台與多裝置控管中心</h3>
+            <span class="text-[10px] bg-indigo-100 text-indigo-800 font-bold px-2 py-0.5 rounded-full border border-indigo-200">伺服器端統一管理</span>
+          </div>
+          <p class="text-xs text-slate-500">集中託管 Gemini API Key、全設備免手動輸入、連線 IP 與設備日誌監控</p>
+        </div>
+      </div>
+
+      <!-- Admin Tabs Navigation -->
+      <div class="grid grid-cols-3 gap-1.5 p-1 bg-slate-100 rounded-2xl mb-4 text-xs font-bold">
+        <button id="adminTabBtnKey" onclick="switchAdminTab('key')" class="py-2 rounded-xl transition bg-white text-indigo-700 shadow-xs font-black">
+          🔑 API 金鑰託管
+        </button>
+        <button id="adminTabBtnProfiles" onclick="switchAdminTab('profiles')" class="py-2 rounded-xl transition text-slate-600 hover:text-slate-900">
+          👥 全體學員帳號
+        </button>
+        <button id="adminTabBtnLogs" onclick="switchAdminTab('logs')" class="py-2 rounded-xl transition text-slate-600 hover:text-slate-900">
+          📱 設備與連線日誌
+        </button>
+      </div>
+
+      <!-- Tab Content Area -->
+      <div id="adminTabContent">
+        <!-- Dynamically rendered by switchAdminTab() -->
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
   <!-- MODE 1: DAILY QUEST VIEW                                 -->
   <!-- ======================================================== -->
   <section id="viewDailyQuest" class="w-full max-w-6xl flex flex-col gap-3 md:gap-5">
@@ -889,10 +968,10 @@
     </div>
 
     <!-- ======================================================== -->
-    <!-- STREAK TROPHIES & TREASURE CHEST MILESTONE SHOWCASE      -->
+    <!-- SLIM HONOR HALL TEASER PILL (單行精簡點入，完全釋放首頁朗讀空間) -->
     <!-- ======================================================== -->
-    <div id="streakTrophyShowcase" class="w-full bg-gradient-to-br from-amber-50/80 via-white to-orange-50/60 rounded-3xl p-3.5 sm:p-5 border-2 border-amber-200/90 shadow-sm flex flex-col gap-3 transition-all duration-300">
-      <!-- Injected by JS: renderStreakTrophyShowcase() -->
+    <div id="questHonorTeaserPill" onclick="openHonorHallModal()" class="w-full bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-amber-500/10 hover:from-amber-500/15 border border-amber-300/80 rounded-2xl px-3.5 py-2.5 shadow-xs flex items-center justify-between cursor-pointer transition select-none group">
+      <!-- Injected by JS: renderQuestHonorTeaserPill() -->
     </div>
 
     <!-- Step Indicators for Current Word: 1.單字發音 -> 2.隨機例句 1 -> 3.隨機例句 2 -->
@@ -1988,7 +2067,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">v0.0.15 · 即時 AI</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">v0.0.16 · 即時 AI</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -1996,12 +2075,17 @@
         <button type="button" onclick="closeGeminiApiKeyModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 font-black text-sm flex items-center justify-center transition active:scale-95">✕</button>
       </div>
 
-      <!-- Security / Privacy Notice Banner -->
-      <div class="p-3 rounded-2xl bg-amber-50 border border-amber-200 text-left flex items-start gap-2.5">
-        <span class="text-lg">🛡️</span>
-        <div class="text-xs text-amber-900 leading-relaxed font-medium">
-          <p class="font-bold text-amber-950 mb-0.5">本地隱私與安全保證</p>
-          <p class="text-[11px] text-amber-800">您的 API Key <strong>僅會安全儲存在您這台裝置的本機端（Local Storage）</strong>，發送請求時由瀏覽器直接連線 Google 官方 API，絕對不會傳送至任何第三方伺服器，對話紀錄亦不會留下任何金鑰痕跡。</p>
+      <!-- Security / Server Managed Notice Banner -->
+      <div id="geminiServerManagedBanner" class="p-3 rounded-2xl bg-indigo-50 border border-indigo-200 text-left flex items-start gap-2.5">
+        <span class="text-lg">☁️</span>
+        <div class="text-xs text-indigo-950 leading-relaxed font-medium">
+          <p class="font-bold text-indigo-900 mb-0.5 flex items-center gap-1.5">
+            <span>伺服器集中託管與全裝置共享</span>
+            <span id="geminiServerStatusPill" class="text-[9px] bg-emerald-100 text-emerald-800 px-2 py-0.2 rounded-full font-bold">檢測中...</span>
+          </p>
+          <p class="text-[11px] text-indigo-800">
+            後端伺服器可統一配置金鑰，讓客廳平板、手機與電腦<strong>免個別設定即可直接使用 AI</strong>！您亦可在此手動覆寫本機金鑰，或直接同步至後端。
+          </p>
         </div>
       </div>
 
@@ -2022,7 +2106,7 @@
             <span>👉 點此前往 Google AI Studio 免費獲取 Key</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 v0.0.15 · 支援 gemini-2.0-flash / 2.0-flash-lite</span>
+          <span class="text-slate-400 text-[10px]">版本 v0.0.16 · 支援 gemini-2.0-flash / 2.0-flash-lite</span>
         </div>
       </div>
 
@@ -2030,15 +2114,20 @@
       <div id="geminiTestResultBox" class="hidden p-2.5 rounded-xl text-xs font-bold text-left"></div>
 
       <!-- Action Buttons -->
-      <div class="flex items-center gap-2 pt-2 border-t border-slate-100">
-        <button type="button" id="btnTestGeminiKey" onclick="testGeminiApiKey()" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs active:scale-95 transition flex items-center gap-1">
-          <span>🧪 測試連線</span>
-        </button>
-        <button type="button" onclick="clearGeminiApiKey()" class="px-3.5 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold text-xs active:scale-95 transition">
-          <span>🗑️ 清除</span>
-        </button>
-        <button type="button" onclick="saveGeminiApiKey()" class="flex-1 py-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 text-white font-black text-xs shadow-md active:scale-95 transition flex items-center justify-center gap-1">
-          <span>💾 儲存並啟用</span>
+      <div class="flex flex-col gap-2 pt-2 border-t border-slate-100">
+        <div class="flex items-center gap-2">
+          <button type="button" id="btnTestGeminiKey" onclick="testGeminiApiKey()" class="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs active:scale-95 transition flex items-center gap-1">
+            <span>🧪 測試連線</span>
+          </button>
+          <button type="button" onclick="clearGeminiApiKey()" class="px-3 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold text-xs active:scale-95 transition">
+            <span>🗑️ 清除</span>
+          </button>
+          <button type="button" onclick="saveGeminiApiKey()" class="flex-1 py-2 rounded-xl bg-slate-800 hover:bg-slate-900 text-white font-black text-xs shadow-xs active:scale-95 transition flex items-center justify-center gap-1">
+            <span>💾 儲存於此裝置</span>
+          </button>
+        </div>
+        <button type="button" onclick="saveApiKeyToBackendServer()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 text-white font-black text-xs shadow-md active:scale-95 transition flex items-center justify-center gap-1.5">
+          <span>☁️ 同步儲存至後端伺服器（讓所有平板、手機免輸入直接使用）</span>
         </button>
       </div>
 
@@ -2353,7 +2442,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "v0.0.15";
+    const APP_VERSION = "v0.0.16";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // Immediate sanitization of legacy Gemini 1.5 or invalid 2.5 models from localStorage
@@ -4016,7 +4105,7 @@
     }
 
     // ========================================================
-    // STREAK TROPHIES & TREASURE CHEST MILESTONE ENGINE (v0.0.15)
+    // STREAK TROPHIES & TREASURE CHEST MILESTONE ENGINE (v0.0.16)
     // ========================================================
     const STREAK_MILESTONES = [
       {
@@ -4112,15 +4201,75 @@
       return "🌱 初探新星";
     }
 
-    function renderStreakTrophyShowcase() {
-      const showcaseEl = document.getElementById('streakTrophyShowcase');
-      if (!showcaseEl) return;
-
+    // 1. Homepage Logo Sub-bar: Compact Unlocked Badges Ribbon
+    function renderLogoHonorBadges() {
+      const bar = document.getElementById('logoHonorBadgesBar');
+      if (!bar) return;
       const p = getActiveProfile();
       p.claimedStreakMilestones = p.claimedStreakMilestones || [];
       const curStreak = p.streakDays || streakDays || 1;
       const honorTitle = getStreakHonorTitle(curStreak);
 
+      const badgesHtml = STREAK_MILESTONES.map(m => {
+        const isAchieved = curStreak >= m.days;
+        const isClaimed = p.claimedStreakMilestones.includes(m.id);
+        if (isClaimed) {
+          return `<span class="text-xs transform hover:scale-125 transition drop-shadow-xs" title="${m.trophyName}（已典藏）">${m.icon}</span>`;
+        } else if (isAchieved) {
+          return `<span class="text-xs animate-bounce" title="${m.trophyName}（達標可開箱！）">🎁</span>`;
+        } else {
+          return `<span class="text-[10px] opacity-35 grayscale" title="${m.trophyName}（差 ${m.days - curStreak} 天解鎖）">${m.icon}</span>`;
+        }
+      }).join('');
+
+      bar.innerHTML = `
+        <div class="flex items-center gap-1">
+          <span class="text-[10px] font-black text-amber-900 bg-amber-200/90 px-1.5 py-0.2 rounded-full">🔥 ${curStreak}天</span>
+          <div class="flex items-center gap-0.5 px-1">${badgesHtml}</div>
+          <span class="text-[9px] font-extrabold text-amber-800 bg-white/90 px-1.5 py-0.2 rounded-full border border-amber-300 flex items-center gap-0.5">
+            <span>🏆 殿堂</span>
+            <span class="text-[8px] text-amber-500">›</span>
+          </span>
+        </div>
+      `;
+    }
+
+    // 2. Daily Quest View: Slim 1-line Teaser Pill (No scrolling down needed!)
+    function renderQuestHonorTeaserPill() {
+      const pill = document.getElementById('questHonorTeaserPill');
+      if (!pill) return;
+      const p = getActiveProfile();
+      p.claimedStreakMilestones = p.claimedStreakMilestones || [];
+      const curStreak = p.streakDays || streakDays || 1;
+      const honorTitle = getStreakHonorTitle(curStreak);
+      const claimedCount = p.claimedStreakMilestones.length;
+      const totalCount = STREAK_MILESTONES.length;
+      const hasClaimable = STREAK_MILESTONES.some(m => curStreak >= m.days && !p.claimedStreakMilestones.includes(m.id));
+
+      pill.innerHTML = `
+        <div class="flex items-center gap-2 flex-wrap">
+          <span class="text-lg sm:text-xl select-none">🏆</span>
+          <div class="flex items-center gap-1.5 flex-wrap">
+            <span class="text-xs sm:text-sm font-black text-amber-950">連續守護榮譽殿堂</span>
+            <span class="text-[10px] font-bold text-amber-800 bg-amber-200/80 px-2 py-0.2 rounded-full border border-amber-300">已解鎖 ${claimedCount}/${totalCount} 寶藏</span>
+            <span class="text-[10px] font-black bg-gradient-to-r from-amber-500 to-orange-500 text-white px-2 py-0.2 rounded-full shadow-2xs">${honorTitle}</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-1 text-xs font-black text-orange-700 group-hover:text-orange-900 group-hover:translate-x-0.5 transition shrink-0">
+          <span>${hasClaimable ? '🎁 有可領取寶箱！點此開箱' : '檢視專屬獎盃與寶藏'}</span>
+          <span class="text-sm">›</span>
+        </div>
+      `;
+    }
+
+    // 3. Dedicated Fullscreen Honor Hall Modal Content
+    function renderHonorHallModalContent() {
+      const container = document.getElementById('honorHallModalContent');
+      if (!container) return;
+      const p = getActiveProfile();
+      p.claimedStreakMilestones = p.claimedStreakMilestones || [];
+      const curStreak = p.streakDays || streakDays || 1;
+      const honorTitle = getStreakHonorTitle(curStreak);
       const claimedCount = p.claimedStreakMilestones.length;
       const totalCount = STREAK_MILESTONES.length;
 
@@ -4128,7 +4277,7 @@
       const nextMilestone = STREAK_MILESTONES.find(m => curStreak < m.days);
       const prevMilestoneIdx = nextMilestone ? STREAK_MILESTONES.indexOf(nextMilestone) - 1 : STREAK_MILESTONES.length - 1;
       const prevDays = prevMilestoneIdx >= 0 ? STREAK_MILESTONES[prevMilestoneIdx].days : 0;
-      
+
       let nextProgressHtml = '';
       if (nextMilestone) {
         const span = nextMilestone.days - prevDays;
@@ -4136,96 +4285,100 @@
         const progressPct = Math.min(100, Math.round((progressInSpan / span) * 100));
         const diff = nextMilestone.days - curStreak;
         nextProgressHtml = `
-          <div class="w-full bg-white/95 rounded-2xl p-2.5 sm:p-3 border border-amber-200/90 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-2.5">
-            <div class="flex items-center gap-2 text-xs text-slate-800 w-full sm:w-auto">
-              <span class="text-base select-none">🎯</span>
-              <span>下一座目標：<strong>${nextMilestone.title}</strong>（還差 <strong class="text-orange-600 font-black">${diff}</strong> 天打卡即可解鎖！）</span>
+          <div class="w-full bg-white/95 rounded-2xl p-3 sm:p-4 border border-amber-200 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div class="flex items-center gap-2.5 text-xs text-slate-800 w-full sm:w-auto">
+              <span class="text-xl select-none">🎯</span>
+              <div>
+                <span class="font-bold">下一座殿堂寶藏：</span>
+                <strong class="text-indigo-950">${nextMilestone.title}</strong>
+                <span class="text-slate-500">（還差 <strong class="text-orange-600 font-black">${diff}</strong> 天打卡即可開箱！）</span>
+              </div>
             </div>
-            <div class="flex items-center gap-2 w-full sm:w-56 shrink-0">
-              <div class="flex-1 bg-slate-100 h-2.5 rounded-full overflow-hidden border border-slate-200">
+            <div class="flex items-center gap-2 w-full sm:w-60 shrink-0">
+              <div class="flex-1 bg-slate-100 h-3 rounded-full overflow-hidden border border-slate-200">
                 <div class="h-full bg-gradient-to-r from-amber-400 to-orange-500 rounded-full transition-all duration-500" style="width: ${progressPct}%;"></div>
               </div>
-              <span class="text-[10px] font-mono font-black text-amber-900">${curStreak}/${nextMilestone.days}天 (${progressPct}%)</span>
+              <span class="text-[11px] font-mono font-black text-amber-900">${curStreak}/${nextMilestone.days}天 (${progressPct}%)</span>
             </div>
           </div>
         `;
       } else {
         nextProgressHtml = `
-          <div class="w-full bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white rounded-2xl p-2.5 sm:p-3 font-bold text-xs shadow-xs flex items-center justify-center gap-2">
+          <div class="w-full bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white rounded-2xl p-3.5 font-bold text-xs sm:text-sm shadow-xs flex items-center justify-center gap-2">
             <span>👑 登峰造極！恭喜達成 365 天全部連續守護成就！殿堂至尊永恆守護神！</span>
           </div>
         `;
       }
 
-      // Render cards
+      // Render the 7 milestone cards
       const cardsHtml = STREAK_MILESTONES.map(m => {
         const isAchieved = curStreak >= m.days;
         const isClaimed = p.claimedStreakMilestones.includes(m.id);
 
         if (isAchieved && !isClaimed) {
-          // Claimable
+          // Claimable state
           return `
-            <div onclick="openStreakRewardModal('${m.id}')" class="p-3 rounded-2xl bg-gradient-to-b from-amber-100 via-amber-50 to-orange-100 border-2 border-amber-400 ring-2 ring-amber-300/80 shadow-md transform hover:-translate-y-1 hover:shadow-lg transition cursor-pointer flex flex-col items-center text-center relative overflow-hidden group">
-              <span class="absolute top-1 right-1 flex h-2 w-2">
+            <div onclick="openStreakRewardModal('${m.id}')" class="p-3.5 rounded-2xl bg-gradient-to-b from-amber-100 via-amber-50 to-orange-100 border-2 border-amber-400 ring-4 ring-amber-300/80 shadow-md transform hover:-translate-y-1 hover:shadow-xl transition cursor-pointer flex flex-col items-center text-center relative overflow-hidden group">
+              <span class="absolute top-1.5 right-1.5 flex h-2.5 w-2.5">
                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
+                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-orange-500"></span>
               </span>
-              <div class="text-[9px] font-black bg-amber-200 text-amber-900 px-2 py-0.2 rounded-full mb-1">
+              <div class="text-[9px] font-black bg-amber-200 text-amber-950 px-2 py-0.2 rounded-full mb-1">
                 🔥 ${m.days}天達標
               </div>
-              <div class="text-3xl sm:text-4xl my-1 select-none transform group-hover:scale-115 transition duration-300 animate-bounce">
+              <div class="text-4xl sm:text-5xl my-1.5 select-none transform group-hover:scale-115 transition duration-300 animate-bounce">
                 ${m.icon}
               </div>
-              <div class="text-xs font-black text-slate-900 line-clamp-1 mt-0.5" title="${m.trophyName}">
+              <div class="text-xs sm:text-sm font-black text-slate-900 line-clamp-1 mt-0.5" title="${m.trophyName}">
                 ${m.trophyName.split(' ')[1] || m.trophyName}
               </div>
-              <div class="text-[10px] text-amber-700 font-extrabold font-mono mt-0.5">
-                ⚡ +${m.energyReward}
+              <div class="text-[11px] text-amber-800 font-black font-mono mt-0.5">
+                ⚡ +${m.energyReward} 能量
               </div>
-              <button class="mt-2 w-full py-1 text-[10px] font-black rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-xs group-hover:brightness-105 active:scale-95 transition">
+              <button class="mt-2.5 w-full py-1.5 text-[11px] font-black rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-xs group-hover:brightness-105 active:scale-95 transition">
                 🎁 點我開箱！
               </button>
             </div>
           `;
         } else if (isClaimed) {
-          // Claimed
+          // Claimed state
           return `
-            <div onclick="openStreakRewardModal('${m.id}')" class="p-3 rounded-2xl bg-white/90 border border-emerald-300 shadow-xs hover:border-emerald-400 hover:shadow-sm transform hover:-translate-y-0.5 transition cursor-pointer flex flex-col items-center text-center relative group">
+            <div onclick="openStreakRewardModal('${m.id}')" class="p-3.5 rounded-2xl bg-white border border-emerald-300 shadow-xs hover:border-emerald-400 hover:shadow-md transform hover:-translate-y-0.5 transition cursor-pointer flex flex-col items-center text-center relative group">
               <div class="text-[9px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.2 rounded-full mb-1">
                 ✓ ${m.days}天典藏
               </div>
-              <div class="text-3xl sm:text-4xl my-1 select-none transform group-hover:scale-110 transition duration-300 filter drop-shadow-sm">
+              <div class="text-4xl sm:text-5xl my-1.5 select-none transform group-hover:scale-110 transition duration-300 filter drop-shadow-sm">
                 ${m.icon}
               </div>
-              <div class="text-xs font-bold text-slate-800 line-clamp-1 mt-0.5" title="${m.trophyName}">
+              <div class="text-xs sm:text-sm font-bold text-slate-900 line-clamp-1 mt-0.5" title="${m.trophyName}">
                 ${m.trophyName.split(' ')[1] || m.trophyName}
               </div>
-              <div class="text-[10px] text-emerald-600 font-bold font-mono mt-0.5">
+              <div class="text-[11px] text-emerald-600 font-bold font-mono mt-0.5">
                 已領取 +${m.energyReward}
               </div>
-              <div class="mt-2 w-full py-1 text-[10px] font-bold rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200">
+              <div class="mt-2.5 w-full py-1 text-[10px] font-bold rounded-xl bg-emerald-50 text-emerald-700 border border-emerald-200">
                 🎖️ 查看證書
               </div>
             </div>
           `;
         } else {
-          // Locked
+          // Locked state
           const diffDays = m.days - curStreak;
           return `
-            <div onclick="openStreakRewardModal('${m.id}')" class="p-3 rounded-2xl bg-slate-50/80 border border-slate-200/90 shadow-2xs hover:border-slate-300 hover:bg-slate-100/70 transition cursor-pointer flex flex-col items-center text-center relative opacity-85 hover:opacity-100 group">
-              <div class="text-[9px] font-semibold bg-slate-200/80 text-slate-600 px-2 py-0.2 rounded-full mb-1">
+            <div onclick="openStreakRewardModal('${m.id}')" class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 shadow-2xs hover:border-slate-300 hover:bg-slate-100 transition cursor-pointer flex flex-col items-center text-center relative opacity-85 hover:opacity-100 group">
+              <div class="text-[9px] font-semibold bg-slate-200 text-slate-600 px-2 py-0.2 rounded-full mb-1">
                 🔒 ${m.days}天解鎖
               </div>
-              <div class="text-3xl sm:text-4xl my-1 select-none grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition duration-300">
+              <div class="text-4xl sm:text-5xl my-1.5 select-none grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition duration-300">
                 ${m.icon}
               </div>
-              <div class="text-xs font-semibold text-slate-600 line-clamp-1 mt-0.5" title="${m.trophyName}">
+              <div class="text-xs sm:text-sm font-semibold text-slate-600 line-clamp-1 mt-0.5" title="${m.trophyName}">
                 ${m.trophyName.split(' ')[1] || m.trophyName}
               </div>
-              <div class="text-[10px] text-slate-400 font-mono mt-0.5">
+              <div class="text-[11px] text-slate-400 font-mono mt-0.5">
                 ⚡ +${m.energyReward}
               </div>
-              <div class="mt-2 w-full py-1 text-[10px] font-medium rounded-xl bg-slate-200/70 text-slate-500">
+              <div class="mt-2.5 w-full py-1 text-[10px] font-medium rounded-xl bg-slate-200/80 text-slate-600">
                 差 ${diffDays} 天
               </div>
             </div>
@@ -4233,33 +4386,73 @@
         }
       }).join('');
 
-      showcaseEl.innerHTML = `
-        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2.5 pb-2 border-b border-amber-200/70">
-          <div class="flex items-center gap-2.5">
-            <span class="text-2xl sm:text-3xl select-none">🏆</span>
+      container.innerHTML = `
+        <!-- Modal Top Bar -->
+        <div class="flex items-center justify-between pb-3 border-b border-amber-200/80 pr-10">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-400 to-orange-500 flex items-center justify-center text-white text-2xl shadow-md shrink-0">
+              🏆
+            </div>
             <div>
               <div class="flex items-center gap-2 flex-wrap">
-                <h4 class="text-sm sm:text-base font-black text-slate-900 tracking-tight">連續守護榮譽殿堂 · 獎盃與寶藏</h4>
-                <span class="text-[10px] bg-gradient-to-r from-amber-500 to-orange-500 text-white font-black px-2.5 py-0.5 rounded-full shadow-xs tracking-wide">
-                  ${honorTitle}
-                </span>
+                <h3 class="text-base sm:text-xl font-black text-slate-900 tracking-tight">連續守護榮譽殿堂 · 獎盃與寶藏全景</h3>
+                <span class="text-[11px] bg-gradient-to-r from-amber-500 to-orange-500 text-white font-black px-2.5 py-0.5 rounded-full shadow-2xs">${honorTitle}</span>
               </div>
-              <p class="text-[11px] text-slate-600 font-medium">每天完成口語打卡守護紀錄，開啟神殿能量寶箱與榮耀獎盃！</p>
+              <p class="text-xs text-slate-600 font-medium mt-0.5">
+                【${p.name}】的專屬榮耀成就 · 每天完成口語打卡守護紀錄，開啟神殿能量寶箱與尊榮獎盃！
+              </p>
             </div>
           </div>
-          <div class="flex items-center gap-2 self-start sm:self-center shrink-0">
-            <span class="text-xs font-black text-amber-900 bg-amber-100/90 border border-amber-300 px-3 py-1 rounded-2xl shadow-xs">
-              🔥 連續 <strong>${curStreak}</strong> 天 · 已解鎖 <strong>${claimedCount}/${totalCount}</strong>
+          <div class="hidden sm:flex items-center gap-2 shrink-0">
+            <span class="text-xs font-black text-amber-900 bg-amber-100 border border-amber-300 px-3 py-1 rounded-2xl shadow-xs">
+              🔥 連續 <strong>${curStreak}</strong> 天 · 已典藏 <strong>${claimedCount}/${totalCount}</strong>
             </span>
           </div>
         </div>
 
         ${nextProgressHtml}
 
-        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5 sm:gap-3 w-full mt-1">
+        <!-- 7 Milestones Grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 w-full mt-1">
           ${cardsHtml}
         </div>
       `;
+    }
+
+    function openHonorHallModal() {
+      const modal = document.getElementById('honorHallModal');
+      if (modal) {
+        modal.classList.remove('hidden');
+        renderHonorHallModalContent();
+        SoundEffects.playClick('switch');
+      }
+    }
+
+    function closeHonorHallModal() {
+      const modal = document.getElementById('honorHallModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    // Unified Master Render
+    function renderStreakTrophyShowcase() {
+      renderLogoHonorBadges();
+      renderQuestHonorTeaserPill();
+      
+      const modal = document.getElementById('honorHallModal');
+      if (modal && !modal.classList.contains('hidden')) {
+        renderHonorHallModalContent();
+      }
+
+      // Update header claimable notification dot
+      const p = getActiveProfile();
+      const curStreak = p.streakDays || streakDays || 1;
+      const claimed = p.claimedStreakMilestones || [];
+      const hasClaimable = STREAK_MILESTONES.some(m => curStreak >= m.days && !claimed.includes(m.id));
+      const dot = document.getElementById('headerHonorClaimDot');
+      if (dot) {
+        if (hasClaimable) dot.classList.remove('hidden');
+        else dot.classList.add('hidden');
+      }
     }
 
     function openStreakRewardModal(milestoneId) {
@@ -4287,7 +4480,6 @@
       if (energyEl) energyEl.innerText = `+${m.energyReward} 點`;
 
       if (isAchieved && !isClaimed) {
-        // Can claim
         if (badgeEl) {
           badgeEl.className = "text-xs font-black text-amber-800 bg-amber-100 border border-amber-300 px-3 py-0.5 rounded-full shadow-xs mb-1.5 animate-pulse";
           badgeEl.innerText = `🎉 恭喜達成連續 ${m.days} 天打卡里程碑！`;
@@ -4300,7 +4492,6 @@
           claimBtn.onclick = confirmClaimStreakReward;
         }
       } else if (isClaimed) {
-        // Claimed already - Certificate view
         if (badgeEl) {
           badgeEl.className = "text-xs font-black text-emerald-800 bg-emerald-100 border border-emerald-300 px-3 py-0.5 rounded-full shadow-xs mb-1.5";
           badgeEl.innerText = `✨ 榮譽成就已永久典藏 · 榮譽證書`;
@@ -4317,7 +4508,6 @@
           };
         }
       } else {
-        // Locked
         const diff = m.days - curStreak;
         if (badgeEl) {
           badgeEl.className = "text-xs font-semibold text-slate-600 bg-slate-100 border border-slate-300 px-3 py-0.5 rounded-full shadow-xs mb-1.5";
@@ -4331,6 +4521,7 @@
           claimBtn.innerHTML = `<span>💪 繼續加油！前往完成今日任務</span>`;
           claimBtn.onclick = () => {
             closeStreakRewardModal();
+            closeHonorHallModal();
             const qEl = document.getElementById('viewDailyQuest');
             if (qEl) qEl.scrollIntoView({ behavior: 'smooth' });
           };
@@ -4378,6 +4569,441 @@
       const modal = document.getElementById('streakRewardModal');
       if (modal) modal.classList.add('hidden');
       currentSelectedStreakMilestone = null;
+    }
+
+    // ========================================================
+    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (v0.0.16)
+    // ========================================================
+    let cachedServerApiKey = '';
+    let cachedServerModel = 'gemini-2.0-flash';
+    let isAdminSessionUnlocked = false;
+    let adminCurrentTab = 'key'; // 'key' | 'profiles' | 'logs'
+    let adminOverviewData = null;
+
+    async function initServerBackendSync() {
+      try {
+        const resp = await fetch('/api/config');
+        if (resp.ok) {
+          const data = await resp.json();
+          if (data && data.geminiApiKey) {
+            cachedServerApiKey = data.geminiApiKey.trim();
+            cachedServerModel = data.defaultModel || 'gemini-2.0-flash';
+            console.log("%c [Server Config] Centralized Gemini API key loaded from backend ", "color: #10B981; font-weight: bold;");
+            updateGeminiApiKeyUI();
+          }
+        }
+      } catch(e) {
+        console.log("[Server Config] Offline or static server mode.");
+      }
+
+      // Report client access telemetry
+      reportTelemetry('造訪首頁', {
+        userAgent: navigator.userAgent.slice(0, 100),
+        screen: `${window.innerWidth}x${window.innerHeight}`
+      }, '正常');
+
+      // Auto cloud profile sync
+      syncProfilesWithServer();
+    }
+
+    async function reportTelemetry(action, details = {}, status = '成功') {
+      try {
+        const p = getActiveProfile();
+        await fetch('/api/telemetry', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action,
+            profile: p ? p.name : '訪客',
+            status,
+            details: typeof details === 'string' ? details : JSON.stringify(details)
+          })
+        });
+      } catch(e) {}
+    }
+
+    async function syncProfilesWithServer() {
+      try {
+        const resp = await fetch('/api/sync_profiles', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ profiles })
+        });
+        if (resp.ok) {
+          const data = await resp.json();
+          if (data && Array.isArray(data.profiles) && data.profiles.length > 0) {
+            // Update local profiles if server has more/updated profiles
+            profiles = data.profiles;
+            localStorage.setItem('kai_multi_profiles', JSON.stringify(profiles));
+            loadActiveProfileData();
+          }
+        }
+      } catch(e) {}
+    }
+
+    function openAdminCenterModal() {
+      const modal = document.getElementById('adminCenterModal');
+      if (!modal) return;
+
+      if (!isAdminSessionUnlocked) {
+        const p = getActiveProfile();
+        const pin = prompt("🔐 【管理者安全驗證】\n\n請輸入管理者 PIN 碼進入系統後台控管中心：\n（預設萬能管理密碼為 9999 或 8888）");
+        if (!pin) return;
+        if (pin === "9999" || pin === "8888" || pin === (p.pin || "1234")) {
+          isAdminSessionUnlocked = true;
+          SoundEffects.playShield();
+        } else {
+          alert("⚠️ 管理者 PIN 碼不正確！無法開啟後台控管中心。");
+          return;
+        }
+      }
+
+      modal.classList.remove('hidden');
+      loadAdminOverview();
+    }
+
+    function closeAdminCenterModal() {
+      const modal = document.getElementById('adminCenterModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function switchAdminTab(tabName) {
+      adminCurrentTab = tabName;
+      ['key', 'profiles', 'logs'].forEach(t => {
+        const btn = document.getElementById('adminTabBtn' + t.charAt(0).toUpperCase() + t.slice(1));
+        if (btn) {
+          if (t === tabName) {
+            btn.className = "py-2 rounded-xl transition bg-white text-indigo-700 shadow-xs font-black";
+          } else {
+            btn.className = "py-2 rounded-xl transition text-slate-600 hover:text-slate-900";
+          }
+        }
+      });
+      renderAdminTabContent();
+    }
+
+    async function loadAdminOverview() {
+      const content = document.getElementById('adminTabContent');
+      if (content) {
+        content.innerHTML = `
+          <div class="py-12 flex flex-col items-center justify-center gap-3 text-slate-400">
+            <div class="w-8 h-8 rounded-full border-3 border-indigo-200 border-t-indigo-600 animate-spin"></div>
+            <span class="text-xs font-bold">正在讀取伺服器後端設定與連線資料...</span>
+          </div>
+        `;
+      }
+      try {
+        const resp = await fetch('/api/admin/overview?pin=9999');
+        if (resp.ok) {
+          adminOverviewData = await resp.json();
+          if (adminOverviewData.config && adminOverviewData.config.geminiApiKey) {
+            cachedServerApiKey = adminOverviewData.config.geminiApiKey;
+            cachedServerModel = adminOverviewData.config.defaultModel || 'gemini-2.0-flash';
+          }
+        }
+      } catch(e) {
+        console.warn("loadAdminOverview fallback:", e);
+      }
+      renderAdminTabContent();
+    }
+
+    function renderAdminTabContent() {
+      const content = document.getElementById('adminTabContent');
+      if (!content) return;
+      const data = adminOverviewData || {
+        config: { geminiApiKey: cachedServerApiKey, defaultModel: cachedServerModel, adminPin: "9999", updatedAt: "未同步" },
+        stats: { totalVisits: 0, totalApiCalls: 0, uniqueIps: [] },
+        logs: [],
+        profiles: profiles
+      };
+
+      if (adminCurrentTab === 'key') {
+        const hasKey = Boolean(data.config.geminiApiKey);
+        content.innerHTML = `
+          <div class="flex flex-col gap-4">
+            <!-- Status Card -->
+            <div class="p-3.5 rounded-2xl ${hasKey ? 'bg-emerald-50 border border-emerald-200' : 'bg-amber-50 border border-amber-200'} flex items-start gap-3">
+              <span class="text-2xl">${hasKey ? '🟢' : '🟡'}</span>
+              <div class="flex-1 text-xs">
+                <div class="font-black ${hasKey ? 'text-emerald-950' : 'text-amber-950'} flex items-center justify-between">
+                  <span>${hasKey ? '伺服器統一金鑰：已啟用託管' : '伺服器統一金鑰：尚未配置'}</span>
+                  <span class="text-[10px] text-slate-400 font-mono">${data.config.updatedAt || ''}</span>
+                </div>
+                <p class="mt-1 leading-relaxed ${hasKey ? 'text-emerald-800' : 'text-amber-800'}">
+                  ${hasKey 
+                    ? '🎉 任何在客廳平板（iPad）、手機或電腦登入 KaiSpeak 的使用者，均自動繼承此金鑰直接享有 Gemini 2.0 即時 AI 規劃師，免個別手動填寫！' 
+                    : '目前後端尚未儲存 API Key。使用者切換至平板或新手機時需各自輸入。請於下方貼上 Google Gemini API Key 並一鍵儲存！'}
+                </p>
+              </div>
+            </div>
+
+            <!-- Edit Global Key Form -->
+            <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex flex-col gap-3">
+              <div>
+                <label class="text-xs font-black text-slate-700 block mb-1">
+                  Google Gemini 官方 API Key（全域統一共享）：
+                </label>
+                <div class="relative flex items-center">
+                  <input type="password" id="adminGlobalApiKeyInput" value="${data.config.geminiApiKey || ''}" placeholder="AIzaSy 開頭的金鑰..." class="w-full px-3.5 py-2.5 rounded-xl border border-slate-300 focus:outline-none focus:border-indigo-600 text-xs font-mono font-bold">
+                  <button type="button" onclick="const el=document.getElementById('adminGlobalApiKeyInput'); el.type=el.type==='password'?'text':'password';" class="absolute right-3 text-slate-400 hover:text-slate-700 text-xs">👁️</button>
+                </div>
+              </div>
+
+              <div>
+                <label class="text-xs font-black text-slate-700 block mb-1">預設 AI 模型核心：</label>
+                <select id="adminGlobalModelSelect" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-bold bg-white focus:border-indigo-600">
+                  <option value="gemini-2.0-flash" ${data.config.defaultModel === 'gemini-2.0-flash' ? 'selected' : ''}>gemini-2.0-flash（官方推薦 · 極速即時情境生成與短文對話）</option>
+                  <option value="gemini-2.0-flash-lite" ${data.config.defaultModel === 'gemini-2.0-flash-lite' ? 'selected' : ''}>gemini-2.0-flash-lite（超低延遲 · 極致節能）</option>
+                </select>
+              </div>
+
+              <div id="adminKeyTestResult" class="hidden p-2 rounded-xl text-xs font-bold"></div>
+
+              <div class="flex items-center gap-2 pt-1">
+                <button type="button" onclick="testAdminKeyConnection()" class="px-3.5 py-2.5 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold text-xs active:scale-95 transition flex items-center gap-1">
+                  <span>🧪 測試連線</span>
+                </button>
+                <button type="button" onclick="saveAdminServerConfig()" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 text-white font-black text-xs shadow-md active:scale-95 transition flex items-center justify-center gap-1.5">
+                  <span>💾 儲存並廣播至後端伺服器 (所有裝置生效)</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (adminCurrentTab === 'profiles') {
+        const list = (data.profiles && data.profiles.length > 0) ? data.profiles : profiles;
+        const rowsHtml = list.map(p => {
+          const av = renderAvatarHtml(p.avatar, "w-8 h-8 rounded-full object-cover", "text-xl");
+          const trophies = (p.claimedStreakMilestones || []).length;
+          return `
+            <div class="p-3 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-3">
+              <div class="flex items-center gap-3">
+                ${av}
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs font-black text-slate-900">${p.name}</span>
+                    <span class="text-[9px] bg-slate-200 text-slate-700 px-1.5 py-0.2 rounded font-semibold">${p.grade}</span>
+                  </div>
+                  <div class="text-[10px] text-slate-500 mt-0.5 flex items-center gap-3">
+                    <span>🔥 連續: <strong>${p.streakDays || 1}</strong> 天</span>
+                    <span>⚡ 能量: <strong>${p.energyPoints || 0}</strong> 點</span>
+                    <span>🏆 已解鎖: <strong>${trophies}/7</strong> 座獎盃</span>
+                  </div>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="text-[10px] font-mono text-indigo-600 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded-full font-bold">
+                  PIN: ${p.pin || '1234'}
+                </span>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        content.innerHTML = `
+          <div class="flex flex-col gap-3">
+            <div class="flex items-center justify-between text-xs text-slate-600 font-bold px-1">
+              <span>全平台同步學員庫（共 ${list.length} 位）：</span>
+              <button onclick="syncProfilesWithServer(); loadAdminOverview();" class="text-indigo-600 hover:text-indigo-800 text-[11px] underline">🔄 立即雲端同步</button>
+            </div>
+            <div class="flex flex-col gap-2 max-h-80 overflow-y-auto">
+              ${rowsHtml}
+            </div>
+          </div>
+        `;
+      } else if (adminCurrentTab === 'logs') {
+        const stats = data.stats || { totalVisits: 0, totalApiCalls: 0, uniqueIps: [] };
+        const logs = data.logs || [];
+        const logsHtml = logs.length === 0 ? `
+          <tr><td colspan="6" class="text-center py-6 text-slate-400 text-xs">暫無訪問日誌紀錄</td></tr>
+        ` : logs.map(l => `
+          <tr class="border-b border-slate-100 hover:bg-slate-50 text-[11px]">
+            <td class="py-2 px-2 text-slate-400 font-mono">${l.timestamp.split(' ')[1] || l.timestamp}</td>
+            <td class="py-2 px-2 font-mono text-indigo-700 font-bold">${l.ip || '127.0.0.1'}</td>
+            <td class="py-2 px-2 font-bold text-slate-700">${l.device || '未知'}</td>
+            <td class="py-2 px-2 font-black text-slate-900">${l.profile || '訪客'}</td>
+            <td class="py-2 px-2 text-slate-800 font-medium">${l.action || '-'}</td>
+            <td class="py-2 px-2"><span class="px-1.5 py-0.2 rounded font-bold text-[9px] ${l.status.includes('成功') ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-700'}">${l.status}</span></td>
+          </tr>
+        `).join('');
+
+        content.innerHTML = `
+          <div class="flex flex-col gap-3.5">
+            <!-- Metrics Bar -->
+            <div class="grid grid-cols-3 gap-2 text-center">
+              <div class="p-2.5 rounded-2xl bg-indigo-50 border border-indigo-100">
+                <div class="text-[10px] text-indigo-600 font-bold">總訪問連線次數</div>
+                <div class="text-lg font-black text-indigo-950 font-mono">${stats.totalVisits || 0}</div>
+              </div>
+              <div class="p-2.5 rounded-2xl bg-amber-50 border border-amber-100">
+                <div class="text-[10px] text-amber-600 font-bold">不重複來源 IP 數</div>
+                <div class="text-lg font-black text-amber-950 font-mono">${(stats.uniqueIps || []).length}</div>
+              </div>
+              <div class="p-2.5 rounded-2xl bg-emerald-50 border border-emerald-100">
+                <div class="text-[10px] text-emerald-600 font-bold">AI API 調用次數</div>
+                <div class="text-lg font-black text-emerald-950 font-mono">${stats.totalApiCalls || 0}</div>
+              </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="flex items-center justify-between text-xs px-1">
+              <span class="font-bold text-slate-700">近期連線與操作審計（最新 ${logs.length} 筆）：</span>
+              <div class="flex items-center gap-2">
+                <button onclick="loadAdminOverview()" class="text-indigo-600 hover:text-indigo-800 font-bold flex items-center gap-1 text-[11px]">
+                  <span>🔄 重新整理</span>
+                </button>
+                <span>·</span>
+                <button onclick="clearAdminTelemetryLogs()" class="text-rose-600 hover:text-rose-800 font-bold flex items-center gap-1 text-[11px]">
+                  <span>🗑️ 清空日誌</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Table -->
+            <div class="border border-slate-200 rounded-2xl overflow-hidden max-h-72 overflow-y-auto">
+              <table class="w-full text-left border-collapse">
+                <thead class="bg-slate-100 text-[10px] font-bold text-slate-500 uppercase tracking-wider sticky top-0">
+                  <tr>
+                    <th class="py-2 px-2">時間</th>
+                    <th class="py-2 px-2">來源 IP</th>
+                    <th class="py-2 px-2">設備類型</th>
+                    <th class="py-2 px-2">使用學員</th>
+                    <th class="py-2 px-2">操作行為</th>
+                    <th class="py-2 px-2">狀態</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-100">
+                  ${logsHtml}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    async function saveAdminServerConfig() {
+      const input = document.getElementById('adminGlobalApiKeyInput');
+      const select = document.getElementById('adminGlobalModelSelect');
+      const keyVal = input ? input.value.trim() : '';
+      const modelVal = select ? select.value : 'gemini-2.0-flash';
+
+      try {
+        const resp = await fetch('/api/admin/config', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            pin: "9999",
+            geminiApiKey: keyVal,
+            defaultModel: modelVal
+          })
+        });
+        if (resp.ok) {
+          cachedServerApiKey = keyVal;
+          cachedServerModel = modelVal;
+          updateGeminiApiKeyUI();
+          SoundEffects.playClick('unlock');
+          alert("✅ 伺服器全域 API 金鑰與模型設定成功！\n\n所有登入的平板、手機與電腦皆已立即繼承此設定。");
+          loadAdminOverview();
+        } else {
+          const err = await resp.json();
+          alert("儲存失敗：" + (err.message || '未知錯誤'));
+        }
+      } catch(e) {
+        alert("連線後端失敗：" + e.message);
+      }
+    }
+
+    async function saveApiKeyToBackendServer() {
+      const input = document.getElementById('geminiApiKeyInput');
+      const key = (input ? input.value : '').trim();
+      if (!key) {
+        alert("請先輸入有效的 API Key！");
+        return;
+      }
+      try {
+        const resp = await fetch('/api/admin/config', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            pin: "9999",
+            geminiApiKey: key,
+            defaultModel: "gemini-2.0-flash"
+          })
+        });
+        if (resp.ok) {
+          cachedServerApiKey = key;
+          localStorage.setItem('kaispeak_gemini_api_key', key);
+          updateGeminiApiKeyUI();
+          SoundEffects.playShield();
+          alert("🎉 恭喜！API Key 已成功同步儲存至後端伺服器！\n\n今後不論您在 iPad、手機或任何新裝置上開啟，都能免填寫直接使用 AI 即時功能！");
+          closeGeminiApiKeyModal();
+        } else {
+          alert("同步至伺服器失敗，請確認伺服器是否正常運行。");
+        }
+      } catch(e) {
+        alert("連線後端失敗：" + e.message);
+      }
+    }
+
+    async function testAdminKeyConnection() {
+      const input = document.getElementById('adminGlobalApiKeyInput');
+      const resBox = document.getElementById('adminKeyTestResult');
+      const key = input ? input.value.trim() : '';
+      if (!key) {
+        alert("請先輸入要測試的金鑰！");
+        return;
+      }
+      if (resBox) {
+        resBox.className = "p-2 rounded-xl text-xs font-bold bg-indigo-50 text-indigo-700 block animate-pulse";
+        resBox.innerText = "⏳ 正在直連 Google Gemini 官方端點驗證...";
+      }
+      try {
+        const testPrompt = "Reply with exactly: 'OK'";
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`;
+        const resp = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: testPrompt }] }]
+          })
+        });
+        if (resp.ok) {
+          if (resBox) {
+            resBox.className = "p-2 rounded-xl text-xs font-bold bg-emerald-50 text-emerald-800 border border-emerald-300 block";
+            resBox.innerText = "✅ 驗證成功！Gemini 2.0 官方回應正常，全裝置已可流暢使用。";
+          }
+          SoundEffects.playScore(95);
+        } else {
+          const err = await resp.json();
+          if (resBox) {
+            resBox.className = "p-2 rounded-xl text-xs font-bold bg-rose-50 text-rose-800 border border-rose-300 block";
+            resBox.innerText = `❌ 驗證失敗：${err.error ? err.error.message : 'HTTP ' + resp.status}`;
+          }
+        }
+      } catch(e) {
+        if (resBox) {
+          resBox.className = "p-2 rounded-xl text-xs font-bold bg-rose-50 text-rose-800 border border-rose-300 block";
+          resBox.innerText = `❌ 測試異常：${e.message}`;
+        }
+      }
+    }
+
+    async function clearAdminTelemetryLogs() {
+      if (!confirm("確定要清空伺服器連線與設備日誌嗎？清空後數據不可復原。")) return;
+      try {
+        const resp = await fetch('/api/admin/clear_telemetry', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ pin: "9999" })
+        });
+        if (resp.ok) {
+          alert("✅ 設備連線與訪問日誌已清空！");
+          loadAdminOverview();
+        }
+      } catch(e) {
+        alert("操作失敗：" + e.message);
+      }
     }
 
     // ========================================================
@@ -8679,7 +9305,7 @@
     };
 
     // ========================================================
-    // GEMINI 2.5/2.0 FLASH API KEY CONFIGURATION & TEST ENGINE
+    // GEMINI 2.0 FLASH API KEY CONFIGURATION & TEST ENGINE
     // ========================================================
     function getStoredGeminiApiKey() {
       try {
@@ -8688,26 +9314,44 @@
           localStorage.removeItem('kaispeak_gemini_active_model');
           localStorage.removeItem('kaispeak_gemini_api_version');
         }
-        return (localStorage.getItem('kaispeak_gemini_api_key') || '').trim();
-      } catch(e) {
+        const localKey = (localStorage.getItem('kaispeak_gemini_api_key') || '').trim();
+        if (localKey) return localKey;
+        if (cachedServerApiKey) return cachedServerApiKey.trim();
         return '';
+      } catch(e) {
+        return cachedServerApiKey || '';
       }
     }
 
     function updateGeminiApiKeyUI() {
-      const key = getStoredGeminiApiKey();
+      const localKey = (localStorage.getItem('kaispeak_gemini_api_key') || '').trim();
+      const serverKey = cachedServerApiKey ? cachedServerApiKey.trim() : '';
+      const key = localKey || serverKey;
+      const isFromServer = !localKey && Boolean(serverKey);
+
       const dot = document.getElementById('geminiApiKeyDot');
       const text = document.getElementById('geminiApiKeyBtnText');
       const btn = document.getElementById('geminiApiKeyStatusBtn');
       const statusLabel = document.getElementById('geminiKeyStatusText');
       const input = document.getElementById('geminiApiKeyInput');
+      const serverPill = document.getElementById('geminiServerStatusPill');
+
+      if (serverPill) {
+        if (serverKey) {
+          serverPill.className = "text-[9px] bg-emerald-100 text-emerald-800 px-2 py-0.2 rounded-full font-bold";
+          serverPill.innerText = "✓ 伺服器託管已連線 (全裝置生效)";
+        } else {
+          serverPill.className = "text-[9px] bg-amber-100 text-amber-800 px-2 py-0.2 rounded-full font-bold";
+          serverPill.innerText = "尚未配置伺服器託管金鑰";
+        }
+      }
 
       if (key) {
         if (dot) dot.className = "w-2 h-2 rounded-full bg-emerald-500 animate-pulse";
-        if (text) text.innerText = "🟢 Gemini 2.5/2.0 連線中";
+        if (text) text.innerText = isFromServer ? "🟢 伺服器金鑰已連線" : "🟢 Gemini 2.0 連線中";
         if (btn) btn.className = "px-2.5 py-1 rounded-xl text-[10px] font-bold border flex items-center gap-1 transition shadow-2xs active:scale-95 bg-emerald-50 text-emerald-800 border-emerald-300 hover:bg-emerald-100";
         if (statusLabel) {
-          statusLabel.innerText = "已設定 · 即時 AI 啟用中";
+          statusLabel.innerText = isFromServer ? "伺服器託管 · 全裝置免輸入直接使用" : "本機已設定 · 即時 AI 啟用中";
           statusLabel.className = "text-[10px] font-bold text-emerald-600";
         }
         if (input && !input.value) {
@@ -11521,6 +12165,7 @@ ${existingSnippet || "無"}
       initQRCode();
       updateVocabCountersUI();
       updateGeminiApiKeyUI();
+      initServerBackendSync();
     });
   </script>
 </body>

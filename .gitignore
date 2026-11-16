@@ -8,3 +8,6 @@ temp_script.js
 audio/tts_cache/
 .env
 *.env
+server_config.json
+server_telemetry.json
+server_profiles.json
