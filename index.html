@@ -140,8 +140,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.17（2026年·11月·第17次發布）">
-                26.11.17
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.18（2026年·11月·第18次發布）">
+                26.11.18
               </span>
             </div>
           </div>
@@ -354,13 +354,13 @@
   <!-- ======================================================== -->
   <header class="w-full max-w-6xl bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl jelly-header mb-2.5 md:mb-3.5 sticky top-1.5 z-40 px-3 sm:px-4 py-2 sm:py-2.5 shadow-[0_6px_20px_rgba(79,70,229,0.08)] border border-white/90">
     
-    <!-- Top Row: V3 Logo (Self-contained, filling left space with prominent 3D presence) & Learner Status Badges -->
-    <div class="w-full flex items-center justify-between gap-3 sm:gap-6 pb-2 border-b border-indigo-50/80">
+    <!-- Top Row: Brand Identity (Left) & Learner Profile / Status & System Utilities (Right) -->
+    <div class="w-full flex items-center justify-between gap-2 sm:gap-4 pb-2 border-b border-indigo-50/80 flex-wrap sm:flex-nowrap">
       
-      <!-- Brand Logo + 奇妙星語言 + Version 26.11.17 Lockup (Prominent 3D Emblem & Clean Alignment) -->
-      <div class="flex items-center gap-2.5 sm:gap-3.5 cursor-pointer select-none shrink-0 group py-0.5" onclick="switchAppMode('quest')" title="KaiSpeak 首頁">
+      <!-- Brand Logo + 奇妙星語言 + Version 26.11.18 Lockup -->
+      <div class="flex items-center gap-2 sm:gap-3 cursor-pointer select-none shrink-0 group py-0.5" onclick="switchAppMode('quest')" title="KaiSpeak 首頁">
         <div class="shrink-0 flex items-center">
-          <img src="images/ui/KaiSpeak_logo_V3_trans.png" alt="KaiSpeak" class="h-14 sm:h-16 md:h-18 lg:h-20 w-auto object-contain drop-shadow-[0_8px_22px_rgba(79,70,229,0.25)] group-hover:scale-105 transition-all duration-300 shrink-0">
+          <img src="images/ui/KaiSpeak_logo_V3_trans.png" alt="KaiSpeak" class="h-12 sm:h-14 md:h-16 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] group-hover:scale-105 transition-all duration-300 shrink-0">
         </div>
         <div class="flex flex-col justify-center text-left leading-none">
           <span class="text-xs sm:text-sm font-black text-indigo-500 tracking-wider select-none flex items-center gap-1 leading-none">
@@ -368,7 +368,7 @@
             <span>奇妙星語言</span>
           </span>
           <div class="mt-1 flex items-center gap-1">
-            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.17（2026年·11月·第17次發布）">26.11.17</span>
+            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.18（2026年·11月·第18次發布）">26.11.18</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer flex items-center gap-1 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-2 py-0.5 transition shadow-2xs group-hover:border-amber-400" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -377,85 +377,76 @@
         </div>
       </div>
 
-      <!-- Right Controls: Profile & Status Badges (Streamlined & slim) -->
-      <div class="flex items-center gap-1 sm:gap-1.5 md:gap-2 shrink-0">
+      <!-- Right Controls: Profile, Motivation Double-Capsule, Utilities (Never overflowing) -->
+      <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
         
-        <!-- Honor Hall Dedicated Button -->
-        <button onclick="openHonorHallModal()" title="連續守護榮譽殿堂 · 獎盃與寶藏" class="jelly-btn-3d px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-xl bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 hover:from-amber-500 hover:to-orange-500 text-white border border-amber-300 border-b-2 border-b-amber-600 text-xs font-black transition flex items-center gap-1 shadow-xs active:translate-y-0.5 whitespace-nowrap relative">
-          <span class="text-xs sm:text-sm">🏆</span>
-          <span class="hidden xl:inline text-[11px]">榮譽殿堂</span>
-          <span id="headerHonorClaimDot" class="hidden absolute -top-1 -right-1 w-2.5 h-2.5 bg-rose-500 rounded-full border-2 border-white animate-ping"></span>
-        </button>
-
-        <!-- Kai AI Voice Dialogue Planner Button -->
-        <button onclick="openKaiVoicePlannerModal()" title="AI 語音聊學 · 跟 Kai 說說今天想學什麼？" class="jelly-btn-3d px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-600 hover:to-teal-600 text-white border border-teal-300 border-b-2 border-b-teal-700 text-xs font-black transition flex items-center gap-1 shadow-xs active:translate-y-0.5 whitespace-nowrap">
-          <span class="text-xs sm:text-sm animate-pulse">🎙️</span>
-          <span class="hidden lg:inline text-[11px]">語音聊學</span>
-          <span class="text-[9px] bg-white/30 text-white px-1.5 py-0.2 rounded-full font-extrabold hidden sm:inline-block">AI規劃</span>
-        </button>
-
         <!-- Student Profile Button -->
-        <button onclick="toggleProfileModal()" title="切換學員 / 家庭多小朋友管理" class="jelly-btn-3d px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-xl bg-gradient-to-r from-violet-50 to-indigo-50 hover:from-violet-100 hover:to-indigo-100 text-violet-900 border border-violet-200 border-b-2 border-b-violet-300 text-xs font-bold transition flex items-center gap-1 shadow-xs active:translate-y-0.5 whitespace-nowrap">
+        <button onclick="toggleProfileModal()" title="切換學員 / 家庭多小朋友管理" class="jelly-btn-3d px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-xl bg-gradient-to-r from-violet-50 to-indigo-50 hover:from-violet-100 hover:to-indigo-100 text-violet-900 border border-violet-200 border-b-2 border-b-violet-300 text-xs font-bold transition flex items-center gap-1.5 shadow-xs active:translate-y-0.5 whitespace-nowrap">
           <span id="headerProfileAvatar" class="text-sm sm:text-base">👦</span>
           <div class="text-left leading-tight">
             <div class="flex items-center gap-1">
               <span id="headerProfileName" class="font-black text-xs text-violet-950">Kai 寶貝</span>
-              <span id="headerProfileGrade" class="hidden xl:inline-block text-[9px] bg-violet-200 text-violet-800 px-1.5 py-0.2 rounded-full font-bold">國小二年級</span>
+              <span id="headerProfileGrade" class="hidden md:inline-block text-[9px] bg-violet-200 text-violet-800 px-1.5 py-0.2 rounded-full font-bold">國小二年級</span>
             </div>
-            <div class="text-[9px] text-violet-600 font-bold hidden xl:flex items-center gap-1">
+            <div class="text-[9px] text-violet-600 font-bold hidden md:flex items-center gap-1">
               <span id="headerProfileLevelBadge">🟢 程度: 基礎入門</span>
               <span class="text-violet-400">▾</span>
             </div>
           </div>
         </button>
 
-        <!-- Streak Badge -->
-        <button onclick="toggleStreakShieldModal()" title="查看打卡守護紀錄與補簽" class="jelly-btn-3d px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-xl bg-gradient-to-r from-amber-50 to-orange-50 hover:from-amber-100 hover:to-orange-100 text-amber-900 border border-amber-200 border-b-2 border-b-amber-400 text-xs font-black transition flex items-center gap-1 shadow-xs active:translate-y-0.5 whitespace-nowrap">
-          <span class="text-xs sm:text-sm">🔥</span>
-          <span class="hidden xl:inline text-[11px]">連續:</span>
-          <span id="headerStreakNum" class="font-mono text-xs sm:text-sm text-amber-600 font-extrabold">525</span>
-          <span class="text-[11px]">天</span>
-          <span id="mobileStreakNum" class="hidden">525</span>
+        <!-- Combined Motivation Capsule (Streak 🔥 + Energy ⚡ 尊榮整合，大幅省下版面寬度) -->
+        <button onclick="toggleStreakShieldModal()" title="查看打卡守護紀錄與能量商城" class="jelly-btn-3d px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-xl bg-gradient-to-r from-amber-50/90 via-orange-50/80 to-indigo-50/90 hover:from-amber-100 hover:to-indigo-100 border border-amber-200/90 border-b-2 border-b-amber-400 text-xs font-black transition flex items-center gap-1.5 sm:gap-2 shadow-xs active:translate-y-0.5 whitespace-nowrap">
+          <div class="flex items-center gap-0.5 text-amber-700">
+            <span class="text-xs sm:text-sm">🔥</span>
+            <span class="hidden lg:inline text-[10px] text-amber-600 font-bold">連續</span>
+            <span id="headerStreakNum" class="font-mono text-xs sm:text-sm text-amber-600 font-extrabold">525</span>
+            <span class="text-[10px] text-amber-600 font-bold">天</span>
+            <span id="mobileStreakNum" class="hidden">525</span>
+          </div>
+          <div class="w-px h-3 bg-amber-200/90"></div>
+          <div class="flex items-center gap-0.5 text-indigo-700">
+            <span class="text-xs sm:text-sm text-indigo-500">⚡</span>
+            <span class="hidden lg:inline text-[10px] text-indigo-500 font-bold">能量</span>
+            <span id="headerEnergyNum" class="font-mono text-xs sm:text-sm text-indigo-600 font-extrabold">350</span>
+            <span class="text-[10px] text-indigo-500 font-bold">點</span>
+            <span id="mobileEnergyNum" class="hidden">350</span>
+          </div>
         </button>
 
-        <!-- Energy Badge -->
-        <button onclick="toggleStreakShieldModal()" title="開啟能量補簽商城" class="jelly-btn-3d px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-xl bg-gradient-to-r from-indigo-50 to-purple-50 hover:from-indigo-100 hover:to-purple-100 text-indigo-900 border border-indigo-200 border-b-2 border-b-indigo-400 text-xs font-black transition flex items-center gap-1 shadow-xs active:translate-y-0.5 whitespace-nowrap">
-          <span class="text-xs sm:text-sm text-indigo-600">⚡</span>
-          <span class="hidden xl:inline text-[11px]">能量:</span>
-          <span id="headerEnergyNum" class="font-mono text-xs sm:text-sm text-indigo-600 font-extrabold">350</span>
-          <span class="hidden sm:inline text-[11px]">點</span>
-          <span id="mobileEnergyNum" class="hidden">350</span>
-        </button>
+        <!-- System Utilities Group (⚙️後台, 📊日誌, 📱掃碼, 🚪登出) -->
+        <div class="flex items-center gap-1 pl-1 border-l border-indigo-100/90">
+          <!-- Admin Control Center Button -->
+          <button onclick="openAdminCenterModal()" class="jelly-btn-3d p-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 border-b-2 border-b-indigo-300 text-xs font-bold transition flex items-center active:translate-y-0.5 shadow-xs" title="系統後台與多裝置控管中心（API Key 託管、訪客 IP 與設備記錄）">
+            ⚙️
+          </button>
+          <!-- Log Modal Button -->
+          <button onclick="toggleLogModal()" class="jelly-btn-3d p-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 border-b-2 border-b-slate-300 text-xs font-bold transition flex items-center active:translate-y-0.5 shadow-xs" title="學習日誌">
+            📊
+          </button>
+          <!-- QR Modal Button -->
+          <button onclick="toggleQRModal()" class="jelly-btn-3d p-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 border-b-2 border-b-slate-300 text-xs font-bold transition flex items-center active:translate-y-0.5 shadow-xs" title="手機/平板掃碼同步體驗">
+            📱
+          </button>
+          <!-- Logout Button -->
+          <button onclick="logoutToGate()" title="登出學員 / 返回登入門戶" class="jelly-btn-3d px-2 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 border-b-2 border-b-rose-300 text-xs font-bold transition flex items-center gap-1 shadow-xs active:translate-y-0.5 whitespace-nowrap">
+            <span>🚪</span>
+            <span class="hidden md:inline text-[11px]">登出</span>
+            <span id="mobileProfileName" class="hidden">Kai</span>
+          </button>
+        </div>
 
-        <!-- Logout Button -->
-        <button onclick="logoutToGate()" title="登出學員 / 返回登入門戶" class="jelly-btn-3d px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 border-b-2 border-b-rose-300 text-xs font-bold transition flex items-center gap-1 shadow-xs active:translate-y-0.5 whitespace-nowrap">
-          <span>🚪</span>
-          <span class="hidden lg:inline text-[11px]">登出</span>
-          <span id="mobileProfileName" class="hidden">Kai</span>
-        </button>
-
-        <!-- Admin Control Center Button -->
-        <button onclick="openAdminCenterModal()" class="jelly-btn-3d p-1 sm:p-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 border-b-2 border-b-indigo-300 text-xs font-bold transition flex items-center active:translate-y-0.5 shadow-xs" title="系統後台與多裝置控管中心（API Key 託管、訪客 IP 與設備記錄）">
-          ⚙️
-        </button>
-
-        <!-- QR Code & Log Modals -->
-        <button onclick="toggleLogModal()" class="jelly-btn-3d p-1 sm:p-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 border-b-2 border-b-slate-300 text-xs font-bold transition flex items-center active:translate-y-0.5 shadow-xs" title="學習日誌">
-          📊
-        </button>
-        <button onclick="toggleQRModal()" class="jelly-btn-3d p-1 sm:p-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 border-b-2 border-b-slate-300 text-xs font-bold transition flex items-center active:translate-y-0.5 shadow-xs" title="手機掃碼體驗">
-          📱
-        </button>
       </div>
     </div>
 
-    <!-- Bottom Row: Slim Streamlined Mode Tabs (細長流暢設計，釋放主視覺空間) -->
-    <nav class="w-full flex items-center justify-center pt-1.5 sm:pt-2">
-      <div class="w-full max-w-xl grid grid-cols-3 gap-1 sm:gap-2 bg-slate-100/90 p-0.5 sm:p-1 rounded-xl border border-slate-200/80 shadow-inner">
-        
+    <!-- Bottom Row: Learning Mode Tabs (Left) & Core Activity Hub (Right) -->
+    <nav class="w-full flex items-center justify-between gap-2 pt-2 flex-wrap sm:flex-nowrap">
+      
+      <!-- Left: 3 Main Learning Modes (每日任務 · 自由練習 · 探險島) -->
+      <div class="flex-1 min-w-[270px] max-w-xl grid grid-cols-3 gap-1 sm:gap-2 bg-slate-100/90 p-0.5 sm:p-1 rounded-xl border border-slate-200/80 shadow-inner">
         <button id="navQuestBtn" onclick="switchAppMode('quest')" class="flex items-center justify-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg sm:rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-black shadow-[0_4px_12px_rgba(79,70,229,0.30)] border-b-2 border-indigo-900 transition active:scale-95 whitespace-nowrap select-none">
           <span class="text-xs sm:text-sm font-extrabold whitespace-nowrap">🎯 每日任務</span>
-          <span class="text-[9px] bg-amber-400 text-amber-950 px-1 py-0.2 rounded-full font-black shadow-xs shrink-0 hidden sm:inline-block whitespace-nowrap">10詞動態</span>
+          <span class="text-[9px] bg-amber-400 text-amber-950 px-1.5 py-0.2 rounded-full font-black shadow-xs shrink-0 hidden sm:inline-block whitespace-nowrap">10詞動態</span>
         </button>
 
         <button id="navFreeBtn" onclick="switchAppMode('free')" class="flex items-center justify-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-slate-600 hover:text-indigo-900 hover:bg-white/80 font-bold transition active:scale-95 whitespace-nowrap select-none">
@@ -467,8 +458,25 @@
           <span class="text-xs sm:text-sm font-extrabold whitespace-nowrap">🗺️ 探險島</span>
           <span class="text-[9px] bg-indigo-100 text-indigo-700 px-1 py-0.2 rounded-full font-bold shrink-0 hidden sm:inline-block whitespace-nowrap">迷霧闖關</span>
         </button>
-
       </div>
+
+      <!-- Right: Core Interactive Portals (AI 語音聊學 + 榮譽殿堂) -->
+      <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+        <!-- Kai AI Voice Dialogue Planner Button -->
+        <button onclick="openKaiVoicePlannerModal()" title="AI 語音聊學 · 跟 Kai 說說今天想學什麼？" class="jelly-btn-3d px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-600 hover:to-teal-600 text-white border border-teal-300 border-b-2 border-b-teal-700 text-xs sm:text-sm font-black transition flex items-center gap-1.5 shadow-sm active:translate-y-0.5 whitespace-nowrap">
+          <span class="text-sm sm:text-base animate-pulse">🎙️</span>
+          <span>語音聊學</span>
+          <span class="text-[9px] bg-white/30 text-white px-1.5 py-0.2 rounded-full font-extrabold hidden xs:inline-block">AI規劃</span>
+        </button>
+
+        <!-- Honor Hall Dedicated Button -->
+        <button onclick="openHonorHallModal()" title="連續守護榮譽殿堂 · 獎盃與寶藏" class="jelly-btn-3d px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-xl bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 hover:from-amber-500 hover:to-orange-500 text-white border border-amber-300 border-b-2 border-b-amber-600 text-xs sm:text-sm font-black transition flex items-center gap-1.5 shadow-sm active:translate-y-0.5 whitespace-nowrap relative">
+          <span class="text-sm sm:text-base">🏆</span>
+          <span>榮譽殿堂</span>
+          <span id="headerHonorClaimDot" class="hidden absolute -top-1 -right-1 w-2.5 h-2.5 bg-rose-500 rounded-full border-2 border-white animate-ping"></span>
+        </button>
+      </div>
+
     </nav>
   </header>
 
@@ -2067,7 +2075,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.17 · 即時 AI</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.18 · 即時 AI</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -2106,7 +2114,7 @@
             <span>👉 點此前往 Google AI Studio 免費獲取 Key</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.17 · 支援 gemini-3.8-flash / 3.8-flash-lite / 2.5-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.18 · 支援 gemini-3.8-flash / 3.8-flash-lite / 2.5-flash</span>
         </div>
       </div>
 
@@ -2529,7 +2537,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.17";
+    const APP_VERSION = "26.11.18";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // Immediate sanitization of legacy Gemini 1.5 or deprecated 2.0 models from localStorage
@@ -4659,7 +4667,7 @@
     }
 
     // ========================================================
-    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.17)
+    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.18)
     // ========================================================
     let cachedServerApiKey = '';
     let cachedServerModel = 'gemini-3.8-flash';
