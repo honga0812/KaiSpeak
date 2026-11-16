@@ -1829,9 +1829,9 @@
           </div>
         </div>
         <div class="flex items-center gap-1.5 shrink-0">
-          <button type="button" onclick="openGeminiApiKeyModal()" id="geminiApiKeyStatusBtn" class="px-2.5 py-1 rounded-xl text-[10px] font-bold border flex items-center gap-1 transition shadow-2xs active:scale-95 bg-slate-100 text-slate-600 border-slate-300 hover:bg-slate-200">
-            <span id="geminiApiKeyDot" class="w-2 h-2 rounded-full bg-slate-400"></span>
-            <span id="geminiApiKeyBtnText">🔑 設定 Gemini API</span>
+          <button type="button" onclick="handleAiStatusBadgeClick()" id="aiConnectionStatusBadge" class="px-2.5 py-1 rounded-xl text-[10px] font-bold border flex items-center gap-1.5 transition shadow-2xs active:scale-95 bg-slate-100 text-slate-600 border-slate-300 hover:bg-slate-200">
+            <span id="aiConnectionStatusDot" class="w-2 h-2 rounded-full bg-slate-400"></span>
+            <span id="aiConnectionStatusText">AI 狀態檢測中...</span>
           </button>
           <button type="button" onclick="closeKaiVoicePlannerModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 font-black text-sm flex items-center justify-center transition active:scale-95">✕</button>
         </div>
@@ -2170,6 +2170,49 @@
         </button>
         <button type="button" onclick="closeIpadKeySyncModal()" class="w-full py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition">
           關閉
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- AI OFFLINE NOTICE & ADMIN NOTIFICATION MODAL             -->
+  <!-- ======================================================== -->
+  <div id="aiOfflineNoticeModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[99] hidden flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-white rounded-3xl p-5 sm:p-6 max-w-sm sm:max-w-md w-full shadow-2xl border-2 border-amber-300 text-center flex flex-col items-center gap-3 animate-in fade-in zoom-in-95 duration-200 relative my-auto">
+      <button type="button" onclick="closeAiOfflineNoticeModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 font-black text-sm flex items-center justify-center transition active:scale-95">✕</button>
+      
+      <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-400 to-orange-500 flex items-center justify-center text-white text-2xl shadow-md">
+        📡
+      </div>
+      
+      <div>
+        <h3 class="text-base sm:text-lg font-black text-slate-900 flex items-center justify-center gap-1.5">
+          <span>AI 伺服器狀態：目前處於離線模式</span>
+        </h3>
+        <p class="text-xs text-slate-600 mt-1 leading-relaxed">
+          Google Gemini AI 即時生成功能目前尚未連通。<br>
+          系統已為您自動切換至<strong>「本機精選情境知識庫」</strong>，您可以完全正常地進行各項生活英語學習與對話練習！
+        </p>
+      </div>
+
+      <!-- Action Card -->
+      <div class="w-full bg-slate-50 border border-slate-200 rounded-2xl p-3 text-left text-xs text-slate-600 leading-relaxed">
+        <div class="font-bold text-slate-800 mb-1 flex items-center gap-1">
+          <span>💡 說明與建議：</span>
+        </div>
+        <p class="text-[11px] text-slate-500">
+          一般學員無需自行配置金鑰。若您希望啟用 Google Gemini AI 即時動態生成，可點擊下方按鈕通知系統管理員進行金鑰更新或排查除錯。
+        </p>
+      </div>
+
+      <!-- Buttons -->
+      <div class="w-full flex flex-col gap-2 pt-1">
+        <button type="button" onclick="reportAiOfflineNotice()" id="btnReportAiOffline" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-black text-xs shadow-md active:scale-95 transition flex items-center justify-center gap-1.5">
+          <span>📢 通知管理員檢查連線與除錯</span>
+        </button>
+        <button type="button" onclick="closeAiOfflineNoticeModal(); openAdminCenterModal();" class="w-full py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition flex items-center justify-center gap-1">
+          <span>🔐 我是管理員（輸入 PIN 碼登入後台設定）</span>
         </button>
       </div>
     </div>
@@ -4810,8 +4853,41 @@
       if (adminCurrentTab === 'key') {
         const hasKey = Boolean(data.config.geminiApiKey);
         const isStatic = Boolean(data.isStaticMode);
+
+        let alertsHtml = '';
+        try {
+          const storedAlerts = JSON.parse(localStorage.getItem('kaispeak_admin_alerts') || '[]');
+          if (storedAlerts && storedAlerts.length > 0) {
+            alertsHtml = `
+              <div class="p-3.5 rounded-2xl bg-rose-50 border-2 border-rose-300 text-left flex flex-col gap-2 shadow-xs">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-black text-rose-900 flex items-center gap-1.5">
+                    <span class="animate-bounce">📢</span>
+                    <span>學員連線異常提醒（${storedAlerts.length} 則待處理）：</span>
+                  </span>
+                  <button type="button" onclick="localStorage.removeItem('kaispeak_admin_alerts'); renderAdminTabContent();" class="text-[10px] bg-rose-200 hover:bg-rose-300 text-rose-800 font-bold px-2 py-0.5 rounded-lg active:scale-95 transition">
+                    ✕ 全部標記已處理
+                  </button>
+                </div>
+                <div class="flex flex-col gap-1.5 max-h-32 overflow-y-auto pr-1">
+                  ${storedAlerts.map(a => `
+                    <div class="p-2 bg-white rounded-xl border border-rose-200 text-[11px] text-slate-700 shadow-2xs">
+                      <div class="flex items-center justify-between text-slate-500 text-[10px]">
+                        <strong>${a.user || '學員'} (${a.device || '裝置'})</strong>
+                        <span>${a.time}</span>
+                      </div>
+                      <div class="mt-0.5 text-rose-700 font-medium">${a.message}</div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            `;
+          }
+        } catch(e) {}
+
         content.innerHTML = `
           <div class="flex flex-col gap-4">
+            ${alertsHtml}
             <!-- Status Card -->
             <div class="p-3.5 rounded-2xl ${hasKey ? 'bg-emerald-50 border border-emerald-200' : 'bg-amber-50 border border-amber-200'} flex items-start gap-3">
               <span class="text-2xl">${hasKey ? '🟢' : '🟡'}</span>
@@ -9550,6 +9626,23 @@
       const key = localKey || serverKey;
       const isFromServer = !localKey && Boolean(serverKey);
 
+      // Student Planner Top Right Status Badge
+      const aiBadge = document.getElementById('aiConnectionStatusBadge');
+      const aiDot = document.getElementById('aiConnectionStatusDot');
+      const aiText = document.getElementById('aiConnectionStatusText');
+
+      if (aiBadge && aiText && aiDot) {
+        if (key) {
+          aiBadge.className = "px-2.5 py-1 rounded-xl text-[10px] font-black border flex items-center gap-1.5 transition shadow-2xs active:scale-95 bg-emerald-50 text-emerald-800 border-emerald-300 hover:bg-emerald-100";
+          aiDot.className = "w-2 h-2 rounded-full bg-emerald-500 animate-pulse";
+          aiText.innerText = "🟢 AI 在線服務中";
+        } else {
+          aiBadge.className = "px-2.5 py-1 rounded-xl text-[10px] font-black border flex items-center gap-1.5 transition shadow-2xs active:scale-95 bg-amber-50 text-amber-800 border-amber-300 hover:bg-amber-100";
+          aiDot.className = "w-2 h-2 rounded-full bg-amber-500 animate-ping";
+          aiText.innerText = "🔴 AI 離線 (點擊回報)";
+        }
+      }
+
       const dot = document.getElementById('geminiApiKeyDot');
       const text = document.getElementById('geminiApiKeyBtnText');
       const btn = document.getElementById('geminiApiKeyStatusBtn');
@@ -9589,17 +9682,73 @@
       }
     }
 
-    function openGeminiApiKeyModal() {
-      const modal = document.getElementById('geminiApiKeyModal');
-      if (!modal) return;
+    function handleAiStatusBadgeClick() {
       const key = getStoredGeminiApiKey();
-      const input = document.getElementById('geminiApiKeyInput');
-      if (input) input.value = key;
-      const resBox = document.getElementById('geminiTestResultBox');
-      if (resBox) resBox.classList.add('hidden');
-      updateGeminiApiKeyUI();
-      modal.classList.remove('hidden');
+      if (key) {
+        SoundEffects.playScore(95);
+        showToastNotification("🟢 Google 官方 Gemini AI 即時對話核心已連線！Kai 已為您準備好專屬情境課堂。", 4000);
+      } else {
+        openAiOfflineNoticeModal();
+      }
+    }
+
+    function openAiOfflineNoticeModal() {
+      const modal = document.getElementById('aiOfflineNoticeModal');
+      const btn = document.getElementById('btnReportAiOffline');
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = "<span>📢 通知管理員檢查連線與除錯</span>";
+      }
+      if (modal) modal.classList.remove('hidden');
       SoundEffects.playClick('open');
+    }
+
+    function closeAiOfflineNoticeModal() {
+      const modal = document.getElementById('aiOfflineNoticeModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    async function reportAiOfflineNotice() {
+      const btn = document.getElementById('btnReportAiOffline');
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = "<span>⏳ 正在送出提醒...</span>";
+      }
+
+      const p = (typeof getActiveProfile === 'function') ? getActiveProfile() : null;
+      const alertItem = {
+        id: 'ALT_' + Date.now(),
+        time: new Date().toLocaleString(),
+        user: p ? p.name : '學員',
+        device: /iPad|iPhone|Android|Tablet/i.test(navigator.userAgent) ? '行動/平板裝置' : '電腦瀏覽器',
+        message: '學員於語音聊學回報 AI 核心未連線，請管理員檢查 Google Gemini API Key 是否過期或配額耗盡。'
+      };
+
+      try {
+        const stored = JSON.parse(localStorage.getItem('kaispeak_admin_alerts') || '[]');
+        stored.unshift(alertItem);
+        localStorage.setItem('kaispeak_admin_alerts', JSON.stringify(stored.slice(0, 20)));
+      } catch(e) {}
+
+      // Telemetry report if available
+      try {
+        if (typeof reportTelemetry === 'function') {
+          reportTelemetry('STUDENT_ALERT_AI_OFFLINE', alertItem);
+        }
+      } catch(e) {}
+
+      setTimeout(() => {
+        if (btn) btn.innerHTML = "<span>✅ 已成功通知管理員！</span>";
+        SoundEffects.playClick('unlock');
+        alert("✅ 已成功向系統管理員送出連線提醒！\n\n管理員登入後台時將看見待辦除錯提醒。\n目前 KaiSpeak 已為您自動切換至「本機精選情境庫」，您可以完全正常地進行單字與情境對話學習！");
+        closeAiOfflineNoticeModal();
+      }, 600);
+    }
+
+    function openGeminiApiKeyModal() {
+      // Secure delegation: General users cannot access raw API Key management.
+      // Management requires Admin PIN authorization in Admin Center.
+      openAdminCenterModal();
     }
 
     function closeGeminiApiKeyModal() {
