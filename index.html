@@ -2157,9 +2157,11 @@
         </p>
       </div>
 
-      <!-- QR Code Canvas Display -->
+      <!-- QR Code Image Display -->
       <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200 flex flex-col items-center justify-center w-full">
-        <canvas id="ipadSyncQrCanvas" class="w-48 h-48 sm:w-52 sm:h-52 bg-white rounded-xl shadow-inner p-2"></canvas>
+        <div class="w-48 h-48 sm:w-52 sm:h-52 bg-white rounded-xl shadow-inner flex items-center justify-center p-2 overflow-hidden border border-slate-200">
+          <img id="ipadSyncQrImg" src="" alt="iPad 同步 QR Code" class="w-full h-full object-contain">
+        </div>
         <span class="text-[10px] text-slate-400 font-bold mt-2">🔒 安全防護：設備開啟後會自動清空網址金鑰參數，保障隱私</span>
       </div>
 
@@ -2447,7 +2449,7 @@
       <p class="text-xs text-slate-500 mb-4">使用相機掃描下方 QR Code，立即在手機或 iPad 上測試！</p>
       
       <div class="p-3 bg-white border-2 border-indigo-100 rounded-2xl shadow-inner mb-3">
-        <canvas id="qrCodeCanvas" class="w-44 h-44"></canvas>
+        <img id="qrCodeImg" alt="QR Code" class="w-44 h-44 object-contain">
       </div>
 
       <div class="text-[11px] font-mono text-slate-500 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200 mb-4 break-all">
@@ -2519,8 +2521,9 @@
     </div>
   </div>
 
-  <!-- QR Code Generator Library -->
-  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+  <!-- QR Code Generator Library (Local File + CDN Mirror Fallback) -->
+  <script src="js/qrcode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 
   <!-- ======================================================== -->
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
@@ -5156,6 +5159,42 @@
 
     let currentIpadSyncUrl = '';
 
+    function renderQrCodeImage(targetImgEl, url) {
+      if (!targetImgEl) return;
+
+      // Method 1: Pure offline client-side qrcode-generator
+      let dataUrl = '';
+      try {
+        if (typeof qrcode === 'function') {
+          const qr = qrcode(0, 'M');
+          qr.addData(url);
+          qr.make();
+          dataUrl = qr.createDataURL(5, 2);
+        }
+      } catch(err) {
+        console.warn("Client-side QR generation error:", err);
+      }
+
+      if (dataUrl) {
+        targetImgEl.src = dataUrl;
+        return;
+      }
+
+      // Method 2: Global high-speed redundant online QR APIs fallback
+      const onlineApis = [
+        `https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=4&data=${encodeURIComponent(url)}`,
+        `https://quickchart.io/qr?text=${encodeURIComponent(url)}&size=240`
+      ];
+      let fallbackIndex = 0;
+      targetImgEl.onerror = () => {
+        fallbackIndex++;
+        if (fallbackIndex < onlineApis.length) {
+          targetImgEl.src = onlineApis[fallbackIndex];
+        }
+      };
+      targetImgEl.src = onlineApis[0];
+    }
+
     function openIpadKeySyncModal() {
       const input = document.getElementById('geminiApiKeyInput');
       const adminInput = document.getElementById('adminGlobalApiKeyInput');
@@ -5173,21 +5212,10 @@
       currentIpadSyncUrl = currentUrl.toString();
 
       const modal = document.getElementById('ipadKeySyncModal');
-      const canvas = document.getElementById('ipadSyncQrCanvas');
+      const img = document.getElementById('ipadSyncQrImg');
       if (modal) modal.classList.remove('hidden');
 
-      if (canvas && window.QRCode) {
-        QRCode.toCanvas(canvas, currentIpadSyncUrl, {
-          width: 200,
-          margin: 1,
-          color: {
-            dark: '#1E1B4B',
-            light: '#FFFFFF'
-          }
-        }, function(error) {
-          if (error) console.error("QR Code generation error:", error);
-        });
-      }
+      renderQrCodeImage(img, currentIpadSyncUrl);
       SoundEffects.playClick('open');
     }
 
@@ -8820,13 +8848,9 @@
     // QR CODE & MODAL HELPERS
     // ========================================================
     function initQRCode() {
-      const canvas = document.getElementById('qrCodeCanvas');
-      if (canvas && window.QRCode) {
-        QRCode.toCanvas(canvas, "https://honga0812.github.io/KaiSpeak/?v=27", {
-          width: 176,
-          margin: 1,
-          color: { dark: '#312E81', light: '#FFFFFF' }
-        });
+      const img = document.getElementById('qrCodeImg');
+      if (img) {
+        renderQrCodeImage(img, "https://honga0812.github.io/KaiSpeak/?v=27");
       }
     }
 
