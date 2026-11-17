@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.27";
+        const LATEST_VER = "26.11.28";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -137,8 +137,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.27（2026年·11月·第27次發布）">
-                26.11.27
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.28（2026年·11月·第28次發布）">
+                26.11.28
               </span>
             </div>
           </div>
@@ -365,7 +365,7 @@
             <span>奇妙星語言</span>
           </span>
           <div class="mt-1 flex items-center gap-1">
-            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.27（2026年·11月·第27次發布）">26.11.27</span>
+            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.28（2026年·11月·第28次發布）">26.11.28</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer flex items-center gap-1 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-2 py-0.5 transition shadow-2xs group-hover:border-amber-400" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -2126,7 +2126,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.27 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.28 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -2165,7 +2165,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.27 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.28 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -2238,7 +2238,7 @@
 
 
   <!-- ======================================================== -->
-  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.27)    -->
+  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.28)    -->
   <!-- ======================================================== -->
   <div id="vipUpgradeModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[89] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
     <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl border-2 border-amber-300 flex flex-col gap-4 my-auto max-h-[92vh] overflow-y-auto">
@@ -2750,15 +2750,15 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.27";
+    const APP_VERSION = "26.11.28";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
-    // Immediate sanitization of legacy Gemini 1.5 or deprecated 2.0 models from localStorage
+    // Immediate sanitization of legacy Gemini 1.5/2.0/2.5 models from localStorage
     try {
       const storedM = localStorage.getItem('kaispeak_gemini_active_model');
-      if (storedM && (storedM.includes('2.0') || storedM.includes('1.5'))) {
-        localStorage.removeItem('kaispeak_gemini_active_model');
-        localStorage.removeItem('kaispeak_gemini_api_version');
+      if (storedM && (storedM.includes('2.0') || storedM.includes('1.5') || storedM.includes('2.5') || storedM.includes('3.8'))) {
+        localStorage.setItem('kaispeak_gemini_active_model', 'gemini-3.5-flash');
+        localStorage.setItem('kaispeak_gemini_api_version', 'v1beta');
       }
     } catch(e){}
 
@@ -2771,7 +2771,7 @@
       if (syncKey && syncKey.trim().length > 10) {
         const cleanKey = syncKey.trim();
         localStorage.setItem('kaispeak_gemini_api_key', cleanKey);
-        localStorage.setItem('kaispeak_gemini_active_model', 'gemini-2.5-flash');
+        localStorage.setItem('kaispeak_gemini_active_model', 'gemini-3.5-flash');
         localStorage.setItem('kaispeak_gemini_api_version', 'v1beta');
         
         // Clear params from address bar for security
@@ -2946,7 +2946,7 @@
 
 
     // ========================================================
-    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.27)
+    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.28)
     // ========================================================
     const VIP_STORAGE_KEY = 'kaispeak_vip_info';
     const AI_USAGE_DATE_KEY = 'kaispeak_ai_usage_date';
@@ -3064,7 +3064,7 @@
       return true;
     }
 
-    // Marketing Campaigns & Agency Partners Definition (v26.11.27)
+    // Marketing Campaigns & Agency Partners Definition (v26.11.28)
     const SPECIAL_PROMO_CODES = {
       'TRIAL7D': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '官方社群促銷體驗專案', desc: '全功能解鎖 7 天' },
       'FREE7DAYS': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '限時早鳥推廣禮', desc: '全功能解鎖 7 天' },
@@ -5384,10 +5384,10 @@
     }
 
     // ========================================================
-    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.27)
+    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.28)
     // ========================================================
     let cachedServerApiKey = '';
-    let cachedServerModel = 'gemini-2.5-flash';
+    let cachedServerModel = 'gemini-3.5-flash';
     let isAdminSessionUnlocked = false;
     let adminCurrentTab = 'key'; // 'key' | 'profiles' | 'logs'
     let adminOverviewData = null;
@@ -5401,7 +5401,7 @@
           const data = await resp.json();
           if (data && data.geminiApiKey) {
             cachedServerApiKey = data.geminiApiKey.trim();
-            cachedServerModel = data.defaultModel || 'gemini-2.5-flash';
+            cachedServerModel = data.defaultModel || 'gemini-3.5-flash';
             console.log("%c [Server Config] Centralized Gemini API key loaded from backend ", "color: #10B981; font-weight: bold;");
             updateGeminiApiKeyUI();
           }
@@ -5514,7 +5514,7 @@
         adminOverviewData = {
           config: {
             geminiApiKey: localStorage.getItem('kaispeak_gemini_api_key') || cachedServerApiKey || '',
-            defaultModel: localStorage.getItem('kaispeak_gemini_active_model') || cachedServerModel || 'gemini-2.5-flash',
+            defaultModel: localStorage.getItem('kaispeak_gemini_active_model') || cachedServerModel || 'gemini-3.5-flash',
             adminPin: "9999",
             updatedAt: "本機儲存 (GitHub Pages 靜態模式)"
           },
@@ -5534,14 +5534,14 @@
           adminOverviewData = await resp.json();
           if (adminOverviewData.config && adminOverviewData.config.geminiApiKey) {
             cachedServerApiKey = adminOverviewData.config.geminiApiKey;
-            cachedServerModel = adminOverviewData.config.defaultModel || 'gemini-2.5-flash';
+            cachedServerModel = adminOverviewData.config.defaultModel || 'gemini-3.5-flash';
           }
         } else {
           // Fallback static mode
           adminOverviewData = {
             config: {
               geminiApiKey: localStorage.getItem('kaispeak_gemini_api_key') || cachedServerApiKey || '',
-              defaultModel: localStorage.getItem('kaispeak_gemini_active_model') || cachedServerModel || 'gemini-2.5-flash',
+              defaultModel: localStorage.getItem('kaispeak_gemini_active_model') || cachedServerModel || 'gemini-3.5-flash',
               adminPin: "9999",
               updatedAt: "本機儲存 (靜態模式)"
             },
@@ -5555,7 +5555,7 @@
         adminOverviewData = {
           config: {
             geminiApiKey: localStorage.getItem('kaispeak_gemini_api_key') || cachedServerApiKey || '',
-            defaultModel: localStorage.getItem('kaispeak_gemini_active_model') || cachedServerModel || 'gemini-2.5-flash',
+            defaultModel: localStorage.getItem('kaispeak_gemini_active_model') || cachedServerModel || 'gemini-3.5-flash',
             adminPin: "9999",
             updatedAt: "本機儲存 (離線模式)"
           },
@@ -5654,10 +5654,8 @@
               <div>
                 <label class="text-xs font-black text-slate-700 block mb-1">預設 AI 模型核心：</label>
                 <select id="adminGlobalModelSelect" class="w-full px-3 py-2 rounded-xl border border-slate-300 text-xs font-bold bg-white focus:border-indigo-600">
-                  <option value="gemini-2.5-flash" ${(!data.config.defaultModel || data.config.defaultModel === 'gemini-2.5-flash' || data.config.defaultModel === 'gemini-2.0-flash') ? 'selected' : ''}>gemini-2.5-flash（Google 官方旗艦推薦 · 最新極速核心）</option>
-                  <option value="gemini-2.0-flash" ${data.config.defaultModel === 'gemini-2.0-flash' ? 'selected' : ''}>gemini-2.0-flash（超低延遲 · 極致節能）</option>
-                  <option value="gemini-2.5-flash" ${data.config.defaultModel === 'gemini-2.5-flash' ? 'selected' : ''}>gemini-2.5-flash（穩定相容款）</option>
-                  <option value="gemini-2.0-flash" ${data.config.defaultModel === 'gemini-2.0-flash' ? '' : ''}>gemini-2.0-flash（經典相容備援）</option>
+                  <option value="gemini-3.5-flash" ${(!data.config.defaultModel || data.config.defaultModel === 'gemini-3.5-flash') ? 'selected' : ''}>gemini-3.5-flash（Google 官方旗艦推薦 · 最新超極速核心）</option>
+                  <option value="gemini-3.8-flash" ${data.config.defaultModel === 'gemini-3.8-flash' ? 'selected' : ''}>gemini-3.8-flash（Google 官方旗艦備援核心）</option>
                 </select>
               </div>
 
@@ -5856,7 +5854,7 @@
       const input = document.getElementById('adminGlobalApiKeyInput');
       const select = document.getElementById('adminGlobalModelSelect');
       const keyVal = input ? input.value.trim() : '';
-      const modelVal = select ? select.value : 'gemini-2.5-flash';
+      const modelVal = select ? select.value : 'gemini-3.5-flash';
 
       // 1. Always reliably save locally to current browser storage first
       if (keyVal) {
@@ -5918,7 +5916,7 @@
       // Always save locally first
       cachedServerApiKey = key;
       localStorage.setItem('kaispeak_gemini_api_key', key);
-      localStorage.setItem('kaispeak_gemini_active_model', 'gemini-2.5-flash');
+      localStorage.setItem('kaispeak_gemini_active_model', 'gemini-3.5-flash');
       updateGeminiApiKeyUI();
       SoundEffects.playShield();
 
@@ -5935,7 +5933,7 @@
           body: JSON.stringify({
             pin: "9999",
             geminiApiKey: key,
-            defaultModel: "gemini-2.5-flash"
+            defaultModel: "gemini-3.5-flash"
           })
         });
         const ct = resp.headers.get('content-type') || '';
@@ -6034,7 +6032,7 @@
         if (urlKey && urlKey.trim()) {
           const cleanKey = urlKey.trim();
           localStorage.setItem('kaispeak_gemini_api_key', cleanKey);
-          localStorage.setItem('kaispeak_gemini_active_model', 'gemini-2.5-flash');
+          localStorage.setItem('kaispeak_gemini_active_model', 'gemini-3.5-flash');
           urlParams.delete('key');
           urlParams.delete('geminiKey');
           const newSearch = urlParams.toString();
@@ -6162,9 +6160,8 @@
       const candidateModels = [
         chosenModel,
         'gemini-3.5-flash',
-        'gemini-3.8-flash',
-        'gemini-2.5-flash'
-      ].filter((v, i, a) => v && a.indexOf(v) === i);
+        'gemini-3.8-flash'
+      ].filter((v, i, a) => v && a.indexOf(v) === i && !v.includes('2.5') && !v.includes('2.0') && !v.includes('1.5'));
 
       let lastErrorMsg = "";
       let workingModel = null;
@@ -10540,7 +10537,7 @@
     };
 
     // ========================================================
-    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.27)
+    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.28)
     // ========================================================
     // 💡 App Store 開箱即用架構（商業發行標準）：
     // 透過 Cloudflare Worker 官方安全閘道器，免掃碼、免設定、0 秒直連 Google 官方 AI！
@@ -10953,23 +10950,16 @@
             console.log(`Available Gemini models on ${ver}:`, available);
 
             if (available.length > 0) {
-              // Preferred models in priority order (Google modern Gemini 3.8 / 2.5 / 2.0 series)
+              // Preferred models in priority order (Google modern Gemini 3.5 / 3.8 Flash series)
               const preferred = [
-                'gemini-2.5-flash',
-                'gemini-2.0-flash',
-                'gemini-2.5-flash',
-                'gemini-2.0-flash',
-                'gemini-2.0-flash-001',
-                'gemini-2.0-flash-lite',
-                'gemini-1.5-flash'
+                'gemini-3.5-flash',
+                'gemini-3.8-flash'
               ];
 
               let chosen = preferred.find(p => available.includes(p));
               if (!chosen) {
-                chosen = available.find(a => a.includes('3.8') && a.includes('flash')) ||
-                         available.find(a => a.includes('3.8')) ||
-                         available.find(a => a.includes('2.5') && a.includes('flash')) ||
-                         available.find(a => a.includes('2.5')) ||
+                chosen = available.find(a => a.includes('3.5') && a.includes('flash')) ||
+                         available.find(a => a.includes('3.8') && a.includes('flash')) ||
                          available.find(a => a.includes('flash')) ||
                          available[0];
               }
@@ -10984,15 +10974,10 @@
         }
       }
 
-      // 2. Direct probe fallback candidates across versions (modern Gemini 3.8 / 2.5 / 2.0 endpoints)
+      // 2. Direct probe fallback candidates across versions (modern Gemini 3.5 / 3.8 Flash endpoints)
       const candidates = [
-        { version: 'v1beta', model: 'gemini-2.5-flash' },
-        { version: 'v1beta', model: 'gemini-2.0-flash' },
-        { version: 'v1beta', model: 'gemini-2.5-flash' },
-        { version: 'v1beta', model: 'gemini-2.0-flash' },
-        { version: 'v1beta', model: 'gemini-2.0-flash-001' },
-        { version: 'v1beta', model: 'gemini-2.0-flash-lite' },
-        { version: 'v1beta', model: 'gemini-1.5-flash' }
+        { version: 'v1beta', model: 'gemini-3.5-flash' },
+        { version: 'v1beta', model: 'gemini-3.8-flash' }
       ];
 
       let lastError = null;
@@ -12016,14 +12001,14 @@
     }
 
     // ========================================================
-    // GEMINI 3.8 / 2.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR
+    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR
     // ========================================================
     async function callGeminiScenarioPlanner(userText, userLevel, apiKey) {
       // 1. Ensure valid official model from localStorage
       let activeModel = localStorage.getItem('kaispeak_gemini_active_model');
       let activeVer = localStorage.getItem('kaispeak_gemini_api_version') || 'v1beta';
-      if (!activeModel || activeModel.includes('3.8')) {
-        activeModel = 'gemini-2.5-flash';
+      if (!activeModel || activeModel.includes('1.5') || activeModel.includes('2.0') || activeModel.includes('2.5')) {
+        activeModel = 'gemini-3.5-flash';
         localStorage.setItem('kaispeak_gemini_active_model', activeModel);
         localStorage.setItem('kaispeak_gemini_api_version', activeVer);
       }
@@ -12037,7 +12022,7 @@
           localStorage.setItem('kaispeak_gemini_active_model', activeModel);
           localStorage.setItem('kaispeak_gemini_api_version', activeVer);
         } catch(e) {
-          activeModel = 'gemini-2.5-flash';
+          activeModel = 'gemini-3.5-flash';
           activeVer = 'v1beta';
         }
       }
@@ -12069,30 +12054,21 @@
   ]
 }`;
 
-      // Assemble candidates (Google Gemini 3.5 / 3.8 Flash via Cloudflare Gateway or Direct)
+      // Assemble candidates (Google Gemini 3.5 Flash via Cloudflare Gateway or Direct)
       const gatewayUrl = KAISPEAK_OFFICIAL_GATEWAY_CONFIG.gatewayUrl;
       const rawAttempts = [];
       if (gatewayUrl) {
         rawAttempts.push({ ver: 'v1beta', model: 'gemini-3.5-flash' });
-        rawAttempts.push({ ver: 'v1beta', model: 'gemini-3.8-flash' });
+      } else {
+        rawAttempts.push({ ver: activeVer || 'v1beta', model: activeModel || 'gemini-3.5-flash' });
+        rawAttempts.push({ ver: 'v1beta', model: 'gemini-3.5-flash' });
       }
-      if (activeModel && activeVer) {
-        rawAttempts.push({ ver: activeVer, model: activeModel });
-      }
-      if (detected && Array.isArray(detected.allAvailable)) {
-        detected.allAvailable.forEach(m => {
-          rawAttempts.push({ ver: detected.version, model: m });
-        });
-      }
-      rawAttempts.push(
-        { ver: 'v1beta', model: 'gemini-3.5-flash' },
-        { ver: 'v1beta', model: 'gemini-3.8-flash' }
-      );
 
       const uniqueAttempts = [];
       const seen = new Set();
       for (const a of rawAttempts) {
         if (!a || !a.ver || !a.model) continue;
+        if (a.model.includes('2.5') || a.model.includes('2.0') || a.model.includes('1.5')) continue;
         const k = `${a.ver}:${a.model}`;
         if (!seen.has(k)) {
           seen.add(k);
@@ -12178,7 +12154,14 @@
               }
             } else {
               const errJson = await resp.json().catch(() => ({}));
-              lastErr = errJson.error?.message || `HTTP ${resp.status}`;
+              const rawErrMsg = errJson.error?.message || `HTTP ${resp.status}`;
+              if (resp.status === 429 || rawErrMsg.includes('quota') || rawErrMsg.includes('RESOURCE_EXHAUSTED')) {
+                lastErr = `Google AI 官方額度或頻率已達上限 (429 Rate Limit / Quota Exceeded)。\n\n📌 說明：Google AI Studio 免費金鑰每日限額 20 次；若測試頻繁請稍後重試，或至 Google AI Studio 綁定帳單啟用 Pay-as-you-go（每千次生成僅約台幣 5 元，無每日次數限制）。`;
+              } else if (resp.status === 503 || rawErrMsg.includes('demand')) {
+                lastErr = `Google 官方 AI 模型目前處於高負載繁忙狀態 (503 High Demand)，請稍候 5~10 秒後重試。`;
+              } else {
+                lastErr = rawErrMsg;
+              }
               console.warn(`Attempt ${attempt.model} (${attempt.ver}) failed:`, lastErr);
               if (resp.status !== 400) break;
             }
@@ -13249,7 +13232,7 @@ ${existingSnippet || "無"}
 
       titleEl.innerText = plan.title;
       const isGemini = plan.source === 'gemini';
-      const modelTag = plan.modelUsed || 'gemini-2.5-flash';
+      const modelTag = plan.modelUsed || 'gemini-3.5-flash';
       const remainingQuota = getRemainingAiQuota();
 
       // Prominent AI Source Transparency Banner (100% transparent to consumer)

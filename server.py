@@ -54,7 +54,7 @@ def get_server_config():
     env_key = os.environ.get('GEMINI_API_KEY', '')
     default_cfg = {
         "geminiApiKey": env_key,
-        "defaultModel": "gemini-2.5-flash",
+        "defaultModel": "gemini-3.5-flash",
         "adminPin": "9999",
         "updatedAt": time.strftime("%Y-%m-%d %H:%M:%S")
     }
@@ -161,7 +161,7 @@ class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
             resp = {
                 "status": "ok",
                 "geminiApiKey": cfg.get("geminiApiKey", ""),
-                "defaultModel": cfg.get("defaultModel", "gemini-2.0-flash"),
+                "defaultModel": cfg.get("defaultModel", "gemini-3.5-flash"),
                 "hasServerKey": bool(cfg.get("geminiApiKey")),
                 "updatedAt": cfg.get("updatedAt", "")
             }
@@ -199,7 +199,7 @@ class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
                 "status": "ok",
                 "config": {
                     "geminiApiKey": cfg.get("geminiApiKey", ""),
-                    "defaultModel": cfg.get("defaultModel", "gemini-2.0-flash"),
+                    "defaultModel": cfg.get("defaultModel", "gemini-3.5-flash"),
                     "adminPin": cfg.get("adminPin", "9999"),
                     "updatedAt": cfg.get("updatedAt", "")
                 },
