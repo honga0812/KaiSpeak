@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.31";
+        const LATEST_VER = "26.11.32";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -137,8 +137,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.31（2026年·11月·第31次發布）">
-                26.11.31
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.32（2026年·11月·第32次發布）">
+                26.11.32
               </span>
             </div>
           </div>
@@ -150,10 +150,13 @@
 
       <!-- State 1: When profiles exist -> Show Profile Select Cards -->
       <div id="gateProfileSelectView" class="w-full flex flex-col items-center">
-        <h3 class="text-base sm:text-lg font-black text-slate-800 mb-1">
-          👋 歡迎來到美音樂園！請選擇學員：
-        </h3>
-        <p class="text-xs text-slate-500 mb-3.5">點選小朋友卡片即可 1 秒直接進入學習冒險！</p>
+        <div class="flex items-center justify-between w-full mb-1">
+          <h3 class="text-base sm:text-lg font-black text-slate-800">
+            👋 歡迎！請選擇學習小朋友：
+          </h3>
+          <span id="gateProfileCapacityBadge" class="text-[10px] bg-slate-100 text-slate-700 px-2.5 py-0.5 rounded-full font-bold">1/1 (免費版)</span>
+        </div>
+        <p class="text-xs text-slate-500 mb-3.5 text-left w-full">點選小朋友卡片即可 1 秒直接進入學習冒險！</p>
 
         <!-- Children Cards Grid -->
         <div id="gateProfilesGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-3 w-full mb-4">
@@ -352,7 +355,7 @@
             <span>奇妙星語言</span>
           </span>
           <div class="mt-1 flex items-center gap-1">
-            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.31（2026年·11月·第31次發布）">26.11.31</span>
+            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.32（2026年·11月·第32次發布）">26.11.32</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer flex items-center gap-1 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-2 py-0.5 transition shadow-2xs group-hover:border-amber-400" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -2120,7 +2123,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.31 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.32 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -2159,7 +2162,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.31 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.32 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -2232,7 +2235,7 @@
 
 
   <!-- ======================================================== -->
-  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.31)    -->
+  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.32)    -->
   <!-- ======================================================== -->
   <div id="vipUpgradeModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[89] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
     <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl border-2 border-amber-300 flex flex-col gap-4 my-auto max-h-[92vh] overflow-y-auto">
@@ -2744,7 +2747,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.31";
+    const APP_VERSION = "26.11.32";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // Immediate sanitization of legacy Gemini 1.5/2.0/2.5 models from localStorage
@@ -2940,7 +2943,7 @@
 
 
     // ========================================================
-    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.31)
+    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.32)
     // ========================================================
     const VIP_STORAGE_KEY = 'kaispeak_vip_info';
     const AI_USAGE_DATE_KEY = 'kaispeak_ai_usage_date';
@@ -3058,7 +3061,7 @@
       return true;
     }
 
-    // Marketing Campaigns & Agency Partners Definition (v26.11.31)
+    // Marketing Campaigns & Agency Partners Definition (v26.11.32)
     const SPECIAL_PROMO_CODES = {
       'TRIAL7D': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '官方社群促銷體驗專案', desc: '全功能解鎖 7 天' },
       'FREE7DAYS': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '限時早鳥推廣禮', desc: '全功能解鎖 7 天' },
@@ -3320,6 +3323,9 @@
 
       // 3. AI Daily Quota
       updateAiQuotaUI();
+
+      // 4. Update Gate Screen if active
+      renderGateScreen();
     }
 
     function updateAiQuotaUI() {
@@ -3553,7 +3559,22 @@
       const cancelBtn = document.getElementById('gateCancelCreateBtn');
       const quickDemoBtn = document.getElementById('gateQuickDemoBtn');
       const grid = document.getElementById('gateProfilesGrid');
+      const addBtn = document.getElementById('gateAddChildBtn');
       const addBtnText = document.getElementById('gateAddChildBtnText');
+      const capBadge = document.getElementById('gateProfileCapacityBadge');
+
+      const isVip = isUserVip();
+      const maxAllowed = isVip ? 5 : 1;
+
+      if (capBadge) {
+        if (isVip) {
+          capBadge.innerText = `${profiles.length}/5 位 (👑 VIP 旗艦版)`;
+          capBadge.className = "text-[10px] bg-amber-100 text-amber-900 px-2.5 py-0.5 rounded-full font-black border border-amber-300";
+        } else {
+          capBadge.innerText = `${profiles.length}/1 位 (🌿 免費版 · 上限 1 位)`;
+          capBadge.className = "text-[10px] bg-slate-100 text-slate-700 px-2.5 py-0.5 rounded-full font-bold";
+        }
+      }
 
       updateGateAvatarPreview();
 
@@ -3582,7 +3603,23 @@
         gateCreateView.classList.add('hidden');
 
         if (addBtnText) {
-          addBtnText.innerText = `➕ 新增小朋友學員檔案 (第 ${profiles.length + 1} 位)`;
+          if (!isVip && profiles.length >= 1) {
+            addBtnText.innerHTML = `👑 升級 VIP 解鎖新增第 ${profiles.length + 1} 位學員（免費版上限 1 位 · 點此解鎖 5 位）`;
+          } else if (isVip && profiles.length >= 5) {
+            addBtnText.innerText = `👑 已達 VIP 5 位學員儲存上限`;
+          } else {
+            addBtnText.innerText = `➕ 新增小朋友學員檔案 (第 ${profiles.length + 1} 位)`;
+          }
+        }
+
+        if (addBtn) {
+          if (!isVip && profiles.length >= 1) {
+            addBtn.className = "w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-amber-50 to-amber-100 hover:from-amber-100 hover:to-amber-200 text-amber-900 border-2 border-dashed border-amber-400 font-black text-xs sm:text-sm transition flex items-center justify-center gap-2 active:scale-95 shadow-xs mb-2 cursor-pointer";
+          } else if (isVip && profiles.length >= 5) {
+            addBtn.className = "w-full py-3 px-4 rounded-2xl bg-slate-100 text-slate-400 border-2 border-dashed border-slate-300 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 mb-2 cursor-not-allowed";
+          } else {
+            addBtn.className = "w-full py-3 px-4 rounded-2xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border-2 border-dashed border-indigo-300 font-black text-xs sm:text-sm transition flex items-center justify-center gap-2 active:scale-95 shadow-xs mb-2 cursor-pointer";
+          }
         }
 
         if (grid) {
@@ -3621,6 +3658,16 @@
     }
 
     function showGateAddChildForm() {
+      // 🔒 Tier Check: Free plan strictly limited to 1 profile; VIP supports up to 5 profiles
+      if (!isUserVip() && profiles && profiles.length >= 1) {
+        openVipUpgradeModal('profile_limit');
+        return;
+      }
+      if (isUserVip() && profiles && profiles.length >= 5) {
+        alert("👑 VIP 旗艦會員最多支援 5 位小朋友獨立存檔！如需管理更多學員，請聯繫系統管理員。");
+        return;
+      }
+
       document.getElementById('gateProfileSelectView').classList.add('hidden');
       const createView = document.getElementById('gateCreateProfileView');
       createView.classList.remove('hidden');
@@ -3645,6 +3692,17 @@
     }
 
     function confirmGateCreateProfile() {
+      // 🔒 Tier Check: Double-lock server / storage gate
+      if (!isUserVip() && profiles && profiles.length >= 1) {
+        cancelGateCreate();
+        openVipUpgradeModal('profile_limit');
+        return;
+      }
+      if (isUserVip() && profiles && profiles.length >= 5) {
+        alert("👑 VIP 旗艦會員最多支援 5 位小朋友獨立存檔！");
+        return;
+      }
+
       const nameInput = document.getElementById('gateInputName');
       const gradeSelect = document.getElementById('gateSelectGrade');
       const pinInput = document.getElementById('gateInputPin');
@@ -3692,6 +3750,7 @@
       profiles.push(newProfile);
       currentProfileId = newId;
       selectedCustomAvatar = null;
+      localStorage.setItem('kai_last_logged_in_profile', newId);
       saveProfilesToStorage();
       loadActiveProfileData();
 
@@ -3920,13 +3979,15 @@
       SoundEffects.playShield();
     }
 
-    function resetToDemoProfiles() {
-      profiles = JSON.parse(JSON.stringify(DEFAULT_PROFILES));
+    function resetToDemoProfiles(forceAll = false) {
+      const isVip = isUserVip();
+      const listToLoad = (forceAll || isVip) ? DEFAULT_PROFILES : [DEFAULT_PROFILES[0]];
+      profiles = JSON.parse(JSON.stringify(listToLoad));
       currentProfileId = profiles[0].id;
       saveProfilesToStorage();
       renderGateScreen();
       SoundEffects.playShield();
-      alert("🔄 已成功重置載入 2 位示範學員（Kai 寶貝 525天、Mia 妹妹 14天，預設 PIN 碼均為 1234）！");
+      alert(`🔄 已成功重置載入 ${profiles.length} 位示範學員（${profiles.map(p => p.name).join('、')}，預設 PIN 碼均為 1234）！`);
     }
 
     function clearAllProfilesForTesting() {
@@ -3967,7 +4028,9 @@
       }
 
       if (!profiles || profiles.length === 0) {
-        profiles = JSON.parse(JSON.stringify(DEFAULT_PROFILES));
+        const isVip = isUserVip();
+        const initialList = isVip ? DEFAULT_PROFILES : [DEFAULT_PROFILES[0]];
+        profiles = JSON.parse(JSON.stringify(initialList));
         const legacyStreak = localStorage.getItem('kai_streak_days');
         const legacyEnergy = localStorage.getItem('kai_energy_points');
         const legacyLogs = localStorage.getItem('kai_practice_logs');
@@ -5422,7 +5485,7 @@
     }
 
     // ========================================================
-    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.31)
+    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.32)
     // ========================================================
     let cachedServerApiKey = '';
     let cachedServerModel = 'gemini-3.5-flash';
@@ -5768,7 +5831,7 @@
                 首頁已面向小朋友純淨化，已移除首頁清空測試按鈕。開發者各項流程驗證請於此處操作：
               </p>
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-1">
-                <button type="button" onclick="if(confirm('確定要載入示範學員（Kai 寶貝 525天 / Mia 妹妹 14天）？')){ resetToDemoProfiles(); loadAdminOverview(); }" class="p-2.5 rounded-xl bg-white hover:bg-amber-100 border border-amber-300 text-amber-900 font-bold text-xs shadow-2xs active:scale-95 transition flex flex-col items-center justify-center gap-1 text-center">
+                <button type="button" onclick="if(confirm('確定要載入示範學員（Kai 寶貝 525天 / Mia 妹妹 14天）？')){ resetToDemoProfiles(true); loadAdminOverview(); }" class="p-2.5 rounded-xl bg-white hover:bg-amber-100 border border-amber-300 text-amber-900 font-bold text-xs shadow-2xs active:scale-95 transition flex flex-col items-center justify-center gap-1 text-center">
                   <span class="text-base">🔄</span>
                   <span>重置示範學員</span>
                   <span class="text-[9px] text-amber-600 font-normal">載入 Kai / Mia 測試</span>
@@ -10608,7 +10671,7 @@
     };
 
     // ========================================================
-    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.31)
+    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.32)
     // ========================================================
     // 💡 App Store 開箱即用架構（商業發行標準）：
     // 透過 Cloudflare Worker 官方安全閘道器，免掃碼、免設定、0 秒直連 Google 官方 AI！
