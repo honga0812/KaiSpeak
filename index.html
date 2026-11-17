@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.34";
+        const LATEST_VER = "26.11.35";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -137,8 +137,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.34（2026年·11月·第33次發布）">
-                26.11.34
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.35（2026年·11月·第33次發布）">
+                26.11.35
               </span>
             </div>
           </div>
@@ -355,7 +355,7 @@
             <span>奇妙星語言</span>
           </span>
           <div class="mt-1 flex items-center gap-1">
-            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.34（2026年·11月·第33次發布）">26.11.34</span>
+            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.35（2026年·11月·第33次發布）">26.11.35</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer flex items-center gap-1 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-2 py-0.5 transition shadow-2xs group-hover:border-amber-400" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -2123,7 +2123,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.34 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.35 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -2162,7 +2162,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.34 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.35 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -2235,7 +2235,7 @@
 
 
   <!-- ======================================================== -->
-  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.34)    -->
+  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.35)    -->
   <!-- ======================================================== -->
   <div id="vipUpgradeModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[89] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
     <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl border-2 border-amber-300 flex flex-col gap-4 my-auto max-h-[92vh] overflow-y-auto">
@@ -2747,7 +2747,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.34";
+    const APP_VERSION = "26.11.35";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // Immediate sanitization of legacy Gemini 1.5/2.0/2.5 models from localStorage
@@ -2943,7 +2943,7 @@
 
 
     // ========================================================
-    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.34)
+    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.35)
     // ========================================================
     const VIP_STORAGE_KEY = 'kaispeak_vip_info';
     const AI_USAGE_DATE_KEY = 'kaispeak_ai_usage_date';
@@ -3061,7 +3061,7 @@
       return true;
     }
 
-    // Marketing Campaigns & Agency Partners Definition (v26.11.34)
+    // Marketing Campaigns & Agency Partners Definition (v26.11.35)
     const SPECIAL_PROMO_CODES = {
       'TRIAL7D': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '官方社群促銷體驗專案', desc: '全功能解鎖 7 天' },
       'FREE7DAYS': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '限時早鳥推廣禮', desc: '全功能解鎖 7 天' },
@@ -5550,7 +5550,7 @@
     }
 
     // ========================================================
-    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.34)
+    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.35)
     // ========================================================
     let cachedServerApiKey = '';
     let cachedServerModel = 'gemini-3.5-flash';
@@ -10739,7 +10739,7 @@
     };
 
     // ========================================================
-    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.34)
+    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.35)
     // ========================================================
     // 💡 App Store 開箱即用架構（商業發行標準）：
     // 透過 Cloudflare Worker 官方安全閘道器，免掃碼、免設定、0 秒直連 Google 官方 AI！
@@ -10884,10 +10884,26 @@
         btn.innerHTML = '<span>⏳ 測速中...</span>';
       }
 
+      const key = getStoredGeminiApiKey();
+      const isDirectKey = Boolean(key && key.startsWith('AIza'));
       const gwUrl = KAISPEAK_OFFICIAL_GATEWAY_CONFIG.gatewayUrl;
+
       const t0 = performance.now();
       try {
-        const resp = await fetch(`${gwUrl}?model=gemini-3.5-flash`, {
+        let testUrl = '';
+        let channelName = '';
+
+        if (isDirectKey) {
+          channelName = 'Google 官方端點 (台灣本機直連 · 0代理延遲)';
+          testUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash:generateContent?key=${encodeURIComponent(key)}`;
+        } else if (gwUrl) {
+          channelName = 'Cloudflare Worker 安全閘道器';
+          testUrl = `${gwUrl}${gwUrl.includes('?') ? '&' : '?'}model=gemini-3.5-flash`;
+        } else {
+          throw new Error('未配置 API Key 亦無官方網關端點');
+        }
+
+        const resp = await fetch(testUrl, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -10901,16 +10917,28 @@
           const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() || '連通正常';
           SoundEffects.playClick('unlock');
           alert(`🎉【AI 雲端連線診斷大成功！】\n\n` +
-                `✅ 安全閘道：Cloudflare Worker (雙向正常連通)\n` +
-                `✅ AI 核心模型：Google 官方 Gemini 3.5 Flash (gemini-3.6-flash live)\n` +
+                `✅ 連線通道：${channelName}\n` +
+                `✅ AI 核心模型：Google 官方 Gemini 3.5 Flash\n` +
                 `⚡ 網路往返延遲：${latency} 毫秒 (${(latency/1000).toFixed(2)} 秒)\n` +
                 `💬 AI 即時應答：「${reply}」\n\n` +
-                `已確認您的設備與 Cloudflare 網關 100% 暢通！在麥克風說話後點擊「分析規劃」，將由 Google 大模型為您量身打造微課堂！`);
+                `已確認連線 100% 暢通！在麥克風說話後點擊「分析規劃」，將由 Google 大模型為您量身打造微課堂！`);
         } else {
           const errData = await resp.json().catch(() => ({}));
           const errMsg = (errData.error && errData.error.message) ? errData.error.message : (errData.error || `HTTP ${resp.status}`);
           SoundEffects.playClick('close');
-          alert(`❌【AI 雲端連線診斷失敗】\n\n狀態碼：HTTP ${resp.status}\n錯誤訊息：${errMsg}\n\n請確認您的設備是否有連上網路。`);
+
+          if (errMsg.includes('User location is not supported')) {
+            alert(`⚠️【檢測到 Cloudflare 節點地區限制 (User location)】\n\n` +
+                  `原因說明：\n` +
+                  `Cloudflare 免費 Worker 在亞洲區常被分配至「香港 (HKG) 邊緣節點」，而 Google 官方限制了香港 IP 訪問 AI Studio。\n\n` +
+                  `💡 立即解決方式（推薦方案 1）：\n` +
+                  `1. 點擊畫面右上角「⚙️ 設定」➜ 找到「Google Gemini API 設定」。\n` +
+                  `2. 貼上您的 Google API Key（AIza 開頭）並儲存。\n` +
+                  `👉 儲存後 KaiSpeak 將直接使用您的設備（台灣本機 IP）直連 Google 官方，100% 暢通秒級響應，完全不再受 Cloudflare 節點限制！\n\n` +
+                  `（備選方案 2：若要繼續使用 Cloudflare Worker，請至 Cloudflare 後台 Worker 的 Settings ➜ Placement 將地區設置為美國 us-central1 即可）`);
+          } else {
+            alert(`❌【AI 雲端連線診斷失敗】\n\n連線端點：${channelName}\n狀態碼：HTTP ${resp.status}\n錯誤訊息：${errMsg}\n\n請確認您的設備網路連線或 API 金鑰配置。`);
+          }
         }
       } catch (err) {
         SoundEffects.playClick('close');
@@ -12215,7 +12243,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.34)
+    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.35)
     // ========================================================
     function parseScenarioJsonResponse(rawText) {
       if (!rawText || typeof rawText !== 'string') return null;
@@ -12320,7 +12348,7 @@
     }
 
     // ========================================================
-    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.34)
+    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.35)
     // ========================================================
     async function callGeminiScenarioPlanner(userText, userLevel, apiKey) {
       // 1. Ensure valid official model from localStorage
@@ -12373,8 +12401,9 @@
   ]
 }`;
 
-      // Assemble candidates (Google Gemini 3.5 Flash via Cloudflare Gateway or Direct)
-      const gatewayUrl = KAISPEAK_OFFICIAL_GATEWAY_CONFIG.gatewayUrl;
+      // Assemble candidates: Direct Taiwan IP first if using AIza key, otherwise Cloudflare Gateway
+      const isDirectKey = Boolean(apiKey && apiKey.startsWith('AIza'));
+      const gatewayUrl = isDirectKey ? null : KAISPEAK_OFFICIAL_GATEWAY_CONFIG.gatewayUrl;
       const rawAttempts = [];
       if (gatewayUrl) {
         rawAttempts.push({ ver: 'v1beta', model: 'gemini-3.5-flash' });
@@ -12836,7 +12865,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.34)
+    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.35)
     // ========================================================
     const KaiSpeechEngine = {
       preferredVoice: null,
@@ -13344,7 +13373,8 @@ ${existingSnippet || "無"}
         localStorage.removeItem('kaispeak_gemini_api_version');
       }
 
-      const gatewayUrl = KAISPEAK_OFFICIAL_GATEWAY_CONFIG.gatewayUrl;
+      const isDirectKey = Boolean(apiKey && apiKey.startsWith('AIza'));
+      const gatewayUrl = isDirectKey ? null : KAISPEAK_OFFICIAL_GATEWAY_CONFIG.gatewayUrl;
       const rawAttempts = [];
       if (gatewayUrl) {
         rawAttempts.push({ ver: 'v1beta', model: 'gemini-3.5-flash' });
