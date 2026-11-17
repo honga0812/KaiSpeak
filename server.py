@@ -269,9 +269,9 @@ class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
                         subprocess.run(['say', '-v', chosen_voice, '-r', str(rate), text, '-o', temp_aiff], check=True)
                     except Exception:
                         try:
-                            subprocess.run(['say', '-v', 'Junior', '-r', str(rate), text, '-o', temp_aiff], check=True)
-                        except Exception:
                             subprocess.run(['say', '-v', 'Samantha', '-r', str(rate), text, '-o', temp_aiff], check=True)
+                        except Exception:
+                            subprocess.run(['say', '-v', 'Alex', '-r', str(rate), text, '-o', temp_aiff], check=True)
 
                     subprocess.run(['afconvert', '-f', 'm4af', '-d', 'aac', '-b', '64000', temp_aiff, cached_m4a], check=True)
                     if os.path.exists(temp_aiff):

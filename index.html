@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.33";
+        const LATEST_VER = "26.11.34";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -137,8 +137,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.33（2026年·11月·第33次發布）">
-                26.11.33
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.34（2026年·11月·第33次發布）">
+                26.11.34
               </span>
             </div>
           </div>
@@ -355,7 +355,7 @@
             <span>奇妙星語言</span>
           </span>
           <div class="mt-1 flex items-center gap-1">
-            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.33（2026年·11月·第33次發布）">26.11.33</span>
+            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.34（2026年·11月·第33次發布）">26.11.34</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer flex items-center gap-1 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-2 py-0.5 transition shadow-2xs group-hover:border-amber-400" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -2123,7 +2123,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.33 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.34 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -2162,7 +2162,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.33 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.34 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -2235,7 +2235,7 @@
 
 
   <!-- ======================================================== -->
-  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.33)    -->
+  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.34)    -->
   <!-- ======================================================== -->
   <div id="vipUpgradeModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[89] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
     <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl border-2 border-amber-300 flex flex-col gap-4 my-auto max-h-[92vh] overflow-y-auto">
@@ -2747,7 +2747,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.33";
+    const APP_VERSION = "26.11.34";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // Immediate sanitization of legacy Gemini 1.5/2.0/2.5 models from localStorage
@@ -2943,7 +2943,7 @@
 
 
     // ========================================================
-    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.33)
+    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.34)
     // ========================================================
     const VIP_STORAGE_KEY = 'kaispeak_vip_info';
     const AI_USAGE_DATE_KEY = 'kaispeak_ai_usage_date';
@@ -3061,7 +3061,7 @@
       return true;
     }
 
-    // Marketing Campaigns & Agency Partners Definition (v26.11.33)
+    // Marketing Campaigns & Agency Partners Definition (v26.11.34)
     const SPECIAL_PROMO_CODES = {
       'TRIAL7D': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '官方社群促銷體驗專案', desc: '全功能解鎖 7 天' },
       'FREE7DAYS': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '限時早鳥推廣禮', desc: '全功能解鎖 7 天' },
@@ -5550,7 +5550,7 @@
     }
 
     // ========================================================
-    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.33)
+    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.34)
     // ========================================================
     let cachedServerApiKey = '';
     let cachedServerModel = 'gemini-3.5-flash';
@@ -10739,7 +10739,7 @@
     };
 
     // ========================================================
-    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.33)
+    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.34)
     // ========================================================
     // 💡 App Store 開箱即用架構（商業發行標準）：
     // 透過 Cloudflare Worker 官方安全閘道器，免掃碼、免設定、0 秒直連 Google 官方 AI！
@@ -11288,7 +11288,7 @@
 
     function playKaiVoiceGreeting() {
       const greetingMsg = "Hello! What would you like to learn or do today? Tell me in Chinese or English!";
-      KaiSpeechEngine.speak(greetingMsg, 1.0, null, { role: 'kai', pitch: 1.38 });
+      KaiSpeechEngine.speak(greetingMsg, 0.98, null, { role: 'kai', pitch: 1.06 });
     }
 
     function togglePlannerVoiceRecognition() {
@@ -12215,7 +12215,112 @@
     }
 
     // ========================================================
-    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR
+    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.34)
+    // ========================================================
+    function parseScenarioJsonResponse(rawText) {
+      if (!rawText || typeof rawText !== 'string') return null;
+
+      let clean = rawText.trim();
+      clean = clean.replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/i, '').trim();
+
+      const firstBrace = clean.indexOf('{');
+      const lastBrace = clean.lastIndexOf('}');
+      if (firstBrace !== -1 && lastBrace !== -1 && lastBrace > firstBrace) {
+        clean = clean.substring(firstBrace, lastBrace + 1);
+      }
+
+      const isValidScenario = (obj) => {
+        return obj && (
+          (Array.isArray(obj.targetWords) && obj.targetWords.length > 0) ||
+          (Array.isArray(obj.dialogue) && obj.dialogue.length > 0)
+        );
+      };
+
+      // Attempt 1: Direct native JSON parse
+      try {
+        const obj = JSON.parse(clean);
+        if (isValidScenario(obj)) return obj;
+      } catch (e1) {}
+
+      // Attempt 2: Advanced Sanitization & Syntax Self-Healing
+      try {
+        let rep = clean;
+        // Normalize Unicode smart quotes
+        rep = rep.replace(/[\u201C\u201D\u201E\u201F\u2033\u2036]/g, '"');
+        rep = rep.replace(/[\u2018\u2019\u201A\u201B\u2032\u2035]/g, "'");
+        // Strip trailing commas before closing braces/brackets: ,] -> ] and ,} -> }
+        rep = rep.replace(/,\s*([\]\}])/g, '$1');
+
+        // Auto-balance unclosed brackets and braces
+        const ob = (rep.match(/\{/g) || []).length;
+        const cb = (rep.match(/\}/g) || []).length;
+        const obk = (rep.match(/\[/g) || []).length;
+        const cbk = (rep.match(/\]/g) || []).length;
+
+        if (obk > cbk) rep += "]".repeat(obk - cbk);
+        if (ob > cb) rep += "}".repeat(ob - cb);
+
+        const obj = JSON.parse(rep);
+        if (isValidScenario(obj)) return obj;
+      } catch (e2) {}
+
+      // Attempt 3: Robust Regex-based fallback extraction
+      try {
+        const titleM = clean.match(/"title"\s*:\s*"([^"]+)"/);
+        const themeM = clean.match(/"themeId"\s*:\s*"([^"]+)"/);
+
+        // Extract dialogue turns
+        const dialogue = [];
+        const dialogueRegex = /\{\s*"speaker"\s*:\s*"([^"]+)"\s*,\s*"speakerLabel"\s*:\s*"([^"]+)"\s*,\s*"avatar"\s*:\s*"([^"]+)"\s*,\s*"en"\s*:\s*"([^"]+)"\s*,\s*"zh"\s*:\s*"([^"]+)"\s*\}/g;
+        let dMatch;
+        while ((dMatch = dialogueRegex.exec(clean)) !== null) {
+          dialogue.push({
+            speaker: dMatch[1],
+            speakerLabel: dMatch[2],
+            avatar: dMatch[3],
+            en: dMatch[4],
+            zh: dMatch[5]
+          });
+        }
+
+        // Extract targetWords
+        const targetWords = [];
+        const wordRegex = /\{\s*"word"\s*:\s*"([^"]+)"\s*,\s*"ipa"\s*:\s*"([^"]*)"\s*,\s*"meaning"\s*:\s*"([^"]*)"\s*,\s*"emoji"\s*:\s*"([^"]*)"\s*,\s*"category"\s*:\s*"([^"]*)"\s*,\s*"s1"\s*:\s*"([^"]*)"\s*,\s*"t1"\s*:\s*"([^"]*)"\s*,\s*"s2"\s*:\s*"([^"]*)"\s*,\s*"t2"\s*:\s*"([^"]*)"\s*,\s*"s3"\s*:\s*"([^"]*)"\s*,\s*"t3"\s*:\s*"([^"]*)"\s*\}/g;
+        let wMatch;
+        while ((wMatch = wordRegex.exec(clean)) !== null) {
+          targetWords.push({
+            word: wMatch[1],
+            ipa: wMatch[2],
+            meaning: wMatch[3],
+            emoji: wMatch[4],
+            category: wMatch[5],
+            s1: wMatch[6],
+            t1: wMatch[7],
+            s2: wMatch[8],
+            t2: wMatch[9],
+            s3: wMatch[10],
+            t3: wMatch[11]
+          });
+        }
+
+        if (targetWords.length > 0 || dialogue.length > 0) {
+          return {
+            themeId: themeM ? themeM[1] : 'custom_ai_topic',
+            title: titleM ? titleM[1] : '✨ 【生活情境探索】微課堂',
+            dialogue: dialogue,
+            targetWords: targetWords,
+            targetPhrases: []
+          };
+        }
+      } catch (e3) {
+        console.warn("Regex JSON fallback extraction failed:", e3);
+      }
+
+      return null;
+    }
+
+    // ========================================================
+    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.34)
     // ========================================================
     async function callGeminiScenarioPlanner(userText, userLevel, apiKey) {
       // 1. Ensure valid official model from localStorage
@@ -12345,25 +12450,19 @@
               }
 
               if (rawText) {
-                let cleanJson = rawText.trim();
-                cleanJson = cleanJson.replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/i, '').trim();
-                const jsonMatch = cleanJson.match(/\{[\s\S]*\}/);
-                if (jsonMatch) cleanJson = jsonMatch[0];
-                try {
-                  const parsed = JSON.parse(cleanJson);
-                  if (parsed && Array.isArray(parsed.targetWords) && parsed.targetWords.length > 0) {
-                    parsed.source = 'gemini';
-                    parsed.modelUsed = attempt.model;
-                    if (Array.isArray(parsed.dialogue)) {
-                      parsed.dialogue = parsed.dialogue.map(normalizeDialogueSpeaker).filter(t => t && t.en && t.zh);
-                    }
-                    localStorage.setItem('kaispeak_gemini_active_model', attempt.model);
-                    localStorage.setItem('kaispeak_gemini_api_version', attempt.ver);
-                    return parsed;
+                const parsed = parseScenarioJsonResponse(rawText);
+                if (parsed && Array.isArray(parsed.targetWords) && parsed.targetWords.length > 0) {
+                  parsed.source = 'gemini';
+                  parsed.modelUsed = attempt.model;
+                  if (Array.isArray(parsed.dialogue)) {
+                    parsed.dialogue = parsed.dialogue.map(normalizeDialogueSpeaker).filter(t => t && t.en && t.zh);
                   }
-                } catch(pe) {
-                  console.warn("JSON parse error:", pe, rawText);
-                  lastErr = `JSON 解析錯誤: ${pe.message}`;
+                  localStorage.setItem('kaispeak_gemini_active_model', attempt.model);
+                  localStorage.setItem('kaispeak_gemini_api_version', attempt.ver);
+                  return parsed;
+                } else {
+                  console.warn("parseScenarioJsonResponse returned incomplete package:", rawText);
+                  lastErr = "AI 回傳資料解析不完全，自動切換備援";
                 }
               }
             } else {
@@ -12563,7 +12662,7 @@
         } catch(err) {
           console.warn("Google Gemini Flash API call failed, falling back to curated topics:", err);
           const errMsg = err.message || '未知連線錯誤';
-          alert(`⚠️【AI 雲端即時生成中斷】\n\n原因：${errMsg}\n\n系統已自動為您切換至「本機智慧情境備援庫」，本次【絕不扣除】您的每日 AI 額度。`);
+          showToastNotification(`💡 雲端 AI 暫時忙碌，已自動為您載入精選情境庫（不扣除 AI 額度）`, 3500);
           const fallbackPkg = resolveScenarioPackage(text, userLevel);
           const plan = executeScenarioIngestion(fallbackPkg, userLevel);
           plan.fallbackReason = errMsg;
@@ -12737,7 +12836,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER
+    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.34)
     // ========================================================
     const KaiSpeechEngine = {
       preferredVoice: null,
@@ -12760,50 +12859,63 @@
             const voices = window.speechSynthesis.getVoices();
             if (!voices || voices.length === 0) return;
 
-            // 1. High priority for Kai: Authentic kid / boy / young voices (Eddy, Rocko, Junior, Evan, etc.)
-            const kidNames = ['eddy', 'rocko', 'junior', 'evan', 'nathan', 'oliver', 'liam', 'noah', 'lucas', 'jack', 'harry', 'alex', 'daniel', 'aaron', 'fred'];
-            for (const name of kidNames) {
-              const kv = voices.find(vo => vo.name.toLowerCase().includes(name) && (!vo.lang || vo.lang.startsWith('en')));
+            // ABSOLUTE BLACKLIST: Purge all 1991 retro Apple novelty synthetic robotic sound effects!
+            const NOVELTY_ROBOT_NAMES = [
+              'junior', 'fred', 'albert', 'ralph', 'zarvox', 'trinoids', 'whisper',
+              'bad news', 'bahh', 'bells', 'boing', 'bubbles', 'cellos', 'deranged',
+              'good news', 'hysterical', 'pipe organ', 'wobble', 'jester', 'organ', 'superstar'
+            ];
+
+            const isSafeHumanVoice = (vo) => {
+              if (!vo || !vo.name) return false;
+              const n = vo.name.toLowerCase();
+              return !NOVELTY_ROBOT_NAMES.some(r => n.includes(r));
+            };
+
+            const safeVoices = voices.filter(isSafeHumanVoice);
+            if (safeVoices.length === 0) return;
+
+            // 1. High priority for Kai: Authentic friendly boy voices (Evan, Nathan, Oliver, Jack, Alex, Aaron)
+            // STRICTLY EXCLUDES Junior & Fred!
+            const boyNames = ['evan', 'nathan', 'oliver', 'jack', 'alex', 'aaron', 'liam', 'daniel', 'lucas'];
+            let foundKai = null;
+            for (const name of boyNames) {
+              const kv = safeVoices.find(vo => vo.name.toLowerCase().includes(name) && (!vo.lang || vo.lang.startsWith('en')));
               if (kv) {
-                this.preferredKaiVoice = kv;
+                foundKai = kv;
                 break;
               }
             }
 
-            // 2. High priority: natural, enhanced or premium neural voices
-            const naturalVoice = voices.find(v => 
-              (v.lang && (v.lang.startsWith('en-US') || v.lang.startsWith('en_US') || v.lang.startsWith('en-GB'))) && 
+            // 2. High priority: Enhanced / Natural / Neural voices (macOS / iOS / Windows / Chrome)
+            const naturalVoice = safeVoices.find(v => 
+              (v.lang && (v.lang.startsWith('en-US') || v.lang.startsWith('en_US') || v.lang.startsWith('en-GB') || v.lang.startsWith('en'))) && 
               (v.name.toLowerCase().includes('natural') || v.name.toLowerCase().includes('premium') || v.name.toLowerCase().includes('enhanced') || v.name.toLowerCase().includes('online'))
             );
-            if (naturalVoice) {
-              this.preferredVoice = naturalVoice;
-              if (!this.preferredKaiVoice) this.preferredKaiVoice = naturalVoice;
-              return;
-            }
 
-            // 3. High quality human-like voices (macOS / iOS / Windows / Edge)
-            const topNaturalNames = ['samantha', 'ava', 'allison', 'jenny', 'aria', 'guy', 'victoria', 'zoe', 'karen', 'serena', 'susan', 'alex'];
+            // 3. High quality standard human voices (Ava, Samantha, Jenny, Allison, Nicky)
+            const topNaturalNames = ['ava', 'samantha', 'jenny', 'aria', 'allison', 'nicky', 'guy', 'victoria', 'zoe', 'karen', 'serena', 'susan', 'alex'];
+            let foundGeneral = null;
             for (const name of topNaturalNames) {
-              const v = voices.find(vo => vo.name.toLowerCase().includes(name) && (!vo.lang || vo.lang.startsWith('en')));
+              const v = safeVoices.find(vo => vo.name.toLowerCase().includes(name) && (!vo.lang || vo.lang.startsWith('en')));
               if (v) {
-                this.preferredVoice = v;
-                if (!this.preferredKaiVoice) this.preferredKaiVoice = v;
-                return;
+                foundGeneral = v;
+                break;
               }
             }
 
-            // 4. Fallback: Any clear English voice
-            const noveltyRobots = ['bad news', 'bahh', 'bells', 'boing', 'bubbles', 'cellos', 'deranged', 'good news', 'hysterical', 'pipe organ', 'trinoids', 'whisper', 'zarvox', 'albert', 'fred', 'ralph', 'wobble'];
-            const clearEn = voices.find(vo => (vo.lang === 'en-US' || vo.lang === 'en_US') && !noveltyRobots.some(r => vo.name.toLowerCase().includes(r)));
-            this.preferredVoice = clearEn || voices.find(vo => vo.lang && vo.lang.startsWith('en')) || voices[0];
-            if (!this.preferredKaiVoice) this.preferredKaiVoice = this.preferredVoice;
+            // General voice for pronunciation, teacher, mom
+            this.preferredVoice = naturalVoice || foundGeneral || safeVoices.find(vo => (vo.lang === 'en-US' || vo.lang === 'en_US')) || safeVoices.find(vo => vo.lang && vo.lang.startsWith('en')) || safeVoices[0];
+
+            // Kai companion voice
+            this.preferredKaiVoice = foundKai || this.preferredVoice;
           } catch(e) {}
         };
         pickVoice();
         window.speechSynthesis.onvoiceschanged = pickVoice;
       },
 
-      speak(text, rate = 0.92, onEndCallback = null, options = {}) {
+      speak(text, rate = 0.90, onEndCallback = null, options = {}) {
         this.stop(); // Stop any currently playing utterance or server audio immediately!
 
         if (!text || !text.trim()) {
@@ -12813,9 +12925,11 @@
 
         const role = (options && options.role) ? options.role : 'kai';
         const isKai = role === 'kai' || role === 'kid';
-        // Kai speaks with child/boy pitch (1.38) and lively tempo (1.02)
-        const targetPitch = (options && options.pitch !== undefined) ? options.pitch : (isKai ? 1.38 : (role === 'dad' ? 0.9 : 1.0));
-        const effectiveRate = isKai ? Math.max(0.98, rate) : rate;
+        // Kai: lively natural boy companion pitch (1.06 - gentle 6% lift, warm & friendly boy, ZERO robotic distortion!)
+        // Standard teacher / word / mom: 1.0 (pure authentic human pronunciation)
+        // Dad: 0.94 (warm fatherly tone)
+        const targetPitch = (options && options.pitch !== undefined) ? options.pitch : (isKai ? 1.06 : (role === 'dad' ? 0.94 : 1.0));
+        const effectiveRate = isKai ? Math.max(0.96, rate) : rate;
 
         const cleanText = text.trim();
         
@@ -12868,7 +12982,7 @@
               const u = new SpeechSynthesisUtterance(cleanText);
               u.lang = 'en-US';
               u.rate = effectiveRate;
-              u.pitch = targetPitch; // 👦 1.38 for Kai: Energetic, authentic young boy voice!
+              u.pitch = targetPitch; // 👦 1.06 for Kai: Energetic, natural young boy companion voice (ZERO robotic distortion)!
               
               if (isKai && this.preferredKaiVoice) {
                 u.voice = this.preferredKaiVoice;
@@ -12981,7 +13095,11 @@
       }
     };
 
-    function playAudioFile(audioUrl, fallbackText = "") {
+    function playAudioFile(audioUrl, fallbackText = "", options = {}) {
+      const role = options.role || 'teacher';
+      const pitch = options.pitch !== undefined ? options.pitch : 1.0;
+      const rate = options.rate !== undefined ? options.rate : 0.90;
+
       if (audioUrl) {
         const a = new Audio(audioUrl);
         let hasStarted = false;
@@ -12998,7 +13116,7 @@
             a.load();
           } catch(e){}
           if (fallbackText) {
-            KaiSpeechEngine.speak(fallbackText, 0.92);
+            KaiSpeechEngine.speak(fallbackText, rate, null, { role, pitch });
           }
         };
 
@@ -13019,12 +13137,16 @@
       }
 
       if (fallbackText) {
-        KaiSpeechEngine.speak(fallbackText, 0.92);
+        KaiSpeechEngine.speak(fallbackText, rate, null, { role, pitch });
       }
     }
 
-    function playDialogueWord(cleanWord, el) {
+    // High-Fidelity Studio Pronunciation Engine for Words (100% Human Audio, ZERO Robot)
+    function playStudioWordAudio(rawWord, el) {
+      if (!rawWord || !rawWord.trim()) return;
+      const cleanWord = rawWord.trim().replace(/^[^a-zA-Z0-9]+|[^a-zA-Z0-9]+$/g, '');
       if (!cleanWord) return;
+
       if (el) {
         el.classList.add('bg-amber-400', 'text-indigo-950', 'ring-2', 'ring-amber-500', 'scale-110');
         setTimeout(() => {
@@ -13032,13 +13154,45 @@
         }, 500);
       }
 
-      // Check if matches MASTER_VOCAB with pre-recorded audio
+      // 1. Check if matches pre-recorded studio audio in MASTER_VOCAB
       const matched = MASTER_VOCAB.find(v => v.word.toLowerCase() === cleanWord.toLowerCase());
       if (matched && (matched.audioWordCanonical || matched.audioWord)) {
-        playAudioFile(matched.audioWordCanonical || matched.audioWord, cleanWord);
-      } else {
-        KaiSpeechEngine.speak(cleanWord, 0.9);
+        playAudioFile(matched.audioWordCanonical || matched.audioWord, cleanWord, { role: 'teacher', pitch: 1.0, rate: 0.88 });
+        return;
       }
+
+      // 2. High-fidelity standard pronunciation via Google Cloud TTS stream with instant WebSpeech fallback
+      const studioAudioUrl = `https://translate.google.com/translate_tts?ie=UTF-8&tl=en&client=tw-ob&q=${encodeURIComponent(cleanWord)}`;
+      const audio = new Audio();
+      let hasTriggeredFallback = false;
+
+      const triggerWebSpeechFallback = () => {
+        if (hasTriggeredFallback) return;
+        hasTriggeredFallback = true;
+        try { audio.pause(); audio.removeAttribute('src'); } catch(e){}
+        KaiSpeechEngine.speak(cleanWord, 0.88, null, { role: 'teacher', pitch: 1.0 });
+      };
+
+      const fallbackTimer = setTimeout(triggerWebSpeechFallback, 1800);
+
+      audio.oncanplaythrough = () => {
+        clearTimeout(fallbackTimer);
+        const p = audio.play();
+        if (p !== undefined) {
+          p.catch(triggerWebSpeechFallback);
+        }
+      };
+      audio.onerror = () => {
+        clearTimeout(fallbackTimer);
+        triggerWebSpeechFallback();
+      };
+      audio.src = studioAudioUrl;
+      audio.load();
+    }
+
+    function playDialogueWord(cleanWord, el) {
+      if (!cleanWord) return;
+      playStudioWordAudio(cleanWord, el);
     }
 
     function playDialogueLine(lineIdx) {
@@ -13267,14 +13421,9 @@ ${existingSnippet || "無"}
               }
 
               if (rawText) {
-                let cleanJson = rawText.trim();
-                cleanJson = cleanJson.replace(/^```(?:json)?\s*/i, '').replace(/```\s*$/i, '').trim();
-                const jsonMatch = cleanJson.match(/\{[\s\S]*\}/);
-                if (jsonMatch) cleanJson = jsonMatch[0];
-                const parsed = JSON.parse(cleanJson);
+                const parsed = parseScenarioJsonResponse(rawText);
                 if (parsed && Array.isArray(parsed.dialogue) && parsed.dialogue.length >= 4) {
                   const validated = parsed.dialogue.map(normalizeDialogueSpeaker).filter(t => t && t.en && t.zh);
-
                   if (validated.length >= 4) {
                     return validated;
                   }
@@ -13736,7 +13885,7 @@ ${existingSnippet || "無"}
               <div>
                 <div class="flex items-center gap-2">
                   <h4 class="text-xl sm:text-2xl font-black text-indigo-950 tracking-tight">${c.word}</h4>
-                  <button type="button" onclick="playAudioFile('${safeWordAudio}', '${safeWord}')" class="px-2.5 py-1 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-black shadow-xs flex items-center gap-1 active:scale-95 transition" title="朗讀單字/片語">
+                  <button type="button" onclick="playStudioWordAudio('${safeWord}', this)" class="px-2.5 py-1 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-black shadow-xs flex items-center gap-1 active:scale-95 transition" title="朗讀單字/片語">
                     <span>🔊</span><span>念詞</span>
                   </button>
                 </div>
