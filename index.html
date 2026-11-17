@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.29";
+        const LATEST_VER = "26.11.30";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -137,8 +137,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.29（2026年·11月·第29次發布）">
-                26.11.29
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.30（2026年·11月·第30次發布）">
+                26.11.30
               </span>
             </div>
           </div>
@@ -151,15 +151,9 @@
       <!-- State 1: When profiles exist -> Show Profile Select Cards -->
       <div id="gateProfileSelectView" class="w-full flex flex-col items-center">
         <h3 class="text-base sm:text-lg font-black text-slate-800 mb-1">
-          👋 歡迎來到美音樂園！請選擇學員登入：
+          👋 歡迎來到美音樂園！請選擇學員：
         </h3>
-        <p class="text-xs text-slate-500 mb-3.5">點選小朋友頭像即可直接進入，或輸入 4 位數安全密碼保護紀錄</p>
-
-        <!-- Quick 1-Click Entry Banner for Primary Profile (Kai) -->
-        <button type="button" onclick="directLoginAsProfile('child_kai')" class="w-full py-2.5 px-4 mb-4 rounded-2xl bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 text-white font-black text-xs sm:text-sm shadow-md hover:shadow-lg hover:brightness-105 active:scale-95 transition flex items-center justify-center gap-2">
-          <span>⚡ 免密碼一鍵快速進入（以 Kai 寶貝 身份開始）</span>
-          <span class="text-base">➔</span>
-        </button>
+        <p class="text-xs text-slate-500 mb-3.5">點選小朋友卡片即可 1 秒直接進入學習冒險！</p>
 
         <!-- Children Cards Grid -->
         <div id="gateProfilesGrid" class="grid grid-cols-2 sm:grid-cols-3 gap-3 w-full mb-4">
@@ -167,16 +161,9 @@
         </div>
 
         <!-- Add Child Button -->
-        <button id="gateAddChildBtn" type="button" onclick="showGateAddChildForm()" class="w-full py-3 px-4 rounded-2xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border-2 border-dashed border-indigo-300 font-black text-xs sm:text-sm transition flex items-center justify-center gap-2 active:scale-95 shadow-xs mb-3.5">
+        <button id="gateAddChildBtn" type="button" onclick="showGateAddChildForm()" class="w-full py-3 px-4 rounded-2xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border-2 border-dashed border-indigo-300 font-black text-xs sm:text-sm transition flex items-center justify-center gap-2 active:scale-95 shadow-xs mb-2">
           <span id="gateAddChildBtnText">➕ 新增小朋友學員檔案</span>
         </button>
-
-        <!-- Demo & Reset Quick Buttons -->
-        <div class="flex items-center gap-3 text-[11px] text-slate-400 font-bold">
-          <button type="button" onclick="resetToDemoProfiles()" class="hover:text-indigo-600 underline">🔄 重置載入示範學員 (Kai 525天 / PIN: 1234)</button>
-          <span>·</span>
-          <button type="button" onclick="clearAllProfilesForTesting()" class="hover:text-rose-600 underline">🗑️ 清空學員 (測試初次進入)</button>
-        </div>
       </div>
 
       <!-- State 2: When no profiles OR clicked Add Child -> Show Create Form -->
@@ -365,7 +352,7 @@
             <span>奇妙星語言</span>
           </span>
           <div class="mt-1 flex items-center gap-1">
-            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.29（2026年·11月·第29次發布）">26.11.29</span>
+            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.30（2026年·11月·第30次發布）">26.11.30</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer flex items-center gap-1 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-2 py-0.5 transition shadow-2xs group-hover:border-amber-400" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -2126,7 +2113,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.29 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.30 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -2165,7 +2152,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.29 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.30 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -2238,7 +2225,7 @@
 
 
   <!-- ======================================================== -->
-  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.29)    -->
+  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.30)    -->
   <!-- ======================================================== -->
   <div id="vipUpgradeModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[89] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
     <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl border-2 border-amber-300 flex flex-col gap-4 my-auto max-h-[92vh] overflow-y-auto">
@@ -2750,7 +2737,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.29";
+    const APP_VERSION = "26.11.30";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // Immediate sanitization of legacy Gemini 1.5/2.0/2.5 models from localStorage
@@ -2946,7 +2933,7 @@
 
 
     // ========================================================
-    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.29)
+    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.30)
     // ========================================================
     const VIP_STORAGE_KEY = 'kaispeak_vip_info';
     const AI_USAGE_DATE_KEY = 'kaispeak_ai_usage_date';
@@ -3064,7 +3051,7 @@
       return true;
     }
 
-    // Marketing Campaigns & Agency Partners Definition (v26.11.29)
+    // Marketing Campaigns & Agency Partners Definition (v26.11.30)
     const SPECIAL_PROMO_CODES = {
       'TRIAL7D': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '官方社群促銷體驗專案', desc: '全功能解鎖 7 天' },
       'FREE7DAYS': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '限時早鳥推廣禮', desc: '全功能解鎖 7 天' },
@@ -3933,13 +3920,22 @@
     // ========================================================
     function initProfileStore() {
       const saved = localStorage.getItem('kai_multi_profiles');
+      const backup = localStorage.getItem('kai_multi_profiles_backup');
       if (saved) {
         try {
           profiles = JSON.parse(saved);
         } catch(e) {
-          profiles = JSON.parse(JSON.stringify(DEFAULT_PROFILES));
+          if (backup) {
+            try { profiles = JSON.parse(backup); } catch(be){}
+          }
         }
-      } else {
+      } else if (backup) {
+        try {
+          profiles = JSON.parse(backup);
+        } catch(e){}
+      }
+
+      if (!profiles || profiles.length === 0) {
         profiles = JSON.parse(JSON.stringify(DEFAULT_PROFILES));
         const legacyStreak = localStorage.getItem('kai_streak_days');
         const legacyEnergy = localStorage.getItem('kai_energy_points');
@@ -3954,6 +3950,10 @@
           try { profiles[0].adventureStars = JSON.parse(legacyStars); } catch(e){}
         }
         saveProfilesToStorage();
+      } else {
+        try {
+          localStorage.setItem('kai_multi_profiles_backup', JSON.stringify(profiles));
+        } catch(e){}
       }
 
       // Ensure every profile has claimedStreakMilestones array initialized
@@ -3976,15 +3976,22 @@
     }
 
     function saveProfilesToStorage() {
-      localStorage.setItem('kai_multi_profiles', JSON.stringify(profiles));
-      localStorage.setItem('kai_current_profile_id', currentProfileId);
+      try {
+        localStorage.setItem('kai_multi_profiles', JSON.stringify(profiles));
+        localStorage.setItem('kai_multi_profiles_backup', JSON.stringify(profiles));
+        localStorage.setItem('kai_current_profile_id', currentProfileId);
+      } catch(e){}
       // Sync legacy localStorage keys
       const p = getActiveProfile();
-      localStorage.setItem('kai_streak_days', (p.streakDays || 1).toString());
-      localStorage.setItem('kai_energy_points', (p.energyPoints || 0).toString());
-      localStorage.setItem('kai_practice_logs', JSON.stringify(p.practiceLogs || []));
-      localStorage.setItem('kai_adventure_stars', JSON.stringify(p.adventureStars || {}));
-      localStorage.setItem('kai_claimed_streak_milestones', JSON.stringify(p.claimedStreakMilestones || []));
+      if (p) {
+        try {
+          localStorage.setItem('kai_streak_days', (p.streakDays || 1).toString());
+          localStorage.setItem('kai_energy_points', (p.energyPoints || 0).toString());
+          localStorage.setItem('kai_practice_logs', JSON.stringify(p.practiceLogs || []));
+          localStorage.setItem('kai_adventure_stars', JSON.stringify(p.adventureStars || {}));
+          localStorage.setItem('kai_claimed_streak_milestones', JSON.stringify(p.claimedStreakMilestones || []));
+        } catch(e){}
+      }
     }
 
     function loadActiveProfileData() {
@@ -5384,7 +5391,7 @@
     }
 
     // ========================================================
-    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.29)
+    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.30)
     // ========================================================
     let cachedServerApiKey = '';
     let cachedServerModel = 'gemini-3.5-flash';
@@ -10537,7 +10544,7 @@
     };
 
     // ========================================================
-    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.29)
+    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.30)
     // ========================================================
     // 💡 App Store 開箱即用架構（商業發行標準）：
     // 透過 Cloudflare Worker 官方安全閘道器，免掃碼、免設定、0 秒直連 Google 官方 AI！
@@ -12755,9 +12762,6 @@
         } catch(e) {
           serverFailed = true;
           abortPlayer();
-          tryWebSpeechApi();
-        }
-      },
           tryWebSpeechApi();
         }
       },
