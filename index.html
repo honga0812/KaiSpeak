@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.30";
+        const LATEST_VER = "26.11.31";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -137,8 +137,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.30（2026年·11月·第30次發布）">
-                26.11.30
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.31（2026年·11月·第31次發布）">
+                26.11.31
               </span>
             </div>
           </div>
@@ -352,7 +352,7 @@
             <span>奇妙星語言</span>
           </span>
           <div class="mt-1 flex items-center gap-1">
-            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.30（2026年·11月·第30次發布）">26.11.30</span>
+            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.31（2026年·11月·第31次發布）">26.11.31</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer flex items-center gap-1 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-2 py-0.5 transition shadow-2xs group-hover:border-amber-400" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -738,6 +738,13 @@
       <div class="p-3 bg-amber-50 rounded-2xl border border-amber-200 text-left text-[11px] text-amber-900 leading-relaxed">
         <span class="font-bold">💡 智能程度自適應說明：</span>
         系統會自動分析小朋友的<strong>連續打卡天數</strong>與<strong>歷史發音評測得分</strong>。若回答正確率低於 70% 或評分偏低，系統會自動切換為「簡單初階短句」，保護孩子的學習熱情；當表現優異（平均 85 分以上）時，才會循序漸進晉升至進階句子！
+      </div>
+
+      <!-- 退出當前登入 / 回到學員選擇畫面 -->
+      <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between">
+        <button type="button" onclick="showProfileSelectionGate()" class="w-full py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs active:scale-95 transition flex items-center justify-center gap-1.5 shadow-2xs">
+          <span>🚪 退出當前學員 · 回到學員選擇畫面</span>
+        </button>
       </div>
 
     </div>
@@ -2113,7 +2120,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.30 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.31 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -2152,7 +2159,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.30 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.31 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -2225,7 +2232,7 @@
 
 
   <!-- ======================================================== -->
-  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.30)    -->
+  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.31)    -->
   <!-- ======================================================== -->
   <div id="vipUpgradeModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[89] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
     <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl border-2 border-amber-300 flex flex-col gap-4 my-auto max-h-[92vh] overflow-y-auto">
@@ -2737,7 +2744,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.30";
+    const APP_VERSION = "26.11.31";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // Immediate sanitization of legacy Gemini 1.5/2.0/2.5 models from localStorage
@@ -2933,7 +2940,7 @@
 
 
     // ========================================================
-    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.30)
+    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.31)
     // ========================================================
     const VIP_STORAGE_KEY = 'kaispeak_vip_info';
     const AI_USAGE_DATE_KEY = 'kaispeak_ai_usage_date';
@@ -3051,7 +3058,7 @@
       return true;
     }
 
-    // Marketing Campaigns & Agency Partners Definition (v26.11.30)
+    // Marketing Campaigns & Agency Partners Definition (v26.11.31)
     const SPECIAL_PROMO_CODES = {
       'TRIAL7D': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '官方社群促銷體驗專案', desc: '全功能解鎖 7 天' },
       'FREE7DAYS': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '限時早鳥推廣禮', desc: '全功能解鎖 7 天' },
@@ -3492,6 +3499,7 @@
       }
       currentProfileId = target.id;
       isUserLoggedIn = true;
+      localStorage.setItem('kai_last_logged_in_profile', target.id);
       saveProfilesToStorage();
       loadActiveProfileData();
 
@@ -3502,6 +3510,10 @@
 
       const pinModal = document.getElementById('pinEntryModal');
       if (pinModal) pinModal.classList.add('hidden');
+      const adminModal = document.getElementById('adminCenterModal');
+      if (adminModal) adminModal.classList.add('hidden');
+      const profileModal = document.getElementById('profileModal');
+      if (profileModal) profileModal.classList.add('hidden');
       const gateOverlay = document.getElementById('profileGateOverlay');
       if (gateOverlay) gateOverlay.classList.add('hidden');
 
@@ -3513,6 +3525,18 @@
       if (startBtn) startBtn.classList.remove('hidden');
       if (skipBtn) skipBtn.classList.remove('hidden');
       document.getElementById('questKickoffOverlay').classList.remove('hidden');
+    }
+
+    function showProfileSelectionGate() {
+      const adminModal = document.getElementById('adminCenterModal');
+      if (adminModal) adminModal.classList.add('hidden');
+      const profileModal = document.getElementById('profileModal');
+      if (profileModal) profileModal.classList.add('hidden');
+      isUserLoggedIn = false;
+      localStorage.removeItem('kai_last_logged_in_profile');
+      renderGateScreen();
+      document.getElementById('profileGateOverlay').classList.remove('hidden');
+      document.getElementById('questKickoffOverlay').classList.add('hidden');
     }
 
     function bypassPinLogin() {
@@ -3906,11 +3930,18 @@
     }
 
     function clearAllProfilesForTesting() {
-      if (confirm("確定要清空所有學員資料嗎？\n這將重置為完全沒有學員的全新狀態，方便測試「從零新增第一個學員」的完整流程！")) {
+      if (confirm("⚠️ 確定要清空所有學員資料嗎？\n\n此操作將清空本機學員與備份庫，回到完全沒有學員的全新狀態，方便測試「從零新增第一個學員」的完整首次進站流程！")) {
         profiles = [];
         localStorage.removeItem('kai_multi_profiles');
+        localStorage.removeItem('kai_multi_profiles_backup');
         localStorage.removeItem('kai_current_profile_id');
+        localStorage.removeItem('kai_last_logged_in_profile');
+        isUserLoggedIn = false;
+        const adminModal = document.getElementById('adminCenterModal');
+        if (adminModal) adminModal.classList.add('hidden');
         renderGateScreen();
+        document.getElementById('profileGateOverlay').classList.remove('hidden');
+        document.getElementById('questKickoffOverlay').classList.add('hidden');
         SoundEffects.playScore(60);
       }
     }
@@ -5391,7 +5422,7 @@
     }
 
     // ========================================================
-    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.30)
+    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.31)
     // ========================================================
     let cachedServerApiKey = '';
     let cachedServerModel = 'gemini-3.5-flash';
@@ -5703,10 +5734,13 @@
                   </div>
                 </div>
               </div>
-              <div class="text-right">
+              <div class="flex items-center gap-2">
                 <span class="text-[10px] font-mono text-indigo-600 bg-indigo-50 border border-indigo-200 px-2 py-0.5 rounded-full font-bold">
                   PIN: ${p.pin || '1234'}
                 </span>
+                <button type="button" onclick="directLoginAsProfile('${p.id}')" class="px-2.5 py-1 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-[10px] shadow-xs active:scale-95 transition flex items-center gap-1">
+                  <span>🚀 模擬登入</span>
+                </button>
               </div>
             </div>
           `;
@@ -5720,6 +5754,36 @@
             </div>
             <div class="flex flex-col gap-2 max-h-80 overflow-y-auto">
               ${rowsHtml}
+            </div>
+
+            <!-- 🛠️ 管理者專用測試與維護工具箱 -->
+            <div class="mt-2 p-3.5 rounded-2xl bg-amber-50/80 border border-amber-200 text-left flex flex-col gap-2">
+              <div class="flex items-center justify-between">
+                <span class="text-xs font-black text-amber-900 flex items-center gap-1.5">
+                  <span>🛠️ 管理者專用測試與維護工具箱</span>
+                  <span class="text-[9px] bg-amber-200 text-amber-900 px-2 py-0.5 rounded-full font-bold">PIN 9999 / 8888 專屬</span>
+                </span>
+              </div>
+              <p class="text-[10px] text-amber-800 leading-relaxed">
+                首頁已面向小朋友純淨化，已移除首頁清空測試按鈕。開發者各項流程驗證請於此處操作：
+              </p>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-1">
+                <button type="button" onclick="if(confirm('確定要載入示範學員（Kai 寶貝 525天 / Mia 妹妹 14天）？')){ resetToDemoProfiles(); loadAdminOverview(); }" class="p-2.5 rounded-xl bg-white hover:bg-amber-100 border border-amber-300 text-amber-900 font-bold text-xs shadow-2xs active:scale-95 transition flex flex-col items-center justify-center gap-1 text-center">
+                  <span class="text-base">🔄</span>
+                  <span>重置示範學員</span>
+                  <span class="text-[9px] text-amber-600 font-normal">載入 Kai / Mia 測試</span>
+                </button>
+                <button type="button" onclick="clearAllProfilesForTesting();" class="p-2.5 rounded-xl bg-white hover:bg-rose-50 border border-rose-300 text-rose-700 font-bold text-xs shadow-2xs active:scale-95 transition flex flex-col items-center justify-center gap-1 text-center">
+                  <span class="text-base">🗑️</span>
+                  <span>清空學員資料</span>
+                  <span class="text-[9px] text-rose-500 font-normal">測試初次全新進站</span>
+                </button>
+                <button type="button" onclick="showProfileSelectionGate();" class="p-2.5 rounded-xl bg-white hover:bg-indigo-50 border border-indigo-200 text-indigo-700 font-bold text-xs shadow-2xs active:scale-95 transition flex flex-col items-center justify-center gap-1 text-center">
+                  <span class="text-base">🚪</span>
+                  <span>退出至 Gate 畫面</span>
+                  <span class="text-[9px] text-indigo-500 font-normal">測試學員選人介面</span>
+                </button>
+              </div>
             </div>
           </div>
         `;
@@ -10544,7 +10608,7 @@
     };
 
     // ========================================================
-    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.30)
+    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.31)
     // ========================================================
     // 💡 App Store 開箱即用架構（商業發行標準）：
     // 透過 Cloudflare Worker 官方安全閘道器，免掃碼、免設定、0 秒直連 Google 官方 AI！
@@ -14054,8 +14118,7 @@ ${existingSnippet || "無"}
     }
 
 
-        window.addEventListener('DOMContentLoaded', () => {
-      isUserLoggedIn = false;
+    window.addEventListener('DOMContentLoaded', () => {
       questAutoPlay = false;
       if (questAudioPlayer) questAudioPlayer.pause();
       if ('speechSynthesis' in window) window.speechSynthesis.cancel();
@@ -14064,10 +14127,25 @@ ${existingSnippet || "無"}
       KaiSpeechEngine.init();
       initProfileStore();
       renderGateScreen();
-      
-      // Initially show the Gate Screen and force hide quest overlays
-      document.getElementById('profileGateOverlay').classList.remove('hidden');
-      document.getElementById('questKickoffOverlay').classList.add('hidden');
+
+      // Check Auto-Resume for returning learner
+      const lastLearnerId = localStorage.getItem('kai_last_logged_in_profile');
+      const activeLearner = (profiles && profiles.length > 0)
+        ? (profiles.find(p => p.id === lastLearnerId) || null)
+        : null;
+
+      if (activeLearner) {
+        currentProfileId = activeLearner.id;
+        isUserLoggedIn = true;
+        loadActiveProfileData();
+        document.getElementById('profileGateOverlay').classList.add('hidden');
+        document.getElementById('questKickoffOverlay').classList.add('hidden');
+        console.log("%c [Auto-Resume] Automatically resumed session for " + activeLearner.name, "color: #10B981; font-weight: bold;");
+      } else {
+        isUserLoggedIn = false;
+        document.getElementById('profileGateOverlay').classList.remove('hidden');
+        document.getElementById('questKickoffOverlay').classList.add('hidden');
+      }
 
       initQuestQueue();
       switchAppMode('quest');
