@@ -241,18 +241,38 @@ class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
                 parsed = urllib.parse.urlparse(self.path)
                 params = urllib.parse.parse_qs(parsed.query)
                 text = params.get('text', [''])[0].strip()
-                rate = params.get('rate', ['150'])[0].strip()
+                rate = params.get('rate', ['160'])[0].strip()
+                voice_param = params.get('voice', [''])[0].strip()
+                role_param = params.get('role', ['kai'])[0].strip().lower()
                 if not text:
                     self.send_response(400)
                     self.end_headers()
                     return
 
-                text_hash = hashlib.md5(f"{text}_{rate}".encode('utf-8')).hexdigest()
+                # Choose authentic youth/boy voice for Kai, or adult voices for family roles
+                chosen_voice = 'Eddy (英文（美國）)'
+                if voice_param:
+                    chosen_voice = voice_param
+                elif role_param in ['kai', 'kid', 'boy']:
+                    chosen_voice = 'Eddy (英文（美國）)'
+                elif role_param in ['dad', 'grandpa']:
+                    chosen_voice = 'Alex'
+                elif role_param in ['mom', 'grandma']:
+                    chosen_voice = 'Samantha'
+
+                text_hash = hashlib.md5(f"{text}_{rate}_{chosen_voice}".encode('utf-8')).hexdigest()
                 cached_m4a = os.path.join(TTS_CACHE_DIR, f"{text_hash}.m4a")
 
                 if not os.path.exists(cached_m4a):
                     temp_aiff = os.path.join(TTS_CACHE_DIR, f"{text_hash}.aiff")
-                    subprocess.run(['say', '-v', 'Samantha', '-r', str(rate), text, '-o', temp_aiff], check=True)
+                    try:
+                        subprocess.run(['say', '-v', chosen_voice, '-r', str(rate), text, '-o', temp_aiff], check=True)
+                    except Exception:
+                        try:
+                            subprocess.run(['say', '-v', 'Junior', '-r', str(rate), text, '-o', temp_aiff], check=True)
+                        except Exception:
+                            subprocess.run(['say', '-v', 'Samantha', '-r', str(rate), text, '-o', temp_aiff], check=True)
+
                     subprocess.run(['afconvert', '-f', 'm4af', '-d', 'aac', '-b', '64000', temp_aiff, cached_m4a], check=True)
                     if os.path.exists(temp_aiff):
                         os.remove(temp_aiff)
