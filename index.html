@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.43";
+        const LATEST_VER = "26.11.44";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -67,9 +67,20 @@
       50% { border-color: #EC4899; box-shadow: 0 0 24px #EC4899; }
       100% { border-color: #6366F1; box-shadow: 0 0 12px #6366F1; }
     }
-    @keyframes laserBeam {
-      0% { opacity: 1; transform: scaleY(1); }
-      100% { opacity: 0; transform: scaleY(0); }
+    @keyframes laserPulseGlow {
+      0% { opacity: 1; filter: drop-shadow(0 0 18px #FF4500) drop-shadow(0 0 30px #FFE600); }
+      40% { opacity: 1; filter: drop-shadow(0 0 28px #FF0055) drop-shadow(0 0 40px #00F0FF); }
+      100% { opacity: 0; }
+    }
+    @keyframes cardShatterExplode {
+      0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); filter: brightness(1.2); }
+      25% { transform: translate(-50%, -50%) scale(1.35) rotate(-10deg); filter: brightness(3.2) contrast(2); }
+      60% { transform: translate(-50%, -50%) scale(1.4) rotate(14deg); filter: brightness(2) contrast(1.4); opacity: 0.9; }
+      100% { transform: translate(-50%, -50%) scale(0.1) rotate(-45deg); opacity: 0; }
+    }
+    .meteor-card-shattering {
+      animation: cardShatterExplode 0.36s cubic-bezier(0.2, 0.9, 0.3, 1.2) forwards !important;
+      pointer-events: none !important;
     }
     @keyframes hintPulseFade {
       0%, 100% { opacity: 0.65; transform: scale(0.98); }
@@ -160,8 +171,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.43（2026年·11月·第36次發布）">
-                26.11.43
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.44（2026年·11月·第36次發布）">
+                26.11.44
               </span>
             </div>
           </div>
@@ -378,7 +389,7 @@
             <span>奇妙星語言</span>
           </span>
           <div class="mt-1 flex items-center gap-1">
-            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.43（2026年·11月·第36次發布）">26.11.43</span>
+            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.44（2026年·11月·第36次發布）">26.11.44</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer flex items-center gap-1 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-2 py-0.5 transition shadow-2xs group-hover:border-amber-400" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -425,26 +436,32 @@
           </div>
         </button>
 
-        <!-- System Utilities Group (⚙️後台, 📊日誌, 📱掃碼, 🚪登出) -->
-        <div class="flex items-center gap-1 pl-1 border-l border-indigo-100/90">
-          <!-- Admin Control Center Button -->
-          <button onclick="openAdminCenterModal()" class="jelly-btn-3d p-1.5 rounded-xl bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 border-b-2 border-b-indigo-300 text-xs font-bold transition flex items-center active:translate-y-0.5 shadow-xs" title="系統後台與多裝置控管中心（API Key 託管、訪客 IP 與設備記錄）">
-            ⚙️
+        <!-- More Utilities Dropdown (附屬功能整合收納選單，徹底解決平板/手機直式超出問題) -->
+        <div class="relative shrink-0">
+          <button id="headerMoreMenuBtn" onclick="toggleHeaderMoreMenu(event)" class="jelly-btn-3d px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 border-b-2 border-b-slate-300 text-xs font-black transition flex items-center gap-1 active:translate-y-0.5 shadow-xs" title="更多功能選單">
+            <span class="text-sm">⋯</span>
+            <span class="text-[11px] font-bold">更多</span>
           </button>
-          <!-- Log Modal Button -->
-          <button onclick="toggleLogModal()" class="jelly-btn-3d p-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 border-b-2 border-b-slate-300 text-xs font-bold transition flex items-center active:translate-y-0.5 shadow-xs" title="學習日誌">
-            📊
-          </button>
-          <!-- QR Modal Button -->
-          <button onclick="toggleQRModal()" class="jelly-btn-3d p-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 border-b-2 border-b-slate-300 text-xs font-bold transition flex items-center active:translate-y-0.5 shadow-xs" title="手機/平板掃碼同步體驗">
-            📱
-          </button>
-          <!-- Logout Button -->
-          <button onclick="logoutToGate()" title="登出學員 / 返回登入門戶" class="jelly-btn-3d px-2 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 border-b-2 border-b-rose-300 text-xs font-bold transition flex items-center gap-1 shadow-xs active:translate-y-0.5 whitespace-nowrap">
-            <span>🚪</span>
-            <span class="hidden md:inline text-[11px]">登出</span>
-            <span id="mobileProfileName" class="hidden">Kai</span>
-          </button>
+
+          <!-- Dropdown Flyout Panel -->
+          <div id="headerMoreDropdown" class="hidden absolute right-0 top-full mt-2 w-48 bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-indigo-100 p-1.5 z-50 flex flex-col gap-1 text-xs">
+            <button onclick="openAdminCenterModal(); toggleHeaderMoreMenu();" class="w-full px-3 py-2 rounded-xl hover:bg-indigo-50 text-indigo-900 font-bold flex items-center gap-2 transition text-left">
+              <span>⚙️</span><span>系統後台與安全閘道</span>
+            </button>
+            <button onclick="toggleLogModal(); toggleHeaderMoreMenu();" class="w-full px-3 py-2 rounded-xl hover:bg-indigo-50 text-slate-700 font-bold flex items-center gap-2 transition text-left">
+              <span>📊</span><span>學習日誌與診斷</span>
+            </button>
+            <button onclick="toggleQRModal(); toggleHeaderMoreMenu();" class="w-full px-3 py-2 rounded-xl hover:bg-indigo-50 text-slate-700 font-bold flex items-center gap-2 transition text-left">
+              <span>📱</span><span>手機/平板掃碼同步</span>
+            </button>
+            <button onclick="openVipUpgradeModal('header_more'); toggleHeaderMoreMenu();" class="w-full px-3 py-2 rounded-xl hover:bg-amber-50 text-amber-900 font-bold flex items-center gap-2 transition text-left">
+              <span>👑</span><span>VIP 旗艦特權中心</span>
+            </button>
+            <div class="h-px bg-slate-100 my-0.5"></div>
+            <button onclick="logoutToGate(); toggleHeaderMoreMenu();" class="w-full px-3 py-2 rounded-xl hover:bg-rose-50 text-rose-700 font-bold flex items-center gap-2 transition text-left">
+              <span>🚪</span><span>切換學員 / 登出</span>
+            </button>
+          </div>
         </div>
 
       </div>
@@ -1799,26 +1816,26 @@
           </div>
         </div>
 
-        <!-- Bottom Kai Riding Cute Fire Dragon Turret Stage -->
-        <div id="meteorDragonTurretDeck" class="absolute bottom-20 sm:bottom-24 left-1/2 -translate-x-1/2 z-20 pointer-events-none flex flex-col items-center select-none transition-all duration-150">
-          <div class="relative flex items-center justify-center">
+        <!-- Bottom Kai Riding Cute Fire Dragon Turret Stage (雄偉醒目 · 烈焰神龍神級砲台) -->
+        <div id="meteorDragonTurretDeck" class="absolute bottom-2 sm:bottom-3 left-1/2 -translate-x-1/2 z-30 pointer-events-none flex flex-col items-center select-none transition-all duration-150">
+          <div class="relative flex items-center justify-center bg-gradient-to-t from-slate-900 via-indigo-950/90 to-purple-950/80 px-4 py-2 rounded-3xl border-2 border-amber-400 shadow-[0_0_35px_rgba(245,158,11,0.7)]">
             <!-- Fiery Dragon Aura / Ground Glow -->
-            <div id="dragonFlameAura" class="absolute -bottom-2 w-28 h-9 bg-gradient-to-t from-amber-500/60 via-rose-500/40 to-transparent rounded-full filter blur-xs animate-pulse"></div>
+            <div id="dragonFlameAura" class="absolute -bottom-2 w-36 h-10 bg-gradient-to-t from-amber-500/80 via-rose-500/50 to-transparent rounded-full filter blur-md animate-pulse"></div>
             <!-- Dragon Sprite -->
-            <div id="dragonSprite" class="text-5xl sm:text-6xl md:text-7xl filter drop-shadow-[0_4px_18px_rgba(245,158,11,0.7)] transition-transform duration-200">
+            <div id="dragonSprite" class="text-6xl sm:text-7xl md:text-8xl filter drop-shadow-[0_8px_25px_rgba(245,158,11,0.9)] transition-transform duration-200">
               🐲
             </div>
             <!-- Kai Little Hero Rider -->
-            <div id="kaiRiderSprite" class="absolute -top-3.5 sm:-top-4 text-2xl sm:text-3xl filter drop-shadow-md">
+            <div id="kaiRiderSprite" class="absolute -top-4 sm:-top-5 text-3xl sm:text-4xl filter drop-shadow-lg animate-bounce">
               👦👑
             </div>
             <!-- Dragon Muzzle Flame Flash (Fires upon shooting laser) -->
-            <div id="dragonMuzzleFlash" class="hidden absolute -top-6 text-3xl sm:text-4xl animate-ping">
-              🔥⚡
+            <div id="dragonMuzzleFlash" class="hidden absolute -top-8 text-4xl sm:text-5xl filter drop-shadow-[0_0_25px_#FFA500] animate-ping">
+              🔥⚡💥
             </div>
           </div>
-          <div class="text-[9px] sm:text-[10px] font-black text-amber-300 bg-slate-950/85 px-2.5 py-0.5 rounded-full border border-amber-500/50 shadow-md whitespace-nowrap mt-1 flex items-center gap-1">
-            <span>⚡</span><span>Kai 烈焰噴火龍戰備中</span>
+          <div class="text-[10px] sm:text-xs font-black text-amber-300 bg-slate-950/90 px-3 py-0.5 rounded-full border border-amber-400 shadow-md whitespace-nowrap mt-1 flex items-center gap-1.5">
+            <span class="animate-pulse">🔥</span><span>Kai 烈焰噴火龍砲台 · 隨時待命開火</span><span class="animate-pulse">🔥</span>
           </div>
         </div>
       </div>
@@ -2599,7 +2616,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.43 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.44 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -2638,7 +2655,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.43 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.44 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -2711,7 +2728,7 @@
 
 
   <!-- ======================================================== -->
-  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.43)    -->
+  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.44)    -->
   <!-- ======================================================== -->
   <div id="vipUpgradeModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[89] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
     <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl border-2 border-amber-300 flex flex-col gap-4 my-auto max-h-[92vh] overflow-y-auto">
@@ -3223,7 +3240,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.43";
+    const APP_VERSION = "26.11.44";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // Immediate sanitization of legacy Gemini 1.5/2.0/2.5 models from localStorage
@@ -3419,7 +3436,7 @@
 
 
     // ========================================================
-    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.43)
+    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.44)
     // ========================================================
     const VIP_STORAGE_KEY = 'kaispeak_vip_info';
     const AI_USAGE_DATE_KEY = 'kaispeak_ai_usage_date';
@@ -3537,7 +3554,7 @@
       return true;
     }
 
-    // Marketing Campaigns & Agency Partners Definition (v26.11.43)
+    // Marketing Campaigns & Agency Partners Definition (v26.11.44)
     const SPECIAL_PROMO_CODES = {
       'TRIAL7D': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '官方社群促銷體驗專案', desc: '全功能解鎖 7 天' },
       'FREE7DAYS': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '限時早鳥推廣禮', desc: '全功能解鎖 7 天' },
@@ -6169,7 +6186,7 @@
     }
 
     // ========================================================
-    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.43)
+    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.44)
     // ========================================================
     let cachedServerApiKey = '';
     let cachedServerModel = 'gemini-3.5-flash';
@@ -8788,6 +8805,14 @@
         return !!(p.stageRecords && p.stageRecords[prev] && p.stageRecords[prev].stars >= 1);
       },
 
+      isStrictSingleWord(w) {
+        if (!w || typeof w !== 'string') return false;
+        const clean = w.trim();
+        if (clean.includes(' ') || clean.includes('-') || clean.includes('_') || clean.includes(',') || clean.includes('.') || clean.includes('，') || clean.includes('！') || clean.includes('!')) return false;
+        if (clean.length < 2 || clean.length > 12) return false;
+        return /^[a-zA-Z]+$/.test(clean);
+      },
+
       getStageWordPool(level, category = 'all') {
         const cat = category || meteorSelectedCategory || 'all';
         
@@ -8826,13 +8851,14 @@
           { word: 'plane', meaning: '名詞：飛機', emoji: '✈️', phonetic: '/pleɪn/', category: 'travel' },
         ];
 
-        const fullCombined = [...aiWords, ...customWords, ...masterList];
+        // 🛡️ 嚴格過濾：僅保留純英文單字，徹底排除任何句子、片語或多詞
+        const fullCombined = [...aiWords, ...customWords, ...masterList].filter(item => item && this.isStrictSingleWord(item.word));
         let pool = [];
 
         if (cat === 'ai_scenario') {
-          pool = [...aiWords, ...customWords];
+          pool = [...aiWords, ...customWords].filter(item => item && this.isStrictSingleWord(item.word));
           if (pool.length < 5) {
-            pool = [...pool, ...masterList.slice(0, 15)];
+            pool = [...pool, ...masterList.filter(item => this.isStrictSingleWord(item.word)).slice(0, 15)];
           }
           return pool;
         }
@@ -8850,7 +8876,6 @@
         } else if (cat === 'nature') {
           pool = fullCombined.filter(w => ['nature', 'colors_shapes'].includes(w.category) || ['sun', 'moon', 'star', 'tree', 'flower', 'rain', 'sky', 'cloud', 'sea'].includes(w.word.toLowerCase()));
         } else {
-          // 'all' category: by level with AI scenario words prioritized
           if (level === 1) {
             pool = fullCombined.filter(w => ['home', 'toy_school', 'animals', 'ai_scenario'].includes(w.category)).slice(0, 45);
           } else if (level === 2) {
@@ -8888,14 +8913,13 @@
         this.targetScore = this.getTargetScore(level, subStage);
         this.wordPool = this.getStageWordPool(level, meteorSelectedCategory);
         this.active = true;
-        this.lastSpawnTime = 0;
+        this.lastSpawnTime = Date.now();
 
-        if (subStage.endsWith('-4')) {
-          this.spawnInterval = 1250;
-        } else if (subStage === '5-Boss') {
-          this.spawnInterval = 1100;
-        } else {
-          this.spawnInterval = 1650;
+        // 🌊 開場即湧現 4 顆隕石單字群，分布在不同航道，慢慢飄落供小朋友審視與朗讀
+        const startLanes = [18, 38, 62, 82];
+        const startHeights = [5, 12, 19, 26];
+        for (let i = 0; i < 4; i++) {
+          this.spawnSingleMeteor(startLanes[i], startHeights[i]);
         }
 
         const banner = document.getElementById('meteorTargetClearedBanner');
@@ -8925,47 +8949,8 @@
         }
       },
 
-      startTimer() {
-        if (this.timerInterval) clearInterval(this.timerInterval);
-        const timeDisplay = document.getElementById('meteorTimerText');
-        const timeBar = document.getElementById('meteorTimerProgressBar');
-        if (timeDisplay) timeDisplay.innerText = `${this.timer}s`;
-        if (timeBar) {
-          timeBar.style.width = '100%';
-          timeBar.className = "h-full bg-gradient-to-r from-emerald-400 via-teal-400 to-indigo-500 transition-all duration-300";
-        }
-
-        this.timerInterval = setInterval(() => {
-          if (!this.active) return;
-          this.timer--;
-          if (timeDisplay) timeDisplay.innerText = `${this.timer}s`;
-          if (timeBar) {
-            const pct = Math.max(0, (this.timer / 30) * 100);
-            timeBar.style.width = `${pct}%`;
-            if (this.timer <= 5) {
-              timeBar.className = "h-full bg-gradient-to-r from-rose-500 to-red-600 transition-all duration-300 animate-pulse";
-              if (typeof SoundEffects !== 'undefined' && SoundEffects.playCountdownBeep) {
-                SoundEffects.playCountdownBeep(this.timer <= 3);
-              }
-            } else if (this.timer <= 12) {
-              timeBar.className = "h-full bg-gradient-to-r from-amber-400 to-orange-500 transition-all duration-300";
-            } else {
-              timeBar.className = "h-full bg-gradient-to-r from-emerald-400 via-teal-400 to-indigo-500 transition-all duration-300";
-            }
-          }
-
-          if (this.timer <= 0) {
-            this.endStage();
-          }
-        }, 1000);
-      },
-
-      spawnMeteor() {
-        if (!this.active) return;
-        const now = Date.now();
-        if (now - this.lastSpawnTime < this.spawnInterval) return;
-        this.lastSpawnTime = now;
-
+      spawnSingleMeteor(x, y = 4) {
+        if (!this.wordPool || this.wordPool.length === 0) return;
         const wordItem = this.wordPool[Math.floor(Math.random() * this.wordPool.length)];
         if (!wordItem) return;
 
@@ -8976,20 +8961,17 @@
           displayType = 'zh';
         } else if (this.currentSubStage.endsWith('-3')) {
           displayType = 'img';
-        } else if (this.currentSubStage.endsWith('-4')) {
-          const types = ['en', 'zh', 'img'];
-          displayType = types[Math.floor(Math.random() * types.length)];
         } else {
           const types = ['en', 'zh', 'img'];
           displayType = types[Math.floor(Math.random() * types.length)];
         }
 
-        const x = 14 + Math.random() * 68;
-        // ⚡ 下墜速度顯著提升 (0.50 ~ 0.68)
-        const baseSpeed = (this.currentSubStage.endsWith('-4') || this.currentSubStage === '5-Boss') ? 0.68 : 0.50;
+        // ⚡ 慢速緩降 (0.12)，一顆約需 13~15 秒，讓小朋友有充裕時間觀看與朗讀！
+        const baseSpeed = 0.12;
 
         this.meteors.push({
           id: 'meteor_' + Math.random().toString(36).slice(2, 9),
+          laneX: x,
           word: wordItem.word.toLowerCase(),
           displayWord: wordItem.word,
           meaning: (wordItem.meaning || '').replace(/^(名詞|動詞|形容詞|副詞|片語|動詞片語)：/, ''),
@@ -8997,12 +8979,33 @@
           phonetic: wordItem.phonetic || '',
           displayType: displayType,
           x: x,
-          y: 4,
+          y: y,
           baseSpeed: baseSpeed,
           speed: baseSpeed,
           isHalfway: false,
-          isHit: false
+          isHit: false,
+          isShattered: false
         });
+      },
+
+      spawnMeteor() {
+        if (!this.active) return;
+        const activeMeteors = this.meteors.filter(m => !m.isShattered);
+        const maxConcurrent = (this.currentSubStage.endsWith('-4') || this.currentSubStage === '5-Boss') ? 6 : 5;
+        if (activeMeteors.length >= maxConcurrent) return;
+
+        const now = Date.now();
+        if (now - this.lastSpawnTime < 1100) return;
+        this.lastSpawnTime = now;
+
+        const lanes = [16, 33, 50, 67, 84];
+        const busyLanes = activeMeteors.filter(m => m.y < 35).map(m => m.laneX);
+        const freeLanes = lanes.filter(l => !busyLanes.includes(l));
+        const chosenLane = (freeLanes.length > 0)
+          ? freeLanes[Math.floor(Math.random() * freeLanes.length)]
+          : lanes[Math.floor(Math.random() * lanes.length)];
+
+        this.spawnSingleMeteor(chosenLane, 4);
       },
 
       updateGame() {
@@ -9011,11 +9014,15 @@
 
         for (let i = this.meteors.length - 1; i >= 0; i--) {
           const m = this.meteors[i];
+
+          // 碎裂中的圖卡原地引爆，不再往下移動
+          if (m.isShattered) continue;
+
           m.y += m.speed;
 
           if (m.y >= 50 && !m.isHalfway) {
             m.isHalfway = true;
-            m.speed = m.baseSpeed * 1.35; // ⚡ 過半加速
+            m.speed = m.baseSpeed * 1.25; // ⚡ 過半微幅加速
           }
 
           if (m.y >= 92) {
@@ -9055,8 +9062,12 @@
         const container = document.getElementById('meteorFieldCanvas');
         if (!container) return;
 
-        // Clean only dynamic game elements (preserve turret deck & banner)
-        container.querySelectorAll('.meteor-spawned-entity, .meteor-boss-bar, .meteor-guideline').forEach(el => el.remove());
+        // Clean only non-shattering entities (shattering cards are handled by their own timeout)
+        container.querySelectorAll('.meteor-spawned-entity, .meteor-boss-bar, .meteor-guideline').forEach(el => {
+          if (!el.classList.contains('meteor-card-shattering')) {
+            el.remove();
+          }
+        });
 
         if (this.currentSubStage === '5-Boss') {
           const bossEl = document.createElement('div');
@@ -9082,13 +9093,16 @@
         const guideLine = document.createElement('div');
         guideLine.className = "meteor-guideline absolute top-1/2 inset-x-0 h-0.5 border-t border-dashed border-indigo-400/30 flex items-center justify-between px-3 pointer-events-none";
         guideLine.innerHTML = `
-          <span class="text-[9px] font-bold text-indigo-300/60 uppercase tracking-widest bg-indigo-950/80 px-2 py-0.5 rounded-full border border-indigo-500/20">⚡ 50% 警戒線 · 加速閃爍浮現提示</span>
+          <span class="text-[9px] font-bold text-indigo-300/60 uppercase tracking-widest bg-indigo-950/80 px-2 py-0.5 rounded-full border border-indigo-500/20">⚡ 50% 警戒線 · 浮現英文提示</span>
           <span class="text-[9px] font-bold text-amber-300/60">大聲說出英文！</span>
         `;
         container.appendChild(guideLine);
 
         this.meteors.forEach(m => {
+          if (m.isShattered) return; // 碎裂中的圖卡不重復渲染，保留 shattering 動畫
+
           const el = document.createElement('div');
+          el.id = m.id;
           const isFlashing = m.isHalfway;
 
           let innerContent = '';
@@ -9107,13 +9121,13 @@
             `;
           } else {
             innerContent = `
-              <div class="text-6xl sm:text-7xl my-1 filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)] animate-pulse">${m.emoji}</div>
+              <div class="text-5xl sm:text-6xl my-1 filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)] animate-pulse">${m.emoji}</div>
               <div class="text-xs sm:text-sm text-amber-200 font-extrabold mt-0.5">${m.meaning}</div>
               ${isFlashing ? `<div class="mt-1 px-2.5 py-0.5 rounded-lg bg-indigo-950/95 text-indigo-100 font-mono font-black text-xs border border-amber-400/80 meteor-hint-fade shadow-sm">✨ ${m.displayWord} ${m.phonetic}</div>` : `<div class="text-[10px] text-slate-300 font-medium">看圖大聲念英文！</div>`}
             `;
           }
 
-          el.className = `meteor-spawned-entity absolute cursor-pointer select-none transition-transform duration-75 flex flex-col items-center justify-center p-2.5 rounded-2xl text-center shadow-xl active:scale-95 ${
+          el.className = `meteor-spawned-entity absolute cursor-pointer select-none transition-transform duration-75 flex flex-col items-center justify-center p-2 sm:p-2.5 rounded-2xl text-center shadow-xl active:scale-95 ${
             isFlashing 
               ? 'bg-gradient-to-b from-indigo-900/95 via-purple-900/95 to-slate-900/95 border-2 border-amber-400 ring-2 ring-pink-500/60 meteor-flashing shadow-amber-500/40' 
               : 'bg-gradient-to-b from-slate-900/90 to-indigo-950/90 border-2 border-indigo-400/60 shadow-indigo-500/20'
@@ -9121,7 +9135,7 @@
           el.style.left = `${m.x}%`;
           el.style.top = `${m.y}%`;
           el.style.transform = `translate(-50%, -50%)`;
-          el.style.minWidth = m.displayType === 'img' ? '135px' : '110px';
+          el.style.minWidth = m.displayType === 'img' ? '120px' : '105px';
 
           el.onclick = (e) => {
             e.stopPropagation();
@@ -9137,17 +9151,21 @@
       },
 
       triggerHit(meteor, spokenText) {
-        if (!this.active || meteor.isHit) return;
+        if (!this.active || meteor.isHit || meteor.isShattered) return;
         meteor.isHit = true;
+        meteor.isShattered = true; // ⚡ 標記碎裂狀態，原地引爆
 
         if (typeof SoundEffects !== 'undefined') {
           if (SoundEffects.playLaserShot) SoundEffects.playLaserShot();
-          setTimeout(() => { if (SoundEffects.playMeteorExplosion) SoundEffects.playMeteorExplosion(); }, 70);
+          setTimeout(() => { if (SoundEffects.playMeteorExplosion) SoundEffects.playMeteorExplosion(); }, 40);
         }
 
         // 🐲 Kai 噴火龍噴射烈焰雷射！
         this.drawLaserBeam(meteor.x, meteor.y);
-        this.createExplosionParticles(meteor.x, meteor.y);
+
+        // 💥 圖卡整個擊碎並炸出碎塊衝擊波特效！
+        this.shatterMeteorCard(meteor);
+        this.createShatterDebris(meteor.x, meteor.y, meteor.emoji, meteor.displayWord);
 
         this.combo++;
         if (this.combo > this.maxCombo) this.maxCombo = this.combo;
@@ -9181,49 +9199,107 @@
           }
         }
 
-        this.showFloatingText(meteor.x, meteor.y, `+${pts} 💥 (+${gain}⚡)`);
+        this.showFloatingText(meteor.x, meteor.y, `+${pts} 💥 SHATTERED! (+${gain}⚡)`);
 
-        const idx = this.meteors.indexOf(meteor);
-        if (idx !== -1) {
-          this.meteors.splice(idx, 1);
-        }
+        // 360ms 碎裂動畫播放完成後正式自數組與 DOM 移除
+        setTimeout(() => {
+          const idx = this.meteors.indexOf(meteor);
+          if (idx !== -1) {
+            this.meteors.splice(idx, 1);
+          }
+          const el = document.getElementById(meteor.id);
+          if (el) el.remove();
+        }, 360);
 
         this.updateHUD();
+      },
+
+      shatterMeteorCard(meteor) {
+        const el = document.getElementById(meteor.id);
+        if (el) {
+          el.classList.add('meteor-card-shattering');
+          el.innerHTML = `
+            <div class="text-5xl sm:text-6xl animate-ping filter brightness-200">💥</div>
+            <div class="font-black text-sm sm:text-base text-amber-300 font-mono tracking-widest mt-1">CRUSH!</div>
+          `;
+        }
+      },
+
+      createShatterDebris(targetX, targetY, emoji, word) {
+        const container = document.getElementById('meteorFieldCanvas');
+        if (!container) return;
+
+        // 1. Expanding Shockwave Ring
+        const ring = document.createElement('div');
+        ring.className = "absolute pointer-events-none z-35 rounded-full border-4 border-amber-300 shadow-[0_0_30px_#FFA500]";
+        ring.style.left = `${targetX}%`;
+        ring.style.top = `${targetY}%`;
+        ring.style.width = "20px";
+        ring.style.height = "20px";
+        ring.style.transform = "translate(-50%, -50%) scale(1)";
+        ring.style.transition = "all 0.35s ease-out";
+        container.appendChild(ring);
+        setTimeout(() => {
+          ring.style.transform = "translate(-50%, -50%) scale(6)";
+          ring.style.opacity = "0";
+        }, 16);
+        setTimeout(() => ring.remove(), 360);
+
+        // 2. Flying Shattered Card Shards & Explosive Particles
+        const debrisPool = [emoji || '💥', '💥', '🔥', '⚡', '✨', '⭐', '💥', '🔥'];
+        for (let i = 0; i < 8; i++) {
+          const shard = document.createElement('div');
+          shard.className = "absolute pointer-events-none z-40 text-2xl sm:text-3xl filter drop-shadow-[0_0_12px_rgba(255,165,0,0.9)]";
+          shard.innerText = debrisPool[i % debrisPool.length];
+          shard.style.left = `${targetX}%`;
+          shard.style.top = `${targetY}%`;
+          shard.style.transform = "translate(-50%, -50%) scale(1) rotate(0deg)";
+          container.appendChild(shard);
+
+          const angle = (Math.PI * 2 * i) / 8 + (Math.random() * 0.4 - 0.2);
+          const distance = 40 + Math.random() * 45;
+          const targetLeft = targetX + Math.cos(angle) * (distance * 0.16);
+          const targetTop = targetY + Math.sin(angle) * (distance * 0.16);
+          const rot = (Math.random() > 0.5 ? 1 : -1) * (180 + Math.random() * 360);
+
+          let step = 0;
+          const anim = setInterval(() => {
+            step += 0.08;
+            shard.style.left = `${targetX + (targetLeft - targetX) * step}%`;
+            shard.style.top = `${targetY + (targetTop - targetY) * step + (step * step * 3)}%`;
+            shard.style.opacity = `${1 - step}`;
+            shard.style.transform = `translate(-50%, -50%) scale(${1.2 - step * 0.5}) rotate(${rot * step}deg)`;
+            if (step >= 1) {
+              clearInterval(anim);
+              shard.remove();
+            }
+          }, 20);
+        }
       },
 
       drawLaserBeam(targetX, targetY) {
         const container = document.getElementById('meteorFieldCanvas');
         if (!container) return;
 
-        // 🐲 噴火龍瞄準傾角與開火火光動畫
         const dragonSprite = document.getElementById('dragonSprite');
         const muzzleFlash = document.getElementById('dragonMuzzleFlash');
         if (dragonSprite) {
-          const tiltDeg = (targetX - 50) * 0.45;
-          dragonSprite.style.transform = `rotate(${tiltDeg}deg) scale(1.18)`;
+          const tiltDeg = (targetX - 50) * 0.55;
+          dragonSprite.style.transform = `rotate(${tiltDeg}deg) scale(1.22)`;
           setTimeout(() => {
             if (dragonSprite) dragonSprite.style.transform = 'rotate(0deg) scale(1.0)';
-          }, 350);
+          }, 380);
         }
         if (muzzleFlash) {
           muzzleFlash.classList.remove('hidden');
           setTimeout(() => {
             if (muzzleFlash) muzzleFlash.classList.add('hidden');
-          }, 350);
+          }, 380);
         }
-
-        const laser = document.createElement('div');
-        laser.className = "absolute pointer-events-none z-30";
-        laser.style.left = `50%`;
-        laser.style.bottom = `110px`; // 噴火龍龍口高度
-        laser.style.width = `6px`;
-        laser.style.background = "linear-gradient(to top, #FF4500, #FF8C00, #FBBF24, #38BDF8, #FFFFFF)";
-        laser.style.boxShadow = "0 0 20px #FF4500, 0 0 35px #FBBF24, 0 0 45px #38BDF8";
-        laser.style.transformOrigin = "bottom center";
 
         const rect = container.getBoundingClientRect();
         const startX = rect.width / 2;
-        const startY = rect.height - 110;
+        const startY = rect.height - 45;
         const endX = (targetX / 100) * rect.width;
         const endY = (targetY / 100) * rect.height;
         const dx = endX - startX;
@@ -9231,12 +9307,21 @@
         const angle = Math.atan2(dy, dx) + Math.PI / 2;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
+        const laser = document.createElement('div');
+        laser.className = "absolute pointer-events-none z-40";
+        laser.style.left = `${startX}px`;
+        laser.style.bottom = `45px`;
+        laser.style.width = `10px`;
+        laser.style.borderRadius = "5px";
+        laser.style.background = "linear-gradient(to top, #FF2200, #FF7700, #FFE600, #00F0FF, #FFFFFF)";
+        laser.style.boxShadow = "0 0 25px #FF3300, 0 0 45px #FFE600, 0 0 55px #00F0FF";
+        laser.style.transformOrigin = "bottom center";
         laser.style.height = `${dist}px`;
         laser.style.transform = `rotate(${angle}rad)`;
-        laser.style.animation = "laserBeam 0.28s forwards";
+        laser.style.animation = "laserPulseGlow 0.35s ease-out forwards";
 
         container.appendChild(laser);
-        setTimeout(() => laser.remove(), 290);
+        setTimeout(() => laser.remove(), 360);
       },
 
       createExplosionParticles(targetX, targetY) {
@@ -11803,6 +11888,22 @@
       if (!m.classList.contains('hidden')) initQRCode();
     }
 
+    function toggleHeaderMoreMenu(e) {
+      if (e) e.stopPropagation();
+      const d = document.getElementById('headerMoreDropdown');
+      if (d) d.classList.toggle('hidden');
+    }
+
+    document.addEventListener('click', (e) => {
+      const d = document.getElementById('headerMoreDropdown');
+      const b = document.getElementById('headerMoreMenuBtn');
+      if (d && !d.classList.contains('hidden')) {
+        if (!d.contains(e.target) && (!b || !b.contains(e.target))) {
+          d.classList.add('hidden');
+        }
+      }
+    });
+
     function toggleLogModal() {
       const m = document.getElementById('logModal');
       m.classList.toggle('hidden');
@@ -12569,7 +12670,7 @@
     };
 
     // ========================================================
-    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.43)
+    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.44)
     // ========================================================
     // 💡 App Store 開箱即用架構（商業發行標準）：
     // 透過 Cloudflare Worker 官方安全閘道器，免掃碼、免設定、0 秒直連 Google 官方 AI！
@@ -14130,7 +14231,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.43)
+    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.44)
     // ========================================================
     function parseScenarioJsonResponse(rawText) {
       if (!rawText || typeof rawText !== 'string') return null;
@@ -14235,7 +14336,7 @@
     }
 
     // ========================================================
-    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.43)
+    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.44)
     // ========================================================
     async function callGeminiScenarioPlanner(userText, userLevel, apiKey) {
       // 1. Ensure valid official model from localStorage
@@ -14752,7 +14853,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.43)
+    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.44)
     // ========================================================
     const KaiSpeechEngine = {
       preferredVoice: null,
