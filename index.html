@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.51";
+        const LATEST_VER = "26.11.52";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -210,8 +210,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.51（2026年·11月·第36次發布）">
-                26.11.51
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.52（2026年·11月·第36次發布）">
+                26.11.52
               </span>
             </div>
           </div>
@@ -428,7 +428,7 @@
               <span class="text-[9px] text-amber-500">✨</span>
               <span>奇妙星語言</span>
             </span>
-            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.51（2026年·11月·第36次發布）">26.11.51</span>
+            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.52（2026年·11月·第36次發布）">26.11.52</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer hidden sm:flex items-center gap-0.5 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-1.5 py-0.2 transition shadow-2xs group-hover:border-amber-400 max-w-[130px] truncate" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -1894,8 +1894,8 @@
             <!-- Kai Riding Fire Dragon Character (Transparent WebP + GIF Fallback, No Frame) -->
             <div id="dragonSprite" class="relative w-48 sm:w-60 md:w-72 h-28 sm:h-36 md:h-42 flex items-center justify-center transition-transform duration-200">
               <picture class="w-full h-full flex items-center justify-center pointer-events-none select-none">
-                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.51" type="image/webp">
-                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.51" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
+                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.52" type="image/webp">
+                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.52" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
               </picture>
             </div>
             <!-- Dragon Muzzle Flame Flash (Fires upon shooting laser) -->
@@ -2682,7 +2682,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.51 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.52 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -2721,7 +2721,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.51 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.52 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -2794,7 +2794,7 @@
 
 
   <!-- ======================================================== -->
-  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.51)    -->
+  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.52)    -->
   <!-- ======================================================== -->
   <div id="vipUpgradeModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[89] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
     <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl border-2 border-amber-300 flex flex-col gap-4 my-auto max-h-[92vh] overflow-y-auto">
@@ -3276,13 +3276,13 @@
         <!-- Injected by JS -->
       </div>
 
-      <!-- Analytics Dashboard & Visual Charts (Cards + Bar Chart + Arc Gauge) -->
-      <div id="logAnalyticsDashboard" class="mb-2.5 overflow-y-auto max-h-[38vh] hide-scrollbar">
+      <!-- View Mode Tab Bar (Full Overview vs Charts vs Table) -->
+      <div id="logViewModeTabBar" class="flex items-center gap-1.5 pb-2 mb-1.5 border-b border-slate-100 text-xs shrink-0">
         <!-- Injected by JS -->
       </div>
 
-      <!-- Log Records Table with Year/Month scope and word/sentence breakdown -->
-      <div id="logTableContainer" class="flex-1 overflow-y-auto hide-scrollbar text-xs border border-slate-100 rounded-2xl p-1 min-h-[160px]">
+      <!-- Unified Scrollable Body Container: Cards, Charts, and Records Table -->
+      <div id="logModalBodyScroll" class="flex-1 overflow-y-auto pr-1 flex flex-col gap-2.5 min-h-0">
         <!-- Injected by JS -->
       </div>
 
@@ -3306,7 +3306,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.51";
+    const APP_VERSION = "26.11.52";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // ========================================================
@@ -3544,7 +3544,7 @@
 
 
     // ========================================================
-    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.51)
+    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.52)
     // ========================================================
     const VIP_STORAGE_KEY = 'kaispeak_vip_info';
     const AI_USAGE_DATE_KEY = 'kaispeak_ai_usage_date';
@@ -3662,7 +3662,7 @@
       return true;
     }
 
-    // Marketing Campaigns & Agency Partners Definition (v26.11.51)
+    // Marketing Campaigns & Agency Partners Definition (v26.11.52)
     const SPECIAL_PROMO_CODES = {
       'TRIAL7D': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '官方社群促銷體驗專案', desc: '全功能解鎖 7 天' },
       'FREE7DAYS': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '限時早鳥推廣禮', desc: '全功能解鎖 7 天' },
@@ -6294,7 +6294,7 @@
     }
 
     // ========================================================
-    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.51)
+    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.52)
     // ========================================================
     let cachedServerApiKey = '';
     let cachedServerModel = 'gemini-3.5-flash';
@@ -8761,7 +8761,12 @@
       handleFreeSpeechEvaluation(spoken);
     }
 
+    let isFreeSpeechEvaluating = false;
     function handleFreeSpeechEvaluation(spokenText) {
+      if (isFreeSpeechEvaluating) return;
+      isFreeSpeechEvaluating = true;
+      setTimeout(() => { isFreeSpeechEvaluating = false; }, 1200);
+
       document.getElementById('freeRecordLabel').innerText = "點我開始跟讀";
       document.getElementById('freeRecordIcon').innerText = "🎙️";
       document.getElementById('freeRecordBtn').className = "flex-1 sm:flex-initial py-3.5 sm:py-4 px-6 sm:px-8 rounded-2xl bg-gradient-to-r from-amber-400 via-orange-400 to-rose-500 hover:from-amber-300 hover:to-rose-600 text-white font-black text-xs sm:text-sm shadow-xl shadow-orange-500/30 transition active:scale-95 flex items-center justify-center gap-2 animate-pulse";
@@ -11312,39 +11317,53 @@
     // 年/月/日/時/分 完整時間統計 · 跨學員切換 · 數據驅動個人化推薦
     // ========================================================
     function getAllPracticeLogs() {
-      const logMap = new Map();
+      const rawList = [];
       profiles.forEach(p => {
         (p.practiceLogs || []).forEach(l => {
-          const key = `${l.timestamp}_${l.word}_${l.profileId || p.id}`;
-          if (!logMap.has(key)) {
-            logMap.set(key, {
-              ...l,
-              profileId: l.profileId || p.id,
-              profileName: l.profileName || p.name
-            });
-          }
+          rawList.push({
+            ...l,
+            profileId: l.profileId || p.id,
+            profileName: l.profileName || p.name
+          });
         });
       });
       (practiceLogs || []).forEach(l => {
         const curP = getActiveProfile();
-        const key = `${l.timestamp}_${l.word}_${l.profileId || curP.id}`;
-        if (!logMap.has(key)) {
-          logMap.set(key, {
-            ...l,
-            profileId: l.profileId || curP.id,
-            profileName: l.profileName || curP.name
-          });
+        rawList.push({
+          ...l,
+          profileId: l.profileId || curP.id,
+          profileName: l.profileName || curP.name
+        });
+      });
+
+      // Sort by timestamp descending
+      rawList.sort((a, b) => new Date(b.timestamp || 0) - new Date(a.timestamp || 0));
+
+      // Clean deduplication: drop any entry with same profileId + word within 2500ms
+      const deduplicated = [];
+      rawList.forEach(l => {
+        const lTime = new Date(l.timestamp || 0).getTime();
+        const isDupe = deduplicated.some(d => {
+          if (d.profileId !== l.profileId) return false;
+          if (d.word !== l.word) return false;
+          const dTime = new Date(d.timestamp || 0).getTime();
+          return Math.abs(dTime - lTime) < 2500;
+        });
+        if (!isDupe) {
+          deduplicated.push(l);
         }
       });
-      return Array.from(logMap.values()).sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
+
+      return deduplicated;
     }
 
     let isLogAdminMode = false;
     let selectedLogProfileFilter = null; // null => auto-lock to currentProfileId
     let selectedLogYear = 'all'; // 'all' | '2026' | '2025'...
     let selectedLogMonth = 'all'; // 'all' | '01' | '02' ... '12'
-    let selectedLogTimeQuick = 'all'; // 'all' | 'this_year' | 'this_month' | 'today'
+    let selectedLogTimeQuick = 'all'; // 'all' | 'this_year' | 'this_month' | 'today' | 'custom'
     let logActiveChartTab = 'bar'; // 'bar' | 'arc'
+    let logActiveViewMode = 'all'; // 'all' | 'charts' | 'table'
 
     function isWordLog(l) {
       if (!l) return true;
@@ -11359,6 +11378,11 @@
 
     function selectLogProfileFilter(pId) {
       selectedLogProfileFilter = pId;
+      updateLogUI();
+    }
+
+    function changeLogViewMode(mode) {
+      logActiveViewMode = mode;
       updateLogUI();
     }
 
@@ -11383,13 +11407,35 @@
 
     function changeLogYearFilter(val) {
       selectedLogYear = val;
-      selectedLogTimeQuick = 'custom';
+      const now = new Date();
+      const thisY = String(now.getFullYear());
+      const thisM = String(now.getMonth() + 1).padStart(2, '0');
+      if (selectedLogYear === 'all' && selectedLogMonth === 'all') {
+        selectedLogTimeQuick = 'all';
+      } else if (selectedLogYear === thisY && selectedLogMonth === thisM) {
+        selectedLogTimeQuick = 'this_month';
+      } else if (selectedLogYear === thisY && selectedLogMonth === 'all') {
+        selectedLogTimeQuick = 'this_year';
+      } else {
+        selectedLogTimeQuick = 'custom';
+      }
       updateLogUI();
     }
 
     function changeLogMonthFilter(val) {
       selectedLogMonth = val;
-      selectedLogTimeQuick = 'custom';
+      const now = new Date();
+      const thisY = String(now.getFullYear());
+      const thisM = String(now.getMonth() + 1).padStart(2, '0');
+      if (selectedLogYear === 'all' && selectedLogMonth === 'all') {
+        selectedLogTimeQuick = 'all';
+      } else if ((selectedLogYear === thisY || selectedLogYear === 'all') && selectedLogMonth === thisM) {
+        selectedLogTimeQuick = 'this_month';
+      } else if (selectedLogYear === thisY && selectedLogMonth === 'all') {
+        selectedLogTimeQuick = 'this_year';
+      } else {
+        selectedLogTimeQuick = 'custom';
+      }
       updateLogUI();
     }
 
@@ -11420,6 +11466,40 @@
       updateLogUI();
     }
 
+    function matchLogTimeFilter(l, quickRange, filterYear, filterMonth) {
+      const now = new Date();
+      const thisYearStr = String(now.getFullYear());
+      const thisMonthStr = String(now.getMonth() + 1).padStart(2, '0');
+      const todayDayStr = `${thisYearStr}-${thisMonthStr}-${String(now.getDate()).padStart(2, '0')}`;
+
+      const d = l.timestamp ? new Date(l.timestamp) : null;
+      let lYear = l.year ? String(l.year) : (d && !isNaN(d.getTime()) ? String(d.getFullYear()) : '');
+      let lMonth = l.month ? (l.month.includes('-') ? l.month.split('-')[1] : String(l.month).padStart(2, '0')) : (d && !isNaN(d.getTime()) ? String(d.getMonth() + 1).padStart(2, '0') : '');
+      let lDay = l.day ? (l.day.includes('-') ? l.day.split('-')[2] : String(l.day).padStart(2, '0')) : (d && !isNaN(d.getTime()) ? String(d.getDate()).padStart(2, '0') : '');
+      
+      if (!lYear && l.dateStr) {
+        const parts = l.dateStr.split('/');
+        if (parts.length >= 3) {
+          lYear = parts[0];
+          lMonth = parts[1].padStart(2, '0');
+          lDay = parts[2].padStart(2, '0');
+        }
+      }
+
+      const logFullDay = `${lYear}-${lMonth}-${lDay}`;
+
+      if (quickRange === 'today') {
+        return logFullDay === todayDayStr;
+      }
+      if (filterYear !== 'all') {
+        if (lYear !== filterYear) return false;
+      }
+      if (filterMonth !== 'all') {
+        if (lMonth !== filterMonth) return false;
+      }
+      return true;
+    }
+
     function recordPracticeLog(word, sentence, score, tag, mode) {
       const p = getActiveProfile();
       const wordCount = (sentence || word || "").trim().split(/\s+/).filter(Boolean).length;
@@ -11436,6 +11516,24 @@
       const fullTimeStr = `${hours}:${minutes}:${seconds}`;
       const fullFormatted = `${fullDateStr} ${fullTimeStr}`; // YYYY/MM/DD HH:mm:ss
 
+      const numScore = typeof score === 'number' ? score : (parseInt(score) || 0);
+
+      // Guard against rapid duplicate firing for same word & profile within 2500ms
+      if (practiceLogs.length > 0) {
+        const last = practiceLogs[0];
+        const timeDiff = now.getTime() - new Date(last.timestamp || 0).getTime();
+        if (last.word === (word || "") && (last.profileId === p.id || !last.profileId) && timeDiff < 2500) {
+          if (numScore > (last.score || 0)) {
+            last.score = numScore;
+            last.tag = tag || (numScore >= 75 ? "已熟練" : "待加強");
+          }
+          p.practiceLogs = practiceLogs;
+          saveProfilesToStorage();
+          updateLogUI();
+          return;
+        }
+      }
+
       const log = {
         timestamp: now.toISOString(),
         formattedTime: fullFormatted,
@@ -11448,8 +11546,8 @@
         profileName: p.name,
         word: word || "",
         sentence: sentence || word || "",
-        score: typeof score === 'number' ? score : (parseInt(score) || 0),
-        tag: tag || (score >= 75 ? "已熟練" : "待加強"),
+        score: numScore,
+        tag: tag || (numScore >= 75 ? "已熟練" : "待加強"),
         mode: mode || "任務",
         durationSeconds: durationSeconds
       };
@@ -11461,10 +11559,10 @@
       // Update student profile's weak / mastered lists
       if (!p.weakWords) p.weakWords = [];
       if (!p.masteredWords) p.masteredWords = [];
-      if (score < 75) {
+      if (numScore < 75) {
         if (!p.weakWords.includes(word)) p.weakWords.unshift(word);
         p.masteredWords = p.masteredWords.filter(w => w !== word);
-      } else if (score >= 85) {
+      } else if (numScore >= 85) {
         if (!p.masteredWords.includes(word)) p.masteredWords.unshift(word);
         p.weakWords = p.weakWords.filter(w => w !== word);
       }
@@ -11476,15 +11574,14 @@
     }
 
     function updateLogUI() {
-      const container = document.getElementById('logTableContainer');
       const filterBar = document.getElementById('logProfileFilterBar');
       const timeFilterBar = document.getElementById('logTimeFilterBar');
-      const dashboard = document.getElementById('logAnalyticsDashboard');
+      const viewModeTabBar = document.getElementById('logViewModeTabBar');
+      const bodyScroll = document.getElementById('logModalBodyScroll');
       const scopeBadge = document.getElementById('logViewScopeBadge');
       const adminBtn = document.getElementById('btnToggleLogAdminMode');
       const adminIcon = document.getElementById('logAdminIcon');
       const adminLabel = document.getElementById('logAdminLabel');
-      if (!container) return;
 
       const activeProfile = getActiveProfile();
 
@@ -11518,7 +11615,7 @@
       if (filterBar) {
         if (!isLogAdminMode) {
           filterBar.innerHTML = `
-            <div class="px-3 py-2 rounded-2xl bg-indigo-50/70 border border-indigo-100 flex items-center justify-between text-xs text-indigo-900">
+            <div class="px-3 py-1.5 rounded-2xl bg-indigo-50/70 border border-indigo-100 flex items-center justify-between text-xs text-indigo-900">
               <div class="flex items-center gap-2 font-bold">
                 <span class="text-sm">🔒</span>
                 <span>個人學習隱私空間：目前僅顯示【${activeProfile.name}】的評測與閱讀數據</span>
@@ -11569,6 +11666,15 @@
       });
       const sortedYears = Array.from(yearsSet).sort((a, b) => b - a);
 
+      const now = new Date();
+      const thisYearStr = String(now.getFullYear());
+      const thisMonthStr = String(now.getMonth() + 1).padStart(2, '0');
+
+      const isAllQuick = selectedLogTimeQuick === 'all' || (selectedLogYear === 'all' && selectedLogMonth === 'all');
+      const isYearQuick = selectedLogTimeQuick === 'this_year' || (selectedLogYear === thisYearStr && selectedLogMonth === 'all');
+      const isMonthQuick = selectedLogTimeQuick === 'this_month' || ((selectedLogYear === thisYearStr || selectedLogYear === 'all') && selectedLogMonth === thisMonthStr);
+      const isTodayQuick = selectedLogTimeQuick === 'today';
+
       // 3. Render Year / Month / Quick Range Filter Bar
       if (timeFilterBar) {
         timeFilterBar.innerHTML = `
@@ -11596,41 +11702,42 @@
 
             <!-- Quick Filter Pills -->
             <div class="flex items-center gap-1 ml-auto sm:ml-2">
-              <button onclick="setLogQuickTime('all')" class="px-2.5 py-1 rounded-xl text-[11px] font-bold transition active:scale-95 ${selectedLogTimeQuick === 'all' ? 'bg-indigo-600 text-white shadow-2xs' : 'bg-slate-200/80 text-slate-700 hover:bg-slate-300'}">全部</button>
-              <button onclick="setLogQuickTime('this_year')" class="px-2.5 py-1 rounded-xl text-[11px] font-bold transition active:scale-95 ${selectedLogTimeQuick === 'this_year' ? 'bg-indigo-600 text-white shadow-2xs' : 'bg-slate-200/80 text-slate-700 hover:bg-slate-300'}">今年</button>
-              <button onclick="setLogQuickTime('this_month')" class="px-2.5 py-1 rounded-xl text-[11px] font-bold transition active:scale-95 ${selectedLogTimeQuick === 'this_month' ? 'bg-indigo-600 text-white shadow-2xs' : 'bg-slate-200/80 text-slate-700 hover:bg-slate-300'}">本月</button>
-              <button onclick="setLogQuickTime('today')" class="px-2.5 py-1 rounded-xl text-[11px] font-bold transition active:scale-95 ${selectedLogTimeQuick === 'today' ? 'bg-indigo-600 text-white shadow-2xs' : 'bg-slate-200/80 text-slate-700 hover:bg-slate-300'}">今日</button>
+              <button onclick="setLogQuickTime('all')" class="px-2.5 py-1 rounded-xl text-[11px] font-bold transition active:scale-95 ${isAllQuick ? 'bg-indigo-600 text-white shadow-2xs' : 'bg-slate-200/80 text-slate-700 hover:bg-slate-300'}">全部</button>
+              <button onclick="setLogQuickTime('this_year')" class="px-2.5 py-1 rounded-xl text-[11px] font-bold transition active:scale-95 ${isYearQuick ? 'bg-indigo-600 text-white shadow-2xs' : 'bg-slate-200/80 text-slate-700 hover:bg-slate-300'}">今年</button>
+              <button onclick="setLogQuickTime('this_month')" class="px-2.5 py-1 rounded-xl text-[11px] font-bold transition active:scale-95 ${isMonthQuick ? 'bg-indigo-600 text-white shadow-2xs' : 'bg-slate-200/80 text-slate-700 hover:bg-slate-300'}">本月</button>
+              <button onclick="setLogQuickTime('today')" class="px-2.5 py-1 rounded-xl text-[11px] font-bold transition active:scale-95 ${isTodayQuick ? 'bg-indigo-600 text-white shadow-2xs' : 'bg-slate-200/80 text-slate-700 hover:bg-slate-300'}">今日</button>
             </div>
           </div>
         `;
       }
 
       // 4. Apply Year & Month Filtering
-      const now = new Date();
-      const thisYearStr = String(now.getFullYear());
-      const thisMonthStr = String(now.getMonth() + 1).padStart(2, '0');
-      const todayDateStr = `${thisYearStr}/${thisMonthStr}/${String(now.getDate()).padStart(2, '0')}`;
-      const todayDayStr = `${thisYearStr}-${thisMonthStr}-${String(now.getDate()).padStart(2, '0')}`;
+      const filteredLogs = activeLogs.filter(l => matchLogTimeFilter(l, selectedLogTimeQuick, selectedLogYear, selectedLogMonth));
 
-      const filteredLogs = activeLogs.filter(l => {
-        if (selectedLogTimeQuick === 'today') {
-          if (l.day === todayDayStr || l.dateStr === todayDateStr) return true;
-          if (l.timestamp && l.timestamp.startsWith(todayDayStr)) return true;
-          return false;
-        }
-        if (selectedLogYear !== 'all') {
-          const lYear = String(l.year || (l.timestamp ? l.timestamp.slice(0, 4) : ''));
-          if (lYear !== selectedLogYear) return false;
-        }
-        if (selectedLogMonth !== 'all') {
-          const lMonth = String(l.month || (l.timestamp ? l.timestamp.slice(0, 7) : ''));
-          const lMM = lMonth.slice(5, 7) || (l.timestamp ? l.timestamp.slice(5, 7) : '');
-          if (lMM !== selectedLogMonth) return false;
-        }
-        return true;
-      });
+      // 5. Render View Mode Tab Bar
+      if (viewModeTabBar) {
+        viewModeTabBar.innerHTML = `
+          <div class="flex items-center justify-between w-full flex-wrap gap-2">
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <span class="text-[11px] font-bold text-slate-500">檢視模式：</span>
+              <button onclick="changeLogViewMode('all')" class="px-3 py-1 rounded-xl text-xs font-bold transition active:scale-95 ${logActiveViewMode === 'all' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}">
+                📑 完整總覽 (圖表+明細)
+              </button>
+              <button onclick="changeLogViewMode('charts')" class="px-3 py-1 rounded-xl text-xs font-bold transition active:scale-95 ${logActiveViewMode === 'charts' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}">
+                📊 視覺圖表與成長分析
+              </button>
+              <button onclick="changeLogViewMode('table')" class="px-3 py-1 rounded-xl text-xs font-bold transition active:scale-95 ${logActiveViewMode === 'table' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-slate-100 text-slate-600 hover:bg-slate-200'}">
+                📋 評測明細清單 (${filteredLogs.length}筆)
+              </button>
+            </div>
+            <div class="text-[11px] font-bold text-slate-400">
+              篩選總計: <span class="font-mono text-indigo-600 font-black">${filteredLogs.length}</span> 筆評測
+            </div>
+          </div>
+        `;
+      }
 
-      // 5. Compute Detailed Stats for Filtered Range: Words vs Sentences, Duration, Mastery
+      // 6. Compute Stats
       let filteredWordCount = 0;
       let filteredSentenceCount = 0;
       const filteredWordsSet = new Set();
@@ -11654,11 +11761,9 @@
       const prevDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
       const prevYearStr = String(prevDate.getFullYear());
       const prevMonthStr = String(prevDate.getMonth() + 1).padStart(2, '0');
-      const curMonthKey = `${thisYearStr}-${thisMonthStr}`;
-      const prevMonthKey = `${prevYearStr}-${prevMonthStr}`;
 
-      const curMonthLogs = activeLogs.filter(l => (l.month === curMonthKey) || (l.timestamp && l.timestamp.startsWith(curMonthKey)));
-      const prevMonthLogs = activeLogs.filter(l => (l.month === prevMonthKey) || (l.timestamp && l.timestamp.startsWith(prevMonthKey)));
+      const curMonthLogs = activeLogs.filter(l => matchLogTimeFilter(l, 'custom', thisYearStr, thisMonthStr));
+      const prevMonthLogs = activeLogs.filter(l => matchLogTimeFilter(l, 'custom', prevYearStr, prevMonthStr));
 
       const curMonthSeconds = curMonthLogs.reduce((s, l) => s + estimateLogDuration(l), 0);
       const prevMonthSeconds = prevMonthLogs.reduce((s, l) => s + estimateLogDuration(l), 0);
@@ -11680,8 +11785,7 @@
       const monthlyStats = [];
       for (let m = 1; m <= 12; m++) {
         const mStr = String(m).padStart(2, '0');
-        const key = `${targetYearForChart}-${mStr}`;
-        const mLogs = activeLogs.filter(l => (l.month === key) || (l.timestamp && l.timestamp.startsWith(key)));
+        const mLogs = activeLogs.filter(l => matchLogTimeFilter(l, 'custom', targetYearForChart, mStr));
         const words = mLogs.filter(l => isWordLog(l)).length;
         const sentences = mLogs.filter(l => !isWordLog(l)).length;
         const duration = mLogs.reduce((s, l) => s + estimateLogDuration(l), 0);
@@ -11767,9 +11871,7 @@
       });
       barChartSvg += `</svg>`;
 
-      // Generate SVG Arc Growth Gauge (Tab 2)
-      // Radius = 60, circumference = 2 * PI * 60 ~= 377
-      // Semi circle stroke length = 188.5
+      // Generate SVG Arc Growth Gauge
       const arcLen = 188.5;
       const durProgress = Math.min(100, Math.max(0, durGrowth >= 0 ? Math.min(100, 50 + durGrowth / 2) : Math.max(0, 50 + durGrowth / 2)));
       const durOffset = arcLen - (durProgress / 100) * arcLen;
@@ -11781,9 +11883,7 @@
           <div class="flex flex-col items-center text-center">
             <div class="relative w-44 h-24 flex items-end justify-center">
               <svg viewBox="0 0 160 90" class="w-full h-full">
-                <!-- Track -->
                 <path d="M 20 80 A 60 60 0 0 1 140 80" fill="none" stroke="#E2E8F0" stroke-width="12" stroke-linecap="round"/>
-                <!-- Value Arc -->
                 <path d="M 20 80 A 60 60 0 0 1 140 80" fill="none" stroke="${durGrowth >= 0 ? '#10B981' : '#F43F5E'}" stroke-width="12" stroke-linecap="round"
                   stroke-dasharray="${arcLen}" stroke-dashoffset="${durOffset}"/>
               </svg>
@@ -11801,9 +11901,7 @@
           <div class="flex flex-col items-center text-center">
             <div class="relative w-44 h-24 flex items-end justify-center">
               <svg viewBox="0 0 160 90" class="w-full h-full">
-                <!-- Track -->
                 <path d="M 20 80 A 60 60 0 0 1 140 80" fill="none" stroke="#E2E8F0" stroke-width="12" stroke-linecap="round"/>
-                <!-- Value Arc -->
                 <path d="M 20 80 A 60 60 0 0 1 140 80" fill="none" stroke="#6366F1" stroke-width="12" stroke-linecap="round"
                   stroke-dasharray="${arcLen}" stroke-dashoffset="${accOffset}"/>
               </svg>
@@ -11819,249 +11917,193 @@
         </div>
       `;
 
-      // 6. Render Analytics Dashboard Content
-      if (dashboard) {
-        dashboard.innerHTML = `
-          <!-- 4 Metric Cards for Filtered Range -->
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mb-2.5">
+      // 7. Render Modal Body Content
+      if (bodyScroll) {
+        let bodyHtml = '';
+
+        // Section A: 4 Stat Cards (Roomy, perfectly visible, never cut off)
+        bodyHtml += `
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 shrink-0">
             <!-- Card 1: 閱讀總時長 -->
-            <div class="bg-indigo-50/80 border border-indigo-100 rounded-2xl p-2.5 flex flex-col justify-between shadow-2xs">
+            <div class="bg-indigo-50/90 border border-indigo-200/80 rounded-2xl p-2.5 flex flex-col justify-between shadow-2xs min-h-[82px]">
               <div class="flex items-center justify-between text-indigo-900 text-xs font-black">
                 <span class="flex items-center gap-1"><span>⏱️</span> 閱讀時長</span>
-                <span class="text-[10px] bg-indigo-100 text-indigo-700 px-1.5 py-0.2 rounded-full font-mono">${filteredTotalCount} 次</span>
+                <span class="text-[10px] bg-indigo-100 text-indigo-700 px-1.5 py-0.5 rounded-full font-mono font-bold">${filteredTotalCount} 次</span>
               </div>
               <div class="mt-1.5">
-                <div class="text-lg sm:text-xl font-black text-indigo-950 font-mono tracking-tight">${formatPracticeDuration(filteredDurationSeconds)}</div>
-                <div class="text-[10px] text-slate-500 mt-0.5 truncate">
-                  篩選區間累計時長
-                </div>
+                <div class="text-base sm:text-lg font-black text-indigo-950 font-mono tracking-tight leading-tight">${formatPracticeDuration(filteredDurationSeconds)}</div>
+                <div class="text-[10px] text-slate-500 mt-1 leading-none">篩選區間累計</div>
               </div>
             </div>
 
             <!-- Card 2: 單字閱讀次數 -->
-            <div class="bg-purple-50/80 border border-purple-100 rounded-2xl p-2.5 flex flex-col justify-between shadow-2xs">
+            <div class="bg-purple-50/90 border border-purple-200/80 rounded-2xl p-2.5 flex flex-col justify-between shadow-2xs min-h-[82px]">
               <div class="flex items-center justify-between text-purple-900 text-xs font-black">
                 <span class="flex items-center gap-1"><span>🔤</span> 單字次數</span>
-                <span class="text-[10px] bg-purple-100 text-purple-700 px-1.5 py-0.2 rounded-full font-mono">${filteredWordsSet.size} 個詞</span>
+                <span class="text-[10px] bg-purple-100 text-purple-700 px-1.5 py-0.5 rounded-full font-mono font-bold">${filteredWordsSet.size} 個詞</span>
               </div>
               <div class="mt-1.5">
-                <div class="text-lg sm:text-xl font-black text-purple-950 font-mono tracking-tight">${filteredWordCount} <span class="text-xs font-bold text-slate-500">次</span></div>
-                <div class="text-[10px] text-slate-500 mt-0.5 truncate">
-                  月成長: <strong class="${wordGrowth >= 0 ? 'text-emerald-600' : 'text-rose-600'}">${wordGrowth >= 0 ? '+' : ''}${wordGrowth}%</strong>
-                </div>
+                <div class="text-base sm:text-lg font-black text-purple-950 font-mono tracking-tight leading-tight">${filteredWordCount} <span class="text-xs font-bold text-slate-500">次</span></div>
+                <div class="text-[10px] text-slate-500 mt-1 leading-none">情境單字練習</div>
               </div>
             </div>
 
             <!-- Card 3: 例句閱讀次數 -->
-            <div class="bg-emerald-50/80 border border-emerald-100 rounded-2xl p-2.5 flex flex-col justify-between shadow-2xs">
+            <div class="bg-emerald-50/90 border border-emerald-200/80 rounded-2xl p-2.5 flex flex-col justify-between shadow-2xs min-h-[82px]">
               <div class="flex items-center justify-between text-emerald-900 text-xs font-black">
                 <span class="flex items-center gap-1"><span>💬</span> 例句次數</span>
-                <span class="text-[10px] bg-emerald-100 text-emerald-700 px-1.5 py-0.2 rounded-full font-mono">情境語境</span>
+                <span class="text-[10px] bg-emerald-100 text-emerald-700 px-1.5 py-0.5 rounded-full font-mono font-bold">情境語境</span>
               </div>
               <div class="mt-1.5">
-                <div class="text-lg sm:text-xl font-black text-emerald-950 font-mono tracking-tight">${filteredSentenceCount} <span class="text-xs font-bold text-slate-500">次</span></div>
-                <div class="text-[10px] text-slate-500 mt-0.5 truncate">
-                  月成長: <strong class="${sentGrowth >= 0 ? 'text-emerald-600' : 'text-rose-600'}">${sentGrowth >= 0 ? '+' : ''}${sentGrowth}%</strong>
-                </div>
+                <div class="text-base sm:text-lg font-black text-emerald-950 font-mono tracking-tight leading-tight">${filteredSentenceCount} <span class="text-xs font-bold text-slate-500">次</span></div>
+                <div class="text-[10px] text-slate-500 mt-1 leading-none">日常語境短句</div>
               </div>
             </div>
 
             <!-- Card 4: 掌握率與均分 -->
-            <div class="bg-amber-50/80 border border-amber-100 rounded-2xl p-2.5 flex flex-col justify-between shadow-2xs">
+            <div class="bg-amber-50/90 border border-amber-200/80 rounded-2xl p-2.5 flex flex-col justify-between shadow-2xs min-h-[82px]">
               <div class="flex items-center justify-between text-amber-950 text-xs font-black">
                 <span class="flex items-center gap-1"><span>🎯</span> 掌握率</span>
-                <span class="text-[10px] bg-amber-100 text-amber-800 px-1.5 py-0.2 rounded-full font-mono">${filteredAvgScore}分</span>
+                <span class="text-[10px] bg-amber-100 text-amber-800 px-1.5 py-0.5 rounded-full font-mono font-bold">${filteredAvgScore}分</span>
               </div>
               <div class="mt-1.5">
-                <div class="text-lg sm:text-xl font-black text-amber-950 font-mono tracking-tight">${filteredAccuracy}%</div>
-                <div class="text-[10px] text-slate-500 mt-0.5 truncate">
-                  熟練率 (>=75分)
-                </div>
+                <div class="text-base sm:text-lg font-black text-amber-950 font-mono tracking-tight leading-tight">${filteredAccuracy}%</div>
+                <div class="text-[10px] text-slate-500 mt-1 leading-none">熟練率 (>=75分)</div>
               </div>
             </div>
           </div>
+        `;
 
-          <!-- Chart Switcher Tabs & Chart Canvas -->
-          <div class="bg-slate-50/90 border border-slate-200/90 rounded-2xl p-3 mb-2.5">
-            <div class="flex items-center justify-between mb-2 pb-1.5 border-b border-slate-200/60 flex-wrap gap-2">
-              <div class="flex items-center gap-2">
-                <button onclick="switchLogChartTab('bar')" class="px-2.5 py-1 rounded-xl text-xs font-black transition flex items-center gap-1.5 active:scale-95 ${logActiveChartTab === 'bar' ? 'bg-indigo-600 text-white shadow-2xs' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'}">
-                  <span>📊 閱讀次數長條圖 (${targetYearForChart}年)</span>
-                </button>
-                <button onclick="switchLogChartTab('arc')" class="px-2.5 py-1 rounded-xl text-xs font-black transition flex items-center gap-1.5 active:scale-95 ${logActiveChartTab === 'arc' ? 'bg-indigo-600 text-white shadow-2xs' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'}">
-                  <span>📈 月度成長弧形圖 (趨勢)</span>
-                </button>
+        // Section B: Charts & Weak Words (if mode is 'all' or 'charts')
+        if (logActiveViewMode === 'all' || logActiveViewMode === 'charts') {
+          bodyHtml += `
+            <div class="bg-slate-50/90 border border-slate-200/90 rounded-2xl p-3 shrink-0">
+              <div class="flex items-center justify-between mb-2 pb-1.5 border-b border-slate-200/60 flex-wrap gap-2">
+                <div class="flex items-center gap-2">
+                  <button onclick="switchLogChartTab('bar')" class="px-2.5 py-1 rounded-xl text-xs font-black transition flex items-center gap-1.5 active:scale-95 ${logActiveChartTab === 'bar' ? 'bg-indigo-600 text-white shadow-2xs' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'}">
+                    <span>📊 閱讀次數長條圖 (${targetYearForChart}年)</span>
+                  </button>
+                  <button onclick="switchLogChartTab('arc')" class="px-2.5 py-1 rounded-xl text-xs font-black transition flex items-center gap-1.5 active:scale-95 ${logActiveChartTab === 'arc' ? 'bg-indigo-600 text-white shadow-2xs' : 'bg-white text-slate-600 border border-slate-200 hover:bg-slate-100'}">
+                    <span>📈 月度成長弧形圖 (趨勢)</span>
+                  </button>
+                </div>
+                ${logActiveChartTab === 'bar' ? `
+                  <div class="flex items-center gap-3 text-[11px] font-bold text-slate-600">
+                    <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-indigo-500 inline-block"></span> 單字閱讀 (次)</span>
+                    <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-emerald-500 inline-block"></span> 例句朗讀 (次)</span>
+                  </div>
+                ` : `
+                  <div class="text-[11px] font-bold text-slate-500">
+                    <span>對比上月成長率與掌握率</span>
+                  </div>
+                `}
               </div>
-
-              <!-- Bar Legend (shown when Bar Tab is active) -->
-              ${logActiveChartTab === 'bar' ? `
-                <div class="flex items-center gap-3 text-[11px] font-bold text-slate-600">
-                  <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-indigo-500 inline-block"></span> 單字閱讀次數 (次)</span>
-                  <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-sm bg-emerald-500 inline-block"></span> 例句朗讀次數 (次)</span>
-                </div>
-              ` : `
-                <div class="text-[11px] font-bold text-slate-500">
-                  <span>對比上月成長率與掌握率</span>
-                </div>
-              `}
+              <div class="w-full">
+                ${logActiveChartTab === 'bar' ? barChartSvg : arcGaugeSvg}
+              </div>
             </div>
 
-            <!-- Tab Content -->
-            <div>
-              ${logActiveChartTab === 'bar' ? barChartSvg : arcGaugeSvg}
+            <!-- Top Weak Words / Mistakes Bar -->
+            <div class="bg-slate-50/90 border border-slate-200/90 rounded-2xl px-3 py-2 flex items-center justify-between gap-2 flex-wrap shrink-0 text-xs">
+              <div class="flex items-center gap-1.5 text-slate-700 font-bold shrink-0">
+                <span class="text-rose-500 font-black">🎯 數據驅動弱項與自適應複習:</span>
+              </div>
+              <div class="flex items-center gap-1.5 flex-wrap flex-1">
+                ${weakBadgesHtml}
+              </div>
             </div>
-          </div>
+          `;
+        }
 
-          <!-- Top Weak / Mistakes Bar (Driven by Data) -->
-          <div class="bg-slate-50/90 border border-slate-200/90 rounded-2xl px-3 py-2 flex items-center justify-between gap-2 flex-wrap mb-1 text-xs">
-            <div class="flex items-center gap-1.5 text-slate-700 font-bold shrink-0">
-              <span class="text-rose-500 font-black">🎯 數據驅動弱項與自適應複習:</span>
-            </div>
-            <div class="flex items-center gap-1.5 flex-wrap flex-1">
-              ${weakBadgesHtml}
-            </div>
-          </div>
-        `;
+        // Section C: Table Section (if mode is 'all' or 'table')
+        if (logActiveViewMode === 'all' || logActiveViewMode === 'table') {
+          bodyHtml += `
+            <div class="border border-slate-200/90 rounded-2xl bg-white p-2 shadow-2xs">
+              <div class="flex items-center justify-between px-2 py-1.5 border-b border-slate-100 mb-1 flex-wrap gap-1">
+                <span class="text-xs font-black text-slate-800 flex items-center gap-1.5">
+                  <span>📋</span> 評測詳細紀錄清單
+                  <span class="text-[10px] font-normal text-slate-400 font-mono">（共 ${filteredLogs.length} 筆，已依時間排序）</span>
+                </span>
+                <span class="text-[10px] text-slate-400 font-medium">包含單字例句朗讀、得分與發音診斷狀態</span>
+              </div>
+          `;
+
+          if (filteredLogs.length === 0) {
+            bodyHtml += `
+              <div class="text-center py-10 text-slate-400 font-medium">
+                <span class="text-2xl block mb-1">🔍</span>
+                所選時間範圍（${selectedLogYear !== 'all' ? selectedLogYear + '年' : '歷年'} ${selectedLogMonth !== 'all' ? selectedLogMonth + '月' : ''}）尚無練習評測記錄。<br>
+                可切換為「全部」或選擇其他年份月份檢視！
+              </div>
+            </div>`;
+          } else {
+            bodyHtml += `
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-xs">
+                  <thead>
+                    <tr class="border-b border-slate-200 text-slate-500 text-[11px] font-bold bg-slate-50/70">
+                      <th class="py-2.5 px-2.5 whitespace-nowrap">時間 (年/月/日 時:分)</th>
+                      <th class="px-2 whitespace-nowrap">類別</th>
+                      <th class="px-2 whitespace-nowrap">學員</th>
+                      <th class="px-2">朗讀內容與單字</th>
+                      <th class="px-2 text-center whitespace-nowrap">得分</th>
+                      <th class="px-2 whitespace-nowrap">狀態</th>
+                      <th class="px-2 whitespace-nowrap">類型</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+            `;
+
+            filteredLogs.forEach(l => {
+              const isGood = (l.score || 0) >= 75;
+              const isWord = isWordLog(l);
+              const d = l.timestamp ? new Date(l.timestamp) : new Date();
+              const dateStr = l.dateStr || `${d.getFullYear()}/${pad(d.getMonth() + 1)}/${pad(d.getDate())}`;
+              const timeStr = l.timeStr || `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+              const pName = l.profileName || (profiles.find(p => p.id === l.profileId) || {}).name || "Kai 寶貝";
+              const dur = estimateLogDuration(l);
+
+              bodyHtml += `
+                <tr class="border-b border-slate-100 hover:bg-slate-50/80 transition-colors">
+                  <td class="py-2 px-2.5 text-slate-600 font-mono whitespace-nowrap">
+                    <div class="text-[11px] font-bold text-slate-700 leading-tight">${dateStr}</div>
+                    <div class="text-[10px] text-slate-400 font-medium">${timeStr}</div>
+                  </td>
+                  <td class="px-2 whitespace-nowrap">
+                    ${isWord 
+                      ? `<span class="px-2 py-0.5 rounded-lg text-[10px] font-black bg-purple-100 text-purple-800 border border-purple-200">🔤 單字</span>`
+                      : `<span class="px-2 py-0.5 rounded-lg text-[10px] font-black bg-emerald-100 text-emerald-800 border border-emerald-200">💬 例句</span>`
+                    }
+                  </td>
+                  <td class="px-2 whitespace-nowrap">
+                    <span class="px-2 py-0.5 rounded-lg text-[10px] font-black bg-indigo-50 text-indigo-700 border border-indigo-100">${pName}</span>
+                  </td>
+                  <td class="px-2 py-2">
+                    <div class="font-bold text-slate-800 text-xs">${l.sentence || l.word}</div>
+                    ${(l.word && l.sentence && l.sentence !== l.word)
+                      ? `<div class="text-[10px] text-indigo-600 font-semibold mt-0.5">單字: <span class="underline">${l.word}</span> · 閱讀估時 ~${dur}秒</div>`
+                      : `<div class="text-[10px] text-slate-400 mt-0.5">閱讀估時 ~${dur}秒</div>`
+                    }
+                  </td>
+                  <td class="px-2 text-center whitespace-nowrap">
+                    <span class="px-2 py-0.5 rounded-full font-bold text-xs ${isGood ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">${l.score} 分</span>
+                  </td>
+                  <td class="px-2 whitespace-nowrap">
+                    <span class="text-xs font-semibold ${isGood ? 'text-emerald-600' : 'text-rose-600'}">${isGood ? '✓ ' : '⚠️ '}${l.tag || (isGood ? '已熟練' : '待加強')}</span>
+                  </td>
+                  <td class="px-2 text-slate-400 text-[11px] whitespace-nowrap">${l.mode || '每日任務'}</td>
+                </tr>
+              `;
+            });
+
+            bodyHtml += `</tbody></table></div></div>`;
+          }
+        }
+
+        bodyScroll.innerHTML = bodyHtml;
       }
-
-      // 7. Render Table Content
-      if (filteredLogs.length === 0) {
-        container.innerHTML = `
-          <div class="text-center py-10 text-slate-400 font-medium">
-            <span class="text-2xl block mb-1">🔍</span>
-            所選時間範圍（${selectedLogYear !== 'all' ? selectedLogYear + '年' : '歷年'} ${selectedLogMonth !== 'all' ? selectedLogMonth + '月' : ''}）尚無練習評測記錄。<br>
-            可切換為「全部」或選擇其他年份月份檢視！
-          </div>
-        `;
-        return;
-      }
-
-      let html = `
-        <table class="w-full text-left border-collapse">
-          <thead>
-            <tr class="border-b border-slate-200 text-slate-500 text-[11px] font-bold bg-slate-50/50 sticky top-0 backdrop-blur-xs">
-              <th class="py-2.5 px-2.5">時間 (年/月/日 時:分)</th>
-              <th class="px-2">類別</th>
-              <th class="px-2">學員</th>
-              <th class="px-2">朗讀內容與單字</th>
-              <th class="px-2 text-center">得分</th>
-              <th class="px-2">狀態</th>
-              <th class="px-2">類型</th>
-            </tr>
-          </thead>
-          <tbody>
-      `;
-
-      filteredLogs.slice(0, 100).forEach(l => {
-        const isGood = (l.score || 0) >= 75;
-        const isWord = isWordLog(l);
-        const d = new Date(l.timestamp || Date.now());
-        const dateStr = l.dateStr || `${d.getFullYear()}/${pad(d.getMonth() + 1)}/${pad(d.getDate())}`;
-        const timeStr = l.timeStr || `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
-        const pName = l.profileName || (profiles.find(p => p.id === l.profileId) || {}).name || "Kai 寶貝";
-        const dur = estimateLogDuration(l);
-
-        html += `
-          <tr class="border-b border-slate-100 hover:bg-slate-50/80 transition-colors">
-            <td class="py-2 px-2.5 text-slate-600 font-mono whitespace-nowrap">
-              <div class="text-[11px] font-bold text-slate-700 leading-tight">${dateStr}</div>
-              <div class="text-[10px] text-slate-400 font-medium">${timeStr}</div>
-            </td>
-            <td class="px-2 whitespace-nowrap">
-              ${isWord 
-                ? `<span class="px-2 py-0.5 rounded-lg text-[10px] font-black bg-purple-100 text-purple-800 border border-purple-200">🔤 單字</span>`
-                : `<span class="px-2 py-0.5 rounded-lg text-[10px] font-black bg-emerald-100 text-emerald-800 border border-emerald-200">💬 例句</span>`
-              }
-            </td>
-            <td class="px-2 whitespace-nowrap">
-              <span class="px-2 py-0.5 rounded-lg text-[10px] font-black bg-indigo-50 text-indigo-700 border border-indigo-100">${pName}</span>
-            </td>
-            <td class="px-2 py-2">
-              <div class="font-bold text-slate-800 text-xs">${l.sentence || l.word}</div>
-              ${(l.word && l.sentence && l.sentence !== l.word)
-                ? `<div class="text-[10px] text-indigo-600 font-semibold mt-0.5">單字: <span class="underline">${l.word}</span> · 閱讀估時 ~${dur}秒</div>`
-                : `<div class="text-[10px] text-slate-400 mt-0.5">閱讀估時 ~${dur}秒</div>`
-              }
-            </td>
-            <td class="px-2 text-center whitespace-nowrap">
-              <span class="px-2 py-0.5 rounded-full font-bold text-xs ${isGood ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">${l.score} 分</span>
-            </td>
-            <td class="px-2 whitespace-nowrap">
-              <span class="text-xs font-semibold ${isGood ? 'text-emerald-600' : 'text-rose-600'}">${isGood ? '✓ ' : '⚠️ '}${l.tag || (isGood ? '已熟練' : '待加強')}</span>
-            </td>
-            <td class="px-2 text-slate-400 text-[11px] whitespace-nowrap">${l.mode || '每日任務'}</td>
-          </tr>
-        `;
-      });
-
-      html += '</tbody></table>';
-      container.innerHTML = html;
     }
 
-    function exportLogsCSV() {
-      const allLogs = getAllPracticeLogs();
-      const activeLogs = selectedLogProfileFilter === 'all'
-        ? allLogs
-        : allLogs.filter(l => l.profileId === selectedLogProfileFilter);
-
-      // Apply current time filters (Year & Month & Today)
-      const now = new Date();
-      const thisYearStr = String(now.getFullYear());
-      const thisMonthStr = String(now.getMonth() + 1).padStart(2, '0');
-      const todayDateStr = `${thisYearStr}/${thisMonthStr}/${String(now.getDate()).padStart(2, '0')}`;
-      const todayDayStr = `${thisYearStr}-${thisMonthStr}-${String(now.getDate()).padStart(2, '0')}`;
-
-      const filteredLogs = activeLogs.filter(l => {
-        if (selectedLogTimeQuick === 'today') {
-          if (l.day === todayDayStr || l.dateStr === todayDateStr) return true;
-          if (l.timestamp && l.timestamp.startsWith(todayDayStr)) return true;
-          return false;
-        }
-        if (selectedLogYear !== 'all') {
-          const lYear = String(l.year || (l.timestamp ? l.timestamp.slice(0, 4) : ''));
-          if (lYear !== selectedLogYear) return false;
-        }
-        if (selectedLogMonth !== 'all') {
-          const lMonth = String(l.month || (l.timestamp ? l.timestamp.slice(0, 7) : ''));
-          const lMM = lMonth.slice(5, 7) || (l.timestamp ? l.timestamp.slice(5, 7) : '');
-          if (lMM !== selectedLogMonth) return false;
-        }
-        return true;
-      });
-
-      if (filteredLogs.length === 0) {
-        alert("當前篩選條件下尚無記錄可匯出！");
-        return;
-      }
-
-      let csv = "時間 (年/月/日 時:分:秒),類別,學員,單字,朗讀內容,得分,評級,練習模式,閱讀時長(秒)\n";
-      filteredLogs.forEach(l => {
-        const d = new Date(l.timestamp || Date.now());
-        const y = d.getFullYear();
-        const m = pad(d.getMonth() + 1);
-        const day = pad(d.getDate());
-        const hh = pad(d.getHours());
-        const mm = pad(d.getMinutes());
-        const ss = pad(d.getSeconds());
-        const fullTimeStr = l.formattedTime || `${y}/${m}/${day} ${hh}:${mm}:${ss}`;
-        const pName = l.profileName || (profiles.find(p => p.id === l.profileId) || {}).name || "Kai 寶貝";
-        const dur = estimateLogDuration(l);
-        const sent = (l.sentence || l.word || "").replace(/"/g, '""');
-        const word = (l.word || "").replace(/"/g, '""');
-        const category = isWordLog(l) ? "單字" : "例句/短文";
-        csv += `"${fullTimeStr}","${category}","${pName}","${word}","${sent}",${l.score || 0},"${l.tag || ''}","${l.mode || ''}",${dur}\n`;
-      });
-
-      const blob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), csv], { type: 'text/csv;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      const targetLabel = selectedLogProfileFilter === 'all' ? '全部學員' : ((profiles.find(p => p.id === selectedLogProfileFilter) || {}).name || '學員');
-      const timeLabel = selectedLogYear !== 'all' ? `${selectedLogYear}年${selectedLogMonth !== 'all' ? selectedLogMonth + '月' : ''}` : '歷年總覽';
-      a.download = `KaiSpeak_學習評測與閱讀統計_${targetLabel}_${timeLabel}_${new Date().toISOString().slice(0, 10)}.csv`;
-      a.click();
-      URL.revokeObjectURL(url);
-    }
 
     function clearAllLogs() {
       const isFiltered = selectedLogProfileFilter !== 'all';
@@ -12887,7 +12929,7 @@
     };
 
     // ========================================================
-    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.51)
+    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.52)
     // ========================================================
     // 💡 App Store 開箱即用架構（商業發行標準）：
     // 透過 Cloudflare Worker 官方安全閘道器，免掃碼、免設定、0 秒直連 Google 官方 AI！
@@ -14448,7 +14490,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.51)
+    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.52)
     // ========================================================
     function parseScenarioJsonResponse(rawText) {
       if (!rawText || typeof rawText !== 'string') return null;
@@ -14553,7 +14595,7 @@
     }
 
     // ========================================================
-    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.51)
+    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.52)
     // ========================================================
     async function callGeminiScenarioPlanner(userText, userLevel, apiKey) {
       // 1. Ensure valid official model from localStorage
@@ -15070,7 +15112,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.51)
+    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.52)
     // ========================================================
     const KaiSpeechEngine = {
       preferredVoice: null,
