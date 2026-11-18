@@ -18,6 +18,7 @@ CONFIG_FILE = os.path.join(DIRECTORY, 'server_config.json')
 TELEMETRY_FILE = os.path.join(DIRECTORY, 'server_telemetry.json')
 PROFILES_FILE = os.path.join(DIRECTORY, 'server_profiles.json')
 LEADERBOARD_FILE = os.path.join(DIRECTORY, 'server_leaderboard.json')
+FAMILY_ACCOUNTS_FILE = os.path.join(DIRECTORY, 'server_family_accounts.json')
 MAX_TELEMETRY_LOGS = 1000
 os.makedirs(TTS_CACHE_DIR, exist_ok=True)
 
@@ -129,6 +130,24 @@ def save_synced_profiles(profiles_list):
     try:
         with open(PROFILES_FILE, 'w', encoding='utf-8') as f:
             json.dump(profiles_list, f, ensure_ascii=False, indent=2)
+    except Exception:
+        pass
+
+def get_family_accounts():
+    if os.path.exists(FAMILY_ACCOUNTS_FILE):
+        try:
+            with open(FAMILY_ACCOUNTS_FILE, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                if isinstance(data, dict):
+                    return data
+        except Exception:
+            pass
+    return {}
+
+def save_family_accounts(accounts_map):
+    try:
+        with open(FAMILY_ACCOUNTS_FILE, 'w', encoding='utf-8') as f:
+            json.dump(accounts_map, f, ensure_ascii=False, indent=2)
     except Exception:
         pass
 
@@ -477,6 +496,49 @@ class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
                 self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode('utf-8'))
                 return
 
+        # 6. Parent Family Cloud Account & Multi-Device Sync Query
+        if self.path.startswith('/api/parent_account'):
+            try:
+                parsed = urllib.parse.urlparse(self.path)
+                params = urllib.parse.parse_qs(parsed.query)
+                account_id = params.get('accountId', [''])[0].strip().lower()
+                pin = params.get('pin', [''])[0].strip()
+                if not account_id:
+                    self.send_response(400)
+                    self.send_header('Content-Type', 'application/json; charset=utf-8')
+                    self.end_headers()
+                    self.wfile.write(json.dumps({"status": "error", "message": "請提供家長主帳號 ID！"}).encode('utf-8'))
+                    return
+
+                accounts = get_family_accounts()
+                if account_id in accounts:
+                    acc = accounts[account_id]
+                    acc_pin = acc.get('pin', '').strip()
+                    if acc_pin and pin and acc_pin != pin:
+                        self.send_response(401)
+                        self.send_header('Content-Type', 'application/json; charset=utf-8')
+                        self.end_headers()
+                        self.wfile.write(json.dumps({"status": "error", "message": "家長帳號安全密碼不正確！"}).encode('utf-8'))
+                        return
+
+                    self.send_response(200)
+                    self.send_header('Content-Type', 'application/json; charset=utf-8')
+                    self.end_headers()
+                    self.wfile.write(json.dumps({"status": "ok", "exists": True, "account": acc}, ensure_ascii=False).encode('utf-8'))
+                    return
+                else:
+                    self.send_response(200)
+                    self.send_header('Content-Type', 'application/json; charset=utf-8')
+                    self.end_headers()
+                    self.wfile.write(json.dumps({"status": "ok", "exists": False, "message": "此家長帳號尚未註冊，可立即綁定建立！"}, ensure_ascii=False).encode('utf-8'))
+                    return
+            except Exception as e:
+                self.send_response(500)
+                self.send_header('Content-Type', 'application/json; charset=utf-8')
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode('utf-8'))
+                return
+
         if self.path == '/api/generation_queue_status':
             queue_data = {"lastUpdated": int(time.time()), "items": []}
             if os.path.exists(QUEUE_FILE):
@@ -703,6 +765,200 @@ class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_header('Content-Type', 'application/json; charset=utf-8')
                 self.end_headers()
                 self.wfile.write(json.dumps(res, ensure_ascii=False).encode('utf-8'))
+                return
+            except Exception as e:
+                self.send_response(500)
+                self.send_header('Content-Type', 'application/json; charset=utf-8')
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode('utf-8'))
+                return
+
+        # 6. Parent Family Account Login or Register
+        if self.path == '/api/parent_account/login':
+            try:
+                content_len = int(self.headers.get('Content-Length', 0))
+                post_data = self.rfile.read(content_len)
+                payload = json.loads(post_data.decode('utf-8')) if content_len > 0 else {}
+                account_id = payload.get('accountId', '').strip().lower()
+                pin = payload.get('pin', '').strip()
+                if not account_id:
+                    self.send_response(400)
+                    self.send_header('Content-Type', 'application/json; charset=utf-8')
+                    self.end_headers()
+                    self.wfile.write(json.dumps({"status": "error", "message": "請輸入家長帳號 ID！"}).encode('utf-8'))
+                    return
+
+                accounts = get_family_accounts()
+                now_str = time.strftime("%Y-%m-%d %H:%M:%S")
+
+                if account_id in accounts:
+                    acc = accounts[account_id]
+                    acc_pin = acc.get('pin', '').strip()
+                    if acc_pin and pin and acc_pin != pin:
+                        self.send_response(401)
+                        self.send_header('Content-Type', 'application/json; charset=utf-8')
+                        self.end_headers()
+                        self.wfile.write(json.dumps({"status": "error", "message": "家長帳號密碼不正確！"}).encode('utf-8'))
+                        return
+                    acc['lastLoginAt'] = now_str
+                    save_family_accounts(accounts)
+                    self.send_response(200)
+                    self.send_header('Content-Type', 'application/json; charset=utf-8')
+                    self.end_headers()
+                    self.wfile.write(json.dumps({"status": "ok", "isNew": False, "account": acc}, ensure_ascii=False).encode('utf-8'))
+                    return
+                else:
+                    new_acc = {
+                        "accountId": account_id,
+                        "pin": pin or "8888",
+                        "vipInfo": {
+                            "isVip": False,
+                            "planType": "free",
+                            "title": "🌿 免費版",
+                            "expiresAt": None
+                        },
+                        "childrenProfiles": [],
+                        "createdAt": now_str,
+                        "lastLoginAt": now_str,
+                        "updatedAt": now_str
+                    }
+                    accounts[account_id] = new_acc
+                    save_family_accounts(accounts)
+                    self.send_response(200)
+                    self.send_header('Content-Type', 'application/json; charset=utf-8')
+                    self.end_headers()
+                    self.wfile.write(json.dumps({"status": "ok", "isNew": True, "account": new_acc}, ensure_ascii=False).encode('utf-8'))
+                    return
+            except Exception as e:
+                self.send_response(500)
+                self.send_header('Content-Type', 'application/json; charset=utf-8')
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode('utf-8'))
+                return
+
+        # 7. Parent Family Account Sync (Merge VIP status & Children Profiles across devices)
+        if self.path == '/api/parent_account/sync':
+            try:
+                content_len = int(self.headers.get('Content-Length', 0))
+                post_data = self.rfile.read(content_len)
+                payload = json.loads(post_data.decode('utf-8')) if content_len > 0 else {}
+                account_id = payload.get('accountId', '').strip().lower()
+                pin = payload.get('pin', '').strip()
+                client_vip = payload.get('vipInfo', {})
+                client_profiles = payload.get('childrenProfiles', payload.get('profiles', []))
+
+                if not account_id:
+                    self.send_response(400)
+                    self.send_header('Content-Type', 'application/json; charset=utf-8')
+                    self.end_headers()
+                    self.wfile.write(json.dumps({"status": "error", "message": "請輸入家長帳號 ID！"}).encode('utf-8'))
+                    return
+
+                accounts = get_family_accounts()
+                now_str = time.strftime("%Y-%m-%d %H:%M:%S")
+
+                acc = accounts.get(account_id, {
+                    "accountId": account_id,
+                    "pin": pin or "8888",
+                    "vipInfo": {"isVip": False, "planType": "free"},
+                    "childrenProfiles": [],
+                    "createdAt": now_str
+                })
+
+                # Merge VIP: If either client or server is VIP, maintain VIP!
+                server_vip = acc.get('vipInfo', {})
+                c_is_vip = bool(client_vip.get('isVip'))
+                s_is_vip = bool(server_vip.get('isVip'))
+
+                merged_vip = dict(server_vip) if s_is_vip else dict(client_vip)
+                if c_is_vip or s_is_vip:
+                    merged_vip['isVip'] = True
+                    c_exp = client_vip.get('expiresAt') or ''
+                    s_exp = server_vip.get('expiresAt') or ''
+                    merged_vip['expiresAt'] = max(c_exp, s_exp) if (c_exp and s_exp) else (c_exp or s_exp)
+                    merged_vip['planType'] = client_vip.get('planType') or server_vip.get('planType') or 'yearly'
+                    merged_vip['title'] = client_vip.get('title') or server_vip.get('title') or '👑 VIP 旗艦會員'
+                    merged_vip['licenseKey'] = client_vip.get('licenseKey') or server_vip.get('licenseKey') or 'FAMILY-CLOUD-VIP'
+                else:
+                    merged_vip['isVip'] = False
+                    merged_vip['planType'] = 'free'
+
+                acc['vipInfo'] = merged_vip
+
+                # Merge Children Profiles
+                server_profiles = acc.get('childrenProfiles', [])
+                merged_map = {p['id']: p for p in server_profiles if 'id' in p}
+                for cp in client_profiles:
+                    cid = cp.get('id')
+                    if not cid:
+                        continue
+                    if cid in merged_map:
+                        sp = merged_map[cid]
+                        mp = dict(sp)
+                        mp['name'] = cp.get('name') or sp.get('name')
+                        mp['avatar'] = cp.get('avatar') or sp.get('avatar')
+                        mp['grade'] = cp.get('grade') or sp.get('grade')
+                        mp['streakDays'] = max(cp.get('streakDays', 1), sp.get('streakDays', 1))
+                        mp['energyPoints'] = max(cp.get('energyPoints', 0), sp.get('energyPoints', 0))
+                        stars = dict(sp.get('adventureStars', {}))
+                        stars.update(cp.get('adventureStars', {}))
+                        mp['adventureStars'] = stars
+                        c_miles = set(cp.get('claimedStreakMilestones', [])) | set(sp.get('claimedStreakMilestones', []))
+                        mp['claimedStreakMilestones'] = list(c_miles)
+                        # Practice logs merge
+                        logs_map = {l.get('id', str(l.get('timestamp'))): l for l in sp.get('practiceLogs', [])}
+                        for cl in cp.get('practiceLogs', []):
+                            lid = cl.get('id', str(cl.get('timestamp')))
+                            logs_map[lid] = cl
+                        merged_logs = list(logs_map.values())
+                        merged_logs.sort(key=lambda x: str(x.get('timestamp', '')), reverse=True)
+                        mp['practiceLogs'] = merged_logs[:100]
+                        merged_map[cid] = mp
+                    else:
+                        merged_map[cid] = cp
+
+                max_kids = 5 if merged_vip.get('isVip') else 1
+                final_kids = list(merged_map.values())[:max_kids]
+
+                acc['childrenProfiles'] = final_kids
+                acc['updatedAt'] = now_str
+                accounts[account_id] = acc
+                save_family_accounts(accounts)
+
+                self.send_response(200)
+                self.send_header('Content-Type', 'application/json; charset=utf-8')
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "ok", "account": acc}, ensure_ascii=False).encode('utf-8'))
+                return
+            except Exception as e:
+                self.send_response(500)
+                self.send_header('Content-Type', 'application/json; charset=utf-8')
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode('utf-8'))
+                return
+
+        # 8. Restore Purchases
+        if self.path == '/api/parent_account/restore_purchase':
+            try:
+                content_len = int(self.headers.get('Content-Length', 0))
+                post_data = self.rfile.read(content_len)
+                payload = json.loads(post_data.decode('utf-8')) if content_len > 0 else {}
+                account_id = payload.get('accountId', '').strip().lower()
+                accounts = get_family_accounts()
+                if account_id in accounts:
+                    acc = accounts[account_id]
+                    vip_info = acc.get('vipInfo', {})
+                    if vip_info.get('isVip'):
+                        self.send_response(200)
+                        self.send_header('Content-Type', 'application/json; charset=utf-8')
+                        self.end_headers()
+                        self.wfile.write(json.dumps({"status": "ok", "restored": True, "account": acc}, ensure_ascii=False).encode('utf-8'))
+                        return
+
+                self.send_response(200)
+                self.send_header('Content-Type', 'application/json; charset=utf-8')
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "ok", "restored": False, "message": "此家長帳號尚無雲端 VIP 購買紀錄！"}, ensure_ascii=False).encode('utf-8'))
                 return
             except Exception as e:
                 self.send_response(500)

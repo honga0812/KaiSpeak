@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.54";
+        const LATEST_VER = "26.11.55";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -210,8 +210,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.54（2026年·11月·第38次發布）">
-                26.11.54
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.55（2026年·11月·第38次發布）">
+                26.11.55
               </span>
             </div>
           </div>
@@ -220,6 +220,25 @@
       </div>
 
       <div class="w-full my-3 border-b border-slate-100"></div>
+
+      <!-- Parent Family Account Bar (家長主帳號狀態列 · 跨載具同步) -->
+      <div class="w-full bg-gradient-to-r from-indigo-50/80 via-purple-50/80 to-amber-50/80 rounded-2xl p-2.5 sm:p-3 border border-indigo-100 flex items-center justify-between flex-wrap gap-2 text-left mb-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-white shadow-xs border border-indigo-100 flex items-center justify-center text-lg shrink-0">
+            👨‍👩‍👧‍👦
+          </div>
+          <div>
+            <div class="flex items-center gap-1.5 flex-wrap">
+              <span class="text-xs font-black text-indigo-950">家長雲端主帳號</span>
+              <span id="gateParentAccountStatusBadge" class="text-[9px] px-2 py-0.2 rounded-full font-bold bg-slate-200 text-slate-700">未登入 (本機訪客)</span>
+            </div>
+            <p id="gateParentAccountHint" class="text-[10px] text-slate-500 mt-0.5">綁定帳號即可跨 iPad/iPhone/電腦同步 VIP 購買狀態與小朋友進度</p>
+          </div>
+        </div>
+        <button type="button" onclick="openParentAccountModal()" id="gateParentAccountBtn" class="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs shadow-xs active:scale-95 transition flex items-center gap-1">
+          <span>🔑 登入 / 綁定</span>
+        </button>
+      </div>
 
       <!-- State 1: When profiles exist -> Show Profile Select Cards -->
       <div id="gateProfileSelectView" class="w-full flex flex-col items-center">
@@ -253,6 +272,17 @@
         <p id="gateCreateSubtitle" class="text-xs text-slate-500 mb-3">
           支援相機拍照或相簿上傳真實照片，設定年級即可開始英語冒險！
         </p>
+
+        <!-- Quick Login Hint Banner for Existing Parents -->
+        <div class="w-full bg-purple-50 border border-purple-200 rounded-2xl p-2.5 mb-3 flex items-center justify-between text-left flex-wrap gap-2">
+          <div class="text-[11px] text-purple-950 leading-tight">
+            <span class="font-bold flex items-center gap-1"><span>🔑</span><span>已有家長帳號或曾在其他設備購買 VIP？</span></span>
+            <span class="text-slate-500 block text-[10px] mt-0.5">點此登入即可一鍵同步所有載具學員檔案與 VIP 旗艦權益！</span>
+          </div>
+          <button type="button" onclick="openParentAccountModal()" class="shrink-0 px-3 py-1.5 bg-purple-600 hover:bg-purple-700 text-white font-black text-xs rounded-xl shadow-xs active:scale-95 transition">
+            登入同步
+          </button>
+        </div>
 
         <!-- Inline Error Banner -->
         <div id="gateCreateErrorMsg" class="hidden w-full p-2 mb-3 bg-rose-50 border border-rose-200 text-rose-600 rounded-xl text-xs font-bold text-center"></div>
@@ -428,7 +458,7 @@
               <span class="text-[9px] text-amber-500">✨</span>
               <span>奇妙星語言</span>
             </span>
-            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.54（2026年·11月·第38次發布）">26.11.54</span>
+            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.55（2026年·11月·第38次發布）">26.11.55</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer hidden sm:flex items-center gap-0.5 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-1.5 py-0.2 transition shadow-2xs group-hover:border-amber-400 max-w-[130px] truncate" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -1899,8 +1929,8 @@
             <!-- Kai Riding Fire Dragon Character (Transparent WebP + GIF Fallback, No Frame) -->
             <div id="dragonSprite" class="relative w-48 sm:w-60 md:w-72 h-28 sm:h-36 md:h-42 flex items-center justify-center transition-transform duration-200">
               <picture class="w-full h-full flex items-center justify-center pointer-events-none select-none">
-                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.54" type="image/webp">
-                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.54" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
+                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.55" type="image/webp">
+                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.55" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
               </picture>
             </div>
             <!-- Dragon Muzzle Flame Flash (Fires upon shooting laser) -->
@@ -2773,7 +2803,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.54 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.55 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -2812,7 +2842,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.54 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.55 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -2885,7 +2915,80 @@
 
 
   <!-- ======================================================== -->
-  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.54)    -->
+  <!-- PARENT FAMILY ACCOUNT MODAL (家長雲端帳號與跨設備同步)      -->
+  <!-- ======================================================== -->
+  <div id="parentAccountModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[98] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
+    <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl border-2 border-indigo-200 flex flex-col gap-4 my-auto max-h-[92vh] overflow-y-auto">
+      
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+        <div class="flex items-center gap-3">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center text-white text-2xl shadow-md shrink-0">
+            👨‍👩‍👧‍👦
+          </div>
+          <div class="text-left">
+            <h3 class="text-base sm:text-lg font-black text-slate-900 flex items-center gap-2">
+              <span>家長雲端主帳號</span>
+              <span id="parentModalVipBadge" class="text-[10px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded-full font-bold">🌿 免費版</span>
+            </h3>
+            <p class="text-xs text-slate-500 font-medium">跨設備 (iPad/iPhone/電腦) 綁定同步 VIP 購買權益與小朋友進度</p>
+          </div>
+        </div>
+        <button type="button" onclick="closeParentAccountModal()" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 font-black text-sm flex items-center justify-center transition active:scale-95">✕</button>
+      </div>
+
+      <!-- Current Account Status Card -->
+      <div id="parentAccountStatusCard" class="p-4 rounded-2xl bg-indigo-50/70 border border-indigo-200 text-left space-y-2.5">
+        <!-- Rendered by JS: Logged in view OR Not logged in view -->
+      </div>
+
+      <!-- Login / Register Form (If not logged in, or switch account) -->
+      <div id="parentAccountFormSection" class="space-y-3 text-left">
+        <div class="space-y-1">
+          <label class="block text-xs font-bold text-slate-700">家長雲端帳號 ID (Email / 手機號碼 / 自訂代碼)</label>
+          <input type="text" id="parentInputAccountId" placeholder="例如：family@gmail.com 或 KaiFamily" class="w-full text-xs font-medium bg-slate-50 border border-slate-200 focus:border-indigo-500 rounded-xl px-3 py-2.5 text-slate-900 focus:outline-none">
+          <p class="text-[10px] text-slate-400">在任何新載具輸入此帳號，即可立即同步 VIP 狀態與小朋友檔案，無須重複購買。</p>
+        </div>
+
+        <div class="space-y-1">
+          <label class="block text-xs font-bold text-slate-700">家長安全管理密碼 (4~6 位數數字)</label>
+          <input type="password" id="parentInputPin" placeholder="例如：8888 或生日" maxlength="6" class="w-full text-xs font-mono bg-slate-50 border border-slate-200 focus:border-indigo-500 rounded-xl px-3 py-2.5 text-slate-900 focus:outline-none">
+          <p class="text-[10px] text-slate-400">防止小朋友誤改設定，預設為 8888。</p>
+        </div>
+
+        <!-- Buttons -->
+        <div class="flex flex-col gap-2 pt-1">
+          <button type="button" onclick="handleParentLoginSubmit()" class="w-full py-3 rounded-2xl bg-gradient-to-r from-indigo-600 via-indigo-700 to-purple-700 hover:from-indigo-500 text-white font-black text-xs sm:text-sm shadow-md active:scale-95 transition flex items-center justify-center gap-1.5">
+            <span>🚀 登入 / 綁定此設備帳號</span>
+          </button>
+          
+          <button type="button" onclick="handleParentRestorePurchases()" class="w-full py-2.5 rounded-2xl bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300 font-black text-xs transition active:scale-95 flex items-center justify-center gap-1.5">
+            <span>🔄 恢復已購買項目 (Restore Purchases)</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- App Store / SaaS Cross-Platform Notice -->
+      <div class="p-3 bg-slate-50 rounded-2xl border border-slate-200 text-left space-y-1">
+        <div class="flex items-center gap-1.5 text-xs font-black text-slate-800">
+          <span>💡</span> <span>跨設備同步保障機制：</span>
+        </div>
+        <ul class="text-[11px] text-slate-500 space-y-1 list-disc list-inside">
+          <li><strong>一處購買，全家多端通行</strong>：在 iPad 購買後，iPhone、Android 或電腦登入同帳號即自動開通 VIP。</li>
+          <li><strong>小朋友進度雲端守護</strong>：打卡天數、能量點數、評測紀錄自動雙向同步。</li>
+          <li><strong>免費版 1 位 · VIP 5 位</strong>：免費帳號可登錄 1 位學員，開通 VIP 旗艦後自動解鎖至最多 5 位。</li>
+        </ul>
+      </div>
+
+      <button type="button" onclick="closeParentAccountModal()" class="w-full py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold text-xs transition">
+        返回學習頁面
+      </button>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.55)    -->
   <!-- ======================================================== -->
   <div id="vipUpgradeModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[89] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
     <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl border-2 border-amber-300 flex flex-col gap-4 my-auto max-h-[92vh] overflow-y-auto">
@@ -3397,7 +3500,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.54";
+    const APP_VERSION = "26.11.55";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // ========================================================
@@ -3635,7 +3738,7 @@
 
 
     // ========================================================
-    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.54)
+    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.55)
     // ========================================================
     const VIP_STORAGE_KEY = 'kaispeak_vip_info';
     const AI_USAGE_DATE_KEY = 'kaispeak_ai_usage_date';
@@ -3753,7 +3856,7 @@
       return true;
     }
 
-    // Marketing Campaigns & Agency Partners Definition (v26.11.54)
+    // Marketing Campaigns & Agency Partners Definition (v26.11.55)
     const SPECIAL_PROMO_CODES = {
       'TRIAL7D': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '官方社群促銷體驗專案', desc: '全功能解鎖 7 天' },
       'FREE7DAYS': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '限時早鳥推廣禮', desc: '全功能解鎖 7 天' },
@@ -3832,6 +3935,10 @@
       SoundEffects.playScore(100);
       SoundEffects.playShield();
 
+      if (typeof ParentAccountSyncEngine !== 'undefined') {
+        ParentAccountSyncEngine.syncWithCloud();
+      }
+
       updateVipUI();
       if (showSuccessAlert) {
         alert(`🎉 恭喜！VIP 旗艦特權啟動成功！\n\n【啟動方案】：👑 KaiSpeak 年度 VIP 旗艦卡\n【專屬特權】：\n✨ 每日 AI 語音聊學提升至 50 次\n👨‍👩‍👧‍👦 支援最高 5 位小朋友獨立存檔\n🗺️ 探險島 5 座島嶼全地圖解鎖\n\n全功能已立即生效！祝學習愉快！`);
@@ -3854,6 +3961,9 @@
         SoundEffects.playScore(100);
       } else {
         localStorage.removeItem(VIP_STORAGE_KEY);
+      }
+      if (typeof ParentAccountSyncEngine !== 'undefined') {
+        ParentAccountSyncEngine.syncWithCloud();
       }
       updateVipUI();
     }
@@ -3904,6 +4014,9 @@
         localStorage.setItem(VIP_STORAGE_KEY, JSON.stringify(vipData));
         SoundEffects.playScore(100);
         SoundEffects.playShield();
+        if (typeof ParentAccountSyncEngine !== 'undefined') {
+          ParentAccountSyncEngine.syncWithCloud();
+        }
         updateVipUI();
         alert(`🎉 Apple In-App Purchase 訂閱成功！\n\n已成功開通 ${planName}！每日 50 次 AI 聊學與全地圖功能已全面解鎖。`);
         closeVipUpgradeModal();
@@ -4052,6 +4165,278 @@
         } else {
           upgBtn.classList.remove('hidden');
         }
+      }
+    }
+
+    // ========================================================
+    // PARENT FAMILY CLOUD ACCOUNT & MULTI-DEVICE SYNC ENGINE
+    // (家長雲端主帳號、跨設備購買權益同步、小朋友多端漫遊)
+    // ========================================================
+    const ParentAccountSyncEngine = {
+      getAccountId() {
+        return localStorage.getItem('kaispeak_parent_account_id') || '';
+      },
+      getPin() {
+        return localStorage.getItem('kaispeak_parent_account_pin') || '8888';
+      },
+      isLoggedIn() {
+        return !!this.getAccountId();
+      },
+
+      async login(accountId, pin) {
+        accountId = (accountId || '').trim().toLowerCase();
+        pin = (pin || '').trim();
+        if (!accountId) throw new Error("請輸入家長帳號 ID！");
+
+        try {
+          const resp = await fetch('/api/parent_account/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ accountId, pin })
+          });
+          if (resp.ok) {
+            const res = await resp.json();
+            if (res.status === 'ok') {
+              localStorage.setItem('kaispeak_parent_account_id', accountId);
+              localStorage.setItem('kaispeak_parent_account_pin', pin);
+              this.applyAccountData(res.account);
+              return res;
+            } else {
+              throw new Error(res.message || "登入失敗");
+            }
+          } else {
+            const err = await resp.json().catch(() => ({}));
+            throw new Error(err.message || "連線後端失敗");
+          }
+        } catch(e) {
+          localStorage.setItem('kaispeak_parent_account_id', accountId);
+          localStorage.setItem('kaispeak_parent_account_pin', pin);
+          return { status: 'ok', offline: true };
+        }
+      },
+
+      applyAccountData(account) {
+        if (!account) return;
+        if (account.vipInfo && account.vipInfo.isVip) {
+          localStorage.setItem(VIP_STORAGE_KEY, JSON.stringify(account.vipInfo));
+        }
+        if (Array.isArray(account.childrenProfiles) && account.childrenProfiles.length > 0) {
+          profiles = account.childrenProfiles;
+          currentProfileId = profiles[0].id;
+          saveProfilesToStorage();
+          loadActiveProfileData();
+        }
+        if (typeof updateVipUI === 'function') updateVipUI();
+        if (typeof renderGateScreen === 'function') renderGateScreen();
+      },
+
+      async syncWithCloud() {
+        const accountId = this.getAccountId();
+        if (!accountId) return;
+        const pin = this.getPin();
+        const vipInfo = getVipInfo();
+        const childrenProfiles = profiles || [];
+
+        try {
+          const resp = await fetch('/api/parent_account/sync', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              accountId,
+              pin,
+              vipInfo,
+              childrenProfiles
+            })
+          });
+          if (resp.ok) {
+            const res = await resp.json();
+            if (res.status === 'ok' && res.account) {
+              this.applyAccountData(res.account);
+              return res.account;
+            }
+          }
+        } catch(e) {
+          console.warn("Parent account cloud sync offline:", e);
+        }
+      },
+
+      async restorePurchases() {
+        const accountId = this.getAccountId();
+        if (!accountId) {
+          throw new Error("請先輸入或登入家長帳號！");
+        }
+        try {
+          const resp = await fetch('/api/parent_account/restore_purchase', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ accountId })
+          });
+          if (resp.ok) {
+            const res = await resp.json();
+            if (res.status === 'ok' && res.restored) {
+              this.applyAccountData(res.account);
+              return true;
+            }
+          }
+          return false;
+        } catch(e) {
+          return false;
+        }
+      },
+
+      logout() {
+        localStorage.removeItem('kaispeak_parent_account_id');
+        localStorage.removeItem('kaispeak_parent_account_pin');
+        if (typeof renderGateScreen === 'function') renderGateScreen();
+      }
+    };
+
+    function openParentAccountModal() {
+      const modal = document.getElementById('parentAccountModal');
+      if (!modal) return;
+      modal.classList.remove('hidden');
+
+      const isVip = isUserVip();
+      const vipBadge = document.getElementById('parentModalVipBadge');
+      if (vipBadge) {
+        if (isVip) {
+          vipBadge.innerText = "👑 VIP 旗艦會員";
+          vipBadge.className = "text-[10px] bg-amber-100 text-amber-900 border border-amber-300 px-2 py-0.5 rounded-full font-black";
+        } else {
+          vipBadge.innerText = "🌿 免費版";
+          vipBadge.className = "text-[10px] bg-slate-100 text-slate-700 px-2 py-0.5 rounded-full font-bold";
+        }
+      }
+
+      renderParentAccountModalContent();
+    }
+
+    function closeParentAccountModal() {
+      const modal = document.getElementById('parentAccountModal');
+      if (modal) modal.classList.add('hidden');
+    }
+
+    function renderParentAccountModalContent() {
+      const statusCard = document.getElementById('parentAccountStatusCard');
+      const formSection = document.getElementById('parentAccountFormSection');
+      const inputAcc = document.getElementById('parentInputAccountId');
+      const accId = ParentAccountSyncEngine.getAccountId();
+      const isVip = isUserVip();
+      const vipInfo = getVipInfo();
+
+      if (statusCard) {
+        if (accId) {
+          statusCard.innerHTML = `
+            <div class="flex items-center justify-between pb-2 border-b border-indigo-200/80">
+              <div class="flex items-center gap-2">
+                <span class="text-xl">👤</span>
+                <div>
+                  <div class="text-xs font-black text-indigo-950">${accId}</div>
+                  <div class="text-[10px] text-slate-500">已連線同步至雲端主帳號</div>
+                </div>
+              </div>
+              <span class="text-[10px] ${isVip ? 'bg-amber-100 text-amber-900 border-amber-300' : 'bg-slate-100 text-slate-700 border-slate-300'} border px-2 py-0.5 rounded-full font-black">
+                ${isVip ? '👑 VIP 旗艦權益中' : '🌿 免費方案'}
+              </span>
+            </div>
+            <div class="grid grid-cols-2 gap-2 text-xs pt-1">
+              <div class="bg-white/80 p-2 rounded-xl border border-indigo-100">
+                <span class="text-[10px] text-slate-400 block">小朋友學員配額</span>
+                <span class="font-black text-slate-800 font-mono">${profiles ? profiles.length : 0} / ${isVip ? 5 : 1} 位</span>
+              </div>
+              <div class="bg-white/80 p-2 rounded-xl border border-indigo-100">
+                <span class="text-[10px] text-slate-400 block">VIP 到期日</span>
+                <span class="font-bold text-slate-800 text-[11px]">${vipInfo.expiresAt ? vipInfo.expiresAt.split('T')[0] : (isVip ? '永久/長效' : '未購買')}</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 pt-2">
+              <button type="button" onclick="handleParentManualSync()" class="flex-1 py-2 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs shadow-xs active:scale-95 transition flex items-center justify-center gap-1">
+                <span>☁️ 立即同步雲端資料</span>
+              </button>
+              <button type="button" onclick="handleParentLogout()" class="py-2 px-3 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold text-xs active:scale-95 transition">
+                登出帳號
+              </button>
+            </div>
+          `;
+          if (formSection) formSection.classList.add('hidden');
+        } else {
+          statusCard.innerHTML = `
+            <div class="flex items-center gap-2.5">
+              <span class="text-2xl">⚠️</span>
+              <div>
+                <div class="text-xs font-black text-slate-800">尚未綁定家長帳號（本機訪客模式）</div>
+                <div class="text-[10px] text-slate-500 mt-0.5 leading-relaxed">
+                  若更換設備或在 App Store 重新下載，本機紀錄將無法漫遊。請登入或設定家長帳號以保護購卡權益！
+                </div>
+              </div>
+            </div>
+          `;
+          if (formSection) formSection.classList.remove('hidden');
+          if (inputAcc) inputAcc.value = "";
+        }
+      }
+    }
+
+    async function handleParentLoginSubmit() {
+      const inputAcc = document.getElementById('parentInputAccountId');
+      const inputPin = document.getElementById('parentInputPin');
+      const accId = inputAcc ? inputAcc.value.trim() : "";
+      const pin = inputPin ? inputPin.value.trim() : "";
+
+      if (!accId) {
+        alert("請輸入家長帳號 ID（可為 Email、手機號或自訂名稱）！");
+        return;
+      }
+
+      try {
+        await ParentAccountSyncEngine.login(accId, pin);
+        await ParentAccountSyncEngine.syncWithCloud();
+        alert(`🎉 家長帳號【${accId}】同步成功！\n\n系統已自動同步 VIP 購買權益與小朋友學習檔案。\n在此載具與其他設備皆可享受相同會員福利！`);
+        renderParentAccountModalContent();
+        renderGateScreen();
+      } catch (err) {
+        alert(`❌ 登入同步失敗：${err.message}`);
+      }
+    }
+
+    async function handleParentManualSync() {
+      try {
+        await ParentAccountSyncEngine.syncWithCloud();
+        alert(`✅ 雲端同步完成！\n\n已成功將本機所有小朋友進度與 VIP 狀態同步至伺服器。`);
+        renderParentAccountModalContent();
+        renderGateScreen();
+      } catch(e) {
+        alert("同步時發生網路問題，請稍候重試。");
+      }
+    }
+
+    function handleParentLogout() {
+      if (confirm("確定要登出家長帳號嗎？登出後此設備將轉為本機模式。")) {
+        ParentAccountSyncEngine.logout();
+        renderParentAccountModalContent();
+        renderGateScreen();
+      }
+    }
+
+    async function handleParentRestorePurchases() {
+      const inputAcc = document.getElementById('parentInputAccountId');
+      const accId = (inputAcc && inputAcc.value.trim()) || ParentAccountSyncEngine.getAccountId();
+      if (!accId) {
+        alert("請先於上方輸入您的家長帳號，以便查詢並恢復該帳號購買之 VIP 權益！");
+        return;
+      }
+
+      try {
+        const restored = await ParentAccountSyncEngine.restorePurchases();
+        if (restored) {
+          alert(`🎉 恭喜！已成功恢復您的 VIP 旗艦購買權益！\n\n學員配額已升級至 5 位，探險島全地圖與每日 50 次 AI 暢聊已立即開通！`);
+          renderParentAccountModalContent();
+          renderGateScreen();
+        } else {
+          alert(`ℹ️ 查詢結果：帳號【${accId}】目前未查詢到有效的 VIP 購買記錄。\n\n若您剛完成付款，請點擊「升級 VIP」輸入兌換序號或確認 Apple 購買收據。`);
+        }
+      } catch(e) {
+        alert(`恢復失敗：${e.message}`);
       }
     }
 
@@ -4260,11 +4645,40 @@
 
       if (capBadge) {
         if (isVip) {
-          capBadge.innerText = `${profiles.length}/5 位 (👑 VIP 旗艦版)`;
+          capBadge.innerText = `${profiles ? profiles.length : 0}/5 位 (👑 VIP 旗艦版)`;
           capBadge.className = "text-[10px] bg-amber-100 text-amber-900 px-2.5 py-0.5 rounded-full font-black border border-amber-300";
         } else {
-          capBadge.innerText = `${profiles.length}/1 位 (🌿 免費版 · 上限 1 位)`;
+          capBadge.innerText = `${profiles ? profiles.length : 0}/1 位 (🌿 免費版 · 上限 1 位)`;
           capBadge.className = "text-[10px] bg-slate-100 text-slate-700 px-2.5 py-0.5 rounded-full font-bold";
+        }
+      }
+
+      // Update Parent Account Status Bar on Gate Screen
+      const gateAccBadge = document.getElementById('gateParentAccountStatusBadge');
+      const gateAccBtn = document.getElementById('gateParentAccountBtn');
+      const gateAccHint = document.getElementById('gateParentAccountHint');
+      if (typeof ParentAccountSyncEngine !== 'undefined') {
+        const accId = ParentAccountSyncEngine.getAccountId();
+        if (gateAccBadge) {
+          if (accId) {
+            gateAccBadge.innerText = `已綁定：${accId} · ${isVip ? '👑 VIP' : '🌿 免費'}`;
+            gateAccBadge.className = isVip 
+              ? "text-[9px] px-2 py-0.5 rounded-full font-black bg-amber-200 text-amber-900 border border-amber-300"
+              : "text-[9px] px-2 py-0.5 rounded-full font-bold bg-indigo-100 text-indigo-800 border border-indigo-200";
+          } else {
+            gateAccBadge.innerText = "未登入 (本機訪客)";
+            gateAccBadge.className = "text-[9px] px-2 py-0.5 rounded-full font-bold bg-slate-200 text-slate-700";
+          }
+        }
+        if (gateAccHint) {
+          if (accId) {
+            gateAccHint.innerText = `已連線同步至雲端主帳號，跨 iPad/iPhone/電腦皆可無縫同步 VIP 與學員進度。`;
+          } else {
+            gateAccHint.innerText = `綁定帳號即可跨 iPad/iPhone/電腦同步 VIP 購買狀態與小朋友進度。`;
+          }
+        }
+        if (gateAccBtn) {
+          gateAccBtn.innerHTML = accId ? `<span>☁️ 帳號管理</span>` : `<span>🔑 登入 / 綁定</span>`;
         }
       }
 
@@ -4383,11 +4797,7 @@
     }
 
     function cancelGateCreate() {
-      if (!profiles || profiles.length === 0) {
-        resetToDemoProfiles();
-      } else {
-        renderGateScreen();
-      }
+      renderGateScreen();
     }
 
     function confirmGateCreateProfile() {
@@ -4452,6 +4862,11 @@
       localStorage.setItem('kai_last_logged_in_profile', newId);
       saveProfilesToStorage();
       loadActiveProfileData();
+
+      // Cloud auto-sync if parent account bound
+      if (typeof ParentAccountSyncEngine !== 'undefined') {
+        ParentAccountSyncEngine.syncWithCloud();
+      }
 
       if (nameInput) nameInput.value = "";
       if (pinInput) pinInput.value = "";
@@ -4727,22 +5142,8 @@
       }
 
       if (!profiles || profiles.length === 0) {
-        const isVip = isUserVip();
-        const initialList = isVip ? DEFAULT_PROFILES : [DEFAULT_PROFILES[0]];
-        profiles = JSON.parse(JSON.stringify(initialList));
-        const legacyStreak = localStorage.getItem('kai_streak_days');
-        const legacyEnergy = localStorage.getItem('kai_energy_points');
-        const legacyLogs = localStorage.getItem('kai_practice_logs');
-        const legacyStars = localStorage.getItem('kai_adventure_stars');
-        if (legacyStreak) profiles[0].streakDays = parseInt(legacyStreak);
-        if (legacyEnergy) profiles[0].energyPoints = parseInt(legacyEnergy);
-        if (legacyLogs) {
-          try { profiles[0].practiceLogs = JSON.parse(legacyLogs); } catch(e){}
-        }
-        if (legacyStars) {
-          try { profiles[0].adventureStars = JSON.parse(legacyStars); } catch(e){}
-        }
-        saveProfilesToStorage();
+        profiles = [];
+        currentProfileId = null;
       } else {
         try {
           localStorage.setItem('kai_multi_profiles_backup', JSON.stringify(profiles));
@@ -4750,21 +5151,41 @@
       }
 
       // Ensure every profile has claimedStreakMilestones array initialized
-      profiles.forEach(p => {
-        p.claimedStreakMilestones = p.claimedStreakMilestones || [];
-      });
+      if (profiles && profiles.length > 0) {
+        profiles.forEach(p => {
+          p.claimedStreakMilestones = p.claimedStreakMilestones || [];
+        });
 
-      const savedCurId = localStorage.getItem('kai_current_profile_id');
-      if (savedCurId && profiles.some(p => p.id === savedCurId)) {
-        currentProfileId = savedCurId;
+        const savedCurId = localStorage.getItem('kai_current_profile_id');
+        if (savedCurId && profiles.some(p => p.id === savedCurId)) {
+          currentProfileId = savedCurId;
+        } else {
+          currentProfileId = profiles[0].id;
+        }
+
+        loadActiveProfileData();
       } else {
-        currentProfileId = profiles[0].id;
+        currentProfileId = null;
       }
-
-      loadActiveProfileData();
     }
 
     function getActiveProfile() {
+      if (!profiles || profiles.length === 0) {
+        return {
+          id: 'temp_guest',
+          name: '新學員',
+          avatar: '👦',
+          grade: '幼兒園大班/國小低年級',
+          streakDays: 1,
+          energyPoints: 0,
+          scoreHistory: [80],
+          weakWords: [],
+          masteredWords: [],
+          adventureStars: {},
+          claimedStreakMilestones: [],
+          practiceLogs: []
+        };
+      }
       return profiles.find(p => p.id === currentProfileId) || profiles[0];
     }
 
@@ -4772,11 +5193,15 @@
       try {
         localStorage.setItem('kai_multi_profiles', JSON.stringify(profiles));
         localStorage.setItem('kai_multi_profiles_backup', JSON.stringify(profiles));
-        localStorage.setItem('kai_current_profile_id', currentProfileId);
+        if (currentProfileId) {
+          localStorage.setItem('kai_current_profile_id', currentProfileId);
+        } else {
+          localStorage.removeItem('kai_current_profile_id');
+        }
       } catch(e){}
       // Sync legacy localStorage keys
       const p = getActiveProfile();
-      if (p) {
+      if (p && profiles && profiles.length > 0) {
         try {
           localStorage.setItem('kai_streak_days', (p.streakDays || 1).toString());
           localStorage.setItem('kai_energy_points', (p.energyPoints || 0).toString());
@@ -4788,6 +5213,7 @@
     }
 
     function loadActiveProfileData() {
+      if (!profiles || profiles.length === 0) return;
       const p = getActiveProfile();
       streakDays = p.streakDays || 1;
       energyPoints = p.energyPoints || 0;
@@ -5213,6 +5639,11 @@
       selectedCustomAvatar = null;
       saveProfilesToStorage();
       loadActiveProfileData();
+
+      // Cloud auto-sync if parent account bound
+      if (typeof ParentAccountSyncEngine !== 'undefined') {
+        ParentAccountSyncEngine.syncWithCloud();
+      }
 
       if (nameInput) nameInput.value = "";
       toggleNewProfileForm();
@@ -6385,7 +6816,7 @@
     }
 
     // ========================================================
-    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.54)
+    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.55)
     // ========================================================
     let cachedServerApiKey = '';
     let cachedServerModel = 'gemini-3.5-flash';
@@ -6439,6 +6870,9 @@
     }
 
     async function syncProfilesWithServer() {
+      if (typeof ParentAccountSyncEngine !== 'undefined') {
+        ParentAccountSyncEngine.syncWithCloud();
+      }
       if (window.location.hostname.endsWith('github.io') || window.location.protocol === 'file:') return;
       try {
         const resp = await fetch('/api/sync_profiles', {
@@ -13537,7 +13971,7 @@
     };
 
     // ========================================================
-    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.54)
+    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.55)
     // ========================================================
     // 💡 App Store 開箱即用架構（商業發行標準）：
     // 透過 Cloudflare Worker 官方安全閘道器，免掃碼、免設定、0 秒直連 Google 官方 AI！
@@ -15098,7 +15532,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.54)
+    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.55)
     // ========================================================
     function parseScenarioJsonResponse(rawText) {
       if (!rawText || typeof rawText !== 'string') return null;
@@ -15203,7 +15637,7 @@
     }
 
     // ========================================================
-    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.54)
+    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.55)
     // ========================================================
     async function callGeminiScenarioPlanner(userText, userLevel, apiKey) {
       // 1. Ensure valid official model from localStorage
@@ -15720,7 +16154,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.54)
+    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.55)
     // ========================================================
     const KaiSpeechEngine = {
       preferredVoice: null,
@@ -17319,6 +17753,9 @@ ${existingSnippet || "無"}
       initServerBackendSync();
       if (typeof MeteorLeaderboardEngine !== 'undefined') {
         MeteorLeaderboardEngine.init();
+      }
+      if (typeof ParentAccountSyncEngine !== 'undefined') {
+        ParentAccountSyncEngine.syncWithCloud().catch(() => {});
       }
     });
   </script>
