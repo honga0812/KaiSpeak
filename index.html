@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.58";
+        const LATEST_VER = "26.11.59";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -210,8 +210,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.58（2026年·11月·第38次發布）">
-                26.11.58
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.59（2026年·11月·第38次發布）">
+                26.11.59
               </span>
             </div>
           </div>
@@ -307,6 +307,7 @@
             <!-- Hidden File Inputs -->
             <input type="file" id="gateAlbumFileInput" accept="image/*" class="hidden" onchange="handleGatePhotoFile(event)">
             <input type="file" id="gateCameraMobileInput" accept="image/*" capture="user" class="hidden" onchange="handleGatePhotoFile(event)">
+            <input type="file" id="globalChangeAvatarFileInput" accept="image/*" class="hidden" onchange="handleGlobalChangeAvatarFile(event)">
 
             <div class="text-[11px] font-bold text-slate-500 mb-1.5">或點選吉祥物卡通圖示：</div>
             <div id="gateAvatarPicker" class="flex items-center gap-2 flex-wrap">
@@ -458,7 +459,7 @@
               <span class="text-[9px] text-amber-500">✨</span>
               <span>奇妙星語言</span>
             </span>
-            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.58（2026年·11月·第38次發布）">26.11.58</span>
+            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.59（2026年·11月·第38次發布）">26.11.59</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer hidden sm:flex items-center gap-0.5 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-1.5 py-0.2 transition shadow-2xs group-hover:border-amber-400 max-w-[130px] truncate" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -1929,8 +1930,8 @@
             <!-- Kai Riding Fire Dragon Character (Transparent WebP + GIF Fallback, No Frame) -->
             <div id="dragonSprite" class="relative w-48 sm:w-60 md:w-72 h-28 sm:h-36 md:h-42 flex items-center justify-center transition-transform duration-200">
               <picture class="w-full h-full flex items-center justify-center pointer-events-none select-none">
-                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.58" type="image/webp">
-                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.58" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
+                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.59" type="image/webp">
+                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.59" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
               </picture>
             </div>
             <!-- Dragon Muzzle Flame Flash (Fires upon shooting laser) -->
@@ -2803,7 +2804,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.58 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.59 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -2842,7 +2843,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.58 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.59 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -2988,7 +2989,7 @@
   </div>
 
   <!-- ======================================================== -->
-  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.58)    -->
+  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.59)    -->
   <!-- ======================================================== -->
   <div id="vipUpgradeModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[89] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
     <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl border-2 border-amber-300 flex flex-col gap-4 my-auto max-h-[92vh] overflow-y-auto">
@@ -3500,7 +3501,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.58";
+    const APP_VERSION = "26.11.59";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // ========================================================
@@ -3832,7 +3833,7 @@
 
 
     // ========================================================
-    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.58)
+    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.59)
     // ========================================================
     const VIP_STORAGE_KEY = 'kaispeak_vip_info';
     const AI_USAGE_DATE_KEY = 'kaispeak_ai_usage_date';
@@ -3950,7 +3951,7 @@
       return true;
     }
 
-    // Marketing Campaigns & Agency Partners Definition (v26.11.58)
+    // Marketing Campaigns & Agency Partners Definition (v26.11.59)
     const SPECIAL_PROMO_CODES = {
       'TRIAL7D': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '官方社群促銷體驗專案', desc: '全功能解鎖 7 天' },
       'FREE7DAYS': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '限時早鳥推廣禮', desc: '全功能解鎖 7 天' },
@@ -4331,16 +4332,30 @@
               if (!line) continue;
               try {
                 const obj = JSON.parse(line);
-                if (obj.message) {
-                  const data = JSON.parse(obj.message);
-                  if (data && data.accountId) {
-                    return {
-                      accountId: data.accountId,
-                      pin: data.pin || '8888',
-                      vipInfo: data.vipInfo || {},
-                      childrenProfiles: data.childrenProfiles || data.profiles || []
-                    };
+                let data = null;
+                // If payload was large (>4KB, e.g. with photo avatar), ntfy stores it in obj.attachment.url
+                if (obj.attachment && obj.attachment.url) {
+                  try {
+                    const attachResp = await fetch(obj.attachment.url);
+                    if (attachResp.ok) {
+                      data = await attachResp.json();
+                    }
+                  } catch(ae) {
+                    console.warn("Failed to fetch attachment from cloud relay:", ae);
                   }
+                }
+                if (!data && obj.message) {
+                  try {
+                    data = JSON.parse(obj.message);
+                  } catch(pe){}
+                }
+                if (data && data.accountId) {
+                  return {
+                    accountId: data.accountId,
+                    pin: data.pin || '8888',
+                    vipInfo: data.vipInfo || {},
+                    childrenProfiles: data.childrenProfiles || data.profiles || []
+                  };
                 }
               } catch(pe){}
             }
@@ -4380,13 +4395,13 @@
           } catch(e) {}
         }
 
-        // Method 2: Global Real-time Cloud Sync Relay
+        // Method 2: Global Real-time Cloud Sync Relay (Preserves Real Photo Avatars!)
         try {
           const topic = this.getSyncTopic(accountId);
           const sanitizedKids = childrenProfiles.map(p => ({
             id: p.id || ('child_' + Date.now()),
             name: p.name || 'Kai 寶貝',
-            avatar: (p.avatar && p.avatar.length < 50) ? p.avatar : '👦',
+            avatar: (p.avatar && typeof p.avatar === 'string' && p.avatar.length < 300000) ? p.avatar : (p.avatar || '👦'),
             grade: p.grade || '國小二年級',
             pin: p.pin || '1234',
             streakDays: p.streakDays || 1,
@@ -4713,8 +4728,7 @@
       updateGateAvatarPreview();
     }
 
-    function handleGatePhotoFile(event) {
-      const file = event.target.files && event.target.files[0];
+    function compressImageFileToAvatar(file, callback) {
       if (!file) return;
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -4728,12 +4742,52 @@
           const sx = (img.width - minSide) / 2;
           const sy = (img.height - minSide) / 2;
           ctx.drawImage(img, sx, sy, minSide, minSide, 0, 0, 160, 160);
-          selectedCustomAvatar = canvas.toDataURL('image/jpeg', 0.85);
-          updateGateAvatarPreview();
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+          callback(dataUrl);
         };
         img.src = e.target.result;
       };
       reader.readAsDataURL(file);
+    }
+
+    let globalTargetProfileIdForPhoto = null;
+    function promptChangeProfilePhoto(profileId) {
+      globalTargetProfileIdForPhoto = profileId;
+      const input = document.getElementById('globalChangeAvatarFileInput');
+      if (input) {
+        input.value = '';
+        input.click();
+      }
+    }
+
+    function handleGlobalChangeAvatarFile(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file || !globalTargetProfileIdForPhoto) return;
+      compressImageFileToAvatar(file, (dataUrl) => {
+        const p = profiles.find(x => x.id === globalTargetProfileIdForPhoto);
+        if (p) {
+          p.avatar = dataUrl;
+          saveProfilesToStorage();
+          loadActiveProfileData();
+          if (typeof ParentAccountSyncEngine !== 'undefined') {
+            ParentAccountSyncEngine.syncWithCloud();
+          }
+          if (typeof renderGateScreen === 'function') renderGateScreen();
+          if (typeof renderProfileModalContent === 'function') renderProfileModalContent();
+          if (typeof updateStreakAndEnergyUI === 'function') updateStreakAndEnergyUI();
+          showToastNotification(`🎉 已成功更新【${p.name}】的大頭相片，並即時同步至雲端！`, 4000);
+        }
+        globalTargetProfileIdForPhoto = null;
+      });
+    }
+
+    function handleGatePhotoFile(event) {
+      const file = event.target.files && event.target.files[0];
+      if (!file) return;
+      compressImageFileToAvatar(file, (dataUrl) => {
+        selectedCustomAvatar = dataUrl;
+        updateGateAvatarPreview();
+      });
     }
 
     function triggerGateCameraCapture() {
@@ -4956,8 +5010,8 @@
           grid.innerHTML = profiles.map(p => {
             const isLastActive = (p.id === lastLearnerId);
             const avatarHtml = (p.avatar && (p.avatar.startsWith('data:image') || p.avatar.startsWith('http') || p.avatar.startsWith('blob:')))
-              ? `<img src="${p.avatar}" class="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover border-2 border-indigo-200 shadow-md mb-2 group-hover:scale-105 transition" alt="${p.name}">`
-              : `<div class="text-4xl sm:text-5xl mb-2 group-hover:scale-110 transition duration-300">${p.avatar || '👦'}</div>`;
+              ? `<img src="${p.avatar}" class="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover border-2 border-indigo-200 shadow-md group-hover:scale-105 transition" alt="${p.name}">`
+              : `<div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-white border-2 border-indigo-100 flex items-center justify-center text-3xl sm:text-4xl shadow-xs group-hover:scale-105 transition">${p.avatar || '👦'}</div>`;
             return `
               <div onclick="directLoginAsProfile('${p.id}')" class="p-3.5 sm:p-4 rounded-3xl ${isLastActive ? 'bg-amber-50/50 border-2 border-amber-300 ring-2 ring-amber-200' : 'bg-slate-50 hover:bg-indigo-50 border-2 border-slate-200 hover:border-indigo-400'} text-center transition cursor-pointer active:scale-95 shadow-sm hover:shadow-md flex flex-col items-center group relative">
                 ${isLastActive ? `<div class="absolute top-2.5 left-2.5 bg-amber-400 text-amber-950 font-black text-[9px] px-2 py-0.5 rounded-full shadow-2xs border border-amber-300 flex items-center gap-0.5 animate-pulse">⭐ 上次登入</div>` : ''}
@@ -4965,7 +5019,12 @@
                 <button type="button" onclick="event.stopPropagation(); deleteProfileWithConfirmation('${p.id}')" class="absolute top-2.5 right-2.5 w-6 h-6 rounded-full bg-white/80 hover:bg-rose-100 text-slate-400 hover:text-rose-600 border border-slate-200 hover:border-rose-300 flex items-center justify-center text-[11px] transition active:scale-90 shadow-2xs opacity-70 group-hover:opacity-100" title="刪除此學員檔案（釋放名額）">
                   🗑️
                 </button>
-                ${avatarHtml}
+                <div class="relative mb-2 inline-block">
+                  ${avatarHtml}
+                  <button type="button" onclick="event.stopPropagation(); promptChangeProfilePhoto('${p.id}')" class="absolute -bottom-1 -right-1 bg-white hover:bg-indigo-50 text-indigo-700 border border-indigo-200 w-6 h-6 rounded-full flex items-center justify-center text-[10px] shadow-xs transition active:scale-90" title="點此更換或重拍大頭相片">
+                    📷
+                  </button>
+                </div>
                 <div class="font-black text-xs sm:text-sm text-slate-900 group-hover:text-indigo-900 truncate max-w-full">${p.name}</div>
                 <div class="text-[9px] text-slate-500 font-bold bg-white px-2 py-0.5 rounded-full border border-slate-200 mt-1">${p.grade}</div>
                 <div class="text-[10px] text-amber-600 font-extrabold mt-1.5 flex items-center gap-1">
@@ -5756,7 +5815,10 @@
               isCurrent ? 'bg-indigo-50/70 border-indigo-300 shadow-sm' : 'bg-slate-50 border-slate-200 hover:bg-slate-100'
             }">
               <div class="flex items-center gap-2.5">
-                ${avHtml}
+                <div class="relative inline-block">
+                  ${avHtml}
+                  <button type="button" onclick="promptChangeProfilePhoto('${p.id}')" class="absolute -bottom-1 -right-1 bg-white hover:bg-indigo-50 text-indigo-700 border border-indigo-200 w-5 h-5 rounded-full flex items-center justify-center text-[9px] shadow-xs active:scale-90" title="點此更換或重拍大頭相片">📷</button>
+                </div>
                 <div>
                   <div class="flex items-center gap-1.5">
                     <span class="font-bold text-xs text-slate-900">${p.name}</span>
@@ -7039,7 +7101,7 @@
     }
 
     // ========================================================
-    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.58)
+    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.59)
     // ========================================================
     let cachedServerApiKey = '';
     let cachedServerModel = 'gemini-3.5-flash';
@@ -14218,7 +14280,7 @@
     };
 
     // ========================================================
-    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.58)
+    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.59)
     // ========================================================
     // 💡 App Store 開箱即用架構（商業發行標準）：
     // 透過 Cloudflare Worker 官方安全閘道器，免掃碼、免設定、0 秒直連 Google 官方 AI！
@@ -15779,7 +15841,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.58)
+    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.59)
     // ========================================================
     function parseScenarioJsonResponse(rawText) {
       if (!rawText || typeof rawText !== 'string') return null;
@@ -15884,7 +15946,7 @@
     }
 
     // ========================================================
-    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.58)
+    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.59)
     // ========================================================
     async function callGeminiScenarioPlanner(userText, userLevel, apiKey) {
       // 1. Ensure valid official model from localStorage
@@ -16401,7 +16463,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.58)
+    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.59)
     // ========================================================
     const KaiSpeechEngine = {
       preferredVoice: null,
