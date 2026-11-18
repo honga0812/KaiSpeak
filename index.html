@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.41";
+        const LATEST_VER = "26.11.42";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -160,8 +160,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.41（2026年·11月·第34次發布）">
-                26.11.41
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.42（2026年·11月·第35次發布）">
+                26.11.42
               </span>
             </div>
           </div>
@@ -378,7 +378,7 @@
             <span>奇妙星語言</span>
           </span>
           <div class="mt-1 flex items-center gap-1">
-            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.41（2026年·11月·第34次發布）">26.11.41</span>
+            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.42（2026年·11月·第35次發布）">26.11.42</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer flex items-center gap-1 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-2 py-0.5 transition shadow-2xs group-hover:border-amber-400" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -1709,6 +1709,37 @@
         </button>
       </div>
 
+      <!-- Category Filter Bar (類別詞庫篩選：全部 · 本課 AI 生成 · 居家生活 · 動物萌寵 · 美味食物 · 交通城市 · 校園學習 · 大自然) -->
+      <div class="flex items-center gap-1.5 overflow-x-auto hide-scrollbar py-1 px-1 bg-white rounded-2xl border border-indigo-50 shadow-2xs">
+        <span class="text-xs font-black text-indigo-950 shrink-0 flex items-center gap-1 px-1.5">
+          <span>🏷️</span> <span>單字庫來源：</span>
+        </span>
+        <button type="button" onclick="selectMeteorCategory('all')" id="meteorCatTab_all" class="meteor-cat-btn px-2.5 py-1 rounded-xl bg-indigo-600 text-white font-black text-xs shadow-2xs whitespace-nowrap active:scale-95 transition">
+          🌟 綜合題庫
+        </button>
+        <button type="button" onclick="selectMeteorCategory('ai_scenario')" id="meteorCatTab_ai_scenario" class="meteor-cat-btn px-2.5 py-1 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-900 border border-amber-300 font-black text-xs whitespace-nowrap active:scale-95 transition">
+          ✨ 本課 AI 生成詞
+        </button>
+        <button type="button" onclick="selectMeteorCategory('home')" id="meteorCatTab_home" class="meteor-cat-btn px-2.5 py-1 rounded-xl bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 font-bold text-xs whitespace-nowrap active:scale-95 transition">
+          🏡 居家生活
+        </button>
+        <button type="button" onclick="selectMeteorCategory('animals')" id="meteorCatTab_animals" class="meteor-cat-btn px-2.5 py-1 rounded-xl bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 font-bold text-xs whitespace-nowrap active:scale-95 transition">
+          🐶 動物萌寵
+        </button>
+        <button type="button" onclick="selectMeteorCategory('food')" id="meteorCatTab_food" class="meteor-cat-btn px-2.5 py-1 rounded-xl bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 font-bold text-xs whitespace-nowrap active:scale-95 transition">
+          🍎 美味食物
+        </button>
+        <button type="button" onclick="selectMeteorCategory('travel_city')" id="meteorCatTab_travel_city" class="meteor-cat-btn px-2.5 py-1 rounded-xl bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 font-bold text-xs whitespace-nowrap active:scale-95 transition">
+          🚗 交通與城市
+        </button>
+        <button type="button" onclick="selectMeteorCategory('toy_school')" id="meteorCatTab_toy_school" class="meteor-cat-btn px-2.5 py-1 rounded-xl bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 font-bold text-xs whitespace-nowrap active:scale-95 transition">
+          🏫 校園與玩具
+        </button>
+        <button type="button" onclick="selectMeteorCategory('nature')" id="meteorCatTab_nature" class="meteor-cat-btn px-2.5 py-1 rounded-xl bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 font-bold text-xs whitespace-nowrap active:scale-95 transition">
+          🌿 大自然星球
+        </button>
+      </div>
+
       <!-- Sub-stages Grid (Injected by JS: 4 sub-stages per level, or Boss stage) -->
       <div id="meteorSubStagesGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3.5">
         <!-- Rendered by JS -->
@@ -1720,61 +1751,89 @@
   <!-- ======================================================== -->
   <!-- 30-SECOND METEOR VOICE SHOOTER LIVE BATTLE MODAL         -->
   <!-- ======================================================== -->
-  <div id="meteorBattleModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-[89] flex items-center justify-center p-2 sm:p-4 overflow-hidden hidden">
-    <div class="relative w-full max-w-2xl bg-gradient-to-b from-indigo-950 via-slate-900 to-indigo-950 rounded-3xl border-2 border-indigo-400 shadow-2xl overflow-hidden flex flex-col h-[94vh] max-h-[740px]">
+  <div id="meteorBattleModal" class="fixed inset-0 w-full h-full z-[89] flex flex-col bg-slate-950 p-0 m-0 overflow-hidden hidden">
+    <div class="relative w-full h-full flex flex-col bg-gradient-to-b from-indigo-950 via-slate-900 to-indigo-950 overflow-hidden">
       
-      <!-- Top HUD Header -->
-      <div class="p-3 bg-indigo-950/90 border-b border-indigo-800/80 flex items-center justify-between z-20">
+      <!-- Top HUD Header (Optimized for Tablet Portrait & Phone) -->
+      <div class="p-2 sm:p-3 bg-indigo-950/95 border-b border-indigo-800/80 flex items-center justify-between z-20 shrink-0 flex-wrap gap-2">
         <div class="flex items-center gap-2">
-          <span class="text-xl">🚀</span>
+          <span class="text-xl sm:text-2xl animate-bounce">🚀</span>
           <div>
-            <div id="meteorBattleStageTitle" class="text-xs sm:text-sm font-black text-amber-300">關卡 1-1 · 雙語看英念英 (30秒防衛戰)</div>
-            <div class="text-[9px] text-indigo-200">大聲說出英文單字，發射雷射擊碎下墜隕石！</div>
+            <div id="meteorBattleStageTitle" class="text-xs sm:text-sm font-black text-amber-300">關卡 1-1 · 雙語看英念英 (30秒極速防衛)</div>
+            <div class="text-[9px] sm:text-[10px] text-indigo-200">大聲說出英文單字，Kai 噴火龍噴射烈焰雷射擊碎隕石！</div>
           </div>
         </div>
-        <div class="flex items-center gap-2.5">
-          <div class="flex items-center gap-1.5 bg-slate-900/90 px-3 py-1 rounded-full border border-indigo-500/40">
+        <div class="flex items-center gap-2 shrink-0">
+          <div class="flex items-center gap-1.5 bg-slate-900/90 px-2.5 py-1 rounded-full border border-indigo-500/40">
             <span class="text-xs">🎯</span>
             <span class="text-[10px] text-slate-300">得分:</span>
-            <span id="meteorScoreDisplay" class="font-mono font-black text-amber-400 text-sm">0</span>
+            <span id="meteorScoreDisplay" class="font-mono font-black text-amber-400 text-sm sm:text-base">0</span>
           </div>
-          <span id="meteorComboDisplay" class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-slate-300">連擊 x0</span>
-          <button type="button" onclick="MeteorGameEngine.quitGame()" class="w-7 h-7 rounded-full bg-slate-800 hover:bg-rose-900 text-slate-400 hover:text-white flex items-center justify-center font-bold text-xs transition" title="暫停並退出">✕</button>
+          <span id="meteorComboDisplay" class="text-[10px] sm:text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-slate-300">連擊 x0</span>
+          
+          <!-- PROMINENT QUIT BUTTON (隨時可臨時關閉與退出) -->
+          <button type="button" onclick="MeteorGameEngine.quitGame()" class="px-3 py-1.5 rounded-full bg-rose-600/90 hover:bg-rose-500 text-white flex items-center gap-1 font-black text-xs shadow-md border border-rose-400 active:scale-95 transition" title="暫停並退出挑戰">
+            <span>✕</span>
+            <span>退出挑戰</span>
+          </button>
         </div>
       </div>
 
       <!-- 30-Second Countdown Progress Bar -->
-      <div class="w-full bg-slate-950 h-2 relative overflow-hidden border-b border-indigo-900">
+      <div class="w-full bg-slate-950 h-2 sm:h-2.5 relative overflow-hidden border-b border-indigo-900 shrink-0">
         <div id="meteorTimerProgressBar" class="h-full bg-gradient-to-r from-emerald-400 via-teal-400 to-indigo-500 transition-all duration-300" style="width: 100%;"></div>
-        <span id="meteorTimerText" class="absolute right-2 top-0 text-[8px] font-mono font-black text-white/80 leading-none">30s</span>
+        <span id="meteorTimerText" class="absolute right-2 top-0 text-[8px] sm:text-[9px] font-mono font-black text-white/90 leading-none">30s</span>
       </div>
 
-      <!-- Main Battlefield Playing Field -->
+      <!-- Main Battlefield Playing Field (Full-Screen Immersive Canvas) -->
       <div id="meteorFieldCanvas" class="relative flex-1 w-full bg-slate-950 overflow-hidden select-none">
         <!-- Injected falling meteors & laser beams -->
+
+        <!-- Bottom Kai Riding Cute Fire Dragon Turret Stage -->
+        <div id="meteorDragonTurretDeck" class="absolute bottom-20 sm:bottom-24 left-1/2 -translate-x-1/2 z-20 pointer-events-none flex flex-col items-center select-none transition-all duration-150">
+          <div class="relative flex items-center justify-center">
+            <!-- Fiery Dragon Aura / Ground Glow -->
+            <div id="dragonFlameAura" class="absolute -bottom-2 w-28 h-9 bg-gradient-to-t from-amber-500/60 via-rose-500/40 to-transparent rounded-full filter blur-xs animate-pulse"></div>
+            <!-- Dragon Sprite -->
+            <div id="dragonSprite" class="text-5xl sm:text-6xl md:text-7xl filter drop-shadow-[0_4px_18px_rgba(245,158,11,0.7)] transition-transform duration-200">
+              🐲
+            </div>
+            <!-- Kai Little Hero Rider -->
+            <div id="kaiRiderSprite" class="absolute -top-3.5 sm:-top-4 text-2xl sm:text-3xl filter drop-shadow-md">
+              👦👑
+            </div>
+            <!-- Dragon Muzzle Flame Flash (Fires upon shooting laser) -->
+            <div id="dragonMuzzleFlash" class="hidden absolute -top-6 text-3xl sm:text-4xl animate-ping">
+              🔥⚡
+            </div>
+          </div>
+          <div class="text-[9px] sm:text-[10px] font-black text-amber-300 bg-slate-950/85 px-2.5 py-0.5 rounded-full border border-amber-500/50 shadow-md whitespace-nowrap mt-1 flex items-center gap-1">
+            <span>⚡</span><span>Kai 烈焰噴火龍戰備中</span>
+          </div>
+        </div>
       </div>
 
-      <!-- Bottom Defense Line & Turret Ship -->
-      <div class="p-3 bg-gradient-to-t from-indigo-950 via-slate-900 to-indigo-950/80 border-t border-indigo-800/80 z-20 flex flex-col gap-2">
+      <!-- Bottom Defense Line & Voice Recognition Feedback -->
+      <div class="p-2.5 sm:p-3 bg-gradient-to-t from-indigo-950 via-slate-900 to-indigo-950/80 border-t border-indigo-800/80 z-20 shrink-0 flex flex-col gap-1.5 sm:gap-2">
         <!-- Live Speech Recognition Feedback -->
         <div class="w-full flex items-center justify-between gap-2 bg-slate-950/90 px-3 py-1.5 rounded-xl border border-indigo-500/30 text-xs">
           <div id="meteorSpokenFeedback" class="font-bold text-indigo-300 truncate">
             🎙️ 正在聆聽你的美語聲音... (直接大聲唸出螢幕單字!)
           </div>
-          <button type="button" onclick="MeteorGameEngine.playHintVoice()" class="shrink-0 px-2 py-0.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-[10px] active:scale-95 transition flex items-center gap-1 shadow-xs">
+          <button type="button" onclick="MeteorGameEngine.playHintVoice()" class="shrink-0 px-2.5 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-[10px] sm:text-xs active:scale-95 transition flex items-center gap-1 shadow-xs">
             <span>🔊 聽發音提示</span>
           </button>
         </div>
 
         <!-- Kai Defense Ship & Shield Status -->
         <div class="flex items-center justify-between text-white text-xs">
-          <div class="flex items-center gap-2">
-            <span class="text-xl animate-pulse">🛡️</span>
-            <span class="text-[10px] text-indigo-200">Kai 能量防護罩：<span class="text-emerald-400 font-bold">100% 守護中</span></span>
+          <div class="flex items-center gap-1.5">
+            <span class="text-base sm:text-lg animate-pulse">🛡️</span>
+            <span class="text-[10px] sm:text-xs text-indigo-200">能量防護罩：<span class="text-emerald-400 font-bold">100% 守護中</span></span>
           </div>
           <div class="flex items-center gap-1">
-            <span class="text-lg">🚀</span>
-            <span class="text-[10px] text-amber-300 font-bold">語音雷射砲台就緒</span>
+            <span class="text-base sm:text-lg">⚡</span>
+            <span class="text-[10px] sm:text-xs text-amber-300 font-bold">直式平板滿版模式已啟動</span>
           </div>
         </div>
       </div>
@@ -2404,7 +2463,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.41 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.42 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -2443,7 +2502,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.41 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.42 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -2516,7 +2575,7 @@
 
 
   <!-- ======================================================== -->
-  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.41)    -->
+  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.42)    -->
   <!-- ======================================================== -->
   <div id="vipUpgradeModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[89] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
     <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl border-2 border-amber-300 flex flex-col gap-4 my-auto max-h-[92vh] overflow-y-auto">
@@ -2870,10 +2929,10 @@
   </div>
 
   <!-- ======================================================== -->
-  <!-- 3. DEDICATED DIALOGUE STORY UNIT MODAL (iPad Portrait)    -->
+  <!-- 3. DEDICATED DIALOGUE STORY UNIT MODAL (iPad Portrait Fullscreen) -->
   <!-- ======================================================== -->
-  <div id="dialogueStoryUnitModal" class="fixed inset-0 bg-slate-900/85 backdrop-blur-md z-[90] hidden flex items-center justify-center p-2 sm:p-4 md:p-6 overflow-hidden">
-    <div class="bg-gradient-to-b from-indigo-50/90 via-white to-purple-50/60 rounded-3xl shadow-2xl border-2 border-indigo-200/90 max-w-4xl w-full h-[94vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+  <div id="dialogueStoryUnitModal" class="fixed inset-0 bg-slate-950 z-[90] hidden flex flex-col w-full h-full p-0 m-0 overflow-hidden">
+    <div class="bg-gradient-to-b from-indigo-50/95 via-white to-purple-50/80 w-full h-full flex flex-col overflow-hidden animate-in fade-in duration-200">
       
       <!-- Top Navigation Bar -->
       <div class="px-4 py-3 sm:px-6 sm:py-3.5 bg-white/95 border-b border-indigo-100/90 flex items-center justify-between gap-2 shrink-0">
@@ -3028,7 +3087,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.41";
+    const APP_VERSION = "26.11.42";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // Immediate sanitization of legacy Gemini 1.5/2.0/2.5 models from localStorage
@@ -3224,7 +3283,7 @@
 
 
     // ========================================================
-    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.41)
+    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.42)
     // ========================================================
     const VIP_STORAGE_KEY = 'kaispeak_vip_info';
     const AI_USAGE_DATE_KEY = 'kaispeak_ai_usage_date';
@@ -3342,7 +3401,7 @@
       return true;
     }
 
-    // Marketing Campaigns & Agency Partners Definition (v26.11.41)
+    // Marketing Campaigns & Agency Partners Definition (v26.11.42)
     const SPECIAL_PROMO_CODES = {
       'TRIAL7D': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '官方社群促銷體驗專案', desc: '全功能解鎖 7 天' },
       'FREE7DAYS': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '限時早鳥推廣禮', desc: '全功能解鎖 7 天' },
@@ -5881,7 +5940,7 @@
     }
 
     // ========================================================
-    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.41)
+    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.42)
     // ========================================================
     let cachedServerApiKey = '';
     let cachedServerModel = 'gemini-3.5-flash';
@@ -8485,29 +8544,83 @@
         return !!(p.stageRecords && p.stageRecords[prev] && p.stageRecords[prev].stars >= 1);
       },
 
-      getStageWordPool(level) {
-        if (typeof MASTER_VOCAB === 'undefined' || !MASTER_VOCAB || MASTER_VOCAB.length === 0) {
-          return [
-            { word: 'desk', meaning: '名詞：書桌', emoji: '🖥️', phonetic: '/dɛsk/' },
-            { word: 'bed', meaning: '名詞：床鋪', emoji: '🛏️', phonetic: '/bɛd/' },
-            { word: 'cup', meaning: '名詞：水杯', emoji: '🥛', phonetic: '/kʌp/' },
-            { word: 'train', meaning: '名詞：火車', emoji: '🚆', phonetic: '/treɪn/' },
-            { word: 'plane', meaning: '名詞：飛機', emoji: '✈️', phonetic: '/pleɪn/' },
-          ];
+      getStageWordPool(level, category = 'all') {
+        const cat = category || meteorSelectedCategory || 'all';
+        
+        // 1. Gather all newly generated AI words from currentPlannedPlan (if present)
+        let aiWords = [];
+        if (typeof currentPlannedPlan !== 'undefined' && currentPlannedPlan && Array.isArray(currentPlannedPlan.items)) {
+          aiWords = currentPlannedPlan.items.map(item => ({
+            word: item.word,
+            meaning: item.meaning || item.word,
+            emoji: item.emoji || '✨',
+            phonetic: item.phonetic || '',
+            category: 'ai_scenario'
+          }));
         }
+
+        // 2. Gather custom vocabulary saved by user/AI
+        let customWords = [];
+        try {
+          const stored = JSON.parse(localStorage.getItem('kaispeak_custom_vocab') || '[]');
+          if (Array.isArray(stored)) {
+            customWords = stored.map(s => ({
+              word: s.word,
+              meaning: s.meaning || s.word,
+              emoji: s.emoji || '📝',
+              phonetic: s.phonetic || '',
+              category: 'ai_scenario'
+            }));
+          }
+        } catch(e){}
+
+        const masterList = (typeof MASTER_VOCAB !== 'undefined' && Array.isArray(MASTER_VOCAB)) ? MASTER_VOCAB : [
+          { word: 'desk', meaning: '名詞：書桌', emoji: '🖥️', phonetic: '/dɛsk/', category: 'home' },
+          { word: 'bed', meaning: '名詞：床鋪', emoji: '🛏️', phonetic: '/bɛd/', category: 'home' },
+          { word: 'cup', meaning: '名詞：水杯', emoji: '🥛', phonetic: '/kʌp/', category: 'home' },
+          { word: 'train', meaning: '名詞：火車', emoji: '🚆', phonetic: '/treɪn/', category: 'travel' },
+          { word: 'plane', meaning: '名詞：飛機', emoji: '✈️', phonetic: '/pleɪn/', category: 'travel' },
+        ];
+
+        const fullCombined = [...aiWords, ...customWords, ...masterList];
         let pool = [];
-        if (level === 1) {
-          pool = MASTER_VOCAB.filter(w => ['home', 'toy_school', 'animals'].includes(w.category)).slice(0, 35);
-        } else if (level === 2) {
-          pool = MASTER_VOCAB.filter(w => ['travel', 'city'].includes(w.category) || ['train', 'plane', 'car', 'bike', 'bus', 'boat', 'ship', 'road', 'street', 'park'].includes(w.word)).slice(0, 35);
-        } else if (level === 3) {
-          pool = MASTER_VOCAB.filter(w => ['food', 'daily_body'].includes(w.category)).slice(0, 35);
-        } else if (level === 4) {
-          pool = MASTER_VOCAB.filter(w => ['toy_school', 'nature', 'colors_shapes'].includes(w.category)).slice(0, 35);
-        } else {
-          pool = MASTER_VOCAB.slice(0, 60);
+
+        if (cat === 'ai_scenario') {
+          pool = [...aiWords, ...customWords];
+          if (pool.length < 5) {
+            pool = [...pool, ...masterList.slice(0, 15)];
+          }
+          return pool;
         }
-        if (!pool || pool.length < 5) pool = MASTER_VOCAB.slice(0, 25);
+
+        if (cat === 'home') {
+          pool = fullCombined.filter(w => w.category === 'home' || ['desk', 'bed', 'chair', 'cup', 'table', 'lamp', 'door', 'clock', 'sofa', 'room'].includes(w.word.toLowerCase()));
+        } else if (cat === 'animals') {
+          pool = fullCombined.filter(w => w.category === 'animals' || ['cat', 'dog', 'bird', 'fish', 'bear', 'lion', 'tiger', 'rabbit', 'monkey', 'panda'].includes(w.word.toLowerCase()));
+        } else if (cat === 'food') {
+          pool = fullCombined.filter(w => w.category === 'food' || ['apple', 'banana', 'cake', 'milk', 'water', 'bread', 'rice', 'egg', 'juice', 'cookie'].includes(w.word.toLowerCase()));
+        } else if (cat === 'travel_city') {
+          pool = fullCombined.filter(w => ['travel', 'city'].includes(w.category) || ['train', 'plane', 'car', 'bike', 'bus', 'boat', 'ship', 'road', 'street', 'park'].includes(w.word.toLowerCase()));
+        } else if (cat === 'toy_school') {
+          pool = fullCombined.filter(w => ['toy_school'].includes(w.category) || ['book', 'pen', 'pencil', 'ball', 'doll', 'robot', 'game', 'school', 'bag'].includes(w.word.toLowerCase()));
+        } else if (cat === 'nature') {
+          pool = fullCombined.filter(w => ['nature', 'colors_shapes'].includes(w.category) || ['sun', 'moon', 'star', 'tree', 'flower', 'rain', 'sky', 'cloud', 'sea'].includes(w.word.toLowerCase()));
+        } else {
+          // 'all' category: by level with AI scenario words prioritized
+          if (level === 1) {
+            pool = fullCombined.filter(w => ['home', 'toy_school', 'animals', 'ai_scenario'].includes(w.category)).slice(0, 45);
+          } else if (level === 2) {
+            pool = fullCombined.filter(w => ['travel', 'city', 'ai_scenario'].includes(w.category) || ['train', 'plane', 'car', 'bike', 'bus', 'boat', 'ship', 'road', 'street', 'park'].includes(w.word.toLowerCase())).slice(0, 45);
+          } else if (level === 3) {
+            pool = fullCombined.filter(w => ['food', 'daily_body', 'ai_scenario'].includes(w.category)).slice(0, 45);
+          } else if (level === 4) {
+            pool = fullCombined.filter(w => ['toy_school', 'nature', 'colors_shapes', 'ai_scenario'].includes(w.category)).slice(0, 45);
+          } else {
+            pool = fullCombined.slice(0, 75);
+          }
+        }
+
+        if (!pool || pool.length < 5) pool = fullCombined.slice(0, 30);
         return pool;
       },
 
@@ -8522,16 +8635,17 @@
         this.timer = 30;
         this.bossHp = 100;
         this.bossMaxHp = 100;
-        this.wordPool = this.getStageWordPool(level);
+        this.wordPool = this.getStageWordPool(level, meteorSelectedCategory);
         this.active = true;
-        this.lastSpawnTime = Date.now();
+        this.lastSpawnTime = 0; // ⚡ 立即生成第 1 顆隕石，毫無等待感！
 
+        // ⚡ 出現速度大幅加快 (1.2s ~ 1.6s)
         if (subStage.endsWith('-4')) {
-          this.spawnInterval = 2400;
+          this.spawnInterval = 1250;
         } else if (subStage === '5-Boss') {
-          this.spawnInterval = 2100;
+          this.spawnInterval = 1100;
         } else {
-          this.spawnInterval = 3100;
+          this.spawnInterval = 1650;
         }
 
         const titleEl = document.getElementById('meteorBattleStageTitle');
@@ -8618,7 +8732,8 @@
         }
 
         const x = 14 + Math.random() * 68;
-        const baseSpeed = (this.currentSubStage.endsWith('-4') || this.currentSubStage === '5-Boss') ? 0.36 : 0.26;
+        // ⚡ 下墜速度顯著提升 (0.50 ~ 0.68)
+        const baseSpeed = (this.currentSubStage.endsWith('-4') || this.currentSubStage === '5-Boss') ? 0.68 : 0.50;
 
         this.meteors.push({
           id: 'meteor_' + Math.random().toString(36).slice(2, 9),
@@ -8647,7 +8762,7 @@
 
           if (m.y >= 50 && !m.isHalfway) {
             m.isHalfway = true;
-            m.speed = m.baseSpeed * 1.25;
+            m.speed = m.baseSpeed * 1.35; // ⚡ 過半加速
           }
 
           if (m.y >= 92) {
@@ -8706,26 +8821,27 @@
           let innerContent = '';
           if (m.displayType === 'en') {
             innerContent = `
-              <div class="text-2xl my-0.5">${m.emoji}</div>
-              <div class="font-black text-sm text-white tracking-wide">${m.displayWord}</div>
-              <div class="text-[10px] text-indigo-200 font-mono">${m.phonetic}</div>
-              <div class="text-[9px] text-indigo-300/80">${m.meaning}</div>
+              <div class="text-3xl sm:text-4xl my-0.5 filter drop-shadow-sm">${m.emoji}</div>
+              <div class="font-black text-base sm:text-lg text-white tracking-wide leading-tight">${m.displayWord}</div>
+              <div class="text-xs text-indigo-200 font-mono font-bold">${m.phonetic}</div>
+              <div class="text-[10px] text-indigo-300/90 font-medium">${m.meaning}</div>
             `;
           } else if (m.displayType === 'zh') {
             innerContent = `
-              <div class="text-2xl my-0.5">${m.emoji}</div>
-              <div class="font-black text-sm text-amber-300 tracking-wide">${m.meaning}</div>
-              ${isFlashing ? `<div class="mt-0.5 px-2 py-0.5 rounded-md bg-indigo-950/90 text-indigo-200 font-mono font-bold text-[10px] border border-indigo-400/60 meteor-hint-fade">✨ ${m.displayWord} ${m.phonetic}</div>` : `<div class="text-[9px] text-slate-300">看中文說英文</div>`}
+              <div class="text-3xl sm:text-4xl my-0.5 filter drop-shadow-sm">${m.emoji}</div>
+              <div class="font-black text-base sm:text-lg text-amber-300 tracking-wide leading-tight">${m.meaning}</div>
+              ${isFlashing ? `<div class="mt-1 px-2.5 py-0.5 rounded-lg bg-indigo-950/95 text-indigo-100 font-mono font-black text-xs border border-amber-400/80 meteor-hint-fade shadow-sm">✨ ${m.displayWord} ${m.phonetic}</div>` : `<div class="text-[10px] text-slate-300">看中文說英文</div>`}
             `;
           } else {
+            // 🌟 圖片大幅放大 (超大圖示 6xl ~ 7xl 清楚好認！)
             innerContent = `
-              <div class="text-3xl my-0.5 filter drop-shadow-md">${m.emoji}</div>
-              <div class="text-[10px] text-amber-200 font-bold">${m.meaning}</div>
-              ${isFlashing ? `<div class="mt-0.5 px-2 py-0.5 rounded-md bg-indigo-950/90 text-indigo-200 font-mono font-bold text-[10px] border border-indigo-400/60 meteor-hint-fade">✨ ${m.displayWord} ${m.phonetic}</div>` : `<div class="text-[9px] text-slate-300">看圖片說英文</div>`}
+              <div class="text-6xl sm:text-7xl my-1 filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)] animate-pulse">${m.emoji}</div>
+              <div class="text-xs sm:text-sm text-amber-200 font-extrabold mt-0.5">${m.meaning}</div>
+              ${isFlashing ? `<div class="mt-1 px-2.5 py-0.5 rounded-lg bg-indigo-950/95 text-indigo-100 font-mono font-black text-xs border border-amber-400/80 meteor-hint-fade shadow-sm">✨ ${m.displayWord} ${m.phonetic}</div>` : `<div class="text-[10px] text-slate-300 font-medium">看圖大聲念英文！</div>`}
             `;
           }
 
-          el.className = `absolute cursor-pointer select-none transition-transform duration-75 flex flex-col items-center justify-center p-2 rounded-2xl text-center shadow-lg active:scale-95 ${
+          el.className = `absolute cursor-pointer select-none transition-transform duration-75 flex flex-col items-center justify-center p-2.5 rounded-2xl text-center shadow-xl active:scale-95 ${
             isFlashing 
               ? 'bg-gradient-to-b from-indigo-900/95 via-purple-900/95 to-slate-900/95 border-2 border-amber-400 ring-2 ring-pink-500/60 meteor-flashing shadow-amber-500/40' 
               : 'bg-gradient-to-b from-slate-900/90 to-indigo-950/90 border-2 border-indigo-400/60 shadow-indigo-500/20'
@@ -8733,7 +8849,7 @@
           el.style.left = `${m.x}%`;
           el.style.top = `${m.y}%`;
           el.style.transform = `translate(-50%, -50%)`;
-          el.style.minWidth = '95px';
+          el.style.minWidth = m.displayType === 'img' ? '135px' : '110px';
 
           el.onclick = (e) => {
             e.stopPropagation();
@@ -8757,7 +8873,9 @@
           setTimeout(() => { if (SoundEffects.playMeteorExplosion) SoundEffects.playMeteorExplosion(); }, 70);
         }
 
+        // 🐲 Kai 噴火龍噴射烈焰雷射！
         this.drawLaserBeam(meteor.x, meteor.y);
+        this.createExplosionParticles(meteor.x, meteor.y);
 
         this.combo++;
         if (this.combo > this.maxCombo) this.maxCombo = this.combo;
@@ -8786,18 +8904,36 @@
       drawLaserBeam(targetX, targetY) {
         const container = document.getElementById('meteorFieldCanvas');
         if (!container) return;
+
+        // 🐲 噴火龍瞄準傾角與開火火光動畫
+        const dragonSprite = document.getElementById('dragonSprite');
+        const muzzleFlash = document.getElementById('dragonMuzzleFlash');
+        if (dragonSprite) {
+          const tiltDeg = (targetX - 50) * 0.45;
+          dragonSprite.style.transform = `rotate(${tiltDeg}deg) scale(1.18)`;
+          setTimeout(() => {
+            if (dragonSprite) dragonSprite.style.transform = 'rotate(0deg) scale(1.0)';
+          }, 350);
+        }
+        if (muzzleFlash) {
+          muzzleFlash.classList.remove('hidden');
+          setTimeout(() => {
+            if (muzzleFlash) muzzleFlash.classList.add('hidden');
+          }, 350);
+        }
+
         const laser = document.createElement('div');
         laser.className = "absolute pointer-events-none z-30";
         laser.style.left = `50%`;
-        laser.style.bottom = `10px`;
-        laser.style.width = `4px`;
-        laser.style.background = "linear-gradient(to top, #38BDF8, #818CF8, #F43F5E, #FBBF24)";
-        laser.style.boxShadow = "0 0 15px #38BDF8, 0 0 30px #F43F5E";
+        laser.style.bottom = `110px`; // 噴火龍龍口高度
+        laser.style.width = `6px`;
+        laser.style.background = "linear-gradient(to top, #FF4500, #FF8C00, #FBBF24, #38BDF8, #FFFFFF)";
+        laser.style.boxShadow = "0 0 20px #FF4500, 0 0 35px #FBBF24, 0 0 45px #38BDF8";
         laser.style.transformOrigin = "bottom center";
 
         const rect = container.getBoundingClientRect();
         const startX = rect.width / 2;
-        const startY = rect.height;
+        const startY = rect.height - 110;
         const endX = (targetX / 100) * rect.width;
         const endY = (targetY / 100) * rect.height;
         const dx = endX - startX;
@@ -8807,10 +8943,44 @@
 
         laser.style.height = `${dist}px`;
         laser.style.transform = `rotate(${angle}rad)`;
-        laser.style.animation = "laserBeam 0.25s forwards";
+        laser.style.animation = "laserBeam 0.28s forwards";
 
         container.appendChild(laser);
-        setTimeout(() => laser.remove(), 260);
+        setTimeout(() => laser.remove(), 290);
+      },
+
+      createExplosionParticles(targetX, targetY) {
+        const container = document.getElementById('meteorFieldCanvas');
+        if (!container) return;
+
+        const burstIcons = ['💥', '🔥', '✨', '⚡', '⭐'];
+        for (let i = 0; i < 6; i++) {
+          const p = document.createElement('div');
+          p.className = "absolute pointer-events-none z-35 text-xl sm:text-2xl filter drop-shadow-md";
+          p.innerText = burstIcons[i % burstIcons.length];
+          p.style.left = `${targetX}%`;
+          p.style.top = `${targetY}%`;
+          p.style.transform = "translate(-50%, -50%) scale(1)";
+          container.appendChild(p);
+
+          const angle = (Math.PI * 2 * i) / 6;
+          const radius = 30 + Math.random() * 25;
+          const targetLeft = targetX + (Math.cos(angle) * radius * 0.12);
+          const targetTop = targetY + (Math.sin(angle) * radius * 0.12);
+
+          let step = 0;
+          const anim = setInterval(() => {
+            step += 0.08;
+            p.style.left = `${targetX + (targetLeft - targetX) * step}%`;
+            p.style.top = `${targetY + (targetTop - targetY) * step}%`;
+            p.style.opacity = `${1 - step}`;
+            p.style.transform = `translate(-50%, -50%) scale(${1 + step * 0.5})`;
+            if (step >= 1) {
+              clearInterval(anim);
+              p.remove();
+            }
+          }, 20);
+        }
       },
 
       showFloatingText(x, y, text) {
@@ -9072,6 +9242,24 @@
       if (g) g.classList.add('hidden');
       if (m) m.classList.remove('hidden');
       selectMeteorLevel(level);
+    }
+
+    let meteorSelectedCategory = 'all';
+
+    function selectMeteorCategory(category) {
+      meteorSelectedCategory = category;
+      document.querySelectorAll('.meteor-cat-btn').forEach(btn => {
+        if (btn.id === `meteorCatTab_${category}`) {
+          btn.className = "meteor-cat-btn px-2.5 py-1 rounded-xl bg-indigo-600 text-white font-black text-xs shadow-2xs whitespace-nowrap active:scale-95 transition";
+        } else if (category === 'ai_scenario' && btn.id === 'meteorCatTab_ai_scenario') {
+          btn.className = "meteor-cat-btn px-2.5 py-1 rounded-xl bg-amber-500 text-white font-black text-xs shadow-2xs whitespace-nowrap active:scale-95 transition";
+        } else {
+          btn.className = "meteor-cat-btn px-2.5 py-1 rounded-xl bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 font-bold text-xs whitespace-nowrap active:scale-95 transition";
+        }
+      });
+      if (MeteorGameEngine && MeteorGameEngine.active) {
+        MeteorGameEngine.wordPool = MeteorGameEngine.getStageWordPool(MeteorGameEngine.currentLevel, category);
+      }
     }
 
     function selectMeteorLevel(level) {
@@ -11861,7 +12049,7 @@
     };
 
     // ========================================================
-    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.41)
+    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.42)
     // ========================================================
     // 💡 App Store 開箱即用架構（商業發行標準）：
     // 透過 Cloudflare Worker 官方安全閘道器，免掃碼、免設定、0 秒直連 Google 官方 AI！
@@ -13422,7 +13610,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.41)
+    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.42)
     // ========================================================
     function parseScenarioJsonResponse(rawText) {
       if (!rawText || typeof rawText !== 'string') return null;
@@ -13527,7 +13715,7 @@
     }
 
     // ========================================================
-    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.41)
+    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.42)
     // ========================================================
     async function callGeminiScenarioPlanner(userText, userLevel, apiKey) {
       // 1. Ensure valid official model from localStorage
@@ -14044,7 +14232,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.41)
+    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.42)
     // ========================================================
     const KaiSpeechEngine = {
       preferredVoice: null,
@@ -14636,6 +14824,20 @@ ${existingSnippet || "無"}
         if (text2) text2.innerText = "AI 換文中...";
       }
 
+      const loadModal = document.getElementById('dialogueAssetLoadingModal');
+      const stepLabel = document.getElementById('dialogueAssetStepLabel');
+      const lineLabel = document.getElementById('dialogueAssetCurrentLine');
+      const pBar = document.getElementById('dialogueAssetProgressBar');
+      const pPct = document.getElementById('dialogueAssetProgressPct');
+
+      if (isFromUnitModal && loadModal) {
+        loadModal.classList.remove('hidden');
+        if (pBar) pBar.style.width = '25%';
+        if (pPct) pPct.innerText = '25%';
+        if (stepLabel) stepLabel.innerText = `🎲 正在為「${currentPlannedPlan.title || '當前情境'}」創作全新視角對話...`;
+        if (lineLabel) lineLabel.innerText = '構思親長、老師與 Kai 的生動互動短文...';
+      }
+
       // Render sleek loading placeholders in both containers
       const pContainer = document.getElementById('plannerDialogueContainer');
       const uContainer = document.getElementById('unitDialogueBubblesContainer');
@@ -14667,6 +14869,8 @@ ${existingSnippet || "無"}
         let newDialogue = null;
         if (apiKey) {
           try {
+            if (pBar) pBar.style.width = '60%';
+            if (pPct) pPct.innerText = '60%';
             newDialogue = await callGeminiAlternateDialogue(currentPlannedPlan, apiKey);
           } catch(apiErr) {
             console.warn("callGeminiAlternateDialogue failed, falling back to local variations:", apiErr);
@@ -14684,18 +14888,31 @@ ${existingSnippet || "無"}
           renderPlannedDialogue(newDialogue, currentPlannedPlan.items);
           renderDialogueUnitLargePrint(newDialogue, currentPlannedPlan.items);
           SoundEffects.playClick('unlock');
+
+          if (isFromUnitModal && loadModal) {
+            if (pBar) pBar.style.width = '100%';
+            if (pPct) pPct.innerText = '100%';
+            if (stepLabel) stepLabel.innerText = '✅ 全新生活對話短文就緒！';
+            if (lineLabel) lineLabel.innerText = '所有句子均已完成校準，可即刻點擊朗讀！';
+            await new Promise(r => setTimeout(r, 350));
+            loadModal.classList.add('hidden');
+          }
+
           showToastNotification("✨ 已成功換取同一情境的全新對話短文！", 3000);
         } else {
           // Restore previous dialogue if empty
           renderPlannedDialogue(prevDialogue, currentPlannedPlan.items);
           renderDialogueUnitLargePrint(prevDialogue, currentPlannedPlan.items);
+          if (loadModal) loadModal.classList.add('hidden');
         }
       } catch (err) {
         console.error("Regenerate dialogue failed:", err);
         renderPlannedDialogue(prevDialogue, currentPlannedPlan.items);
         renderDialogueUnitLargePrint(prevDialogue, currentPlannedPlan.items);
+        if (loadModal) loadModal.classList.add('hidden');
         showToastNotification("對話換取失敗，已保留原有對話。", 3000);
       } finally {
+        if (loadModal) loadModal.classList.add('hidden');
         if (btn1) {
           btn1.disabled = false;
           if (icon1) icon1.className = "";
@@ -15243,7 +15460,7 @@ ${existingSnippet || "無"}
     }
 
     async function openDialogueStoryUnitWithPreloader() {
-      if (!currentPlannedPlan || !currentPlannedPlan.dialogue || currentPlannedPlan.dialogue.length === 0) return;
+      if (!currentPlannedPlan) return;
 
       const modal = document.getElementById('dialogueAssetLoadingModal');
       const progressBar = document.getElementById('dialogueAssetProgressBar');
@@ -15254,37 +15471,51 @@ ${existingSnippet || "無"}
       if (modal) modal.classList.remove('hidden');
       if (progressBar) progressBar.style.width = '0%';
       if (progressPct) progressPct.innerText = '0%';
-      if (stepLabel) stepLabel.innerText = '正在暖機對話語音模型...';
+      if (stepLabel) stepLabel.innerText = '正在為 Kai 準備專屬大字沉浸朗讀教室...';
+      if (lineLabel) lineLabel.innerText = '正在檢核生活對話篇章與語音模型...';
 
-      const dialogue = currentPlannedPlan.dialogue;
-      const total = dialogue.length;
-
-      for (let i = 0; i < total; i++) {
-        const turn = dialogue[i];
-        const currentPercent = Math.round(((i) / total) * 100);
-        if (progressBar) progressBar.style.width = `${currentPercent}%`;
-        if (progressPct) progressPct.innerText = `${currentPercent}%`;
-        if (stepLabel) stepLabel.innerText = `正在預熱對話語音模型 (${i + 1}/${total})`;
-        if (lineLabel) lineLabel.innerText = `${turn.speaker}: ${turn.en.slice(0, 36)}...`;
-
-        const ttsUrl = `/api/tts?text=${encodeURIComponent(turn.en.trim())}&rate=152`;
-        try {
-          await fetch(ttsUrl, { method: 'GET', cache: 'force-cache' });
-        } catch(e) {}
-
-        await new Promise(r => setTimeout(r, 50));
+      // 1. 若對話短文仍在由 Gemini AI 生成中，持續等待就緒（最多等待 18 秒）
+      let waitCount = 0;
+      while ((!currentPlannedPlan.dialogue || currentPlannedPlan.dialogue.length === 0) && waitCount < 30) {
+        waitCount++;
+        if (stepLabel) stepLabel.innerText = `AI 正在為情境「${currentPlannedPlan.title || '焦點'}」創作生活雙語對白...`;
+        if (lineLabel) lineLabel.innerText = `正在生成中 (${waitCount}s)...`;
+        const pVal = Math.min(45, waitCount * 3);
+        if (progressBar) progressBar.style.width = `${pVal}%`;
+        if (progressPct) progressPct.innerText = `${pVal}%`;
+        await new Promise(r => setTimeout(r, 600));
       }
 
+      // 若超時仍無對話，立即啟用精選備用親子對話短文
+      if (!currentPlannedPlan.dialogue || currentPlannedPlan.dialogue.length === 0) {
+        currentPlannedPlan.dialogue = generateParentChildDialogue(currentPlannedPlan, currentPlannedPlan.userScenarioText || "", true);
+      }
+
+      // 2. 預熱 Web Speech 語音合成引擎
       try {
         KaiSpeechEngine.init();
       } catch(e) {}
 
+      const dialogue = currentPlannedPlan.dialogue || [];
+      const total = dialogue.length;
+
+      for (let i = 0; i < total; i++) {
+        const turn = dialogue[i];
+        const currentPercent = 45 + Math.round(((i + 1) / total) * 50);
+        if (progressBar) progressBar.style.width = `${currentPercent}%`;
+        if (progressPct) progressPct.innerText = `${currentPercent}%`;
+        if (stepLabel) stepLabel.innerText = `正在校準雙語朗讀與大字排版 (${i + 1}/${total})`;
+        if (lineLabel) lineLabel.innerText = `${turn.speakerLabel || turn.speaker}: ${turn.en.slice(0, 36)}...`;
+
+        await new Promise(r => setTimeout(r, 70));
+      }
+
       if (progressBar) progressBar.style.width = '100%';
       if (progressPct) progressPct.innerText = '100%';
-      if (stepLabel) stepLabel.innerText = '✅ 對話語音模型已準備就緒！';
-      if (lineLabel) lineLabel.innerText = '即將進入 iPad 平板專屬單元...';
+      if (stepLabel) stepLabel.innerText = '✅ 專屬大字單元已全部準備就緒！';
+      if (lineLabel) lineLabel.innerText = '即刻進入 iPad 平板滿屏模式...';
 
-      await new Promise(r => setTimeout(r, 350));
+      await new Promise(r => setTimeout(r, 260));
 
       if (modal) modal.classList.add('hidden');
       openDialogueStoryUnitModal();
