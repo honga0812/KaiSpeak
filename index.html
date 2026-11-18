@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.39";
+        const LATEST_VER = "26.11.40";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -57,6 +57,29 @@
     }
     .fire-glow {
       box-shadow: 0 0 25px rgba(245, 158, 11, 0.55), 0 0 50px rgba(239, 68, 68, 0.3);
+    }
+    @keyframes meteorPulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.7)); }
+      50% { transform: translate(-50%, -50%) scale(1.06); filter: drop-shadow(0 0 20px rgba(239, 68, 68, 0.95)); }
+    }
+    @keyframes meteorGlowBorder {
+      0% { border-color: #F59E0B; box-shadow: 0 0 12px #F59E0B; }
+      50% { border-color: #EC4899; box-shadow: 0 0 24px #EC4899; }
+      100% { border-color: #6366F1; box-shadow: 0 0 12px #6366F1; }
+    }
+    @keyframes laserBeam {
+      0% { opacity: 1; transform: scaleY(1); }
+      100% { opacity: 0; transform: scaleY(0); }
+    }
+    @keyframes hintPulseFade {
+      0%, 100% { opacity: 0.65; transform: scale(0.98); }
+      50% { opacity: 1; transform: scale(1.03); }
+    }
+    .meteor-flashing {
+      animation: meteorGlowBorder 0.8s infinite alternate, meteorPulse 1.2s infinite ease-in-out !important;
+    }
+    .meteor-hint-fade {
+      animation: hintPulseFade 1s infinite ease-in-out;
     }
     .shield-glow {
       box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
@@ -137,8 +160,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.39（2026年·11月·第33次發布）">
-                26.11.39
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.40（2026年·11月·第33次發布）">
+                26.11.40
               </span>
             </div>
           </div>
@@ -355,7 +378,7 @@
             <span>奇妙星語言</span>
           </span>
           <div class="mt-1 flex items-center gap-1">
-            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.39（2026年·11月·第33次發布）">26.11.39</span>
+            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.40（2026年·11月·第33次發布）">26.11.40</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer flex items-center gap-1 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-2 py-0.5 transition shadow-2xs group-hover:border-amber-400" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -1465,81 +1488,339 @@
   </section>
 
   <!-- ======================================================== -->
-  <!-- MODE 3: ADVENTURE ISLAND (盲盒迷霧 · 解鎖機制 · 島嶼分頁) -->
+  <!-- MODE 3: ADVENTURE ISLAND (探險島星系大航海 · 5大主題島嶼) -->
   <!-- ======================================================== -->
   <section id="viewAdventure" class="w-full max-w-6xl hidden flex-col gap-4">
-    
-    <div class="bg-white rounded-3xl p-4 sm:p-6 shadow-sm border border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-4 sm:gap-5 w-full sm:w-auto">
-        <!-- Kai Explorer Action Video (Largely and prominently presented on the left) -->
-        <div class="relative w-20 sm:w-24 md:w-28 aspect-[9/16] rounded-2xl overflow-hidden shadow-lg border-2 border-indigo-300 bg-gradient-to-b from-indigo-50 to-purple-50 shrink-0 transform hover:scale-105 transition duration-300">
-          <video autoplay loop muted playsinline poster="images/ui/kai_actions/kai_explore_thumb.jpg" class="w-full h-full object-cover">
-            <source src="images/ui/kai_actions/kai_explore_web.mp4" type="video/mp4">
-          </video>
-          <div class="absolute bottom-1 inset-x-1 bg-indigo-950/80 backdrop-blur-xs text-[10px] sm:text-[11px] text-white font-black rounded-lg py-0.5 text-center leading-none shadow-xs">
-            🧭 探險引導員
+
+    <!-- ======================================================== -->
+    <!-- VIEW A: ADVENTURE GALAXY GRAND MAP (探險島大星圖)         -->
+    <!-- ======================================================== -->
+    <div id="advGrandMapView" class="flex flex-col gap-4">
+      
+      <!-- Grand Map Header Banner -->
+      <div class="bg-gradient-to-r from-indigo-900 via-indigo-950 to-purple-950 rounded-3xl p-4 sm:p-6 shadow-xl border-2 border-indigo-400/40 text-white flex flex-col md:flex-row items-center justify-between gap-4 relative overflow-hidden">
+        <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="flex items-center gap-4 sm:gap-5 w-full md:w-auto z-10">
+          <div class="relative w-20 sm:w-24 md:w-28 aspect-[9/16] rounded-2xl overflow-hidden shadow-lg border-2 border-indigo-300 bg-indigo-900 shrink-0 transform hover:scale-105 transition duration-300">
+            <video autoplay loop muted playsinline poster="images/ui/kai_actions/kai_explore_thumb.jpg" class="w-full h-full object-cover">
+              <source src="images/ui/kai_actions/kai_explore_web.mp4" type="video/mp4">
+            </video>
+            <div class="absolute bottom-1 inset-x-1 bg-indigo-950/80 backdrop-blur-xs text-[10px] text-white font-black rounded-lg py-0.5 text-center leading-none">
+              🧭 探險引導員
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <h2 class="text-lg sm:text-2xl font-black text-amber-300 tracking-wide flex items-center gap-1.5">
+                <span>🌌 英語發音探險島 · 星系大航海</span>
+              </h2>
+              <span class="text-[10px] sm:text-xs bg-indigo-500/40 text-indigo-200 font-extrabold px-2.5 py-0.5 rounded-full border border-indigo-400/40">
+                星際沉浸闖關
+              </span>
+            </div>
+            <p class="text-xs sm:text-sm text-indigo-100/90 mt-1 leading-relaxed font-medium">
+              每座島嶼皆擁有專屬的遊戲化口語機制！第一座<strong>「隕石語音擊墜島」</strong>已正式啟航，快用美語聲音打飛機、擊退大魔王！
+            </p>
           </div>
         </div>
-        <div class="flex flex-col gap-1.5">
-          <div class="flex items-center gap-2 flex-wrap">
-            <h2 class="text-base sm:text-xl font-black text-slate-900 flex items-center gap-1.5">
-              <span>🗺️ 英語發音探險島</span>
-            </h2>
-            <span class="text-[10px] sm:text-xs bg-indigo-100 text-indigo-800 font-extrabold px-2.5 py-0.5 rounded-full border border-indigo-200">
-              盲盒迷霧闖關
+
+        <div class="flex items-center gap-3 shrink-0 z-10">
+          <div class="bg-indigo-900/80 border border-indigo-400/50 rounded-2xl px-3.5 py-2 text-center shadow-inner">
+            <div class="text-[10px] text-indigo-300 font-bold">島嶼星數</div>
+            <div class="text-lg font-black text-amber-400 font-mono" id="meteorTotalStarsDisplay">⭐ 0</div>
+          </div>
+          <div class="bg-indigo-900/80 border border-indigo-400/50 rounded-2xl px-3.5 py-2 text-center shadow-inner">
+            <div class="text-[10px] text-indigo-300 font-bold">已解鎖關卡</div>
+            <div class="text-lg font-black text-emerald-400 font-mono" id="meteorUnlockedStageCount">1 / 17</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Grand Islands Grid (5 Floating Islands) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        
+        <!-- ISLAND 1: ACTIVE / METEOR VOICE SHOOTER ISLAND -->
+        <div onclick="enterMeteorIsland(1)" class="cursor-pointer group relative bg-gradient-to-b from-indigo-900/90 via-slate-900/95 to-indigo-950/95 rounded-3xl p-5 border-2 border-amber-400 shadow-xl shadow-indigo-950/40 hover:scale-[1.02] hover:shadow-2xl hover:border-amber-300 transition duration-300 overflow-hidden flex flex-col justify-between min-h-[290px] ring-2 ring-indigo-400/30">
+          <div class="absolute -right-8 -top-8 w-28 h-28 bg-amber-500/20 rounded-full blur-2xl group-hover:scale-125 transition"></div>
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-3xl sm:text-4xl filter drop-shadow-md group-hover:scale-110 transition duration-300">🏝️</span>
+              <span class="text-[10px] font-black px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-400 to-rose-500 text-slate-950 shadow-md flex items-center gap-1 animate-pulse">
+                <span>🔥 核心首發</span> · <span>登島作戰中</span>
+              </span>
+            </div>
+            <h3 class="text-lg sm:text-xl font-black text-white group-hover:text-amber-300 transition">
+              第一島 · 隕石語音擊墜島
+            </h3>
+            <div class="text-xs text-amber-200/90 font-bold mt-1">
+              Meteor Voice Defense Island
+            </div>
+            <p class="text-xs text-indigo-200/80 mt-2.5 leading-relaxed">
+              30 秒聲音打飛機！隕石緩緩下墜，過半加速閃爍淡英文提示，大聲唸出美語即刻發射雷射砲火精準擊碎！
+            </p>
+            <div class="flex items-center gap-1.5 mt-3 flex-wrap">
+              <span class="text-[10px] bg-indigo-950 px-2 py-0.5 rounded-lg border border-indigo-700/60 text-indigo-300 font-bold">⏱️ 30秒限時防衛</span>
+              <span class="text-[10px] bg-indigo-950 px-2 py-0.5 rounded-lg border border-indigo-700/60 text-indigo-300 font-bold">🚀 語音雷射打擊</span>
+              <span class="text-[10px] bg-indigo-950 px-2 py-0.5 rounded-lg border border-indigo-700/60 text-amber-300 font-bold">👿 5大關+大魔王</span>
+            </div>
+          </div>
+
+          <div class="mt-4 pt-3 border-t border-indigo-800/60 flex items-center justify-between">
+            <span class="text-xs text-emerald-400 font-bold flex items-center gap-1">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+              隨時可開啟戰鬥
             </span>
+            <button type="button" class="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 hover:from-amber-300 hover:to-orange-400 text-slate-950 font-black text-xs shadow-md transition active:scale-95 flex items-center gap-1">
+              <span>🚀 立即登島挑戰</span> <span>▶</span>
+            </button>
           </div>
-          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-medium">
-            🧭 <strong>Kai 探險引導：</strong>每關口語朗讀取得至少 ⭐ 1 顆星，即可撥開迷霧解鎖下一關與島嶼驗收大測驗！
-          </p>
+        </div>
+
+        <!-- ISLAND 2: MAGIC CLOZE ISLAND (COMING SOON) -->
+        <div class="relative bg-slate-100/90 rounded-3xl p-5 border-2 border-dashed border-slate-300 opacity-85 flex flex-col justify-between min-h-[290px]">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-3xl filter grayscale opacity-70">🧩</span>
+              <span class="text-[10px] font-black px-2.5 py-1 rounded-full bg-slate-200 text-slate-600">
+                🔒 施工籌備中
+              </span>
+            </div>
+            <h3 class="text-lg font-black text-slate-800">
+              第二島 · 語境魔法克漏島
+            </h3>
+            <div class="text-xs text-slate-500 font-bold mt-1">Magic Cloze Context Island</div>
+            <p class="text-xs text-slate-600 mt-2.5 leading-relaxed">
+              生活情境句型挖空選擇！點選正確答案後即刻展開中英雙語對照，由 Kai 小朋友標準發音引導跟讀練習。
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between text-xs text-slate-400 font-bold">
+            <span>解鎖條件：完成第一島基礎關卡</span>
+            <span class="text-slate-400">敬請期待 ⚓</span>
+          </div>
+        </div>
+
+        <!-- ISLAND 3: BEAST RESONANCE ISLAND (COMING SOON) -->
+        <div class="relative bg-slate-100/90 rounded-3xl p-5 border-2 border-dashed border-slate-300 opacity-85 flex flex-col justify-between min-h-[290px]">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-3xl filter grayscale opacity-70">🦁</span>
+              <span class="text-[10px] font-black px-2.5 py-1 rounded-full bg-slate-200 text-slate-600">
+                🔒 沉睡中
+              </span>
+            </div>
+            <h3 class="text-lg font-black text-slate-800">
+              第三島 · 巨獸語音連擊島
+            </h3>
+            <div class="text-xs text-slate-500 font-bold mt-1">Beast Resonance Battle Island</div>
+            <p class="text-xs text-slate-600 mt-2.5 leading-relaxed">
+              整句流利大聲唸！聲波即時比對消除迷霧屏障，連擊暴擊特效觸發神獸覺醒與能量雙倍回饋。
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between text-xs text-slate-400 font-bold">
+            <span>解鎖條件：累計獲得 30 顆星</span>
+            <span class="text-slate-400">敬請期待 ⚓</span>
+          </div>
+        </div>
+
+        <!-- ISLAND 4: LISTENING MAZE ISLAND -->
+        <div class="relative bg-slate-100/90 rounded-3xl p-5 border-2 border-dashed border-slate-300 opacity-85 flex flex-col justify-between min-h-[290px]">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-3xl filter grayscale opacity-70">👂</span>
+              <span class="text-[10px] font-black px-2.5 py-1 rounded-full bg-slate-200 text-slate-600">
+                🔒 迷霧封鎖
+              </span>
+            </div>
+            <h3 class="text-lg font-black text-slate-800">
+              第四島 · 聽音尋寶迷宮島
+            </h3>
+            <div class="text-xs text-slate-500 font-bold mt-1">Listening Maze Island</div>
+            <p class="text-xs text-slate-600 mt-2.5 leading-relaxed">
+              純聽力訓練（不顯示英文字）！聽 Kai 語音指引在迷宮岔路選出正確道具門，訓練大腦聽力敏銳度。
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between text-xs text-slate-400 font-bold">
+            <span>解鎖條件：打卡滿 14 天</span>
+            <span class="text-slate-400">敬請期待 ⚓</span>
+          </div>
+        </div>
+
+        <!-- ISLAND 5: COSMIC BOSS ARENA -->
+        <div class="relative bg-slate-100/90 rounded-3xl p-5 border-2 border-dashed border-slate-300 opacity-85 flex flex-col justify-between min-h-[290px] md:col-span-2 lg:col-span-2">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-3xl filter grayscale opacity-70">👑</span>
+              <span class="text-[10px] font-black px-2.5 py-1 rounded-full bg-slate-200 text-slate-600">
+                🔒 終極殿堂
+              </span>
+            </div>
+            <h3 class="text-lg font-black text-slate-800">
+              第五島 · 時空大魔王競技場
+            </h3>
+            <div class="text-xs text-slate-500 font-bold mt-1">Cosmic Boss Arena</div>
+            <p class="text-xs text-slate-600 mt-2.5 leading-relaxed">
+              全能力綜合口語驗收競技場！混合單字射擊、克漏字與整句詠唱，大血條激戰擊潰宇宙魔王，頒發全服稀有榮譽徽章！
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-200 flex items-center justify-between text-xs text-slate-400 font-bold">
+            <span>解鎖條件：通過前四島考驗</span>
+            <span class="text-slate-400">敬請期待 ⚓</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- VIEW B: ISLAND 1 STAGE SELECT (第一島·隕石語音擊墜島關卡地圖) -->
+    <!-- ======================================================== -->
+    <div id="advMeteorIslandView" class="hidden flex-col gap-4">
+      <!-- Top Navigation & Return to Grand Map -->
+      <div class="flex items-center justify-between bg-white px-4 py-3 rounded-2xl border border-indigo-100 shadow-sm flex-wrap gap-2">
+        <button type="button" onclick="showAdventureGrandMap()" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-indigo-50 text-indigo-900 border border-slate-200 font-bold text-xs sm:text-sm flex items-center gap-1.5 transition active:scale-95">
+          <span>⬅️</span> <span>返回探險島星系</span>
+        </button>
+        <div class="flex items-center gap-2">
+          <span class="text-xl">🏝️</span>
+          <h2 class="text-base sm:text-lg font-black text-indigo-950">隕石語音擊墜島 · 戰備關卡</h2>
+        </div>
+        <div class="text-xs font-bold text-amber-600 bg-amber-50 px-3 py-1 rounded-full border border-amber-200 flex items-center gap-1">
+          <span>⭐ 本島星數：</span>
+          <span id="meteorIslandStarsCount" class="font-mono font-black text-sm">0</span>
         </div>
       </div>
-      <div class="flex items-center gap-2 bg-gradient-to-r from-amber-50 to-orange-50 px-4 py-2.5 rounded-2xl border border-amber-200 text-xs sm:text-sm font-black text-amber-900 shrink-0 shadow-2xs">
-        <span class="text-base">⭐</span>
-        <span>累積解鎖星星:</span>
-        <span id="advTotalStars" class="text-lg text-amber-600 font-mono font-black">0</span> / 150
+
+      <!-- Level Selector Tabs (Level 1 to 5) -->
+      <div class="flex items-center gap-2 overflow-x-auto hide-scrollbar bg-slate-50 p-1.5 rounded-2xl border border-slate-200">
+        <button type="button" onclick="selectMeteorLevel(1)" id="meteorLevelTab1" class="meteor-lvl-btn flex-1 min-w-[120px] py-2 px-3 rounded-xl bg-indigo-600 text-white font-black text-xs shadow-sm whitespace-nowrap text-center transition">
+          🏡 第 1 大關 · 家居生活
+        </button>
+        <button type="button" onclick="selectMeteorLevel(2)" id="meteorLevelTab2" class="meteor-lvl-btn flex-1 min-w-[120px] py-2 px-3 rounded-xl bg-white text-slate-700 hover:bg-slate-100 font-bold text-xs whitespace-nowrap text-center transition">
+          🚗 第 2 大關 · 城市交通
+        </button>
+        <button type="button" onclick="selectMeteorLevel(3)" id="meteorLevelTab3" class="meteor-lvl-btn flex-1 min-w-[120px] py-2 px-3 rounded-xl bg-white text-slate-700 hover:bg-slate-100 font-bold text-xs whitespace-nowrap text-center transition">
+          🍎 第 3 大關 · 健康美食
+        </button>
+        <button type="button" onclick="selectMeteorLevel(4)" id="meteorLevelTab4" class="meteor-lvl-btn flex-1 min-w-[120px] py-2 px-3 rounded-xl bg-white text-slate-700 hover:bg-slate-100 font-bold text-xs whitespace-nowrap text-center transition">
+          🏫 第 4 大關 · 校園自然
+        </button>
+        <button type="button" onclick="selectMeteorLevel(5)" id="meteorLevelTab5" class="meteor-lvl-btn flex-1 min-w-[130px] py-2 px-3 rounded-xl bg-gradient-to-r from-purple-100 to-rose-100 text-rose-900 border border-rose-300 font-black text-xs whitespace-nowrap text-center transition">
+          👿 第 5 大關 · 宇宙魔王
+        </button>
+      </div>
+
+      <!-- Sub-stages Grid (Injected by JS: 4 sub-stages per level, or Boss stage) -->
+      <div id="meteorSubStagesGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3.5">
+        <!-- Rendered by JS -->
       </div>
     </div>
 
-    <!-- Island Page Selector Tabs (5 Islands, 10 Stages Each, Scalable to 5,000 stages!) -->
-    <div class="flex items-center justify-between bg-white px-4 py-2.5 rounded-2xl border border-indigo-50 shadow-sm text-xs font-bold gap-2 flex-wrap">
-      <div class="flex items-center gap-1.5 overflow-x-auto hide-scrollbar">
-        <button onclick="selectAdventureIsland(0)" id="islandTab0" class="adv-island-btn px-3 py-1.5 rounded-xl bg-indigo-600 text-white shadow-sm whitespace-nowrap">🏝️ 珊瑚島 (1-10)</button>
-        <button onclick="selectAdventureIsland(1)" id="islandTab1" class="adv-island-btn px-3 py-1.5 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap">🌿 翡翠島 (11-20) <span class="text-[9px] bg-amber-100 text-amber-800 px-1 py-0.2 rounded font-black ml-0.5">👑 VIP</span></button>
-        <button onclick="selectAdventureIsland(2)" id="islandTab2" class="adv-island-btn px-3 py-1.5 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap">💎 寶石島 (21-30) <span class="text-[9px] bg-amber-100 text-amber-800 px-1 py-0.2 rounded font-black ml-0.5">👑 VIP</span></button>
-        <button onclick="selectAdventureIsland(3)" id="islandTab3" class="adv-island-btn px-3 py-1.5 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap">🌋 奇蹟島 (31-40) <span class="text-[9px] bg-amber-100 text-amber-800 px-1 py-0.2 rounded font-black ml-0.5">👑 VIP</span></button>
-        <button onclick="selectAdventureIsland(4)" id="islandTab4" class="adv-island-btn px-3 py-1.5 rounded-xl bg-slate-100 text-slate-600 hover:bg-slate-200 whitespace-nowrap">👑 榮譽島 (41-50) <span class="text-[9px] bg-amber-100 text-amber-800 px-1 py-0.2 rounded font-black ml-0.5">👑 VIP</span></button>
-      </div>
-      <div class="flex items-center gap-1">
-        <button onclick="prevAdventureIsland()" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition active:scale-95">◀ 上一島</button>
-        <button onclick="nextAdventureIsland()" class="px-2.5 py-1 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 transition active:scale-95">下一島 ▶</button>
-      </div>
-    </div>
+  </section>
 
-    <!-- Island Status & Mastery Exam Card -->
-    <div id="advIslandStatusCard" class="bg-gradient-to-r from-indigo-50 via-purple-50 to-blue-50 rounded-3xl p-4 sm:p-5 border border-indigo-200 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-3.5 text-left w-full md:w-auto">
-        <div id="advIslandIcon" class="w-12 h-12 rounded-2xl bg-white shadow-sm flex items-center justify-center text-3xl shrink-0">🏝️</div>
+  <!-- ======================================================== -->
+  <!-- 30-SECOND METEOR VOICE SHOOTER LIVE BATTLE MODAL         -->
+  <!-- ======================================================== -->
+  <div id="meteorBattleModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-[89] flex items-center justify-center p-2 sm:p-4 overflow-hidden hidden">
+    <div class="relative w-full max-w-2xl bg-gradient-to-b from-indigo-950 via-slate-900 to-indigo-950 rounded-3xl border-2 border-indigo-400 shadow-2xl overflow-hidden flex flex-col h-[94vh] max-h-[740px]">
+      
+      <!-- Top HUD Header -->
+      <div class="p-3 bg-indigo-950/90 border-b border-indigo-800/80 flex items-center justify-between z-20">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">🚀</span>
+          <div>
+            <div id="meteorBattleStageTitle" class="text-xs sm:text-sm font-black text-amber-300">關卡 1-1 · 雙語看英念英 (30秒防衛戰)</div>
+            <div class="text-[9px] text-indigo-200">大聲說出英文單字，發射雷射擊碎下墜隕石！</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2.5">
+          <div class="flex items-center gap-1.5 bg-slate-900/90 px-3 py-1 rounded-full border border-indigo-500/40">
+            <span class="text-xs">🎯</span>
+            <span class="text-[10px] text-slate-300">得分:</span>
+            <span id="meteorScoreDisplay" class="font-mono font-black text-amber-400 text-sm">0</span>
+          </div>
+          <span id="meteorComboDisplay" class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-slate-300">連擊 x0</span>
+          <button type="button" onclick="MeteorGameEngine.quitGame()" class="w-7 h-7 rounded-full bg-slate-800 hover:bg-rose-900 text-slate-400 hover:text-white flex items-center justify-center font-bold text-xs transition" title="暫停並退出">✕</button>
+        </div>
+      </div>
+
+      <!-- 30-Second Countdown Progress Bar -->
+      <div class="w-full bg-slate-950 h-2 relative overflow-hidden border-b border-indigo-900">
+        <div id="meteorTimerProgressBar" class="h-full bg-gradient-to-r from-emerald-400 via-teal-400 to-indigo-500 transition-all duration-300" style="width: 100%;"></div>
+        <span id="meteorTimerText" class="absolute right-2 top-0 text-[8px] font-mono font-black text-white/80 leading-none">30s</span>
+      </div>
+
+      <!-- Main Battlefield Playing Field -->
+      <div id="meteorFieldCanvas" class="relative flex-1 w-full bg-slate-950 overflow-hidden select-none">
+        <!-- Injected falling meteors & laser beams -->
+      </div>
+
+      <!-- Bottom Defense Line & Turret Ship -->
+      <div class="p-3 bg-gradient-to-t from-indigo-950 via-slate-900 to-indigo-950/80 border-t border-indigo-800/80 z-20 flex flex-col gap-2">
+        <!-- Live Speech Recognition Feedback -->
+        <div class="w-full flex items-center justify-between gap-2 bg-slate-950/90 px-3 py-1.5 rounded-xl border border-indigo-500/30 text-xs">
+          <div id="meteorSpokenFeedback" class="font-bold text-indigo-300 truncate">
+            🎙️ 正在聆聽你的美語聲音... (直接大聲唸出螢幕單字!)
+          </div>
+          <button type="button" onclick="MeteorGameEngine.playHintVoice()" class="shrink-0 px-2 py-0.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-[10px] active:scale-95 transition flex items-center gap-1 shadow-xs">
+            <span>🔊 聽發音提示</span>
+          </button>
+        </div>
+
+        <!-- Kai Defense Ship & Shield Status -->
+        <div class="flex items-center justify-between text-white text-xs">
+          <div class="flex items-center gap-2">
+            <span class="text-xl animate-pulse">🛡️</span>
+            <span class="text-[10px] text-indigo-200">Kai 能量防護罩：<span class="text-emerald-400 font-bold">100% 守護中</span></span>
+          </div>
+          <div class="flex items-center gap-1">
+            <span class="text-lg">🚀</span>
+            <span class="text-[10px] text-amber-300 font-bold">語音雷射砲台就緒</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- 30-SECOND METEOR RESULT MODAL (通關結算與再挑戰)          -->
+  <!-- ======================================================== -->
+  <div id="meteorResultModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-[90] flex items-center justify-center p-4 hidden">
+    <div class="bg-gradient-to-b from-indigo-950 to-slate-900 rounded-3xl p-6 max-w-sm w-full border-2 border-amber-300 shadow-2xl text-center flex flex-col items-center text-white my-auto">
+      <div id="meteorResultStars" class="text-4xl my-2 text-amber-400 tracking-widest animate-bounce">⭐⭐⭐</div>
+      <h3 id="meteorResultTitle" class="text-xl font-black text-amber-300 mb-1">🎉 恭喜通關！防衛成功！</h3>
+      <p id="meteorResultMsg" class="text-xs text-indigo-200 leading-relaxed mb-4">你的美語發音精準擊碎隕石，成功守護了探險島天空！</p>
+      
+      <div class="w-full bg-slate-900/90 rounded-2xl p-3 border border-indigo-500/30 mb-4 flex items-center justify-around text-xs">
         <div>
-          <div class="flex items-center gap-2 flex-wrap">
-            <h3 id="advIslandTitle" class="text-base font-black text-indigo-950">珊瑚島 (關卡 1-10)</h3>
-            <span id="advIslandLockBadge" class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300">✓ 已解鎖啟航</span>
-          </div>
-          <p id="advIslandConditionText" class="text-xs text-slate-600 mt-1">解鎖條件：入門啟蒙島 · 熟悉基礎美語發音與字詞，完成每日任務即可啟航！</p>
+          <div class="text-[10px] text-slate-400">總得分</div>
+          <div id="meteorResultScore" class="text-lg font-black text-amber-400 font-mono">0 分</div>
+        </div>
+        <div class="h-8 w-px bg-slate-700"></div>
+        <div>
+          <div class="text-[10px] text-slate-400">擊碎隕石</div>
+          <div id="meteorResultHits" class="text-lg font-black text-emerald-400 font-mono">0 顆</div>
+        </div>
+        <div class="h-8 w-px bg-slate-700"></div>
+        <div>
+          <div class="text-[10px] text-slate-400">能量獎勵</div>
+          <div class="text-lg font-black text-cyan-400 font-mono">⚡ +50</div>
         </div>
       </div>
-      <div class="flex items-center gap-2.5 w-full md:w-auto justify-end">
-        <button id="advIslandExamBtn" onclick="startIslandMasteryExam()" class="jelly-btn-3d px-4 py-2.5 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-600 hover:to-orange-600 text-white font-black text-xs sm:text-sm border border-amber-300 border-b-2 border-b-amber-700 shadow-md transition flex items-center gap-1.5 active:scale-95 whitespace-nowrap">
-          <span>🎓 參加本島綜合驗收大測驗</span>
+
+      <div class="w-full flex flex-col gap-2">
+        <button type="button" id="meteorResultNextBtn" class="jelly-btn-3d w-full py-3 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-indigo-600 hover:from-emerald-400 text-white font-black text-sm shadow-lg shadow-emerald-500/30 active:scale-95 transition flex items-center justify-center gap-1.5">
+          <span>➡️ 前往下一關挑戰</span>
+        </button>
+        <button type="button" onclick="MeteorGameEngine.retryStage()" class="w-full py-2.5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition active:scale-95">
+          <span>🔄 再次遊玩本關</span>
+        </button>
+        <button type="button" onclick="MeteorGameEngine.closeResultModal()" class="w-full py-2 text-slate-400 hover:text-white font-bold text-xs">
+          返回關卡列表
         </button>
       </div>
     </div>
-
-    <!-- Adventure Stage Grid (10 Stages for Current Island) -->
-    <div id="advStageGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-      <!-- Injected by JS -->
-    </div>
-  </section>
+  </div>
 
   <!-- ======================================================== -->
   <!-- ADVENTURE STAGE CHALLENGE DIALOG MODAL                   -->
@@ -2123,7 +2404,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.39 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.40 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -2162,7 +2443,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.39 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.40 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -2235,7 +2516,7 @@
 
 
   <!-- ======================================================== -->
-  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.39)    -->
+  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.40)    -->
   <!-- ======================================================== -->
   <div id="vipUpgradeModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[89] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
     <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl border-2 border-amber-300 flex flex-col gap-4 my-auto max-h-[92vh] overflow-y-auto">
@@ -2747,7 +3028,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.39";
+    const APP_VERSION = "26.11.40";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // Immediate sanitization of legacy Gemini 1.5/2.0/2.5 models from localStorage
@@ -2943,7 +3224,7 @@
 
 
     // ========================================================
-    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.39)
+    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.40)
     // ========================================================
     const VIP_STORAGE_KEY = 'kaispeak_vip_info';
     const AI_USAGE_DATE_KEY = 'kaispeak_ai_usage_date';
@@ -3061,7 +3342,7 @@
       return true;
     }
 
-    // Marketing Campaigns & Agency Partners Definition (v26.11.39)
+    // Marketing Campaigns & Agency Partners Definition (v26.11.40)
     const SPECIAL_PROMO_CODES = {
       'TRIAL7D': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '官方社群促銷體驗專案', desc: '全功能解鎖 7 天' },
       'FREE7DAYS': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '限時早鳥推廣禮', desc: '全功能解鎖 7 天' },
@@ -4748,6 +5029,53 @@
           osc.stop(now + i * 0.08 + 0.46);
         });
       },
+      playLaserShot() {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(980, now);
+        osc.frequency.exponentialRampToValueAtTime(140, now + 0.14);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.16);
+      },
+      playMeteorExplosion() {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(180, now);
+        osc.frequency.exponentialRampToValueAtTime(32, now + 0.25);
+        gain.gain.setValueAtTime(0.28, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.26);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.28);
+      },
+      playCountdownBeep(isHigh = false) {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(isHigh ? 920 : 440, now);
+        gain.gain.setValueAtTime(0.18, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.16);
+      },
       playClick(type = 'default') {
         this.init();
         if (!this.ctx) return;
@@ -5553,7 +5881,7 @@
     }
 
     // ========================================================
-    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.39)
+    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.40)
     // ========================================================
     let cachedServerApiKey = '';
     let cachedServerModel = 'gemini-3.5-flash';
@@ -8100,6 +8428,787 @@
     }
 
     // ========================================================
+    // METEOR VOICE SHOOTER ENGINE (隕石語音擊墜島 · 聲音打飛機核心引擎)
+    // ========================================================
+    let meteorCurrentLevel = 1;
+
+    const MeteorGameEngine = {
+      active: false,
+      timer: 30,
+      timerInterval: null,
+      currentLevel: 1,      // 1 to 5
+      currentSubStage: '1-1', // '1-1', '1-2', '1-3', '1-4', or '5-Boss'
+      score: 0,
+      combo: 0,
+      maxCombo: 0,
+      hitCount: 0,
+      meteors: [],
+      speechRec: null,
+      isListening: false,
+      bossHp: 100,
+      bossMaxHp: 100,
+      wordPool: [],
+      animFrameId: null,
+      lastSpawnTime: 0,
+      spawnInterval: 3200,
+
+      getProgress() {
+        try {
+          const raw = localStorage.getItem('kai_meteor_island_progress');
+          if (raw) return JSON.parse(raw);
+        } catch (e) {}
+        return {
+          unlockedLevel: 1,
+          unlockedSubStage: '1-1',
+          stageRecords: {}
+        };
+      },
+
+      saveProgress(data) {
+        localStorage.setItem('kai_meteor_island_progress', JSON.stringify(data));
+      },
+
+      isSubStageUnlocked(subStageCode) {
+        if (subStageCode === '1-1') return true;
+        const p = this.getProgress();
+        if (p.stageRecords && p.stageRecords[subStageCode]) return true;
+        const seq = [
+          '1-1', '1-2', '1-3', '1-4',
+          '2-1', '2-2', '2-3', '2-4',
+          '3-1', '3-2', '3-3', '3-4',
+          '4-1', '4-2', '4-3', '4-4',
+          '5-Boss'
+        ];
+        const idx = seq.indexOf(subStageCode);
+        if (idx <= 0) return true;
+        const prev = seq[idx - 1];
+        return !!(p.stageRecords && p.stageRecords[prev] && p.stageRecords[prev].stars >= 1);
+      },
+
+      getStageWordPool(level) {
+        if (typeof MASTER_VOCAB === 'undefined' || !MASTER_VOCAB || MASTER_VOCAB.length === 0) {
+          return [
+            { word: 'desk', meaning: '名詞：書桌', emoji: '🖥️', phonetic: '/dɛsk/' },
+            { word: 'bed', meaning: '名詞：床鋪', emoji: '🛏️', phonetic: '/bɛd/' },
+            { word: 'cup', meaning: '名詞：水杯', emoji: '🥛', phonetic: '/kʌp/' },
+            { word: 'train', meaning: '名詞：火車', emoji: '🚆', phonetic: '/treɪn/' },
+            { word: 'plane', meaning: '名詞：飛機', emoji: '✈️', phonetic: '/pleɪn/' },
+          ];
+        }
+        let pool = [];
+        if (level === 1) {
+          pool = MASTER_VOCAB.filter(w => ['home', 'toy_school', 'animals'].includes(w.category)).slice(0, 35);
+        } else if (level === 2) {
+          pool = MASTER_VOCAB.filter(w => ['travel', 'city'].includes(w.category) || ['train', 'plane', 'car', 'bike', 'bus', 'boat', 'ship', 'road', 'street', 'park'].includes(w.word)).slice(0, 35);
+        } else if (level === 3) {
+          pool = MASTER_VOCAB.filter(w => ['food', 'daily_body'].includes(w.category)).slice(0, 35);
+        } else if (level === 4) {
+          pool = MASTER_VOCAB.filter(w => ['toy_school', 'nature', 'colors_shapes'].includes(w.category)).slice(0, 35);
+        } else {
+          pool = MASTER_VOCAB.slice(0, 60);
+        }
+        if (!pool || pool.length < 5) pool = MASTER_VOCAB.slice(0, 25);
+        return pool;
+      },
+
+      startStage(level, subStage) {
+        this.currentLevel = level;
+        this.currentSubStage = subStage;
+        this.score = 0;
+        this.combo = 0;
+        this.maxCombo = 0;
+        this.hitCount = 0;
+        this.meteors = [];
+        this.timer = 30;
+        this.bossHp = 100;
+        this.bossMaxHp = 100;
+        this.wordPool = this.getStageWordPool(level);
+        this.active = true;
+        this.lastSpawnTime = Date.now();
+
+        if (subStage.endsWith('-4')) {
+          this.spawnInterval = 2400;
+        } else if (subStage === '5-Boss') {
+          this.spawnInterval = 2100;
+        } else {
+          this.spawnInterval = 3100;
+        }
+
+        const titleEl = document.getElementById('meteorBattleStageTitle');
+        if (titleEl) {
+          if (subStage === '5-Boss') {
+            titleEl.innerText = "👿 第五大關 · 宇宙大魔王決戰 (Boss Rush · 30秒防衛)";
+          } else {
+            const typeNames = { '1': '雙語看英念英', '2': '看中反思英字', '3': '看圖直覺反射', '4': '極速混合大亂鬥' };
+            const subNum = subStage.split('-')[1];
+            titleEl.innerText = `🏝️ 關卡 ${subStage} · ${typeNames[subNum] || '語音防衛'} (30秒極速防衛)`;
+          }
+        }
+
+        const modal = document.getElementById('meteorBattleModal');
+        if (modal) modal.classList.remove('hidden');
+
+        this.updateHUD();
+        this.initContinuousSpeech();
+        this.startTimer();
+        this.startGameLoop();
+
+        if (typeof SoundEffects !== 'undefined' && SoundEffects.playScore) {
+          SoundEffects.playScore(85);
+        }
+      },
+
+      startTimer() {
+        if (this.timerInterval) clearInterval(this.timerInterval);
+        const timeDisplay = document.getElementById('meteorTimerText');
+        const timeBar = document.getElementById('meteorTimerProgressBar');
+        if (timeDisplay) timeDisplay.innerText = `${this.timer}s`;
+        if (timeBar) {
+          timeBar.style.width = '100%';
+          timeBar.className = "h-full bg-gradient-to-r from-emerald-400 via-teal-400 to-indigo-500 transition-all duration-300";
+        }
+
+        this.timerInterval = setInterval(() => {
+          if (!this.active) return;
+          this.timer--;
+          if (timeDisplay) timeDisplay.innerText = `${this.timer}s`;
+          if (timeBar) {
+            const pct = Math.max(0, (this.timer / 30) * 100);
+            timeBar.style.width = `${pct}%`;
+            if (this.timer <= 5) {
+              timeBar.className = "h-full bg-gradient-to-r from-rose-500 to-red-600 transition-all duration-300 animate-pulse";
+              if (typeof SoundEffects !== 'undefined' && SoundEffects.playCountdownBeep) {
+                SoundEffects.playCountdownBeep(this.timer <= 3);
+              }
+            } else if (this.timer <= 12) {
+              timeBar.className = "h-full bg-gradient-to-r from-amber-400 to-orange-500 transition-all duration-300";
+            } else {
+              timeBar.className = "h-full bg-gradient-to-r from-emerald-400 via-teal-400 to-indigo-500 transition-all duration-300";
+            }
+          }
+
+          if (this.timer <= 0) {
+            this.endStage();
+          }
+        }, 1000);
+      },
+
+      spawnMeteor() {
+        if (!this.active) return;
+        const now = Date.now();
+        if (now - this.lastSpawnTime < this.spawnInterval) return;
+        this.lastSpawnTime = now;
+
+        const wordItem = this.wordPool[Math.floor(Math.random() * this.wordPool.length)];
+        if (!wordItem) return;
+
+        let displayType = 'en';
+        if (this.currentSubStage.endsWith('-1')) {
+          displayType = 'en';
+        } else if (this.currentSubStage.endsWith('-2')) {
+          displayType = 'zh';
+        } else if (this.currentSubStage.endsWith('-3')) {
+          displayType = 'img';
+        } else if (this.currentSubStage.endsWith('-4')) {
+          const types = ['en', 'zh', 'img'];
+          displayType = types[Math.floor(Math.random() * types.length)];
+        } else {
+          const types = ['en', 'zh', 'img'];
+          displayType = types[Math.floor(Math.random() * types.length)];
+        }
+
+        const x = 14 + Math.random() * 68;
+        const baseSpeed = (this.currentSubStage.endsWith('-4') || this.currentSubStage === '5-Boss') ? 0.36 : 0.26;
+
+        this.meteors.push({
+          id: 'meteor_' + Math.random().toString(36).slice(2, 9),
+          word: wordItem.word.toLowerCase(),
+          displayWord: wordItem.word,
+          meaning: (wordItem.meaning || '').replace(/^(名詞|動詞|形容詞|副詞|片語|動詞片語)：/, ''),
+          emoji: wordItem.emoji || '☄️',
+          phonetic: wordItem.phonetic || '',
+          displayType: displayType,
+          x: x,
+          y: 4,
+          baseSpeed: baseSpeed,
+          speed: baseSpeed,
+          isHalfway: false,
+          isHit: false
+        });
+      },
+
+      updateGame() {
+        if (!this.active) return;
+        this.spawnMeteor();
+
+        for (let i = this.meteors.length - 1; i >= 0; i--) {
+          const m = this.meteors[i];
+          m.y += m.speed;
+
+          if (m.y >= 50 && !m.isHalfway) {
+            m.isHalfway = true;
+            m.speed = m.baseSpeed * 1.25;
+          }
+
+          if (m.y >= 92) {
+            if (typeof SoundEffects !== 'undefined' && SoundEffects.playShield) {
+              SoundEffects.playShield();
+            }
+            this.meteors.splice(i, 1);
+            this.combo = 0;
+            this.updateHUD();
+          }
+        }
+
+        this.renderGame();
+        this.animFrameId = requestAnimationFrame(() => this.updateGame());
+      },
+
+      renderGame() {
+        const container = document.getElementById('meteorFieldCanvas');
+        if (!container) return;
+
+        container.innerHTML = '';
+
+        if (this.currentSubStage === '5-Boss') {
+          const bossEl = document.createElement('div');
+          bossEl.className = "absolute top-2 inset-x-3 sm:inset-x-6 bg-gradient-to-r from-purple-900/90 via-rose-900/90 to-indigo-950/90 rounded-2xl p-2 sm:p-2.5 border-2 border-rose-500 shadow-xl flex items-center justify-between text-white z-20";
+          bossEl.innerHTML = `
+            <div class="flex items-center gap-2">
+              <span class="text-3xl animate-bounce">👾</span>
+              <div>
+                <div class="font-black text-xs sm:text-sm text-rose-300">星空吞噬巨獸 (Cosmic Boss)</div>
+                <div class="text-[9px] text-slate-300">大聲唸出英文字擊破隕石彈幕，削弱魔王血條！</div>
+              </div>
+            </div>
+            <div class="w-32 sm:w-44 text-right">
+              <div class="text-[10px] font-black text-rose-400 mb-0.5">HP: ${this.bossHp} / 100</div>
+              <div class="w-full bg-slate-950 rounded-full h-2 overflow-hidden border border-rose-400">
+                <div class="bg-gradient-to-r from-rose-500 to-red-600 h-full transition-all duration-300" style="width: ${Math.max(0, this.bossHp)}%"></div>
+              </div>
+            </div>
+          `;
+          container.appendChild(bossEl);
+        }
+
+        const guideLine = document.createElement('div');
+        guideLine.className = "absolute top-1/2 inset-x-0 h-0.5 border-t border-dashed border-indigo-400/30 flex items-center justify-between px-3 pointer-events-none";
+        guideLine.innerHTML = `
+          <span class="text-[9px] font-bold text-indigo-300/60 uppercase tracking-widest bg-indigo-950/80 px-2 py-0.5 rounded-full border border-indigo-500/20">⚡ 50% 警戒線 · 加速閃爍浮現提示</span>
+          <span class="text-[9px] font-bold text-amber-300/60">大聲說出英文！</span>
+        `;
+        container.appendChild(guideLine);
+
+        this.meteors.forEach(m => {
+          const el = document.createElement('div');
+          const isFlashing = m.isHalfway;
+
+          let innerContent = '';
+          if (m.displayType === 'en') {
+            innerContent = `
+              <div class="text-2xl my-0.5">${m.emoji}</div>
+              <div class="font-black text-sm text-white tracking-wide">${m.displayWord}</div>
+              <div class="text-[10px] text-indigo-200 font-mono">${m.phonetic}</div>
+              <div class="text-[9px] text-indigo-300/80">${m.meaning}</div>
+            `;
+          } else if (m.displayType === 'zh') {
+            innerContent = `
+              <div class="text-2xl my-0.5">${m.emoji}</div>
+              <div class="font-black text-sm text-amber-300 tracking-wide">${m.meaning}</div>
+              ${isFlashing ? `<div class="mt-0.5 px-2 py-0.5 rounded-md bg-indigo-950/90 text-indigo-200 font-mono font-bold text-[10px] border border-indigo-400/60 meteor-hint-fade">✨ ${m.displayWord} ${m.phonetic}</div>` : `<div class="text-[9px] text-slate-300">看中文說英文</div>`}
+            `;
+          } else {
+            innerContent = `
+              <div class="text-3xl my-0.5 filter drop-shadow-md">${m.emoji}</div>
+              <div class="text-[10px] text-amber-200 font-bold">${m.meaning}</div>
+              ${isFlashing ? `<div class="mt-0.5 px-2 py-0.5 rounded-md bg-indigo-950/90 text-indigo-200 font-mono font-bold text-[10px] border border-indigo-400/60 meteor-hint-fade">✨ ${m.displayWord} ${m.phonetic}</div>` : `<div class="text-[9px] text-slate-300">看圖片說英文</div>`}
+            `;
+          }
+
+          el.className = `absolute cursor-pointer select-none transition-transform duration-75 flex flex-col items-center justify-center p-2 rounded-2xl text-center shadow-lg active:scale-95 ${
+            isFlashing 
+              ? 'bg-gradient-to-b from-indigo-900/95 via-purple-900/95 to-slate-900/95 border-2 border-amber-400 ring-2 ring-pink-500/60 meteor-flashing shadow-amber-500/40' 
+              : 'bg-gradient-to-b from-slate-900/90 to-indigo-950/90 border-2 border-indigo-400/60 shadow-indigo-500/20'
+          }`;
+          el.style.left = `${m.x}%`;
+          el.style.top = `${m.y}%`;
+          el.style.transform = `translate(-50%, -50%)`;
+          el.style.minWidth = '95px';
+
+          el.onclick = (e) => {
+            e.stopPropagation();
+            if (typeof KaiSpeechEngine !== 'undefined') {
+              KaiSpeechEngine.speak(m.displayWord, 1.02, null, { role: 'kai', pitch: 1.45 });
+            }
+            this.triggerHit(m, "點擊擊發");
+          };
+
+          el.innerHTML = innerContent;
+          container.appendChild(el);
+        });
+      },
+
+      triggerHit(meteor, spokenText) {
+        if (!this.active || meteor.isHit) return;
+        meteor.isHit = true;
+
+        if (typeof SoundEffects !== 'undefined') {
+          if (SoundEffects.playLaserShot) SoundEffects.playLaserShot();
+          setTimeout(() => { if (SoundEffects.playMeteorExplosion) SoundEffects.playMeteorExplosion(); }, 70);
+        }
+
+        this.drawLaserBeam(meteor.x, meteor.y);
+
+        this.combo++;
+        if (this.combo > this.maxCombo) this.maxCombo = this.combo;
+        const comboBonus = this.combo >= 4 ? 2.0 : (this.combo >= 2 ? 1.5 : 1.0);
+        const pts = Math.round(20 * comboBonus);
+        this.score += pts;
+        this.hitCount++;
+
+        if (this.currentSubStage === '5-Boss') {
+          this.bossHp = Math.max(0, this.bossHp - 18);
+          if (this.bossHp <= 0) {
+            setTimeout(() => this.endStage(true), 600);
+          }
+        }
+
+        this.showFloatingText(meteor.x, meteor.y, `+${pts} 💥 ${this.combo > 1 ? `${this.combo}連擊!` : 'HIT!'}`);
+
+        const idx = this.meteors.indexOf(meteor);
+        if (idx !== -1) {
+          this.meteors.splice(idx, 1);
+        }
+
+        this.updateHUD();
+      },
+
+      drawLaserBeam(targetX, targetY) {
+        const container = document.getElementById('meteorFieldCanvas');
+        if (!container) return;
+        const laser = document.createElement('div');
+        laser.className = "absolute pointer-events-none z-30";
+        laser.style.left = `50%`;
+        laser.style.bottom = `10px`;
+        laser.style.width = `4px`;
+        laser.style.background = "linear-gradient(to top, #38BDF8, #818CF8, #F43F5E, #FBBF24)";
+        laser.style.boxShadow = "0 0 15px #38BDF8, 0 0 30px #F43F5E";
+        laser.style.transformOrigin = "bottom center";
+
+        const rect = container.getBoundingClientRect();
+        const startX = rect.width / 2;
+        const startY = rect.height;
+        const endX = (targetX / 100) * rect.width;
+        const endY = (targetY / 100) * rect.height;
+        const dx = endX - startX;
+        const dy = endY - startY;
+        const angle = Math.atan2(dy, dx) + Math.PI / 2;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        laser.style.height = `${dist}px`;
+        laser.style.transform = `rotate(${angle}rad)`;
+        laser.style.animation = "laserBeam 0.25s forwards";
+
+        container.appendChild(laser);
+        setTimeout(() => laser.remove(), 260);
+      },
+
+      showFloatingText(x, y, text) {
+        const container = document.getElementById('meteorFieldCanvas');
+        if (!container) return;
+        const floater = document.createElement('div');
+        floater.className = "absolute pointer-events-none z-40 text-amber-300 font-black text-sm filter drop-shadow-[0_2px_8px_rgba(245,158,11,0.8)]";
+        floater.style.left = `${x}%`;
+        floater.style.top = `${y}%`;
+        floater.style.transform = "translate(-50%, -50%)";
+        floater.innerText = text;
+        container.appendChild(floater);
+
+        let progress = 0;
+        const interval = setInterval(() => {
+          progress += 0.05;
+          floater.style.top = `${y - progress * 15}%`;
+          floater.style.opacity = `${1 - progress}`;
+          if (progress >= 1) {
+            clearInterval(interval);
+            floater.remove();
+          }
+        }, 20);
+      },
+
+      updateHUD() {
+        const scoreEl = document.getElementById('meteorScoreDisplay');
+        const comboEl = document.getElementById('meteorComboDisplay');
+        if (scoreEl) scoreEl.innerText = this.score;
+        if (comboEl) {
+          if (this.combo >= 2) {
+            comboEl.innerText = `🔥 ${this.combo} 連擊!`;
+            comboEl.className = "text-[11px] font-black px-2.5 py-0.5 rounded-full bg-gradient-to-r from-amber-500 to-rose-500 text-white shadow-md animate-bounce";
+          } else {
+            comboEl.innerText = `連擊 x${this.combo}`;
+            comboEl.className = "text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-slate-300";
+          }
+        }
+      },
+
+      initContinuousSpeech() {
+        const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRec) {
+          console.warn("SpeechRecognition not supported in browser");
+          return;
+        }
+
+        if (this.speechRec) {
+          try { this.speechRec.abort(); } catch (e) {}
+        }
+
+        try {
+          this.speechRec = new SpeechRec();
+          this.speechRec.lang = 'en-US';
+          this.speechRec.continuous = true;
+          this.speechRec.interimResults = true;
+
+          const liveText = document.getElementById('meteorSpokenFeedback');
+
+          this.speechRec.onstart = () => {
+            this.isListening = true;
+            if (liveText) liveText.innerText = "🎙️ 正在聆聽你的美語聲音... (直接大聲唸出螢幕單字!)";
+          };
+
+          this.speechRec.onresult = (e) => {
+            if (!this.active) return;
+            let transcript = "";
+            for (let i = e.resultIndex; i < e.results.length; ++i) {
+              transcript += " " + e.results[i][0].transcript;
+            }
+            transcript = transcript.trim().toLowerCase();
+            if (liveText) liveText.innerText = `🎙️ 聽到：${transcript}`;
+
+            for (let i = 0; i < this.meteors.length; i++) {
+              const m = this.meteors[i];
+              if (!m.isHit && (transcript.includes(m.word) || (m.word.length > 3 && transcript.endsWith(m.word)))) {
+                this.triggerHit(m, transcript);
+                break;
+              }
+            }
+          };
+
+          this.speechRec.onerror = (e) => {
+            console.warn("Continuous speech error:", e);
+          };
+
+          this.speechRec.onend = () => {
+            if (this.active) {
+              try { this.speechRec.start(); } catch (err) {}
+            }
+          };
+
+          this.speechRec.start();
+        } catch (e) {
+          console.error("Continuous speech init error:", e);
+        }
+      },
+
+      startGameLoop() {
+        if (this.animFrameId) cancelAnimationFrame(this.animFrameId);
+        this.updateGame();
+      },
+
+      endStage(bossDefeated = false) {
+        this.active = false;
+        if (this.timerInterval) clearInterval(this.timerInterval);
+        if (this.animFrameId) cancelAnimationFrame(this.animFrameId);
+        if (this.speechRec) {
+          try { this.speechRec.abort(); } catch (e) {}
+        }
+
+        const passed = (this.score >= 60 || this.hitCount >= 3 || bossDefeated);
+        let starsEarned = 0;
+        if (passed) {
+          if (this.score >= 100 || bossDefeated) starsEarned = 3;
+          else if (this.score >= 80) starsEarned = 2;
+          else starsEarned = 1;
+        }
+
+        if (passed) {
+          const prog = this.getProgress();
+          const prevStars = (prog.stageRecords && prog.stageRecords[this.currentSubStage]) ? prog.stageRecords[this.currentSubStage].stars : 0;
+          if (starsEarned > prevStars) {
+            if (!prog.stageRecords) prog.stageRecords = {};
+            prog.stageRecords[this.currentSubStage] = {
+              stars: starsEarned,
+              score: Math.max(this.score, (prog.stageRecords[this.currentSubStage]?.score || 0)),
+              bestCombo: Math.max(this.maxCombo, (prog.stageRecords[this.currentSubStage]?.bestCombo || 0)),
+              timestamp: Date.now()
+            };
+            this.saveProgress(prog);
+          }
+
+          if (typeof getActiveProfile === 'function') {
+            const p = getActiveProfile();
+            if (p) {
+              p.energyPoints = (p.energyPoints || 0) + 50;
+              if (typeof saveProfilesToStorage === 'function') saveProfilesToStorage();
+              if (typeof updateStreakAndEnergyUI === 'function') updateStreakAndEnergyUI();
+            }
+          }
+
+          if (typeof SoundEffects !== 'undefined' && SoundEffects.playVictoryFanfare) {
+            SoundEffects.playVictoryFanfare();
+          }
+        } else {
+          if (typeof SoundEffects !== 'undefined' && SoundEffects.playScore) {
+            SoundEffects.playScore(50);
+          }
+        }
+
+        this.showResultModal(passed, starsEarned);
+      },
+
+      showResultModal(passed, stars) {
+        const modal = document.getElementById('meteorResultModal');
+        if (!modal) return;
+
+        const titleEl = document.getElementById('meteorResultTitle');
+        const msgEl = document.getElementById('meteorResultMsg');
+        const starsEl = document.getElementById('meteorResultStars');
+        const scoreEl = document.getElementById('meteorResultScore');
+        const hitsEl = document.getElementById('meteorResultHits');
+        const nextBtn = document.getElementById('meteorResultNextBtn');
+
+        if (scoreEl) scoreEl.innerText = `${this.score} 分`;
+        if (hitsEl) hitsEl.innerText = `${this.hitCount} 顆 (最大連擊: x${this.maxCombo})`;
+
+        if (passed) {
+          if (titleEl) titleEl.innerText = "🎉 恭喜通關！防衛成功！";
+          if (msgEl) msgEl.innerText = "太棒了！你的美語發音精準擊碎隕石，成功守護了探險島天空！";
+          if (starsEl) starsEl.innerText = '⭐'.repeat(stars) || '⭐';
+          if (nextBtn) {
+            nextBtn.classList.remove('hidden');
+            nextBtn.onclick = () => {
+              this.closeResultModal();
+              this.advanceToNextStage();
+            };
+          }
+        } else {
+          if (titleEl) titleEl.innerText = "💪 差一點點就過關了！";
+          if (msgEl) msgEl.innerText = "Kai 幫你守護住了能量護盾！跟著 Kai 再挑戰一次，你一定可以通關！";
+          if (starsEl) starsEl.innerText = "☆☆☆";
+          if (nextBtn) nextBtn.classList.add('hidden');
+        }
+
+        modal.classList.remove('hidden');
+      },
+
+      closeResultModal() {
+        const resModal = document.getElementById('meteorResultModal');
+        if (resModal) resModal.classList.add('hidden');
+        const bModal = document.getElementById('meteorBattleModal');
+        if (bModal) bModal.classList.add('hidden');
+        renderMeteorStageSelectView();
+      },
+
+      advanceToNextStage() {
+        const seq = [
+          '1-1', '1-2', '1-3', '1-4',
+          '2-1', '2-2', '2-3', '2-4',
+          '3-1', '3-2', '3-3', '3-4',
+          '4-1', '4-2', '4-3', '4-4',
+          '5-Boss'
+        ];
+        const idx = seq.indexOf(this.currentSubStage);
+        if (idx !== -1 && idx < seq.length - 1) {
+          const nextCode = seq[idx + 1];
+          const nextLevel = parseInt(nextCode.split('-')[0]) || 5;
+          meteorCurrentLevel = nextLevel;
+          renderMeteorStageSelectView();
+          this.startStage(nextLevel, nextCode);
+        } else {
+          renderMeteorStageSelectView();
+        }
+      },
+
+      playHintVoice() {
+        const candidates = this.meteors.filter(m => !m.isHit).sort((a,b) => b.y - a.y);
+        if (candidates.length > 0) {
+          const target = candidates[0];
+          if (typeof KaiSpeechEngine !== 'undefined') {
+            KaiSpeechEngine.speak(target.displayWord, 1.02, null, { role: 'kai', pitch: 1.45 });
+          }
+          const liveText = document.getElementById('meteorSpokenFeedback');
+          if (liveText) liveText.innerText = `🔊 Kai 示範發音："${target.displayWord}"`;
+        }
+      },
+
+      retryStage() {
+        this.closeResultModal();
+        this.startStage(this.currentLevel, this.currentSubStage);
+      },
+
+      quitGame() {
+        this.active = false;
+        if (this.timerInterval) clearInterval(this.timerInterval);
+        if (this.animFrameId) cancelAnimationFrame(this.animFrameId);
+        if (this.speechRec) {
+          try { this.speechRec.abort(); } catch (e) {}
+        }
+        const bModal = document.getElementById('meteorBattleModal');
+        if (bModal) bModal.classList.add('hidden');
+        renderMeteorStageSelectView();
+      }
+    };
+
+    function showAdventureGrandMap() {
+      const g = document.getElementById('advGrandMapView');
+      const m = document.getElementById('advMeteorIslandView');
+      if (g) g.classList.remove('hidden');
+      if (m) m.classList.add('hidden');
+      updateMeteorGrandMapUI();
+    }
+
+    function enterMeteorIsland(level = 1) {
+      const g = document.getElementById('advGrandMapView');
+      const m = document.getElementById('advMeteorIslandView');
+      if (g) g.classList.add('hidden');
+      if (m) m.classList.remove('hidden');
+      selectMeteorLevel(level);
+    }
+
+    function selectMeteorLevel(level) {
+      meteorCurrentLevel = level;
+      document.querySelectorAll('.meteor-lvl-btn').forEach((btn, idx) => {
+        if (idx + 1 === level) {
+          btn.className = "meteor-lvl-btn flex-1 min-w-[120px] py-2 px-3 rounded-xl bg-indigo-600 text-white font-black text-xs shadow-sm whitespace-nowrap text-center transition";
+        } else {
+          btn.className = "meteor-lvl-btn flex-1 min-w-[120px] py-2 px-3 rounded-xl bg-white text-slate-700 hover:bg-slate-100 font-bold text-xs whitespace-nowrap text-center transition";
+        }
+      });
+      renderMeteorStageSelectView();
+    }
+
+    function renderMeteorStageSelectView() {
+      const container = document.getElementById('meteorSubStagesGrid');
+      if (!container) return;
+
+      const prog = MeteorGameEngine.getProgress();
+      let totalIslandStars = 0;
+      if (prog.stageRecords) {
+        Object.values(prog.stageRecords).forEach(r => { totalIslandStars += (r.stars || 0); });
+      }
+      const islandStarsEl = document.getElementById('meteorIslandStarsCount');
+      if (islandStarsEl) islandStarsEl.innerText = totalIslandStars;
+
+      container.innerHTML = '';
+
+      if (meteorCurrentLevel === 5) {
+        const isUnlocked = MeteorGameEngine.isSubStageUnlocked('5-Boss');
+        const rec = (prog.stageRecords && prog.stageRecords['5-Boss']) || null;
+        const stars = rec ? rec.stars : 0;
+        const score = rec ? rec.score : 0;
+
+        const card = document.createElement('div');
+        card.className = `p-5 rounded-3xl border-2 flex flex-col justify-between text-center transition ${
+          isUnlocked 
+            ? 'bg-gradient-to-b from-purple-900/90 via-slate-900 to-rose-950/90 text-white border-rose-500 shadow-xl shadow-rose-950/50' 
+            : 'bg-slate-100 text-slate-400 border-dashed border-slate-300 opacity-70 cursor-not-allowed'
+        } col-span-full`;
+
+        card.innerHTML = `
+          <div>
+            <div class="text-4xl my-2 animate-bounce">👾</div>
+            <div class="text-lg font-black text-rose-300">第五大關 · 宇宙大魔王決戰 (Boss Rush)</div>
+            <div class="text-xs text-slate-300 mt-1">Boss 發射多重隕石彈幕！連續正確朗讀單字，擊碎隕石並削弱魔王血條！</div>
+            <div class="text-amber-400 font-black text-lg my-2">${'⭐'.repeat(stars) || '☆☆☆'}</div>
+            ${score > 0 ? `<div class="text-xs text-emerald-400 font-mono font-bold">歷史最高得分：${score} 分</div>` : ''}
+          </div>
+          <div class="mt-4">
+            ${isUnlocked ? `
+              <button type="button" onclick="MeteorGameEngine.startStage(5, '5-Boss')" class="w-full py-3 rounded-2xl bg-gradient-to-r from-rose-500 via-pink-600 to-purple-600 hover:from-rose-600 text-white font-black text-sm shadow-lg shadow-rose-600/30 active:scale-95 transition flex items-center justify-center gap-1.5 animate-pulse">
+                <span>⚔️ 挑戰大魔王</span> <span>▶</span>
+              </button>
+            ` : `
+              <button type="button" disabled class="w-full py-2.5 rounded-2xl bg-slate-200 text-slate-500 font-bold text-xs cursor-not-allowed">
+                🔒 請先通過第 4-4 關解鎖
+              </button>
+            `}
+          </div>
+        `;
+        container.appendChild(card);
+        return;
+      }
+
+      const stageDefs = [
+        { code: `${meteorCurrentLevel}-1`, title: `${meteorCurrentLevel}-1 🔤 雙語看英念英`, desc: "看英文字唸英文，雙語標註看字跟讀暖身" },
+        { code: `${meteorCurrentLevel}-2`, title: `${meteorCurrentLevel}-2 🈯 看中反思英字`, desc: "看中文字說英文，大腦直覺反射轉換" },
+        { code: `${meteorCurrentLevel}-3`, title: `${meteorCurrentLevel}-3 🖼️ 看圖直覺反射`, desc: "看圖片說英文，過半閃爍浮現淡英文提示" },
+        { code: `${meteorCurrentLevel}-4`, title: `${meteorCurrentLevel}-4 🌀 極速混合大亂鬥`, desc: "中英圖隨機交替，極速下墜考驗大腦切換" },
+      ];
+
+      stageDefs.forEach(st => {
+        const isUnlocked = MeteorGameEngine.isSubStageUnlocked(st.code);
+        const rec = (prog.stageRecords && prog.stageRecords[st.code]) || null;
+        const stars = rec ? rec.stars : 0;
+        const score = rec ? rec.score : 0;
+
+        const card = document.createElement('div');
+        card.className = `p-4 rounded-3xl border-2 flex flex-col justify-between text-center transition ${
+          isUnlocked 
+            ? 'bg-white border-indigo-200 shadow-md hover:shadow-xl hover:border-indigo-400 active:scale-[0.98]' 
+            : 'bg-slate-50 border-dashed border-slate-300 opacity-60 cursor-not-allowed'
+        }`;
+
+        card.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[10px] font-black px-2 py-0.5 rounded-full ${isUnlocked ? 'bg-indigo-100 text-indigo-800' : 'bg-slate-200 text-slate-600'}">
+                ${st.code}
+              </span>
+              <span class="text-xs text-amber-500 font-black">${'⭐'.repeat(stars) || '☆☆☆'}</span>
+            </div>
+            <h4 class="font-black text-sm text-slate-900 mb-1">${st.title}</h4>
+            <p class="text-[11px] text-slate-500 leading-relaxed min-h-[32px]">${st.desc}</p>
+            ${score > 0 ? `<div class="text-[10px] text-emerald-600 font-mono font-bold mt-1">最佳: ${score} 分</div>` : ''}
+          </div>
+          <div class="mt-3">
+            ${isUnlocked ? `
+              <button type="button" onclick="MeteorGameEngine.startStage(${meteorCurrentLevel}, '${st.code}')" class="w-full py-2 px-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-black text-xs shadow-sm active:scale-95 transition flex items-center justify-center gap-1">
+                <span>🚀 開始挑戰</span> <span>▶</span>
+              </button>
+            ` : `
+              <button type="button" disabled class="w-full py-1.5 px-3 rounded-xl bg-slate-200 text-slate-400 font-bold text-[11px] cursor-not-allowed">
+                🔒 尚未解鎖
+              </button>
+            `}
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function updateMeteorGrandMapUI() {
+      const prog = MeteorGameEngine.getProgress();
+      let totalIslandStars = 0;
+      let unlockedCount = 1;
+      const seq = [
+        '1-1', '1-2', '1-3', '1-4',
+        '2-1', '2-2', '2-3', '2-4',
+        '3-1', '3-2', '3-3', '3-4',
+        '4-1', '4-2', '4-3', '4-4',
+        '5-Boss'
+      ];
+      seq.forEach(s => {
+        if (MeteorGameEngine.isSubStageUnlocked(s)) unlockedCount++;
+        if (prog.stageRecords && prog.stageRecords[s]) {
+          totalIslandStars += (prog.stageRecords[s].stars || 0);
+        }
+      });
+      const starsEl = document.getElementById('meteorTotalStarsDisplay');
+      const countEl = document.getElementById('meteorUnlockedStageCount');
+      if (starsEl) starsEl.innerText = `⭐ ${totalIslandStars}`;
+      if (countEl) countEl.innerText = `${Math.min(unlockedCount, 17)} / 17`;
+    }
+
+    // ========================================================
     // MODE 3: ADVENTURE ISLAND (盲盒迷霧 · 解鎖機制 · 島嶼分頁 · 綜合驗收)
     // ========================================================
     const ADVENTURE_ISLAND_CONFIG = [
@@ -8159,7 +9268,17 @@
     }
 
     function renderAdventureMap() {
+      if (typeof updateMeteorGrandMapUI === 'function') {
+        updateMeteorGrandMapUI();
+      }
+      const grandMap = document.getElementById('advGrandMapView');
+      const meteorIsland = document.getElementById('advMeteorIslandView');
+      if (grandMap && meteorIsland && meteorIsland.classList.contains('hidden')) {
+        grandMap.classList.remove('hidden');
+      }
+
       const container = document.getElementById('advStageGrid');
+      if (!container) return;
       container.innerHTML = '';
       let totalStars = 0;
 
@@ -10742,7 +11861,7 @@
     };
 
     // ========================================================
-    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.39)
+    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.40)
     // ========================================================
     // 💡 App Store 開箱即用架構（商業發行標準）：
     // 透過 Cloudflare Worker 官方安全閘道器，免掃碼、免設定、0 秒直連 Google 官方 AI！
@@ -12303,7 +13422,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.39)
+    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.40)
     // ========================================================
     function parseScenarioJsonResponse(rawText) {
       if (!rawText || typeof rawText !== 'string') return null;
@@ -12408,7 +13527,7 @@
     }
 
     // ========================================================
-    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.39)
+    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.40)
     // ========================================================
     async function callGeminiScenarioPlanner(userText, userLevel, apiKey) {
       // 1. Ensure valid official model from localStorage
@@ -12925,7 +14044,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.39)
+    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.40)
     // ========================================================
     const KaiSpeechEngine = {
       preferredVoice: null,
