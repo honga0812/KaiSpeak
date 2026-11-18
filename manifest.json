@@ -4,6 +4,7 @@
   "description": "智慧少兒英語發音評測與任務系統",
   "start_url": "./index.html",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#EEF2FF",
   "theme_color": "#4F46E5",
   "icons": [

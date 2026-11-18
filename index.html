@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.47";
+        const LATEST_VER = "26.11.48";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -153,6 +153,31 @@
 </head>
 <body class="min-h-screen text-slate-800 flex flex-col items-center p-2 sm:p-3 md:p-4 pb-20 overflow-x-hidden w-full max-w-full">
   <!-- ======================================================== -->
+  <!-- TABLET / MOBILE PORTRAIT ORIENTATION ENFORCER OVERLAY     -->
+  <!-- ======================================================== -->
+  <div id="portraitLockOverlay" class="fixed inset-0 z-[120] bg-slate-950/92 backdrop-blur-md hidden flex-col items-center justify-center p-6 text-center text-white select-none transition-opacity duration-300">
+    <div class="relative mb-5">
+      <div class="w-20 sm:w-24 h-20 sm:h-24 rounded-3xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center shadow-[0_0_40px_rgba(99,102,241,0.6)] animate-pulse">
+        <span class="text-4xl sm:text-5xl animate-bounce">📱</span>
+      </div>
+      <div class="absolute -bottom-2 -right-2 w-9 h-9 rounded-full bg-amber-400 text-slate-950 font-black text-lg flex items-center justify-center shadow-lg animate-spin" style="animation-duration: 3s;">
+        🔄
+      </div>
+    </div>
+    <h3 class="text-xl sm:text-2xl font-black text-amber-300 tracking-wide mb-2 flex items-center gap-2">
+      <span>✨ 請將平板轉為「直向」使用</span>
+    </h3>
+    <p class="text-xs sm:text-sm text-indigo-100/90 max-w-sm leading-relaxed font-medium mb-5">
+      KaiSpeak 奇妙星專為小朋友直覺發音評測、大字卡跟讀與探險島遊戲量身打造！請將裝置旋轉為<strong>直式</strong>以獲得最佳全螢幕視角。
+    </p>
+    <div class="flex items-center gap-3">
+      <button type="button" onclick="dismissPortraitLock()" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-slate-300 text-xs font-bold transition border border-white/20 active:scale-95">
+        ⌨️ 鍵盤底座保護套 · 仍以橫向瀏覽
+      </button>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
   <!-- PROFILE GATE / LOGIN & SWITCH SCREEN                      -->
   <!-- ======================================================== -->
   <div id="profileGateOverlay" class="fixed inset-0 bg-slate-900/90 backdrop-blur-md z-[70] flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
@@ -171,8 +196,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.47（2026年·11月·第36次發布）">
-                26.11.47
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.48（2026年·11月·第36次發布）">
+                26.11.48
               </span>
             </div>
           </div>
@@ -389,7 +414,7 @@
               <span class="text-[9px] text-amber-500">✨</span>
               <span>奇妙星語言</span>
             </span>
-            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.47（2026年·11月·第36次發布）">26.11.47</span>
+            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.48（2026年·11月·第36次發布）">26.11.48</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer hidden sm:flex items-center gap-0.5 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-1.5 py-0.2 transition shadow-2xs group-hover:border-amber-400 max-w-[130px] truncate" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -2648,7 +2673,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.47 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.48 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -2687,7 +2712,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.47 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.48 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -2760,7 +2785,7 @@
 
 
   <!-- ======================================================== -->
-  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.47)    -->
+  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.48)    -->
   <!-- ======================================================== -->
   <div id="vipUpgradeModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[89] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
     <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl border-2 border-amber-300 flex flex-col gap-4 my-auto max-h-[92vh] overflow-y-auto">
@@ -3272,8 +3297,50 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.47";
+    const APP_VERSION = "26.11.48";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
+
+    // ========================================================
+    // AUTO ORIENTATION LOCK & SMART PORTRAIT ENFORCER
+    // ========================================================
+    let orientationDismissed = false;
+    window.dismissPortraitLock = function() {
+      orientationDismissed = true;
+      const el = document.getElementById('portraitLockOverlay');
+      if (el) {
+        el.classList.add('hidden');
+        el.classList.remove('flex');
+      }
+    };
+
+    function enforcePortraitOrientation() {
+      const el = document.getElementById('portraitLockOverlay');
+      if (!el || orientationDismissed) return;
+
+      // Try native screen orientation lock API (Android PWA, Chrome, supported browsers)
+      try {
+        if (screen.orientation && screen.orientation.lock) {
+          screen.orientation.lock('portrait').catch(() => {});
+        }
+      } catch (e) {}
+
+      // Touch device detection (iPad, Android tablet, iPhone)
+      const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 1);
+      const isLandscape = window.innerWidth > window.innerHeight;
+
+      // When tablet or mobile is held in landscape mode (width <= 1366px), prompt to turn upright
+      if (isTouch && isLandscape && window.innerWidth <= 1366) {
+        el.classList.remove('hidden');
+        el.classList.add('flex');
+      } else {
+        el.classList.add('hidden');
+        el.classList.remove('flex');
+      }
+    }
+
+    window.addEventListener('resize', enforcePortraitOrientation);
+    window.addEventListener('orientationchange', enforcePortraitOrientation);
+    setTimeout(enforcePortraitOrientation, 150);
 
     // Immediate sanitization of legacy Gemini 1.5/2.0/2.5 models from localStorage
     try {
@@ -3468,7 +3535,7 @@
 
 
     // ========================================================
-    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.47)
+    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.48)
     // ========================================================
     const VIP_STORAGE_KEY = 'kaispeak_vip_info';
     const AI_USAGE_DATE_KEY = 'kaispeak_ai_usage_date';
@@ -3586,7 +3653,7 @@
       return true;
     }
 
-    // Marketing Campaigns & Agency Partners Definition (v26.11.47)
+    // Marketing Campaigns & Agency Partners Definition (v26.11.48)
     const SPECIAL_PROMO_CODES = {
       'TRIAL7D': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '官方社群促銷體驗專案', desc: '全功能解鎖 7 天' },
       'FREE7DAYS': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '限時早鳥推廣禮', desc: '全功能解鎖 7 天' },
@@ -6218,7 +6285,7 @@
     }
 
     // ========================================================
-    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.47)
+    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.48)
     // ========================================================
     let cachedServerApiKey = '';
     let cachedServerModel = 'gemini-3.5-flash';
@@ -12802,7 +12869,7 @@
     };
 
     // ========================================================
-    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.47)
+    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.48)
     // ========================================================
     // 💡 App Store 開箱即用架構（商業發行標準）：
     // 透過 Cloudflare Worker 官方安全閘道器，免掃碼、免設定、0 秒直連 Google 官方 AI！
@@ -14363,7 +14430,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.47)
+    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.48)
     // ========================================================
     function parseScenarioJsonResponse(rawText) {
       if (!rawText || typeof rawText !== 'string') return null;
@@ -14468,7 +14535,7 @@
     }
 
     // ========================================================
-    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.47)
+    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.48)
     // ========================================================
     async function callGeminiScenarioPlanner(userText, userLevel, apiKey) {
       // 1. Ensure valid official model from localStorage
@@ -14985,7 +15052,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.47)
+    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.48)
     // ========================================================
     const KaiSpeechEngine = {
       preferredVoice: null,
