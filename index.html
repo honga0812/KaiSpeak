@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.55";
+        const LATEST_VER = "26.11.56";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -210,8 +210,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.55（2026年·11月·第38次發布）">
-                26.11.55
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.56（2026年·11月·第38次發布）">
+                26.11.56
               </span>
             </div>
           </div>
@@ -458,7 +458,7 @@
               <span class="text-[9px] text-amber-500">✨</span>
               <span>奇妙星語言</span>
             </span>
-            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.55（2026年·11月·第38次發布）">26.11.55</span>
+            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.56（2026年·11月·第38次發布）">26.11.56</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer hidden sm:flex items-center gap-0.5 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-1.5 py-0.2 transition shadow-2xs group-hover:border-amber-400 max-w-[130px] truncate" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -1929,8 +1929,8 @@
             <!-- Kai Riding Fire Dragon Character (Transparent WebP + GIF Fallback, No Frame) -->
             <div id="dragonSprite" class="relative w-48 sm:w-60 md:w-72 h-28 sm:h-36 md:h-42 flex items-center justify-center transition-transform duration-200">
               <picture class="w-full h-full flex items-center justify-center pointer-events-none select-none">
-                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.55" type="image/webp">
-                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.55" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
+                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.56" type="image/webp">
+                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.56" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
               </picture>
             </div>
             <!-- Dragon Muzzle Flame Flash (Fires upon shooting laser) -->
@@ -2803,7 +2803,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.55 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.56 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -2842,7 +2842,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.55 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.56 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -2885,10 +2885,10 @@
       </div>
       
       <div>
-        <h3 class="text-base sm:text-lg font-black text-slate-900 flex items-center justify-center gap-1.5">
+        <h3 id="ipadSyncModalTitle" class="text-base sm:text-lg font-black text-slate-900 flex items-center justify-center gap-1.5">
           <span>iPad 1 秒相機掃碼免輸入同步</span>
         </h3>
-        <p class="text-xs text-slate-500 mt-1 leading-relaxed">
+        <p id="ipadSyncModalDesc" class="text-xs text-slate-500 mt-1 leading-relaxed">
           請拿 <strong>iPad 或手機內建相機</strong> 對準下方 QR 碼掃描開啟網頁，金鑰將自動寫入設備本地快取，永久免手動打字！
         </p>
       </div>
@@ -2988,7 +2988,7 @@
   </div>
 
   <!-- ======================================================== -->
-  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.55)    -->
+  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.56)    -->
   <!-- ======================================================== -->
   <div id="vipUpgradeModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[89] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
     <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl border-2 border-amber-300 flex flex-col gap-4 my-auto max-h-[92vh] overflow-y-auto">
@@ -3500,7 +3500,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.55";
+    const APP_VERSION = "26.11.56";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // ========================================================
@@ -3594,6 +3594,41 @@
             updateGeminiApiKeyUI();
           }
         }, 600);
+      }
+
+      // Auto Ingest Cross-Device Cloud Sync Link (?sync_data=... or ?account_sync=...)
+      const urlSyncData = urlObj.searchParams.get('sync_data') || urlObj.searchParams.get('account_sync');
+      if (urlSyncData && urlSyncData.trim().length > 10) {
+        try {
+          const jsonStr = decodeURIComponent(escape(atob(urlSyncData.trim())));
+          const syncObj = JSON.parse(jsonStr);
+          if (syncObj && syncObj.accountId) {
+            localStorage.setItem('kaispeak_parent_account_id', syncObj.accountId);
+            if (syncObj.pin) localStorage.setItem('kaispeak_parent_account_pin', syncObj.pin);
+            if (syncObj.vipInfo && syncObj.vipInfo.isVip) {
+              localStorage.setItem(VIP_STORAGE_KEY, JSON.stringify(syncObj.vipInfo));
+            }
+            if (Array.isArray(syncObj.profiles) && syncObj.profiles.length > 0) {
+              profiles = syncObj.profiles;
+              currentProfileId = profiles[0].id;
+              saveProfilesToStorage();
+              loadActiveProfileData();
+            }
+            urlObj.searchParams.delete('sync_data');
+            urlObj.searchParams.delete('account_sync');
+            const cleanPath3 = urlObj.pathname + (urlObj.search ? urlObj.search : '') + urlObj.hash;
+            window.history.replaceState({}, document.title, cleanPath3);
+            setTimeout(() => {
+              if (typeof showToastNotification === 'function') {
+                showToastNotification(`🎉 已成功同步家長帳號【${syncObj.accountId}】！VIP 特權與 ${profiles ? profiles.length : 0} 位小朋友檔案已全部到位！`, 6000);
+              }
+              if (typeof updateVipUI === 'function') updateVipUI();
+              if (typeof renderGateScreen === 'function') renderGateScreen();
+            }, 600);
+          }
+        } catch(syncErr) {
+          console.warn("Failed to parse sync_data parameter:", syncErr);
+        }
       }
     } catch(e) {
       console.warn("URL sync key ingest error:", e);
@@ -3738,7 +3773,7 @@
 
 
     // ========================================================
-    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.55)
+    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.56)
     // ========================================================
     const VIP_STORAGE_KEY = 'kaispeak_vip_info';
     const AI_USAGE_DATE_KEY = 'kaispeak_ai_usage_date';
@@ -3856,7 +3891,7 @@
       return true;
     }
 
-    // Marketing Campaigns & Agency Partners Definition (v26.11.55)
+    // Marketing Campaigns & Agency Partners Definition (v26.11.56)
     const SPECIAL_PROMO_CODES = {
       'TRIAL7D': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '官方社群促銷體驗專案', desc: '全功能解鎖 7 天' },
       'FREE7DAYS': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '限時早鳥推廣禮', desc: '全功能解鎖 7 天' },
@@ -4357,6 +4392,21 @@
                 登出帳號
               </button>
             </div>
+            <!-- Fast Cross-Device Transfer Buttons -->
+            <div class="pt-2 border-t border-indigo-100 flex flex-col gap-1.5">
+              <div class="text-[10px] text-indigo-900 font-bold flex items-center justify-between">
+                <span>📲 跨設備 1 秒漫遊（平板 ➜ 電腦 / 手機）：</span>
+                <span class="text-[9px] text-emerald-600 font-semibold">免重複購買</span>
+              </div>
+              <div class="grid grid-cols-2 gap-1.5">
+                <button type="button" onclick="copyCrossDeviceSyncLink()" class="py-2 px-2.5 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-900 border border-purple-200 font-bold text-[11px] active:scale-95 transition flex items-center justify-center gap-1" title="複製同步連結，可透過 AirDrop、LINE、Email 傳送到電腦開啟">
+                  <span>🔗 複製同步連結</span>
+                </button>
+                <button type="button" onclick="showCrossDeviceQrModal()" class="py-2 px-2.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 font-bold text-[11px] active:scale-95 transition flex items-center justify-center gap-1" title="顯示同步 QR Code，另一台設備掃碼即可立即繼承 VIP 與小朋友檔案">
+                  <span>📱 產生同步 QR 碼</span>
+                </button>
+              </div>
+            </div>
           `;
           if (formSection) formSection.classList.add('hidden');
         } else {
@@ -4377,6 +4427,59 @@
       }
     }
 
+    function generateCrossDeviceSyncLink() {
+      const accountId = ParentAccountSyncEngine.getAccountId();
+      if (!accountId) {
+        alert("請先於上方輸入並綁定家長帳號！");
+        return "";
+      }
+      const sanitizedProfiles = (profiles || []).map(p => {
+        const copy = Object.assign({}, p);
+        if (copy.avatar && copy.avatar.length > 200) copy.avatar = '👦';
+        if (Array.isArray(copy.practiceLogs)) copy.practiceLogs = copy.practiceLogs.slice(0, 10);
+        return copy;
+      });
+      const syncObj = {
+        accountId: accountId,
+        pin: ParentAccountSyncEngine.getPin(),
+        vipInfo: getVipInfo(),
+        profiles: sanitizedProfiles
+      };
+      const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(syncObj))));
+      const base = window.location.origin + window.location.pathname;
+      return `${base}?sync_data=${b64}`;
+    }
+
+    function copyCrossDeviceSyncLink() {
+      const url = generateCrossDeviceSyncLink();
+      if (!url) return;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(() => {
+          alert(`📋 已成功複製「跨設備 1 秒同步連結」！\n\n您可以將此連結透過 AirDrop、LINE、Email、微信或備忘錄傳至電腦開啟。\n電腦打開後將立即自動繼承您的 VIP 旗艦資格與所有小朋友學習檔案！`);
+        }).catch(() => {
+          prompt("請複製以下跨設備同步連結並在電腦開啟：", url);
+        });
+      } else {
+        prompt("請複製以下跨設備同步連結並在電腦開啟：", url);
+      }
+    }
+
+    function showCrossDeviceQrModal() {
+      const url = generateCrossDeviceSyncLink();
+      if (!url) return;
+      currentIpadSyncUrl = url;
+      const modal = document.getElementById('ipadKeySyncModal');
+      const title = document.getElementById('ipadSyncModalTitle');
+      const desc = document.getElementById('ipadSyncModalDesc');
+      const img = document.getElementById('ipadSyncQrImg');
+      if (title) title.innerText = "👨‍👩‍👧‍👦 家長帳號與 VIP 跨設備同步 QR Code";
+      if (desc) desc.innerText = "請使用另一台設備（手機/平板/電腦相機）掃描此 QR Code，即可 1 秒瞬間同步 VIP 旗艦權益與小朋友檔案！";
+      if (modal) modal.classList.remove('hidden');
+      if (typeof renderQrCodeImage === 'function') {
+        renderQrCodeImage(img, url);
+      }
+    }
+
     async function handleParentLoginSubmit() {
       const inputAcc = document.getElementById('parentInputAccountId');
       const inputPin = document.getElementById('parentInputPin');
@@ -4389,9 +4492,13 @@
       }
 
       try {
-        await ParentAccountSyncEngine.login(accId, pin);
-        await ParentAccountSyncEngine.syncWithCloud();
-        alert(`🎉 家長帳號【${accId}】同步成功！\n\n系統已自動同步 VIP 購買權益與小朋友學習檔案。\n在此載具與其他設備皆可享受相同會員福利！`);
+        const loginRes = await ParentAccountSyncEngine.login(accId, pin);
+        if (loginRes && loginRes.offline) {
+          alert(`🎉 已將此設備綁定至家長帳號【${accId}】！\n\n💡 跨設備同步指引：\n當前處於 GitHub Pages 雲端靜態託管環境。\n若您已在平板完成 VIP 購買或建立學員，請在平板的「家長帳號」點擊「🔗 複製同步連結」發送至電腦打開，或點擊「📱 產生同步 QR 碼」使用電腦相機掃描，電腦將立即 1 秒同步全部 VIP 特權與小朋友學習檔案！`);
+        } else {
+          await ParentAccountSyncEngine.syncWithCloud();
+          alert(`🎉 家長帳號【${accId}】同步成功！\n\n系統已自動從雲端同步 VIP 購買權益與小朋友學習檔案。\n在此載具與其他設備皆可享受相同會員福利！`);
+        }
         renderParentAccountModalContent();
         renderGateScreen();
       } catch (err) {
@@ -6816,7 +6923,7 @@
     }
 
     // ========================================================
-    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.55)
+    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.56)
     // ========================================================
     let cachedServerApiKey = '';
     let cachedServerModel = 'gemini-3.5-flash';
@@ -13971,7 +14078,7 @@
     };
 
     // ========================================================
-    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.55)
+    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.56)
     // ========================================================
     // 💡 App Store 開箱即用架構（商業發行標準）：
     // 透過 Cloudflare Worker 官方安全閘道器，免掃碼、免設定、0 秒直連 Google 官方 AI！
@@ -15532,7 +15639,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.55)
+    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.56)
     // ========================================================
     function parseScenarioJsonResponse(rawText) {
       if (!rawText || typeof rawText !== 'string') return null;
@@ -15637,7 +15744,7 @@
     }
 
     // ========================================================
-    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.55)
+    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.56)
     // ========================================================
     async function callGeminiScenarioPlanner(userText, userLevel, apiKey) {
       // 1. Ensure valid official model from localStorage
@@ -16154,7 +16261,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.55)
+    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.56)
     // ========================================================
     const KaiSpeechEngine = {
       preferredVoice: null,
