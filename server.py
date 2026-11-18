@@ -17,6 +17,7 @@ TTS_CACHE_DIR = os.path.join(DIRECTORY, 'audio', 'tts_cache')
 CONFIG_FILE = os.path.join(DIRECTORY, 'server_config.json')
 TELEMETRY_FILE = os.path.join(DIRECTORY, 'server_telemetry.json')
 PROFILES_FILE = os.path.join(DIRECTORY, 'server_profiles.json')
+LEADERBOARD_FILE = os.path.join(DIRECTORY, 'server_leaderboard.json')
 MAX_TELEMETRY_LOGS = 1000
 os.makedirs(TTS_CACHE_DIR, exist_ok=True)
 
@@ -131,6 +132,179 @@ def save_synced_profiles(profiles_list):
     except Exception:
         pass
 
+# ========================================================
+# METEOR BATTLE GLOBAL LEADERBOARD & MULTI-DEVICE SYNC
+# ========================================================
+DEFAULT_LEADERBOARD_SEEDS = [
+    {'id': 'bot_01', 'name': 'Lucas W.', 'avatar': '🚀', 'grade': '國小中年級', 'region': '🇺🇸 舊金山', 'highScore': 890, 'accuracy': 98, 'maxCombo': 24, 'stars': 15, 'totalBattles': 32, 'lastPlayed': '10分鐘前', 'history': []},
+    {'id': 'bot_02', 'name': 'Mia Chen', 'avatar': '🦄', 'grade': '國小低年級', 'region': '🇨🇦 溫哥華', 'highScore': 840, 'accuracy': 96, 'maxCombo': 21, 'stars': 15, 'totalBattles': 28, 'lastPlayed': '25分鐘前', 'history': []},
+    {'id': 'bot_03', 'name': 'Liam Smith', 'avatar': '⚡', 'grade': '國小高年級', 'region': '🇬🇧 倫敦', 'highScore': 810, 'accuracy': 95, 'maxCombo': 19, 'stars': 14, 'totalBattles': 26, 'lastPlayed': '1小時前', 'history': []},
+    {'id': 'bot_04', 'name': 'Yuto Sato', 'avatar': '🦖', 'grade': '幼兒園大班', 'region': '🇯🇵 東京', 'highScore': 770, 'accuracy': 94, 'maxCombo': 18, 'stars': 13, 'totalBattles': 24, 'lastPlayed': '2小時前', 'history': []},
+    {'id': 'bot_05', 'name': 'Chloe Tan', 'avatar': '⭐', 'grade': '國小低年級', 'region': '🇸🇬 新加坡', 'highScore': 730, 'accuracy': 93, 'maxCombo': 16, 'stars': 12, 'totalBattles': 21, 'lastPlayed': '3小時前', 'history': []},
+    {'id': 'bot_06', 'name': 'Leo Huang', 'avatar': '🦁', 'grade': '幼兒園大班', 'region': '🇹🇼 台中', 'highScore': 690, 'accuracy': 92, 'maxCombo': 15, 'stars': 12, 'totalBattles': 19, 'lastPlayed': '4小時前', 'history': []},
+    {'id': 'bot_07', 'name': 'Oliver Davis', 'avatar': '🐯', 'grade': '國小中年級', 'region': '🇦🇺 雪梨', 'highScore': 650, 'accuracy': 91, 'maxCombo': 14, 'stars': 11, 'totalBattles': 18, 'lastPlayed': '5小時前', 'history': []},
+    {'id': 'bot_08', 'name': 'Sophie Becker', 'avatar': '🌸', 'grade': '國小低年級', 'region': '🇩🇪 柏林', 'highScore': 620, 'accuracy': 90, 'maxCombo': 13, 'stars': 10, 'totalBattles': 16, 'lastPlayed': '6小時前', 'history': []},
+    {'id': 'bot_09', 'name': 'Emma Wong', 'avatar': '🦊', 'grade': '幼兒園中班', 'region': '🇭🇰 香港', 'highScore': 590, 'accuracy': 89, 'maxCombo': 12, 'stars': 9, 'totalBattles': 15, 'lastPlayed': '7小時前', 'history': []},
+    {'id': 'bot_10', 'name': 'Ethan Miller', 'avatar': '🏀', 'grade': '國小低年級', 'region': '🇺🇸 紐約', 'highScore': 560, 'accuracy': 88, 'maxCombo': 12, 'stars': 9, 'totalBattles': 14, 'lastPlayed': '8小時前', 'history': []},
+    {'id': 'bot_11', 'name': 'Hana Tanaka', 'avatar': '🐱', 'grade': '幼兒園大班', 'region': '🇯🇵 大阪', 'highScore': 530, 'accuracy': 87, 'maxCombo': 11, 'stars': 8, 'totalBattles': 13, 'lastPlayed': '10小時前', 'history': []},
+    {'id': 'bot_12', 'name': 'Noah Lin', 'avatar': '🐬', 'grade': '國小低年級', 'region': '🇹🇼 高雄', 'highScore': 500, 'accuracy': 86, 'maxCombo': 10, 'stars': 7, 'totalBattles': 12, 'lastPlayed': '11小時前', 'history': []},
+    {'id': 'bot_13', 'name': 'Ava Dubois', 'avatar': '🎨', 'grade': '國小中年級', 'region': '🇫🇷 巴黎', 'highScore': 470, 'accuracy': 85, 'maxCombo': 9, 'stars': 7, 'totalBattles': 11, 'lastPlayed': '12小時前', 'history': []},
+    {'id': 'bot_14', 'name': 'Lucas Kim', 'avatar': '🥋', 'grade': '國小低年級', 'region': '🇰🇷 首爾', 'highScore': 440, 'accuracy': 84, 'maxCombo': 9, 'stars': 6, 'totalBattles': 10, 'lastPlayed': '13小時前', 'history': []},
+    {'id': 'bot_15', 'name': 'Zoey Wu', 'avatar': '🌈', 'grade': '幼兒園大班', 'region': '🇹🇼 新竹', 'highScore': 410, 'accuracy': 83, 'maxCombo': 8, 'stars': 6, 'totalBattles': 9, 'lastPlayed': '14小時前', 'history': []},
+    {'id': 'bot_16', 'name': 'Mason Clark', 'avatar': '🏄', 'grade': '國小低年級', 'region': '🇺🇸 洛杉磯', 'highScore': 380, 'accuracy': 82, 'maxCombo': 7, 'stars': 5, 'totalBattles': 8, 'lastPlayed': '15小時前', 'history': []},
+    {'id': 'bot_17', 'name': 'Aria Wilson', 'avatar': '🐨', 'grade': '幼兒園大班', 'region': '🇦🇺 墨爾本', 'highScore': 350, 'accuracy': 81, 'maxCombo': 7, 'stars': 4, 'totalBattles': 7, 'lastPlayed': '16小時前', 'history': []},
+    {'id': 'bot_18', 'name': 'William Roy', 'avatar': '🏒', 'grade': '國小低年級', 'region': '🇨🇦 蒙特婁', 'highScore': 320, 'accuracy': 80, 'maxCombo': 6, 'stars': 4, 'totalBattles': 6, 'lastPlayed': '17小時前', 'history': []},
+    {'id': 'bot_19', 'name': 'Ella Brown', 'avatar': '🎻', 'grade': '幼兒園中班', 'region': '🇬🇧 愛丁堡', 'highScore': 290, 'accuracy': 79, 'maxCombo': 5, 'stars': 3, 'totalBattles': 5, 'lastPlayed': '18小時前', 'history': []},
+    {'id': 'bot_20', 'name': 'James Tsai', 'avatar': '🧋', 'grade': '國小低年級', 'region': '🇹🇼 台南', 'highScore': 260, 'accuracy': 78, 'maxCombo': 5, 'stars': 3, 'totalBattles': 4, 'lastPlayed': '19小時前', 'history': []},
+    {'id': 'bot_21', 'name': 'Lily Lee', 'avatar': '🧁', 'grade': '幼兒園大班', 'region': '🇸🇬 樟宜', 'highScore': 240, 'accuracy': 77, 'maxCombo': 4, 'stars': 2, 'totalBattles': 3, 'lastPlayed': '20小時前', 'history': []},
+    {'id': 'bot_22', 'name': 'Max Murphy', 'avatar': '🍀', 'grade': '國小低年級', 'region': '🇮🇪 都柏林', 'highScore': 220, 'accuracy': 76, 'maxCombo': 4, 'stars': 2, 'totalBattles': 2, 'lastPlayed': '21小時前', 'history': []},
+    {'id': 'bot_23', 'name': 'Yuanyuan Chou', 'avatar': '🐼', 'grade': '幼兒園小班', 'region': '🇹🇼 桃園', 'highScore': 200, 'accuracy': 75, 'maxCombo': 3, 'stars': 1, 'totalBattles': 2, 'lastPlayed': '22小時前', 'history': []},
+    {'id': 'bot_24', 'name': 'Benjamin Taylor', 'avatar': '⛵', 'grade': '國小低年級', 'region': '🇳🇿 威靈頓', 'highScore': 180, 'accuracy': 73, 'maxCombo': 3, 'stars': 1, 'totalBattles': 1, 'lastPlayed': '23小時前', 'history': []}
+]
+
+def get_server_leaderboard():
+    if os.path.exists(LEADERBOARD_FILE):
+        try:
+            with open(LEADERBOARD_FILE, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+                if isinstance(data, list) and len(data) > 0:
+                    return data
+        except Exception:
+            pass
+    save_server_leaderboard(DEFAULT_LEADERBOARD_SEEDS)
+    return list(DEFAULT_LEADERBOARD_SEEDS)
+
+def save_server_leaderboard(leaderboard_list):
+    try:
+        with open(LEADERBOARD_FILE, 'w', encoding='utf-8') as f:
+            json.dump(leaderboard_list, f, ensure_ascii=False, indent=2)
+    except Exception:
+        pass
+
+def compute_dynamic_window(sorted_players, profile_id, window_size=20):
+    total = len(sorted_players)
+    w_size = min(window_size, total)
+    my_idx = -1
+    for i, p in enumerate(sorted_players):
+        if p.get('id') == profile_id:
+            my_idx = i
+            break
+    if my_idx == -1:
+        my_idx = total - 1 if total > 0 else 0
+
+    start_idx = my_idx - 10
+    if start_idx < 0:
+        start_idx = 0
+    if start_idx + w_size > total:
+        start_idx = max(0, total - w_size)
+    
+    window_items = []
+    for i in range(start_idx, start_idx + w_size):
+        item = dict(sorted_players[i])
+        item['rank'] = i + 1
+        item['isCurrentPlayer'] = (sorted_players[i].get('id') == profile_id)
+        if 'history' in item:
+            item = dict(item)
+            item.pop('history', None)
+        window_items.append(item)
+    
+    my_rank = my_idx + 1
+    return window_items, my_rank, total
+
+def update_server_leaderboard_entry(payload):
+    profile_id = payload.get('profileId') or 'profile_kai'
+    name = payload.get('name') or 'Kai'
+    avatar = payload.get('avatar') or '👦'
+    grade = payload.get('grade') or '幼兒園大班/國小低年級'
+    region = payload.get('region') or '🇹🇼 台北'
+    score = int(payload.get('score', 0))
+    stars = int(payload.get('stars', 0))
+    accuracy = int(payload.get('accuracy', 0))
+    hit_count = int(payload.get('hitCount', 0))
+    miss_count = int(payload.get('missCount', 0))
+    max_combo = int(payload.get('maxCombo', 0))
+    level = int(payload.get('level', 1))
+    stage_code = payload.get('stageCode', '1-1')
+    stage_name = payload.get('stageName', f'第{level}大關 · 關卡 {stage_code}')
+    energy_gained = int(payload.get('energyGained', 0))
+    passed = bool(payload.get('passed', True))
+    now_str = time.strftime("%Y-%m-%d %H:%M:%S")
+
+    battle_record = {
+        "id": f"battle_{int(time.time()*1000)}",
+        "timestamp": now_str,
+        "stage": stage_name,
+        "stageCode": stage_code,
+        "level": level,
+        "score": score,
+        "stars": stars,
+        "hitCount": hit_count,
+        "missCount": miss_count,
+        "maxCombo": max_combo,
+        "accuracy": accuracy,
+        "energyGained": energy_gained,
+        "passed": passed
+    }
+
+    players = get_server_leaderboard()
+    target_player = None
+    for p in players:
+        if p.get('id') == profile_id:
+            target_player = p
+            break
+
+    if target_player is None:
+        target_player = {
+            "id": profile_id,
+            "name": name,
+            "avatar": avatar,
+            "grade": grade,
+            "region": region,
+            "highScore": score,
+            "accuracy": accuracy,
+            "maxCombo": max_combo,
+            "stars": stars,
+            "totalBattles": 1,
+            "lastPlayed": "剛剛",
+            "history": [battle_record]
+        }
+        players.append(target_player)
+    else:
+        if name:
+            target_player['name'] = name
+        if avatar:
+            target_player['avatar'] = avatar
+        if grade:
+            target_player['grade'] = grade
+        target_player['highScore'] = max(target_player.get('highScore', 0), score)
+        target_player['maxCombo'] = max(target_player.get('maxCombo', 0), max_combo)
+        target_player['stars'] = max(target_player.get('stars', 0), stars)
+        target_player['accuracy'] = max(target_player.get('accuracy', 0), accuracy)
+        target_player['totalBattles'] = target_player.get('totalBattles', 0) + 1
+        target_player['lastPlayed'] = "剛剛"
+        hist = target_player.get('history', [])
+        hist.insert(0, battle_record)
+        target_player['history'] = hist[:100]
+
+    players.sort(key=lambda x: x.get('highScore', 0), reverse=True)
+    save_server_leaderboard(players)
+
+    window_rankings, my_rank, total = compute_dynamic_window(players, profile_id, 20)
+    return {
+        "status": "ok",
+        "myRank": my_rank,
+        "totalPlayers": total,
+        "windowRankings": window_rankings,
+        "personalHistory": target_player.get('history', []),
+        "playerStats": {
+            "highScore": target_player.get('highScore', 0),
+            "totalBattles": target_player.get('totalBattles', 0),
+            "maxCombo": target_player.get('maxCombo', 0),
+            "stars": target_player.get('stars', 0),
+            "accuracy": target_player.get('accuracy', 0)
+        }
+    }
+
 class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=DIRECTORY, **kwargs)
@@ -221,6 +395,87 @@ class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(json.dumps({"status": "ok", "stats": telemetry.get("stats", {})}, ensure_ascii=False).encode('utf-8'))
             return
+
+        # 5. Meteor Battle Global Dynamic 20-Player Leaderboard & Personal History
+        if self.path.startswith('/api/meteor_leaderboard'):
+            try:
+                parsed = urllib.parse.urlparse(self.path)
+                params = urllib.parse.parse_qs(parsed.query)
+                profile_id = params.get('profileId', ['profile_kai'])[0].strip() or 'profile_kai'
+                p_name = params.get('name', ['Kai'])[0].strip() or 'Kai'
+                p_avatar = params.get('avatar', ['👦'])[0].strip() or '👦'
+                p_grade = params.get('grade', ['幼兒園大班/國小低年級'])[0].strip() or '幼兒園大班/國小低年級'
+
+                players = get_server_leaderboard()
+                players.sort(key=lambda x: x.get('highScore', 0), reverse=True)
+
+                target_player = None
+                for p in players:
+                    if p.get('id') == profile_id:
+                        target_player = p
+                        break
+
+                if target_player is None:
+                    target_player = {
+                        "id": profile_id,
+                        "name": p_name,
+                        "avatar": p_avatar,
+                        "grade": p_grade,
+                        "region": "🇹🇼 台北",
+                        "highScore": 480,
+                        "accuracy": 92,
+                        "maxCombo": 12,
+                        "stars": 6,
+                        "totalBattles": 3,
+                        "lastPlayed": "剛剛",
+                        "history": [
+                            {
+                                "id": f"battle_init_1",
+                                "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
+                                "stage": "第1大關 · 關卡 1-1 太空站啟航",
+                                "stageCode": "1-1",
+                                "level": 1,
+                                "score": 480,
+                                "stars": 3,
+                                "hitCount": 10,
+                                "missCount": 1,
+                                "maxCombo": 10,
+                                "accuracy": 91,
+                                "energyGained": 45,
+                                "passed": True
+                            }
+                        ]
+                    }
+                    players.append(target_player)
+                    players.sort(key=lambda x: x.get('highScore', 0), reverse=True)
+                    save_server_leaderboard(players)
+
+                window_rankings, my_rank, total = compute_dynamic_window(players, profile_id, 20)
+                resp = {
+                    "status": "ok",
+                    "myRank": my_rank,
+                    "totalPlayers": total,
+                    "windowRankings": window_rankings,
+                    "personalHistory": target_player.get('history', []),
+                    "playerStats": {
+                        "highScore": target_player.get('highScore', 0),
+                        "totalBattles": target_player.get('totalBattles', 0),
+                        "maxCombo": target_player.get('maxCombo', 0),
+                        "stars": target_player.get('stars', 0),
+                        "accuracy": target_player.get('accuracy', 0)
+                    }
+                }
+                self.send_response(200)
+                self.send_header('Content-Type', 'application/json; charset=utf-8')
+                self.end_headers()
+                self.wfile.write(json.dumps(resp, ensure_ascii=False).encode('utf-8'))
+                return
+            except Exception as e:
+                self.send_response(500)
+                self.send_header('Content-Type', 'application/json; charset=utf-8')
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode('utf-8'))
+                return
 
         if self.path == '/api/generation_queue_status':
             queue_data = {"lastUpdated": int(time.time()), "items": []}
@@ -429,6 +684,25 @@ class NoCacheHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_header('Content-Type', 'application/json; charset=utf-8')
                 self.end_headers()
                 self.wfile.write(json.dumps({"status": "ok", "profiles": final_profiles}, ensure_ascii=False).encode('utf-8'))
+                return
+            except Exception as e:
+                self.send_response(500)
+                self.send_header('Content-Type', 'application/json; charset=utf-8')
+                self.end_headers()
+                self.wfile.write(json.dumps({"status": "error", "message": str(e)}).encode('utf-8'))
+                return
+
+        # 5. Meteor Battle Leaderboard Score Update & Multi-Device Sync
+        if self.path == '/api/meteor_leaderboard':
+            try:
+                content_len = int(self.headers.get('Content-Length', 0))
+                post_data = self.rfile.read(content_len)
+                payload = json.loads(post_data.decode('utf-8')) if content_len > 0 else {}
+                res = update_server_leaderboard_entry(payload)
+                self.send_response(200)
+                self.send_header('Content-Type', 'application/json; charset=utf-8')
+                self.end_headers()
+                self.wfile.write(json.dumps(res, ensure_ascii=False).encode('utf-8'))
                 return
             except Exception as e:
                 self.send_response(500)

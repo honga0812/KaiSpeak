@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.52";
+        const LATEST_VER = "26.11.53";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -210,8 +210,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.52（2026年·11月·第36次發布）">
-                26.11.52
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.53（2026年·11月·第37次發布）">
+                26.11.53
               </span>
             </div>
           </div>
@@ -428,7 +428,7 @@
               <span class="text-[9px] text-amber-500">✨</span>
               <span>奇妙星語言</span>
             </span>
-            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.52（2026年·11月·第36次發布）">26.11.52</span>
+            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.53（2026年·11月·第37次發布）">26.11.53</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer hidden sm:flex items-center gap-0.5 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-1.5 py-0.2 transition shadow-2xs group-hover:border-amber-400 max-w-[130px] truncate" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -1772,9 +1772,14 @@
           <span class="text-xl">🏝️</span>
           <h2 class="text-base sm:text-lg font-black text-indigo-950">隕石語音擊墜島 · 戰備關卡</h2>
         </div>
-        <div class="text-xs font-bold text-amber-600 bg-amber-50 px-3 py-1 rounded-full border border-amber-200 flex items-center gap-1">
-          <span>⭐ 本島星數：</span>
-          <span id="meteorIslandStarsCount" class="font-mono font-black text-sm">0</span>
+        <div class="flex items-center gap-2 flex-wrap">
+          <button type="button" onclick="MeteorLeaderboardEngine.openModal()" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 hover:to-orange-400 text-white font-black text-xs sm:text-sm shadow-md flex items-center gap-1.5 transition active:scale-95">
+            <span>🏆</span> <span>全球天梯與歷史榜</span>
+          </button>
+          <div class="text-xs font-bold text-amber-600 bg-amber-50 px-3 py-1 rounded-full border border-amber-200 flex items-center gap-1">
+            <span>⭐ 本島星數：</span>
+            <span id="meteorIslandStarsCount" class="font-mono font-black text-sm">0</span>
+          </div>
         </div>
       </div>
 
@@ -1894,8 +1899,8 @@
             <!-- Kai Riding Fire Dragon Character (Transparent WebP + GIF Fallback, No Frame) -->
             <div id="dragonSprite" class="relative w-48 sm:w-60 md:w-72 h-28 sm:h-36 md:h-42 flex items-center justify-center transition-transform duration-200">
               <picture class="w-full h-full flex items-center justify-center pointer-events-none select-none">
-                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.52" type="image/webp">
-                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.52" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
+                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.53" type="image/webp">
+                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.53" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
               </picture>
             </div>
             <!-- Dragon Muzzle Flame Flash (Fires upon shooting laser) -->
@@ -2003,10 +2008,19 @@
         </div>
       </div>
 
+      <!-- 🏆 Dynamic Window Rank Ribbon in Result Modal -->
+      <div id="meteorResultRankRibbon" class="w-full bg-amber-500/15 border border-amber-400/40 rounded-xl py-2 px-3 mb-2.5 flex items-center justify-between text-xs text-amber-200">
+        <span class="flex items-center gap-1 font-bold"><span>🏆</span><span>全球天梯動態排位：</span></span>
+        <span id="meteorResultRankText" class="font-black text-amber-300 font-mono">結算中...</span>
+      </div>
+
       <!-- Action Buttons -->
       <div class="w-full flex flex-col gap-2">
         <button type="button" id="meteorResultNextBtn" class="jelly-btn-3d w-full py-3 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-indigo-600 hover:from-emerald-400 text-white font-black text-sm shadow-lg shadow-emerald-500/30 active:scale-95 transition flex items-center justify-center gap-1.5">
           <span>➡️ 前往下一關挑戰</span>
+        </button>
+        <button type="button" onclick="MeteorLeaderboardEngine.openModal()" class="w-full py-2.5 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 text-white font-black text-xs shadow-md transition active:scale-95 flex items-center justify-center gap-1.5">
+          <span>🏆 查看全球 20 人天梯榜與戰績</span>
         </button>
         <button type="button" id="meteorResultRetryBtn" onclick="MeteorGameEngine.retryStage()" class="w-full py-2.5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs transition active:scale-95 flex items-center justify-center gap-1">
           <span>🔄 再次挑戰本關</span>
@@ -2015,6 +2029,83 @@
           返回關卡列表
         </button>
       </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- METEOR BATTLE GLOBAL LEADERBOARD & PERSONAL HISTORY MODAL -->
+  <!-- (全球20人動態天梯榜·周邊競爭排位·個人歷史戰績記錄明細)    -->
+  <!-- ======================================================== -->
+  <div id="meteorLeaderboardModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-[92] flex items-center justify-center p-3 sm:p-5 hidden select-none">
+    <div class="relative bg-gradient-to-b from-indigo-950 via-slate-900 to-indigo-950 rounded-3xl p-4 sm:p-6 max-w-2xl w-full border-2 border-amber-400/80 shadow-[0_0_50px_rgba(245,158,11,0.35)] text-white flex flex-col max-h-[92vh] transition-all">
+      
+      <!-- Top Header -->
+      <div class="flex items-center justify-between pb-3 border-b border-indigo-800/80 shrink-0">
+        <div class="flex items-center gap-2.5">
+          <div class="w-10 h-10 rounded-2xl bg-amber-500/20 border border-amber-400/60 flex items-center justify-center text-2xl shadow-inner">
+            🏆
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="text-base sm:text-lg font-black text-amber-300">星際探險排分榜與歷史天梯</h3>
+              <span class="text-[10px] bg-indigo-900/80 text-cyan-300 px-2 py-0.5 rounded-full border border-cyan-400/40 font-mono font-bold">即時多端同步</span>
+            </div>
+            <p class="text-[11px] text-indigo-200">探險島隕石擊墜排分 · 全球動態20人排位競爭 · 個人歷次戰績明細</p>
+          </div>
+        </div>
+        <button type="button" onclick="MeteorLeaderboardEngine.closeModal()" class="w-8 h-8 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition active:scale-90 text-sm font-bold border border-slate-700" title="關閉排行榜">
+          ✕
+        </button>
+      </div>
+
+      <!-- Current Player Hero Ribbon -->
+      <div id="meteorLeaderboardHeroRibbon" class="mt-3 p-3 rounded-2xl bg-gradient-to-r from-amber-500/20 via-indigo-900/60 to-purple-900/40 border border-amber-400/50 flex items-center justify-between flex-wrap gap-2 shrink-0">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Tab Switcher -->
+      <div class="flex items-center gap-2 mt-3 pb-1 border-b border-indigo-900/60 text-xs shrink-0">
+        <button type="button" id="meteorTabLadderBtn" onclick="MeteorLeaderboardEngine.switchTab('ladder')" class="px-4 py-2 rounded-xl bg-amber-500 text-slate-950 font-black shadow-md transition active:scale-95 flex items-center gap-1.5">
+          <span>🏆 全球競爭天梯 (動態20人)</span>
+        </button>
+        <button type="button" id="meteorTabHistoryBtn" onclick="MeteorLeaderboardEngine.switchTab('history')" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white font-bold transition active:scale-95 flex items-center gap-1.5">
+          <span>📜 我的個人歷史戰績 (<span id="meteorHistoryCountBadge">0</span>)</span>
+        </button>
+      </div>
+
+      <!-- Tab 1: Global 20-Player Dynamic Window Ladder -->
+      <div id="meteorLeaderboardLadderView" class="flex-1 overflow-y-auto mt-2.5 pr-1 min-h-0 flex flex-col gap-2">
+        <div class="bg-indigo-950/60 border border-indigo-700/50 rounded-xl px-3 py-2 text-[11px] text-indigo-200 flex items-center justify-between flex-wrap gap-1">
+          <span class="flex items-center gap-1.5">
+            <span>🎯</span>
+            <span><strong>動態天梯視窗規則：</strong>展示你排名前後 10 名競爭學員 (若位居前十名則展示第 1~20 名)</span>
+          </span>
+          <span id="meteorTotalPlayersBadge" class="text-cyan-300 font-mono font-bold text-[10px] bg-slate-900 px-2 py-0.5 rounded-full border border-indigo-600">共 25 位學員</span>
+        </div>
+        <div id="meteorLadderList" class="flex flex-col gap-1.5 pb-2">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- Tab 2: Personal Past Battle History -->
+      <div id="meteorLeaderboardHistoryView" class="hidden flex-1 overflow-y-auto mt-2.5 pr-1 min-h-0 flex flex-col gap-2">
+        <!-- Stats quick summary -->
+        <div id="meteorHistoryQuickStats" class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-center text-xs shrink-0">
+          <!-- Rendered by JS -->
+        </div>
+        <div id="meteorHistoryList" class="flex flex-col gap-1.5 pb-2">
+          <!-- Rendered by JS -->
+        </div>
+      </div>
+
+      <!-- Bottom Close Button -->
+      <div class="mt-3 pt-2.5 border-t border-indigo-900/60 flex items-center justify-between shrink-0 flex-wrap gap-2">
+        <span class="text-[11px] text-indigo-300">💡 跨設備同步：不同電腦、平板或手機玩的分數均已即時記錄。</span>
+        <button type="button" onclick="MeteorLeaderboardEngine.closeModal()" class="px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs transition active:scale-95">
+          返回遊戲
+        </button>
+      </div>
+
     </div>
   </div>
 
@@ -2682,7 +2773,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.52 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.53 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -2721,7 +2812,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.52 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.53 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -2794,7 +2885,7 @@
 
 
   <!-- ======================================================== -->
-  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.52)    -->
+  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.53)    -->
   <!-- ======================================================== -->
   <div id="vipUpgradeModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[89] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
     <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl border-2 border-amber-300 flex flex-col gap-4 my-auto max-h-[92vh] overflow-y-auto">
@@ -3306,7 +3397,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.52";
+    const APP_VERSION = "26.11.53";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // ========================================================
@@ -3544,7 +3635,7 @@
 
 
     // ========================================================
-    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.52)
+    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.53)
     // ========================================================
     const VIP_STORAGE_KEY = 'kaispeak_vip_info';
     const AI_USAGE_DATE_KEY = 'kaispeak_ai_usage_date';
@@ -3662,7 +3753,7 @@
       return true;
     }
 
-    // Marketing Campaigns & Agency Partners Definition (v26.11.52)
+    // Marketing Campaigns & Agency Partners Definition (v26.11.53)
     const SPECIAL_PROMO_CODES = {
       'TRIAL7D': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '官方社群促銷體驗專案', desc: '全功能解鎖 7 天' },
       'FREE7DAYS': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '限時早鳥推廣禮', desc: '全功能解鎖 7 天' },
@@ -6294,7 +6385,7 @@
     }
 
     // ========================================================
-    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.52)
+    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.53)
     // ========================================================
     let cachedServerApiKey = '';
     let cachedServerModel = 'gemini-3.5-flash';
@@ -8846,6 +8937,495 @@
     }
 
     // ========================================================
+    // METEOR LEADERBOARD & PERSONAL BATTLE HISTORY ENGINE
+    // (探險島排分表、全球20人動態天梯、個人歷史戰績、多端同步)
+    // ========================================================
+    const MeteorLeaderboardEngine = {
+      activeTab: 'ladder', // 'ladder' or 'history'
+      cachedData: {
+        myRank: 1,
+        totalPlayers: 24,
+        windowRankings: [],
+        personalHistory: [],
+        playerStats: {
+          highScore: 480,
+          totalBattles: 1,
+          maxCombo: 10,
+          stars: 3,
+          accuracy: 92
+        }
+      },
+
+      init() {
+        try {
+          const localLadder = localStorage.getItem('kaispeak_meteor_global_ladder');
+          const localHistory = localStorage.getItem('kaispeak_meteor_personal_history');
+          if (localLadder) {
+            const parsed = JSON.parse(localLadder);
+            if (parsed && parsed.windowRankings) this.cachedData = parsed;
+          }
+          if (localHistory) {
+            const parsedH = JSON.parse(localHistory);
+            if (Array.isArray(parsedH)) this.cachedData.personalHistory = parsedH;
+          }
+        } catch (e) {
+          console.warn("Failed to load local leaderboard cache:", e);
+        }
+
+        // Background sync with server
+        this.fetchLeaderboard();
+      },
+
+      getProfileInfo() {
+        let pId = 'profile_kai_default';
+        let pName = 'Kai';
+        let pAvatar = '👦';
+        let pGrade = '幼兒園大班/國小低年級';
+        if (typeof getActiveProfile === 'function') {
+          const p = getActiveProfile();
+          if (p) {
+            pId = p.id || 'profile_kai_default';
+            pName = p.name || 'Kai';
+            pAvatar = p.avatar || '👦';
+            pGrade = p.grade || '幼兒園大班/國小低年級';
+          }
+        }
+        return { pId, pName, pAvatar, pGrade };
+      },
+
+      async fetchLeaderboard(callback) {
+        const { pId, pName, pAvatar, pGrade } = this.getProfileInfo();
+        const url = `/api/meteor_leaderboard?profileId=${encodeURIComponent(pId)}&name=${encodeURIComponent(pName)}&avatar=${encodeURIComponent(pAvatar)}&grade=${encodeURIComponent(pGrade)}`;
+        try {
+          const resp = await fetch(url);
+          if (resp.ok) {
+            const data = await resp.json();
+            if (data && data.status === 'ok') {
+              this.cachedData = data;
+              try {
+                localStorage.setItem('kaispeak_meteor_global_ladder', JSON.stringify(data));
+                if (data.personalHistory) {
+                  localStorage.setItem('kaispeak_meteor_personal_history', JSON.stringify(data.personalHistory));
+                }
+              } catch (e) {}
+              if (typeof callback === 'function') callback();
+              return;
+            }
+          }
+        } catch (err) {
+          console.log("Leaderboard backend offline, using local dynamic window:", err);
+        }
+
+        // Fallback local calculation
+        this.fallbackLocalCalculation();
+        if (typeof callback === 'function') callback();
+      },
+
+      fallbackLocalCalculation() {
+        const defaultSeeds = [
+          { id: 'bot_01', name: 'Lucas W.', avatar: '🚀', grade: '國小中年級', region: '🇺🇸 舊金山', highScore: 890, accuracy: 98, maxCombo: 24, stars: 15, totalBattles: 32, lastPlayed: '10分鐘前' },
+          { id: 'bot_02', name: 'Mia Chen', avatar: '🦄', grade: '國小低年級', region: '🇨🇦 溫哥華', highScore: 840, accuracy: 96, maxCombo: 21, stars: 15, totalBattles: 28, lastPlayed: '25分鐘前' },
+          { id: 'bot_03', name: 'Liam Smith', avatar: '⚡', grade: '國小高年級', region: '🇬🇧 倫敦', highScore: 810, accuracy: 95, maxCombo: 19, stars: 14, totalBattles: 26, lastPlayed: '1小時前' },
+          { id: 'bot_04', name: 'Yuto Sato', avatar: '🦖', grade: '幼兒園大班', region: '🇯🇵 東京', highScore: 770, accuracy: 94, maxCombo: 18, stars: 13, totalBattles: 24, lastPlayed: '2小時前' },
+          { id: 'bot_05', name: 'Chloe Tan', avatar: '⭐', grade: '國小低年級', region: '🇸🇬 新加坡', highScore: 730, accuracy: 93, maxCombo: 16, stars: 12, totalBattles: 21, lastPlayed: '3小時前' },
+          { id: 'bot_06', name: 'Leo Huang', avatar: '🦁', grade: '幼兒園大班', region: '🇹🇼 台中', highScore: 690, accuracy: 92, maxCombo: 15, stars: 12, totalBattles: 19, lastPlayed: '4小時前' },
+          { id: 'bot_07', name: 'Oliver Davis', avatar: '🐯', grade: '國小中年級', region: '🇦🇺 雪梨', highScore: 650, accuracy: 91, maxCombo: 14, stars: 11, totalBattles: 18, lastPlayed: '5小時前' },
+          { id: 'bot_08', name: 'Sophie Becker', avatar: '🌸', grade: '國小低年級', region: '🇩🇪 柏林', highScore: 620, accuracy: 90, maxCombo: 13, stars: 10, totalBattles: 16, lastPlayed: '6小時前' },
+          { id: 'bot_09', name: 'Emma Wong', avatar: '🦊', grade: '幼兒園中班', region: '🇭🇰 香港', highScore: 590, accuracy: 89, maxCombo: 12, stars: 9, totalBattles: 15, lastPlayed: '7小時前' },
+          { id: 'bot_10', name: 'Ethan Miller', avatar: '🏀', grade: '國小低年級', region: '🇺🇸 紐約', highScore: 560, accuracy: 88, maxCombo: 12, stars: 9, totalBattles: 14, lastPlayed: '8小時前' },
+          { id: 'bot_11', name: 'Hana Tanaka', avatar: '🐱', grade: '幼兒園大班', region: '🇯🇵 大阪', highScore: 530, accuracy: 87, maxCombo: 11, stars: 8, totalBattles: 13, lastPlayed: '10小時前' },
+          { id: 'bot_12', name: 'Noah Lin', avatar: '🐬', grade: '國小低年級', region: '🇹🇼 高雄', highScore: 500, accuracy: 86, maxCombo: 10, stars: 7, totalBattles: 12, lastPlayed: '11小時前' },
+          { id: 'bot_13', name: 'Ava Dubois', avatar: '🎨', grade: '國小中年級', region: '🇫🇷 巴黎', highScore: 470, accuracy: 85, maxCombo: 9, stars: 7, totalBattles: 11, lastPlayed: '12小時前' },
+          { id: 'bot_14', name: 'Lucas Kim', avatar: '🥋', grade: '國小低年級', region: '🇰🇷 首爾', highScore: 440, accuracy: 84, maxCombo: 9, stars: 6, totalBattles: 10, lastPlayed: '13小時前' },
+          { id: 'bot_15', name: 'Zoey Wu', avatar: '🌈', grade: '幼兒園大班', region: '🇹🇼 新竹', highScore: 410, accuracy: 83, maxCombo: 8, stars: 6, totalBattles: 9, lastPlayed: '14小時前' },
+          { id: 'bot_16', name: 'Mason Clark', avatar: '🏄', grade: '國小低年級', region: '🇺🇸 洛杉磯', highScore: 380, accuracy: 82, maxCombo: 7, stars: 5, totalBattles: 8, lastPlayed: '15小時前' },
+          { id: 'bot_17', name: 'Aria Wilson', avatar: '🐨', grade: '幼兒園大班', region: '🇦🇺 墨爾本', highScore: 350, accuracy: 81, maxCombo: 7, stars: 4, totalBattles: 7, lastPlayed: '16小時前' },
+          { id: 'bot_18', name: 'William Roy', avatar: '🏒', grade: '國小低年級', region: '🇨🇦 蒙特婁', highScore: 320, accuracy: 80, maxCombo: 6, stars: 4, totalBattles: 6, lastPlayed: '17小時前' },
+          { id: 'bot_19', name: 'Ella Brown', avatar: '🎻', grade: '幼兒園中班', region: '🇬🇧 愛丁堡', highScore: 290, accuracy: 79, maxCombo: 5, stars: 3, totalBattles: 5, lastPlayed: '18小時前' },
+          { id: 'bot_20', name: 'James Tsai', avatar: '🧋', grade: '國小低年級', region: '🇹🇼 台南', highScore: 260, accuracy: 78, maxCombo: 5, stars: 3, totalBattles: 4, lastPlayed: '19小時前' },
+          { id: 'bot_21', name: 'Lily Lee', avatar: '🧁', grade: '幼兒園大班', region: '🇸🇬 樟宜', highScore: 240, accuracy: 77, maxCombo: 4, stars: 2, totalBattles: 3, lastPlayed: '20小時前' },
+          { id: 'bot_22', name: 'Max Murphy', avatar: '🍀', grade: '國小低年級', region: '🇮🇪 都柏林', highScore: 220, accuracy: 76, maxCombo: 4, stars: 2, totalBattles: 2, lastPlayed: '21小時前' },
+          { id: 'bot_23', name: 'Yuanyuan Chou', avatar: '🐼', grade: '幼兒園小班', region: '🇹🇼 桃園', highScore: 200, accuracy: 75, maxCombo: 3, stars: 1, totalBattles: 2, lastPlayed: '22小時前' },
+          { id: 'bot_24', name: 'Benjamin Taylor', avatar: '⛵', grade: '國小低年級', region: '🇳🇿 威靈頓', highScore: 180, accuracy: 73, maxCombo: 3, stars: 1, totalBattles: 1, lastPlayed: '23小時前' }
+        ];
+
+        const { pId, pName, pAvatar, pGrade } = this.getProfileInfo();
+        const history = this.cachedData.personalHistory || [];
+        const bestScore = history.reduce((max, h) => Math.max(max, h.score || 0), 480);
+        const bestCombo = history.reduce((max, h) => Math.max(max, h.maxCombo || 0), 10);
+        const bestStars = history.reduce((sum, h) => sum + (h.stars || 0), 6);
+        const avgAcc = history.length ? Math.round(history.reduce((sum, h) => sum + (h.accuracy || 0), 0) / history.length) : 92;
+
+        const allPlayers = [...defaultSeeds];
+        allPlayers.push({
+          id: pId,
+          name: pName,
+          avatar: pAvatar,
+          grade: pGrade,
+          region: '🇹🇼 台北',
+          highScore: bestScore,
+          accuracy: avgAcc,
+          maxCombo: bestCombo,
+          stars: bestStars,
+          totalBattles: Math.max(1, history.length),
+          lastPlayed: '剛剛'
+        });
+
+        allPlayers.sort((a, b) => b.highScore - a.highScore);
+
+        const total = allPlayers.length;
+        const wSize = Math.min(20, total);
+        let myIdx = allPlayers.findIndex(p => p.id === pId);
+        if (myIdx === -1) myIdx = total - 1;
+
+        let startIdx = myIdx - 10;
+        if (startIdx < 0) startIdx = 0;
+        if (startIdx + wSize > total) startIdx = Math.max(0, total - wSize);
+
+        const windowItems = [];
+        for (let i = startIdx; i < startIdx + wSize; i++) {
+          const item = { ...allPlayers[i] };
+          item.rank = i + 1;
+          item.isCurrentPlayer = (item.id === pId);
+          windowItems.push(item);
+        }
+
+        this.cachedData = {
+          myRank: myIdx + 1,
+          totalPlayers: total,
+          windowRankings: windowItems,
+          personalHistory: history,
+          playerStats: {
+            highScore: bestScore,
+            totalBattles: Math.max(1, history.length),
+            maxCombo: bestCombo,
+            stars: bestStars,
+            accuracy: avgAcc
+          }
+        };
+      },
+
+      async recordBattle(battleData) {
+        const { pId, pName, pAvatar, pGrade } = this.getProfileInfo();
+        const nowStr = new Date().toLocaleString('zh-TW', { hour12: false });
+        const record = {
+          id: 'battle_' + Date.now(),
+          timestamp: nowStr,
+          stage: battleData.stageName || `第${battleData.level}大關 · 關卡 ${battleData.stageCode}`,
+          stageCode: battleData.stageCode,
+          level: battleData.level,
+          score: battleData.score,
+          stars: battleData.stars,
+          hitCount: battleData.hitCount,
+          missCount: battleData.missCount,
+          maxCombo: battleData.maxCombo,
+          accuracy: battleData.accuracy,
+          energyGained: battleData.energyGained,
+          passed: battleData.passed
+        };
+
+        // Add to local personal history
+        let history = this.cachedData.personalHistory || [];
+        history.unshift(record);
+        if (history.length > 100) history = history.slice(0, 100);
+        this.cachedData.personalHistory = history;
+
+        try {
+          localStorage.setItem('kaispeak_meteor_personal_history', JSON.stringify(history));
+        } catch (e) {}
+
+        // Send to backend server
+        const payload = {
+          profileId: pId,
+          name: pName,
+          avatar: pAvatar,
+          grade: pGrade,
+          region: '🇹🇼 台北',
+          score: battleData.score,
+          stars: battleData.stars,
+          accuracy: battleData.accuracy,
+          hitCount: battleData.hitCount,
+          missCount: battleData.missCount,
+          maxCombo: battleData.maxCombo,
+          level: battleData.level,
+          stageCode: battleData.stageCode,
+          stageName: record.stage,
+          energyGained: battleData.energyGained,
+          passed: battleData.passed
+        };
+
+        try {
+          const resp = await fetch('/api/meteor_leaderboard', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+          if (resp.ok) {
+            const res = await resp.json();
+            if (res && res.status === 'ok') {
+              this.cachedData = res;
+              try {
+                localStorage.setItem('kaispeak_meteor_global_ladder', JSON.stringify(res));
+              } catch (e) {}
+            }
+          }
+        } catch (err) {
+          console.warn("Backend leaderboard save offline, recalculated locally:", err);
+          this.fallbackLocalCalculation();
+        }
+
+        // Update result modal rank display if present
+        const rankEl = document.getElementById('meteorResultRankText');
+        if (rankEl) {
+          rankEl.innerHTML = `第 <strong class="text-amber-300 text-sm">${this.cachedData.myRank}</strong> 名 <span class="text-[10px] text-indigo-300 font-normal">/ 共 ${this.cachedData.totalPlayers} 人</span>`;
+        }
+      },
+
+      openModal(tab = 'ladder') {
+        this.activeTab = tab;
+        const modal = document.getElementById('meteorLeaderboardModal');
+        if (modal) {
+          modal.classList.remove('hidden');
+          modal.classList.add('flex');
+        }
+        this.render();
+        this.fetchLeaderboard(() => this.render());
+      },
+
+      closeModal() {
+        const modal = document.getElementById('meteorLeaderboardModal');
+        if (modal) {
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+        }
+      },
+
+      switchTab(tab) {
+        this.activeTab = tab;
+        this.render();
+      },
+
+      render() {
+        const { pName, pAvatar, pGrade } = this.getProfileInfo();
+        const stats = this.cachedData.playerStats || {};
+        const myRank = this.cachedData.myRank || 1;
+        const total = this.cachedData.totalPlayers || 24;
+
+        // 1. Render Hero Ribbon
+        const heroRibbon = document.getElementById('meteorLeaderboardHeroRibbon');
+        if (heroRibbon) {
+          heroRibbon.innerHTML = `
+            <div class="flex items-center gap-3">
+              <div class="relative w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-400 to-orange-500 flex items-center justify-center text-2xl shadow-md border-2 border-amber-300 shrink-0">
+                ${pAvatar}
+                <span class="absolute -top-1.5 -right-1.5 bg-rose-500 text-white text-[9px] font-black px-1.5 py-0.2 rounded-full border border-white">YOU</span>
+              </div>
+              <div>
+                <div class="flex items-center gap-1.5">
+                  <span class="font-black text-amber-200 text-sm sm:text-base">${pName}</span>
+                  <span class="text-[10px] bg-slate-900/80 text-amber-300 px-2 py-0.5 rounded-full border border-amber-400/40">${pGrade}</span>
+                </div>
+                <div class="text-[11px] text-indigo-200 flex items-center gap-2 mt-0.5 flex-wrap">
+                  <span>📍 台灣 台北</span>
+                  <span>·</span>
+                  <span>累計挑戰: <strong class="text-white font-mono">${stats.totalBattles || this.cachedData.personalHistory?.length || 0}</strong> 場</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-2 sm:gap-4 shrink-0">
+              <div class="text-right">
+                <div class="text-[10px] text-indigo-200 font-medium">🏆 全球天梯排名</div>
+                <div class="text-lg sm:text-xl font-black text-amber-300 font-mono tracking-tight leading-tight">
+                  第 ${myRank} 名
+                  <span class="text-[10px] font-normal text-slate-300">/ ${total} 人</span>
+                </div>
+              </div>
+              <div class="h-8 w-px bg-amber-400/30"></div>
+              <div class="text-right">
+                <div class="text-[10px] text-indigo-200 font-medium">⚡ 最高排分</div>
+                <div class="text-lg sm:text-xl font-black text-cyan-300 font-mono tracking-tight leading-tight">
+                  ${stats.highScore || 0} <span class="text-xs font-bold text-slate-300">分</span>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        // 2. Tab Navigation Buttons styling
+        const ladderBtn = document.getElementById('meteorTabLadderBtn');
+        const historyBtn = document.getElementById('meteorTabHistoryBtn');
+        const countBadge = document.getElementById('meteorHistoryCountBadge');
+        if (countBadge) countBadge.innerText = (this.cachedData.personalHistory || []).length;
+
+        const ladderView = document.getElementById('meteorLeaderboardLadderView');
+        const historyView = document.getElementById('meteorLeaderboardHistoryView');
+        const totalBadge = document.getElementById('meteorTotalPlayersBadge');
+        if (totalBadge) totalBadge.innerText = `共 ${total} 位學員`;
+
+        if (this.activeTab === 'ladder') {
+          if (ladderBtn) ladderBtn.className = "px-4 py-2 rounded-xl bg-amber-500 text-slate-950 font-black shadow-md transition active:scale-95 flex items-center gap-1.5";
+          if (historyBtn) historyBtn.className = "px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white font-bold transition active:scale-95 flex items-center gap-1.5";
+          if (ladderView) ladderView.classList.remove('hidden');
+          if (historyView) historyView.classList.add('hidden');
+          this.renderLadderList();
+        } else {
+          if (ladderBtn) ladderBtn.className = "px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white font-bold transition active:scale-95 flex items-center gap-1.5";
+          if (historyBtn) historyBtn.className = "px-4 py-2 rounded-xl bg-amber-500 text-slate-950 font-black shadow-md transition active:scale-95 flex items-center gap-1.5";
+          if (ladderView) ladderView.classList.add('hidden');
+          if (historyView) historyView.classList.remove('hidden');
+          this.renderHistoryList();
+        }
+      },
+
+      renderLadderList() {
+        const container = document.getElementById('meteorLadderList');
+        if (!container) return;
+
+        const windowPlayers = this.cachedData.windowRankings || [];
+        if (windowPlayers.length === 0) {
+          container.innerHTML = `<div class="p-8 text-center text-slate-400 text-xs">載入排行榜中...</div>`;
+          return;
+        }
+
+        let html = '';
+        windowPlayers.forEach(p => {
+          const isMe = !!p.isCurrentPlayer;
+          let rankBadge = '';
+          if (p.rank === 1) {
+            rankBadge = `<span class="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-400 to-yellow-300 text-slate-950 font-black text-sm flex items-center justify-center shadow-md border border-amber-200">🥇 1</span>`;
+          } else if (p.rank === 2) {
+            rankBadge = `<span class="w-8 h-8 rounded-xl bg-gradient-to-tr from-slate-200 to-slate-400 text-slate-950 font-black text-sm flex items-center justify-center shadow-md border border-slate-100">🥈 2</span>`;
+          } else if (p.rank === 3) {
+            rankBadge = `<span class="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-700 to-amber-600 text-amber-100 font-black text-sm flex items-center justify-center shadow-md border border-amber-500">🥉 3</span>`;
+          } else {
+            rankBadge = `<span class="w-8 h-8 rounded-xl bg-slate-800/90 text-indigo-200 font-bold font-mono text-xs flex items-center justify-center border border-indigo-900">#${p.rank}</span>`;
+          }
+
+          const cardClass = isMe
+            ? "relative bg-gradient-to-r from-amber-500/25 via-indigo-950 to-amber-500/20 border-2 border-amber-400 rounded-2xl p-2.5 sm:p-3 flex items-center justify-between shadow-[0_0_20px_rgba(245,158,11,0.4)]"
+            : "bg-slate-900/80 hover:bg-slate-800/80 border border-indigo-900/60 rounded-2xl p-2.5 sm:p-3 flex items-center justify-between transition";
+
+          html += `
+            <div class="${cardClass}">
+              <div class="flex items-center gap-2.5">
+                ${rankBadge}
+                <div class="text-2xl">${p.avatar || '👦'}</div>
+                <div>
+                  <div class="flex items-center gap-1.5 flex-wrap">
+                    <span class="font-black text-xs sm:text-sm ${isMe ? 'text-amber-300' : 'text-slate-100'}">${p.name}</span>
+                    <span class="text-[10px] text-slate-400 bg-slate-950/70 px-1.5 py-0.2 rounded border border-slate-800">${p.region || '國際學員'}</span>
+                    ${isMe ? '<span class="text-[9px] bg-amber-400 text-slate-950 font-black px-1.5 py-0.2 rounded-full shadow-xs">👑 你的目前名次</span>' : ''}
+                  </div>
+                  <div class="text-[10px] text-slate-400 mt-0.5 flex items-center gap-2 flex-wrap">
+                    <span>${p.grade || '學員'}</span>
+                    <span>·</span>
+                    <span>發音準確率: <strong class="text-emerald-400 font-mono">${p.accuracy || 90}%</strong></span>
+                    <span>·</span>
+                    <span>最高連擊: <strong class="text-cyan-400 font-mono">${p.maxCombo || 0}連擊</strong></span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="text-right shrink-0">
+                <div class="text-sm sm:text-base font-black text-amber-400 font-mono tracking-tight">${p.highScore || 0} <span class="text-[10px] text-slate-400 font-normal">分</span></div>
+                <div class="text-[10px] text-amber-300/80 mt-0.5">⭐ ${p.stars || 0} 星</div>
+              </div>
+            </div>
+          `;
+        });
+
+        container.innerHTML = html;
+      },
+
+      renderHistoryList() {
+        const statsContainer = document.getElementById('meteorHistoryQuickStats');
+        const listContainer = document.getElementById('meteorHistoryList');
+        const history = this.cachedData.personalHistory || [];
+
+        // Quick stats
+        if (statsContainer) {
+          const totalBattles = history.length;
+          const bestScore = history.reduce((max, h) => Math.max(max, h.score || 0), 0);
+          const totalHits = history.reduce((sum, h) => sum + (h.hitCount || 0), 0);
+          const totalStars = history.reduce((sum, h) => sum + (h.stars || 0), 0);
+
+          statsContainer.innerHTML = `
+            <div class="bg-indigo-950/80 border border-indigo-700/60 rounded-xl p-2">
+              <div class="text-[10px] text-indigo-300">總挑戰場次</div>
+              <div class="text-sm sm:text-base font-black text-white font-mono mt-0.5">${totalBattles} 次</div>
+            </div>
+            <div class="bg-indigo-950/80 border border-indigo-700/60 rounded-xl p-2">
+              <div class="text-[10px] text-indigo-300">最高排分記錄</div>
+              <div class="text-sm sm:text-base font-black text-amber-400 font-mono mt-0.5">${bestScore} 分</div>
+            </div>
+            <div class="bg-indigo-950/80 border border-indigo-700/60 rounded-xl p-2">
+              <div class="text-[10px] text-indigo-300">擊碎隕石總計</div>
+              <div class="text-sm sm:text-base font-black text-emerald-400 font-mono mt-0.5">${totalHits} 顆</div>
+            </div>
+            <div class="bg-indigo-950/80 border border-indigo-700/60 rounded-xl p-2">
+              <div class="text-[10px] text-indigo-300">通關累計星等</div>
+              <div class="text-sm sm:text-base font-black text-amber-300 font-mono mt-0.5">⭐ ${totalStars}</div>
+            </div>
+          `;
+        }
+
+        // List
+        if (listContainer) {
+          if (history.length === 0) {
+            listContainer.innerHTML = `
+              <div class="p-8 text-center bg-slate-900/60 rounded-2xl border border-indigo-900/40 my-3">
+                <div class="text-3xl mb-2">🚀</div>
+                <div class="text-sm font-bold text-slate-300">目前尚無戰績記錄</div>
+                <p class="text-xs text-slate-500 mt-1">進入探險島第一島「隕石語音擊墜島」開始防衛天空，爭取你的最高排分！</p>
+              </div>
+            `;
+            return;
+          }
+
+          let html = '';
+          history.forEach(h => {
+            const passBadge = h.passed
+              ? `<span class="text-[10px] bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 px-2 py-0.5 rounded-full font-bold">✅ 通關守護</span>`
+              : `<span class="text-[10px] bg-rose-500/20 text-rose-400 border border-rose-500/40 px-2 py-0.5 rounded-full font-bold">⚠️ 挑戰未達標</span>`;
+
+            html += `
+              <div class="bg-slate-900/80 hover:bg-slate-800/80 border border-indigo-900/60 rounded-2xl p-2.5 sm:p-3 flex items-center justify-between text-xs transition">
+                <div class="flex items-center gap-2.5">
+                  <div class="w-9 h-9 rounded-xl bg-indigo-950 border border-indigo-700/80 flex items-center justify-center text-lg shrink-0">
+                    ${h.stars === 3 ? '🌟' : (h.stars >= 1 ? '⭐' : '🚀')}
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <span class="font-black text-slate-200 text-xs sm:text-sm">${h.stage || '探險島防衛戰'}</span>
+                      ${passBadge}
+                    </div>
+                    <div class="text-[10px] text-slate-400 mt-0.5 flex items-center gap-2 flex-wrap">
+                      <span class="font-mono text-slate-500">${h.timestamp || ''}</span>
+                      <span>·</span>
+                      <span>擊碎: <strong class="text-emerald-400 font-mono">${h.hitCount || 0}</strong> 顆</span>
+                      <span>·</span>
+                      <span>準確率: <strong class="text-cyan-400 font-mono">${h.accuracy || 0}%</strong></span>
+                      <span>·</span>
+                      <span>最大連擊: <strong class="text-amber-300 font-mono">${h.maxCombo || 0}</strong></span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="text-right shrink-0">
+                  <div class="text-sm sm:text-base font-black text-amber-400 font-mono">${h.score || 0} <span class="text-[10px] text-slate-400 font-normal">分</span></div>
+                  <div class="text-[10px] text-emerald-400 font-mono mt-0.5 font-bold">+${h.energyGained || 0} ⚡</div>
+                </div>
+              </div>
+            `;
+          });
+
+          listContainer.innerHTML = html;
+        }
+      }
+    };
+
+    // ========================================================
     // METEOR VOICE SHOOTER ENGINE (隕石語音擊墜島 · 聲音打飛機核心引擎)
     // ========================================================
     let meteorCurrentLevel = 1;
@@ -9742,6 +10322,25 @@
           }
         }
 
+        // 🏆 Record battle in Global Dynamic Window Leaderboard & Personal History
+        if (typeof MeteorLeaderboardEngine !== 'undefined') {
+          const totalShots = Math.max(1, this.hitCount + this.missCount);
+          const acc = Math.round((this.hitCount / totalShots) * 100);
+          MeteorLeaderboardEngine.recordBattle({
+            score: this.score,
+            stars: starsEarned,
+            hitCount: this.hitCount,
+            missCount: this.missCount,
+            maxCombo: this.maxCombo,
+            accuracy: acc,
+            level: this.currentLevel,
+            stageCode: this.currentSubStage,
+            stageName: `第${this.currentLevel}大關 · 關卡 ${this.currentSubStage}`,
+            energyGained: (this.energyGained + this.energyBonus) - this.energyLost,
+            passed: passed
+          });
+        }
+
         this.showResultModal(passed, starsEarned);
       },
 
@@ -9767,6 +10366,14 @@
         const bonusEl = document.getElementById('meteorResultEnergyBonus');
         const lostEl = document.getElementById('meteorResultEnergyLost');
         const totalEnergyEl = document.getElementById('meteorResultTotalEnergy');
+
+        // Update Leaderboard dynamic rank in modal
+        const rankEl = document.getElementById('meteorResultRankText');
+        if (rankEl && typeof MeteorLeaderboardEngine !== 'undefined') {
+          const myRank = MeteorLeaderboardEngine.cachedData.myRank || 1;
+          const total = MeteorLeaderboardEngine.cachedData.totalPlayers || 24;
+          rankEl.innerHTML = `第 <strong class="text-amber-300 text-sm font-mono">${myRank}</strong> 名 <span class="text-[10px] text-indigo-300 font-normal">/ 全球 ${total} 人</span>`;
+        }
 
         const netEnergy = (this.energyGained + this.energyBonus) - this.energyLost;
         if (netEnergyEl) {
@@ -12929,7 +13536,7 @@
     };
 
     // ========================================================
-    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.52)
+    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.53)
     // ========================================================
     // 💡 App Store 開箱即用架構（商業發行標準）：
     // 透過 Cloudflare Worker 官方安全閘道器，免掃碼、免設定、0 秒直連 Google 官方 AI！
@@ -14490,7 +15097,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.52)
+    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.53)
     // ========================================================
     function parseScenarioJsonResponse(rawText) {
       if (!rawText || typeof rawText !== 'string') return null;
@@ -14595,7 +15202,7 @@
     }
 
     // ========================================================
-    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.52)
+    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.53)
     // ========================================================
     async function callGeminiScenarioPlanner(userText, userLevel, apiKey) {
       // 1. Ensure valid official model from localStorage
@@ -15112,7 +15719,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.52)
+    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.53)
     // ========================================================
     const KaiSpeechEngine = {
       preferredVoice: null,
@@ -16709,6 +17316,9 @@ ${existingSnippet || "無"}
       checkUrlParamKeySync();
       updateGeminiApiKeyUI();
       initServerBackendSync();
+      if (typeof MeteorLeaderboardEngine !== 'undefined') {
+        MeteorLeaderboardEngine.init();
+      }
     });
   </script>
 </body>
