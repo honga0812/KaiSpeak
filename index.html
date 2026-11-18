@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.37";
+        const LATEST_VER = "26.11.38";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -137,8 +137,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.37（2026年·11月·第33次發布）">
-                26.11.37
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.38（2026年·11月·第33次發布）">
+                26.11.38
               </span>
             </div>
           </div>
@@ -355,7 +355,7 @@
             <span>奇妙星語言</span>
           </span>
           <div class="mt-1 flex items-center gap-1">
-            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.37（2026年·11月·第33次發布）">26.11.37</span>
+            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.38（2026年·11月·第33次發布）">26.11.38</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer flex items-center gap-1 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-2 py-0.5 transition shadow-2xs group-hover:border-amber-400" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -2123,7 +2123,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.37 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.38 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -2162,7 +2162,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.37 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.38 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -2235,7 +2235,7 @@
 
 
   <!-- ======================================================== -->
-  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.37)    -->
+  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.38)    -->
   <!-- ======================================================== -->
   <div id="vipUpgradeModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[89] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
     <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl border-2 border-amber-300 flex flex-col gap-4 my-auto max-h-[92vh] overflow-y-auto">
@@ -2747,7 +2747,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.37";
+    const APP_VERSION = "26.11.38";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // Immediate sanitization of legacy Gemini 1.5/2.0/2.5 models from localStorage
@@ -2943,7 +2943,7 @@
 
 
     // ========================================================
-    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.37)
+    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.38)
     // ========================================================
     const VIP_STORAGE_KEY = 'kaispeak_vip_info';
     const AI_USAGE_DATE_KEY = 'kaispeak_ai_usage_date';
@@ -3061,7 +3061,7 @@
       return true;
     }
 
-    // Marketing Campaigns & Agency Partners Definition (v26.11.37)
+    // Marketing Campaigns & Agency Partners Definition (v26.11.38)
     const SPECIAL_PROMO_CODES = {
       'TRIAL7D': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '官方社群促銷體驗專案', desc: '全功能解鎖 7 天' },
       'FREE7DAYS': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '限時早鳥推廣禮', desc: '全功能解鎖 7 天' },
@@ -5550,7 +5550,7 @@
     }
 
     // ========================================================
-    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.37)
+    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.38)
     // ========================================================
     let cachedServerApiKey = '';
     let cachedServerModel = 'gemini-3.5-flash';
@@ -10739,7 +10739,7 @@
     };
 
     // ========================================================
-    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.37)
+    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.38)
     // ========================================================
     // 💡 App Store 開箱即用架構（商業發行標準）：
     // 透過 Cloudflare Worker 官方安全閘道器，免掃碼、免設定、0 秒直連 Google 官方 AI！
@@ -11316,8 +11316,8 @@
 
     function playKaiVoiceGreeting() {
       const greetingMsg = "Hello! What would you like to learn or do today? Tell me in Chinese or English!";
-      // 👦 Authentic 5-year-old cheerful boy voice (pitch: 1.25)
-      KaiSpeechEngine.speak(greetingMsg, 1.00, null, { role: 'kai', pitch: 1.25 });
+      // 👦 Authentic 5-year-old cheerful boy voice (pitch: 1.45, +3 keys higher!)
+      KaiSpeechEngine.speak(greetingMsg, 1.02, null, { role: 'kai', pitch: 1.45 });
     }
 
     function togglePlannerVoiceRecognition() {
@@ -12244,7 +12244,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.37)
+    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.38)
     // ========================================================
     function parseScenarioJsonResponse(rawText) {
       if (!rawText || typeof rawText !== 'string') return null;
@@ -12349,7 +12349,7 @@
     }
 
     // ========================================================
-    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.37)
+    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.38)
     // ========================================================
     async function callGeminiScenarioPlanner(userText, userLevel, apiKey) {
       // 1. Ensure valid official model from localStorage
@@ -12866,7 +12866,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.37)
+    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.38)
     // ========================================================
     const KaiSpeechEngine = {
       preferredVoice: null,
@@ -12876,6 +12876,88 @@
       heartbeatTimer: null,
       watchdogTimer: null,
 
+      pickVoice() {
+        try {
+          if (!('speechSynthesis' in window)) return;
+          const voices = window.speechSynthesis.getVoices();
+          if (!voices || voices.length === 0) return;
+
+          // ABSOLUTE BLACKLIST: Purge all 1991 retro Apple novelty synthetic robotic sound effects!
+          const NOVELTY_ROBOT_NAMES = [
+            'junior', 'fred', 'albert', 'ralph', 'zarvox', 'trinoids', 'whisper',
+            'bad news', 'bahh', 'bells', 'boing', 'bubbles', 'cellos', 'deranged',
+            'good news', 'hysterical', 'pipe organ', 'wobble', 'jester', 'organ', 'superstar'
+          ];
+
+          const isSafeHumanVoice = (vo) => {
+            if (!vo || !vo.name) return false;
+            const n = vo.name.toLowerCase();
+            return !NOVELTY_ROBOT_NAMES.some(r => n.includes(r));
+          };
+
+          const safeVoices = voices.filter(isSafeHumanVoice);
+          if (safeVoices.length === 0) return;
+
+          // 2. ADULT MALE VOICES: STRICTLY BANNED FOR KAI! (Kai is a 5-year-old child, NEVER a mature adult man!)
+          const ADULT_MALE_NAMES = [
+            'alex', 'daniel', 'oliver', 'ralph', 'tom', 'bruce', 'david', 'george', 
+            'guy', 'rishi', 'aman', 'lee', 'nathan', 'aaron', 'liam', 'evan', 'jack'
+          ];
+
+          // 1. High priority for Kai (5-year-old child / boy):
+          // Priority A: Genuine child voices across platforms (Flo, Eddy, Rocko, Sandy, Shelley, Ana, Maia)
+          const trueChildNames = ['flo', 'eddy', 'rocko', 'sandy', 'shelley', 'ana', 'maia', 'child', 'kid', 'boy'];
+          let foundKai = null;
+          for (const name of trueChildNames) {
+            const kv = safeVoices.find(vo => vo.name.toLowerCase().includes(name) && (!vo.lang || vo.lang.startsWith('en')));
+            if (kv) {
+              foundKai = kv;
+              break;
+            }
+          }
+
+          // Priority B: Sweet, youthful female voices that modulate into a natural, adorable 5-year-old boy
+          // (Nicky, Ava, Samantha, Jenny, Allison, Karen, Google US English)
+          // STRICTLY FILTER OUT ANY ADULT MALE NAMES!
+          if (!foundKai) {
+            const sweetYouthNames = ['nicky', 'ava', 'samantha', 'jenny', 'allison', 'karen'];
+            for (const name of sweetYouthNames) {
+              const kv = safeVoices.find(vo => {
+                const n = vo.name.toLowerCase();
+                return n.includes(name) && !ADULT_MALE_NAMES.some(m => n.includes(m)) && (!vo.lang || vo.lang.startsWith('en'));
+              });
+              if (kv) {
+                foundKai = kv;
+                break;
+              }
+            }
+          }
+
+          // Priority C: Any safe non-adult-male English voice
+          if (!foundKai) {
+            foundKai = safeVoices.find(vo => {
+              const n = vo.name.toLowerCase();
+              return (!vo.lang || vo.lang.startsWith('en')) && !ADULT_MALE_NAMES.some(m => n.includes(m));
+            });
+          }
+
+          // 2. High priority for Teacher / Pronunciation / Mom:
+          const topNaturalNames = ['ava', 'samantha', 'jenny', 'aria', 'allison', 'nicky', 'victoria', 'zoe', 'karen', 'serena', 'susan'];
+          let foundGeneral = null;
+          for (const name of topNaturalNames) {
+            const v = safeVoices.find(vo => vo.name.toLowerCase().includes(name) && (!vo.lang || vo.lang.startsWith('en')));
+            if (v) {
+              foundGeneral = v;
+              break;
+            }
+          }
+
+          this.preferredVoice = foundGeneral || safeVoices.find(vo => (vo.lang === 'en-US' || vo.lang === 'en_US')) || safeVoices[0];
+          // Kai voice: 100% child / youth voice (never adult male)
+          this.preferredKaiVoice = foundKai || this.preferredVoice;
+        } catch(e) {}
+      },
+
       init() {
         if (!this.singletonPlayer) {
           try {
@@ -12884,88 +12966,8 @@
         }
 
         if (!('speechSynthesis' in window)) return;
-        const pickVoice = () => {
-          try {
-            const voices = window.speechSynthesis.getVoices();
-            if (!voices || voices.length === 0) return;
-
-            // ABSOLUTE BLACKLIST: Purge all 1991 retro Apple novelty synthetic robotic sound effects!
-            const NOVELTY_ROBOT_NAMES = [
-              'junior', 'fred', 'albert', 'ralph', 'zarvox', 'trinoids', 'whisper',
-              'bad news', 'bahh', 'bells', 'boing', 'bubbles', 'cellos', 'deranged',
-              'good news', 'hysterical', 'pipe organ', 'wobble', 'jester', 'organ', 'superstar'
-            ];
-
-            const isSafeHumanVoice = (vo) => {
-              if (!vo || !vo.name) return false;
-              const n = vo.name.toLowerCase();
-              return !NOVELTY_ROBOT_NAMES.some(r => n.includes(r));
-            };
-
-            const safeVoices = voices.filter(isSafeHumanVoice);
-            if (safeVoices.length === 0) return;
-
-            // 2. ADULT MALE VOICES: STRICTLY BANNED FOR KAI! (Kai is a 5-year-old child, NEVER a mature adult man!)
-            const ADULT_MALE_NAMES = [
-              'alex', 'daniel', 'oliver', 'ralph', 'tom', 'bruce', 'david', 'george', 
-              'guy', 'rishi', 'aman', 'lee', 'nathan', 'aaron', 'liam', 'evan', 'jack'
-            ];
-
-            // 1. High priority for Kai (5-year-old child / boy):
-            // Priority A: Genuine child voices across platforms (Flo, Eddy, Rocko, Sandy, Shelley, Ana, Maia)
-            const trueChildNames = ['flo', 'eddy', 'rocko', 'sandy', 'shelley', 'ana', 'maia', 'child', 'kid', 'boy'];
-            let foundKai = null;
-            for (const name of trueChildNames) {
-              const kv = safeVoices.find(vo => vo.name.toLowerCase().includes(name) && (!vo.lang || vo.lang.startsWith('en')));
-              if (kv) {
-                foundKai = kv;
-                break;
-              }
-            }
-
-            // Priority B: Sweet, youthful female voices that modulate into a natural, adorable 5-year-old boy with pitch 1.25
-            // (Nicky, Ava, Samantha, Jenny, Allison, Karen, Google US English)
-            // STRICTLY FILTER OUT ANY ADULT MALE NAMES!
-            if (!foundKai) {
-              const sweetYouthNames = ['nicky', 'ava', 'samantha', 'jenny', 'allison', 'karen'];
-              for (const name of sweetYouthNames) {
-                const kv = safeVoices.find(vo => {
-                  const n = vo.name.toLowerCase();
-                  return n.includes(name) && !ADULT_MALE_NAMES.some(m => n.includes(m)) && (!vo.lang || vo.lang.startsWith('en'));
-                });
-                if (kv) {
-                  foundKai = kv;
-                  break;
-                }
-              }
-            }
-
-            // Priority C: Any safe non-adult-male English voice
-            if (!foundKai) {
-              foundKai = safeVoices.find(vo => {
-                const n = vo.name.toLowerCase();
-                return (!vo.lang || vo.lang.startsWith('en')) && !ADULT_MALE_NAMES.some(m => n.includes(m));
-              });
-            }
-
-            // 2. High priority for Teacher / Pronunciation / Mom:
-            const topNaturalNames = ['ava', 'samantha', 'jenny', 'aria', 'allison', 'nicky', 'victoria', 'zoe', 'karen', 'serena', 'susan'];
-            let foundGeneral = null;
-            for (const name of topNaturalNames) {
-              const v = safeVoices.find(vo => vo.name.toLowerCase().includes(name) && (!vo.lang || vo.lang.startsWith('en')));
-              if (v) {
-                foundGeneral = v;
-                break;
-              }
-            }
-
-            this.preferredVoice = foundGeneral || safeVoices.find(vo => (vo.lang === 'en-US' || vo.lang === 'en_US')) || safeVoices[0];
-            // Kai voice: 100% child / youth voice (never adult male)
-            this.preferredKaiVoice = foundKai || this.preferredVoice;
-          } catch(e) {}
-        };
-        pickVoice();
-        window.speechSynthesis.onvoiceschanged = pickVoice;
+        this.pickVoice();
+        window.speechSynthesis.onvoiceschanged = () => this.pickVoice();
       },
 
       speak(text, rate = 0.90, onEndCallback = null, options = {}) {
@@ -12976,14 +12978,19 @@
           return;
         }
 
+        // On-demand voice pick if voices loaded lazily in Safari browser!
+        if (!this.preferredKaiVoice || !this.preferredVoice) {
+          this.pickVoice();
+        }
+
         const role = (options && options.role) ? options.role : 'kai';
         const isKai = role === 'kai' || role === 'kid';
-        // 👦 Kai is an authentic 5-year-old bright, energetic, cheerful little boy!
-        // Pitch: 1.25 gives genuine 5-year-old child timbre (sweet, adorable, friendly, ZERO mature/old sound, ZERO robotic distortion!)
+        // 👦 Kai is an authentic 5-year-old bright, energetic, cheerful young boy!
+        // Pitch: 1.45 (3 semitones / 3 keys higher than 1.25, giving super cute, youthful, adorable 5-year-old child timbre!)
         // Standard teacher / word / mom: 1.0 (pure authentic human pronunciation)
         // Dad: 0.92 (warm fatherly tone)
-        const targetPitch = (options && options.pitch !== undefined) ? options.pitch : (isKai ? 1.25 : (role === 'dad' ? 0.92 : 1.0));
-        const effectiveRate = isKai ? Math.max(1.00, rate) : rate;
+        const targetPitch = (options && options.pitch !== undefined) ? options.pitch : (isKai ? 1.45 : (role === 'dad' ? 0.92 : 1.0));
+        const effectiveRate = isKai ? Math.max(1.02, rate) : rate;
 
         const cleanText = text.trim();
         
@@ -13030,18 +13037,38 @@
             try { window.speechSynthesis.cancel(); } catch(e){}
           }
 
+          // Live pick voice if still unassigned (crucial for iOS Safari browser!)
+          if (!this.preferredKaiVoice || !this.preferredVoice) {
+            this.pickVoice();
+          }
+
           setTimeout(() => {
             try {
               window.speechSynthesis.resume();
               const u = new SpeechSynthesisUtterance(cleanText);
               u.lang = 'en-US';
               u.rate = effectiveRate;
-              u.pitch = targetPitch; // 👦 1.25 for Kai: Energetic, authentic 5-year-old little boy voice (ZERO mature/old sound)!
+              u.pitch = targetPitch; // 👦 1.45 for Kai: Energetic, authentic 5-year-old child (+3 keys higher)!
               
-              if (isKai && this.preferredKaiVoice) {
-                u.voice = this.preferredKaiVoice;
-              } else if (this.preferredVoice) {
-                u.voice = this.preferredVoice;
+              // Guaranteed assignment: NEVER leave u.voice undefined on iOS Safari!
+              const liveVoices = window.speechSynthesis.getVoices() || [];
+              let chosenVoice = null;
+              if (isKai) {
+                chosenVoice = this.preferredKaiVoice || liveVoices.find(v => {
+                  const n = v.name.toLowerCase();
+                  return (n.includes('samantha') || n.includes('ava') || n.includes('nicky') || n.includes('flo') || n.includes('eddy') || n.includes('karen') || n.includes('jenny')) && (!v.lang || v.lang.startsWith('en'));
+                }) || this.preferredVoice;
+              } else if (role === 'dad') {
+                chosenVoice = liveVoices.find(v => {
+                  const n = v.name.toLowerCase();
+                  return (n.includes('alex') || n.includes('daniel') || n.includes('guy')) && (!v.lang || v.lang.startsWith('en'));
+                }) || this.preferredVoice;
+              } else {
+                chosenVoice = this.preferredVoice;
+              }
+
+              if (chosenVoice) {
+                u.voice = chosenVoice;
               }
 
               // Hold global reference to defeat Chrome GC bug!
