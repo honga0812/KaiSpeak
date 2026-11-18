@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.44";
+        const LATEST_VER = "26.11.45";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -171,8 +171,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.44（2026年·11月·第36次發布）">
-                26.11.44
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.45（2026年·11月·第36次發布）">
+                26.11.45
               </span>
             </div>
           </div>
@@ -389,7 +389,7 @@
             <span>奇妙星語言</span>
           </span>
           <div class="mt-1 flex items-center gap-1">
-            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.44（2026年·11月·第36次發布）">26.11.44</span>
+            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.45（2026年·11月·第36次發布）">26.11.45</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer flex items-center gap-1 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-2 py-0.5 transition shadow-2xs group-hover:border-amber-400" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -1557,7 +1557,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         
         <!-- ISLAND 1: ACTIVE / METEOR VOICE SHOOTER ISLAND -->
-        <div onclick="enterMeteorIsland(1)" class="cursor-pointer group relative bg-gradient-to-b from-indigo-900/90 via-slate-900/95 to-indigo-950/95 rounded-3xl p-5 border-2 border-amber-400 shadow-xl shadow-indigo-950/40 hover:scale-[1.02] hover:shadow-2xl hover:border-amber-300 transition duration-300 overflow-hidden flex flex-col justify-between min-h-[290px] ring-2 ring-indigo-400/30">
+        <div onclick="enterMeteorIsland(1, true)" class="cursor-pointer group relative bg-gradient-to-b from-indigo-900/90 via-slate-900/95 to-indigo-950/95 rounded-3xl p-5 border-2 border-amber-400 shadow-xl shadow-indigo-950/40 hover:scale-[1.02] hover:shadow-2xl hover:border-amber-300 transition duration-300 overflow-hidden flex flex-col justify-between min-h-[290px] ring-2 ring-indigo-400/30">
           <div class="absolute -right-8 -top-8 w-28 h-28 bg-amber-500/20 rounded-full blur-2xl group-hover:scale-125 transition"></div>
           <div>
             <div class="flex items-center justify-between mb-3">
@@ -1587,7 +1587,7 @@
               <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
               隨時可開啟戰鬥
             </span>
-            <button type="button" class="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 hover:from-amber-300 hover:to-orange-400 text-slate-950 font-black text-xs shadow-md transition active:scale-95 flex items-center gap-1">
+            <button type="button" onclick="event.stopPropagation(); enterMeteorIsland(1, true);" class="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 hover:from-amber-300 hover:to-orange-400 text-slate-950 font-black text-xs shadow-md transition active:scale-95 flex items-center gap-1">
               <span>🚀 立即登島挑戰</span> <span>▶</span>
             </button>
           </div>
@@ -2616,7 +2616,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.44 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.45 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -2655,7 +2655,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.44 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.45 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -2728,7 +2728,7 @@
 
 
   <!-- ======================================================== -->
-  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.44)    -->
+  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.45)    -->
   <!-- ======================================================== -->
   <div id="vipUpgradeModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[89] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
     <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl border-2 border-amber-300 flex flex-col gap-4 my-auto max-h-[92vh] overflow-y-auto">
@@ -3240,7 +3240,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.44";
+    const APP_VERSION = "26.11.45";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // Immediate sanitization of legacy Gemini 1.5/2.0/2.5 models from localStorage
@@ -3436,7 +3436,7 @@
 
 
     // ========================================================
-    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.44)
+    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.45)
     // ========================================================
     const VIP_STORAGE_KEY = 'kaispeak_vip_info';
     const AI_USAGE_DATE_KEY = 'kaispeak_ai_usage_date';
@@ -3554,7 +3554,7 @@
       return true;
     }
 
-    // Marketing Campaigns & Agency Partners Definition (v26.11.44)
+    // Marketing Campaigns & Agency Partners Definition (v26.11.45)
     const SPECIAL_PROMO_CODES = {
       'TRIAL7D': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '官方社群促銷體驗專案', desc: '全功能解鎖 7 天' },
       'FREE7DAYS': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '限時早鳥推廣禮', desc: '全功能解鎖 7 天' },
@@ -6186,7 +6186,7 @@
     }
 
     // ========================================================
-    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.44)
+    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.45)
     // ========================================================
     let cachedServerApiKey = '';
     let cachedServerModel = 'gemini-3.5-flash';
@@ -8915,6 +8915,12 @@
         this.active = true;
         this.lastSpawnTime = Date.now();
 
+        // 🌊 清理前次殘餘實體
+        const container = document.getElementById('meteorFieldCanvas');
+        if (container) {
+          container.querySelectorAll('.meteor-spawned-entity, .meteor-boss-bar, .meteor-guideline').forEach(el => el.remove());
+        }
+
         // 🌊 開場即湧現 4 顆隕石單字群，分布在不同航道，慢慢飄落供小朋友審視與朗讀
         const startLanes = [18, 38, 62, 82];
         const startHeights = [5, 12, 19, 26];
@@ -8947,6 +8953,41 @@
         if (typeof SoundEffects !== 'undefined' && SoundEffects.playScore) {
           SoundEffects.playScore(85);
         }
+      },
+
+      startTimer() {
+        if (this.timerInterval) clearInterval(this.timerInterval);
+        this.timer = 30;
+        const bar = document.getElementById('meteorTimerProgressBar');
+        const text = document.getElementById('meteorTimerText');
+        if (bar) {
+          bar.style.width = '100%';
+          bar.className = "h-full bg-gradient-to-r from-emerald-400 via-teal-400 to-indigo-500 transition-all duration-300";
+        }
+        if (text) text.innerText = '30s';
+
+        this.timerInterval = setInterval(() => {
+          if (!this.active) {
+            clearInterval(this.timerInterval);
+            return;
+          }
+          this.timer--;
+          const pct = Math.max(0, (this.timer / 30) * 100);
+          if (bar) bar.style.width = `${pct}%`;
+          if (text) text.innerText = `${this.timer}s`;
+
+          if (this.timer <= 5) {
+            if (bar) bar.className = "h-full bg-rose-500 animate-pulse transition-all duration-300";
+            if (typeof SoundEffects !== 'undefined' && SoundEffects.playCountdown) {
+              SoundEffects.playCountdown();
+            }
+          }
+
+          if (this.timer <= 0) {
+            clearInterval(this.timerInterval);
+            this.endStage(false);
+          }
+        }, 1000);
       },
 
       spawnSingleMeteor(x, y = 4) {
@@ -9026,6 +9067,8 @@
           }
 
           if (m.y >= 92) {
+            const el = document.getElementById(m.id);
+            if (el) el.remove();
             this.meteors.splice(i, 1);
             this.combo = 0;
             this.missCount++;
@@ -9062,16 +9105,24 @@
         const container = document.getElementById('meteorFieldCanvas');
         if (!container) return;
 
-        // Clean only non-shattering entities (shattering cards are handled by their own timeout)
-        container.querySelectorAll('.meteor-spawned-entity, .meteor-boss-bar, .meteor-guideline').forEach(el => {
-          if (!el.classList.contains('meteor-card-shattering')) {
-            el.remove();
-          }
-        });
+        // Ensure guideline is present (created once)
+        if (!container.querySelector('.meteor-guideline')) {
+          const guideLine = document.createElement('div');
+          guideLine.className = "meteor-guideline absolute top-1/2 inset-x-0 h-0.5 border-t border-dashed border-indigo-400/30 flex items-center justify-between px-3 pointer-events-none";
+          guideLine.innerHTML = `
+            <span class="text-[9px] font-bold text-indigo-300/60 uppercase tracking-widest bg-indigo-950/80 px-2 py-0.5 rounded-full border border-indigo-500/20">⚡ 50% 警戒線 · 浮現英文提示</span>
+            <span class="text-[9px] font-bold text-amber-300/60">大聲說出英文！</span>
+          `;
+          container.appendChild(guideLine);
+        }
 
         if (this.currentSubStage === '5-Boss') {
-          const bossEl = document.createElement('div');
-          bossEl.className = "meteor-boss-bar absolute top-2 inset-x-3 sm:inset-x-6 bg-gradient-to-r from-purple-900/90 via-rose-900/90 to-indigo-950/90 rounded-2xl p-2 sm:p-2.5 border-2 border-rose-500 shadow-xl flex items-center justify-between text-white z-20";
+          let bossEl = container.querySelector('.meteor-boss-bar');
+          if (!bossEl) {
+            bossEl = document.createElement('div');
+            bossEl.className = "meteor-boss-bar absolute top-2 inset-x-3 sm:inset-x-6 bg-gradient-to-r from-purple-900/90 via-rose-900/90 to-indigo-950/90 rounded-2xl p-2 sm:p-2.5 border-2 border-rose-500 shadow-xl flex items-center justify-between text-white z-20";
+            container.appendChild(bossEl);
+          }
           bossEl.innerHTML = `
             <div class="flex items-center gap-2">
               <span class="text-3xl animate-bounce">👾</span>
@@ -9087,66 +9138,65 @@
               </div>
             </div>
           `;
-          container.appendChild(bossEl);
         }
 
-        const guideLine = document.createElement('div');
-        guideLine.className = "meteor-guideline absolute top-1/2 inset-x-0 h-0.5 border-t border-dashed border-indigo-400/30 flex items-center justify-between px-3 pointer-events-none";
-        guideLine.innerHTML = `
-          <span class="text-[9px] font-bold text-indigo-300/60 uppercase tracking-widest bg-indigo-950/80 px-2 py-0.5 rounded-full border border-indigo-500/20">⚡ 50% 警戒線 · 浮現英文提示</span>
-          <span class="text-[9px] font-bold text-amber-300/60">大聲說出英文！</span>
-        `;
-        container.appendChild(guideLine);
-
         this.meteors.forEach(m => {
-          if (m.isShattered) return; // 碎裂中的圖卡不重復渲染，保留 shattering 動畫
+          if (m.isShattered) return; // 碎裂中的圖卡保留引爆動畫，不再重繪
 
-          const el = document.createElement('div');
-          el.id = m.id;
+          let el = document.getElementById(m.id);
           const isFlashing = m.isHalfway;
 
-          let innerContent = '';
-          if (m.displayType === 'en') {
-            innerContent = `
-              <div class="text-3xl sm:text-4xl my-0.5 filter drop-shadow-sm">${m.emoji}</div>
-              <div class="font-black text-base sm:text-lg text-white tracking-wide leading-tight">${m.displayWord}</div>
-              <div class="text-xs text-indigo-200 font-mono font-bold">${m.phonetic}</div>
-              <div class="text-[10px] text-indigo-300/90 font-medium">${m.meaning}</div>
-            `;
-          } else if (m.displayType === 'zh') {
-            innerContent = `
-              <div class="text-3xl sm:text-4xl my-0.5 filter drop-shadow-sm">${m.emoji}</div>
-              <div class="font-black text-base sm:text-lg text-amber-300 tracking-wide leading-tight">${m.meaning}</div>
-              ${isFlashing ? `<div class="mt-1 px-2.5 py-0.5 rounded-lg bg-indigo-950/95 text-indigo-100 font-mono font-black text-xs border border-amber-400/80 meteor-hint-fade shadow-sm">✨ ${m.displayWord} ${m.phonetic}</div>` : `<div class="text-[10px] text-slate-300">看中文說英文</div>`}
-            `;
-          } else {
-            innerContent = `
-              <div class="text-5xl sm:text-6xl my-1 filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)] animate-pulse">${m.emoji}</div>
-              <div class="text-xs sm:text-sm text-amber-200 font-extrabold mt-0.5">${m.meaning}</div>
-              ${isFlashing ? `<div class="mt-1 px-2.5 py-0.5 rounded-lg bg-indigo-950/95 text-indigo-100 font-mono font-black text-xs border border-amber-400/80 meteor-hint-fade shadow-sm">✨ ${m.displayWord} ${m.phonetic}</div>` : `<div class="text-[10px] text-slate-300 font-medium">看圖大聲念英文！</div>`}
-            `;
+          if (!el) {
+            el = document.createElement('div');
+            el.id = m.id;
+            el.style.left = `${m.x}%`;
+            el.style.minWidth = m.displayType === 'img' ? '120px' : '105px';
+
+            el.onclick = (e) => {
+              e.stopPropagation();
+              if (typeof KaiSpeechEngine !== 'undefined') {
+                KaiSpeechEngine.speak(m.displayWord, 1.02, null, { role: 'kai', pitch: 1.45 });
+              }
+              this.triggerHit(m, "點擊擊發");
+            };
+
+            container.appendChild(el);
           }
 
-          el.className = `meteor-spawned-entity absolute cursor-pointer select-none transition-transform duration-75 flex flex-col items-center justify-center p-2 sm:p-2.5 rounded-2xl text-center shadow-xl active:scale-95 ${
-            isFlashing 
-              ? 'bg-gradient-to-b from-indigo-900/95 via-purple-900/95 to-slate-900/95 border-2 border-amber-400 ring-2 ring-pink-500/60 meteor-flashing shadow-amber-500/40' 
-              : 'bg-gradient-to-b from-slate-900/90 to-indigo-950/90 border-2 border-indigo-400/60 shadow-indigo-500/20'
-          }`;
-          el.style.left = `${m.x}%`;
           el.style.top = `${m.y}%`;
           el.style.transform = `translate(-50%, -50%)`;
-          el.style.minWidth = m.displayType === 'img' ? '120px' : '105px';
 
-          el.onclick = (e) => {
-            e.stopPropagation();
-            if (typeof KaiSpeechEngine !== 'undefined') {
-              KaiSpeechEngine.speak(m.displayWord, 1.02, null, { role: 'kai', pitch: 1.45 });
+          if (el.dataset.flashing !== (isFlashing ? '1' : '0')) {
+            el.dataset.flashing = isFlashing ? '1' : '0';
+            el.className = `meteor-spawned-entity absolute cursor-pointer select-none transition-transform duration-75 flex flex-col items-center justify-center p-2 sm:p-2.5 rounded-2xl text-center shadow-xl active:scale-95 ${
+              isFlashing 
+                ? 'bg-gradient-to-b from-indigo-900/95 via-purple-900/95 to-slate-900/95 border-2 border-amber-400 ring-2 ring-pink-500/60 meteor-flashing shadow-amber-500/40' 
+                : 'bg-gradient-to-b from-slate-900/90 to-indigo-950/90 border-2 border-indigo-400/60 shadow-indigo-500/20'
+            }`;
+
+            let innerContent = '';
+            if (m.displayType === 'en') {
+              innerContent = `
+                <div class="text-3xl sm:text-4xl my-0.5 filter drop-shadow-sm">${m.emoji}</div>
+                <div class="font-black text-base sm:text-lg text-white tracking-wide leading-tight">${m.displayWord}</div>
+                <div class="text-xs text-indigo-200 font-mono font-bold">${m.phonetic}</div>
+                <div class="text-[10px] text-indigo-300/90 font-medium">${m.meaning}</div>
+              `;
+            } else if (m.displayType === 'zh') {
+              innerContent = `
+                <div class="text-3xl sm:text-4xl my-0.5 filter drop-shadow-sm">${m.emoji}</div>
+                <div class="font-black text-base sm:text-lg text-amber-300 tracking-wide leading-tight">${m.meaning}</div>
+                ${isFlashing ? `<div class="mt-1 px-2.5 py-0.5 rounded-lg bg-indigo-950/95 text-indigo-100 font-mono font-black text-xs border border-amber-400/80 meteor-hint-fade shadow-sm">✨ ${m.displayWord} ${m.phonetic}</div>` : `<div class="text-[10px] text-slate-300">看中文說英文</div>`}
+              `;
+            } else {
+              innerContent = `
+                <div class="text-5xl sm:text-6xl my-1 filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)] animate-pulse">${m.emoji}</div>
+                <div class="text-xs sm:text-sm text-amber-200 font-extrabold mt-0.5">${m.meaning}</div>
+                ${isFlashing ? `<div class="mt-1 px-2.5 py-0.5 rounded-lg bg-indigo-950/95 text-indigo-100 font-mono font-black text-xs border border-amber-400/80 meteor-hint-fade shadow-sm">✨ ${m.displayWord} ${m.phonetic}</div>` : `<div class="text-[10px] text-slate-300 font-medium">看圖大聲念英文！</div>`}
+              `;
             }
-            this.triggerHit(m, "點擊擊發");
-          };
-
-          el.innerHTML = innerContent;
-          container.appendChild(el);
+            el.innerHTML = innerContent;
+          }
         });
       },
 
@@ -9836,12 +9886,15 @@
       updateMeteorGrandMapUI();
     }
 
-    function enterMeteorIsland(level = 1) {
+    function enterMeteorIsland(level = 1, autoStart = true) {
       const g = document.getElementById('advGrandMapView');
       const m = document.getElementById('advMeteorIslandView');
       if (g) g.classList.add('hidden');
       if (m) m.classList.remove('hidden');
       selectMeteorLevel(level);
+      if (autoStart) {
+        MeteorGameEngine.startStage(level, '1-1');
+      }
     }
 
     let meteorSelectedCategory = 'all';
@@ -12670,7 +12723,7 @@
     };
 
     // ========================================================
-    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.44)
+    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.45)
     // ========================================================
     // 💡 App Store 開箱即用架構（商業發行標準）：
     // 透過 Cloudflare Worker 官方安全閘道器，免掃碼、免設定、0 秒直連 Google 官方 AI！
@@ -14231,7 +14284,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.44)
+    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.45)
     // ========================================================
     function parseScenarioJsonResponse(rawText) {
       if (!rawText || typeof rawText !== 'string') return null;
@@ -14336,7 +14389,7 @@
     }
 
     // ========================================================
-    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.44)
+    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.45)
     // ========================================================
     async function callGeminiScenarioPlanner(userText, userLevel, apiKey) {
       // 1. Ensure valid official model from localStorage
@@ -14853,7 +14906,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.44)
+    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.45)
     // ========================================================
     const KaiSpeechEngine = {
       preferredVoice: null,
