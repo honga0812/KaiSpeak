@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.42";
+        const LATEST_VER = "26.11.43";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -160,8 +160,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.42（2026年·11月·第35次發布）">
-                26.11.42
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.43（2026年·11月·第36次發布）">
+                26.11.43
               </span>
             </div>
           </div>
@@ -378,7 +378,7 @@
             <span>奇妙星語言</span>
           </span>
           <div class="mt-1 flex items-center gap-1">
-            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.42（2026年·11月·第35次發布）">26.11.42</span>
+            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.43（2026年·11月·第36次發布）">26.11.43</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer flex items-center gap-1 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-2 py-0.5 transition shadow-2xs group-hover:border-amber-400" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -1768,6 +1768,8 @@
             <span class="text-xs">🎯</span>
             <span class="text-[10px] text-slate-300">得分:</span>
             <span id="meteorScoreDisplay" class="font-mono font-black text-amber-400 text-sm sm:text-base">0</span>
+            <span class="text-[9px] text-slate-400 font-normal">/</span>
+            <span id="meteorTargetDisplay" class="text-[10px] text-indigo-300 font-bold font-mono">60分通關</span>
           </div>
           <span id="meteorComboDisplay" class="text-[10px] sm:text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-slate-300">連擊 x0</span>
           
@@ -1787,7 +1789,15 @@
 
       <!-- Main Battlefield Playing Field (Full-Screen Immersive Canvas) -->
       <div id="meteorFieldCanvas" class="relative flex-1 w-full bg-slate-950 overflow-hidden select-none">
-        <!-- Injected falling meteors & laser beams -->
+        <!-- Target Cleared Neon Banner (Triggered when passing targetScore) -->
+        <div id="meteorTargetClearedBanner" class="hidden absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-none flex flex-col items-center select-none text-center">
+          <div class="px-5 py-2 rounded-2xl bg-gradient-to-r from-amber-500 via-rose-500 to-indigo-600 text-white font-black text-base sm:text-lg border-2 border-amber-300 shadow-[0_0_35px_rgba(245,158,11,0.9)] tracking-wide animate-pulse">
+            🎯 TARGET CLEARED! 通關門檻達成！
+          </div>
+          <div class="mt-1 text-[11px] font-black text-amber-300 bg-slate-950/90 px-3 py-0.5 rounded-full border border-amber-400/50 shadow-md">
+            ⚡ 狂暴加分衝刺中！爭取 3 星與超量能量！
+          </div>
+        </div>
 
         <!-- Bottom Kai Riding Cute Fire Dragon Turret Stage -->
         <div id="meteorDragonTurretDeck" class="absolute bottom-20 sm:bottom-24 left-1/2 -translate-x-1/2 z-20 pointer-events-none flex flex-col items-center select-none transition-all duration-150">
@@ -1828,12 +1838,12 @@
         <!-- Kai Defense Ship & Shield Status -->
         <div class="flex items-center justify-between text-white text-xs">
           <div class="flex items-center gap-1.5">
-            <span class="text-base sm:text-lg animate-pulse">🛡️</span>
-            <span class="text-[10px] sm:text-xs text-indigo-200">能量防護罩：<span class="text-emerald-400 font-bold">100% 守護中</span></span>
+            <span id="meteorShieldIcon" class="text-base sm:text-lg animate-pulse">🛡️</span>
+            <span class="text-[10px] sm:text-xs text-indigo-200">能量防護罩：<span id="meteorShieldStatusText" class="text-emerald-400 font-bold">100% 守護中</span></span>
           </div>
-          <div class="flex items-center gap-1">
-            <span class="text-base sm:text-lg">⚡</span>
-            <span class="text-[10px] sm:text-xs text-amber-300 font-bold">直式平板滿版模式已啟動</span>
+          <div class="flex items-center gap-1.5">
+            <span class="text-base sm:text-lg animate-pulse">⚡</span>
+            <span class="text-[10px] sm:text-xs text-amber-300 font-bold">目前能量: <span id="meteorLiveEnergyDisplay" class="font-mono font-black text-cyan-300">0</span></span>
           </div>
         </div>
       </div>
@@ -1842,42 +1852,168 @@
   </div>
 
   <!-- ======================================================== -->
-  <!-- 30-SECOND METEOR RESULT MODAL (通關結算與再挑戰)          -->
+  <!-- 30-SECOND METEOR RESULT MODAL (通關結算、勝負判定與能量明細) -->
   <!-- ======================================================== -->
   <div id="meteorResultModal" class="fixed inset-0 bg-slate-950/85 backdrop-blur-md z-[90] flex items-center justify-center p-4 hidden">
-    <div class="bg-gradient-to-b from-indigo-950 to-slate-900 rounded-3xl p-6 max-w-sm w-full border-2 border-amber-300 shadow-2xl text-center flex flex-col items-center text-white my-auto">
-      <div id="meteorResultStars" class="text-4xl my-2 text-amber-400 tracking-widest animate-bounce">⭐⭐⭐</div>
-      <h3 id="meteorResultTitle" class="text-xl font-black text-amber-300 mb-1">🎉 恭喜通關！防衛成功！</h3>
-      <p id="meteorResultMsg" class="text-xs text-indigo-200 leading-relaxed mb-4">你的美語發音精準擊碎隕石，成功守護了探險島天空！</p>
+    <div id="meteorResultCard" class="bg-gradient-to-b from-indigo-950 to-slate-900 rounded-3xl p-5 sm:p-6 max-w-sm w-full border-2 border-amber-300 shadow-2xl text-center flex flex-col items-center text-white my-auto transition-all duration-300">
       
-      <div class="w-full bg-slate-900/90 rounded-2xl p-3 border border-indigo-500/30 mb-4 flex items-center justify-around text-xs">
+      <!-- Stars / Status Icon -->
+      <div id="meteorResultStars" class="text-4xl my-1 text-amber-400 tracking-widest animate-bounce">⭐⭐⭐</div>
+      
+      <!-- Title & Message -->
+      <h3 id="meteorResultTitle" class="text-xl font-black text-amber-300 mb-1">🎉 恭喜通關！防衛成功！</h3>
+      <p id="meteorResultMsg" class="text-xs text-indigo-200 leading-relaxed mb-3">你的美語發音精準擊碎隕石，成功守護了探險島天空！</p>
+      
+      <!-- Core Score & Hits Metrics -->
+      <div class="w-full bg-slate-900/90 rounded-2xl p-3 border border-indigo-500/30 mb-3 flex items-center justify-around text-xs">
         <div>
           <div class="text-[10px] text-slate-400">總得分</div>
-          <div id="meteorResultScore" class="text-lg font-black text-amber-400 font-mono">0 分</div>
+          <div id="meteorResultScore" class="text-base sm:text-lg font-black text-amber-400 font-mono">0 分</div>
+          <div id="meteorResultTargetHint" class="text-[9px] text-slate-400">目標: 60分</div>
         </div>
         <div class="h-8 w-px bg-slate-700"></div>
         <div>
           <div class="text-[10px] text-slate-400">擊碎隕石</div>
-          <div id="meteorResultHits" class="text-lg font-black text-emerald-400 font-mono">0 顆</div>
+          <div id="meteorResultHits" class="text-base sm:text-lg font-black text-emerald-400 font-mono">0 顆</div>
+          <div id="meteorResultMaxCombo" class="text-[9px] text-indigo-300">連擊: x0</div>
         </div>
         <div class="h-8 w-px bg-slate-700"></div>
         <div>
-          <div class="text-[10px] text-slate-400">能量獎勵</div>
-          <div class="text-lg font-black text-cyan-400 font-mono">⚡ +50</div>
+          <div class="text-[10px] text-slate-400">通關星等</div>
+          <div id="meteorResultStarText" class="text-base sm:text-lg font-black text-amber-300 font-mono">3 星</div>
+          <div id="meteorResultClearSubtext" class="text-[9px] text-slate-400">完美防衛</div>
         </div>
       </div>
 
+      <!-- ⚡ Detailed Energy Points Economy Breakdown (能量點數獲得與扣除明細) -->
+      <div class="w-full bg-indigo-950/80 rounded-2xl p-3 border border-cyan-500/40 mb-3 text-left">
+        <div class="flex items-center justify-between text-xs font-black text-cyan-300 mb-1.5 pb-1 border-b border-indigo-800/80">
+          <span class="flex items-center gap-1"><span>⚡</span><span>能量點數結算</span></span>
+          <span id="meteorResultNetEnergy" class="font-mono text-sm text-emerald-400 font-black">+50 ⚡</span>
+        </div>
+        <div class="grid grid-cols-3 gap-1 text-[10px]">
+          <div class="bg-slate-900/80 rounded-lg p-1.5 text-center">
+            <div class="text-slate-400">🎯 擊碎獲得</div>
+            <div id="meteorResultEnergyGained" class="font-mono font-bold text-emerald-300">+0 ⚡</div>
+          </div>
+          <div class="bg-slate-900/80 rounded-lg p-1.5 text-center">
+            <div class="text-slate-400">🏆 通關紅利</div>
+            <div id="meteorResultEnergyBonus" class="font-mono font-bold text-amber-300">+0 ⚡</div>
+          </div>
+          <div class="bg-slate-900/80 rounded-lg p-1.5 text-center">
+            <div class="text-slate-400">💔 護盾受損</div>
+            <div id="meteorResultEnergyLost" class="font-mono font-bold text-rose-400">-0 ⚡</div>
+          </div>
+        </div>
+        <div class="mt-1.5 pt-1.5 border-t border-indigo-800/50 flex items-center justify-between text-[10px] text-slate-300">
+          <span>帳號現有總能量餘額：</span>
+          <span id="meteorResultTotalEnergy" class="font-mono font-black text-cyan-300 text-xs">⚡ 0</span>
+        </div>
+      </div>
+
+      <!-- 🏪 Future Energy Points Cosmetic & Gear Shop Teaser (裝扮商城收集鋪墊) -->
+      <div class="w-full bg-slate-900/60 rounded-xl px-2.5 py-1.5 border border-amber-400/20 mb-3 flex items-center gap-2 text-left">
+        <span class="text-lg">🏪</span>
+        <div class="text-[9px] text-amber-200/90 leading-tight">
+          <span class="font-black text-amber-300">能量裝備工坊 (即將開放)：</span>
+          能量點數可用於兌換限定噴火龍外觀、Kai 戰鬥服裝與炫彩雷射！
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
       <div class="w-full flex flex-col gap-2">
         <button type="button" id="meteorResultNextBtn" class="jelly-btn-3d w-full py-3 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-indigo-600 hover:from-emerald-400 text-white font-black text-sm shadow-lg shadow-emerald-500/30 active:scale-95 transition flex items-center justify-center gap-1.5">
           <span>➡️ 前往下一關挑戰</span>
         </button>
-        <button type="button" onclick="MeteorGameEngine.retryStage()" class="w-full py-2.5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition active:scale-95">
-          <span>🔄 再次遊玩本關</span>
+        <button type="button" id="meteorResultRetryBtn" onclick="MeteorGameEngine.retryStage()" class="w-full py-2.5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs transition active:scale-95 flex items-center justify-center gap-1">
+          <span>🔄 再次挑戰本關</span>
         </button>
-        <button type="button" onclick="MeteorGameEngine.closeResultModal()" class="w-full py-2 text-slate-400 hover:text-white font-bold text-xs">
+        <button type="button" onclick="MeteorGameEngine.closeResultModal()" class="w-full py-1.5 text-slate-400 hover:text-white font-bold text-xs">
           返回關卡列表
         </button>
       </div>
+    </div>
+  </div>
+
+  <!-- ======================================================== -->
+  <!-- MAJOR CHAPTER VICTORY CINEMATIC CUTSCENE MODAL            -->
+  <!-- (每一大關通關後的電影式過場動畫、神級榮譽勳章與巨額獎勵)    -->
+  <!-- ======================================================== -->
+  <div id="chapterVictoryCutsceneModal" class="fixed inset-0 bg-slate-950/95 backdrop-blur-xl z-[95] flex items-center justify-center p-4 overflow-hidden hidden select-none">
+    
+    <!-- Hyperspace Warp / Starfield Canvas Background -->
+    <div class="absolute inset-0 bg-gradient-to-b from-indigo-950 via-purple-950 to-slate-950 pointer-events-none overflow-hidden">
+      <!-- Animated Pulsing Cosmic Nebula Rings -->
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-tr from-amber-500/20 via-pink-600/25 to-indigo-600/30 rounded-full filter blur-3xl animate-pulse"></div>
+      <div class="absolute -top-10 -left-10 w-72 h-72 bg-blue-600/20 rounded-full filter blur-2xl animate-blob"></div>
+      <div class="absolute -bottom-10 -right-10 w-72 h-72 bg-rose-600/20 rounded-full filter blur-2xl animate-blob animation-delay-2000"></div>
+    </div>
+
+    <!-- Cutscene Content Card -->
+    <div class="relative z-10 max-w-md w-full bg-slate-900/90 border-2 border-amber-400/90 rounded-3xl p-6 sm:p-8 text-center text-white shadow-[0_0_50px_rgba(245,158,11,0.5)] flex flex-col items-center animate-pop">
+      
+      <!-- Top Grand Banner -->
+      <div class="px-4 py-1 rounded-full bg-gradient-to-r from-amber-500 via-rose-500 to-purple-600 text-white font-black text-xs uppercase tracking-widest shadow-md mb-3 border border-amber-300">
+        ✨ MAJOR CHAPTER CONQUERED · 大星系完全制霸 ✨
+      </div>
+
+      <!-- Animated Huge Chapter Emblem Medal -->
+      <div class="relative my-2 flex items-center justify-center">
+        <!-- Sunburst Radiance Glow -->
+        <div class="absolute w-36 h-36 bg-amber-400/30 rounded-full filter blur-xl animate-spin duration-1000"></div>
+        <!-- Huge Medal Badge -->
+        <div id="chapterCutsceneBadgeIcon" class="relative text-7xl sm:text-8xl filter drop-shadow-[0_0_25px_rgba(245,158,11,0.9)] animate-bounce">
+          🌟
+        </div>
+      </div>
+
+      <!-- Chapter Title & Badge Name -->
+      <h2 id="chapterCutsceneTitle" class="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-200 to-amber-400 mb-1">
+        第一大關 · 完整突破！
+      </h2>
+      <div id="chapterCutsceneBadgeName" class="text-sm sm:text-base font-extrabold text-amber-300 mb-2">
+        獲得榮譽神章：【🌟 星際隕石獵手勳章】
+      </div>
+
+      <!-- Narrative Congratulatory Speech -->
+      <p id="chapterCutsceneNarrative" class="text-xs sm:text-sm text-indigo-100 leading-relaxed mb-4 px-2">
+        Kai 騎乘烈焰噴火龍穿越了星際小行星帶！你的強大美語火力徹底清除了所有隕石，成功守護了這片星系！
+      </p>
+
+      <!-- Flying Dragon & Kai Victory Parade Showcase -->
+      <div class="w-full bg-indigo-950/80 rounded-2xl p-3 border border-amber-400/40 mb-4 flex items-center justify-around">
+        <div class="text-3xl animate-pulse">🐲🔥</div>
+        <div class="text-left">
+          <div class="text-xs font-black text-amber-300">烈焰噴火龍與 Kai 翱翔慶典！</div>
+          <div class="text-[10px] text-indigo-200">解鎖全新探險航道，星際傳奇已載入史冊！</div>
+        </div>
+        <div class="text-3xl animate-bounce">👦👑</div>
+      </div>
+
+      <!-- Big Chapter Jackpot Energy Reward -->
+      <div class="w-full bg-gradient-to-r from-amber-500/20 via-pink-500/20 to-purple-500/20 rounded-2xl p-3 border border-amber-300/60 mb-5 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <span class="text-2xl animate-spin">⚡</span>
+          <div class="text-left">
+            <div class="text-xs font-black text-amber-300">大章節通關特級獎勵</div>
+            <div class="text-[10px] text-slate-300">直接存入個人能量庫</div>
+          </div>
+        </div>
+        <div class="text-xl sm:text-2xl font-mono font-black text-amber-300 tracking-wider">
+          +100 ⚡
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <div class="w-full flex flex-col gap-2.5">
+        <button type="button" id="chapterCutsceneProceedBtn" class="jelly-btn-3d w-full py-3.5 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-rose-600 hover:from-amber-400 text-white font-black text-sm sm:text-base shadow-xl shadow-amber-500/40 active:scale-95 transition flex items-center justify-center gap-2">
+          <span id="chapterCutsceneBtnText">🚀 啟航前往下一大關星系！</span>
+        </button>
+        <button type="button" onclick="MeteorGameEngine.closeChapterCutscene()" class="w-full py-2 text-slate-400 hover:text-white font-bold text-xs">
+          查看探險島全星系大星圖
+        </button>
+      </div>
+
     </div>
   </div>
 
@@ -2463,7 +2599,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.42 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.43 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -2502,7 +2638,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.42 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.43 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -2575,7 +2711,7 @@
 
 
   <!-- ======================================================== -->
-  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.42)    -->
+  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.43)    -->
   <!-- ======================================================== -->
   <div id="vipUpgradeModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[89] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
     <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl border-2 border-amber-300 flex flex-col gap-4 my-auto max-h-[92vh] overflow-y-auto">
@@ -3087,7 +3223,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.42";
+    const APP_VERSION = "26.11.43";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // Immediate sanitization of legacy Gemini 1.5/2.0/2.5 models from localStorage
@@ -3283,7 +3419,7 @@
 
 
     // ========================================================
-    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.42)
+    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.43)
     // ========================================================
     const VIP_STORAGE_KEY = 'kaispeak_vip_info';
     const AI_USAGE_DATE_KEY = 'kaispeak_ai_usage_date';
@@ -3401,7 +3537,7 @@
       return true;
     }
 
-    // Marketing Campaigns & Agency Partners Definition (v26.11.42)
+    // Marketing Campaigns & Agency Partners Definition (v26.11.43)
     const SPECIAL_PROMO_CODES = {
       'TRIAL7D': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '官方社群促銷體驗專案', desc: '全功能解鎖 7 天' },
       'FREE7DAYS': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '限時早鳥推廣禮', desc: '全功能解鎖 7 天' },
@@ -5233,6 +5369,99 @@
         gain.connect(this.ctx.destination);
         osc.start(now);
         osc.stop(now + 0.05);
+      },
+      playFailureSad() {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const notes = [
+          { f: 493.88, t: 0.00, d: 0.25 },
+          { f: 466.16, t: 0.22, d: 0.28 },
+          { f: 440.00, t: 0.45, d: 0.30 },
+          { f: 392.00, t: 0.70, d: 0.55 }
+        ];
+        notes.forEach(n => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(n.f, now + n.t);
+          gain.gain.setValueAtTime(0, now + n.t);
+          gain.gain.linearRampToValueAtTime(0.20, now + n.t + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + n.t + n.d);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now + n.t);
+          osc.stop(now + n.t + n.d + 0.05);
+        });
+      },
+      playTargetCleared() {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const notes = [
+          { f: 523.25, t: 0.00, d: 0.15 },
+          { f: 659.25, t: 0.08, d: 0.15 },
+          { f: 783.99, t: 0.16, d: 0.18 },
+          { f: 1046.50, t: 0.24, d: 0.35 },
+          { f: 1318.51, t: 0.32, d: 0.45 }
+        ];
+        notes.forEach(n => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(n.f, now + n.t);
+          gain.gain.setValueAtTime(0, now + n.t);
+          gain.gain.linearRampToValueAtTime(0.25, now + n.t + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + n.t + n.d);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now + n.t);
+          osc.stop(now + n.t + n.d + 0.05);
+        });
+      },
+      playChapterGrandVictoryFanfare() {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const notes = [
+          { f: 523.25, t: 0.00, d: 0.22, type: 'sawtooth' },
+          { f: 523.25, t: 0.22, d: 0.18, type: 'sawtooth' },
+          { f: 523.25, t: 0.40, d: 0.18, type: 'sawtooth' },
+          { f: 659.25, t: 0.58, d: 0.45, type: 'triangle' },
+          { f: 783.99, t: 0.95, d: 0.30, type: 'triangle' },
+          { f: 1046.50, t: 1.25, d: 0.90, type: 'sawtooth' },
+          { f: 1318.51, t: 1.30, d: 1.10, type: 'sine' },
+          { f: 2093.00, t: 1.35, d: 1.40, type: 'sine' }
+        ];
+        notes.forEach(n => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = n.type || 'triangle';
+          osc.frequency.setValueAtTime(n.f, now + n.t);
+          gain.gain.setValueAtTime(0, now + n.t);
+          gain.gain.linearRampToValueAtTime(0.24, now + n.t + 0.03);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + n.t + n.d);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now + n.t);
+          osc.stop(now + n.t + n.d + 0.05);
+        });
+      },
+      playEnergyDamage() {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(220, now);
+        osc.frequency.exponentialRampToValueAtTime(70, now + 0.18);
+        gain.gain.setValueAtTime(0.22, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.22);
       }
     };
 
@@ -5940,7 +6169,7 @@
     }
 
     // ========================================================
-    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.42)
+    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.43)
     // ========================================================
     let cachedServerApiKey = '';
     let cachedServerModel = 'gemini-3.5-flash';
@@ -8509,7 +8738,22 @@
       wordPool: [],
       animFrameId: null,
       lastSpawnTime: 0,
-      spawnInterval: 3200,
+      spawnInterval: 1650,
+      missCount: 0,
+      shieldHp: 100,
+      targetScore: 60,
+      targetCleared: false,
+      energyGained: 0,
+      energyLost: 0,
+      energyBonus: 0,
+
+      getTargetScore(level, subStage) {
+        if (subStage === '5-Boss') return 100;
+        const sub = parseInt((subStage || '').split('-')[1]) || 1;
+        const base = (level - 1) * 15;
+        if (sub <= 2) return 60 + base;
+        return 80 + base;
+      },
 
       getProgress() {
         try {
@@ -8631,15 +8875,21 @@
         this.combo = 0;
         this.maxCombo = 0;
         this.hitCount = 0;
+        this.missCount = 0;
         this.meteors = [];
         this.timer = 30;
         this.bossHp = 100;
         this.bossMaxHp = 100;
+        this.shieldHp = 100;
+        this.energyGained = 0;
+        this.energyLost = 0;
+        this.energyBonus = 0;
+        this.targetCleared = false;
+        this.targetScore = this.getTargetScore(level, subStage);
         this.wordPool = this.getStageWordPool(level, meteorSelectedCategory);
         this.active = true;
-        this.lastSpawnTime = 0; // ⚡ 立即生成第 1 顆隕石，毫無等待感！
+        this.lastSpawnTime = 0;
 
-        // ⚡ 出現速度大幅加快 (1.2s ~ 1.6s)
         if (subStage.endsWith('-4')) {
           this.spawnInterval = 1250;
         } else if (subStage === '5-Boss') {
@@ -8648,14 +8898,17 @@
           this.spawnInterval = 1650;
         }
 
+        const banner = document.getElementById('meteorTargetClearedBanner');
+        if (banner) banner.classList.add('hidden');
+
         const titleEl = document.getElementById('meteorBattleStageTitle');
         if (titleEl) {
           if (subStage === '5-Boss') {
-            titleEl.innerText = "👿 第五大關 · 宇宙大魔王決戰 (Boss Rush · 30秒防衛)";
+            titleEl.innerText = "👿 第五大關 · 宇宙大魔王決戰 (30秒防衛 · 擊潰魔王血條)";
           } else {
             const typeNames = { '1': '雙語看英念英', '2': '看中反思英字', '3': '看圖直覺反射', '4': '極速混合大亂鬥' };
             const subNum = subStage.split('-')[1];
-            titleEl.innerText = `🏝️ 關卡 ${subStage} · ${typeNames[subNum] || '語音防衛'} (30秒極速防衛)`;
+            titleEl.innerText = `🏝️ 關卡 ${subStage} · ${typeNames[subNum] || '語音防衛'} (通關目標: ${this.targetScore}分)`;
           }
         }
 
@@ -8766,11 +9019,30 @@
           }
 
           if (m.y >= 92) {
-            if (typeof SoundEffects !== 'undefined' && SoundEffects.playShield) {
-              SoundEffects.playShield();
-            }
             this.meteors.splice(i, 1);
             this.combo = 0;
+            this.missCount++;
+
+            // ⚡ 隕石撞擊防線：護盾受損與扣除能量點數 (-2 能量)
+            const penalty = 2;
+            this.energyLost += penalty;
+            this.shieldHp = Math.max(0, this.shieldHp - 15);
+
+            if (typeof getActiveProfile === 'function') {
+              const p = getActiveProfile();
+              if (p) {
+                p.energyPoints = Math.max(0, (p.energyPoints || 0) - penalty);
+                if (typeof saveProfilesToStorage === 'function') saveProfilesToStorage();
+                if (typeof updateStreakAndEnergyUI === 'function') updateStreakAndEnergyUI();
+              }
+            }
+
+            if (typeof SoundEffects !== 'undefined') {
+              if (SoundEffects.playEnergyDamage) SoundEffects.playEnergyDamage();
+              else if (SoundEffects.playShield) SoundEffects.playShield();
+            }
+
+            this.showDamageEffect(m.x, penalty);
             this.updateHUD();
           }
         }
@@ -8783,11 +9055,12 @@
         const container = document.getElementById('meteorFieldCanvas');
         if (!container) return;
 
-        container.innerHTML = '';
+        // Clean only dynamic game elements (preserve turret deck & banner)
+        container.querySelectorAll('.meteor-spawned-entity, .meteor-boss-bar, .meteor-guideline').forEach(el => el.remove());
 
         if (this.currentSubStage === '5-Boss') {
           const bossEl = document.createElement('div');
-          bossEl.className = "absolute top-2 inset-x-3 sm:inset-x-6 bg-gradient-to-r from-purple-900/90 via-rose-900/90 to-indigo-950/90 rounded-2xl p-2 sm:p-2.5 border-2 border-rose-500 shadow-xl flex items-center justify-between text-white z-20";
+          bossEl.className = "meteor-boss-bar absolute top-2 inset-x-3 sm:inset-x-6 bg-gradient-to-r from-purple-900/90 via-rose-900/90 to-indigo-950/90 rounded-2xl p-2 sm:p-2.5 border-2 border-rose-500 shadow-xl flex items-center justify-between text-white z-20";
           bossEl.innerHTML = `
             <div class="flex items-center gap-2">
               <span class="text-3xl animate-bounce">👾</span>
@@ -8807,7 +9080,7 @@
         }
 
         const guideLine = document.createElement('div');
-        guideLine.className = "absolute top-1/2 inset-x-0 h-0.5 border-t border-dashed border-indigo-400/30 flex items-center justify-between px-3 pointer-events-none";
+        guideLine.className = "meteor-guideline absolute top-1/2 inset-x-0 h-0.5 border-t border-dashed border-indigo-400/30 flex items-center justify-between px-3 pointer-events-none";
         guideLine.innerHTML = `
           <span class="text-[9px] font-bold text-indigo-300/60 uppercase tracking-widest bg-indigo-950/80 px-2 py-0.5 rounded-full border border-indigo-500/20">⚡ 50% 警戒線 · 加速閃爍浮現提示</span>
           <span class="text-[9px] font-bold text-amber-300/60">大聲說出英文！</span>
@@ -8833,7 +9106,6 @@
               ${isFlashing ? `<div class="mt-1 px-2.5 py-0.5 rounded-lg bg-indigo-950/95 text-indigo-100 font-mono font-black text-xs border border-amber-400/80 meteor-hint-fade shadow-sm">✨ ${m.displayWord} ${m.phonetic}</div>` : `<div class="text-[10px] text-slate-300">看中文說英文</div>`}
             `;
           } else {
-            // 🌟 圖片大幅放大 (超大圖示 6xl ~ 7xl 清楚好認！)
             innerContent = `
               <div class="text-6xl sm:text-7xl my-1 filter drop-shadow-[0_4px_12px_rgba(0,0,0,0.6)] animate-pulse">${m.emoji}</div>
               <div class="text-xs sm:text-sm text-amber-200 font-extrabold mt-0.5">${m.meaning}</div>
@@ -8841,7 +9113,7 @@
             `;
           }
 
-          el.className = `absolute cursor-pointer select-none transition-transform duration-75 flex flex-col items-center justify-center p-2.5 rounded-2xl text-center shadow-xl active:scale-95 ${
+          el.className = `meteor-spawned-entity absolute cursor-pointer select-none transition-transform duration-75 flex flex-col items-center justify-center p-2.5 rounded-2xl text-center shadow-xl active:scale-95 ${
             isFlashing 
               ? 'bg-gradient-to-b from-indigo-900/95 via-purple-900/95 to-slate-900/95 border-2 border-amber-400 ring-2 ring-pink-500/60 meteor-flashing shadow-amber-500/40' 
               : 'bg-gradient-to-b from-slate-900/90 to-indigo-950/90 border-2 border-indigo-400/60 shadow-indigo-500/20'
@@ -8884,6 +9156,24 @@
         this.score += pts;
         this.hitCount++;
 
+        // ⚡ 答對增加能量點數 (+2 能量)
+        const gain = (this.currentSubStage === '5-Boss') ? 3 : 2;
+        this.energyGained += gain;
+        if (typeof getActiveProfile === 'function') {
+          const p = getActiveProfile();
+          if (p) {
+            p.energyPoints = (p.energyPoints || 0) + gain;
+            if (typeof saveProfilesToStorage === 'function') saveProfilesToStorage();
+            if (typeof updateStreakAndEnergyUI === 'function') updateStreakAndEnergyUI();
+          }
+        }
+
+        // 🎯 檢查是否首次突破通關目標分數！
+        if (this.score >= this.targetScore && !this.targetCleared) {
+          this.targetCleared = true;
+          this.triggerTargetClearedEffect();
+        }
+
         if (this.currentSubStage === '5-Boss') {
           this.bossHp = Math.max(0, this.bossHp - 18);
           if (this.bossHp <= 0) {
@@ -8891,7 +9181,7 @@
           }
         }
 
-        this.showFloatingText(meteor.x, meteor.y, `+${pts} 💥 ${this.combo > 1 ? `${this.combo}連擊!` : 'HIT!'}`);
+        this.showFloatingText(meteor.x, meteor.y, `+${pts} 💥 (+${gain}⚡)`);
 
         const idx = this.meteors.indexOf(meteor);
         if (idx !== -1) {
@@ -9006,10 +9296,49 @@
         }, 20);
       },
 
+      triggerTargetClearedEffect() {
+        const banner = document.getElementById('meteorTargetClearedBanner');
+        if (banner) {
+          banner.classList.remove('hidden');
+          setTimeout(() => {
+            if (banner) banner.classList.add('hidden');
+          }, 2400);
+        }
+        if (typeof SoundEffects !== 'undefined' && SoundEffects.playTargetCleared) {
+          SoundEffects.playTargetCleared();
+        }
+      },
+
+      showDamageEffect(x, penalty) {
+        const container = document.getElementById('meteorFieldCanvas');
+        if (!container) return;
+        const floater = document.createElement('div');
+        floater.className = "absolute pointer-events-none z-40 text-rose-400 font-black text-xs sm:text-sm filter drop-shadow-[0_2px_8px_rgba(244,63,94,0.9)] animate-bounce";
+        floater.style.left = `${x}%`;
+        floater.style.bottom = `110px`;
+        floater.style.transform = "translateX(-50%)";
+        floater.innerText = `⚡ -${penalty} 能量受損! 護盾警報!`;
+        container.appendChild(floater);
+
+        const bModal = document.getElementById('meteorBattleModal');
+        if (bModal) {
+          bModal.classList.add('ring-4', 'ring-rose-500/60');
+          setTimeout(() => bModal.classList.remove('ring-4', 'ring-rose-500/60'), 350);
+        }
+
+        setTimeout(() => floater.remove(), 1200);
+      },
+
       updateHUD() {
         const scoreEl = document.getElementById('meteorScoreDisplay');
         const comboEl = document.getElementById('meteorComboDisplay');
+        const targetEl = document.getElementById('meteorTargetDisplay');
+        const shieldText = document.getElementById('meteorShieldStatusText');
+        const liveEnergy = document.getElementById('meteorLiveEnergyDisplay');
+
         if (scoreEl) scoreEl.innerText = this.score;
+        if (targetEl) targetEl.innerText = `${this.targetScore}分通關`;
+
         if (comboEl) {
           if (this.combo >= 2) {
             comboEl.innerText = `🔥 ${this.combo} 連擊!`;
@@ -9018,6 +9347,24 @@
             comboEl.innerText = `連擊 x${this.combo}`;
             comboEl.className = "text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-slate-300";
           }
+        }
+
+        if (shieldText) {
+          if (this.shieldHp > 60) {
+            shieldText.innerText = `${this.shieldHp}% 守護中`;
+            shieldText.className = "text-emerald-400 font-bold";
+          } else if (this.shieldHp > 25) {
+            shieldText.innerText = `${this.shieldHp}% 警戒中`;
+            shieldText.className = "text-amber-400 font-bold animate-pulse";
+          } else {
+            shieldText.innerText = `${this.shieldHp}% 危急受損`;
+            shieldText.className = "text-rose-400 font-black animate-ping";
+          }
+        }
+
+        if (liveEnergy && typeof getActiveProfile === 'function') {
+          const p = getActiveProfile();
+          liveEnergy.innerText = (p && p.energyPoints) ? p.energyPoints : 0;
         }
       },
 
@@ -9092,15 +9439,20 @@
           try { this.speechRec.abort(); } catch (e) {}
         }
 
-        const passed = (this.score >= 60 || this.hitCount >= 3 || bossDefeated);
+        const isBoss = (this.currentSubStage === '5-Boss');
+        const passed = isBoss ? (bossDefeated || this.bossHp <= 0) : (this.score >= this.targetScore);
+        
         let starsEarned = 0;
         if (passed) {
-          if (this.score >= 100 || bossDefeated) starsEarned = 3;
-          else if (this.score >= 80) starsEarned = 2;
+          if (this.score >= this.targetScore * 1.5 || (isBoss && bossDefeated)) starsEarned = 3;
+          else if (this.score >= this.targetScore * 1.2) starsEarned = 2;
           else starsEarned = 1;
         }
 
         if (passed) {
+          const clearBonus = starsEarned === 3 ? 50 : (starsEarned === 2 ? 40 : 30);
+          this.energyBonus = clearBonus;
+
           const prog = this.getProgress();
           const prevStars = (prog.stageRecords && prog.stageRecords[this.currentSubStage]) ? prog.stageRecords[this.currentSubStage].stars : 0;
           if (starsEarned > prevStars) {
@@ -9117,7 +9469,7 @@
           if (typeof getActiveProfile === 'function') {
             const p = getActiveProfile();
             if (p) {
-              p.energyPoints = (p.energyPoints || 0) + 50;
+              p.energyPoints = (p.energyPoints || 0) + clearBonus;
               if (typeof saveProfilesToStorage === 'function') saveProfilesToStorage();
               if (typeof updateStreakAndEnergyUI === 'function') updateStreakAndEnergyUI();
             }
@@ -9127,8 +9479,9 @@
             SoundEffects.playVictoryFanfare();
           }
         } else {
-          if (typeof SoundEffects !== 'undefined' && SoundEffects.playScore) {
-            SoundEffects.playScore(50);
+          this.energyBonus = 0;
+          if (typeof SoundEffects !== 'undefined' && SoundEffects.playFailureSad) {
+            SoundEffects.playFailureSad();
           }
         }
 
@@ -9137,37 +9490,199 @@
 
       showResultModal(passed, stars) {
         const modal = document.getElementById('meteorResultModal');
+        const card = document.getElementById('meteorResultCard');
         if (!modal) return;
 
         const titleEl = document.getElementById('meteorResultTitle');
         const msgEl = document.getElementById('meteorResultMsg');
         const starsEl = document.getElementById('meteorResultStars');
         const scoreEl = document.getElementById('meteorResultScore');
+        const targetHintEl = document.getElementById('meteorResultTargetHint');
         const hitsEl = document.getElementById('meteorResultHits');
+        const maxComboEl = document.getElementById('meteorResultMaxCombo');
+        const starTextEl = document.getElementById('meteorResultStarText');
+        const clearSubtextEl = document.getElementById('meteorResultClearSubtext');
         const nextBtn = document.getElementById('meteorResultNextBtn');
+        const retryBtn = document.getElementById('meteorResultRetryBtn');
+
+        const netEnergyEl = document.getElementById('meteorResultNetEnergy');
+        const gainedEl = document.getElementById('meteorResultEnergyGained');
+        const bonusEl = document.getElementById('meteorResultEnergyBonus');
+        const lostEl = document.getElementById('meteorResultEnergyLost');
+        const totalEnergyEl = document.getElementById('meteorResultTotalEnergy');
+
+        const netEnergy = (this.energyGained + this.energyBonus) - this.energyLost;
+        if (netEnergyEl) {
+          netEnergyEl.innerText = `${netEnergy >= 0 ? '+' : ''}${netEnergy} ⚡`;
+          netEnergyEl.className = `font-mono text-sm font-black ${netEnergy >= 0 ? 'text-emerald-400' : 'text-rose-400'}`;
+        }
+        if (gainedEl) gainedEl.innerText = `+${this.energyGained} ⚡`;
+        if (bonusEl) bonusEl.innerText = `+${this.energyBonus} ⚡`;
+        if (lostEl) lostEl.innerText = `-${this.energyLost} ⚡`;
+
+        if (totalEnergyEl && typeof getActiveProfile === 'function') {
+          const p = getActiveProfile();
+          totalEnergyEl.innerText = `⚡ ${(p && p.energyPoints) ? p.energyPoints : 0}`;
+        }
 
         if (scoreEl) scoreEl.innerText = `${this.score} 分`;
-        if (hitsEl) hitsEl.innerText = `${this.hitCount} 顆 (最大連擊: x${this.maxCombo})`;
+        if (targetHintEl) targetHintEl.innerText = `目標: ${this.targetScore}分`;
+        if (hitsEl) hitsEl.innerText = `${this.hitCount} 顆`;
+        if (maxComboEl) maxComboEl.innerText = `連擊: x${this.maxCombo}`;
+
+        const isChapterEnding = (this.currentSubStage.endsWith('-4') || this.currentSubStage === '5-Boss');
 
         if (passed) {
+          if (card) {
+            card.className = "bg-gradient-to-b from-indigo-950 to-slate-900 rounded-3xl p-5 sm:p-6 max-w-sm w-full border-2 border-amber-300 shadow-2xl text-center flex flex-col items-center text-white my-auto transition-all duration-300";
+          }
           if (titleEl) titleEl.innerText = "🎉 恭喜通關！防衛成功！";
           if (msgEl) msgEl.innerText = "太棒了！你的美語發音精準擊碎隕石，成功守護了探險島天空！";
           if (starsEl) starsEl.innerText = '⭐'.repeat(stars) || '⭐';
+          if (starTextEl) starTextEl.innerText = `${stars} 星`;
+          if (clearSubtextEl) clearSubtextEl.innerText = stars === 3 ? "完美防衛" : "順利達標";
+
           if (nextBtn) {
             nextBtn.classList.remove('hidden');
-            nextBtn.onclick = () => {
-              this.closeResultModal();
-              this.advanceToNextStage();
-            };
+            if (isChapterEnding) {
+              nextBtn.innerHTML = '<span>🏆 解鎖大關過場慶典！</span> <span>▶</span>';
+              nextBtn.onclick = () => {
+                this.closeResultModal();
+                this.triggerChapterCutscene(this.currentLevel);
+              };
+            } else {
+              nextBtn.innerHTML = '<span>➡️ 前往下一關挑戰</span>';
+              nextBtn.onclick = () => {
+                this.closeResultModal();
+                this.advanceToNextStage();
+              };
+            }
+          }
+          if (retryBtn) {
+            retryBtn.innerHTML = '<span>🔄 再次遊玩本關</span>';
+            retryBtn.className = "w-full py-2.5 rounded-2xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-xs transition active:scale-95 flex items-center justify-center gap-1";
           }
         } else {
-          if (titleEl) titleEl.innerText = "💪 差一點點就過關了！";
-          if (msgEl) msgEl.innerText = "Kai 幫你守護住了能量護盾！跟著 Kai 再挑戰一次，你一定可以通關！";
+          // 💔 挑戰失敗 UI (通關目標未達成)
+          if (card) {
+            card.className = "bg-gradient-to-b from-slate-950 via-rose-950 to-slate-900 rounded-3xl p-5 sm:p-6 max-w-sm w-full border-2 border-rose-500 shadow-2xl shadow-rose-950/60 text-center flex flex-col items-center text-white my-auto transition-all duration-300";
+          }
+          if (titleEl) titleEl.innerText = "💔 防衛未達標！挑戰失敗";
+          const diff = Math.max(1, this.targetScore - this.score);
+          if (msgEl) msgEl.innerText = `本關通關門檻為 ${this.targetScore} 分，你獲得了 ${this.score} 分（僅差 ${diff} 分）！漏掉 ${this.missCount} 顆隕石造成防護罩受損。跟著 Kai 再挑戰一次，你一定可以通關！`;
           if (starsEl) starsEl.innerText = "☆☆☆";
+          if (starTextEl) starTextEl.innerText = "0 星";
+          if (clearSubtextEl) clearSubtextEl.innerText = "挑戰未達標";
+
           if (nextBtn) nextBtn.classList.add('hidden');
+          if (retryBtn) {
+            retryBtn.innerHTML = '<span>🔄 立即復仇再次挑戰</span>';
+            retryBtn.className = "jelly-btn-3d w-full py-3 rounded-2xl bg-gradient-to-r from-rose-600 via-pink-600 to-amber-600 hover:from-rose-500 text-white font-black text-sm shadow-lg shadow-rose-600/30 active:scale-95 transition flex items-center justify-center gap-1.5";
+          }
         }
 
         modal.classList.remove('hidden');
+      },
+
+      triggerChapterCutscene(level) {
+        const modal = document.getElementById('chapterVictoryCutsceneModal');
+        if (!modal) return;
+
+        const chapterDefs = {
+          1: {
+            title: "第一大關 · 隕石初航完全突破！",
+            badgeIcon: "🌟",
+            badgeName: "獲得榮譽神章：【🌟 星際隕石獵手勳章】",
+            narrative: "太震撼了！Kai 騎乘烈焰噴火龍穿越了第 1 大關小行星群！你以精準的美語發音擊碎所有隕石，成功守護了探險島的天空！",
+            nextLevelName: "空中高速星系",
+            nextLevel: 2
+          },
+          2: {
+            title: "第二大關 · 空中高速星系征服！",
+            badgeIcon: "🚀",
+            badgeName: "獲得榮譽神章：【🚀 超光速穿梭先鋒勳章】",
+            narrative: "風馳電掣！你在超高速的交通與城市單字風暴中冷靜應對，烈焰雷射貫穿天際，解鎖了全新的星雲港灣航道！",
+            nextLevelName: "星雲港灣星系",
+            nextLevel: 3
+          },
+          3: {
+            title: "第三大關 · 星雲港灣完全解放！",
+            badgeIcon: "💎",
+            badgeName: "獲得榮譽神章：【💎 水晶星系守護者勳章】",
+            narrative: "美味食物與生活智慧化作璀璨的星際晶石！Kai 的噴火龍獲得了星雲之力的加持，噴火龍進化為烈焰聖龍！",
+            nextLevelName: "水晶小行星帶",
+            nextLevel: 4
+          },
+          4: {
+            title: "第四大關 · 水晶小行星帶制霸！",
+            badgeIcon: "⚡",
+            badgeName: "獲得榮譽神章：【⚡ 神級烈焰龍騎士勳章】",
+            narrative: "神級試煉通過！全星系中英圖混合大亂鬥已被你征服！星際雷達偵測到第五大關宇宙大魔王的巢穴，終局之戰即將展開！",
+            nextLevelName: "宇宙大魔王決戰",
+            nextLevel: 5
+          },
+          5: {
+            title: "第五大關 · 宇宙大魔王徹底擊潰！",
+            badgeIcon: "👑",
+            badgeName: "獲得終極神章：【👑 宇宙星系和平傳奇大英雄】",
+            narrative: "奇蹟誕生！宇宙吞噬巨獸在大聲念出的美語雷射光芒中灰飛煙滅！你拯救了整個 Kai Speak 探險島宇宙，成為萬眾景仰的星際傳奇王者！",
+            nextLevelName: "探險島全星圖",
+            nextLevel: 1
+          }
+        };
+
+        const info = chapterDefs[level] || chapterDefs[1];
+
+        const titleEl = document.getElementById('chapterCutsceneTitle');
+        const iconEl = document.getElementById('chapterCutsceneBadgeIcon');
+        const badgeNameEl = document.getElementById('chapterCutsceneBadgeName');
+        const narrativeEl = document.getElementById('chapterCutsceneNarrative');
+        const proceedBtn = document.getElementById('chapterCutsceneProceedBtn');
+        const btnTextEl = document.getElementById('chapterCutsceneBtnText');
+
+        if (titleEl) titleEl.innerText = info.title;
+        if (iconEl) iconEl.innerText = info.badgeIcon;
+        if (badgeNameEl) badgeNameEl.innerText = info.badgeName;
+        if (narrativeEl) narrativeEl.innerText = info.narrative;
+
+        // 大章節巨額獎勵 +100 能量
+        if (typeof getActiveProfile === 'function') {
+          const p = getActiveProfile();
+          if (p) {
+            p.energyPoints = (p.energyPoints || 0) + 100;
+            if (typeof saveProfilesToStorage === 'function') saveProfilesToStorage();
+            if (typeof updateStreakAndEnergyUI === 'function') updateStreakAndEnergyUI();
+          }
+        }
+
+        if (proceedBtn) {
+          if (level < 5) {
+            if (btnTextEl) btnTextEl.innerText = `🚀 啟航前往第 ${info.nextLevel} 大關：${info.nextLevelName}！`;
+            proceedBtn.onclick = () => {
+              this.closeChapterCutscene();
+              selectMeteorLevel(info.nextLevel);
+              this.startStage(info.nextLevel, `${info.nextLevel}-1`);
+            };
+          } else {
+            if (btnTextEl) btnTextEl.innerText = `👑 榮登探險島英雄名人堂！`;
+            proceedBtn.onclick = () => {
+              this.closeChapterCutscene();
+              showAdventureGrandMap();
+            };
+          }
+        }
+
+        if (typeof SoundEffects !== 'undefined' && SoundEffects.playChapterGrandVictoryFanfare) {
+          SoundEffects.playChapterGrandVictoryFanfare();
+        }
+
+        modal.classList.remove('hidden');
+      },
+
+      closeChapterCutscene() {
+        const modal = document.getElementById('chapterVictoryCutsceneModal');
+        if (modal) modal.classList.add('hidden');
+        renderMeteorStageSelectView();
       },
 
       closeResultModal() {
@@ -9345,6 +9860,8 @@
             : 'bg-slate-50 border-dashed border-slate-300 opacity-60 cursor-not-allowed'
         }`;
 
+        const targetReq = MeteorGameEngine.getTargetScore(meteorCurrentLevel, st.code);
+
         card.innerHTML = `
           <div>
             <div class="flex items-center justify-between mb-2">
@@ -9355,7 +9872,10 @@
             </div>
             <h4 class="font-black text-sm text-slate-900 mb-1">${st.title}</h4>
             <p class="text-[11px] text-slate-500 leading-relaxed min-h-[32px]">${st.desc}</p>
-            ${score > 0 ? `<div class="text-[10px] text-emerald-600 font-mono font-bold mt-1">最佳: ${score} 分</div>` : ''}
+            <div class="flex items-center justify-between mt-1 text-[10px]">
+              <span class="font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-md border border-indigo-100">🎯 門檻: ${targetReq}分</span>
+              ${score > 0 ? `<span class="text-emerald-600 font-mono font-bold">最佳: ${score}分</span>` : '<span class="text-slate-400">未通關</span>'}
+            </div>
           </div>
           <div class="mt-3">
             ${isUnlocked ? `
@@ -12049,7 +12569,7 @@
     };
 
     // ========================================================
-    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.42)
+    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.43)
     // ========================================================
     // 💡 App Store 開箱即用架構（商業發行標準）：
     // 透過 Cloudflare Worker 官方安全閘道器，免掃碼、免設定、0 秒直連 Google 官方 AI！
@@ -13610,7 +14130,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.42)
+    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.43)
     // ========================================================
     function parseScenarioJsonResponse(rawText) {
       if (!rawText || typeof rawText !== 'string') return null;
@@ -13715,7 +14235,7 @@
     }
 
     // ========================================================
-    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.42)
+    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.43)
     // ========================================================
     async function callGeminiScenarioPlanner(userText, userLevel, apiKey) {
       // 1. Ensure valid official model from localStorage
@@ -14232,7 +14752,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.42)
+    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.43)
     // ========================================================
     const KaiSpeechEngine = {
       preferredVoice: null,
