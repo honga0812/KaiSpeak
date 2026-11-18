@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.46";
+        const LATEST_VER = "26.11.47";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -151,7 +151,7 @@
     }
   </style>
 </head>
-<body class="min-h-screen text-slate-800 flex flex-col items-center p-2 sm:p-4 md:p-6 pb-20">
+<body class="min-h-screen text-slate-800 flex flex-col items-center p-2 sm:p-3 md:p-4 pb-20 overflow-x-hidden w-full max-w-full">
   <!-- ======================================================== -->
   <!-- PROFILE GATE / LOGIN & SWITCH SCREEN                      -->
   <!-- ======================================================== -->
@@ -171,8 +171,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.46（2026年·11月·第36次發布）">
-                26.11.46
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.47（2026年·11月·第36次發布）">
+                26.11.47
               </span>
             </div>
           </div>
@@ -373,44 +373,44 @@
   <!-- ======================================================== -->
   <!-- SLIM STREAMLINED APP HEADER (LOGO V3 & COMPACT UNIT NAV) -->
   <!-- ======================================================== -->
-  <header class="w-full max-w-6xl bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl jelly-header mb-2.5 md:mb-3.5 sticky top-1.5 z-40 px-3 sm:px-4 py-2 sm:py-2.5 shadow-[0_6px_20px_rgba(79,70,229,0.08)] border border-white/90">
+  <header class="w-full max-w-6xl box-border bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl jelly-header mb-2.5 md:mb-3.5 sticky top-1.5 z-40 px-2.5 sm:px-3.5 py-1.5 sm:py-2 shadow-[0_6px_20px_rgba(79,70,229,0.08)] border border-white/90">
     
     <!-- Top Row: Brand Identity (Left) & Learner Profile / Status & System Utilities (Right) -->
-    <div class="w-full flex items-center justify-between gap-2 sm:gap-4 pb-2 border-b border-indigo-50/80 flex-wrap sm:flex-nowrap">
+    <div class="w-full flex items-center justify-between gap-1 sm:gap-2 pb-1.5 border-b border-indigo-50/80">
       
-      <!-- Brand Logo + 奇妙星語言 + Version 26.11.24 Lockup -->
-      <div class="flex items-center gap-2 sm:gap-3 cursor-pointer select-none shrink-0 group py-0.5" onclick="switchAppMode('quest')" title="KaiSpeak 首頁">
+      <!-- Brand Logo + 奇妙星語言 Lockup -->
+      <div class="flex items-center gap-1.5 sm:gap-2 cursor-pointer select-none shrink-0 group py-0.5" onclick="switchAppMode('quest')" title="KaiSpeak 首頁">
         <div class="shrink-0 flex items-center">
-          <img src="images/ui/KaiSpeak_logo_V3_trans.png" alt="KaiSpeak" class="h-12 sm:h-14 md:h-16 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] group-hover:scale-105 transition-all duration-300 shrink-0">
+          <img src="images/ui/KaiSpeak_logo_V3_trans.png" alt="KaiSpeak" class="h-9 sm:h-11 md:h-12 w-auto object-contain drop-shadow-[0_4px_14px_rgba(79,70,229,0.18)] group-hover:scale-105 transition-all duration-300 shrink-0">
         </div>
         <div class="flex flex-col justify-center text-left leading-none">
-          <span class="text-xs sm:text-sm font-black text-indigo-500 tracking-wider select-none flex items-center gap-1 leading-none">
-            <span class="text-[9px] text-amber-500">✨</span>
-            <span>奇妙星語言</span>
-          </span>
-          <div class="mt-1 flex items-center gap-1">
-            <span class="text-[9px] sm:text-[10px] font-black font-mono px-2 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.46（2026年·11月·第36次發布）">26.11.46</span>
+          <div class="flex items-center gap-1">
+            <span class="text-xs sm:text-sm font-black text-indigo-500 tracking-wider select-none flex items-center gap-0.5 leading-none">
+              <span class="text-[9px] text-amber-500">✨</span>
+              <span>奇妙星語言</span>
+            </span>
+            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.47（2026年·11月·第36次發布）">26.11.47</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
-          <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer flex items-center gap-1 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-2 py-0.5 transition shadow-2xs group-hover:border-amber-400" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
+          <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer hidden sm:flex items-center gap-0.5 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-1.5 py-0.2 transition shadow-2xs group-hover:border-amber-400 max-w-[130px] truncate" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
             <!-- Injected by JS: renderLogoHonorBadges() -->
           </div>
         </div>
       </div>
 
-      <!-- Right Controls: Profile, Motivation Double-Capsule, Utilities (Never overflowing) -->
-      <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+      <!-- Right Controls: Profile, Motivation Double-Capsule, Utilities (Never overflowing on tablet or mobile) -->
+      <div class="flex items-center gap-1 sm:gap-1.5 shrink-0">
         
-        <!-- Student Profile Button -->
-        <button onclick="toggleProfileModal()" title="切換學員 / 家庭多小朋友管理" class="jelly-btn-3d px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-xl bg-gradient-to-r from-violet-50 to-indigo-50 hover:from-violet-100 hover:to-indigo-100 text-violet-900 border border-violet-200 border-b-2 border-b-violet-300 text-xs font-bold transition flex items-center gap-1.5 shadow-xs active:translate-y-0.5 whitespace-nowrap">
-          <span id="headerProfileAvatar" class="text-sm sm:text-base">👦</span>
+        <!-- Student Profile Button (Compact on tablet/mobile) -->
+        <button onclick="toggleProfileModal()" title="切換學員 / 家庭多小朋友管理" class="jelly-btn-3d px-1.5 sm:px-2 py-1 sm:py-1.2 rounded-xl bg-gradient-to-r from-violet-50 to-indigo-50 hover:from-violet-100 hover:to-indigo-100 text-violet-900 border border-violet-200 border-b-2 border-b-violet-300 text-xs font-bold transition flex items-center gap-1 shadow-xs active:translate-y-0.5 whitespace-nowrap">
+          <span id="headerProfileAvatar" class="text-sm">👦</span>
           <div class="text-left leading-tight">
             <div class="flex items-center gap-1">
-              <span id="headerProfileName" class="font-black text-xs text-violet-950">Kai 寶貝</span>
-              <span id="headerProfileGrade" class="hidden md:inline-block text-[9px] bg-violet-200 text-violet-800 px-1.5 py-0.2 rounded-full font-bold">國小二年級</span>
+              <span id="headerProfileName" class="font-black text-xs text-violet-950">Kai</span>
+              <span id="headerProfileGrade" class="hidden xl:inline-block text-[9px] bg-violet-200 text-violet-800 px-1.5 py-0.2 rounded-full font-bold">國小二年級</span>
               <span id="headerVipBadge" onclick="event.stopPropagation(); openVipUpgradeModal('header_pill');" class="text-[9px] font-black px-1.5 py-0.2 rounded-md bg-amber-100 text-amber-800 border border-amber-300 hover:bg-amber-200 cursor-pointer shadow-2xs active:scale-95 transition" title="查看 VIP 權益或兌換啟動碼">🌿 Free</span>
             </div>
-            <div class="text-[9px] text-violet-600 font-bold hidden md:flex items-center gap-1">
+            <div class="text-[9px] text-violet-600 font-bold hidden xl:flex items-center gap-1">
               <span id="headerProfileLevelBadge">🟢 程度: 基礎入門</span>
               <span class="text-violet-400">▾</span>
             </div>
@@ -418,28 +418,28 @@
         </button>
 
         <!-- Combined Motivation Capsule (Streak 🔥 + Energy ⚡ 尊榮整合，大幅省下版面寬度) -->
-        <button onclick="toggleStreakShieldModal()" title="查看打卡守護紀錄與能量商城" class="jelly-btn-3d px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-xl bg-gradient-to-r from-amber-50/90 via-orange-50/80 to-indigo-50/90 hover:from-amber-100 hover:to-indigo-100 border border-amber-200/90 border-b-2 border-b-amber-400 text-xs font-black transition flex items-center gap-1.5 sm:gap-2 shadow-xs active:translate-y-0.5 whitespace-nowrap">
+        <button onclick="toggleStreakShieldModal()" title="查看打卡守護紀錄與能量商城" class="jelly-btn-3d px-1.5 sm:px-2 py-1 sm:py-1.2 rounded-xl bg-gradient-to-r from-amber-50/90 via-orange-50/80 to-indigo-50/90 hover:from-amber-100 hover:to-indigo-100 border border-amber-200/90 border-b-2 border-b-amber-400 text-xs font-black transition flex items-center gap-1 sm:gap-1.5 shadow-xs active:translate-y-0.5 whitespace-nowrap">
           <div class="flex items-center gap-0.5 text-amber-700">
-            <span class="text-xs sm:text-sm">🔥</span>
-            <span class="hidden lg:inline text-[10px] text-amber-600 font-bold">連續</span>
-            <span id="headerStreakNum" class="font-mono text-xs sm:text-sm text-amber-600 font-extrabold">525</span>
+            <span class="text-xs">🔥</span>
+            <span class="hidden xl:inline text-[10px] text-amber-600 font-bold">連續</span>
+            <span id="headerStreakNum" class="font-mono text-xs text-amber-600 font-extrabold">3</span>
             <span class="text-[10px] text-amber-600 font-bold">天</span>
-            <span id="mobileStreakNum" class="hidden">525</span>
+            <span id="mobileStreakNum" class="hidden">3</span>
           </div>
           <div class="w-px h-3 bg-amber-200/90"></div>
           <div class="flex items-center gap-0.5 text-indigo-700">
-            <span class="text-xs sm:text-sm text-indigo-500">⚡</span>
-            <span class="hidden lg:inline text-[10px] text-indigo-500 font-bold">能量</span>
-            <span id="headerEnergyNum" class="font-mono text-xs sm:text-sm text-indigo-600 font-extrabold">350</span>
+            <span class="text-xs text-indigo-500">⚡</span>
+            <span class="hidden xl:inline text-[10px] text-indigo-500 font-bold">能量</span>
+            <span id="headerEnergyNum" class="font-mono text-xs text-indigo-600 font-extrabold">1101</span>
             <span class="text-[10px] text-indigo-500 font-bold">點</span>
-            <span id="mobileEnergyNum" class="hidden">350</span>
+            <span id="mobileEnergyNum" class="hidden">1101</span>
           </div>
         </button>
 
         <!-- More Utilities Dropdown (附屬功能整合收納選單，徹底解決平板/手機直式超出問題) -->
         <div class="relative shrink-0">
-          <button id="headerMoreMenuBtn" onclick="toggleHeaderMoreMenu(event)" class="jelly-btn-3d px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 border-b-2 border-b-slate-300 text-xs font-black transition flex items-center gap-1 active:translate-y-0.5 shadow-xs" title="更多功能選單">
-            <span class="text-sm">⋯</span>
+          <button id="headerMoreMenuBtn" onclick="toggleHeaderMoreMenu(event)" class="jelly-btn-3d px-2 sm:px-2.5 py-1 sm:py-1.2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 border-b-2 border-b-slate-300 text-xs font-black transition flex items-center gap-0.5 active:translate-y-0.5 shadow-xs" title="更多功能選單">
+            <span class="text-sm leading-none">⋯</span>
             <span class="text-[11px] font-bold">更多</span>
           </button>
 
@@ -2648,7 +2648,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.46 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.47 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -2687,7 +2687,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.46 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.47 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -2760,7 +2760,7 @@
 
 
   <!-- ======================================================== -->
-  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.46)    -->
+  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.47)    -->
   <!-- ======================================================== -->
   <div id="vipUpgradeModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[89] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
     <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl border-2 border-amber-300 flex flex-col gap-4 my-auto max-h-[92vh] overflow-y-auto">
@@ -3272,7 +3272,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.46";
+    const APP_VERSION = "26.11.47";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // Immediate sanitization of legacy Gemini 1.5/2.0/2.5 models from localStorage
@@ -3468,7 +3468,7 @@
 
 
     // ========================================================
-    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.46)
+    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.47)
     // ========================================================
     const VIP_STORAGE_KEY = 'kaispeak_vip_info';
     const AI_USAGE_DATE_KEY = 'kaispeak_ai_usage_date';
@@ -3586,7 +3586,7 @@
       return true;
     }
 
-    // Marketing Campaigns & Agency Partners Definition (v26.11.46)
+    // Marketing Campaigns & Agency Partners Definition (v26.11.47)
     const SPECIAL_PROMO_CODES = {
       'TRIAL7D': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '官方社群促銷體驗專案', desc: '全功能解鎖 7 天' },
       'FREE7DAYS': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '限時早鳥推廣禮', desc: '全功能解鎖 7 天' },
@@ -6218,7 +6218,7 @@
     }
 
     // ========================================================
-    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.46)
+    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.47)
     // ========================================================
     let cachedServerApiKey = '';
     let cachedServerModel = 'gemini-3.5-flash';
@@ -12802,7 +12802,7 @@
     };
 
     // ========================================================
-    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.46)
+    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.47)
     // ========================================================
     // 💡 App Store 開箱即用架構（商業發行標準）：
     // 透過 Cloudflare Worker 官方安全閘道器，免掃碼、免設定、0 秒直連 Google 官方 AI！
@@ -14363,7 +14363,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.46)
+    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.47)
     // ========================================================
     function parseScenarioJsonResponse(rawText) {
       if (!rawText || typeof rawText !== 'string') return null;
@@ -14468,7 +14468,7 @@
     }
 
     // ========================================================
-    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.46)
+    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.47)
     // ========================================================
     async function callGeminiScenarioPlanner(userText, userLevel, apiKey) {
       // 1. Ensure valid official model from localStorage
@@ -14985,7 +14985,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.46)
+    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.47)
     // ========================================================
     const KaiSpeechEngine = {
       preferredVoice: null,
