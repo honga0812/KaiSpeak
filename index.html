@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.50";
+        const LATEST_VER = "26.11.51";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -71,6 +71,20 @@
       0% { opacity: 1; filter: drop-shadow(0 0 18px #FF4500) drop-shadow(0 0 30px #FFE600); }
       40% { opacity: 1; filter: drop-shadow(0 0 28px #FF0055) drop-shadow(0 0 40px #00F0FF); }
       100% { opacity: 0; }
+    }
+    @keyframes dragonHoverSway {
+      0% {
+        transform: translateX(-18px) translateY(0px) rotate(-1.5deg);
+      }
+      50% {
+        transform: translateX(18px) translateY(-6px) rotate(1.5deg);
+      }
+      100% {
+        transform: translateX(-18px) translateY(0px) rotate(-1.5deg);
+      }
+    }
+    .animate-dragon-sway {
+      animation: dragonHoverSway 3.6s ease-in-out infinite;
     }
     @keyframes cardShatterExplode {
       0% { transform: translate(-50%, -50%) scale(1) rotate(0deg); filter: brightness(1.2); }
@@ -196,8 +210,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.50（2026年·11月·第36次發布）">
-                26.11.50
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.51（2026年·11月·第36次發布）">
+                26.11.51
               </span>
             </div>
           </div>
@@ -414,7 +428,7 @@
               <span class="text-[9px] text-amber-500">✨</span>
               <span>奇妙星語言</span>
             </span>
-            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.50（2026年·11月·第36次發布）">26.11.50</span>
+            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.51（2026年·11月·第36次發布）">26.11.51</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer hidden sm:flex items-center gap-0.5 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-1.5 py-0.2 transition shadow-2xs group-hover:border-amber-400 max-w-[130px] truncate" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -1873,25 +1887,21 @@
           </div>
         </div>
 
-        <!-- Bottom Kai Riding Cute Fire Dragon Turret Stage (雄偉醒目 · 烈焰神龍神級砲台) -->
-        <div id="meteorDragonTurretDeck" class="absolute bottom-2 sm:bottom-3 left-1/2 -translate-x-1/2 z-30 pointer-events-none flex flex-col items-center select-none transition-all duration-150">
-          <div class="relative flex items-center justify-center bg-gradient-to-t from-slate-900/90 via-indigo-950/80 to-purple-950/70 px-4 py-1 rounded-3xl border-2 border-amber-400 shadow-[0_0_35px_rgba(245,158,11,0.7)] backdrop-blur-sm">
-            <!-- Fiery Dragon Aura / Ground Glow -->
-            <div id="dragonFlameAura" class="absolute -bottom-2 w-48 h-12 bg-gradient-to-t from-amber-500/80 via-rose-500/50 to-transparent rounded-full filter blur-md animate-pulse"></div>
-            <!-- Kai Riding Fire Dragon Animated Character (True Transparent WebP + GIF Fallback) -->
-            <div id="dragonSprite" class="relative w-44 sm:w-56 md:w-64 h-24 sm:h-32 md:h-36 flex items-center justify-center filter drop-shadow-[0_8px_25px_rgba(245,158,11,0.9)] transition-transform duration-200">
+        <!-- Bottom Kai Riding Cute Fire Dragon Turret Stage (無外框·自然浮空·左右微動) -->
+        <div id="meteorDragonTurretDeck" class="absolute bottom-1 sm:bottom-2 left-1/2 -translate-x-1/2 z-30 pointer-events-none flex flex-col items-center select-none">
+          <!-- Gentle Left-Right Hover Sway Wrapper -->
+          <div id="dragonHoverSwayWrapper" class="relative flex flex-col items-center justify-center animate-dragon-sway">
+            <!-- Kai Riding Fire Dragon Character (Transparent WebP + GIF Fallback, No Frame) -->
+            <div id="dragonSprite" class="relative w-48 sm:w-60 md:w-72 h-28 sm:h-36 md:h-42 flex items-center justify-center transition-transform duration-200">
               <picture class="w-full h-full flex items-center justify-center pointer-events-none select-none">
-                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.50" type="image/webp">
-                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.50" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none drop-shadow-[0_0_15px_rgba(251,191,36,0.6)]">
+                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.51" type="image/webp">
+                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.51" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
               </picture>
             </div>
             <!-- Dragon Muzzle Flame Flash (Fires upon shooting laser) -->
-            <div id="dragonMuzzleFlash" class="hidden absolute -top-8 text-4xl sm:text-5xl filter drop-shadow-[0_0_25px_#FFA500] animate-ping">
+            <div id="dragonMuzzleFlash" class="hidden absolute top-2 text-4xl sm:text-5xl filter drop-shadow-[0_0_25px_#FFA500] animate-ping">
               🔥⚡💥
             </div>
-          </div>
-          <div class="text-[10px] sm:text-xs font-black text-amber-300 bg-slate-950/90 px-3 py-0.5 rounded-full border border-amber-400 shadow-md whitespace-nowrap mt-1 flex items-center gap-1.5">
-            <span class="animate-pulse">🔥</span><span>Kai 烈焰噴火龍砲台 · 隨時待命開火</span><span class="animate-pulse">🔥</span>
           </div>
         </div>
       </div>
@@ -2672,7 +2682,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.50 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.51 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -2711,7 +2721,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.50 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.51 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -2784,7 +2794,7 @@
 
 
   <!-- ======================================================== -->
-  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.50)    -->
+  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.51)    -->
   <!-- ======================================================== -->
   <div id="vipUpgradeModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[89] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
     <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl border-2 border-amber-300 flex flex-col gap-4 my-auto max-h-[92vh] overflow-y-auto">
@@ -3296,7 +3306,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.50";
+    const APP_VERSION = "26.11.51";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // ========================================================
@@ -3534,7 +3544,7 @@
 
 
     // ========================================================
-    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.50)
+    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.51)
     // ========================================================
     const VIP_STORAGE_KEY = 'kaispeak_vip_info';
     const AI_USAGE_DATE_KEY = 'kaispeak_ai_usage_date';
@@ -3652,7 +3662,7 @@
       return true;
     }
 
-    // Marketing Campaigns & Agency Partners Definition (v26.11.50)
+    // Marketing Campaigns & Agency Partners Definition (v26.11.51)
     const SPECIAL_PROMO_CODES = {
       'TRIAL7D': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '官方社群促銷體驗專案', desc: '全功能解鎖 7 天' },
       'FREE7DAYS': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '限時早鳥推廣禮', desc: '全功能解鎖 7 天' },
@@ -6284,7 +6294,7 @@
     }
 
     // ========================================================
-    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.50)
+    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.51)
     // ========================================================
     let cachedServerApiKey = '';
     let cachedServerModel = 'gemini-3.5-flash';
@@ -9446,8 +9456,17 @@
         }
 
         const rect = container.getBoundingClientRect();
-        const startX = rect.width / 2;
-        const startY = rect.height - 75;
+        let startX = rect.width / 2;
+        let bottomOffset = 65;
+        let startY = rect.height - bottomOffset;
+
+        if (dragonSprite) {
+          const dRect = dragonSprite.getBoundingClientRect();
+          startX = dRect.left + dRect.width / 2 - rect.left;
+          startY = dRect.top + dRect.height * 0.25 - rect.top;
+          bottomOffset = rect.height - startY;
+        }
+
         const endX = (targetX / 100) * rect.width;
         const endY = (targetY / 100) * rect.height;
         const dx = endX - startX;
@@ -9458,7 +9477,7 @@
         const laser = document.createElement('div');
         laser.className = "absolute pointer-events-none z-40";
         laser.style.left = `${startX}px`;
-        laser.style.bottom = `75px`;
+        laser.style.bottom = `${bottomOffset}px`;
         laser.style.width = `10px`;
         laser.style.borderRadius = "5px";
         laser.style.background = "linear-gradient(to top, #FF2200, #FF7700, #FFE600, #00F0FF, #FFFFFF)";
@@ -12868,7 +12887,7 @@
     };
 
     // ========================================================
-    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.50)
+    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.51)
     // ========================================================
     // 💡 App Store 開箱即用架構（商業發行標準）：
     // 透過 Cloudflare Worker 官方安全閘道器，免掃碼、免設定、0 秒直連 Google 官方 AI！
@@ -14429,7 +14448,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.50)
+    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.51)
     // ========================================================
     function parseScenarioJsonResponse(rawText) {
       if (!rawText || typeof rawText !== 'string') return null;
@@ -14534,7 +14553,7 @@
     }
 
     // ========================================================
-    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.50)
+    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.51)
     // ========================================================
     async function callGeminiScenarioPlanner(userText, userLevel, apiKey) {
       // 1. Ensure valid official model from localStorage
@@ -15051,7 +15070,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.50)
+    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.51)
     // ========================================================
     const KaiSpeechEngine = {
       preferredVoice: null,
