@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.61";
+        const LATEST_VER = "26.11.62";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -57,6 +57,14 @@
     }
     .fire-glow {
       box-shadow: 0 0 25px rgba(245, 158, 11, 0.55), 0 0 50px rgba(239, 68, 68, 0.3);
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+    .animate-shake {
+      animation: shake 0.4s ease-in-out;
     }
     @keyframes meteorPulse {
       0%, 100% { transform: translate(-50%, -50%) scale(1); filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.7)); }
@@ -210,8 +218,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.61（2026年·11月·第38次發布）">
-                26.11.61
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.62（2026年·11月·第38次發布）">
+                26.11.62
               </span>
             </div>
           </div>
@@ -459,7 +467,7 @@
               <span class="text-[9px] text-amber-500">✨</span>
               <span>奇妙星語言</span>
             </span>
-            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.61（2026年·11月·第38次發布）">26.11.61</span>
+            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.62（2026年·11月·第38次發布）">26.11.62</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer hidden sm:flex items-center gap-0.5 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-1.5 py-0.2 transition shadow-2xs group-hover:border-amber-400 max-w-[130px] truncate" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -1663,24 +1671,25 @@
           </div>
         </div>
 
-        <!-- ISLAND 2: MAGIC CLOZE ISLAND (VIP EXCLUSIVE) -->
-        <div onclick="tryEnterAdventureIsland(2, '第二島 · 語境魔法克漏島')" class="cursor-pointer group relative bg-gradient-to-b from-slate-900/95 via-indigo-950/80 to-slate-900/95 rounded-3xl p-5 border-2 border-amber-400/70 shadow-lg hover:border-amber-300 hover:scale-[1.01] transition duration-300 flex flex-col justify-between min-h-[290px]">
+        <!-- ISLAND 2: SKYSCRAPER BUILDER ISLAND (第二島 · 摩天大樓建造島) -->
+        <div onclick="tryEnterAdventureIsland(2, '第二島 · 摩天大樓建造島')" class="cursor-pointer group relative bg-gradient-to-b from-slate-900/95 via-indigo-950/80 to-slate-900/95 rounded-3xl p-5 border-2 border-amber-400/70 shadow-lg hover:border-amber-300 hover:scale-[1.01] transition duration-300 flex flex-col justify-between min-h-[290px]">
           <div>
             <div class="flex items-center justify-between mb-3">
-              <span class="text-3xl sm:text-4xl filter drop-shadow-md group-hover:scale-110 transition duration-300">🧩</span>
+              <span class="text-3xl sm:text-4xl filter drop-shadow-md group-hover:scale-110 transition duration-300">🏗️</span>
               <span class="vip-island-badge text-[10px] font-black px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 text-amber-950 shadow-xs flex items-center gap-1 animate-pulse">
                 <span>👑 VIP 專屬</span> · <span>需購買開啟</span>
               </span>
             </div>
             <h3 class="text-lg sm:text-xl font-black text-white group-hover:text-amber-300 transition">
-              第二島 · 語境魔法克漏島
+              第二島 · 摩天大樓建造島
             </h3>
-            <div class="text-xs text-amber-200/90 font-bold mt-1">Magic Cloze Context Island</div>
+            <div class="text-xs text-amber-200/90 font-bold mt-1">Skyscraper Builder Island</div>
             <p class="text-xs text-indigo-200/80 mt-2.5 leading-relaxed">
-              生活情境句型挖空選擇！點選正確答案後即刻展開中英雙語對照，由 Kai 小朋友標準發音引導跟讀練習。
+              挑戰世界 5 大摩天大樓！句子語塊克漏字拼裝，50/25/25 黃金比例題庫，親手砌出台北101與帝國大廈！
             </p>
             <div class="flex items-center gap-1.5 mt-3 flex-wrap">
-              <span class="text-[10px] bg-slate-950 px-2 py-0.5 rounded-lg border border-slate-700 text-indigo-300 font-bold">🧩 情境挖空填詞</span>
+              <span class="text-[10px] bg-slate-950 px-2 py-0.5 rounded-lg border border-slate-700 text-indigo-300 font-bold">🏗️ 2000題長線大樓</span>
+              <span class="text-[10px] bg-slate-950 px-2 py-0.5 rounded-lg border border-slate-700 text-cyan-300 font-bold">🎯 50/25/25黃金出題</span>
               <span class="text-[10px] bg-slate-950 px-2 py-0.5 rounded-lg border border-slate-700 text-amber-300 font-bold">👑 VIP 旗艦特權</span>
             </div>
           </div>
@@ -1688,7 +1697,7 @@
             <span class="vip-island-status text-amber-300 font-bold flex items-center gap-1">
               <span>🔒 需購買 VIP 開啟</span>
             </span>
-            <button type="button" onclick="event.stopPropagation(); tryEnterAdventureIsland(2, '第二島 · 語境魔法克漏島');" class="vip-island-btn px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-400 via-orange-400 to-yellow-400 hover:from-amber-300 text-slate-950 font-black text-xs shadow-md transition active:scale-95 flex items-center gap-1">
+            <button type="button" onclick="event.stopPropagation(); tryEnterAdventureIsland(2, '第二島 · 摩天大樓建造島');" class="vip-island-btn px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-400 via-orange-400 to-yellow-400 hover:from-amber-300 text-slate-950 font-black text-xs shadow-md transition active:scale-95 flex items-center gap-1">
               <span>👑 升級 VIP 開啟</span> <span>▶</span>
             </button>
           </div>
@@ -1930,8 +1939,8 @@
             <!-- Kai Riding Fire Dragon Character (Transparent WebP + GIF Fallback, No Frame) -->
             <div id="dragonSprite" class="relative w-48 sm:w-60 md:w-72 h-28 sm:h-36 md:h-42 flex items-center justify-center transition-transform duration-200">
               <picture class="w-full h-full flex items-center justify-center pointer-events-none select-none">
-                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.61" type="image/webp">
-                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.61" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
+                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.62" type="image/webp">
+                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.62" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
               </picture>
             </div>
             <!-- Dragon Muzzle Flame Flash (Fires upon shooting laser) -->
@@ -1965,6 +1974,276 @@
             <span class="text-[10px] sm:text-xs text-amber-300 font-bold">目前能量: <span id="meteorLiveEnergyDisplay" class="font-mono font-black text-cyan-300">0</span></span>
           </div>
         </div>
+      </div>
+
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- VIEW C: ISLAND 2 SKYSCRAPER BUILDER (第二島·摩天大樓建造島) -->
+    <!-- ======================================================== -->
+    <div id="advSkyscraperIslandView" class="hidden flex-col gap-4 select-none">
+      
+      <!-- Top Navigation & Global Skyscraper Progress Header -->
+      <div class="flex items-center justify-between bg-white px-4 py-3 rounded-2xl border border-indigo-100 shadow-sm flex-wrap gap-2">
+        <button type="button" onclick="showAdventureGrandMap()" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-indigo-50 text-indigo-900 border border-slate-200 font-bold text-xs sm:text-sm flex items-center gap-1.5 transition active:scale-95">
+          <span>⬅️</span> <span>返回探險島星系</span>
+        </button>
+        <div class="flex items-center gap-2">
+          <span class="text-2xl animate-bounce">🏗️</span>
+          <div>
+            <h2 class="text-base sm:text-lg font-black text-indigo-950 flex items-center gap-1.5">
+              <span>摩天大樓建造島</span>
+              <span class="text-[10px] bg-amber-100 text-amber-900 border border-amber-300 font-black px-2 py-0.5 rounded-full">世界地標工程</span>
+            </h2>
+            <div class="text-[10px] text-slate-500 font-bold">50/25/25 黃金出題 · 語塊建材吊裝 · 長期累計成就</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 flex-wrap">
+          <div class="text-xs font-bold text-indigo-900 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200 flex items-center gap-1">
+            <span>🗼 總建樓層：</span>
+            <span id="skyGlobalFloors" class="font-mono font-black text-sm text-indigo-600">0</span>
+            <span class="text-[10px] text-slate-400">層</span>
+          </div>
+          <div class="text-xs font-bold text-emerald-800 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 flex items-center gap-1">
+            <span>📏 累積高度：</span>
+            <span id="skyGlobalHeight" class="font-mono font-black text-sm text-emerald-600">0</span>
+            <span class="text-[10px] text-slate-400">m</span>
+          </div>
+          <div class="text-xs font-bold text-amber-700 bg-amber-50 px-3 py-1 rounded-full border border-amber-200 flex items-center gap-1">
+            <span>⚡ 能量：</span>
+            <span id="skyLiveEnergy" class="font-mono font-black text-sm text-amber-600">100</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- SCREEN 1: LANDMARK SELECTION CAROUSEL/GRID -->
+      <!-- ========================================== -->
+      <div id="skyLandmarkSelectScreen" class="flex flex-col gap-4">
+        <!-- Hero Introduction Banner -->
+        <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 rounded-3xl p-4 sm:p-5 border-2 border-amber-400/40 text-white flex flex-col md:flex-row items-center justify-between gap-4 shadow-xl relative overflow-hidden">
+          <div class="flex items-center gap-4 z-10">
+            <div class="w-14 h-14 rounded-2xl bg-amber-500/20 border-2 border-amber-400 flex items-center justify-center text-3xl shadow-lg shrink-0">
+              🗼
+            </div>
+            <div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <h3 class="text-base sm:text-lg font-black text-amber-300">世界五大經典摩天大樓工程</h3>
+                <span class="text-[10px] bg-indigo-800/80 text-cyan-300 border border-cyan-400/30 px-2 py-0.5 rounded-full font-bold">答題即砌磚 · 吊裝上天際</span>
+              </div>
+              <p class="text-xs text-indigo-200/90 mt-1 leading-relaxed">
+                每答對 1 題吊裝 1 塊鋼骨建材，每 20 題完工一層樓！採用 50% 新詞探索 + 25% 常對自信 + 25% 常錯加強黃金比例，打造孩子一磚一瓦的英語終身努力紀念碑！
+              </p>
+            </div>
+          </div>
+          <div class="shrink-0 flex items-center gap-2">
+            <div class="px-4 py-2 rounded-2xl bg-slate-950/80 border border-indigo-500/30 text-center">
+              <div class="text-[10px] text-slate-400">總完工題數</div>
+              <div id="skyGlobalTotalQuestions" class="font-mono font-black text-lg text-amber-400">0 題</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5 Landmark Cards Grid -->
+        <div id="skyLandmarksContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- Rendered dynamically by SkyscraperGameEngine.renderLandmarkCards() -->
+        </div>
+      </div>
+
+      <!-- ========================================== -->
+      <!-- SCREEN 2: ACTIVE CONSTRUCTION WORKSITE     -->
+      <!-- ========================================== -->
+      <div id="skyConstructionScreen" class="hidden flex-col gap-4">
+        
+        <!-- Worksite Sub-bar -->
+        <div class="flex items-center justify-between bg-slate-900 text-white px-4 py-3 rounded-2xl border border-slate-800 shadow-md flex-wrap gap-2">
+          <div class="flex items-center gap-3">
+            <button type="button" onclick="SkyscraperGameEngine.showLandmarkSelect()" class="px-2.5 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 border border-slate-700 text-xs font-bold transition flex items-center gap-1 active:scale-95">
+              <span>⬅️</span> <span>選樓</span>
+            </button>
+            <div class="flex items-center gap-2">
+              <span id="skyActiveFlag" class="text-2xl">🇹🇼</span>
+              <div>
+                <div class="flex items-center gap-2">
+                  <h3 id="skyActiveName" class="font-black text-sm sm:text-base text-amber-300">台北 101</h3>
+                  <span id="skyActiveHeightTag" class="text-[10px] bg-slate-800 px-2 py-0.5 rounded-full text-cyan-300 font-mono">0m / 508m</span>
+                </div>
+                <div class="text-[10px] text-slate-400">施工進度：第 <span id="skyActiveFloorNum" class="font-black text-amber-400">1</span> / <span id="skyActiveMaxFloors">101</span> 層</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Question Attribute Tag (50/25/25) -->
+          <div class="flex items-center gap-2 flex-wrap">
+            <span id="skyQuestionTypeTag" class="text-[10px] font-black px-2.5 py-1 rounded-full bg-indigo-500/20 text-indigo-300 border border-indigo-400/40 flex items-center gap-1 shadow-xs">
+              <span>✨</span> <span>50% 新知探索題</span>
+            </span>
+            <div class="text-xs font-bold text-amber-300 bg-amber-950/60 border border-amber-500/40 px-3 py-1 rounded-full flex items-center gap-1 font-mono">
+              <span>🔥 連擊:</span>
+              <span id="skyComboNum" class="font-black text-amber-400">0</span>
+            </div>
+            <div class="text-xs font-bold text-cyan-300 bg-cyan-950/60 border border-cyan-500/40 px-3 py-1 rounded-full flex items-center gap-1 font-mono">
+              <span>⭐ 分數:</span>
+              <span id="skyScoreNum" class="font-black text-cyan-400">0</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Layer Progress Meter: 20 Bricks Tracker -->
+        <div class="bg-white rounded-2xl p-3 border border-indigo-100 shadow-sm flex flex-col gap-1.5">
+          <div class="flex items-center justify-between text-xs font-bold text-slate-700">
+            <span class="flex items-center gap-1.5">
+              <span>🧱</span>
+              <span>本層鋼骨建材施工：</span>
+              <strong id="skyFloorBricksText" class="font-mono text-indigo-600 font-black text-sm">0 / 20 塊</strong>
+            </span>
+            <span id="skyFloorHintText" class="text-[11px] text-slate-500">集滿 20 塊建材即可完工升層</span>
+          </div>
+          <!-- 20-segment visual bricks meter -->
+          <div id="skyBricks20Bar" class="grid grid-cols-10 sm:grid-cols-20 gap-1 h-3.5 w-full bg-slate-100 p-1 rounded-xl border border-slate-200">
+            <!-- 20 slots generated dynamically -->
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- SKYSCRAPER VISUAL WORKSITE CANVAS & CRANE AREA -->
+        <!-- ============================================== -->
+        <div id="skySceneBackdrop" class="relative w-full h-56 sm:h-64 rounded-3xl overflow-hidden border-2 border-indigo-900/60 shadow-xl transition-all duration-700 flex flex-col justify-between p-3 select-none bg-gradient-to-b from-sky-400 via-sky-200 to-indigo-100">
+          
+          <!-- Cloud & Sky Atmosphere Layer -->
+          <div class="absolute inset-0 pointer-events-none opacity-40">
+            <div class="absolute top-2 left-6 text-2xl animate-pulse">☁️</div>
+            <div class="absolute top-8 right-12 text-3xl opacity-60">☁️</div>
+            <div id="skyStarsLayer" class="hidden absolute inset-0 text-amber-200 text-xs opacity-75">
+              <span class="absolute top-4 left-1/4">✨</span>
+              <span class="absolute top-8 right-1/3">⭐</span>
+              <span class="absolute top-3 right-10">🌙</span>
+            </div>
+          </div>
+
+          <!-- Upper Area: Crane (起重機) & Suspended Material -->
+          <div class="relative z-10 flex items-start justify-between w-full">
+            <!-- Construction Crane Arm -->
+            <div class="flex items-center gap-2">
+              <div class="flex flex-col items-center">
+                <!-- Crane Top Pulley -->
+                <div class="text-3xl filter drop-shadow-md animate-bounce">🏗️</div>
+                <!-- Suspended Cable Line -->
+                <div class="w-0.5 h-8 bg-slate-800 shadow-sm"></div>
+                <!-- Steel Girder Suspended in Air -->
+                <div id="skySuspendedGirder" class="px-3 py-1 rounded-lg bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white font-mono font-black text-[10px] shadow-md border border-amber-300 flex items-center gap-1 transition-all duration-300">
+                  <span>🔩</span> <span id="skySuspendedWord">STEEL BEAM</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Kai Worker in Hardhat -->
+            <div class="bg-slate-900/80 backdrop-blur-xs px-3 py-1.5 rounded-2xl border border-amber-400/50 flex items-center gap-2 text-white shadow-lg">
+              <div class="relative">
+                <span class="text-2xl">👷‍♂️</span>
+                <span class="absolute -top-1 -right-1 text-xs">✨</span>
+              </div>
+              <div class="text-left">
+                <div class="text-[10px] font-black text-amber-300">Kai 首席工程師</div>
+                <div id="skyKaiCheerBubble" class="text-[9px] text-slate-300">「鋼骨吊裝就緒，請填入建材！」</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lower Area: Skyscraper Tower Facade Stack -->
+          <div class="relative z-10 flex flex-col items-center justify-end w-full">
+            <!-- Active Floor Scaffolding Warning Strip -->
+            <div id="skyActiveFloorPlatform" class="w-64 sm:w-80 h-10 rounded-t-xl bg-slate-800 border-t-2 border-x-2 border-amber-400 flex items-center justify-between px-3 shadow-lg relative overflow-hidden">
+              <div class="absolute inset-0 opacity-20 bg-[repeating-linear-gradient(45deg,#f59e0b,#f59e0b_10px,#000_10px,#000_20px)]"></div>
+              <span class="relative text-[10px] font-black text-amber-300 font-mono flex items-center gap-1">
+                <span>🚧</span> <span>施工中 FL <span id="skyVisualFloorNum">1</span></span>
+              </span>
+              <div id="skyVisualBricksGrid" class="relative flex items-center gap-0.5">
+                <!-- 20 mini brick slots shown visually on the building floor -->
+              </div>
+            </div>
+
+            <!-- Under Construction Tower Body (Layers Below) -->
+            <div id="skyTowerBase" class="w-60 sm:w-72 h-14 bg-gradient-to-b from-slate-800 via-indigo-950 to-slate-900 border-x-2 border-slate-700 flex items-center justify-around px-4 shadow-inner">
+              <!-- Lit Windows -->
+              <div class="flex gap-2 text-amber-300 text-xs">
+                <span class="animate-pulse">🪟</span>
+                <span>🪟</span>
+                <span class="animate-pulse">🪟</span>
+                <span>🪟</span>
+              </div>
+              <div class="text-[9px] font-black text-slate-400 font-mono tracking-wider">
+                WORLD SKYSCRAPER
+              </div>
+              <div class="flex gap-2 text-amber-300 text-xs">
+                <span>🪟</span>
+                <span class="animate-pulse">🪟</span>
+                <span>🪟</span>
+                <span class="animate-pulse">🪟</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ============================================== -->
+        <!-- ENGINEERING BLUEPRINT & CLOZE SENTENCE PANEL   -->
+        <!-- ============================================== -->
+        <div class="bg-gradient-to-b from-indigo-950 via-slate-900 to-indigo-950 rounded-3xl p-5 border-2 border-cyan-400/50 shadow-xl text-white flex flex-col gap-3 relative overflow-hidden">
+          
+          <!-- Blueprint Blueprint Watermark -->
+          <div class="absolute top-2 right-3 text-[10px] font-mono text-cyan-400/50 tracking-widest font-black uppercase">
+            STRUCTURAL BLUEPRINT · NO.<span id="skyQuestionCode">EN_0001</span>
+          </div>
+
+          <!-- Chinese Meaning & Scaffolding Context -->
+          <div class="flex items-center gap-2">
+            <span class="text-lg">📐</span>
+            <div id="skySentenceChinese" class="text-sm sm:text-base font-bold text-amber-200">
+              這是我的一張書桌。
+            </div>
+          </div>
+
+          <!-- English Sentence with Glowing Slot Slot -->
+          <div class="bg-slate-950/80 rounded-2xl p-4 border border-cyan-500/30 flex items-center justify-between flex-wrap gap-3">
+            <div id="skySentenceEnglishContainer" class="text-base sm:text-xl font-black text-white leading-relaxed flex items-center flex-wrap gap-2">
+              <span>This is my</span>
+              <div id="skyTargetSlot" ondragover="event.preventDefault()" ondrop="SkyscraperGameEngine.handleDrop(event)" class="min-w-[100px] h-10 px-4 rounded-xl border-2 border-dashed border-amber-400 bg-amber-500/10 text-amber-300 font-black flex items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.3)] transition-all animate-pulse">
+                [ 點選下方建材 ]
+              </div>
+              <span>.</span>
+            </div>
+
+            <!-- Audio Pronunciation Button -->
+            <button type="button" onclick="SkyscraperGameEngine.speakSentence()" class="px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow-md transition active:scale-95 flex items-center gap-1.5 shrink-0" title="聆聽句子發音">
+              <span>🔊</span> <span>聽 Kai 朗讀</span>
+            </button>
+          </div>
+
+          <!-- Progressive Hint Notification (Shown if wrong) -->
+          <div id="skyHintBox" class="hidden text-xs bg-amber-500/15 border border-amber-400/40 rounded-xl px-3 py-2 text-amber-200 items-center gap-2">
+            <span>💡</span>
+            <span id="skyHintText">結構微震！請注意中文句子中的關鍵詞提示。</span>
+          </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- MATERIAL DEPOT (裝卸碼頭建材磚塊)               -->
+        <!-- ============================================== -->
+        <div class="bg-slate-100 rounded-3xl p-4 border border-slate-200 shadow-sm flex flex-col gap-2">
+          <div class="flex items-center justify-between text-xs font-black text-slate-700 px-1">
+            <span class="flex items-center gap-1.5">
+              <span>🧱</span> <span>建材裝卸庫（點選磚塊即可精準飛入藍圖）：</span>
+            </span>
+            <span class="text-[10px] text-slate-400 font-normal">支援 Tap-to-Fly 智慧飛入與拖曳吸附</span>
+          </div>
+
+          <!-- 4 Tactile 3D Brick Buttons -->
+          <div id="skyMaterialDepot" class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
+            <!-- Injected by SkyscraperGameEngine.renderChoices() -->
+          </div>
+        </div>
+
       </div>
 
     </div>
@@ -2804,7 +3083,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.61 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.62 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -2843,7 +3122,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.61 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.62 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -2989,7 +3268,7 @@
   </div>
 
   <!-- ======================================================== -->
-  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.61)    -->
+  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.62)    -->
   <!-- ======================================================== -->
   <div id="vipUpgradeModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[89] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
     <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl border-2 border-amber-300 flex flex-col gap-4 my-auto max-h-[92vh] overflow-y-auto">
@@ -3501,7 +3780,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.61";
+    const APP_VERSION = "26.11.62";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // ========================================================
@@ -3833,7 +4112,7 @@
 
 
     // ========================================================
-    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.61)
+    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.62)
     // ========================================================
     const VIP_STORAGE_KEY = 'kaispeak_vip_info';
     const AI_USAGE_DATE_KEY = 'kaispeak_ai_usage_date';
@@ -3951,7 +4230,7 @@
       return true;
     }
 
-    // Marketing Campaigns & Agency Partners Definition (v26.11.61)
+    // Marketing Campaigns & Agency Partners Definition (v26.11.62)
     const SPECIAL_PROMO_CODES = {
       'TRIAL7D': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '官方社群促銷體驗專案', desc: '全功能解鎖 7 天' },
       'FREE7DAYS': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '限時早鳥推廣禮', desc: '全功能解鎖 7 天' },
@@ -7259,7 +7538,7 @@
     }
 
     // ========================================================
-    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.61)
+    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.62)
     // ========================================================
     let cachedServerApiKey = '';
     let cachedServerModel = 'gemini-3.5-flash';
@@ -11513,11 +11792,738 @@
       }
     };
 
+    // ========================================================
+    // SKYSCRAPER BUILDER ENGINE (第二島 · 摩天大樓建造島核心引擎)
+    // ========================================================
+    const SKYSCRAPER_LANDMARKS = [
+      {
+        id: 'taipei_101',
+        name: '台北 101',
+        enName: 'Taipei 101',
+        flag: '🇹🇼',
+        city: '台灣 台北',
+        heightMeters: 508,
+        totalFloors: 101,
+        bricksPerFloor: 20, // 20 題一層，總計 2020 題
+        unlockedByDefault: true,
+        gradient: 'from-emerald-600 via-teal-600 to-emerald-700',
+        badge: '如意竹節 · 八節步步高升',
+        milestoneInterval: 8,
+        milestoneName: '🎋 如意竹節大慶典'
+      },
+      {
+        id: 'empire_state',
+        name: '帝國大廈',
+        enName: 'Empire State',
+        flag: '🇺🇸',
+        city: '美國 紐約',
+        heightMeters: 381,
+        totalFloors: 102,
+        bricksPerFloor: 20, // 2040 題
+        unlockedByDefault: false,
+        unlockFloorReq: 10,
+        gradient: 'from-amber-600 via-orange-600 to-amber-700',
+        badge: '經典復古 · 紐約天際線',
+        milestoneInterval: 10,
+        milestoneName: '🗽 帝國天際線巡禮'
+      },
+      {
+        id: 'petronas',
+        name: '雙子星大樓',
+        enName: 'Petronas Towers',
+        flag: '🇲🇾',
+        city: '馬來西亞 吉隆坡',
+        heightMeters: 452,
+        totalFloors: 88,
+        bricksPerFloor: 20, // 1760 題
+        unlockedByDefault: false,
+        unlockFloorReq: 25,
+        gradient: 'from-cyan-600 via-blue-600 to-cyan-700',
+        badge: '雙塔並立 · 空中天橋對接',
+        milestoneInterval: 11,
+        milestoneName: '🌉 空中天橋對接大典'
+      },
+      {
+        id: 'shanghai_tower',
+        name: '上海中心大廈',
+        enName: 'Shanghai Tower',
+        flag: '🇨🇳',
+        city: '中國 上海',
+        heightMeters: 632,
+        totalFloors: 128,
+        bricksPerFloor: 20, // 2560 題
+        unlockedByDefault: false,
+        unlockFloorReq: 40,
+        gradient: 'from-purple-600 via-indigo-600 to-purple-700',
+        badge: '120度螺旋盤旋 · 穿雲巨擘',
+        milestoneInterval: 16,
+        milestoneName: '🌀 螺旋天頂封頂儀式'
+      },
+      {
+        id: 'burj_khalifa',
+        name: '哈里發塔',
+        enName: 'Burj Khalifa',
+        flag: '🇦🇪',
+        city: '阿聯酋 杜拜',
+        heightMeters: 828,
+        totalFloors: 163,
+        bricksPerFloor: 20, // 3260 題
+        unlockedByDefault: false,
+        unlockFloorReq: 60,
+        gradient: 'from-rose-600 via-pink-600 to-orange-600',
+        badge: '世界之巔 · 刺破平流層星空',
+        milestoneInterval: 20,
+        milestoneName: '🌌 宇宙星空天線封頂大典'
+      }
+    ];
+
+    const SkyscraperGameEngine = {
+      activeLandmarkId: 'taipei_101',
+      currentQuestion: null,
+      combo: 0,
+      score: 0,
+      isSubmitting: false,
+
+      playConstructionClank() {
+        try {
+          const AC = window.AudioContext || window.webkitAudioContext;
+          if (!AC) return;
+          const ctx = SoundEffects.ctx || new AC();
+          SoundEffects.ctx = ctx;
+          if (ctx.state === 'suspended') ctx.resume();
+          const now = ctx.currentTime;
+          
+          // Heavy steel beam impact sound: dual metallic ping
+          const osc1 = ctx.createOscillator();
+          const gain1 = ctx.createGain();
+          osc1.type = 'triangle';
+          osc1.frequency.setValueAtTime(520, now);
+          osc1.frequency.exponentialRampToValueAtTime(140, now + 0.18);
+          gain1.gain.setValueAtTime(0.28, now);
+          gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+          osc1.connect(gain1);
+          gain1.connect(ctx.destination);
+          osc1.start(now);
+          osc1.stop(now + 0.23);
+
+          const osc2 = ctx.createOscillator();
+          const gain2 = ctx.createGain();
+          osc2.type = 'sine';
+          osc2.frequency.setValueAtTime(880, now + 0.05);
+          osc2.frequency.exponentialRampToValueAtTime(440, now + 0.25);
+          gain2.gain.setValueAtTime(0.22, now + 0.05);
+          gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.28);
+          osc2.connect(gain2);
+          gain2.connect(ctx.destination);
+          osc2.start(now + 0.05);
+          osc2.stop(now + 0.29);
+        } catch(e){}
+      },
+
+      playFloorCelebrate() {
+        try {
+          const AC = window.AudioContext || window.webkitAudioContext;
+          if (!AC) return;
+          const ctx = SoundEffects.ctx || new AC();
+          SoundEffects.ctx = ctx;
+          if (ctx.state === 'suspended') ctx.resume();
+          const now = ctx.currentTime;
+          const notes = [523.25, 659.25, 783.99, 1046.5];
+          notes.forEach((freq, idx) => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+            gain.gain.setValueAtTime(0.22, now + idx * 0.08);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.35);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start(now + idx * 0.08);
+            osc.stop(now + idx * 0.08 + 0.36);
+          });
+        } catch(e){}
+      },
+
+      getProgressData() {
+        const p = getActiveProfile() || {};
+        if (!p.skyscraperProgress) {
+          p.skyscraperProgress = {
+            taipei_101: { currentFloor: 1, currentFloorBricks: 0, completed: false, highScore: 0, totalQuestionsSolved: 0 },
+            empire_state: { currentFloor: 1, currentFloorBricks: 0, completed: false, highScore: 0, totalQuestionsSolved: 0 },
+            petronas: { currentFloor: 1, currentFloorBricks: 0, completed: false, highScore: 0, totalQuestionsSolved: 0 },
+            shanghai_tower: { currentFloor: 1, currentFloorBricks: 0, completed: false, highScore: 0, totalQuestionsSolved: 0 },
+            burj_khalifa: { currentFloor: 1, currentFloorBricks: 0, completed: false, highScore: 0, totalQuestionsSolved: 0 }
+          };
+        }
+        if (!p.skyscraperStats) {
+          p.skyscraperStats = { wordMastery: {} };
+        }
+        return p;
+      },
+
+      init() {
+        this.showLandmarkSelect();
+        this.updateGlobalHeaderStats();
+      },
+
+      showLandmarkSelect() {
+        const screen1 = document.getElementById('skyLandmarkSelectScreen');
+        const screen2 = document.getElementById('skyConstructionScreen');
+        if (screen1) screen1.classList.remove('hidden');
+        if (screen2) screen2.classList.add('hidden');
+        this.renderLandmarkCards();
+        this.updateGlobalHeaderStats();
+      },
+
+      updateGlobalHeaderStats() {
+        const p = this.getProgressData();
+        const prog = p.skyscraperProgress || {};
+        let totalFloors = 0;
+        let totalHeight = 0;
+        let totalQuestions = 0;
+
+        SKYSCRAPER_LANDMARKS.forEach(lm => {
+          const rec = prog[lm.id] || { currentFloor: 1, currentFloorBricks: 0, totalQuestionsSolved: 0 };
+          const fl = Math.max(1, rec.currentFloor || 1);
+          totalFloors += (fl - 1);
+          totalHeight += Math.round(((fl - 1) / lm.totalFloors) * lm.heightMeters);
+          totalQuestions += (rec.totalQuestionsSolved || 0);
+        });
+
+        const floorsEl = document.getElementById('skyGlobalFloors');
+        const heightEl = document.getElementById('skyGlobalHeight');
+        const energyEl = document.getElementById('skyLiveEnergy');
+        const totalQEl = document.getElementById('skyGlobalTotalQuestions');
+
+        if (floorsEl) floorsEl.innerText = totalFloors;
+        if (heightEl) heightEl.innerText = totalHeight;
+        if (energyEl) energyEl.innerText = p.energyPoints || 100;
+        if (totalQEl) totalQEl.innerText = `${totalQuestions} 題`;
+      },
+
+      renderLandmarkCards() {
+        const container = document.getElementById('skyLandmarksContainer');
+        if (!container) return;
+        const p = this.getProgressData();
+        const prog = p.skyscraperProgress || {};
+        const taipeiFloor = (prog['taipei_101'] && prog['taipei_101'].currentFloor) || 1;
+
+        let html = '';
+        SKYSCRAPER_LANDMARKS.forEach(lm => {
+          const rec = prog[lm.id] || { currentFloor: 1, currentFloorBricks: 0, totalQuestionsSolved: 0 };
+          const isUnlocked = lm.unlockedByDefault || (taipeiFloor >= (lm.unlockFloorReq || 10));
+          const currentFloor = Math.min(rec.currentFloor || 1, lm.totalFloors);
+          const currentBricks = rec.currentFloorBricks || 0;
+          const totalQuestionsNeeded = lm.totalFloors * lm.bricksPerFloor;
+          const currentSolved = ((currentFloor - 1) * lm.bricksPerFloor) + currentBricks;
+          const percent = Math.min(100, Math.round((currentSolved / totalQuestionsNeeded) * 100));
+          const currentMeters = Math.round((currentFloor / lm.totalFloors) * lm.heightMeters);
+
+          html += `
+            <div class="relative bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 rounded-3xl p-5 border-2 ${isUnlocked ? 'border-amber-400/60 shadow-lg hover:border-amber-300' : 'border-slate-800 opacity-75'} flex flex-col justify-between transition-all duration-300">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <div class="flex items-center gap-2">
+                    <span class="text-3xl">${lm.flag}</span>
+                    <span class="text-2xl">🗼</span>
+                  </div>
+                  <span class="text-[10px] font-black px-2.5 py-1 rounded-full ${isUnlocked ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-400/50' : 'bg-slate-800 text-slate-400 border border-slate-700'}">
+                    ${isUnlocked ? '✅ 施工准入' : `🔒 台北101達 ${lm.unlockFloorReq} 層解鎖`}
+                  </span>
+                </div>
+
+                <div class="flex items-center gap-2">
+                  <h3 class="text-lg font-black text-white">${lm.name}</h3>
+                  <span class="text-xs text-amber-200/80 font-bold">${lm.enName}</span>
+                </div>
+                <div class="text-[11px] text-slate-400 mt-0.5">${lm.city} · 標高 ${lm.heightMeters}m · 共 ${lm.totalFloors} 層</div>
+                <div class="text-[10px] text-indigo-300 font-bold mt-1">${lm.badge}</div>
+
+                <!-- Progress Meter -->
+                <div class="mt-4 bg-slate-950 rounded-2xl p-3 border border-slate-800">
+                  <div class="flex items-center justify-between text-xs font-bold text-slate-300 mb-1.5">
+                    <span>施工高度：<strong class="text-amber-300 font-mono">FL ${currentFloor}</strong> / ${lm.totalFloors}F</span>
+                    <span class="text-cyan-400 font-mono font-black">${currentMeters}m / ${lm.heightMeters}m</span>
+                  </div>
+                  <div class="w-full bg-slate-800 h-2.5 rounded-full overflow-hidden">
+                    <div class="h-full bg-gradient-to-r from-amber-400 to-yellow-500 rounded-full transition-all duration-500" style="width: ${percent}%;"></div>
+                  </div>
+                  <div class="flex items-center justify-between text-[10px] text-slate-400 mt-2">
+                    <span>本層建材：<strong class="text-indigo-400 font-mono">${currentBricks} / 20 塊</strong></span>
+                    <span>大樓總進度：<strong class="text-amber-400 font-mono">${percent}%</strong> (${currentSolved}/${totalQuestionsNeeded} 題)</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Action Button -->
+              <div class="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between">
+                <span class="text-[10px] text-slate-500">每題吊裝 1 鋼骨</span>
+                ${isUnlocked ? `
+                  <button type="button" onclick="SkyscraperGameEngine.startBuilding('${lm.id}')" class="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-400 via-orange-400 to-yellow-400 hover:from-amber-300 text-slate-950 font-black text-xs shadow-md transition active:scale-95 flex items-center gap-1.5">
+                    <span>🔨</span> <span>進入大樓施工</span> <span>▶</span>
+                  </button>
+                ` : `
+                  <button type="button" disabled class="px-4 py-2 rounded-xl bg-slate-800 text-slate-500 font-black text-xs cursor-not-allowed">
+                    <span>🔒</span> <span>前置工程進行中</span>
+                  </button>
+                `}
+              </div>
+            </div>
+          `;
+        });
+
+        container.innerHTML = html;
+      },
+
+      startBuilding(landmarkId) {
+        this.activeLandmarkId = landmarkId;
+        this.combo = 0;
+        this.score = 0;
+        this.isSubmitting = false;
+
+        const screen1 = document.getElementById('skyLandmarkSelectScreen');
+        const screen2 = document.getElementById('skyConstructionScreen');
+        if (screen1) screen1.classList.add('hidden');
+        if (screen2) screen2.classList.remove('hidden');
+
+        const lm = SKYSCRAPER_LANDMARKS.find(l => l.id === landmarkId) || SKYSCRAPER_LANDMARKS[0];
+        const flagEl = document.getElementById('skyActiveFlag');
+        const nameEl = document.getElementById('skyActiveName');
+        const maxFloorsEl = document.getElementById('skyActiveMaxFloors');
+        if (flagEl) flagEl.innerText = lm.flag;
+        if (nameEl) nameEl.innerText = `${lm.name} (${lm.enName})`;
+        if (maxFloorsEl) maxFloorsEl.innerText = lm.totalFloors;
+
+        this.loadNextQuestion();
+      },
+
+      loadNextQuestion() {
+        this.isSubmitting = false;
+        const p = this.getProgressData();
+        const prog = p.skyscraperProgress[this.activeLandmarkId] || { currentFloor: 1, currentFloorBricks: 0 };
+        const currentFloor = prog.currentFloor || 1;
+        const currentBricks = prog.currentFloorBricks || 0;
+        const lm = SKYSCRAPER_LANDMARKS.find(l => l.id === this.activeLandmarkId) || SKYSCRAPER_LANDMARKS[0];
+
+        // 1. Update UI Elements for the floor
+        const floorNumEl = document.getElementById('skyActiveFloorNum');
+        const visualFloorEl = document.getElementById('skyVisualFloorNum');
+        const heightTagEl = document.getElementById('skyActiveHeightTag');
+        const currentMeters = Math.round((currentFloor / lm.totalFloors) * lm.heightMeters);
+
+        if (floorNumEl) floorNumEl.innerText = currentFloor;
+        if (visualFloorEl) visualFloorEl.innerText = currentFloor;
+        if (heightTagEl) heightTagEl.innerText = `${currentMeters}m / ${lm.heightMeters}m`;
+
+        const bricksTextEl = document.getElementById('skyFloorBricksText');
+        if (bricksTextEl) bricksTextEl.innerText = `${currentBricks} / 20 塊`;
+
+        // 20-segment visual dot bar
+        const bricks20Bar = document.getElementById('skyBricks20Bar');
+        if (bricks20Bar) {
+          let bHtml = '';
+          for (let i = 0; i < 20; i++) {
+            if (i < currentBricks) {
+              bHtml += `<div class="h-full rounded-md bg-gradient-to-r from-emerald-400 to-teal-500 shadow-2xs"></div>`;
+            } else if (i === currentBricks) {
+              bHtml += `<div class="h-full rounded-md bg-amber-400 animate-pulse border border-amber-300"></div>`;
+            } else {
+              bHtml += `<div class="h-full rounded-md bg-slate-200"></div>`;
+            }
+          }
+          bricks20Bar.innerHTML = bHtml;
+        }
+
+        // Mini visual brick slots on the building scaffolding
+        const visualGrid = document.getElementById('skyVisualBricksGrid');
+        if (visualGrid) {
+          let vHtml = '';
+          for (let i = 0; i < 20; i++) {
+            if (i < currentBricks) {
+              vHtml += `<span class="w-1.5 h-3 bg-amber-400 rounded-2xs inline-block"></span>`;
+            } else {
+              vHtml += `<span class="w-1.5 h-3 bg-slate-700/60 rounded-2xs inline-block"></span>`;
+            }
+          }
+          visualGrid.innerHTML = vHtml;
+        }
+
+        // 2. Dynamic Backdrop Atmosphere based on floor height
+        const backdrop = document.getElementById('skySceneBackdrop');
+        const starsLayer = document.getElementById('skyStarsLayer');
+        if (backdrop) {
+          if (currentFloor <= 25) {
+            backdrop.className = "relative w-full h-56 sm:h-64 rounded-3xl overflow-hidden border-2 border-indigo-900/60 shadow-xl transition-all duration-700 flex flex-col justify-between p-3 select-none bg-gradient-to-b from-sky-400 via-sky-200 to-indigo-100";
+            if (starsLayer) starsLayer.classList.add('hidden');
+          } else if (currentFloor <= 60) {
+            backdrop.className = "relative w-full h-56 sm:h-64 rounded-3xl overflow-hidden border-2 border-amber-900/60 shadow-xl transition-all duration-700 flex flex-col justify-between p-3 select-none bg-gradient-to-b from-amber-500 via-orange-300 to-indigo-900 text-white";
+            if (starsLayer) starsLayer.classList.add('hidden');
+          } else if (currentFloor <= 90) {
+            backdrop.className = "relative w-full h-56 sm:h-64 rounded-3xl overflow-hidden border-2 border-indigo-800/80 shadow-xl transition-all duration-700 flex flex-col justify-between p-3 select-none bg-gradient-to-b from-indigo-900 via-blue-900 to-slate-900 text-white";
+            if (starsLayer) starsLayer.classList.add('hidden');
+          } else {
+            backdrop.className = "relative w-full h-56 sm:h-64 rounded-3xl overflow-hidden border-2 border-indigo-500/80 shadow-xl transition-all duration-700 flex flex-col justify-between p-3 select-none bg-gradient-to-b from-slate-950 via-indigo-950 to-black text-white";
+            if (starsLayer) starsLayer.classList.remove('hidden');
+          }
+        }
+
+        // Hide hint box
+        const hintBox = document.getElementById('skyHintBox');
+        if (hintBox) hintBox.classList.add('hidden');
+
+        // 3. 50/25/25 Golden Ratio Question Generation
+        const q = this.generateAdaptiveQuestion(this.activeLandmarkId, currentFloor);
+        this.currentQuestion = q;
+        this.renderQuestion(q);
+      },
+
+      generateAdaptiveQuestion(landmarkId, floor) {
+        const p = this.getProgressData();
+        const mastery = (p.skyscraperStats && p.skyscraperStats.wordMastery) || {};
+        const weakList = p.weakWords || [];
+        const vocabPool = (typeof MASTER_VOCAB !== 'undefined' && Array.isArray(MASTER_VOCAB)) ? MASTER_VOCAB : [];
+        if (vocabPool.length === 0) return null;
+
+        // Categorize words
+        const newWords = [];
+        const masteredWords = [];
+        const weakWords = [];
+
+        vocabPool.forEach(item => {
+          const w = item.word.toLowerCase();
+          const stat = mastery[w];
+          if (!stat || stat.seen === 0) {
+            newWords.push(item);
+          } else if (stat.error >= 1 && (stat.correct / stat.seen) < 0.75) {
+            weakWords.push(item);
+          } else if (stat.correct >= 2 && (stat.correct / stat.seen) >= 0.75) {
+            masteredWords.push(item);
+          } else {
+            newWords.push(item);
+          }
+        });
+
+        // Also incorporate weakList from profile
+        weakList.forEach(wStr => {
+          const match = vocabPool.find(v => v.word.toLowerCase() === String(wStr).toLowerCase());
+          if (match && !weakWords.some(x => x.word.toLowerCase() === match.word.toLowerCase())) {
+            weakWords.push(match);
+          }
+        });
+
+        // 50% New / 25% Mastered / 25% Weak
+        const rand = Math.random();
+        let selectedItem = null;
+        let questionType = 'new';
+        let typeBadgeText = '✨ 50% 新知探索題';
+        let typeBadgeClass = 'bg-indigo-500/20 text-indigo-300 border-indigo-400/40';
+
+        if (rand < 0.50) {
+          // 50% New
+          questionType = 'new';
+          typeBadgeText = '✨ 50% 新知探索題';
+          typeBadgeClass = 'bg-indigo-500/20 text-indigo-300 border-indigo-400/40';
+          if (newWords.length > 0) {
+            selectedItem = newWords[Math.floor(Math.random() * newWords.length)];
+          } else {
+            selectedItem = vocabPool[Math.floor(Math.random() * vocabPool.length)];
+          }
+        } else if (rand < 0.75) {
+          // 25% Mastered / Confidence Booster
+          questionType = 'mastered';
+          typeBadgeText = '💪 25% 常對自信題';
+          typeBadgeClass = 'bg-emerald-500/20 text-emerald-300 border-emerald-400/40';
+          if (masteredWords.length > 0) {
+            selectedItem = masteredWords[Math.floor(Math.random() * masteredWords.length)];
+          } else if (newWords.length > 0) {
+            selectedItem = newWords[Math.floor(Math.random() * newWords.length)];
+          } else {
+            selectedItem = vocabPool[Math.floor(Math.random() * vocabPool.length)];
+          }
+        } else {
+          // 25% Weak / Spaced Repetition Remediation
+          questionType = 'weak';
+          typeBadgeText = '🔥 25% 常錯強化題';
+          typeBadgeClass = 'bg-amber-500/20 text-amber-300 border-amber-400/40';
+          if (weakWords.length > 0) {
+            selectedItem = weakWords[Math.floor(Math.random() * weakWords.length)];
+          } else if (newWords.length > 0) {
+            selectedItem = newWords[Math.floor(Math.random() * newWords.length)];
+          } else {
+            selectedItem = vocabPool[Math.floor(Math.random() * vocabPool.length)];
+          }
+        }
+
+        if (!selectedItem) selectedItem = vocabPool[0];
+
+        // Determine difficulty level for this floor:
+        // Floor 1-25: Level 1 simple short sentence
+        // Floor 26-60: Level 2 daily sentence
+        // Floor 61+: Level 3 advanced sentence
+        let targetLevel = 1;
+        if (floor > 60) targetLevel = 3;
+        else if (floor > 25) targetLevel = 2;
+
+        let sentenceObj = null;
+        if (Array.isArray(selectedItem.gradedSentences) && selectedItem.gradedSentences.length > 0) {
+          sentenceObj = selectedItem.gradedSentences.find(s => s.level === targetLevel) || selectedItem.gradedSentences[0];
+        } else if (Array.isArray(selectedItem.scenarios) && selectedItem.scenarios.length > 0) {
+          const sc = selectedItem.scenarios[0];
+          sentenceObj = {
+            text: (sc.sentences && sc.sentences[0]) || selectedItem.word,
+            translation: (sc.translations && sc.translations[0]) || selectedItem.meaning || ''
+          };
+        } else {
+          sentenceObj = {
+            text: `This is a ${selectedItem.word}.`,
+            translation: `這是一個${selectedItem.meaning || selectedItem.word}。`
+          };
+        }
+
+        const rawText = (sentenceObj.text || '').trim();
+        const translation = (sentenceObj.translation || '').trim();
+        const targetWord = selectedItem.word.trim();
+
+        // 3 Distractor choices
+        const distractors = [];
+        const filteredPool = vocabPool.filter(v => v.word.toLowerCase() !== targetWord.toLowerCase());
+        const shuffled = [...filteredPool].sort(() => 0.5 - Math.random());
+        for (let i = 0; i < shuffled.length && distractors.length < 3; i++) {
+          distractors.push(shuffled[i].word.trim());
+        }
+
+        const allChoices = [targetWord, ...distractors].sort(() => 0.5 - Math.random());
+
+        return {
+          questionType,
+          typeBadgeText,
+          typeBadgeClass,
+          vocabItem: selectedItem,
+          sentence: rawText,
+          translation,
+          targetWord,
+          choices: allChoices,
+          sentenceCode: sentenceObj.sentenceCode || selectedItem.wordCode || 'EN_0001'
+        };
+      },
+
+      renderQuestion(q) {
+        if (!q) return;
+
+        // Badge
+        const tagEl = document.getElementById('skyQuestionTypeTag');
+        if (tagEl) {
+          tagEl.className = `text-[10px] font-black px-2.5 py-1 rounded-full border flex items-center gap-1 shadow-xs ${q.typeBadgeClass}`;
+          tagEl.innerHTML = `<span>${q.typeBadgeText.slice(0, 2)}</span> <span>${q.typeBadgeText.slice(2)}</span>`;
+        }
+
+        const comboEl = document.getElementById('skyComboNum');
+        const scoreEl = document.getElementById('skyScoreNum');
+        if (comboEl) comboEl.innerText = this.combo;
+        if (scoreEl) scoreEl.innerText = this.score;
+
+        // Code
+        const codeEl = document.getElementById('skyQuestionCode');
+        if (codeEl) codeEl.innerText = q.sentenceCode;
+
+        // Chinese translation
+        const cnEl = document.getElementById('skySentenceChinese');
+        if (cnEl) cnEl.innerText = q.translation;
+
+        // English sentence with slot
+        const enContainer = document.getElementById('skySentenceEnglishContainer');
+        if (enContainer) {
+          // Replace target word with glowing slot
+          const regex = new RegExp(`\\b${q.targetWord.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&')}\\b`, 'i');
+          const parts = q.sentence.split(regex);
+
+          if (parts.length >= 2) {
+            enContainer.innerHTML = `
+              <span>${parts[0]}</span>
+              <div id="skyTargetSlot" ondragover="event.preventDefault()" ondrop="SkyscraperGameEngine.handleDrop(event)" class="inline-flex min-w-[110px] h-10 px-4 rounded-xl border-2 border-dashed border-amber-400 bg-amber-500/10 text-amber-300 font-black items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.3)] transition-all animate-pulse">
+                [ 點選下方建材 ]
+              </div>
+              <span>${parts.slice(1).join(q.targetWord)}</span>
+            `;
+          } else {
+            enContainer.innerHTML = `
+              <span>${q.sentence}</span>
+              <div id="skyTargetSlot" ondragover="event.preventDefault()" ondrop="SkyscraperGameEngine.handleDrop(event)" class="inline-flex min-w-[110px] h-10 px-4 rounded-xl border-2 border-dashed border-amber-400 bg-amber-500/10 text-amber-300 font-black items-center justify-center shadow-[0_0_15px_rgba(245,158,11,0.3)] transition-all animate-pulse">
+                [ 點選下方建材 ]
+              </div>
+            `;
+          }
+        }
+
+        // Suspended Girder Word
+        const girderWord = document.getElementById('skySuspendedWord');
+        if (girderWord) girderWord.innerText = q.targetWord.toUpperCase();
+
+        // 4 Tactile Brick Buttons
+        const depot = document.getElementById('skyMaterialDepot');
+        if (depot) {
+          let bHtml = '';
+          q.choices.forEach((choice, idx) => {
+            bHtml += `
+              <button type="button" 
+                draggable="true" 
+                ondragstart="event.dataTransfer.setData('text/plain', '${choice}')"
+                onclick="SkyscraperGameEngine.handleChoice('${choice}', this)" 
+                class="sky-brick-btn jelly-btn-3d group relative py-3 px-3 rounded-2xl bg-gradient-to-b from-white to-slate-100 hover:from-amber-50 hover:to-amber-100 border-2 border-slate-300 hover:border-amber-400 text-slate-800 font-black text-sm sm:text-base shadow-md transition-all active:scale-95 flex items-center justify-center gap-2 select-none">
+                <span class="w-3 h-3 rounded-full bg-slate-300 group-hover:bg-amber-400 shrink-0"></span>
+                <span>${choice}</span>
+              </button>
+            `;
+          });
+          depot.innerHTML = bHtml;
+        }
+      },
+
+      handleDrop(event) {
+        event.preventDefault();
+        const choice = event.dataTransfer.getData('text/plain');
+        if (choice) {
+          this.handleChoice(choice, null);
+        }
+      },
+
+      speakSentence() {
+        if (!this.currentQuestion || !this.currentQuestion.sentence) return;
+        if (typeof KaiSpeechEngine !== 'undefined' && KaiSpeechEngine.speak) {
+          KaiSpeechEngine.speak(this.currentQuestion.sentence, 0.90, null, { role: 'kai' });
+        }
+      },
+
+      handleChoice(choiceText, btnEl) {
+        if (this.isSubmitting || !this.currentQuestion) return;
+        const q = this.currentQuestion;
+        const isCorrect = (choiceText.trim().toLowerCase() === q.targetWord.trim().toLowerCase());
+
+        const slot = document.getElementById('skyTargetSlot');
+        const p = this.getProgressData();
+        const mastery = p.skyscraperStats.wordMastery;
+        const wKey = q.targetWord.toLowerCase();
+        if (!mastery[wKey]) {
+          mastery[wKey] = { seen: 0, correct: 0, error: 0, status: 'learning' };
+        }
+        mastery[wKey].seen++;
+
+        if (isCorrect) {
+          this.isSubmitting = true;
+          this.playConstructionClank();
+          mastery[wKey].correct++;
+
+          // If was weak and now precision is >= 75%, mark as mastered and remove from weakWords
+          if ((mastery[wKey].correct / mastery[wKey].seen) >= 0.75) {
+            mastery[wKey].status = 'mastered';
+            if (p.weakWords && p.weakWords.includes(wKey)) {
+              p.weakWords = p.weakWords.filter(x => x.toLowerCase() !== wKey);
+            }
+          }
+
+          // Visual slot lock
+          if (slot) {
+            slot.innerHTML = `<span class="text-emerald-400 font-black">${q.targetWord}</span>`;
+            slot.className = "inline-flex min-w-[110px] h-10 px-4 rounded-xl border-2 border-emerald-400 bg-emerald-500/20 text-emerald-300 font-black items-center justify-center shadow-[0_0_20px_rgba(16,185,129,0.5)] transition-all";
+          }
+
+          // Combo & Score
+          this.combo++;
+          this.score += (100 * this.combo);
+          const comboEl = document.getElementById('skyComboNum');
+          const scoreEl = document.getElementById('skyScoreNum');
+          if (comboEl) comboEl.innerText = this.combo;
+          if (scoreEl) scoreEl.innerText = this.score;
+
+          // Cheer bubble
+          const cheer = document.getElementById('skyKaiCheerBubble');
+          if (cheer) {
+            const praises = ['「太棒了！鋼骨穩固咬合！」', '「連擊建造！起重機全速運轉！」', '「完美填空！天際線持續爬升！」', '「大師級工藝！整座大樓都在為你喝采！」'];
+            cheer.innerText = praises[Math.floor(Math.random() * praises.length)];
+          }
+
+          // Advance Brick progress
+          const lm = SKYSCRAPER_LANDMARKS.find(l => l.id === this.activeLandmarkId) || SKYSCRAPER_LANDMARKS[0];
+          const rec = p.skyscraperProgress[this.activeLandmarkId];
+          rec.currentFloorBricks = (rec.currentFloorBricks || 0) + 1;
+          rec.totalQuestionsSolved = (rec.totalQuestionsSolved || 0) + 1;
+
+          // Check if Floor Completed
+          let floorCompleted = false;
+          if (rec.currentFloorBricks >= lm.bricksPerFloor) {
+            floorCompleted = true;
+            rec.currentFloor = (rec.currentFloor || 1) + 1;
+            rec.currentFloorBricks = 0;
+            this.playFloorCelebrate();
+
+            // Check Milestone Celebration
+            const completedFloor = rec.currentFloor - 1;
+            if (completedFloor % lm.milestoneInterval === 0) {
+              p.energyPoints = (p.energyPoints || 100) + 50;
+              alert(`🎉 【${lm.milestoneName}】正式達成！\n\n恭喜！${lm.name} 已成功建造至第 ${completedFloor} 層！\n榮獲大樓階段專屬里程碑，獲贈 ⚡ +50 點能量！`);
+            } else {
+              if (typeof showToastNotification === 'function') {
+                showToastNotification(`🎉 FL ${completedFloor} 樓層封頂完工！高度 +${Math.round(lm.heightMeters / lm.totalFloors)}m！`, 'success');
+              }
+            }
+          }
+
+          saveProfilesToStorage();
+          if (typeof ParentAccountSyncEngine !== 'undefined') {
+            ParentAccountSyncEngine.debouncedSyncWithCloud();
+          }
+
+          // Speak full sentence
+          this.speakSentence();
+
+          setTimeout(() => {
+            this.loadNextQuestion();
+            this.updateGlobalHeaderStats();
+          }, 1400);
+
+        } else {
+          // Incorrect: Shake & deduct 2 energy points
+          mastery[wKey].error++;
+          mastery[wKey].status = 'weak';
+          if (!p.weakWords) p.weakWords = [];
+          if (!p.weakWords.includes(wKey)) p.weakWords.push(wKey);
+
+          this.combo = 0;
+          const comboEl = document.getElementById('skyComboNum');
+          if (comboEl) comboEl.innerText = 0;
+
+          // Deduct 2 energy
+          p.energyPoints = Math.max(0, (p.energyPoints || 100) - 2);
+          saveProfilesToStorage();
+          this.updateGlobalHeaderStats();
+
+          // Button shake
+          if (btnEl) {
+            btnEl.classList.add('animate-shake', 'opacity-50', 'bg-rose-100', 'border-rose-400');
+            setTimeout(() => btnEl.classList.remove('animate-shake'), 600);
+          }
+
+          // Show hint
+          const hintBox = document.getElementById('skyHintBox');
+          const hintText = document.getElementById('skyHintText');
+          if (hintBox && hintText) {
+            hintBox.classList.remove('hidden');
+            hintText.innerHTML = `結構微震！請注意中文句子中的關鍵線索：<strong class="text-amber-300 font-black">【${q.translation}】</strong>，扣除 2 ⚡ 能量。再試一次！`;
+          }
+
+          const cheer = document.getElementById('skyKaiCheerBubble');
+          if (cheer) cheer.innerText = '「結構有點搖晃，別灰心，再仔細看中文提示選一次！」';
+        }
+      }
+    };
+
     function showAdventureGrandMap() {
       const g = document.getElementById('advGrandMapView');
       const m = document.getElementById('advMeteorIslandView');
+      const s = document.getElementById('advSkyscraperIslandView');
       if (g) g.classList.remove('hidden');
       if (m) m.classList.add('hidden');
+      if (s) s.classList.add('hidden');
       updateMeteorGrandMapUI();
     }
 
@@ -11526,18 +12532,36 @@
         enterMeteorIsland(1, true);
         return;
       }
-      // 👑 探險島進階島嶼（第二島～第五島）全面設定為 VIP 旗艦購買特權
+      if (islandNumber === 2) {
+        if (!isUserVip()) {
+          openVipUpgradeModal('island_lock', '第二島 · 摩天大樓建造島');
+          return;
+        }
+        enterSkyscraperIsland();
+        return;
+      }
+      // 👑 探險島進階島嶼（第三島～第五島）全面設定為 VIP 旗艦購買特權
       if (!isUserVip()) {
         openVipUpgradeModal('island_lock', islandName || `第 ${islandNumber} 島`);
         return;
       }
       // VIP 會員友善提示
-      const modalMsg = `👑 尊享 VIP 旗艦會員！\n\n【${islandName || '進階島嶼'}】專屬遊戲關卡（克漏字 / 巨獸語音連擊 / 聽音尋寶 / 終極魔王）正在加載中，全新機制即將為您啟航！`;
+      const modalMsg = `👑 尊享 VIP 旗艦會員！\n\n【${islandName || '進階島嶼'}】專屬遊戲關卡（巨獸語音連擊 / 聽音尋寶 / 終極魔王）正在加載中，全新機制即將為您啟航！`;
       if (typeof showToastNotification === 'function') {
         showToastNotification(`👑 VIP 尊享：${islandName || '進階島嶼'} 航線加載中，敬請期待！`, 'info');
       } else {
         alert(modalMsg);
       }
+    }
+
+    function enterSkyscraperIsland() {
+      const g = document.getElementById('advGrandMapView');
+      const m = document.getElementById('advMeteorIslandView');
+      const s = document.getElementById('advSkyscraperIslandView');
+      if (g) g.classList.add('hidden');
+      if (m) m.classList.add('hidden');
+      if (s) s.classList.remove('hidden');
+      SkyscraperGameEngine.init();
     }
 
     function enterMeteorIsland(level = 1, autoStart = true) {
@@ -11801,7 +12825,8 @@
       }
       const grandMap = document.getElementById('advGrandMapView');
       const meteorIsland = document.getElementById('advMeteorIslandView');
-      if (grandMap && meteorIsland && meteorIsland.classList.contains('hidden')) {
+      const skyIsland = document.getElementById('advSkyscraperIslandView');
+      if (grandMap && meteorIsland && skyIsland && meteorIsland.classList.contains('hidden') && skyIsland.classList.contains('hidden')) {
         grandMap.classList.remove('hidden');
       }
 
@@ -14442,7 +15467,7 @@
     };
 
     // ========================================================
-    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.61)
+    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.62)
     // ========================================================
     // 💡 App Store 開箱即用架構（商業發行標準）：
     // 透過 Cloudflare Worker 官方安全閘道器，免掃碼、免設定、0 秒直連 Google 官方 AI！
@@ -16003,7 +17028,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.61)
+    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.62)
     // ========================================================
     function parseScenarioJsonResponse(rawText) {
       if (!rawText || typeof rawText !== 'string') return null;
@@ -16108,7 +17133,7 @@
     }
 
     // ========================================================
-    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.61)
+    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.62)
     // ========================================================
     async function callGeminiScenarioPlanner(userText, userLevel, apiKey) {
       // 1. Ensure valid official model from localStorage
@@ -16625,7 +17650,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.61)
+    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.62)
     // ========================================================
     const KaiSpeechEngine = {
       preferredVoice: null,
