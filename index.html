@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.62";
+        const LATEST_VER = "26.11.63";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -218,8 +218,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.62（2026年·11月·第38次發布）">
-                26.11.62
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.63（2026年·11月·第38次發布）">
+                26.11.63
               </span>
             </div>
           </div>
@@ -467,7 +467,7 @@
               <span class="text-[9px] text-amber-500">✨</span>
               <span>奇妙星語言</span>
             </span>
-            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.62（2026年·11月·第38次發布）">26.11.62</span>
+            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.63（2026年·11月·第38次發布）">26.11.63</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer hidden sm:flex items-center gap-0.5 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-1.5 py-0.2 transition shadow-2xs group-hover:border-amber-400 max-w-[130px] truncate" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -1879,105 +1879,6 @@
       </div>
     </div>
 
-  </section>
-
-  <!-- ======================================================== -->
-  <!-- 30-SECOND METEOR VOICE SHOOTER LIVE BATTLE MODAL         -->
-  <!-- ======================================================== -->
-  <div id="meteorBattleModal" class="fixed inset-0 w-full h-full z-[89] flex flex-col bg-slate-950 p-0 m-0 overflow-hidden hidden">
-    <div class="relative w-full h-full flex flex-col bg-gradient-to-b from-indigo-950 via-slate-900 to-indigo-950 overflow-hidden">
-      
-      <!-- Top HUD Header (Optimized for Tablet Portrait & Phone) -->
-      <div class="p-2 sm:p-3 bg-indigo-950/95 border-b border-indigo-800/80 flex items-center justify-between z-20 shrink-0 flex-wrap gap-2">
-        <div class="flex items-center gap-2">
-          <span class="text-xl sm:text-2xl animate-bounce">🚀</span>
-          <div>
-            <div id="meteorBattleStageTitle" class="text-xs sm:text-sm font-black text-amber-300">關卡 1-1 · 雙語看英念英 (50秒穩健防衛)</div>
-            <div class="text-[9px] sm:text-[10px] text-indigo-200">大聲說出英文單字，Kai 噴火龍噴射烈焰雷射擊碎隕石！</div>
-          </div>
-        </div>
-        <div class="flex items-center gap-2 shrink-0">
-          <div class="flex items-center gap-1.5 bg-slate-900/90 px-2.5 py-1 rounded-full border border-indigo-500/40">
-            <span class="text-xs">🎯</span>
-            <span class="text-[10px] text-slate-300">得分:</span>
-            <span id="meteorScoreDisplay" class="font-mono font-black text-amber-400 text-sm sm:text-base">0</span>
-            <span class="text-[9px] text-slate-400 font-normal">/</span>
-            <span id="meteorTargetDisplay" class="text-[10px] text-indigo-300 font-bold font-mono">60分通關</span>
-          </div>
-          <span id="meteorComboDisplay" class="text-[10px] sm:text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-slate-300">連擊 x0</span>
-          
-          <!-- PROMINENT QUIT BUTTON (隨時可臨時關閉與退出) -->
-          <button type="button" onclick="MeteorGameEngine.quitGame()" class="px-3 py-1.5 rounded-full bg-rose-600/90 hover:bg-rose-500 text-white flex items-center gap-1 font-black text-xs shadow-md border border-rose-400 active:scale-95 transition" title="暫停並退出挑戰">
-            <span>✕</span>
-            <span>退出挑戰</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- 50-Second Countdown Progress Bar -->
-      <div class="w-full bg-slate-950 h-2 sm:h-2.5 relative overflow-hidden border-b border-indigo-900 shrink-0">
-        <div id="meteorTimerProgressBar" class="h-full bg-gradient-to-r from-emerald-400 via-teal-400 to-indigo-500 transition-all duration-300" style="width: 100%;"></div>
-        <span id="meteorTimerText" class="absolute right-2 top-0 text-[8px] sm:text-[9px] font-mono font-black text-white/90 leading-none">50s</span>
-      </div>
-
-      <!-- Main Battlefield Playing Field (Full-Screen Immersive Canvas) -->
-      <div id="meteorFieldCanvas" class="relative flex-1 w-full bg-slate-950 overflow-hidden select-none">
-        <!-- Target Cleared Neon Banner (Triggered when passing targetScore) -->
-        <div id="meteorTargetClearedBanner" class="hidden absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-none flex flex-col items-center select-none text-center">
-          <div class="px-5 py-2 rounded-2xl bg-gradient-to-r from-amber-500 via-rose-500 to-indigo-600 text-white font-black text-base sm:text-lg border-2 border-amber-300 shadow-[0_0_35px_rgba(245,158,11,0.9)] tracking-wide animate-pulse">
-            🎯 TARGET CLEARED! 通關門檻達成！
-          </div>
-          <div class="mt-1 text-[11px] font-black text-amber-300 bg-slate-950/90 px-3 py-0.5 rounded-full border border-amber-400/50 shadow-md">
-            ⚡ 狂暴加分衝刺中！爭取 3 星與超量能量！
-          </div>
-        </div>
-
-        <!-- Bottom Kai Riding Cute Fire Dragon Turret Stage (無外框·自然浮空·左右微動) -->
-        <div id="meteorDragonTurretDeck" class="absolute bottom-1 sm:bottom-2 left-1/2 -translate-x-1/2 z-30 pointer-events-none flex flex-col items-center select-none">
-          <!-- Gentle Left-Right Hover Sway Wrapper -->
-          <div id="dragonHoverSwayWrapper" class="relative flex flex-col items-center justify-center animate-dragon-sway">
-            <!-- Kai Riding Fire Dragon Character (Transparent WebP + GIF Fallback, No Frame) -->
-            <div id="dragonSprite" class="relative w-48 sm:w-60 md:w-72 h-28 sm:h-36 md:h-42 flex items-center justify-center transition-transform duration-200">
-              <picture class="w-full h-full flex items-center justify-center pointer-events-none select-none">
-                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.62" type="image/webp">
-                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.62" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
-              </picture>
-            </div>
-            <!-- Dragon Muzzle Flame Flash (Fires upon shooting laser) -->
-            <div id="dragonMuzzleFlash" class="hidden absolute top-2 text-4xl sm:text-5xl filter drop-shadow-[0_0_25px_#FFA500] animate-ping">
-              🔥⚡💥
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Bottom Defense Line & Voice Recognition Feedback -->
-      <div class="p-2.5 sm:p-3 bg-gradient-to-t from-indigo-950 via-slate-900 to-indigo-950/80 border-t border-indigo-800/80 z-20 shrink-0 flex flex-col gap-1.5 sm:gap-2">
-        <!-- Live Speech Recognition Feedback -->
-        <div class="w-full flex items-center justify-between gap-2 bg-slate-950/90 px-3 py-1.5 rounded-xl border border-indigo-500/30 text-xs">
-          <div id="meteorSpokenFeedback" class="font-bold text-indigo-300 truncate">
-            🎙️ 正在聆聽你的美語聲音... (直接大聲唸出螢幕單字!)
-          </div>
-          <button type="button" onclick="MeteorGameEngine.playHintVoice()" class="shrink-0 px-2.5 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-[10px] sm:text-xs active:scale-95 transition flex items-center gap-1 shadow-xs">
-            <span>🔊 聽發音提示</span>
-          </button>
-        </div>
-
-        <!-- Kai Defense Ship & Shield Status -->
-        <div class="flex items-center justify-between text-white text-xs">
-          <div class="flex items-center gap-1.5">
-            <span id="meteorShieldIcon" class="text-base sm:text-lg animate-pulse">🛡️</span>
-            <span class="text-[10px] sm:text-xs text-indigo-200">能量防護罩：<span id="meteorShieldStatusText" class="text-emerald-400 font-bold">100% 守護中</span></span>
-          </div>
-          <div class="flex items-center gap-1.5">
-            <span class="text-base sm:text-lg animate-pulse">⚡</span>
-            <span class="text-[10px] sm:text-xs text-amber-300 font-bold">目前能量: <span id="meteorLiveEnergyDisplay" class="font-mono font-black text-cyan-300">0</span></span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
     <!-- ======================================================== -->
     <!-- VIEW C: ISLAND 2 SKYSCRAPER BUILDER (第二島·摩天大樓建造島) -->
     <!-- ======================================================== -->
@@ -2247,6 +2148,107 @@
       </div>
 
     </div>
+
+  </section>
+
+  <!-- ======================================================== -->
+  <!-- 30-SECOND METEOR VOICE SHOOTER LIVE BATTLE MODAL         -->
+  <!-- ======================================================== -->
+  <div id="meteorBattleModal" class="fixed inset-0 w-full h-full z-[89] flex flex-col bg-slate-950 p-0 m-0 overflow-hidden hidden">
+    <div class="relative w-full h-full flex flex-col bg-gradient-to-b from-indigo-950 via-slate-900 to-indigo-950 overflow-hidden">
+      
+      <!-- Top HUD Header (Optimized for Tablet Portrait & Phone) -->
+      <div class="p-2 sm:p-3 bg-indigo-950/95 border-b border-indigo-800/80 flex items-center justify-between z-20 shrink-0 flex-wrap gap-2">
+        <div class="flex items-center gap-2">
+          <span class="text-xl sm:text-2xl animate-bounce">🚀</span>
+          <div>
+            <div id="meteorBattleStageTitle" class="text-xs sm:text-sm font-black text-amber-300">關卡 1-1 · 雙語看英念英 (50秒穩健防衛)</div>
+            <div class="text-[9px] sm:text-[10px] text-indigo-200">大聲說出英文單字，Kai 噴火龍噴射烈焰雷射擊碎隕石！</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+          <div class="flex items-center gap-1.5 bg-slate-900/90 px-2.5 py-1 rounded-full border border-indigo-500/40">
+            <span class="text-xs">🎯</span>
+            <span class="text-[10px] text-slate-300">得分:</span>
+            <span id="meteorScoreDisplay" class="font-mono font-black text-amber-400 text-sm sm:text-base">0</span>
+            <span class="text-[9px] text-slate-400 font-normal">/</span>
+            <span id="meteorTargetDisplay" class="text-[10px] text-indigo-300 font-bold font-mono">60分通關</span>
+          </div>
+          <span id="meteorComboDisplay" class="text-[10px] sm:text-[11px] font-bold px-2 py-0.5 rounded-full bg-slate-800 text-slate-300">連擊 x0</span>
+          
+          <!-- PROMINENT QUIT BUTTON (隨時可臨時關閉與退出) -->
+          <button type="button" onclick="MeteorGameEngine.quitGame()" class="px-3 py-1.5 rounded-full bg-rose-600/90 hover:bg-rose-500 text-white flex items-center gap-1 font-black text-xs shadow-md border border-rose-400 active:scale-95 transition" title="暫停並退出挑戰">
+            <span>✕</span>
+            <span>退出挑戰</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 50-Second Countdown Progress Bar -->
+      <div class="w-full bg-slate-950 h-2 sm:h-2.5 relative overflow-hidden border-b border-indigo-900 shrink-0">
+        <div id="meteorTimerProgressBar" class="h-full bg-gradient-to-r from-emerald-400 via-teal-400 to-indigo-500 transition-all duration-300" style="width: 100%;"></div>
+        <span id="meteorTimerText" class="absolute right-2 top-0 text-[8px] sm:text-[9px] font-mono font-black text-white/90 leading-none">50s</span>
+      </div>
+
+      <!-- Main Battlefield Playing Field (Full-Screen Immersive Canvas) -->
+      <div id="meteorFieldCanvas" class="relative flex-1 w-full bg-slate-950 overflow-hidden select-none">
+        <!-- Target Cleared Neon Banner (Triggered when passing targetScore) -->
+        <div id="meteorTargetClearedBanner" class="hidden absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-none flex flex-col items-center select-none text-center">
+          <div class="px-5 py-2 rounded-2xl bg-gradient-to-r from-amber-500 via-rose-500 to-indigo-600 text-white font-black text-base sm:text-lg border-2 border-amber-300 shadow-[0_0_35px_rgba(245,158,11,0.9)] tracking-wide animate-pulse">
+            🎯 TARGET CLEARED! 通關門檻達成！
+          </div>
+          <div class="mt-1 text-[11px] font-black text-amber-300 bg-slate-950/90 px-3 py-0.5 rounded-full border border-amber-400/50 shadow-md">
+            ⚡ 狂暴加分衝刺中！爭取 3 星與超量能量！
+          </div>
+        </div>
+
+        <!-- Bottom Kai Riding Cute Fire Dragon Turret Stage (無外框·自然浮空·左右微動) -->
+        <div id="meteorDragonTurretDeck" class="absolute bottom-1 sm:bottom-2 left-1/2 -translate-x-1/2 z-30 pointer-events-none flex flex-col items-center select-none">
+          <!-- Gentle Left-Right Hover Sway Wrapper -->
+          <div id="dragonHoverSwayWrapper" class="relative flex flex-col items-center justify-center animate-dragon-sway">
+            <!-- Kai Riding Fire Dragon Character (Transparent WebP + GIF Fallback, No Frame) -->
+            <div id="dragonSprite" class="relative w-48 sm:w-60 md:w-72 h-28 sm:h-36 md:h-42 flex items-center justify-center transition-transform duration-200">
+              <picture class="w-full h-full flex items-center justify-center pointer-events-none select-none">
+                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.63" type="image/webp">
+                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.63" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
+              </picture>
+            </div>
+            <!-- Dragon Muzzle Flame Flash (Fires upon shooting laser) -->
+            <div id="dragonMuzzleFlash" class="hidden absolute top-2 text-4xl sm:text-5xl filter drop-shadow-[0_0_25px_#FFA500] animate-ping">
+              🔥⚡💥
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Defense Line & Voice Recognition Feedback -->
+      <div class="p-2.5 sm:p-3 bg-gradient-to-t from-indigo-950 via-slate-900 to-indigo-950/80 border-t border-indigo-800/80 z-20 shrink-0 flex flex-col gap-1.5 sm:gap-2">
+        <!-- Live Speech Recognition Feedback -->
+        <div class="w-full flex items-center justify-between gap-2 bg-slate-950/90 px-3 py-1.5 rounded-xl border border-indigo-500/30 text-xs">
+          <div id="meteorSpokenFeedback" class="font-bold text-indigo-300 truncate">
+            🎙️ 正在聆聽你的美語聲音... (直接大聲唸出螢幕單字!)
+          </div>
+          <button type="button" onclick="MeteorGameEngine.playHintVoice()" class="shrink-0 px-2.5 py-1 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-[10px] sm:text-xs active:scale-95 transition flex items-center gap-1 shadow-xs">
+            <span>🔊 聽發音提示</span>
+          </button>
+        </div>
+
+        <!-- Kai Defense Ship & Shield Status -->
+        <div class="flex items-center justify-between text-white text-xs">
+          <div class="flex items-center gap-1.5">
+            <span id="meteorShieldIcon" class="text-base sm:text-lg animate-pulse">🛡️</span>
+            <span class="text-[10px] sm:text-xs text-indigo-200">能量防護罩：<span id="meteorShieldStatusText" class="text-emerald-400 font-bold">100% 守護中</span></span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="text-base sm:text-lg animate-pulse">⚡</span>
+            <span class="text-[10px] sm:text-xs text-amber-300 font-bold">目前能量: <span id="meteorLiveEnergyDisplay" class="font-mono font-black text-cyan-300">0</span></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
   </div>
 
   <!-- ======================================================== -->
@@ -3083,7 +3085,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.62 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.63 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -3122,7 +3124,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.62 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.63 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -3268,7 +3270,7 @@
   </div>
 
   <!-- ======================================================== -->
-  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.62)    -->
+  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.63)    -->
   <!-- ======================================================== -->
   <div id="vipUpgradeModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[89] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
     <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl border-2 border-amber-300 flex flex-col gap-4 my-auto max-h-[92vh] overflow-y-auto">
@@ -3780,7 +3782,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.62";
+    const APP_VERSION = "26.11.63";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // ========================================================
@@ -4112,7 +4114,7 @@
 
 
     // ========================================================
-    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.62)
+    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.63)
     // ========================================================
     const VIP_STORAGE_KEY = 'kaispeak_vip_info';
     const AI_USAGE_DATE_KEY = 'kaispeak_ai_usage_date';
@@ -4230,7 +4232,7 @@
       return true;
     }
 
-    // Marketing Campaigns & Agency Partners Definition (v26.11.62)
+    // Marketing Campaigns & Agency Partners Definition (v26.11.63)
     const SPECIAL_PROMO_CODES = {
       'TRIAL7D': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '官方社群促銷體驗專案', desc: '全功能解鎖 7 天' },
       'FREE7DAYS': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '限時早鳥推廣禮', desc: '全功能解鎖 7 天' },
@@ -7538,7 +7540,7 @@
     }
 
     // ========================================================
-    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.62)
+    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.63)
     // ========================================================
     let cachedServerApiKey = '';
     let cachedServerModel = 'gemini-3.5-flash';
@@ -15467,7 +15469,7 @@
     };
 
     // ========================================================
-    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.62)
+    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.63)
     // ========================================================
     // 💡 App Store 開箱即用架構（商業發行標準）：
     // 透過 Cloudflare Worker 官方安全閘道器，免掃碼、免設定、0 秒直連 Google 官方 AI！
@@ -17028,7 +17030,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.62)
+    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.63)
     // ========================================================
     function parseScenarioJsonResponse(rawText) {
       if (!rawText || typeof rawText !== 'string') return null;
@@ -17133,7 +17135,7 @@
     }
 
     // ========================================================
-    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.62)
+    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.63)
     // ========================================================
     async function callGeminiScenarioPlanner(userText, userLevel, apiKey) {
       // 1. Ensure valid official model from localStorage
@@ -17650,7 +17652,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.62)
+    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.63)
     // ========================================================
     const KaiSpeechEngine = {
       preferredVoice: null,
