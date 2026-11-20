@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.70";
+        const LATEST_VER = "26.11.71";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -228,7 +228,7 @@
       <div class="flex flex-col items-center mb-1">
         <div class="flex items-center gap-3.5 cursor-pointer select-none">
           <div class="shrink-0">
-            <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.70" alt="KaiSpeak" class="h-20 sm:h-24 md:h-28 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] hover:scale-105 transition duration-300 shrink-0">
+            <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.71" alt="KaiSpeak" class="h-20 sm:h-24 md:h-28 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] hover:scale-105 transition duration-300 shrink-0">
           </div>
           <div class="flex flex-col justify-center text-left leading-none">
             <h1 class="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight bg-gradient-to-r from-indigo-800 via-indigo-600 to-purple-600 bg-clip-text text-transparent select-none leading-none">KaiSpeak</h1>
@@ -237,8 +237,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.70（2026年·11月·第41次發布）">
-                26.11.70
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.71（2026年·11月·第41次發布）">
+                26.11.71
               </span>
             </div>
           </div>
@@ -478,7 +478,7 @@
       <!-- Brand Logo + 奇妙星語言 Lockup -->
       <div class="flex items-center gap-1.5 sm:gap-2 cursor-pointer select-none shrink-0 group py-0.5" onclick="switchAppMode('quest')" title="KaiSpeak 首頁">
         <div class="shrink-0 flex items-center">
-          <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.70" alt="KaiSpeak" class="h-9 sm:h-11 md:h-12 w-auto object-contain drop-shadow-[0_4px_14px_rgba(79,70,229,0.18)] group-hover:scale-105 transition-all duration-300 shrink-0">
+          <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.71" alt="KaiSpeak" class="h-9 sm:h-11 md:h-12 w-auto object-contain drop-shadow-[0_4px_14px_rgba(79,70,229,0.18)] group-hover:scale-105 transition-all duration-300 shrink-0">
         </div>
         <div class="flex flex-col justify-center text-left leading-none">
           <div class="flex items-center gap-1">
@@ -486,7 +486,7 @@
               <span class="text-[9px] text-amber-500">✨</span>
               <span>奇妙星語言</span>
             </span>
-            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.70（2026年·11月·第41次發布）">26.11.70</span>
+            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.71（2026年·11月·第41次發布）">26.11.71</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer hidden sm:flex items-center gap-0.5 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-1.5 py-0.2 transition shadow-2xs group-hover:border-amber-400 max-w-[130px] truncate" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -2101,7 +2101,7 @@
         <!-- ============================================== -->
         <!-- SKYSCRAPER VISUAL WORKSITE CANVAS & CRANE AREA -->
         <!-- ============================================== -->
-        <div id="skySceneBackdrop" class="relative w-full h-64 sm:h-72 rounded-3xl overflow-hidden border-2 border-indigo-900/60 shadow-xl transition-all duration-700 flex flex-col justify-between p-3 select-none bg-gradient-to-b from-sky-400 via-sky-200 to-indigo-100">
+        <div id="skySceneBackdrop" class="relative w-full h-72 sm:h-80 md:h-[340px] rounded-3xl overflow-hidden border-2 border-indigo-900/60 shadow-xl transition-all duration-700 flex flex-col justify-between p-3 select-none bg-gradient-to-b from-sky-400 via-sky-200 to-indigo-100">
           
           <!-- Cloud & Sky Atmosphere Layer -->
           <div class="absolute inset-0 pointer-events-none opacity-40">
@@ -2114,34 +2114,62 @@
             </div>
           </div>
 
-          <!-- Upper Area: Crane (起重機) & Suspended Material -->
+          <!-- Upper Area: Heavy Construction Crane System -->
           <div class="relative z-10 flex items-start justify-between w-full">
-            <!-- Construction Crane Arm with UI-02 Icon -->
-            <div id="skyCraneArmContainer" class="flex items-center gap-2">
-              <div class="flex flex-col items-center">
-                <!-- Crane Top Pulley -->
-                <div class="relative flex items-center justify-center">
-                  <img src="images/ui/UI-02.jpeg" alt="起重機吊塔" class="w-9 h-9 rounded-xl object-contain shadow-md border border-amber-400/60 animate-bounce">
+            <!-- Heavy Tower Crane Assembly -->
+            <div id="skyCraneAssembly" class="flex items-start gap-2 select-none">
+              <!-- Tower Crane Mast & Jib Unit -->
+              <div class="relative flex flex-col items-start">
+                
+                <div class="flex items-center gap-1.5 relative">
+                  <!-- Proportional Heavy Tower Crane Cab & Tower Image (Expanded clear size) -->
+                  <div class="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border-2 border-amber-400/80 bg-slate-900/90 shadow-xl shrink-0 group">
+                    <img src="images/ui/UI-02.jpeg" alt="重型起重機吊塔" class="w-full h-full object-cover">
+                    <div class="absolute bottom-0 inset-x-0 bg-slate-950/85 text-[8px] text-amber-300 font-black text-center py-0.5">
+                      50T CRANE
+                    </div>
+                  </div>
+
+                  <!-- Extended Heavy Crane Boom / Jib Arm -->
+                  <div class="flex flex-col">
+                    <!-- Upper Cable Truss Wire -->
+                    <div class="w-28 sm:w-40 h-2 border-b-2 border-dashed border-amber-400/60 mb-0.5"></div>
+                    <!-- Main Horizontal Steel Boom -->
+                    <div class="w-32 sm:w-48 h-3.5 bg-gradient-to-r from-amber-500 via-amber-400 to-yellow-500 rounded-sm border border-amber-300 shadow-md flex items-center justify-between px-2 relative">
+                      <span class="w-1.5 h-1.5 rounded-full bg-slate-950"></span>
+                      <span class="text-[8px] font-mono font-black text-slate-950 tracking-wider hidden sm:inline">HEAVY HOIST</span>
+                      <span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span>
+                    </div>
+                  </div>
                 </div>
-                <!-- Suspended Cable Line (Expands downward on placement) -->
-                <div id="skyCraneCable" class="w-0.5 h-6 bg-slate-800 shadow-sm transition-all duration-300"></div>
-                <!-- Steel Girder Suspended in Air with UI-01 Icon -->
-                <div id="skySuspendedGirder" class="px-2.5 py-1 rounded-lg bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white font-mono font-black text-[10px] shadow-md border border-amber-300 flex items-center gap-1.5 transition-all duration-300">
-                  <img src="images/ui/UI-01.jpeg" alt="鋼骨建材" class="w-4 h-4 rounded-xs object-contain">
-                  <span id="skySuspendedWord">STEEL BEAM</span>
+
+                <!-- Suspended Trolley, Hoist Cable & Magnetic Claw (No Answer Leaked!) -->
+                <div id="skyTrolleyAndHook" class="flex flex-col items-center transition-all duration-500 ml-20 sm:ml-28 mt-0.5">
+                  <!-- Pulley Trolley -->
+                  <div class="w-6 h-2 bg-slate-800 rounded-xs border border-amber-400 shadow-xs flex items-center justify-center">
+                    <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                  </div>
+                  <!-- Steel Hoist Cable (Expands downward to deposit brick) -->
+                  <div id="skyCraneCable" class="w-0.5 h-7 bg-slate-800 shadow-sm transition-all duration-500"></div>
+                  <!-- Magnetic Clamp / Single Steel Brick Carrier -->
+                  <div id="skySuspendedGirder" class="px-2.5 py-1 rounded-xl bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-amber-300 font-mono font-black text-[10px] shadow-lg border border-amber-400/80 flex items-center gap-1.5 transition-all duration-500 select-none">
+                    <span id="skyHookIcon" class="text-xs">🪝</span>
+                    <span id="skySuspendedWord">待裝載建材</span>
+                  </div>
                 </div>
+
               </div>
             </div>
 
-            <!-- Kai Worker in Hardhat -->
-            <div class="bg-slate-900/80 backdrop-blur-xs px-3 py-1.5 rounded-2xl border border-amber-400/50 flex items-center gap-2 text-white shadow-lg">
+            <!-- Kai Chief Engineer in Hardhat -->
+            <div class="bg-slate-900/85 backdrop-blur-xs px-3 py-1.5 rounded-2xl border border-amber-400/50 flex items-center gap-2 text-white shadow-lg shrink-0">
               <div class="relative">
                 <span class="text-2xl">👷‍♂️</span>
                 <span class="absolute -top-1 -right-1 text-xs">✨</span>
               </div>
               <div class="text-left">
                 <div class="text-[10px] font-black text-amber-300">Kai 首席工程師</div>
-                <div id="skyKaiCheerBubble" class="text-[9px] text-slate-300">「鋼骨吊裝就緒，請填入建材！」</div>
+                <div id="skyKaiCheerBubble" class="text-[9px] text-slate-300">「起重機待命！請點選下方鋼骨！」</div>
               </div>
             </div>
           </div>
@@ -2411,8 +2439,8 @@
             <!-- Kai Riding Fire Dragon Character (Transparent WebP + GIF Fallback, No Frame) -->
             <div id="dragonSprite" class="relative w-48 sm:w-60 md:w-72 h-28 sm:h-36 md:h-42 flex items-center justify-center transition-transform duration-200">
               <picture class="w-full h-full flex items-center justify-center pointer-events-none select-none">
-                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.70" type="image/webp">
-                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.70" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
+                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.71" type="image/webp">
+                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.71" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
               </picture>
             </div>
             <!-- Dragon Muzzle Flame Flash (Fires upon shooting laser) -->
@@ -3287,7 +3315,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.70 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.71 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -3326,7 +3354,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.70 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.71 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -3984,7 +4012,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.70";
+    const APP_VERSION = "26.11.71";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // ========================================================
@@ -12717,34 +12745,67 @@
       triggerBrickPlacementAnimation(word) {
         const cable = document.getElementById('skyCraneCable');
         const girder = document.getElementById('skySuspendedGirder');
+        const hookIcon = document.getElementById('skyHookIcon');
+        const wordEl = document.getElementById('skySuspendedWord');
         const platform = document.getElementById('skyActiveFloorPlatform');
 
-        if (cable) cable.classList.add('h-14');
-        if (girder) girder.classList.add('translate-y-8', 'scale-105', 'bg-amber-400');
-
-        this.playConstructionClank();
-
-        if (platform) {
-          platform.classList.add('scale-[1.03]', 'border-emerald-400', 'shadow-[0_0_25px_rgba(16,185,129,0.6)]');
-
-          // Floating "+1 鋼骨到位" spark banner
-          const spark = document.createElement('div');
-          spark.className = 'absolute -top-7 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-400 to-yellow-300 text-slate-950 font-black text-xs px-3 py-1 rounded-full shadow-xl pointer-events-none transition-all duration-700 opacity-100 z-30 flex items-center gap-1.5 animate-bounce whitespace-nowrap';
-          spark.innerHTML = '<span>🧱</span> <span>+1 鋼骨咬合！高度持續攀升！</span>';
-          platform.appendChild(spark);
-
-          setTimeout(() => {
-            spark.style.transform = 'translate(-50%, -24px)';
-            spark.style.opacity = '0';
-            setTimeout(() => spark.remove(), 700);
-          }, 500);
-
-          setTimeout(() => {
-            if (cable) cable.classList.remove('h-14');
-            if (girder) girder.classList.remove('translate-y-8', 'scale-105', 'bg-amber-400');
-            if (platform) platform.classList.remove('scale-[1.03]', 'border-emerald-400', 'shadow-[0_0_25px_rgba(16,185,129,0.6)]');
-          }, 600);
+        // Step 1: Hook locks onto the chosen single brick block
+        if (hookIcon) hookIcon.innerText = '🧱';
+        if (wordEl) wordEl.innerText = word.toUpperCase();
+        if (girder) {
+          girder.className = "px-3 py-1 rounded-xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 text-slate-950 font-black text-xs shadow-[0_0_20px_rgba(245,158,11,0.9)] border-2 border-white flex items-center gap-1.5 transition-all duration-300 scale-105";
         }
+
+        // Tactile pickup click sound
+        if (typeof SoundEffects !== 'undefined' && SoundEffects.playHammerMetal) {
+          SoundEffects.playHammerMetal();
+        }
+
+        // Step 2: Cable lowers down to deposit brick into building platform
+        setTimeout(() => {
+          if (cable) {
+            cable.style.height = '68px';
+          }
+          if (girder) {
+            girder.style.transform = 'translateY(16px)';
+          }
+
+          // Step 3: Contact with deck -> heavy clank & spark
+          setTimeout(() => {
+            this.playConstructionClank();
+
+            if (platform) {
+              platform.classList.add('scale-[1.03]', 'border-emerald-400', 'shadow-[0_0_25px_rgba(16,185,129,0.7)]');
+
+              // Floating spark banner
+              const spark = document.createElement('div');
+              spark.className = 'absolute -top-7 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-400 to-yellow-300 text-slate-950 font-black text-xs px-3 py-1 rounded-full shadow-xl pointer-events-none transition-all duration-700 opacity-100 z-30 flex items-center gap-1.5 animate-bounce whitespace-nowrap';
+              spark.innerHTML = `<span>🧱</span> <span>${word} 鋼骨吊裝到位！</span>`;
+              platform.appendChild(spark);
+
+              setTimeout(() => {
+                spark.style.transform = 'translate(-50%, -24px)';
+                spark.style.opacity = '0';
+                setTimeout(() => spark.remove(), 700);
+              }, 450);
+            }
+
+            // Step 4: Hook releases and reels back up
+            setTimeout(() => {
+              if (cable) cable.style.height = '';
+              if (girder) {
+                girder.style.transform = '';
+                girder.className = "px-2.5 py-1 rounded-xl bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-amber-300 font-mono font-black text-[10px] shadow-lg border border-amber-400/80 flex items-center gap-1.5 transition-all duration-500 select-none";
+              }
+              if (hookIcon) hookIcon.innerText = '🪝';
+              if (wordEl) wordEl.innerText = '吊裝就緒';
+              if (platform) {
+                platform.classList.remove('scale-[1.03]', 'border-emerald-400', 'shadow-[0_0_25px_rgba(16,185,129,0.7)]');
+              }
+            }, 400);
+
+          }, 350);
+        }, 180);
       },
 
       triggerFloorAscentAnimation(newFloor) {
@@ -12837,16 +12898,16 @@
         const starsLayer = document.getElementById('skyStarsLayer');
         if (backdrop) {
           if (currentFloor <= 25) {
-            backdrop.className = "relative w-full h-56 sm:h-64 rounded-3xl overflow-hidden border-2 border-indigo-900/60 shadow-xl transition-all duration-700 flex flex-col justify-between p-3 select-none bg-gradient-to-b from-sky-400 via-sky-200 to-indigo-100";
+            backdrop.className = "relative w-full h-72 sm:h-80 md:h-[340px] rounded-3xl overflow-hidden border-2 border-indigo-900/60 shadow-xl transition-all duration-700 flex flex-col justify-between p-3 select-none bg-gradient-to-b from-sky-400 via-sky-200 to-indigo-100";
             if (starsLayer) starsLayer.classList.add('hidden');
           } else if (currentFloor <= 60) {
-            backdrop.className = "relative w-full h-56 sm:h-64 rounded-3xl overflow-hidden border-2 border-amber-900/60 shadow-xl transition-all duration-700 flex flex-col justify-between p-3 select-none bg-gradient-to-b from-amber-500 via-orange-300 to-indigo-900 text-white";
+            backdrop.className = "relative w-full h-72 sm:h-80 md:h-[340px] rounded-3xl overflow-hidden border-2 border-amber-900/60 shadow-xl transition-all duration-700 flex flex-col justify-between p-3 select-none bg-gradient-to-b from-amber-500 via-orange-300 to-indigo-900 text-white";
             if (starsLayer) starsLayer.classList.add('hidden');
           } else if (currentFloor <= 90) {
-            backdrop.className = "relative w-full h-56 sm:h-64 rounded-3xl overflow-hidden border-2 border-indigo-800/80 shadow-xl transition-all duration-700 flex flex-col justify-between p-3 select-none bg-gradient-to-b from-indigo-900 via-blue-900 to-slate-900 text-white";
+            backdrop.className = "relative w-full h-72 sm:h-80 md:h-[340px] rounded-3xl overflow-hidden border-2 border-indigo-800/80 shadow-xl transition-all duration-700 flex flex-col justify-between p-3 select-none bg-gradient-to-b from-indigo-900 via-blue-900 to-slate-900 text-white";
             if (starsLayer) starsLayer.classList.add('hidden');
           } else {
-            backdrop.className = "relative w-full h-56 sm:h-64 rounded-3xl overflow-hidden border-2 border-indigo-500/80 shadow-xl transition-all duration-700 flex flex-col justify-between p-3 select-none bg-gradient-to-b from-slate-950 via-indigo-950 to-black text-white";
+            backdrop.className = "relative w-full h-72 sm:h-80 md:h-[340px] rounded-3xl overflow-hidden border-2 border-indigo-500/80 shadow-xl transition-all duration-700 flex flex-col justify-between p-3 select-none bg-gradient-to-b from-slate-950 via-indigo-950 to-black text-white";
             if (starsLayer) starsLayer.classList.remove('hidden');
           }
         }
@@ -13110,9 +13171,20 @@
           }
         }
 
-        // Suspended Girder Word
+        // Suspended Girder Hook - Awaiting material without revealing the answer!
+        const hookIcon = document.getElementById('skyHookIcon');
         const girderWord = document.getElementById('skySuspendedWord');
-        if (girderWord) girderWord.innerText = q.targetWord.toUpperCase();
+        const girder = document.getElementById('skySuspendedGirder');
+        const cable = document.getElementById('skyCraneCable');
+        if (hookIcon) hookIcon.innerText = '🪝';
+        if (girderWord) girderWord.innerText = '待裝載建材';
+        if (girder) {
+          girder.style.transform = '';
+          girder.className = "px-2.5 py-1 rounded-xl bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-amber-300 font-mono font-black text-[10px] shadow-lg border border-amber-400/80 flex items-center gap-1.5 transition-all duration-300 select-none";
+        }
+        if (cable) {
+          cable.style.height = '';
+        }
 
         // 4 Tactile Brick Buttons (clean neutral borders, no sticky hover frames or focus outlines)
         const depot = document.getElementById('skyMaterialDepot');
