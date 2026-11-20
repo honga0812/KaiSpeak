@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.64";
+        const LATEST_VER = "26.11.65";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -113,6 +113,25 @@
     }
     .meteor-hint-fade {
       animation: hintPulseFade 1s infinite ease-in-out;
+    }
+    @keyframes cloudDriftSlow {
+      0% { transform: translateX(-120%); }
+      100% { transform: translateX(380%); }
+    }
+    @keyframes cloudDriftFast {
+      0% { transform: translateX(-150%); }
+      100% { transform: translateX(350%); }
+    }
+    .map-cloud-drift-1 {
+      animation: cloudDriftSlow 32s linear infinite;
+    }
+    .map-cloud-drift-2 {
+      animation: cloudDriftFast 22s linear infinite;
+      animation-delay: -11s;
+    }
+    .map-cloud-drift-3 {
+      animation: cloudDriftSlow 42s linear infinite;
+      animation-delay: -21s;
     }
     .shield-glow {
       box-shadow: 0 0 20px rgba(99, 102, 241, 0.5);
@@ -218,8 +237,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.64（2026年·11月·第39次發布）">
-                26.11.64
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.65（2026年·11月·第40次發布）">
+                26.11.65
               </span>
             </div>
           </div>
@@ -467,7 +486,7 @@
               <span class="text-[9px] text-amber-500">✨</span>
               <span>奇妙星語言</span>
             </span>
-            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.64（2026年·11月·第39次發布）">26.11.64</span>
+            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.65（2026年·11月·第40次發布）">26.11.65</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer hidden sm:flex items-center gap-0.5 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-1.5 py-0.2 transition shadow-2xs group-hover:border-amber-400 max-w-[130px] truncate" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -1632,25 +1651,66 @@
       </div>
 
       <!-- Grand Islands Grid (5 Floating Islands) -->
+      <!-- World Map Mainland Panoramic Banner with Drifting Cloud Animations -->
+      <div class="w-full h-40 sm:h-52 md:h-60 rounded-3xl overflow-hidden relative border-2 border-amber-400/70 shadow-2xl bg-slate-950 group">
+        <img src="images/ui/MAP-00.jpeg" alt="冒險星系全域大陸地圖" class="w-full h-full object-cover object-center transform group-hover:scale-105 transition duration-700">
+        
+        <!-- Animated Drifting Clouds Across World Map Sky -->
+        <div class="absolute inset-0 pointer-events-none overflow-hidden select-none">
+          <div class="map-cloud-drift-1 absolute top-3 sm:top-5 left-0 w-28 sm:w-44 opacity-80 drop-shadow-lg">
+            <svg viewBox="0 0 100 40" fill="white" class="w-full h-auto"><path d="M15 30 Q15 15 30 15 Q35 5 50 10 Q65 5 70 15 Q85 15 85 30 Z" /></svg>
+          </div>
+          <div class="map-cloud-drift-2 absolute top-8 sm:top-12 left-0 w-36 sm:w-56 opacity-70 drop-shadow-md">
+            <svg viewBox="0 0 100 40" fill="white" class="w-full h-auto"><path d="M10 28 Q12 14 28 14 Q34 4 52 8 Q70 4 76 16 Q92 16 90 28 Z" /></svg>
+          </div>
+          <div class="map-cloud-drift-3 absolute top-1 sm:top-2 left-0 w-32 sm:w-48 opacity-85 drop-shadow-lg">
+            <svg viewBox="0 0 100 40" fill="white" class="w-full h-auto"><path d="M15 28 Q15 12 32 12 Q40 2 58 8 Q74 2 82 14 Q95 16 92 28 Z" /></svg>
+          </div>
+        </div>
+
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-slate-950/30 flex items-end p-4 sm:p-5 pointer-events-none">
+          <div class="flex items-center justify-between w-full">
+            <div>
+              <div class="flex items-center gap-2">
+                <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 shadow-md">
+                  🗺️ 冒險星系全域航海圖
+                </span>
+                <span class="text-[10px] text-cyan-200 font-bold hidden sm:inline-block">5 大奇幻秘境島嶼 · 點選啟航</span>
+              </div>
+              <h2 class="text-base sm:text-xl font-black text-white drop-shadow-md mt-1">五大特色口語島嶼 · 探索專屬遊戲化訓練機制</h2>
+            </div>
+            <span class="text-xs text-amber-300 font-bold hidden md:flex items-center gap-1">
+              <span>☁️ 天空浮雲飄動中</span>
+            </span>
+          </div>
+        </div>
+      </div>
+
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         
         <!-- ISLAND 1: ACTIVE / METEOR VOICE SHOOTER ISLAND -->
-        <div onclick="enterMeteorIsland(1, true)" class="cursor-pointer group relative bg-gradient-to-b from-indigo-900/90 via-slate-900/95 to-indigo-950/95 rounded-3xl p-5 border-2 border-amber-400 shadow-xl shadow-indigo-950/40 hover:scale-[1.02] hover:shadow-2xl hover:border-amber-300 transition duration-300 overflow-hidden flex flex-col justify-between min-h-[290px] ring-2 ring-indigo-400/30">
+        <div onclick="SoundEffects.playIslandSelect(); enterMeteorIsland(1, true);" class="cursor-pointer group relative bg-gradient-to-b from-indigo-900/90 via-slate-900/95 to-indigo-950/95 rounded-3xl p-4 sm:p-5 border-2 border-amber-400 shadow-xl shadow-indigo-950/40 hover:scale-[1.02] hover:shadow-2xl hover:border-amber-300 transition duration-300 overflow-hidden flex flex-col justify-between ring-2 ring-indigo-400/30">
           <div class="absolute -right-8 -top-8 w-28 h-28 bg-amber-500/20 rounded-full blur-2xl group-hover:scale-125 transition"></div>
           <div>
-            <div class="flex items-center justify-between mb-3">
-              <span class="text-3xl sm:text-4xl filter drop-shadow-md group-hover:scale-110 transition duration-300">🏝️</span>
-              <span class="text-[10px] font-black px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-400 to-rose-500 text-slate-950 shadow-md flex items-center gap-1 animate-pulse">
-                <span>🔥 核心首發</span> · <span>登島作戰中</span>
-              </span>
+            <div class="relative w-full h-32 sm:h-36 rounded-2xl overflow-hidden mb-3 border border-amber-400/50 shadow-inner bg-slate-950">
+              <img src="images/ui/ISL-01.jpeg" alt="第一島·隕石語音擊墜島" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+              <div class="absolute top-2 left-2 flex items-center gap-1 bg-slate-950/80 backdrop-blur-xs px-2 py-0.5 rounded-lg border border-amber-400/40 text-[10px] text-amber-300 font-black">
+                <span>🏝️ 第一島</span>
+              </div>
+              <div class="absolute top-2 right-2">
+                <span class="text-[10px] font-black px-2 py-0.5 rounded-full bg-gradient-to-r from-amber-400 to-rose-500 text-slate-950 shadow-md flex items-center gap-1 animate-pulse">
+                  <span>🔥 首發作戰中</span>
+                </span>
+              </div>
             </div>
+
             <h3 class="text-lg sm:text-xl font-black text-white group-hover:text-amber-300 transition">
               第一島 · 隕石語音擊墜島
             </h3>
             <div class="text-xs text-amber-200/90 font-bold mt-1">
               Meteor Voice Defense Island
             </div>
-            <p class="text-xs text-indigo-200/80 mt-2.5 leading-relaxed">
+            <p class="text-xs text-indigo-200/80 mt-2 leading-relaxed">
               50 秒聲音打飛機！隕石緩緩下墜，過半加速閃爍淡英文提示，大聲唸出美語即刻發射雷射砲火精準擊碎！
             </p>
             <div class="flex items-center gap-1.5 mt-3 flex-wrap">
@@ -1665,26 +1725,32 @@
               <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
               隨時可開啟戰鬥
             </span>
-            <button type="button" onclick="event.stopPropagation(); enterMeteorIsland(1, true);" class="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 hover:from-amber-300 hover:to-orange-400 text-slate-950 font-black text-xs shadow-md transition active:scale-95 flex items-center gap-1">
+            <button type="button" onclick="event.stopPropagation(); SoundEffects.playIslandSelect(); enterMeteorIsland(1, true);" class="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 hover:from-amber-300 hover:to-orange-400 text-slate-950 font-black text-xs shadow-md transition active:scale-95 flex items-center gap-1">
               <span>🚀 立即登島挑戰</span> <span>▶</span>
             </button>
           </div>
         </div>
 
         <!-- ISLAND 2: SKYSCRAPER BUILDER ISLAND (第二島 · 摩天大樓建造島) -->
-        <div onclick="tryEnterAdventureIsland(2, '第二島 · 摩天大樓建造島')" class="cursor-pointer group relative bg-gradient-to-b from-slate-900/95 via-indigo-950/80 to-slate-900/95 rounded-3xl p-5 border-2 border-amber-400/70 shadow-lg hover:border-amber-300 hover:scale-[1.01] transition duration-300 flex flex-col justify-between min-h-[290px]">
+        <div onclick="SoundEffects.playIslandSelect(); tryEnterAdventureIsland(2, '第二島 · 摩天大樓建造島');" class="cursor-pointer group relative bg-gradient-to-b from-slate-900/95 via-indigo-950/80 to-slate-900/95 rounded-3xl p-4 sm:p-5 border-2 border-amber-400/70 shadow-lg hover:border-amber-300 hover:scale-[1.01] transition duration-300 flex flex-col justify-between">
           <div>
-            <div class="flex items-center justify-between mb-3">
-              <span class="text-3xl sm:text-4xl filter drop-shadow-md group-hover:scale-110 transition duration-300">🏗️</span>
-              <span class="vip-island-badge text-[10px] font-black px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 text-amber-950 shadow-xs flex items-center gap-1 animate-pulse">
-                <span>👑 VIP 專屬</span> · <span>需購買開啟</span>
-              </span>
+            <div class="relative w-full h-32 sm:h-36 rounded-2xl overflow-hidden mb-3 border border-amber-400/40 shadow-inner bg-slate-950">
+              <img src="images/ui/ISL-02.jpeg" alt="第二島·摩天大樓建造島" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+              <div class="absolute top-2 left-2 flex items-center gap-1 bg-slate-950/80 backdrop-blur-xs px-2 py-0.5 rounded-lg border border-amber-400/40 text-[10px] text-amber-300 font-black">
+                <span>🏗️ 第二島</span>
+              </div>
+              <div class="absolute top-2 right-2">
+                <span class="vip-island-badge text-[10px] font-black px-2.5 py-0.5 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 text-amber-950 shadow-xs flex items-center gap-1 animate-pulse">
+                  <span>👑 VIP 專屬</span>
+                </span>
+              </div>
             </div>
+
             <h3 class="text-lg sm:text-xl font-black text-white group-hover:text-amber-300 transition">
               第二島 · 摩天大樓建造島
             </h3>
             <div class="text-xs text-amber-200/90 font-bold mt-1">Skyscraper Builder Island</div>
-            <p class="text-xs text-indigo-200/80 mt-2.5 leading-relaxed">
+            <p class="text-xs text-indigo-200/80 mt-2 leading-relaxed">
               挑戰世界 5 大摩天大樓！句子語塊克漏字拼裝，50/25/25 黃金比例題庫，親手砌出台北101與帝國大廈！
             </p>
             <div class="flex items-center gap-1.5 mt-3 flex-wrap">
@@ -1697,26 +1763,32 @@
             <span class="vip-island-status text-amber-300 font-bold flex items-center gap-1">
               <span>🔒 需購買 VIP 開啟</span>
             </span>
-            <button type="button" onclick="event.stopPropagation(); tryEnterAdventureIsland(2, '第二島 · 摩天大樓建造島');" class="vip-island-btn px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-400 via-orange-400 to-yellow-400 hover:from-amber-300 text-slate-950 font-black text-xs shadow-md transition active:scale-95 flex items-center gap-1">
+            <button type="button" onclick="event.stopPropagation(); SoundEffects.playIslandSelect(); tryEnterAdventureIsland(2, '第二島 · 摩天大樓建造島');" class="vip-island-btn px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-400 via-orange-400 to-yellow-400 hover:from-amber-300 text-slate-950 font-black text-xs shadow-md transition active:scale-95 flex items-center gap-1">
               <span>👑 升級 VIP 開啟</span> <span>▶</span>
             </button>
           </div>
         </div>
 
         <!-- ISLAND 3: BEAST RESONANCE ISLAND (VIP EXCLUSIVE) -->
-        <div onclick="tryEnterAdventureIsland(3, '第三島 · 巨獸語音連擊島')" class="cursor-pointer group relative bg-gradient-to-b from-slate-900/95 via-indigo-950/80 to-slate-900/95 rounded-3xl p-5 border-2 border-amber-400/70 shadow-lg hover:border-amber-300 hover:scale-[1.01] transition duration-300 flex flex-col justify-between min-h-[290px]">
+        <div onclick="SoundEffects.playLockWarning(); tryEnterAdventureIsland(3, '第三島 · 巨獸語音連擊島');" class="cursor-pointer group relative bg-gradient-to-b from-slate-900/95 via-indigo-950/80 to-slate-900/95 rounded-3xl p-4 sm:p-5 border-2 border-amber-400/70 shadow-lg hover:border-amber-300 hover:scale-[1.01] transition duration-300 flex flex-col justify-between">
           <div>
-            <div class="flex items-center justify-between mb-3">
-              <span class="text-3xl sm:text-4xl filter drop-shadow-md group-hover:scale-110 transition duration-300">🦁</span>
-              <span class="vip-island-badge text-[10px] font-black px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 text-amber-950 shadow-xs flex items-center gap-1 animate-pulse">
-                <span>👑 VIP 專屬</span> · <span>需購買開啟</span>
-              </span>
+            <div class="relative w-full h-32 sm:h-36 rounded-2xl overflow-hidden mb-3 border border-amber-400/40 shadow-inner bg-slate-950">
+              <img src="images/ui/ISL-03.jpeg" alt="第三島·巨獸語音連擊島" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+              <div class="absolute top-2 left-2 flex items-center gap-1 bg-slate-950/80 backdrop-blur-xs px-2 py-0.5 rounded-lg border border-amber-400/40 text-[10px] text-amber-300 font-black">
+                <span>🦁 第三島</span>
+              </div>
+              <div class="absolute top-2 right-2">
+                <span class="vip-island-badge text-[10px] font-black px-2.5 py-0.5 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 text-amber-950 shadow-xs flex items-center gap-1 animate-pulse">
+                  <span>👑 VIP 專屬</span>
+                </span>
+              </div>
             </div>
+
             <h3 class="text-lg sm:text-xl font-black text-white group-hover:text-amber-300 transition">
               第三島 · 巨獸語音連擊島
             </h3>
             <div class="text-xs text-amber-200/90 font-bold mt-1">Beast Resonance Battle Island</div>
-            <p class="text-xs text-indigo-200/80 mt-2.5 leading-relaxed">
+            <p class="text-xs text-indigo-200/80 mt-2 leading-relaxed">
               整句流利大聲唸！聲波即時比對消除迷霧屏障，連擊暴擊特效觸發神獸覺醒與能量雙倍回饋。
             </p>
             <div class="flex items-center gap-1.5 mt-3 flex-wrap">
@@ -1728,26 +1800,32 @@
             <span class="vip-island-status text-amber-300 font-bold flex items-center gap-1">
               <span>🔒 需購買 VIP 開啟</span>
             </span>
-            <button type="button" onclick="event.stopPropagation(); tryEnterAdventureIsland(3, '第三島 · 巨獸語音連擊島');" class="vip-island-btn px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-400 via-orange-400 to-yellow-400 hover:from-amber-300 text-slate-950 font-black text-xs shadow-md transition active:scale-95 flex items-center gap-1">
+            <button type="button" onclick="event.stopPropagation(); SoundEffects.playLockWarning(); tryEnterAdventureIsland(3, '第三島 · 巨獸語音連擊島');" class="vip-island-btn px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-400 via-orange-400 to-yellow-400 hover:from-amber-300 text-slate-950 font-black text-xs shadow-md transition active:scale-95 flex items-center gap-1">
               <span>👑 升級 VIP 開啟</span> <span>▶</span>
             </button>
           </div>
         </div>
 
         <!-- ISLAND 4: LISTENING MAZE ISLAND (VIP EXCLUSIVE) -->
-        <div onclick="tryEnterAdventureIsland(4, '第四島 · 聽音尋寶迷宮島')" class="cursor-pointer group relative bg-gradient-to-b from-slate-900/95 via-indigo-950/80 to-slate-900/95 rounded-3xl p-5 border-2 border-amber-400/70 shadow-lg hover:border-amber-300 hover:scale-[1.01] transition duration-300 flex flex-col justify-between min-h-[290px]">
+        <div onclick="SoundEffects.playLockWarning(); tryEnterAdventureIsland(4, '第四島 · 聽音尋寶迷宮島');" class="cursor-pointer group relative bg-gradient-to-b from-slate-900/95 via-indigo-950/80 to-slate-900/95 rounded-3xl p-4 sm:p-5 border-2 border-amber-400/70 shadow-lg hover:border-amber-300 hover:scale-[1.01] transition duration-300 flex flex-col justify-between">
           <div>
-            <div class="flex items-center justify-between mb-3">
-              <span class="text-3xl sm:text-4xl filter drop-shadow-md group-hover:scale-110 transition duration-300">👂</span>
-              <span class="vip-island-badge text-[10px] font-black px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 text-amber-950 shadow-xs flex items-center gap-1 animate-pulse">
-                <span>👑 VIP 專屬</span> · <span>需購買開啟</span>
-              </span>
+            <div class="relative w-full h-32 sm:h-36 rounded-2xl overflow-hidden mb-3 border border-amber-400/40 shadow-inner bg-slate-950">
+              <img src="images/ui/ISL-04.jpeg" alt="第四島·聽音尋寶迷宮島" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+              <div class="absolute top-2 left-2 flex items-center gap-1 bg-slate-950/80 backdrop-blur-xs px-2 py-0.5 rounded-lg border border-amber-400/40 text-[10px] text-amber-300 font-black">
+                <span>👂 第四島</span>
+              </div>
+              <div class="absolute top-2 right-2">
+                <span class="vip-island-badge text-[10px] font-black px-2.5 py-0.5 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 text-amber-950 shadow-xs flex items-center gap-1 animate-pulse">
+                  <span>👑 VIP 專屬</span>
+                </span>
+              </div>
             </div>
+
             <h3 class="text-lg sm:text-xl font-black text-white group-hover:text-amber-300 transition">
               第四島 · 聽音尋寶迷宮島
             </h3>
             <div class="text-xs text-amber-200/90 font-bold mt-1">Listening Maze Island</div>
-            <p class="text-xs text-indigo-200/80 mt-2.5 leading-relaxed">
+            <p class="text-xs text-indigo-200/80 mt-2 leading-relaxed">
               純聽力訓練（不顯示英文字）！聽 Kai 語音指引在迷宮岔路選出正確道具門，訓練大腦聽力敏銳度。
             </p>
             <div class="flex items-center gap-1.5 mt-3 flex-wrap">
@@ -1759,26 +1837,32 @@
             <span class="vip-island-status text-amber-300 font-bold flex items-center gap-1">
               <span>🔒 需購買 VIP 開啟</span>
             </span>
-            <button type="button" onclick="event.stopPropagation(); tryEnterAdventureIsland(4, '第四島 · 聽音尋寶迷宮島');" class="vip-island-btn px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-400 via-orange-400 to-yellow-400 hover:from-amber-300 text-slate-950 font-black text-xs shadow-md transition active:scale-95 flex items-center gap-1">
+            <button type="button" onclick="event.stopPropagation(); SoundEffects.playLockWarning(); tryEnterAdventureIsland(4, '第四島 · 聽音尋寶迷宮島');" class="vip-island-btn px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-400 via-orange-400 to-yellow-400 hover:from-amber-300 text-slate-950 font-black text-xs shadow-md transition active:scale-95 flex items-center gap-1">
               <span>👑 升級 VIP 開啟</span> <span>▶</span>
             </button>
           </div>
         </div>
 
         <!-- ISLAND 5: COSMIC BOSS ARENA (VIP EXCLUSIVE) -->
-        <div onclick="tryEnterAdventureIsland(5, '第五島 · 時空大魔王競技場')" class="cursor-pointer group relative bg-gradient-to-b from-slate-900/95 via-purple-950/80 to-slate-900/95 rounded-3xl p-5 border-2 border-amber-400/70 shadow-lg hover:border-amber-300 hover:scale-[1.01] transition duration-300 flex flex-col justify-between min-h-[290px] md:col-span-2 lg:col-span-2">
+        <div onclick="SoundEffects.playLockWarning(); tryEnterAdventureIsland(5, '第五島 · 時空大魔王競技場');" class="cursor-pointer group relative bg-gradient-to-b from-slate-900/95 via-purple-950/80 to-slate-900/95 rounded-3xl p-4 sm:p-5 border-2 border-amber-400/70 shadow-lg hover:border-amber-300 hover:scale-[1.01] transition duration-300 flex flex-col justify-between md:col-span-2 lg:col-span-2">
           <div>
-            <div class="flex items-center justify-between mb-3">
-              <span class="text-3xl sm:text-4xl filter drop-shadow-md group-hover:scale-110 transition duration-300">👑</span>
-              <span class="vip-island-badge text-[10px] font-black px-2.5 py-1 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 text-amber-950 shadow-xs flex items-center gap-1 animate-pulse">
-                <span>👑 VIP 專屬</span> · <span>需購買開啟</span>
-              </span>
+            <div class="relative w-full h-32 sm:h-36 rounded-2xl overflow-hidden mb-3 border border-amber-400/40 shadow-inner bg-slate-950">
+              <img src="images/ui/ISL-05.jpeg" alt="第五島·時空大魔王競技場" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+              <div class="absolute top-2 left-2 flex items-center gap-1 bg-slate-950/80 backdrop-blur-xs px-2 py-0.5 rounded-lg border border-amber-400/40 text-[10px] text-amber-300 font-black">
+                <span>👑 第五島</span>
+              </div>
+              <div class="absolute top-2 right-2">
+                <span class="vip-island-badge text-[10px] font-black px-2.5 py-0.5 rounded-full bg-gradient-to-r from-amber-400 to-yellow-500 text-amber-950 shadow-xs flex items-center gap-1 animate-pulse">
+                  <span>👑 VIP 專屬</span>
+                </span>
+              </div>
             </div>
+
             <h3 class="text-lg sm:text-xl font-black text-white group-hover:text-amber-300 transition">
               第五島 · 時空大魔王競技場
             </h3>
             <div class="text-xs text-amber-200/90 font-bold mt-1">Cosmic Boss Arena</div>
-            <p class="text-xs text-indigo-200/80 mt-2.5 leading-relaxed">
+            <p class="text-xs text-indigo-200/80 mt-2 leading-relaxed">
               全能力綜合口語驗收競技場！混合單字射擊、克漏字與整句詠唱，大血條激戰擊潰宇宙魔王，頒發全服稀有榮譽徽章！
             </p>
             <div class="flex items-center gap-1.5 mt-3 flex-wrap">
@@ -1790,7 +1874,7 @@
             <span class="vip-island-status text-amber-300 font-bold flex items-center gap-1">
               <span>🔒 需購買 VIP 開啟</span>
             </span>
-            <button type="button" onclick="event.stopPropagation(); tryEnterAdventureIsland(5, '第五島 · 時空大魔王競技場');" class="vip-island-btn px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-400 via-orange-400 to-yellow-400 hover:from-amber-300 text-slate-950 font-black text-xs shadow-md transition active:scale-95 flex items-center gap-1">
+            <button type="button" onclick="event.stopPropagation(); SoundEffects.playLockWarning(); tryEnterAdventureIsland(5, '第五島 · 時空大魔王競技場');" class="vip-island-btn px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-400 via-orange-400 to-yellow-400 hover:from-amber-300 text-slate-950 font-black text-xs shadow-md transition active:scale-95 flex items-center gap-1">
               <span>👑 升級 VIP 開啟</span> <span>▶</span>
             </button>
           </div>
@@ -1819,6 +1903,26 @@
           <div class="text-xs font-bold text-amber-600 bg-amber-50 px-3 py-1 rounded-full border border-amber-200 flex items-center gap-1">
             <span>⭐ 本島星數：</span>
             <span id="meteorIslandStarsCount" class="font-mono font-black text-sm">0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3D Cave Journey Map Banner (STG-10.jpeg ~ STG-15.jpeg dynamically switched on level select) -->
+      <div class="relative w-full h-32 sm:h-40 md:h-48 rounded-3xl overflow-hidden border-2 border-indigo-400/60 shadow-xl bg-slate-950 group">
+        <img id="meteorCaveBannerImg" src="images/ui/STG-10.jpeg" alt="神秘洞穴闖關地圖" class="w-full h-full object-cover object-center group-hover:scale-105 transition-all duration-700">
+        <div class="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-transparent to-slate-950/20 flex items-end p-3.5 sm:p-4">
+          <div class="flex items-center justify-between w-full">
+            <div>
+              <span id="meteorCaveBannerBadge" class="text-[10px] font-black px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 shadow-xs inline-block">
+                🌌 3D 神秘洞穴闖關路徑
+              </span>
+              <h3 id="meteorCaveBannerTitle" class="text-sm sm:text-base font-black text-white drop-shadow-md mt-1">
+                探險第一島 · 家居生活洞窟防衛線
+              </h3>
+            </div>
+            <div class="hidden sm:flex items-center gap-1.5 bg-slate-900/80 px-3 py-1 rounded-xl border border-indigo-400/40 text-xs text-amber-300 font-bold">
+              <span>⚔️ 語音雷射打擊</span>
+            </div>
           </div>
         </div>
       </div>
@@ -2011,6 +2115,9 @@
         <!-- ============================================== -->
         <div id="skySceneBackdrop" class="relative w-full h-56 sm:h-64 rounded-3xl overflow-hidden border-2 border-indigo-900/60 shadow-xl transition-all duration-700 flex flex-col justify-between p-3 select-none bg-gradient-to-b from-sky-400 via-sky-200 to-indigo-100">
           
+          <!-- Active Landmark Skyscraper Backdrop Illustration (Strictly bounded height for tablets) -->
+          <img id="skyActiveTowerImg" src="images/ui/SKY-01.jpeg" alt="建造中摩天大樓" class="absolute bottom-0 right-3 sm:right-6 max-h-[170px] sm:max-h-[210px] w-auto object-contain drop-shadow-2xl z-0 pointer-events-none opacity-85 transition-all duration-500 rounded-2xl border border-amber-300/40">
+
           <!-- Cloud & Sky Atmosphere Layer -->
           <div class="absolute inset-0 pointer-events-none opacity-40">
             <div class="absolute top-2 left-6 text-2xl animate-pulse">☁️</div>
@@ -2024,16 +2131,19 @@
 
           <!-- Upper Area: Crane (起重機) & Suspended Material -->
           <div class="relative z-10 flex items-start justify-between w-full">
-            <!-- Construction Crane Arm -->
+            <!-- Construction Crane Arm with UI-02 Icon -->
             <div class="flex items-center gap-2">
               <div class="flex flex-col items-center">
                 <!-- Crane Top Pulley -->
-                <div class="text-3xl filter drop-shadow-md animate-bounce">🏗️</div>
+                <div class="relative flex items-center justify-center">
+                  <img src="images/ui/UI-02.jpeg" alt="起重機吊塔" class="w-9 h-9 rounded-xl object-contain shadow-md border border-amber-400/60 animate-bounce">
+                </div>
                 <!-- Suspended Cable Line -->
-                <div class="w-0.5 h-8 bg-slate-800 shadow-sm"></div>
-                <!-- Steel Girder Suspended in Air -->
-                <div id="skySuspendedGirder" class="px-3 py-1 rounded-lg bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white font-mono font-black text-[10px] shadow-md border border-amber-300 flex items-center gap-1 transition-all duration-300">
-                  <span>🔩</span> <span id="skySuspendedWord">STEEL BEAM</span>
+                <div class="w-0.5 h-6 bg-slate-800 shadow-sm"></div>
+                <!-- Steel Girder Suspended in Air with UI-01 Icon -->
+                <div id="skySuspendedGirder" class="px-2.5 py-1 rounded-lg bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white font-mono font-black text-[10px] shadow-md border border-amber-300 flex items-center gap-1.5 transition-all duration-300">
+                  <img src="images/ui/UI-01.jpeg" alt="鋼骨建材" class="w-4 h-4 rounded-xs object-contain">
+                  <span id="skySuspendedWord">STEEL BEAM</span>
                 </div>
               </div>
             </div>
@@ -2209,8 +2319,8 @@
             <!-- Kai Riding Fire Dragon Character (Transparent WebP + GIF Fallback, No Frame) -->
             <div id="dragonSprite" class="relative w-48 sm:w-60 md:w-72 h-28 sm:h-36 md:h-42 flex items-center justify-center transition-transform duration-200">
               <picture class="w-full h-full flex items-center justify-center pointer-events-none select-none">
-                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.64" type="image/webp">
-                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.64" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
+                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.65" type="image/webp">
+                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.65" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
               </picture>
             </div>
             <!-- Dragon Muzzle Flame Flash (Fires upon shooting laser) -->
@@ -3085,7 +3195,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.64 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.65 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -3124,7 +3234,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.64 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.65 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -3782,7 +3892,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.64";
+    const APP_VERSION = "26.11.65";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // ========================================================
@@ -5112,7 +5222,16 @@
       }
     }
 
-        function isImageAvatar(str) {
+        function sanitizePlayerName(rawName, fallback = 'Kai') {
+      if (!rawName || typeof rawName !== 'string') return fallback;
+      const s = rawName.trim();
+      if (s.startsWith('data:') || s.includes(';base64,') || s.length > 25 || s.includes('<') || s.includes('>') || s.includes('"') || s.includes("'")) {
+        return fallback;
+      }
+      return s;
+    }
+
+    function isImageAvatar(str) {
       if (!str || typeof str !== 'string') return false;
       const s = str.trim();
       return s.startsWith('data:image') || s.startsWith('http://') || s.startsWith('https://') || s.startsWith('blob:') || s.startsWith('images/') || s.includes(';base64,') || (s.length > 50 && !s.includes(' ') && !s.includes('\n'));
@@ -5124,15 +5243,15 @@
       if (str === 'custom_photo') {
         const activeP = (typeof getActiveProfile === 'function') ? getActiveProfile() : null;
         if (activeP && isImageAvatar(activeP.avatar)) {
-          return `<img src="${activeP.avatar}" class="${imgClass}" alt="學員頭像" onerror="this.onerror=null; this.outerHTML='<span class=\\'${emojiClass}\\'>👦</span>';">`;
+          return `<img src="${activeP.avatar}" class="${imgClass}" alt="學員頭像" onerror="this.style.display='none';">`;
         }
         return `<span class="${emojiClass}">👦</span>`;
       }
       if (isImageAvatar(str)) {
-        return `<img src="${str}" class="${imgClass}" alt="學員頭像" onerror="this.onerror=null; this.outerHTML='<span class=\\'${emojiClass}\\'>👦</span>';">`;
+        return `<img src="${str}" class="${imgClass}" alt="學員頭像" onerror="this.style.display='none';">`;
       }
       // Safety guard: NEVER print raw base64 data URL, long strings, or broken HTML as text content!
-      if (str.length > 10 || str.includes('data:') || str.includes(';base64') || str.includes('http') || str.includes('/') || str.includes('<') || str.includes('>')) {
+      if (str.length > 8 || str.includes('data:') || str.includes(';base64') || str.includes('http') || str.includes('/') || str.includes('<') || str.includes('>') || str.includes('"') || str.includes("'")) {
         return `<span class="${emojiClass}">👦</span>`;
       }
       return `<span class="${emojiClass}">${str}</span>`;
@@ -6652,6 +6771,78 @@
         gain.connect(this.ctx.destination);
         osc.start(now);
         osc.stop(now + 0.16);
+      },
+      playIslandSelect() {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        // Warm adventure chime chord: C5 (523.25), E5 (659.25), G5 (783.99), C6 (1046.5)
+        [523.25, 659.25, 783.99, 1046.5].forEach((f, i) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(f, now + i * 0.05);
+          gain.gain.setValueAtTime(0, now + i * 0.05);
+          gain.gain.linearRampToValueAtTime(0.2, now + i * 0.05 + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.05 + 0.35);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now + i * 0.05);
+          osc.stop(now + i * 0.05 + 0.36);
+        });
+      },
+      playStageSelect() {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        // Portal warp chime: G5 -> D6
+        [783.99, 1174.66].forEach((f, i) => {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(f, now + i * 0.07);
+          gain.gain.setValueAtTime(0, now + i * 0.07);
+          gain.gain.linearRampToValueAtTime(0.22, now + i * 0.07 + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.07 + 0.3);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now + i * 0.07);
+          osc.stop(now + i * 0.07 + 0.32);
+        });
+      },
+      playLockWarning() {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        // Soft cartoon spring / boing warning
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(260, now);
+        osc.frequency.exponentialRampToValueAtTime(140, now + 0.22);
+        gain.gain.setValueAtTime(0.18, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.26);
+      },
+      playBuildingTap() {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        // Crisp construction block tap
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(620, now);
+        osc.frequency.exponentialRampToValueAtTime(840, now + 0.06);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.13);
       },
       playClick(type = 'default') {
         this.init();
@@ -10155,7 +10346,12 @@
           const localHistory = localStorage.getItem('kaispeak_meteor_personal_history');
           if (localLadder) {
             const parsed = JSON.parse(localLadder);
-            if (parsed && parsed.windowRankings) this.cachedData = parsed;
+            if (parsed && Array.isArray(parsed.windowRankings)) {
+              parsed.windowRankings.forEach(p => {
+                p.name = sanitizePlayerName(p.name, p.isCurrentPlayer ? 'Kai' : '學員');
+              });
+              this.cachedData = parsed;
+            }
           }
           if (localHistory) {
             const parsedH = JSON.parse(localHistory);
@@ -10401,6 +10597,7 @@
 
       render() {
         const { pName, pAvatar, pGrade } = this.getProfileInfo();
+        const safeHeroName = sanitizePlayerName(pName, 'Kai');
         const stats = this.cachedData.playerStats || {};
         const myRank = this.cachedData.myRank || 1;
         const total = this.cachedData.totalPlayers || 24;
@@ -10410,17 +10607,17 @@
         if (heroRibbon) {
           const heroAvatarHtml = renderAvatarHtml(pAvatar, "w-12 h-12 rounded-2xl object-cover border-2 border-amber-300 shadow-md shrink-0", "w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-400 to-orange-500 flex items-center justify-center text-2xl shadow-md border-2 border-amber-300 shrink-0");
           heroRibbon.innerHTML = `
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-3 min-w-0 max-w-[65%] overflow-hidden">
               <div class="relative shrink-0 w-12 h-12 rounded-2xl overflow-hidden flex items-center justify-center border-2 border-amber-300 shadow-md">
                 ${heroAvatarHtml}
                 <span class="absolute -top-1.5 -right-1.5 bg-rose-500 text-white text-[9px] font-black px-1.5 py-0.2 rounded-full border border-white z-10 shadow-xs">YOU</span>
               </div>
-              <div>
-                <div class="flex items-center gap-1.5">
-                  <span class="font-black text-amber-200 text-sm sm:text-base">${pName}</span>
-                  <span class="text-[10px] bg-slate-900/80 text-amber-300 px-2 py-0.5 rounded-full border border-amber-400/40">${pGrade}</span>
+              <div class="min-w-0 flex-1 overflow-hidden">
+                <div class="flex items-center gap-1.5 truncate">
+                  <span class="font-black text-amber-200 text-sm sm:text-base truncate max-w-[120px] sm:max-w-[180px]">${safeHeroName}</span>
+                  <span class="text-[10px] bg-slate-900/80 text-amber-300 px-2 py-0.5 rounded-full border border-amber-400/40 shrink-0">${pGrade}</span>
                 </div>
-                <div class="text-[11px] text-indigo-200 flex items-center gap-2 mt-0.5 flex-wrap">
+                <div class="text-[11px] text-indigo-200 flex items-center gap-2 mt-0.5 flex-wrap truncate">
                   <span>📍 台灣 台北</span>
                   <span>·</span>
                   <span>累計挑戰: <strong class="text-white font-mono">${stats.totalBattles || this.cachedData.personalHistory?.length || 0}</strong> 場</span>
@@ -10477,6 +10674,7 @@
         const container = document.getElementById('meteorLadderList');
         if (!container) return;
 
+        const { pName, pAvatar, pGrade } = this.getProfileInfo();
         const windowPlayers = this.cachedData.windowRankings || [];
         if (windowPlayers.length === 0) {
           container.innerHTML = `<div class="p-8 text-center text-slate-400 text-xs">載入排行榜中...</div>`;
@@ -10488,39 +10686,40 @@
           const isMe = !!p.isCurrentPlayer;
           let rankBadge = '';
           if (p.rank === 1) {
-            rankBadge = `<span class="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-400 to-yellow-300 text-slate-950 font-black text-sm flex items-center justify-center shadow-md border border-amber-200">🥇 1</span>`;
+            rankBadge = `<span class="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-400 to-yellow-300 text-slate-950 font-black text-sm flex items-center justify-center shadow-md border border-amber-200 shrink-0">🥇 1</span>`;
           } else if (p.rank === 2) {
-            rankBadge = `<span class="w-8 h-8 rounded-xl bg-gradient-to-tr from-slate-200 to-slate-400 text-slate-950 font-black text-sm flex items-center justify-center shadow-md border border-slate-100">🥈 2</span>`;
+            rankBadge = `<span class="w-8 h-8 rounded-xl bg-gradient-to-tr from-slate-200 to-slate-400 text-slate-950 font-black text-sm flex items-center justify-center shadow-md border border-slate-100 shrink-0">🥈 2</span>`;
           } else if (p.rank === 3) {
-            rankBadge = `<span class="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-700 to-amber-600 text-amber-100 font-black text-sm flex items-center justify-center shadow-md border border-amber-500">🥉 3</span>`;
+            rankBadge = `<span class="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-700 to-amber-600 text-amber-100 font-black text-sm flex items-center justify-center shadow-md border border-amber-500 shrink-0">🥉 3</span>`;
           } else {
-            rankBadge = `<span class="w-8 h-8 rounded-xl bg-slate-800/90 text-indigo-200 font-bold font-mono text-xs flex items-center justify-center border border-indigo-900">#${p.rank}</span>`;
+            rankBadge = `<span class="w-8 h-8 rounded-xl bg-slate-800/90 text-indigo-200 font-bold font-mono text-xs flex items-center justify-center border border-indigo-900 shrink-0">#${p.rank}</span>`;
           }
 
           const cardClass = isMe
-            ? "relative bg-gradient-to-r from-amber-500/25 via-indigo-950 to-amber-500/20 border-2 border-amber-400 rounded-2xl p-2.5 sm:p-3 flex items-center justify-between shadow-[0_0_20px_rgba(245,158,11,0.4)]"
-            : "bg-slate-900/80 hover:bg-slate-800/80 border border-indigo-900/60 rounded-2xl p-2.5 sm:p-3 flex items-center justify-between transition";
+            ? "relative bg-gradient-to-r from-amber-500/25 via-indigo-950 to-amber-500/20 border-2 border-amber-400 rounded-2xl p-2.5 sm:p-3 flex items-center justify-between shadow-[0_0_20px_rgba(245,158,11,0.4)] overflow-hidden"
+            : "bg-slate-900/80 hover:bg-slate-800/80 border border-indigo-900/60 rounded-2xl p-2.5 sm:p-3 flex items-center justify-between transition overflow-hidden";
 
           const playerAvatar = (isMe && pAvatar) ? pAvatar : p.avatar;
-          const pAvHtml = renderAvatarHtml(playerAvatar, "w-10 h-10 rounded-2xl object-cover border border-amber-400/60 shadow-xs shrink-0", "w-10 h-10 rounded-2xl bg-slate-800 flex items-center justify-center text-2xl shrink-0");
+          const pAvHtml = renderAvatarHtml(playerAvatar, "w-10 h-10 rounded-2xl object-cover border border-amber-400/60 shadow-xs shrink-0", "w-10 h-10 rounded-2xl bg-slate-800 flex items-center justify-center text-xl shrink-0");
+          const safeName = sanitizePlayerName(isMe ? (pName || p.name) : p.name, isMe ? 'Kai' : '學員');
 
           html += `
             <div class="${cardClass}">
-              <div class="flex items-center gap-2.5">
+              <div class="flex items-center gap-2.5 min-w-0 max-w-[70%] overflow-hidden">
                 ${rankBadge}
                 <div class="relative shrink-0 w-10 h-10 rounded-2xl overflow-hidden flex items-center justify-center border border-amber-400/50 shadow-xs">
                   ${pAvHtml}
                 </div>
-                <div>
-                  <div class="flex items-center gap-1.5 flex-wrap">
-                    <span class="font-black text-xs sm:text-sm ${isMe ? 'text-amber-300' : 'text-slate-100'}">${p.name}</span>
-                    <span class="text-[10px] text-slate-400 bg-slate-950/70 px-1.5 py-0.2 rounded border border-slate-800">${p.region || '國際學員'}</span>
-                    ${isMe ? '<span class="text-[9px] bg-amber-400 text-slate-950 font-black px-1.5 py-0.2 rounded-full shadow-xs">👑 你的目前名次</span>' : ''}
+                <div class="min-w-0 flex-1 overflow-hidden">
+                  <div class="flex items-center gap-1.5 flex-wrap truncate">
+                    <span class="font-black text-xs sm:text-sm truncate max-w-[130px] sm:max-w-[180px] ${isMe ? 'text-amber-300' : 'text-slate-100'}">${safeName}</span>
+                    <span class="text-[10px] text-slate-400 bg-slate-950/70 px-1.5 py-0.2 rounded border border-slate-800 shrink-0">${p.region || '國際學員'}</span>
+                    ${isMe ? '<span class="text-[9px] bg-amber-400 text-slate-950 font-black px-1.5 py-0.2 rounded-full shadow-xs shrink-0">👑 你</span>' : ''}
                   </div>
-                  <div class="text-[10px] text-slate-400 mt-0.5 flex items-center gap-2 flex-wrap">
+                  <div class="text-[10px] text-slate-400 mt-0.5 flex items-center gap-1.5 flex-wrap truncate">
                     <span>${p.grade || '學員'}</span>
                     <span>·</span>
-                    <span>發音準確率: <strong class="text-emerald-400 font-mono">${p.accuracy || 90}%</strong></span>
+                    <span>發音: <strong class="text-emerald-400 font-mono">${p.accuracy || 90}%</strong></span>
                     <span>·</span>
                     <span>最高連擊: <strong class="text-cyan-400 font-mono">${p.maxCombo || 0}連擊</strong></span>
                   </div>
@@ -11822,6 +12021,7 @@
         totalFloors: 101,
         bricksPerFloor: 20, // 20 題一層，總計 2020 題
         unlockedByDefault: true,
+        image: 'images/ui/SKY-01.jpeg',
         gradient: 'from-emerald-600 via-teal-600 to-emerald-700',
         badge: '如意竹節 · 八節步步高升',
         milestoneInterval: 8,
@@ -11838,6 +12038,7 @@
         bricksPerFloor: 20, // 2040 題
         unlockedByDefault: false,
         unlockFloorReq: 10,
+        image: 'images/ui/SKY-02.jpeg',
         gradient: 'from-amber-600 via-orange-600 to-amber-700',
         badge: '經典復古 · 紐約天際線',
         milestoneInterval: 10,
@@ -11854,6 +12055,7 @@
         bricksPerFloor: 20, // 1760 題
         unlockedByDefault: false,
         unlockFloorReq: 25,
+        image: 'images/ui/SKY-03.jpeg',
         gradient: 'from-cyan-600 via-blue-600 to-cyan-700',
         badge: '雙塔並立 · 空中天橋對接',
         milestoneInterval: 11,
@@ -11870,6 +12072,7 @@
         bricksPerFloor: 20, // 2560 題
         unlockedByDefault: false,
         unlockFloorReq: 40,
+        image: 'images/ui/SKY-04.jpeg',
         gradient: 'from-purple-600 via-indigo-600 to-purple-700',
         badge: '120度螺旋盤旋 · 穿雲巨擘',
         milestoneInterval: 16,
@@ -11886,6 +12089,7 @@
         bricksPerFloor: 20, // 3260 題
         unlockedByDefault: false,
         unlockFloorReq: 60,
+        image: 'images/ui/SKY-05.jpeg',
         gradient: 'from-rose-600 via-pink-600 to-orange-600',
         badge: '世界之巔 · 刺破平流層星空',
         milestoneInterval: 20,
@@ -12036,27 +12240,31 @@
           const currentMeters = Math.round((currentFloor / lm.totalFloors) * lm.heightMeters);
 
           html += `
-            <div class="relative bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 rounded-3xl p-5 border-2 ${isUnlocked ? 'border-amber-400/60 shadow-lg hover:border-amber-300' : 'border-slate-800 opacity-75'} flex flex-col justify-between transition-all duration-300">
+            <div class="relative bg-gradient-to-b from-slate-900 via-slate-950 to-slate-900 rounded-3xl p-4 sm:p-5 border-2 ${isUnlocked ? 'border-amber-400/60 shadow-lg hover:border-amber-300' : 'border-slate-800 opacity-75'} flex flex-col justify-between transition-all duration-300 group">
               <div>
-                <div class="flex items-center justify-between mb-3">
-                  <div class="flex items-center gap-2">
-                    <span class="text-3xl">${lm.flag}</span>
-                    <span class="text-2xl">🗼</span>
+                <!-- Landmark Skyscraper Visual (Strictly height-bounded for tablets) -->
+                <div class="relative w-full h-36 sm:h-44 rounded-2xl overflow-hidden mb-3 border border-amber-400/40 shadow-inner bg-slate-950">
+                  <img src="${lm.image}" alt="${lm.name}" class="w-full h-full object-cover object-top transition duration-500 group-hover:scale-105">
+                  <div class="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-transparent to-slate-950/20 flex items-end p-2.5">
+                    <span class="text-xs font-black text-amber-200 drop-shadow-md">${lm.flag} ${lm.city} · 標高 ${lm.heightMeters}m</span>
                   </div>
-                  <span class="text-[10px] font-black px-2.5 py-1 rounded-full ${isUnlocked ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-400/50' : 'bg-slate-800 text-slate-400 border border-slate-700'}">
+                </div>
+
+                <div class="flex items-center justify-between mb-2">
+                  <div class="flex items-center gap-2">
+                    <h3 class="text-base sm:text-lg font-black text-white">${lm.name}</h3>
+                    <span class="text-xs text-amber-200/80 font-bold">${lm.enName}</span>
+                  </div>
+                  <span class="text-[10px] font-black px-2.5 py-0.5 rounded-full ${isUnlocked ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-400/50' : 'bg-slate-800 text-slate-400 border border-slate-700'}">
                     ${isUnlocked ? '✅ 施工准入' : `🔒 台北101達 ${lm.unlockFloorReq} 層解鎖`}
                   </span>
                 </div>
 
-                <div class="flex items-center gap-2">
-                  <h3 class="text-lg font-black text-white">${lm.name}</h3>
-                  <span class="text-xs text-amber-200/80 font-bold">${lm.enName}</span>
-                </div>
-                <div class="text-[11px] text-slate-400 mt-0.5">${lm.city} · 標高 ${lm.heightMeters}m · 共 ${lm.totalFloors} 層</div>
+                <div class="text-[11px] text-slate-400 mt-0.5">${lm.city} · 共 ${lm.totalFloors} 層</div>
                 <div class="text-[10px] text-indigo-300 font-bold mt-1">${lm.badge}</div>
 
                 <!-- Progress Meter -->
-                <div class="mt-4 bg-slate-950 rounded-2xl p-3 border border-slate-800">
+                <div class="mt-3.5 bg-slate-950 rounded-2xl p-3 border border-slate-800">
                   <div class="flex items-center justify-between text-xs font-bold text-slate-300 mb-1.5">
                     <span>施工高度：<strong class="text-amber-300 font-mono">FL ${currentFloor}</strong> / ${lm.totalFloors}F</span>
                     <span class="text-cyan-400 font-mono font-black">${currentMeters}m / ${lm.heightMeters}m</span>
@@ -12092,6 +12300,9 @@
       },
 
       startBuilding(landmarkId) {
+        if (typeof SoundEffects !== 'undefined' && SoundEffects.playBuildingTap) {
+          SoundEffects.playBuildingTap();
+        }
         this.activeLandmarkId = landmarkId;
         this.combo = 0;
         this.score = 0;
@@ -12106,9 +12317,11 @@
         const flagEl = document.getElementById('skyActiveFlag');
         const nameEl = document.getElementById('skyActiveName');
         const maxFloorsEl = document.getElementById('skyActiveMaxFloors');
+        const towerImgEl = document.getElementById('skyActiveTowerImg');
         if (flagEl) flagEl.innerText = lm.flag;
         if (nameEl) nameEl.innerText = `${lm.name} (${lm.enName})`;
         if (maxFloorsEl) maxFloorsEl.innerText = lm.totalFloors;
+        if (towerImgEl && lm.image) towerImgEl.src = lm.image;
 
         this.loadNextQuestion();
       },
@@ -12611,6 +12824,9 @@
 
     function selectMeteorLevel(level) {
       meteorCurrentLevel = level;
+      if (typeof SoundEffects !== 'undefined' && SoundEffects.playStageSelect) {
+        SoundEffects.playStageSelect();
+      }
       document.querySelectorAll('.meteor-lvl-btn').forEach((btn, idx) => {
         if (idx + 1 === level) {
           btn.className = "meteor-lvl-btn flex-1 min-w-[120px] py-2 px-3 rounded-xl bg-indigo-600 text-white font-black text-xs shadow-sm whitespace-nowrap text-center transition";
@@ -12618,6 +12834,23 @@
           btn.className = "meteor-lvl-btn flex-1 min-w-[120px] py-2 px-3 rounded-xl bg-white text-slate-700 hover:bg-slate-100 font-bold text-xs whitespace-nowrap text-center transition";
         }
       });
+
+      // Update 3D Cave Journey Banner image and captions
+      const caveBanners = {
+        1: { img: 'images/ui/STG-11.jpeg', title: '探險第一島 · 家居生活洞窟防衛線', badge: '🏡 第 1 大關洞穴' },
+        2: { img: 'images/ui/STG-12.jpeg', title: '探險第一島 · 城市交通地下隧道防衛線', badge: '🚗 第 2 大關洞穴' },
+        3: { img: 'images/ui/STG-13.jpeg', title: '探險第一島 · 健康美食魔幻鐘乳洞防衛線', badge: '🍎 第 3 大關洞穴' },
+        4: { img: 'images/ui/STG-14.jpeg', title: '探險第一島 · 校園自然神秘地穴防衛線', badge: '🏫 第 4 大關洞穴' },
+        5: { img: 'images/ui/STG-15.jpeg', title: '探險第一島 · 宇宙大魔王深淵核心擂台', badge: '👿 第 5 大關魔王深淵' }
+      };
+      const bannerInfo = caveBanners[level] || caveBanners[1];
+      const bannerImg = document.getElementById('meteorCaveBannerImg');
+      const bannerTitle = document.getElementById('meteorCaveBannerTitle');
+      const bannerBadge = document.getElementById('meteorCaveBannerBadge');
+      if (bannerImg) bannerImg.src = bannerInfo.img;
+      if (bannerTitle) bannerTitle.innerText = bannerInfo.title;
+      if (bannerBadge) bannerBadge.innerText = bannerInfo.badge;
+
       renderMeteorStageSelectView();
     }
 

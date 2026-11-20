@@ -232,8 +232,12 @@ def compute_dynamic_window(sorted_players, profile_id, window_size=20):
 
 def update_server_leaderboard_entry(payload):
     profile_id = payload.get('profileId') or 'profile_kai'
-    name = payload.get('name') or 'Kai'
+    name = (payload.get('name') or 'Kai').strip()
+    if name.startswith('data:') or ';base64,' in name or len(name) > 30:
+        name = 'Kai'
     avatar = payload.get('avatar') or '👦'
+    if isinstance(avatar, str) and len(avatar) > 200 and not avatar.startswith('data:image'):
+        avatar = 'custom_photo'
     grade = payload.get('grade') or '幼兒園大班/國小低年級'
     region = payload.get('region') or '🇹🇼 台北'
     score = int(payload.get('score', 0))
