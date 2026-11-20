@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.68";
+        const LATEST_VER = "26.11.69";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -228,7 +228,7 @@
       <div class="flex flex-col items-center mb-1">
         <div class="flex items-center gap-3.5 cursor-pointer select-none">
           <div class="shrink-0">
-            <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.68" alt="KaiSpeak" class="h-20 sm:h-24 md:h-28 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] hover:scale-105 transition duration-300 shrink-0">
+            <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.69" alt="KaiSpeak" class="h-20 sm:h-24 md:h-28 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] hover:scale-105 transition duration-300 shrink-0">
           </div>
           <div class="flex flex-col justify-center text-left leading-none">
             <h1 class="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight bg-gradient-to-r from-indigo-800 via-indigo-600 to-purple-600 bg-clip-text text-transparent select-none leading-none">KaiSpeak</h1>
@@ -237,8 +237,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.68（2026年·11月·第41次發布）">
-                26.11.68
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.69（2026年·11月·第41次發布）">
+                26.11.69
               </span>
             </div>
           </div>
@@ -478,7 +478,7 @@
       <!-- Brand Logo + 奇妙星語言 Lockup -->
       <div class="flex items-center gap-1.5 sm:gap-2 cursor-pointer select-none shrink-0 group py-0.5" onclick="switchAppMode('quest')" title="KaiSpeak 首頁">
         <div class="shrink-0 flex items-center">
-          <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.68" alt="KaiSpeak" class="h-9 sm:h-11 md:h-12 w-auto object-contain drop-shadow-[0_4px_14px_rgba(79,70,229,0.18)] group-hover:scale-105 transition-all duration-300 shrink-0">
+          <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.69" alt="KaiSpeak" class="h-9 sm:h-11 md:h-12 w-auto object-contain drop-shadow-[0_4px_14px_rgba(79,70,229,0.18)] group-hover:scale-105 transition-all duration-300 shrink-0">
         </div>
         <div class="flex flex-col justify-center text-left leading-none">
           <div class="flex items-center gap-1">
@@ -486,7 +486,7 @@
               <span class="text-[9px] text-amber-500">✨</span>
               <span>奇妙星語言</span>
             </span>
-            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.68（2026年·11月·第41次發布）">26.11.68</span>
+            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.69（2026年·11月·第41次發布）">26.11.69</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer hidden sm:flex items-center gap-0.5 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-1.5 py-0.2 transition shadow-2xs group-hover:border-amber-400 max-w-[130px] truncate" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -2325,8 +2325,8 @@
             <!-- Kai Riding Fire Dragon Character (Transparent WebP + GIF Fallback, No Frame) -->
             <div id="dragonSprite" class="relative w-48 sm:w-60 md:w-72 h-28 sm:h-36 md:h-42 flex items-center justify-center transition-transform duration-200">
               <picture class="w-full h-full flex items-center justify-center pointer-events-none select-none">
-                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.68" type="image/webp">
-                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.68" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
+                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.69" type="image/webp">
+                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.69" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
               </picture>
             </div>
             <!-- Dragon Muzzle Flame Flash (Fires upon shooting laser) -->
@@ -3201,7 +3201,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.68 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.69 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -3240,7 +3240,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.68 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.69 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -3898,7 +3898,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.68";
+    const APP_VERSION = "26.11.69";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // ========================================================
@@ -12528,6 +12528,11 @@
 
       loadNextQuestion() {
         this.isSubmitting = false;
+        if (document.activeElement && typeof document.activeElement.blur === 'function') {
+          document.activeElement.blur();
+        }
+        const depotEl = document.getElementById('skyMaterialDepot');
+        if (depotEl) depotEl.innerHTML = '';
         const p = this.getProgressData();
         const prog = p.skyscraperProgress[this.activeLandmarkId] || { currentFloor: 1, currentFloorBricks: 0 };
         const currentFloor = prog.currentFloor || 1;
@@ -12832,23 +12837,23 @@
         const girderWord = document.getElementById('skySuspendedWord');
         if (girderWord) girderWord.innerText = q.targetWord.toUpperCase();
 
-        // 4 Tactile Brick Buttons
+        // 4 Tactile Brick Buttons (clean neutral borders, no sticky hover frames or focus outlines)
         const depot = document.getElementById('skyMaterialDepot');
         if (depot) {
-          let bHtml = '';
+          depot.innerHTML = '';
           q.choices.forEach((choice, idx) => {
-            bHtml += `
+            bHtml = `
               <button type="button" 
                 draggable="true" 
                 ondragstart="event.dataTransfer.setData('text/plain', '${choice}')"
                 onclick="SkyscraperGameEngine.handleChoice('${choice}', this)" 
-                class="sky-brick-btn jelly-btn-3d group relative py-3 px-3 rounded-2xl bg-gradient-to-b from-white to-slate-100 hover:from-amber-50 hover:to-amber-100 border-2 border-slate-300 hover:border-amber-400 text-slate-800 font-black text-sm sm:text-base shadow-md transition-all active:scale-95 flex items-center justify-center gap-2 select-none">
-                <span class="w-3 h-3 rounded-full bg-slate-300 group-hover:bg-amber-400 shrink-0"></span>
+                class="sky-brick-btn jelly-btn-3d group relative py-3 px-3 rounded-2xl bg-gradient-to-b from-white to-slate-100 border-2 border-slate-300 text-slate-800 font-black text-sm sm:text-base shadow-md transition-all active:scale-95 flex items-center justify-center gap-2 select-none outline-none focus:outline-none ring-0 focus:ring-0">
+                <span class="w-3 h-3 rounded-full bg-slate-300 shrink-0"></span>
                 <span>${choice}</span>
               </button>
             `;
+            depot.insertAdjacentHTML('beforeend', bHtml);
           });
-          depot.innerHTML = bHtml;
         }
       },
 
@@ -12869,6 +12874,10 @@
 
       handleChoice(choiceText, btnEl) {
         if (this.isSubmitting || !this.currentQuestion) return;
+        if (btnEl && typeof btnEl.blur === 'function') btnEl.blur();
+        if (document.activeElement && typeof document.activeElement.blur === 'function') {
+          document.activeElement.blur();
+        }
         const q = this.currentQuestion;
         const isCorrect = (choiceText.trim().toLowerCase() === q.targetWord.trim().toLowerCase());
 
@@ -12895,6 +12904,19 @@
             if (p.weakWords && p.weakWords.includes(wKey)) {
               p.weakWords = p.weakWords.filter(x => x.toLowerCase().trim() !== wKey);
             }
+          }
+
+          // Visual button feedback for this question only
+          if (btnEl) {
+            btnEl.className = "sky-brick-btn jelly-btn-3d group relative py-3 px-3 rounded-2xl bg-emerald-50 border-2 border-emerald-500 text-emerald-950 font-black text-sm sm:text-base shadow-[0_0_15px_rgba(16,185,129,0.4)] transition-all flex items-center justify-center gap-2 select-none pointer-events-none";
+            const dot = btnEl.querySelector('span');
+            if (dot) dot.className = "w-3 h-3 rounded-full bg-emerald-500 shrink-0";
+          }
+          const depotEl = document.getElementById('skyMaterialDepot');
+          if (depotEl) {
+            depotEl.querySelectorAll('button').forEach(b => {
+              b.style.pointerEvents = 'none';
+            });
           }
 
           // Visual slot lock
@@ -12981,10 +13003,16 @@
           saveProfilesToStorage();
           this.updateGlobalHeaderStats();
 
-          // Button shake
+          // Button shake & temporary red feedback (fully restored after 700ms)
           if (btnEl) {
-            btnEl.classList.add('animate-shake', 'opacity-50', 'bg-rose-100', 'border-rose-400');
-            setTimeout(() => btnEl.classList.remove('animate-shake'), 600);
+            btnEl.className = "sky-brick-btn jelly-btn-3d group relative py-3 px-3 rounded-2xl bg-rose-50 border-2 border-rose-400 text-rose-950 font-black text-sm sm:text-base shadow-sm transition-all flex items-center justify-center gap-2 select-none animate-shake";
+            const dot = btnEl.querySelector('span');
+            if (dot) dot.className = "w-3 h-3 rounded-full bg-rose-400 shrink-0";
+            setTimeout(() => {
+              btnEl.className = "sky-brick-btn jelly-btn-3d group relative py-3 px-3 rounded-2xl bg-gradient-to-b from-white to-slate-100 border-2 border-slate-300 text-slate-800 font-black text-sm sm:text-base shadow-md transition-all active:scale-95 flex items-center justify-center gap-2 select-none outline-none focus:outline-none ring-0 focus:ring-0";
+              if (dot) dot.className = "w-3 h-3 rounded-full bg-slate-300 shrink-0";
+              if (typeof btnEl.blur === 'function') btnEl.blur();
+            }, 700);
           }
 
           // Show hint
