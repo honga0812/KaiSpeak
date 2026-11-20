@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.71";
+        const LATEST_VER = "26.11.72";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -228,7 +228,7 @@
       <div class="flex flex-col items-center mb-1">
         <div class="flex items-center gap-3.5 cursor-pointer select-none">
           <div class="shrink-0">
-            <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.71" alt="KaiSpeak" class="h-20 sm:h-24 md:h-28 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] hover:scale-105 transition duration-300 shrink-0">
+            <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.72" alt="KaiSpeak" class="h-20 sm:h-24 md:h-28 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] hover:scale-105 transition duration-300 shrink-0">
           </div>
           <div class="flex flex-col justify-center text-left leading-none">
             <h1 class="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight bg-gradient-to-r from-indigo-800 via-indigo-600 to-purple-600 bg-clip-text text-transparent select-none leading-none">KaiSpeak</h1>
@@ -237,8 +237,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.71（2026年·11月·第41次發布）">
-                26.11.71
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.72（2026年·11月·第42次發布）">
+                26.11.72
               </span>
             </div>
           </div>
@@ -478,7 +478,7 @@
       <!-- Brand Logo + 奇妙星語言 Lockup -->
       <div class="flex items-center gap-1.5 sm:gap-2 cursor-pointer select-none shrink-0 group py-0.5" onclick="switchAppMode('quest')" title="KaiSpeak 首頁">
         <div class="shrink-0 flex items-center">
-          <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.71" alt="KaiSpeak" class="h-9 sm:h-11 md:h-12 w-auto object-contain drop-shadow-[0_4px_14px_rgba(79,70,229,0.18)] group-hover:scale-105 transition-all duration-300 shrink-0">
+          <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.72" alt="KaiSpeak" class="h-9 sm:h-11 md:h-12 w-auto object-contain drop-shadow-[0_4px_14px_rgba(79,70,229,0.18)] group-hover:scale-105 transition-all duration-300 shrink-0">
         </div>
         <div class="flex flex-col justify-center text-left leading-none">
           <div class="flex items-center gap-1">
@@ -486,7 +486,7 @@
               <span class="text-[9px] text-amber-500">✨</span>
               <span>奇妙星語言</span>
             </span>
-            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.71（2026年·11月·第41次發布）">26.11.71</span>
+            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.72（2026年·11月·第42次發布）">26.11.72</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer hidden sm:flex items-center gap-0.5 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-1.5 py-0.2 transition shadow-2xs group-hover:border-amber-400 max-w-[130px] truncate" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -1929,7 +1929,7 @@
       <div id="skyLandmarkSelectScreen" class="flex flex-col gap-4">
         
         <!-- Interactive Skyscraper Island Grand Map (MAP-01.jpeg) -->
-        <div id="skyNauticalMapCanvas" class="w-full h-72 sm:h-84 md:h-[400px] rounded-3xl overflow-hidden relative border-2 border-amber-400/80 shadow-2xl bg-slate-950 select-none group">
+        <div id="skyNauticalMapCanvas" class="w-full aspect-[1376/768] min-h-[320px] sm:min-h-[400px] md:min-h-[480px] max-h-[640px] rounded-3xl overflow-hidden relative border-2 border-amber-400/80 shadow-2xl bg-slate-950 select-none group">
           <!-- Base Map Image -->
           <img src="images/ui/MAP-01.jpeg" alt="摩天大樓群島全域地圖" class="w-full h-full object-cover object-center transform group-hover:scale-105 transition duration-700">
           
@@ -1951,81 +1951,119 @@
 
           <!-- Top HUD on Map: Title & Instructions -->
           <div class="absolute top-3 inset-x-3 flex items-center justify-between pointer-events-none z-10">
-            <div class="bg-slate-950/85 backdrop-blur-md px-3 py-1.5 rounded-2xl border border-amber-400/60 text-xs font-black text-amber-300 shadow-xl flex items-center gap-2 pointer-events-auto">
+            <div class="bg-slate-950/90 backdrop-blur-md px-3 py-1.5 rounded-2xl border border-amber-400/80 text-xs font-black text-amber-300 shadow-xl flex items-center gap-2 pointer-events-auto">
               <span class="text-base animate-bounce">🏗️</span>
               <span>摩天大樓群島工程地圖</span>
               <span class="text-slate-500 font-normal">|</span>
               <span class="text-indigo-100 font-medium hidden sm:inline">點選地圖上的大樓查看工程與施工</span>
             </div>
-            <div class="bg-slate-950/85 backdrop-blur-md px-2.5 py-1 rounded-xl border border-cyan-400/40 text-[10px] text-cyan-300 font-mono font-bold shadow-lg flex items-center gap-1.5 pointer-events-auto">
+            <div class="bg-slate-950/90 backdrop-blur-md px-2.5 py-1 rounded-xl border border-cyan-400/50 text-[10px] text-cyan-300 font-mono font-bold shadow-lg flex items-center gap-1.5 pointer-events-auto">
               <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
               <span>5 大世界地標</span>
             </div>
           </div>
 
-          <!-- 5 INTERACTIVE LANDMARK PINS ON MAP-01.jpeg -->
-          <!-- PIN 1: taipei_101 -->
-          <div id="skyPin_taipei_101" onclick="SkyscraperGameEngine.selectLandmarkMapPin('taipei_101')" class="sky-map-pin absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-300 z-30 scale-110" style="left: 22%; top: 46%;">
-            <div class="flex flex-col items-center group/pin">
-              <div class="pin-ring relative w-11 h-11 sm:w-14 sm:h-14 rounded-full border-2 border-amber-400 ring-4 ring-amber-400/80 shadow-[0_0_20px_rgba(245,158,11,0.9)] overflow-hidden bg-slate-900 transition-all duration-300">
-                <img src="images/ui/SKY-01.jpeg" alt="台北 101" class="w-full h-full object-cover">
-                <span class="absolute bottom-0 inset-x-0 bg-slate-950/80 text-[8px] text-amber-300 text-center font-black">101F</span>
+          <!-- 5 INTERACTIVE LANDMARK PINS ON MAP-01.jpeg (Strictly aligned to tower bases) -->
+          <!-- PIN 1: shanghai_tower (Flag 1) -->
+          <div id="skyPin_shanghai_tower" onclick="SkyscraperGameEngine.selectLandmarkMapPin('shanghai_tower')" class="sky-map-pin absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-300 z-20 hover:scale-110 active:scale-95 group/pin" style="left: 16.0%; top: 71.0%;">
+            <div class="flex flex-col items-center relative">
+              <span class="pin-ping absolute -inset-2.5 rounded-full border-2 border-cyan-400 animate-ping opacity-70 pointer-events-none"></span>
+              <div class="pin-badge -mb-2 z-20 px-2.5 py-0.5 rounded-full bg-slate-950/95 text-cyan-300 text-[10px] font-black border border-cyan-400/90 shadow-md flex items-center gap-1">
+                <span class="text-amber-400">#1</span> <span>🇨🇳</span>
               </div>
-              <div class="pin-pill mt-1 px-2 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[10px] font-black shadow-md border border-amber-300 flex items-center gap-1 whitespace-nowrap">
-                <span>🇹🇼 台北 101</span>
+              <div class="pin-ring relative w-12 h-12 sm:w-16 sm:h-16 rounded-2xl border-2 sm:border-3 border-white/95 ring-2 ring-slate-950/80 shadow-[0_4px_16px_rgba(0,0,0,0.85)] overflow-hidden bg-slate-900 transition-all duration-300 group-hover/pin:border-cyan-300">
+                <img src="images/ui/SKY-03.jpeg" alt="上海中心大廈" class="w-full h-full object-cover">
+                <span class="absolute bottom-0 inset-x-0 bg-slate-950/90 text-[8px] sm:text-[9px] text-amber-300 text-center font-black">128F</span>
               </div>
-            </div>
-          </div>
-
-          <!-- PIN 2: empire_state -->
-          <div id="skyPin_empire_state" onclick="SkyscraperGameEngine.selectLandmarkMapPin('empire_state')" class="sky-map-pin absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-300 z-20 hover:scale-110 active:scale-95" style="left: 48%; top: 28%;">
-            <div class="flex flex-col items-center group/pin">
-              <div class="pin-ring relative w-11 h-11 sm:w-14 sm:h-14 rounded-full border-2 border-white/60 shadow-lg overflow-hidden bg-slate-900 transition-all duration-300">
-                <img src="images/ui/SKY-02.jpeg" alt="帝國大廈" class="w-full h-full object-cover">
-                <span class="absolute bottom-0 inset-x-0 bg-slate-950/80 text-[8px] text-amber-300 text-center font-black">102F</span>
-              </div>
-              <div class="pin-pill mt-1 px-2 py-0.5 rounded-full bg-slate-950/80 text-slate-200 text-[10px] font-bold shadow-md border border-slate-700 flex items-center gap-1 whitespace-nowrap">
-                <span>🇺🇸 帝國大廈</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- PIN 3: petronas -->
-          <div id="skyPin_petronas" onclick="SkyscraperGameEngine.selectLandmarkMapPin('petronas')" class="sky-map-pin absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-300 z-20 hover:scale-110 active:scale-95" style="left: 76%; top: 38%;">
-            <div class="flex flex-col items-center group/pin">
-              <div class="pin-ring relative w-11 h-11 sm:w-14 sm:h-14 rounded-full border-2 border-white/60 shadow-lg overflow-hidden bg-slate-900 transition-all duration-300">
-                <img src="images/ui/SKY-03.jpeg" alt="雙子星大樓" class="w-full h-full object-cover">
-                <span class="absolute bottom-0 inset-x-0 bg-slate-950/80 text-[8px] text-amber-300 text-center font-black">88F</span>
-              </div>
-              <div class="pin-pill mt-1 px-2 py-0.5 rounded-full bg-slate-950/80 text-slate-200 text-[10px] font-bold shadow-md border border-slate-700 flex items-center gap-1 whitespace-nowrap">
-                <span>🇲🇾 雙子星</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- PIN 4: shanghai_tower -->
-          <div id="skyPin_shanghai_tower" onclick="SkyscraperGameEngine.selectLandmarkMapPin('shanghai_tower')" class="sky-map-pin absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-300 z-20 hover:scale-110 active:scale-95" style="left: 32%; top: 72%;">
-            <div class="flex flex-col items-center group/pin">
-              <div class="pin-ring relative w-11 h-11 sm:w-14 sm:h-14 rounded-full border-2 border-white/60 shadow-lg overflow-hidden bg-slate-900 transition-all duration-300">
-                <img src="images/ui/SKY-04.jpeg" alt="上海中心大廈" class="w-full h-full object-cover">
-                <span class="absolute bottom-0 inset-x-0 bg-slate-950/80 text-[8px] text-amber-300 text-center font-black">128F</span>
-              </div>
-              <div class="pin-pill mt-1 px-2 py-0.5 rounded-full bg-slate-950/80 text-slate-200 text-[10px] font-bold shadow-md border border-slate-700 flex items-center gap-1 whitespace-nowrap">
+              <div class="pin-arrow w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[7px] border-t-white drop-shadow-md"></div>
+              <div class="pin-pill mt-0.5 px-2.5 py-1 rounded-xl bg-slate-950/95 text-white text-[10px] sm:text-xs font-black shadow-xl border-2 border-amber-400/80 flex flex-col items-center gap-0.5 whitespace-nowrap">
                 <span>🇨🇳 上海中心</span>
+                <span class="pin-status text-[8px] text-slate-300 bg-slate-800 px-1.5 py-0.2 rounded-full font-bold">FL.1 施工中</span>
               </div>
             </div>
           </div>
 
-          <!-- PIN 5: burj_khalifa -->
-          <div id="skyPin_burj_khalifa" onclick="SkyscraperGameEngine.selectLandmarkMapPin('burj_khalifa')" class="sky-map-pin absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-300 z-20 hover:scale-110 active:scale-95" style="left: 68%; top: 68%;">
-            <div class="flex flex-col items-center group/pin">
-              <div class="pin-ring relative w-11 h-11 sm:w-14 sm:h-14 rounded-full border-2 border-white/60 shadow-lg overflow-hidden bg-slate-900 transition-all duration-300">
-                <img src="images/ui/SKY-05.jpeg" alt="哈里發塔" class="w-full h-full object-cover">
-                <span class="absolute bottom-0 inset-x-0 bg-slate-950/80 text-[8px] text-amber-300 text-center font-black">163F</span>
+          <!-- PIN 2: taipei_101 (Flag 2) -->
+          <div id="skyPin_taipei_101" onclick="SkyscraperGameEngine.selectLandmarkMapPin('taipei_101')" class="sky-map-pin absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-300 z-40 scale-110 sm:scale-120 group/pin" style="left: 40.0%; top: 62.5%;">
+            <div class="flex flex-col items-center relative">
+              <span class="pin-ping absolute -inset-2.5 rounded-full border-2 border-amber-400 animate-ping opacity-85 pointer-events-none"></span>
+              <div class="pin-badge -mb-2 z-20 px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[10px] font-black border border-amber-300 shadow-md flex items-center gap-1">
+                <span class="text-indigo-900">#2</span> <span>🇹🇼</span>
               </div>
-              <div class="pin-pill mt-1 px-2 py-0.5 rounded-full bg-slate-950/80 text-slate-200 text-[10px] font-bold shadow-md border border-slate-700 flex items-center gap-1 whitespace-nowrap">
+              <div class="pin-ring relative w-12 h-12 sm:w-16 sm:h-16 rounded-2xl border-2 sm:border-3 border-amber-400 ring-4 ring-amber-400/80 shadow-[0_0_25px_rgba(245,158,11,1)] overflow-hidden bg-slate-900 transition-all duration-300">
+                <img src="images/ui/SKY-01.jpeg" alt="台北 101" class="w-full h-full object-cover">
+                <span class="absolute bottom-0 inset-x-0 bg-slate-950/90 text-[8px] sm:text-[9px] text-amber-300 text-center font-black">101F</span>
+              </div>
+              <div class="pin-arrow w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[7px] border-t-amber-400 drop-shadow-md"></div>
+              <div class="pin-pill mt-0.5 px-2.5 py-1 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-400 text-slate-950 text-[10px] sm:text-xs font-black shadow-[0_0_20px_rgba(245,158,11,0.8)] border-2 border-amber-300 flex flex-col items-center gap-0.5 whitespace-nowrap">
+                <span>🇹🇼 台北 101</span>
+                <span class="pin-status text-[8px] text-slate-900 bg-amber-300/90 px-1.5 py-0.2 rounded-full font-black">👉 當前選中</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- PIN 3: burj_khalifa (Flag 3) -->
+          <div id="skyPin_burj_khalifa" onclick="SkyscraperGameEngine.selectLandmarkMapPin('burj_khalifa')" class="sky-map-pin absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-300 z-20 hover:scale-110 active:scale-95 group/pin" style="left: 60.0%; top: 61.2%;">
+            <div class="flex flex-col items-center relative">
+              <span class="pin-ping absolute -inset-2.5 rounded-full border-2 border-cyan-400 animate-ping opacity-70 pointer-events-none"></span>
+              <div class="pin-badge -mb-2 z-20 px-2.5 py-0.5 rounded-full bg-slate-950/95 text-cyan-300 text-[10px] font-black border border-cyan-400/90 shadow-md flex items-center gap-1">
+                <span class="text-amber-400">#3</span> <span>🇦🇪</span>
+              </div>
+              <div class="pin-ring relative w-12 h-12 sm:w-16 sm:h-16 rounded-2xl border-2 sm:border-3 border-white/95 ring-2 ring-slate-950/80 shadow-[0_4px_16px_rgba(0,0,0,0.85)] overflow-hidden bg-slate-900 transition-all duration-300 group-hover/pin:border-cyan-300">
+                <img src="images/ui/SKY-02.jpeg" alt="哈里發塔" class="w-full h-full object-cover">
+                <span class="absolute bottom-0 inset-x-0 bg-slate-950/90 text-[8px] sm:text-[9px] text-amber-300 text-center font-black">163F</span>
+              </div>
+              <div class="pin-arrow w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[7px] border-t-white drop-shadow-md"></div>
+              <div class="pin-pill mt-0.5 px-2.5 py-1 rounded-xl bg-slate-950/95 text-white text-[10px] sm:text-xs font-black shadow-xl border-2 border-amber-400/80 flex flex-col items-center gap-0.5 whitespace-nowrap">
                 <span>🇦🇪 哈里發塔</span>
+                <span class="pin-status text-[8px] text-slate-300 bg-slate-800 px-1.5 py-0.2 rounded-full font-bold">FL.1 施工中</span>
               </div>
+            </div>
+          </div>
+
+          <!-- PIN 4: empire_state (Flag 4) -->
+          <div id="skyPin_empire_state" onclick="SkyscraperGameEngine.selectLandmarkMapPin('empire_state')" class="sky-map-pin absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-300 z-20 hover:scale-110 active:scale-95 group/pin" style="left: 32.0%; top: 41.0%;">
+            <div class="flex flex-col items-center relative">
+              <span class="pin-ping absolute -inset-2.5 rounded-full border-2 border-cyan-400 animate-ping opacity-70 pointer-events-none"></span>
+              <div class="pin-badge -mb-2 z-20 px-2.5 py-0.5 rounded-full bg-slate-950/95 text-cyan-300 text-[10px] font-black border border-cyan-400/90 shadow-md flex items-center gap-1">
+                <span class="text-amber-400">#4</span> <span>🇺🇸</span>
+              </div>
+              <div class="pin-ring relative w-12 h-12 sm:w-16 sm:h-16 rounded-2xl border-2 sm:border-3 border-white/95 ring-2 ring-slate-950/80 shadow-[0_4px_16px_rgba(0,0,0,0.85)] overflow-hidden bg-slate-900 transition-all duration-300 group-hover/pin:border-cyan-300">
+                <img src="images/ui/SKY-04.jpeg" alt="帝國大廈" class="w-full h-full object-cover">
+                <span class="absolute bottom-0 inset-x-0 bg-slate-950/90 text-[8px] sm:text-[9px] text-amber-300 text-center font-black">102F</span>
+              </div>
+              <div class="pin-arrow w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[7px] border-t-white drop-shadow-md"></div>
+              <div class="pin-pill mt-0.5 px-2.5 py-1 rounded-xl bg-slate-950/95 text-white text-[10px] sm:text-xs font-black shadow-xl border-2 border-amber-400/80 flex flex-col items-center gap-0.5 whitespace-nowrap">
+                <span>🇺🇸 帝國大廈</span>
+                <span class="pin-status text-[8px] text-slate-300 bg-slate-800 px-1.5 py-0.2 rounded-full font-bold">FL.1 施工中</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- PIN 5: merdeka_118 (Flag 5) -->
+          <div id="skyPin_merdeka_118" onclick="SkyscraperGameEngine.selectLandmarkMapPin('merdeka_118')" class="sky-map-pin absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-300 z-20 hover:scale-110 active:scale-95 group/pin" style="left: 73.0%; top: 45.6%;">
+            <div class="flex flex-col items-center relative">
+              <span class="pin-ping absolute -inset-2.5 rounded-full border-2 border-cyan-400 animate-ping opacity-70 pointer-events-none"></span>
+              <div class="pin-badge -mb-2 z-20 px-2.5 py-0.5 rounded-full bg-slate-950/95 text-cyan-300 text-[10px] font-black border border-cyan-400/90 shadow-md flex items-center gap-1">
+                <span class="text-amber-400">#5</span> <span>🇲🇾</span>
+              </div>
+              <div class="pin-ring relative w-12 h-12 sm:w-16 sm:h-16 rounded-2xl border-2 sm:border-3 border-white/95 ring-2 ring-slate-950/80 shadow-[0_4px_16px_rgba(0,0,0,0.85)] overflow-hidden bg-slate-900 transition-all duration-300 group-hover/pin:border-cyan-300">
+                <img src="images/ui/SKY-05.jpeg" alt="默迪卡 118" class="w-full h-full object-cover">
+                <span class="absolute bottom-0 inset-x-0 bg-slate-950/90 text-[8px] sm:text-[9px] text-amber-300 text-center font-black">118F</span>
+              </div>
+              <div class="pin-arrow w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[7px] border-t-white drop-shadow-md"></div>
+              <div class="pin-pill mt-0.5 px-2.5 py-1 rounded-xl bg-slate-950/95 text-white text-[10px] sm:text-xs font-black shadow-xl border-2 border-amber-400/80 flex flex-col items-center gap-0.5 whitespace-nowrap">
+                <span>🇲🇾 默迪卡 118</span>
+                <span class="pin-status text-[8px] text-slate-300 bg-slate-800 px-1.5 py-0.2 rounded-full font-bold">FL.1 施工中</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Navigation Guidance Ribbon -->
+          <div class="absolute bottom-2.5 inset-x-4 flex justify-center pointer-events-none z-10">
+            <div class="bg-slate-950/90 backdrop-blur-md px-3.5 py-1 rounded-full border border-amber-400/80 text-[11px] text-amber-300 font-black shadow-xl flex items-center gap-2 pointer-events-auto select-none">
+              <span class="animate-bounce text-sm">🏗️</span>
+              <span>點擊地圖上的 5 座摩天大樓地標，即可展開工程簡報並進入施工！</span>
             </div>
           </div>
 
@@ -2439,8 +2477,8 @@
             <!-- Kai Riding Fire Dragon Character (Transparent WebP + GIF Fallback, No Frame) -->
             <div id="dragonSprite" class="relative w-48 sm:w-60 md:w-72 h-28 sm:h-36 md:h-42 flex items-center justify-center transition-transform duration-200">
               <picture class="w-full h-full flex items-center justify-center pointer-events-none select-none">
-                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.71" type="image/webp">
-                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.71" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
+                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.72" type="image/webp">
+                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.72" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
               </picture>
             </div>
             <!-- Dragon Muzzle Flame Flash (Fires upon shooting laser) -->
@@ -3315,7 +3353,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.71 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.72 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -3354,7 +3392,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.71 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.72 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -4012,7 +4050,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.71";
+    const APP_VERSION = "26.11.72";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // ========================================================
@@ -12178,7 +12216,27 @@
     // ========================================================
     const SKYSCRAPER_LANDMARKS = [
       {
+        id: 'shanghai_tower',
+        flagNum: 1,
+        name: '上海中心大廈',
+        enName: 'Shanghai Tower',
+        flag: '🇨🇳',
+        city: '中國 上海',
+        heightMeters: 632,
+        totalFloors: 128,
+        bricksPerFloor: 20, // 2560 題
+        unlockedByDefault: false,
+        unlockFloorReq: 10,
+        image: 'images/ui/SKY-03.jpeg',
+        gradient: 'from-cyan-600 via-teal-600 to-indigo-700',
+        badge: '120度螺旋盤旋 · 綠能空中花園',
+        milestoneInterval: 16,
+        milestoneName: '🌀 螺旋天頂封頂儀式',
+        mapPos: { left: '16.0%', top: '71.0%' }
+      },
+      {
         id: 'taipei_101',
+        flagNum: 2,
         name: '台北 101',
         enName: 'Taipei 101',
         flag: '🇹🇼',
@@ -12191,61 +12249,12 @@
         gradient: 'from-emerald-600 via-teal-600 to-emerald-700',
         badge: '如意竹節 · 八節步步高升',
         milestoneInterval: 8,
-        milestoneName: '🎋 如意竹節大慶典'
-      },
-      {
-        id: 'empire_state',
-        name: '帝國大廈',
-        enName: 'Empire State',
-        flag: '🇺🇸',
-        city: '美國 紐約',
-        heightMeters: 381,
-        totalFloors: 102,
-        bricksPerFloor: 20, // 2040 題
-        unlockedByDefault: false,
-        unlockFloorReq: 10,
-        image: 'images/ui/SKY-02.jpeg',
-        gradient: 'from-amber-600 via-orange-600 to-amber-700',
-        badge: '經典復古 · 紐約天際線',
-        milestoneInterval: 10,
-        milestoneName: '🗽 帝國天際線巡禮'
-      },
-      {
-        id: 'petronas',
-        name: '雙子星大樓',
-        enName: 'Petronas Towers',
-        flag: '🇲🇾',
-        city: '馬來西亞 吉隆坡',
-        heightMeters: 452,
-        totalFloors: 88,
-        bricksPerFloor: 20, // 1760 題
-        unlockedByDefault: false,
-        unlockFloorReq: 25,
-        image: 'images/ui/SKY-03.jpeg',
-        gradient: 'from-cyan-600 via-blue-600 to-cyan-700',
-        badge: '雙塔並立 · 空中天橋對接',
-        milestoneInterval: 11,
-        milestoneName: '🌉 空中天橋對接大典'
-      },
-      {
-        id: 'shanghai_tower',
-        name: '上海中心大廈',
-        enName: 'Shanghai Tower',
-        flag: '🇨🇳',
-        city: '中國 上海',
-        heightMeters: 632,
-        totalFloors: 128,
-        bricksPerFloor: 20, // 2560 題
-        unlockedByDefault: false,
-        unlockFloorReq: 40,
-        image: 'images/ui/SKY-04.jpeg',
-        gradient: 'from-purple-600 via-indigo-600 to-purple-700',
-        badge: '120度螺旋盤旋 · 穿雲巨擘',
-        milestoneInterval: 16,
-        milestoneName: '🌀 螺旋天頂封頂儀式'
+        milestoneName: '🎋 如意竹節大慶典',
+        mapPos: { left: '40.0%', top: '62.5%' }
       },
       {
         id: 'burj_khalifa',
+        flagNum: 3,
         name: '哈里發塔',
         enName: 'Burj Khalifa',
         flag: '🇦🇪',
@@ -12255,11 +12264,51 @@
         bricksPerFloor: 20, // 3260 題
         unlockedByDefault: false,
         unlockFloorReq: 60,
-        image: 'images/ui/SKY-05.jpeg',
+        image: 'images/ui/SKY-02.jpeg',
         gradient: 'from-rose-600 via-pink-600 to-orange-600',
         badge: '世界之巔 · 刺破平流層星空',
         milestoneInterval: 20,
-        milestoneName: '🌌 宇宙星空天線封頂大典'
+        milestoneName: '🌌 宇宙星空天線封頂大典',
+        mapPos: { left: '60.0%', top: '61.2%' }
+      },
+      {
+        id: 'empire_state',
+        flagNum: 4,
+        name: '帝國大廈',
+        enName: 'Empire State',
+        flag: '🇺🇸',
+        city: '美國 紐約',
+        heightMeters: 381,
+        totalFloors: 102,
+        bricksPerFloor: 20, // 2040 題
+        unlockedByDefault: false,
+        unlockFloorReq: 25,
+        image: 'images/ui/SKY-04.jpeg',
+        gradient: 'from-amber-600 via-orange-600 to-amber-700',
+        badge: '經典復古 · 紐約天際線',
+        milestoneInterval: 10,
+        milestoneName: '🗽 帝國天際線巡禮',
+        mapPos: { left: '32.0%', top: '41.0%' }
+      },
+      {
+        id: 'merdeka_118',
+        flagNum: 5,
+        name: '默迪卡 118',
+        subName: '未來天際塔',
+        enName: 'Merdeka 118',
+        flag: '🇲🇾',
+        city: '馬來西亞 吉隆坡',
+        heightMeters: 679,
+        totalFloors: 118,
+        bricksPerFloor: 20, // 2360 題
+        unlockedByDefault: false,
+        unlockFloorReq: 40,
+        image: 'images/ui/SKY-05.jpeg',
+        gradient: 'from-teal-600 via-cyan-600 to-emerald-700',
+        badge: '鑽石幾何切割 · 綠能天際晶塔',
+        milestoneInterval: 12,
+        milestoneName: '💎 晶鑽天頂封頂儀式',
+        mapPos: { left: '73.0%', top: '45.6%' }
       }
     ];
 
@@ -12338,12 +12387,17 @@
         const p = getActiveProfile() || {};
         if (!p.skyscraperProgress) {
           p.skyscraperProgress = {
-            taipei_101: { currentFloor: 1, currentFloorBricks: 0, completed: false, highScore: 0, totalQuestionsSolved: 0 },
-            empire_state: { currentFloor: 1, currentFloorBricks: 0, completed: false, highScore: 0, totalQuestionsSolved: 0 },
-            petronas: { currentFloor: 1, currentFloorBricks: 0, completed: false, highScore: 0, totalQuestionsSolved: 0 },
             shanghai_tower: { currentFloor: 1, currentFloorBricks: 0, completed: false, highScore: 0, totalQuestionsSolved: 0 },
-            burj_khalifa: { currentFloor: 1, currentFloorBricks: 0, completed: false, highScore: 0, totalQuestionsSolved: 0 }
+            taipei_101: { currentFloor: 1, currentFloorBricks: 0, completed: false, highScore: 0, totalQuestionsSolved: 0 },
+            burj_khalifa: { currentFloor: 1, currentFloorBricks: 0, completed: false, highScore: 0, totalQuestionsSolved: 0 },
+            empire_state: { currentFloor: 1, currentFloorBricks: 0, completed: false, highScore: 0, totalQuestionsSolved: 0 },
+            merdeka_118: { currentFloor: 1, currentFloorBricks: 0, completed: false, highScore: 0, totalQuestionsSolved: 0 }
           };
+        } else {
+          // Seamlessly migrate legacy petronas to merdeka_118 if present
+          if (!p.skyscraperProgress.merdeka_118) {
+            p.skyscraperProgress.merdeka_118 = p.skyscraperProgress.petronas || { currentFloor: 1, currentFloorBricks: 0, completed: false, highScore: 0, totalQuestionsSolved: 0 };
+          }
         }
         if (!p.skyscraperStats) {
           p.skyscraperStats = { wordMastery: {} };
@@ -12480,28 +12534,66 @@
       },
 
       updateLandmarkMapPins() {
+        const p = this.getProgressData();
+        const prog = p.skyscraperProgress || {};
+        const taipeiFloor = (prog['taipei_101'] && prog['taipei_101'].currentFloor) || 1;
+
         SKYSCRAPER_LANDMARKS.forEach(lm => {
           const pin = document.getElementById(`skyPin_${lm.id}`);
           if (!pin) return;
           const isSel = (lm.id === this.selectedMapLandmarkId);
           const ring = pin.querySelector('.pin-ring');
           const pill = pin.querySelector('.pin-pill');
+          const badge = pin.querySelector('.pin-badge');
+          const arrow = pin.querySelector('.pin-arrow');
+          const status = pin.querySelector('.pin-status');
+          const ping = pin.querySelector('.pin-ping');
+
+          const rec = prog[lm.id] || { currentFloor: 1, currentFloorBricks: 0, totalQuestionsSolved: 0 };
+          const isUnlocked = lm.unlockedByDefault || (taipeiFloor >= (lm.unlockFloorReq || 10));
+          const currentFloor = Math.min(rec.currentFloor || 1, lm.totalFloors);
 
           if (isSel) {
-            pin.className = "sky-map-pin absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-300 z-30 scale-110";
+            pin.className = "sky-map-pin absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-300 z-40 scale-110 sm:scale-120 group/pin";
             if (ring) {
-              ring.className = "pin-ring relative w-11 h-11 sm:w-14 sm:h-14 rounded-full border-2 border-amber-400 ring-4 ring-amber-400/80 shadow-[0_0_20px_rgba(245,158,11,0.9)] overflow-hidden bg-slate-900 transition-all duration-300";
+              ring.className = "pin-ring relative w-12 h-12 sm:w-16 sm:h-16 rounded-2xl border-2 sm:border-3 border-amber-400 ring-4 ring-amber-400/80 shadow-[0_0_25px_rgba(245,158,11,1)] overflow-hidden bg-slate-900 transition-all duration-300";
+            }
+            if (badge) {
+              badge.className = "pin-badge -mb-2 z-20 px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[10px] font-black border border-amber-300 shadow-md flex items-center gap-1";
+            }
+            if (arrow) {
+              arrow.className = "pin-arrow w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[7px] border-t-amber-400 drop-shadow-md";
             }
             if (pill) {
-              pill.className = "pin-pill mt-1 px-2 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[10px] font-black shadow-md border border-amber-300 flex items-center gap-1 whitespace-nowrap";
+              pill.className = "pin-pill mt-0.5 px-2.5 py-1 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-400 text-slate-950 text-[10px] sm:text-xs font-black shadow-[0_0_20px_rgba(245,158,11,0.8)] border-2 border-amber-300 flex flex-col items-center gap-0.5 whitespace-nowrap";
+            }
+            if (status) {
+              status.className = "pin-status text-[8px] text-slate-900 bg-amber-300/90 px-1.5 py-0.2 rounded-full font-black";
+              status.innerText = isUnlocked ? `🔨 FL.${currentFloor} 點擊施工` : `🔒 FL.${lm.unlockFloorReq} 解鎖`;
+            }
+            if (ping) {
+              ping.className = "pin-ping absolute -inset-2.5 rounded-full border-2 border-amber-400 animate-ping opacity-85 pointer-events-none";
             }
           } else {
-            pin.className = "sky-map-pin absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-300 z-20 hover:scale-110 active:scale-95";
+            pin.className = "sky-map-pin absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-300 z-20 hover:scale-110 active:scale-95 group/pin";
             if (ring) {
-              ring.className = "pin-ring relative w-11 h-11 sm:w-14 sm:h-14 rounded-full border-2 border-white/60 shadow-lg overflow-hidden bg-slate-900 transition-all duration-300";
+              ring.className = "pin-ring relative w-12 h-12 sm:w-16 sm:h-16 rounded-2xl border-2 sm:border-3 border-white/95 ring-2 ring-slate-950/80 shadow-[0_4px_16px_rgba(0,0,0,0.85)] overflow-hidden bg-slate-900 transition-all duration-300 group-hover/pin:border-cyan-300";
+            }
+            if (badge) {
+              badge.className = "pin-badge -mb-2 z-20 px-2.5 py-0.5 rounded-full bg-slate-950/95 text-cyan-300 text-[10px] font-black border border-cyan-400/90 shadow-md flex items-center gap-1";
+            }
+            if (arrow) {
+              arrow.className = "pin-arrow w-0 h-0 border-l-[6px] border-l-transparent border-r-[6px] border-r-transparent border-t-[7px] border-t-white drop-shadow-md";
             }
             if (pill) {
-              pill.className = "pin-pill mt-1 px-2 py-0.5 rounded-full bg-slate-950/80 text-slate-200 text-[10px] font-bold shadow-md border border-slate-700 flex items-center gap-1 whitespace-nowrap";
+              pill.className = "pin-pill mt-0.5 px-2.5 py-1 rounded-xl bg-slate-950/95 text-white text-[10px] sm:text-xs font-black shadow-xl border-2 border-amber-400/80 flex flex-col items-center gap-0.5 whitespace-nowrap";
+            }
+            if (status) {
+              status.className = `pin-status text-[8px] ${isUnlocked ? 'text-slate-300 bg-slate-800' : 'text-slate-400 bg-slate-900'} px-1.5 py-0.2 rounded-full font-bold`;
+              status.innerText = isUnlocked ? `FL.${currentFloor} 施工中` : `🔒 FL.${lm.unlockFloorReq} 解鎖`;
+            }
+            if (ping) {
+              ping.className = "pin-ping absolute -inset-2.5 rounded-full border-2 border-cyan-400 animate-ping opacity-60 pointer-events-none";
             }
           }
         });
