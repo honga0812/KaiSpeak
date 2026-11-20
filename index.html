@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.63";
+        const LATEST_VER = "26.11.64";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -218,8 +218,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.63（2026年·11月·第38次發布）">
-                26.11.63
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.64（2026年·11月·第39次發布）">
+                26.11.64
               </span>
             </div>
           </div>
@@ -467,7 +467,7 @@
               <span class="text-[9px] text-amber-500">✨</span>
               <span>奇妙星語言</span>
             </span>
-            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.63（2026年·11月·第38次發布）">26.11.63</span>
+            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.64（2026年·11月·第39次發布）">26.11.64</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer hidden sm:flex items-center gap-0.5 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-1.5 py-0.2 transition shadow-2xs group-hover:border-amber-400 max-w-[130px] truncate" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -2209,8 +2209,8 @@
             <!-- Kai Riding Fire Dragon Character (Transparent WebP + GIF Fallback, No Frame) -->
             <div id="dragonSprite" class="relative w-48 sm:w-60 md:w-72 h-28 sm:h-36 md:h-42 flex items-center justify-center transition-transform duration-200">
               <picture class="w-full h-full flex items-center justify-center pointer-events-none select-none">
-                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.63" type="image/webp">
-                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.63" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
+                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.64" type="image/webp">
+                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.64" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
               </picture>
             </div>
             <!-- Dragon Muzzle Flame Flash (Fires upon shooting laser) -->
@@ -3085,7 +3085,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.63 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.64 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -3124,7 +3124,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.63 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.64 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -3270,7 +3270,7 @@
   </div>
 
   <!-- ======================================================== -->
-  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.63)    -->
+  <!-- VIP UPGRADE & LICENSE KEY REDEMPTION MODAL (v26.11.64)    -->
   <!-- ======================================================== -->
   <div id="vipUpgradeModal" class="fixed inset-0 bg-slate-900/80 backdrop-blur-md z-[89] hidden flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
     <div class="bg-white rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl border-2 border-amber-300 flex flex-col gap-4 my-auto max-h-[92vh] overflow-y-auto">
@@ -3682,7 +3682,7 @@
 
       <!-- Bottom Sticky Action Footer -->
       <div class="px-4 py-3 sm:px-6 sm:py-3.5 bg-white/95 border-t border-indigo-100 flex items-center justify-between gap-2.5 shrink-0">
-        <button type="button" onclick="applyVoicePlanToFreePractice()" class="py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs sm:text-sm shadow-2xs active:scale-95 transition flex items-center gap-1.5">
+        <button type="button" onclick="importDialogueScenarioToFreePractice()" class="py-2.5 px-4 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs sm:text-sm shadow-2xs active:scale-95 transition flex items-center gap-1.5" title="將這 10 個核心單字/片語導入自由練習，不跳出對話">
           <span>📚 一鍵載入自由練習</span>
         </button>
         <button type="button" onclick="startQuestAssetPreloaderAndLaunch()" class="flex-1 max-w-md py-3 px-4 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 text-white font-black text-xs sm:text-sm shadow-lg shadow-indigo-200 active:scale-95 transition flex items-center justify-center gap-2">
@@ -3782,7 +3782,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.63";
+    const APP_VERSION = "26.11.64";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // ========================================================
@@ -4114,7 +4114,7 @@
 
 
     // ========================================================
-    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.63)
+    // VIP SUBSCRIPTION & DAILY AI QUOTA MANAGEMENT SYSTEM (v26.11.64)
     // ========================================================
     const VIP_STORAGE_KEY = 'kaispeak_vip_info';
     const AI_USAGE_DATE_KEY = 'kaispeak_ai_usage_date';
@@ -4232,7 +4232,7 @@
       return true;
     }
 
-    // Marketing Campaigns & Agency Partners Definition (v26.11.63)
+    // Marketing Campaigns & Agency Partners Definition (v26.11.64)
     const SPECIAL_PROMO_CODES = {
       'TRIAL7D': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '官方社群促銷體驗專案', desc: '全功能解鎖 7 天' },
       'FREE7DAYS': { days: 7, planType: 'trial_7d', title: '🎁 7天免費 VIP 體驗卡', agencyTag: '限時早鳥推廣禮', desc: '全功能解鎖 7 天' },
@@ -5115,14 +5115,25 @@
         function isImageAvatar(str) {
       if (!str || typeof str !== 'string') return false;
       const s = str.trim();
-      return s.startsWith('data:image') || s.startsWith('http://') || s.startsWith('https://') || s.startsWith('blob:') || s.startsWith('images/') || s.includes(';base64,') || s.length > 50;
+      return s.startsWith('data:image') || s.startsWith('http://') || s.startsWith('https://') || s.startsWith('blob:') || s.startsWith('images/') || s.includes(';base64,') || (s.length > 50 && !s.includes(' ') && !s.includes('\n'));
     }
 
     function renderAvatarHtml(avatar, imgClass = "w-14 h-14 rounded-2xl object-cover border-2 border-white shadow-md shrink-0", emojiClass = "text-4xl p-2 rounded-2xl bg-white shadow-sm shrink-0") {
       if (!avatar) return `<span class="${emojiClass}">👦</span>`;
       const str = String(avatar).trim();
+      if (str === 'custom_photo') {
+        const activeP = (typeof getActiveProfile === 'function') ? getActiveProfile() : null;
+        if (activeP && isImageAvatar(activeP.avatar)) {
+          return `<img src="${activeP.avatar}" class="${imgClass}" alt="學員頭像" onerror="this.onerror=null; this.outerHTML='<span class=\\'${emojiClass}\\'>👦</span>';">`;
+        }
+        return `<span class="${emojiClass}">👦</span>`;
+      }
       if (isImageAvatar(str)) {
         return `<img src="${str}" class="${imgClass}" alt="學員頭像" onerror="this.onerror=null; this.outerHTML='<span class=\\'${emojiClass}\\'>👦</span>';">`;
+      }
+      // Safety guard: NEVER print raw base64 data URL, long strings, or broken HTML as text content!
+      if (str.length > 10 || str.includes('data:') || str.includes(';base64') || str.includes('http') || str.includes('/') || str.includes('<') || str.includes('>')) {
+        return `<span class="${emojiClass}">👦</span>`;
       }
       return `<span class="${emojiClass}">${str}</span>`;
     }
@@ -7540,7 +7551,7 @@
     }
 
     // ========================================================
-    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.63)
+    // BACKEND SERVER KEY & MULTI-DEVICE ADMIN CONTROL (26.11.64)
     // ========================================================
     let cachedServerApiKey = '';
     let cachedServerModel = 'gemini-3.5-flash';
@@ -10400,9 +10411,9 @@
           const heroAvatarHtml = renderAvatarHtml(pAvatar, "w-12 h-12 rounded-2xl object-cover border-2 border-amber-300 shadow-md shrink-0", "w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-400 to-orange-500 flex items-center justify-center text-2xl shadow-md border-2 border-amber-300 shrink-0");
           heroRibbon.innerHTML = `
             <div class="flex items-center gap-3">
-              <div class="relative shrink-0">
+              <div class="relative shrink-0 w-12 h-12 rounded-2xl overflow-hidden flex items-center justify-center border-2 border-amber-300 shadow-md">
                 ${heroAvatarHtml}
-                <span class="absolute -top-1.5 -right-1.5 bg-rose-500 text-white text-[9px] font-black px-1.5 py-0.2 rounded-full border border-white">YOU</span>
+                <span class="absolute -top-1.5 -right-1.5 bg-rose-500 text-white text-[9px] font-black px-1.5 py-0.2 rounded-full border border-white z-10 shadow-xs">YOU</span>
               </div>
               <div>
                 <div class="flex items-center gap-1.5">
@@ -10490,13 +10501,16 @@
             ? "relative bg-gradient-to-r from-amber-500/25 via-indigo-950 to-amber-500/20 border-2 border-amber-400 rounded-2xl p-2.5 sm:p-3 flex items-center justify-between shadow-[0_0_20px_rgba(245,158,11,0.4)]"
             : "bg-slate-900/80 hover:bg-slate-800/80 border border-indigo-900/60 rounded-2xl p-2.5 sm:p-3 flex items-center justify-between transition";
 
-          const pAvHtml = renderAvatarHtml(p.avatar, "w-10 h-10 rounded-2xl object-cover border border-amber-400/60 shadow-xs shrink-0", "w-10 h-10 rounded-2xl bg-slate-800 flex items-center justify-center text-2xl shrink-0");
+          const playerAvatar = (isMe && pAvatar) ? pAvatar : p.avatar;
+          const pAvHtml = renderAvatarHtml(playerAvatar, "w-10 h-10 rounded-2xl object-cover border border-amber-400/60 shadow-xs shrink-0", "w-10 h-10 rounded-2xl bg-slate-800 flex items-center justify-center text-2xl shrink-0");
 
           html += `
             <div class="${cardClass}">
               <div class="flex items-center gap-2.5">
                 ${rankBadge}
-                ${pAvHtml}
+                <div class="relative shrink-0 w-10 h-10 rounded-2xl overflow-hidden flex items-center justify-center border border-amber-400/50 shadow-xs">
+                  ${pAvHtml}
+                </div>
                 <div>
                   <div class="flex items-center gap-1.5 flex-wrap">
                     <span class="font-black text-xs sm:text-sm ${isMe ? 'text-amber-300' : 'text-slate-100'}">${p.name}</span>
@@ -15469,7 +15483,7 @@
     };
 
     // ========================================================
-    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.63)
+    // GEMINI 3.5 FLASH & CLOUDFLARE SECURE GATEWAY ENGINE (v26.11.64)
     // ========================================================
     // 💡 App Store 開箱即用架構（商業發行標準）：
     // 透過 Cloudflare Worker 官方安全閘道器，免掃碼、免設定、0 秒直連 Google 官方 AI！
@@ -17030,7 +17044,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.63)
+    // BULLETPROOF SELF-HEALING JSON PARSER FOR AI SCENARIOS (v26.11.64)
     // ========================================================
     function parseScenarioJsonResponse(rawText) {
       if (!rawText || typeof rawText !== 'string') return null;
@@ -17135,7 +17149,7 @@
     }
 
     // ========================================================
-    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.63)
+    // GEMINI 3.5 FLASH SCENARIO PLANNER & DIALOGUE GENERATOR (v26.11.64)
     // ========================================================
     async function callGeminiScenarioPlanner(userText, userLevel, apiKey) {
       // 1. Ensure valid official model from localStorage
@@ -17338,15 +17352,15 @@
             role: "new",
             isPhrase: false,
             variants: [nw.word, nw.word + "s"],
-            audioWord: `/api/tts?text=${encodeURIComponent(nw.word)}&rate=152`,
-            audioWordCanonical: `/api/tts?text=${encodeURIComponent(nw.word)}&rate=152`,
+            audioWord: "",
+            audioWordCanonical: "",
             storyScene: `在自選生活情境中探索運用 ${nw.word}。`,
             storyChapter: 1,
             storyOrder: 1,
             gradedSentences: [
-              { level: 1, levelLabel: "簡單 · 初階短句", tag: "簡單", text: nw.s1, translation: nw.t1, sentenceCode: `${code}_S1`, audioSrc: `/api/tts?text=${encodeURIComponent(nw.s1)}&rate=152`, audioSrcCanonical: `/api/tts?text=${encodeURIComponent(nw.s1)}&rate=152` },
-              { level: 2, levelLabel: "中等 · 生活日常", tag: "中等", text: nw.s2, translation: nw.t2, sentenceCode: `${code}_S2`, audioSrc: `/api/tts?text=${encodeURIComponent(nw.s2)}&rate=152`, audioSrcCanonical: `/api/tts?text=${encodeURIComponent(nw.s2)}&rate=152` },
-              { level: 3, levelLabel: "進階 · 熟練挑戰", tag: "進階", text: nw.s3, translation: nw.t3, sentenceCode: `${code}_S3`, audioSrc: `/api/tts?text=${encodeURIComponent(nw.s3)}&rate=152`, audioSrcCanonical: `/api/tts?text=${encodeURIComponent(nw.s3)}&rate=152` }
+              { level: 1, levelLabel: "簡單 · 初階短句", tag: "簡單", text: nw.s1, translation: nw.t1, sentenceCode: `${code}_S1`, audioSrc: "", audioSrcCanonical: "" },
+              { level: 2, levelLabel: "中等 · 生活日常", tag: "中等", text: nw.s2, translation: nw.t2, sentenceCode: `${code}_S2`, audioSrc: "", audioSrcCanonical: "" },
+              { level: 3, levelLabel: "進階 · 熟練挑戰", tag: "進階", text: nw.s3, translation: nw.t3, sentenceCode: `${code}_S3`, audioSrc: "", audioSrcCanonical: "" }
             ]
           };
           MASTER_VOCAB.push(matched);
@@ -17354,9 +17368,9 @@
           existingWords.add(lowerW);
         } else if (matched && (!matched.gradedSentences || matched.gradedSentences.length < 3) && nw.s1) {
           matched.gradedSentences = [
-            { level: 1, levelLabel: "簡單 · 初階短句", tag: "簡單", text: nw.s1, translation: nw.t1, sentenceCode: `${matched.wordCode || 'EN'}_S1`, audioSrc: `/api/tts?text=${encodeURIComponent(nw.s1)}&rate=152` },
-            { level: 2, levelLabel: "中等 · 生活日常", tag: "中等", text: nw.s2, translation: nw.t2, sentenceCode: `${matched.wordCode || 'EN'}_S2`, audioSrc: `/api/tts?text=${encodeURIComponent(nw.s2)}&rate=152` },
-            { level: 3, levelLabel: "進階 · 熟練挑戰", tag: "進階", text: nw.s3, translation: nw.t3, sentenceCode: `${matched.wordCode || 'EN'}_S3`, audioSrc: `/api/tts?text=${encodeURIComponent(nw.s3)}&rate=152` }
+            { level: 1, levelLabel: "簡單 · 初階短句", tag: "簡單", text: nw.s1, translation: nw.t1, sentenceCode: `${matched.wordCode || 'EN'}_S1`, audioSrc: "" },
+            { level: 2, levelLabel: "中等 · 生活日常", tag: "中等", text: nw.s2, translation: nw.t2, sentenceCode: `${matched.wordCode || 'EN'}_S2`, audioSrc: "" },
+            { level: 3, levelLabel: "進階 · 熟練挑戰", tag: "進階", text: nw.s3, translation: nw.t3, sentenceCode: `${matched.wordCode || 'EN'}_S3`, audioSrc: "" }
           ];
         }
         return matched;
@@ -17383,15 +17397,15 @@
             role: "new",
             isPhrase: true,
             variants: [np.word],
-            audioWord: `/api/tts?text=${encodeURIComponent(np.word)}&rate=152`,
-            audioWordCanonical: `/api/tts?text=${encodeURIComponent(np.word)}&rate=152`,
+            audioWord: "",
+            audioWordCanonical: "",
             storyScene: `在自選高頻生活語塊中熟練表達 ${np.word}。`,
             storyChapter: 1,
             storyOrder: 1,
             gradedSentences: [
-              { level: 1, levelLabel: "簡單 · 初階短句", tag: "簡單", text: np.s1, translation: np.t1, sentenceCode: `${code}_S1`, audioSrc: `/api/tts?text=${encodeURIComponent(np.s1)}&rate=152`, audioSrcCanonical: `/api/tts?text=${encodeURIComponent(np.s1)}&rate=152` },
-              { level: 2, levelLabel: "中等 · 生活日常", tag: "中等", text: np.s2, translation: np.t2, sentenceCode: `${code}_S2`, audioSrc: `/api/tts?text=${encodeURIComponent(np.s2)}&rate=152`, audioSrcCanonical: `/api/tts?text=${encodeURIComponent(np.s2)}&rate=152` },
-              { level: 3, levelLabel: "進階 · 熟練拓展", tag: "進階", text: np.s3, translation: np.t3, sentenceCode: `${code}_S3`, audioSrc: `/api/tts?text=${encodeURIComponent(np.s3)}&rate=152`, audioSrcCanonical: `/api/tts?text=${encodeURIComponent(np.s3)}&rate=152` }
+              { level: 1, levelLabel: "簡單 · 初階短句", tag: "簡單", text: np.s1, translation: np.t1, sentenceCode: `${code}_S1`, audioSrc: "", audioSrcCanonical: "" },
+              { level: 2, levelLabel: "中等 · 生活日常", tag: "中等", text: np.s2, translation: np.t2, sentenceCode: `${code}_S2`, audioSrc: "", audioSrcCanonical: "" },
+              { level: 3, levelLabel: "進階 · 熟練拓展", tag: "進階", text: np.s3, translation: np.t3, sentenceCode: `${code}_S3`, audioSrc: "", audioSrcCanonical: "" }
             ]
           };
           MASTER_VOCAB.push(matched);
@@ -17399,9 +17413,9 @@
           existingWords.add(lowerP);
         } else if (matched && (!matched.gradedSentences || matched.gradedSentences.length < 3) && np.s1) {
           matched.gradedSentences = [
-            { level: 1, levelLabel: "簡單 · 初階短句", tag: "簡單", text: np.s1, translation: np.t1, sentenceCode: `${matched.wordCode || 'EN'}_S1`, audioSrc: `/api/tts?text=${encodeURIComponent(np.s1)}&rate=152` },
-            { level: 2, levelLabel: "中等 · 生活日常", tag: "中等", text: np.s2, translation: np.t2, sentenceCode: `${matched.wordCode || 'EN'}_S2`, audioSrc: `/api/tts?text=${encodeURIComponent(np.s2)}&rate=152` },
-            { level: 3, levelLabel: "進階 · 熟練拓展", tag: "進階", text: np.s3, translation: np.t3, sentenceCode: `${matched.wordCode || 'EN'}_S3`, audioSrc: `/api/tts?text=${encodeURIComponent(np.s3)}&rate=152` }
+            { level: 1, levelLabel: "簡單 · 初階短句", tag: "簡單", text: np.s1, translation: np.t1, sentenceCode: `${matched.wordCode || 'EN'}_S1`, audioSrc: "" },
+            { level: 2, levelLabel: "中等 · 生活日常", tag: "中等", text: np.s2, translation: np.t2, sentenceCode: `${matched.wordCode || 'EN'}_S2`, audioSrc: "" },
+            { level: 3, levelLabel: "進階 · 熟練拓展", tag: "進階", text: np.s3, translation: np.t3, sentenceCode: `${matched.wordCode || 'EN'}_S3`, audioSrc: "" }
           ];
         }
         return matched;
@@ -17652,7 +17666,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.63)
+    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.64)
     // ========================================================
     const KaiSpeechEngine = {
       preferredVoice: null,
@@ -17757,11 +17771,32 @@
       },
 
       speak(text, rate = 0.90, onEndCallback = null, options = {}) {
-        this.stop(); // Stop any currently playing utterance immediately
-
         if (!text || !text.trim()) {
           if (onEndCallback) onEndCallback();
           return;
+        }
+
+        if (this.heartbeatTimer) { clearInterval(this.heartbeatTimer); this.heartbeatTimer = null; }
+        if (this.watchdogTimer) { clearTimeout(this.watchdogTimer); this.watchdogTimer = null; }
+        if (this.singletonPlayer) {
+          try {
+            this.singletonPlayer.pause();
+            this.singletonPlayer.onended = null;
+            this.singletonPlayer.onerror = null;
+            this.singletonPlayer.removeAttribute('src');
+            this.singletonPlayer.load();
+          } catch(e){}
+        }
+
+        if ('speechSynthesis' in window) {
+          try {
+            if (window.speechSynthesis.paused) {
+              window.speechSynthesis.resume();
+            }
+            if (window.speechSynthesis.speaking || window.speechSynthesis.pending) {
+              window.speechSynthesis.cancel();
+            }
+          } catch(e){}
         }
 
         const role = (options && options.role) ? options.role : 'kai';
@@ -17895,11 +17930,16 @@
       const role = options.role || 'teacher';
       const pitch = options.pitch !== undefined ? options.pitch : 1.0;
       const rate = options.rate !== undefined ? options.rate : 0.90;
+      const cleanFallback = (fallbackText || '').trim();
 
-      // If no valid audio URL provided (e.g. AI-generated sentence), speak immediately via KaiSpeechEngine!
-      if (!audioUrl || !audioUrl.trim()) {
-        if (fallbackText) {
-          KaiSpeechEngine.speak(fallbackText, rate, null, { role, pitch });
+      // If no valid audio URL provided (or synthetic /api/tts endpoint), speak immediately via KaiSpeechEngine!
+      const isSyntheticOrEmpty = !audioUrl || !audioUrl.trim() 
+        || audioUrl.startsWith('/api/') || audioUrl.includes('/api/tts') 
+        || audioUrl.includes('undefined') || audioUrl.includes('null');
+
+      if (isSyntheticOrEmpty) {
+        if (cleanFallback) {
+          KaiSpeechEngine.speak(cleanFallback, rate, null, { role, pitch });
         }
         return;
       }
@@ -17918,8 +17958,8 @@
           a.removeAttribute('src');
           a.load();
         } catch(e){}
-        if (fallbackText) {
-          KaiSpeechEngine.speak(fallbackText, rate, null, { role, pitch });
+        if (cleanFallback) {
+          KaiSpeechEngine.speak(cleanFallback, rate, null, { role, pitch });
         }
       };
 
@@ -17951,11 +17991,14 @@
         }, 500);
       }
 
-      // 1. Check if matches pre-recorded studio audio in MASTER_VOCAB
+      // 1. Check if matches pre-recorded studio audio in MASTER_VOCAB (EXCLUDING newly generated / synthetic items)
       const matched = MASTER_VOCAB.find(v => v.word.toLowerCase() === cleanWord.toLowerCase());
-      if (matched && (matched.audioWordCanonical || matched.audioWord)) {
-        playAudioFile(matched.audioWordCanonical || matched.audioWord, cleanWord, { role: 'teacher', pitch: 1.0, rate: 0.88 });
-        return;
+      if (matched && !matched.isNewlyGenerated) {
+        const audioPath = matched.audioWordCanonical || matched.audioWord;
+        if (audioPath && !audioPath.startsWith('/api/') && !audioPath.includes('/api/tts')) {
+          playAudioFile(audioPath, cleanWord, { role: 'teacher', pitch: 1.0, rate: 0.88 });
+          return;
+        }
       }
 
       // 2. High-fidelity standard pronunciation via instant KaiSpeechEngine (Synchronous, zero-latency, 100% reliable)
@@ -19197,6 +19240,25 @@ ${existingSnippet || "無"}
       questAutoPlay = true;
       updatePauseUI();
       runQuestAutoStep();
+    }
+
+    // Seamlessly import the 10 scenario items into Free Practice without closing dialogue modal or hijacking main view
+    function importDialogueScenarioToFreePractice() {
+      if (!currentPlannedPlan || !currentPlannedPlan.items) return;
+
+      const rawItems = currentPlannedPlan.items.map(it => it.itemRef);
+      window._customScenarioList = rawItems;
+      window._customScenarioTitle = currentPlannedPlan.title;
+
+      // Show Custom Scenario Tab in Free Practice
+      const customTab = document.getElementById('customScenarioTabBtn');
+      const customLabel = document.getElementById('customScenarioTabLabel');
+      if (customTab && customLabel) {
+        customLabel.innerText = currentPlannedPlan.title.split(' ')[0] + ` (${rawItems.length})`;
+        customTab.classList.remove('hidden');
+      }
+
+      showToastNotification(`🎉 已成功載入「${currentPlannedPlan.title.split(' ')[0]}」共 ${rawItems.length} 個單字/片語至自由練習！您可繼續在此專注閱讀對話，稍後隨時前往自由練習複習。`, 4000);
     }
 
     function applyVoicePlanToFreePractice() {
