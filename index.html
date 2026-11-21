@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.76";
+        const LATEST_VER = "26.11.77";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -190,6 +190,28 @@
     .jelly-pop:active {
       transform: translateY(1.5px) scale(0.98);
     }
+    @keyframes lightningFlash {
+      0% { opacity: 0; transform: scaleY(0.1) translateY(-60px); }
+      15% { opacity: 1; transform: scaleY(1.1) translateY(0); filter: drop-shadow(0 0 35px #FBBF24); }
+      30% { opacity: 0.6; transform: scaleY(1); }
+      50% { opacity: 1; filter: drop-shadow(0 0 50px #38BDF8); }
+      75% { opacity: 0.8; }
+      100% { opacity: 0; transform: scaleY(1); }
+    }
+    .animate-lightning {
+      animation: lightningFlash 0.65s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+    }
+    @keyframes beastLightningGlow {
+      0% { transform: scale(1); filter: brightness(1) drop-shadow(0 15px 35px rgba(0,0,0,0.8)); }
+      15% { transform: scale(1.15); filter: brightness(2.4) contrast(1.2) drop-shadow(0 0 50px #F59E0B); }
+      35% { transform: scale(1.08) rotate(-1.5deg); filter: brightness(2.1) drop-shadow(0 0 60px #38BDF8); }
+      55% { transform: scale(1.12) rotate(1.5deg); filter: brightness(1.9) drop-shadow(0 0 45px #FBBF24); }
+      80% { transform: scale(1.03); filter: brightness(1.3) drop-shadow(0 0 30px #F59E0B); }
+      100% { transform: scale(1); filter: brightness(1) drop-shadow(0 15px 35px rgba(0,0,0,0.8)); }
+    }
+    .beast-lightning-glow {
+      animation: beastLightningGlow 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
   </style>
 </head>
 <body class="min-h-screen text-slate-800 flex flex-col items-center p-2 sm:p-3 md:p-4 pb-20 overflow-x-hidden w-full max-w-full">
@@ -228,7 +250,7 @@
       <div class="flex flex-col items-center mb-1">
         <div class="flex items-center gap-3.5 cursor-pointer select-none">
           <div class="shrink-0">
-            <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.76" alt="KaiSpeak" class="h-20 sm:h-24 md:h-28 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] hover:scale-105 transition duration-300 shrink-0">
+            <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.77" alt="KaiSpeak" class="h-20 sm:h-24 md:h-28 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] hover:scale-105 transition duration-300 shrink-0">
           </div>
           <div class="flex flex-col justify-center text-left leading-none">
             <h1 class="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight bg-gradient-to-r from-indigo-800 via-indigo-600 to-purple-600 bg-clip-text text-transparent select-none leading-none">KaiSpeak</h1>
@@ -237,8 +259,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.76（2026年·11月·第44次發布）">
-                26.11.76
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.77（2026年·11月·第45次發布）">
+                26.11.77
               </span>
             </div>
           </div>
@@ -478,7 +500,7 @@
       <!-- Brand Logo + 奇妙星語言 Lockup -->
       <div class="flex items-center gap-1.5 sm:gap-2 cursor-pointer select-none shrink-0 group py-0.5" onclick="switchAppMode('quest')" title="KaiSpeak 首頁">
         <div class="shrink-0 flex items-center">
-          <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.76" alt="KaiSpeak" class="h-9 sm:h-11 md:h-12 w-auto object-contain drop-shadow-[0_4px_14px_rgba(79,70,229,0.18)] group-hover:scale-105 transition-all duration-300 shrink-0">
+          <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.77" alt="KaiSpeak" class="h-9 sm:h-11 md:h-12 w-auto object-contain drop-shadow-[0_4px_14px_rgba(79,70,229,0.18)] group-hover:scale-105 transition-all duration-300 shrink-0">
         </div>
         <div class="flex flex-col justify-center text-left leading-none">
           <div class="flex items-center gap-1">
@@ -486,7 +508,7 @@
               <span class="text-[9px] text-amber-500">✨</span>
               <span>奇妙星語言</span>
             </span>
-            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.76（2026年·11月·第44次發布）">26.11.76</span>
+            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.77（2026年·11月·第45次發布）">26.11.77</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer hidden sm:flex items-center gap-0.5 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-1.5 py-0.2 transition shadow-2xs group-hover:border-amber-400 max-w-[130px] truncate" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -2356,25 +2378,25 @@
           <span>⬅️</span> <span>返回探險島星系</span>
         </button>
         <div class="flex items-center gap-2">
-          <span class="text-2xl animate-bounce">🦁</span>
+          <span class="text-2xl animate-bounce">⚡</span>
           <div>
             <h2 class="text-base sm:text-lg font-black text-indigo-950 flex items-center gap-1.5">
-              <span>巨獸語音連擊島</span>
-              <span class="text-[10px] bg-emerald-100 text-emerald-900 border border-emerald-300 font-black px-2 py-0.5 rounded-full">神獸聖域破盾</span>
+              <span>巨獸養成聖域</span>
+              <span class="text-[10px] bg-amber-100 text-amber-900 border border-amber-300 font-black px-2 py-0.5 rounded-full">5階天雷進化</span>
             </h2>
-            <div class="text-[10px] text-slate-500 font-bold">整句流利詠唱 · 聲波共鳴破盾 · 連擊狂暴覺醒</div>
+            <div class="text-[10px] text-slate-500 font-bold">詠唱美語 · 天雷能量灌注 · 5階逐步養成傳奇成龍</div>
           </div>
         </div>
         <div class="flex items-center gap-2 flex-wrap">
           <div class="text-xs font-bold text-indigo-900 bg-indigo-50 px-3 py-1 rounded-full border border-indigo-200 flex items-center gap-1">
-            <span>🐾 已喚醒：</span>
+            <span>👑 已成龍：</span>
             <span id="beastGlobalAwakened" class="font-mono font-black text-sm text-indigo-600">0</span>
             <span class="text-[10px] text-slate-400">/ 4 隻</span>
           </div>
           <div class="text-xs font-bold text-amber-800 bg-amber-50 px-3 py-1 rounded-full border border-amber-200 flex items-center gap-1">
-            <span>⚡ 連擊峰值：</span>
-            <span id="beastGlobalCombo" class="font-mono font-black text-sm text-amber-600">0</span>
-            <span class="text-[10px] text-slate-400">Combo</span>
+            <span>⚡ 總天雷充能：</span>
+            <span id="beastGlobalTotalFed" class="font-mono font-black text-sm text-amber-600">0</span>
+            <span class="text-[10px] text-slate-400">/ 2000 題</span>
           </div>
           <div class="text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-200 flex items-center gap-1">
             <span>🔮 總能量：</span>
@@ -2407,58 +2429,58 @@
           </div>
 
           <!-- 4 Interactive Beast Sanctuary Pins -->
-          <!-- Pin 1: 綠角幼龍 · 巴迪 (Buddy the Stego / Baby Rex) -->
+          <!-- Pin 1: 綠角幼龍 · 巴迪 (Buddy) -->
           <div id="beastPin_baby_rex" onclick="BeastGameEngine.selectBeastPin('baby_rex')" class="beast-map-pin absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-300 z-30 scale-110 group/pin" style="left: 22.0%; top: 64.0%;">
             <div class="flex flex-col items-center">
               <div class="pin-ring relative w-12 h-12 sm:w-16 sm:h-16 rounded-full border-2 border-emerald-400 ring-4 ring-emerald-400/80 shadow-[0_0_25px_rgba(16,185,129,0.9)] overflow-hidden bg-slate-900 flex items-center justify-center transition-all duration-300">
-                <img src="images/ui/BST-01.jpeg?v=26.11.76" alt="綠角幼龍" class="w-full h-full object-cover">
-                <span class="absolute bottom-0 inset-x-0 bg-slate-950/85 text-[8px] text-emerald-300 text-center font-black">第 1 獸</span>
+                <img id="beastPinImg_baby_rex" src="images/ui/Buddy-1.jpeg" alt="綠角幼龍" class="w-full h-full object-cover">
+                <span id="beastPinStageNum_baby_rex" class="absolute bottom-0 inset-x-0 bg-slate-950/85 text-[8px] text-emerald-300 text-center font-black">Stage 1</span>
               </div>
               <div class="pin-pill mt-1 px-2.5 py-0.5 rounded-full bg-emerald-500 text-slate-950 text-[10px] font-black shadow-md border border-emerald-300 flex items-center gap-1 whitespace-nowrap">
-                <span>🌿 綠角幼龍</span>
-                <span id="beastPinBadge_baby_rex" class="text-[8px] bg-slate-950 text-emerald-300 px-1 rounded-full">L1 啟蒙</span>
+                <span>🌿 綠角巴迪</span>
+                <span id="beastPinBadge_baby_rex" class="text-[8px] bg-slate-950 text-emerald-300 px-1 rounded-full">S1 0/100</span>
               </div>
             </div>
           </div>
 
-          <!-- Pin 2: 奔雷金翼 · 獅鷲雷恩 (Ray the Thunder Gryphon) -->
+          <!-- Pin 2: 奔雷金翼 · 獅鷲雷恩 (Ray) -->
           <div id="beastPin_thunder_gryphon" onclick="BeastGameEngine.selectBeastPin('thunder_gryphon')" class="beast-map-pin absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-300 z-20 hover:scale-110 active:scale-95 group/pin" style="left: 42.0%; top: 38.0%;">
             <div class="flex flex-col items-center">
               <div class="pin-ring relative w-12 h-12 sm:w-16 sm:h-16 rounded-full border-2 border-amber-400/70 shadow-lg overflow-hidden bg-slate-900 flex items-center justify-center transition-all duration-300">
-                <img src="images/ui/BST-02.jpeg?v=26.11.76" alt="奔雷獅鷲" class="w-full h-full object-cover">
-                <span class="absolute bottom-0 inset-x-0 bg-slate-950/85 text-[8px] text-amber-300 text-center font-black">第 2 獸</span>
+                <img id="beastPinImg_thunder_gryphon" src="images/ui/Ray-1.jpeg" alt="奔雷獅鷲" class="w-full h-full object-cover">
+                <span id="beastPinStageNum_thunder_gryphon" class="absolute bottom-0 inset-x-0 bg-slate-950/85 text-[8px] text-amber-300 text-center font-black">Stage 1</span>
               </div>
               <div class="pin-pill mt-1 px-2.5 py-0.5 rounded-full bg-slate-950/85 text-amber-300 text-[10px] font-bold shadow-md border border-amber-400/40 flex items-center gap-1 whitespace-nowrap">
-                <span>⚡ 奔雷獅鷲</span>
-                <span id="beastPinBadge_thunder_gryphon" class="text-[8px] bg-amber-400 text-slate-950 font-black px-1 rounded-full">L2 日常</span>
+                <span>⚡ 奔雷雷恩</span>
+                <span id="beastPinBadge_thunder_gryphon" class="text-[8px] bg-amber-400 text-slate-950 font-black px-1 rounded-full">S1 0/100</span>
               </div>
             </div>
           </div>
 
-          <!-- Pin 3: 霜雪巨龍 · 弗羅斯特 (Frost the Ice Wyrm) -->
+          <!-- Pin 3: 霜雪巨龍 · 弗羅斯特 (Frost) -->
           <div id="beastPin_frost_wyrm" onclick="BeastGameEngine.selectBeastPin('frost_wyrm')" class="beast-map-pin absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-300 z-20 hover:scale-110 active:scale-95 group/pin" style="left: 72.0%; top: 34.0%;">
             <div class="flex flex-col items-center">
               <div class="pin-ring relative w-12 h-12 sm:w-16 sm:h-16 rounded-full border-2 border-cyan-400/70 shadow-lg overflow-hidden bg-slate-900 flex items-center justify-center transition-all duration-300">
-                <img src="images/ui/BST-03.jpeg?v=26.11.76" alt="霜雪巨龍" class="w-full h-full object-cover">
-                <span class="absolute bottom-0 inset-x-0 bg-slate-950/85 text-[8px] text-cyan-300 text-center font-black">第 3 獸</span>
+                <img id="beastPinImg_frost_wyrm" src="images/ui/Frost-1.jpeg" alt="霜雪巨龍" class="w-full h-full object-cover">
+                <span id="beastPinStageNum_frost_wyrm" class="absolute bottom-0 inset-x-0 bg-slate-950/85 text-[8px] text-cyan-300 text-center font-black">Stage 1</span>
               </div>
               <div class="pin-pill mt-1 px-2.5 py-0.5 rounded-full bg-slate-950/85 text-cyan-300 text-[10px] font-bold shadow-md border border-cyan-400/40 flex items-center gap-1 whitespace-nowrap">
-                <span>❄️ 霜雪巨龍</span>
-                <span id="beastPinBadge_frost_wyrm" class="text-[8px] bg-cyan-400 text-slate-950 font-black px-1 rounded-full">L3 進階</span>
+                <span>❄️ 霜雪龍</span>
+                <span id="beastPinBadge_frost_wyrm" class="text-[8px] bg-cyan-400 text-slate-950 font-black px-1 rounded-full">S1 0/100</span>
               </div>
             </div>
           </div>
 
-          <!-- Pin 4: 熔岩泰坦 · 戈爾隆 (Gorlon the Magma Titan Boss) -->
+          <!-- Pin 4: 熔岩泰坦 · 戈爾隆 (Gorlon) -->
           <div id="beastPin_magma_titan" onclick="BeastGameEngine.selectBeastPin('magma_titan')" class="beast-map-pin absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-300 z-20 hover:scale-110 active:scale-95 group/pin" style="left: 78.0%; top: 68.0%;">
             <div class="flex flex-col items-center">
               <div class="pin-ring relative w-12 h-12 sm:w-16 sm:h-16 rounded-full border-2 border-rose-400/70 shadow-lg overflow-hidden bg-slate-900 flex items-center justify-center transition-all duration-300">
-                <img src="images/ui/BST-04.jpeg?v=26.11.76" alt="熔岩泰坦" class="w-full h-full object-cover">
-                <span class="absolute bottom-0 inset-x-0 bg-slate-950/85 text-[8px] text-rose-300 text-center font-black">魔王獸</span>
+                <img id="beastPinImg_magma_titan" src="images/ui/Gorlon-1.jpeg" alt="熔岩泰坦" class="w-full h-full object-cover">
+                <span id="beastPinStageNum_magma_titan" class="absolute bottom-0 inset-x-0 bg-slate-950/85 text-[8px] text-rose-300 text-center font-black">Stage 1</span>
               </div>
               <div class="pin-pill mt-1 px-2.5 py-0.5 rounded-full bg-slate-950/85 text-rose-300 text-[10px] font-bold shadow-md border border-rose-400/40 flex items-center gap-1 whitespace-nowrap">
                 <span>🌋 熔岩泰坦</span>
-                <span id="beastPinBadge_magma_titan" class="text-[8px] bg-rose-500 text-white font-black px-1 rounded-full">連擊試煉</span>
+                <span id="beastPinBadge_magma_titan" class="text-[8px] bg-rose-500 text-white font-black px-1 rounded-full">S1 0/100</span>
               </div>
             </div>
           </div>
@@ -2490,7 +2512,7 @@
             </button>
             <div class="flex items-center gap-2 ml-1">
               <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl overflow-hidden border border-emerald-400/50 shadow-sm shrink-0 bg-slate-950 flex items-center justify-center">
-                <img id="arenaBeastAvatarImg" src="images/ui/BST-01.jpeg?v=26.11.76" alt="頭像" class="w-full h-full object-cover">
+                <img id="arenaBeastAvatarImg" src="images/ui/Buddy-1.jpeg" alt="頭像" class="w-full h-full object-cover">
               </div>
               <div>
                 <h3 id="arenaBeastName" class="font-black text-sm sm:text-base text-emerald-400 flex items-center gap-1.5">
@@ -2521,39 +2543,43 @@
           <!-- Atmospheric particles & glow -->
           <div class="absolute inset-0 pointer-events-none bg-[radial-gradient(ellipse_at_top,rgba(16,185,129,0.2)_0%,transparent_70%)]"></div>
           
-          <!-- Top Row: Shield Barrier Status & Crystals -->
-          <div class="relative z-10 flex items-center justify-between w-full">
-            <div class="flex items-center gap-2 bg-slate-950/80 backdrop-blur-md px-3.5 py-1.5 rounded-2xl border border-indigo-500/40 shadow-md">
-              <span class="text-xs font-black text-slate-300">🛡️ 迷霧封印屏障：</span>
-              <div id="beastShieldCrystals" class="flex items-center gap-1.5">
-                <span class="text-base text-amber-300 filter drop-shadow">💎</span>
-                <span class="text-base text-amber-300 filter drop-shadow">💎</span>
-                <span class="text-base text-amber-300 filter drop-shadow">💎</span>
-              </div>
+          <!-- Top Row: Stage & Growth Status -->
+          <div class="relative z-10 flex items-center justify-between w-full flex-wrap gap-2">
+            <div class="flex items-center gap-2 bg-slate-950/85 backdrop-blur-md px-3.5 py-1.5 rounded-2xl border border-amber-500/40 shadow-md">
+              <span class="text-xs font-black text-amber-300 flex items-center gap-1">
+                <span>⚡ 當前成長：</span>
+                <span id="arenaBeastStageBadge" class="bg-amber-400 text-slate-950 px-2 py-0.5 rounded-full text-[10px] font-black">Stage 1 · 初生萌崽</span>
+              </span>
             </div>
             
-            <div id="beastShieldIntegrity" class="bg-indigo-950/80 text-[11px] font-mono text-amber-300 font-black px-3 py-1 rounded-xl border border-amber-400/30">
-              護盾完整度：100%
+            <div id="arenaBeastStageProgressPill" class="bg-slate-950/85 backdrop-blur-md text-[11px] font-mono text-amber-300 font-black px-3 py-1.5 rounded-2xl border border-amber-400/40 flex items-center gap-1.5 shadow-md">
+              <span>充能：</span>
+              <span id="arenaStageRatioText" class="text-white">0 / 100 題</span>
+              <div class="w-16 sm:w-24 h-2 bg-slate-800 rounded-full overflow-hidden border border-slate-700 ml-1">
+                <div id="arenaStageProgressBar" class="h-full bg-gradient-to-r from-amber-400 to-yellow-400 transition-all duration-300" style="width: 0%;"></div>
+              </div>
             </div>
           </div>
 
-          <!-- Center: Beast Character Sprite & Shield Aura -->
+          <!-- Center: Beast Character Sprite & Lightning Recharge -->
           <div class="relative z-10 flex-1 flex flex-col items-center justify-center my-1">
             <div id="beastCharacterWrapper" class="relative flex flex-col items-center justify-center transition-all duration-500">
               
-              <!-- Shield Forcefield Overlay (Visible when shield > 0) -->
-              <div id="beastShieldBubble" class="absolute -inset-4 sm:-inset-6 rounded-full border-4 border-dashed border-purple-400/70 bg-purple-900/30 backdrop-blur-[1px] animate-pulse flex items-center justify-center shadow-[0_0_35px_rgba(168,85,247,0.4)] pointer-events-none transition-all duration-500">
-                <span class="text-[10px] text-purple-200 font-mono tracking-widest uppercase opacity-75">Rune Barrier</span>
+              <!-- Dynamic Overhead Lightning Bolt Effect -->
+              <div id="beastLightningBolt" class="hidden absolute -top-16 inset-x-0 h-44 z-40 pointer-events-none flex items-center justify-center">
+                <svg viewBox="0 0 120 200" class="w-24 sm:w-32 h-full drop-shadow-[0_0_35px_#FBBF24]">
+                  <polygon points="65,0 35,90 60,90 25,200 95,80 65,80" fill="#FEF08A" stroke="#F59E0B" stroke-width="4" stroke-linejoin="round"/>
+                </svg>
               </div>
 
               <!-- Beast Avatar Big Graphic -->
-              <div id="beastAvatarDisplay" class="relative w-36 sm:w-44 md:w-52 h-36 sm:h-44 md:h-52 rounded-3xl overflow-hidden border-2 border-emerald-400/60 shadow-[0_15px_35px_rgba(0,0,0,0.8)] filter drop-shadow hover:scale-105 transition-all duration-300 pointer-events-none select-none bg-slate-900 flex items-center justify-center">
-                <img id="beastAvatarImg" src="images/ui/BST-01.jpeg?v=26.11.76" alt="神獸立繪" class="w-full h-full object-cover">
+              <div id="beastAvatarDisplay" class="relative w-36 sm:w-44 md:w-52 h-36 sm:h-44 md:h-52 rounded-3xl overflow-hidden border-2 border-emerald-400/60 shadow-[0_15px_35px_rgba(0,0,0,0.8)] filter drop-shadow transition-all duration-300 pointer-events-none select-none bg-slate-900 flex items-center justify-center">
+                <img id="beastAvatarImg" src="images/ui/Buddy-1.jpeg" alt="神獸立繪" class="w-full h-full object-cover">
               </div>
 
               <!-- Impact Shockwave Particle Container (Flash on hit) -->
               <div id="beastImpactEffect" class="hidden absolute inset-0 text-5xl flex items-center justify-center filter drop-shadow-[0_0_30px_#F59E0B] animate-ping pointer-events-none">
-                💥⚡✨
+                ⚡⚡⚡
               </div>
 
             </div>
@@ -2721,12 +2747,12 @@
   <div id="beastVictoryModal" class="fixed inset-0 bg-slate-950/90 backdrop-blur-md z-[96] hidden items-center justify-center p-3 sm:p-5 select-none overflow-y-auto">
     <div class="relative w-full max-w-md bg-gradient-to-b from-slate-900 via-emerald-950 to-slate-900 rounded-3xl border-2 border-emerald-400 shadow-2xl p-5 text-white flex flex-col items-center text-center gap-4">
       <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-emerald-400 shadow-[0_0_30px_rgba(16,185,129,0.5)] bg-slate-950 shrink-0 flex items-center justify-center animate-bounce">
-        <img id="beastVictoryImg" src="images/ui/BST-01.jpeg?v=26.11.76" alt="神獸覺醒" class="w-full h-full object-cover">
+        <img id="beastVictoryImg" src="images/ui/Buddy-1.jpeg" alt="神獸覺醒" class="w-full h-full object-cover">
       </div>
       <div>
-        <span class="text-[10px] font-black tracking-widest uppercase text-emerald-400 bg-emerald-950 px-2.5 py-0.5 rounded-full border border-emerald-400/40">BEAST AWAKENED</span>
-        <h3 id="beastVictoryTitle" class="text-xl sm:text-2xl font-black text-amber-300 mt-1">綠角幼龍 · 完全覺醒！</h3>
-        <p id="beastVictoryDesc" class="text-xs text-slate-300 mt-1">遠古封印迷霧已完全驅散，神獸向您低頭致敬！</p>
+        <span id="beastVictoryBadge" class="text-[10px] font-black tracking-widest uppercase text-emerald-400 bg-emerald-950 px-2.5 py-0.5 rounded-full border border-emerald-400/40">BEAST EVOLVED</span>
+        <h3 id="beastVictoryTitle" class="text-xl sm:text-2xl font-black text-amber-300 mt-1">綠角幼龍 · 階段突破！</h3>
+        <p id="beastVictoryDesc" class="text-xs text-slate-300 mt-1">成功吸收 100 次天雷充能！神獸蛻變邁向全新成長階段！</p>
       </div>
 
       <div class="w-full p-3.5 rounded-2xl bg-slate-950/80 border border-emerald-400/40 flex items-center justify-around text-xs">
@@ -2736,14 +2762,14 @@
         </div>
         <div class="w-px h-8 bg-slate-800"></div>
         <div>
-          <div class="text-[10px] text-slate-400">覺醒獎勵能量</div>
+          <div class="text-[10px] text-slate-400">突破獎勵能量</div>
           <div id="beastVictoryEnergy" class="font-mono font-black text-amber-400 text-sm mt-0.5">+50 ⚡</div>
         </div>
       </div>
 
       <div class="w-full flex flex-col gap-2 pt-2">
-        <button type="button" onclick="BeastGameEngine.closeVictoryModalAndContinue()" class="w-full py-3 rounded-2xl bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500 hover:from-emerald-300 hover:to-teal-400 text-slate-950 font-black text-sm shadow-lg transition active:scale-95 flex items-center justify-center gap-2">
-          <span>🌟 返回聖域地圖</span>
+        <button type="button" id="beastVictoryBtn" onclick="BeastGameEngine.closeVictoryModalAndContinue()" class="w-full py-3 rounded-2xl bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500 hover:from-emerald-300 hover:to-teal-400 text-slate-950 font-black text-sm shadow-lg transition active:scale-95 flex items-center justify-center gap-2">
+          <span>⚡ 繼續天雷充能</span>
         </button>
       </div>
     </div>
@@ -2807,8 +2833,8 @@
             <!-- Kai Riding Fire Dragon Character (Transparent WebP + GIF Fallback, No Frame) -->
             <div id="dragonSprite" class="relative w-48 sm:w-60 md:w-72 h-28 sm:h-36 md:h-42 flex items-center justify-center transition-transform duration-200">
               <picture class="w-full h-full flex items-center justify-center pointer-events-none select-none">
-                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.76" type="image/webp">
-                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.76" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
+                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.77" type="image/webp">
+                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.77" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
               </picture>
             </div>
             <!-- Dragon Muzzle Flame Flash (Fires upon shooting laser) -->
@@ -3683,7 +3709,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.76 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.77 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -3722,7 +3748,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.76 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.77 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -4380,7 +4406,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.76";
+    const APP_VERSION = "26.11.77";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // ========================================================
@@ -7454,6 +7480,57 @@
         gain2.connect(this.ctx.destination);
         osc2.start(now + 0.02);
         osc2.stop(now + 0.26);
+      },
+      playLightningStrike() {
+        this.init();
+        if (!this.ctx) return;
+        const now = this.ctx.currentTime;
+        // 1. High voltage electrical zap crackle (sawtooth downsweep)
+        const osc1 = this.ctx.createOscillator();
+        const gain1 = this.ctx.createGain();
+        osc1.type = 'sawtooth';
+        osc1.frequency.setValueAtTime(2800, now);
+        osc1.frequency.exponentialRampToValueAtTime(160, now + 0.15);
+        gain1.gain.setValueAtTime(0.32, now);
+        gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+        osc1.connect(gain1);
+        gain1.connect(this.ctx.destination);
+        osc1.start(now);
+        osc1.stop(now + 0.20);
+
+        // 2. Thunder resonance bass rumble
+        const osc2 = this.ctx.createOscillator();
+        const gain2 = this.ctx.createGain();
+        osc2.type = 'triangle';
+        osc2.frequency.setValueAtTime(95, now + 0.04);
+        osc2.frequency.linearRampToValueAtTime(140, now + 0.10);
+        osc2.frequency.exponentialRampToValueAtTime(35, now + 0.45);
+        gain2.gain.setValueAtTime(0, now + 0.04);
+        gain2.gain.linearRampToValueAtTime(0.35, now + 0.08);
+        gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.50);
+        osc2.connect(gain2);
+        gain2.connect(this.ctx.destination);
+        osc2.start(now + 0.04);
+        osc2.stop(now + 0.52);
+
+        // 3. Electrical sizzle / noise burst
+        try {
+          const bufferSize = Math.floor(this.ctx.sampleRate * 0.15);
+          const noiseBuffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+          const output = noiseBuffer.getChannelData(0);
+          for (let i = 0; i < bufferSize; i++) {
+            output[i] = Math.random() * 2 - 1;
+          }
+          const whiteNoise = this.ctx.createBufferSource();
+          whiteNoise.buffer = noiseBuffer;
+          const noiseGain = this.ctx.createGain();
+          noiseGain.gain.setValueAtTime(0.20, now);
+          noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
+          whiteNoise.connect(noiseGain);
+          noiseGain.connect(this.ctx.destination);
+          whiteNoise.start(now);
+          whiteNoise.stop(now + 0.15);
+        } catch(e) {}
       },
       playBeastAwaken() {
         this.init();
@@ -13957,22 +14034,29 @@
     };
 
     // ========================================================
-    // ISLAND 3: BEAST RESONANCE BATTLE ENGINE (第三島·巨獸語音連擊島)
+    // ISLAND 3: BEAST LIGHTNING EVOLUTION ENGINE (第三島·巨獸養成聖域)
     // ========================================================
     const BEAST_SANCTUARY_DATA = [
       {
         id: 'baby_rex',
         name: '綠角幼龍 · 巴迪',
-        enName: 'Buddy the Baby Rex',
+        enName: 'Buddy the Emerald Rex',
+        filePrefix: 'Buddy',
         element: '🌿 翡翠自然系',
-        level: 1,
-        levelLabel: 'L1 基礎短句 (4~6詞)',
         avatar: '🦖',
-        image: 'images/ui/BST-01.jpeg',
-        badge: '🌿 溫柔草食系',
-        desc: '棲息在遠古熱帶蕨類森林的小霸王龍巴迪，性格溫和可愛。因遠古暗黑水晶封印陷入昏睡，對著牠大聲朗讀美語短句，用清脆純淨的聲波擊碎封印！',
-        rewardCrest: '🌿 翡翠神木符印',
-        energyReward: 35,
+        badge: '🌿 溫和草食系',
+        stages: [
+          { num: 1, name: '初生破殼萌崽', title: 'Hatchling', img: 'images/ui/Buddy-1.jpeg', desc: '剛破殼而出的初生綠角小萌龍，眼神充滿好奇，需要大聲朗讀美語汲取天雷能量！' },
+          { num: 2, name: '活潑跳躍幼龍', title: 'Toddler', img: 'images/ui/Buddy-2.jpeg', desc: '開始在草地上奔跑學步，頭上的翡翠小角在天雷充能中散發微光！' },
+          { num: 3, name: '敏捷元素生長期', title: 'Juvenile', img: 'images/ui/Buddy-3.jpeg', desc: '身形健壯，掌握翡翠草木自然魔法，雙翼長出綠葉紋羽！' },
+          { num: 4, name: '青年雄威展翼期', title: 'Adolescent', img: 'images/ui/Buddy-4.jpeg', desc: '體態威武雄健，羽翼豐滿凌空滑翔，蓄勢待發衝向天際！' },
+          { num: 5, name: '傳奇翡翠天龍', title: 'Majestic Sovereign', img: 'images/ui/Buddy-5.jpeg', desc: '君臨天際的傳奇翡翠神聖成龍！守護整座島嶼的神聖蒼穹！' }
+        ],
+        preferredTopics: ['food', 'home', 'daily_body'],
+        preferredTopicName: '美味食物 & 溫馨家居日常',
+        hungerQuote: '巴迪肚子咕嚕咕嚕叫了～快詠唱美語召喚閃電為我充能！⚡',
+        rewardCrest: '🌿 翡翠天龍神印',
+        energyReward: 200,
         bgGradient: 'from-emerald-950 via-slate-900 to-teal-950',
         shieldColor: 'border-emerald-400'
       },
@@ -13980,15 +14064,22 @@
         id: 'thunder_gryphon',
         name: '奔雷金翼 · 雷恩',
         enName: 'Ray the Thunder Gryphon',
+        filePrefix: 'Ray',
         element: '⚡ 雷霆烈風系',
-        level: 2,
-        levelLabel: 'L2 中階日常句 (7~10詞)',
         avatar: '🦅',
-        image: 'images/ui/BST-02.jpeg',
         badge: '⚡ 雲霄疾風系',
-        desc: '守護海島高聳峭壁的金色獅鷲雷恩，雙翼被雷霆鎖鏈封印。大聲朗讀生活情境美語句子，激發聲波共鳴斬斷鎖鏈！',
-        rewardCrest: '⚡ 奔雷神翼符印',
-        energyReward: 45,
+        stages: [
+          { num: 1, name: '初生破殼雛鷹', title: 'Hatchling', img: 'images/ui/Ray-1.jpeg', desc: '初生的小獅鷲，金色羽毛蓬鬆柔軟，靜候天雷電弧喚醒飛行本能！' },
+          { num: 2, name: '奔雷玩耍幼獸', title: 'Toddler', img: 'images/ui/Ray-2.jpeg', desc: '好奇地追逐雷電光球，金色羽翼輕快拍打，蓄積極速爆發力！' },
+          { num: 3, name: '疾風電光成長期', title: 'Juvenile', img: 'images/ui/Ray-3.jpeg', desc: '鋒利的金喙與銳爪展現力量，羽毛末端閃爍無害的紫藍電弧！' },
+          { num: 4, name: '狂雷展翼期', title: 'Adolescent', img: 'images/ui/Ray-4.jpeg', desc: '強健的獅身與宏偉金翼完全展開，凌空盤旋掀起疾風氣流！' },
+          { num: 5, name: '傳奇雷霆神鷹天尊', title: 'Majestic Sovereign', img: 'images/ui/Ray-5.jpeg', desc: '翱翔於雲海雷霄的傳奇金翼天尊！展翼劃破夜空，威震海島蒼穹！' }
+        ],
+        preferredTopics: ['travel', 'toy_school', 'colors_shapes'],
+        preferredTopicName: '極速旅行交通 & 城市工程',
+        hungerQuote: '雷恩的推進器快沒電了！大聲朗讀交通工具，為我引導天雷推進！⚡',
+        rewardCrest: '⚡ 奔雷神翼天印',
+        energyReward: 250,
         bgGradient: 'from-amber-950 via-slate-900 to-yellow-950',
         shieldColor: 'border-amber-400'
       },
@@ -13996,15 +14087,22 @@
         id: 'frost_wyrm',
         name: '霜雪巨龍 · 弗羅斯特',
         enName: 'Frost the Ice Wyrm',
+        filePrefix: 'Frost',
         element: '❄️ 極寒冰晶系',
-        level: 3,
-        levelLabel: 'L3 進階流利長句 (11+詞)',
         avatar: '🐲',
-        image: 'images/ui/BST-03.jpeg',
         badge: '❄️ 萬年冰魄系',
-        desc: '盤旋於終年不化雪峰的神聖冰龍，需要一氣呵成詠唱完整長句，以高能量自信發音融化萬年冰封！',
-        rewardCrest: '❄️ 霜雪龍晶符印',
-        energyReward: 60,
+        stages: [
+          { num: 1, name: '冰晶破殼萌龍', title: 'Hatchling', img: 'images/ui/Frost-1.jpeg', desc: '蜷縮在冰晶殼中的淡藍小萌龍，打哈欠時呼出一小團冰雪霧氣！' },
+          { num: 2, name: '踏雪嬉戲幼龍', title: 'Toddler', img: 'images/ui/Frost-2.jpeg', desc: '開心地在冰面滑行，半透明冰角逐漸分支，與極地夥伴親切互動！' },
+          { num: 3, name: '霜魄靈光生長期', title: 'Juvenile', img: 'images/ui/Frost-3.jpeg', desc: '優雅盤旋於古代冰柱，晶瑩剔透的鱗片折射出彩虹光芒！' },
+          { num: 4, name: '萬年極光展翼期', title: 'Adolescent', img: 'images/ui/Frost-4.jpeg', desc: '雙翼如極光帷幕般優雅舒展，在雪峰間留下晶瑩剔透的冰霜軌跡！' },
+          { num: 5, name: '傳奇極光冰晶聖龍', title: 'Majestic Sovereign', img: 'images/ui/Frost-5.jpeg', desc: '超凡脫俗的萬年極光聖龍！雙翼拂過之處，化作神聖的永恆冰原！' }
+        ],
+        preferredTopics: ['animal', 'nature'],
+        preferredTopicName: '奇妙動物夥伴 & 冰雪大自然',
+        hungerQuote: '弗羅斯特感到寒氣漸弱～快呼喚動物夥伴，引導極光天雷注入能量！❄️',
+        rewardCrest: '❄️ 萬年冰晶龍魄印',
+        energyReward: 300,
         bgGradient: 'from-cyan-950 via-slate-900 to-blue-950',
         shieldColor: 'border-cyan-400'
       },
@@ -14012,15 +14110,22 @@
         id: 'magma_titan',
         name: '熔岩巨獸 · 泰坦戈爾隆',
         enName: 'Gorlon the Magma Titan',
+        filePrefix: 'Gorlon',
         element: '🌋 熔岩大地系',
-        level: 'boss',
-        levelLabel: '終極 3-Combo 連擊覺醒',
         avatar: '🦁',
-        image: 'images/ui/BST-04.jpeg',
         badge: '🔥 核心魔王級',
-        desc: '棲息在島嶼微縮火山核心的古代守護泰坦，需要連續 3 句達成 80分以上完美連擊，方能觸發超載共鳴解除終極沉睡！',
-        rewardCrest: '🌋 熔岩泰坦星印',
-        energyReward: 100,
+        stages: [
+          { num: 1, name: '地核火岩石崽', title: 'Hatchling', img: 'images/ui/Gorlon-1.jpeg', desc: '由溫暖黑曜石晶球孕育的石崽，體表縫隙散發著小夜燈般溫柔的橘光！' },
+          { num: 2, name: '奔騰熔岩幼獸', title: 'Toddler', img: 'images/ui/Gorlon-2.jpeg', desc: '邁著結實的小石足在岩地奔跳，驕傲地展示剛長出的小小石角！' },
+          { num: 3, name: '地脈重裝巨力期', title: 'Juvenile', img: 'images/ui/Gorlon-3.jpeg', desc: '厚實的黑曜石裝甲覆蓋全身，胸前岩漿符文激盪出磅礡活力！' },
+          { num: 4, name: '炎岩破地展翼期', title: 'Adolescent', img: 'images/ui/Gorlon-4.jpeg', desc: '堅不可摧的熔岩重翼展開，在火山崖頂發出震撼大地的咆哮！' },
+          { num: 5, name: '傳奇炎岩泰坦天尊', title: 'Majestic Sovereign', img: 'images/ui/Gorlon-5.jpeg', desc: '如遠古活火山般崇高巍峨的守護天尊！君臨島嶼核心，守護永恆地脈！' }
+        ],
+        preferredTopics: ['actions', 'phrases'],
+        preferredTopicName: '熱血爆發動作 & 冒險短語',
+        hungerQuote: '體內的遠古岩漿需要天雷點燃！快詠唱充滿爆發力的動詞，喚醒地核烈焰！🌋',
+        rewardCrest: '🌋 熔岩泰坦皇冠星印',
+        energyReward: 500,
         bgGradient: 'from-rose-950 via-slate-900 to-amber-950',
         shieldColor: 'border-rose-400'
       }
@@ -14029,9 +14134,6 @@
     const BeastGameEngine = {
       selectedBeastId: 'baby_rex',
       activeBeastId: null,
-      currentRound: 1, // 1, 2, 3
-      maxRounds: 3,
-      shieldHealth: 3, // 3 -> 2 -> 1 -> 0
       combo: 0,
       totalScore: 0,
       currentSentence: null,
@@ -14039,6 +14141,7 @@
       recognition: null,
       visualizerInterval: null,
       audioPlayer: null,
+      isFinalEvolution: false,
 
       init() {
         this.updateGlobalHeaderStats();
@@ -14050,17 +14153,31 @@
 
       getProgress() {
         try {
-          const raw = localStorage.getItem('kaispeak_beast_progress_v1');
+          const raw = localStorage.getItem('kaispeak_beast_progress_v2');
           if (raw) return JSON.parse(raw);
+          // Migration from v1 if present
+          const old = localStorage.getItem('kaispeak_beast_progress_v1');
+          if (old) {
+            const oldProg = JSON.parse(old);
+            return {
+              beasts: {
+                baby_rex: { correctCount: oldProg.awakened && oldProg.awakened.baby_rex ? 100 : 0 },
+                thunder_gryphon: { correctCount: oldProg.awakened && oldProg.awakened.thunder_gryphon ? 100 : 0 },
+                frost_wyrm: { correctCount: oldProg.awakened && oldProg.awakened.frost_wyrm ? 100 : 0 },
+                magma_titan: { correctCount: oldProg.awakened && oldProg.awakened.magma_titan ? 100 : 0 }
+              },
+              peakCombo: oldProg.peakCombo || 0,
+              totalPower: oldProg.totalPower || 0
+            };
+          }
         } catch(e) {}
         return {
-          awakened: {
-            baby_rex: false,
-            thunder_gryphon: false,
-            frost_wyrm: false,
-            magma_titan: false
+          beasts: {
+            baby_rex: { correctCount: 0 },
+            thunder_gryphon: { correctCount: 0 },
+            frost_wyrm: { correctCount: 0 },
+            magma_titan: { correctCount: 0 }
           },
-          totalAwakened: 0,
           peakCombo: 0,
           totalPower: 0
         };
@@ -14068,22 +14185,56 @@
 
       saveProgress(prog) {
         try {
-          localStorage.setItem('kaispeak_beast_progress_v1', JSON.stringify(prog));
+          localStorage.setItem('kaispeak_beast_progress_v2', JSON.stringify(prog));
         } catch(e) {}
+      },
+
+      getBeastStageInfo(beastId) {
+        const b = BEAST_SANCTUARY_DATA.find(x => x.id === beastId) || BEAST_SANCTUARY_DATA[0];
+        const prog = this.getProgress();
+        const bProg = (prog.beasts && prog.beasts[b.id]) || { correctCount: 0 };
+        const total = bProg.correctCount || 0;
+
+        // 100 questions per stage, 5 stages = 500 total
+        const stageNum = Math.min(5, Math.floor(total / 100) + 1);
+        const stageIdx = stageNum - 1;
+        const currentStageData = b.stages[stageIdx];
+        const isMaxed = total >= 500;
+        const stageProgress = isMaxed ? 100 : (total % 100);
+        const stagePercent = Math.round((stageProgress / 100) * 100);
+        const totalPercent = Math.round((Math.min(500, total) / 500) * 100);
+
+        return {
+          beast: b,
+          correctCount: total,
+          stageNum,
+          stageData: currentStageData,
+          stageProgress,
+          stagePercent,
+          totalPercent,
+          isMaxed,
+          image: `${currentStageData.img}?v=${APP_VERSION}`,
+          nextStageData: stageNum < 5 ? b.stages[stageNum] : null
+        };
       },
 
       updateGlobalHeaderStats() {
         const prog = this.getProgress();
-        const count = Object.values(prog.awakened || {}).filter(Boolean).length;
-        prog.totalAwakened = count;
-        this.saveProgress(prog);
+        let totalAwakened = 0;
+        let totalFed = 0;
+
+        BEAST_SANCTUARY_DATA.forEach(b => {
+          const c = (prog.beasts && prog.beasts[b.id] && prog.beasts[b.id].correctCount) || 0;
+          totalFed += Math.min(500, c);
+          if (c >= 500) totalAwakened++;
+        });
 
         const awkEl = document.getElementById('beastGlobalAwakened');
-        const comboEl = document.getElementById('beastGlobalCombo');
+        const fedEl = document.getElementById('beastGlobalTotalFed');
         const pwrEl = document.getElementById('beastGlobalPower');
 
-        if (awkEl) awkEl.innerText = count;
-        if (comboEl) comboEl.innerText = prog.peakCombo || 0;
+        if (awkEl) awkEl.innerText = totalAwakened;
+        if (fedEl) fedEl.innerText = totalFed;
         if (pwrEl) pwrEl.innerText = prog.totalPower || 0;
       },
 
@@ -14106,7 +14257,8 @@
       selectBeastPin(beastId) {
         if (typeof SoundEffects !== 'undefined') {
           SoundEffects.init();
-          if (SoundEffects.playBeastRoar) SoundEffects.playBeastRoar();
+          if (SoundEffects.playLightningStrike) SoundEffects.playLightningStrike();
+          else if (SoundEffects.playBeastRoar) SoundEffects.playBeastRoar();
         }
 
         // If clicking already-selected beast -> Second click directly enters Battle Arena!
@@ -14122,17 +14274,21 @@
       },
 
       renderSanctuaryMapPins() {
-        const prog = this.getProgress();
         BEAST_SANCTUARY_DATA.forEach(b => {
           const pin = document.getElementById(`beastPin_${b.id}`);
+          const imgEl = document.getElementById(`beastPinImg_${b.id}`);
+          const stageEl = document.getElementById(`beastPinStageNum_${b.id}`);
           const badge = document.getElementById(`beastPinBadge_${b.id}`);
           if (!pin) return;
 
+          const stageInfo = this.getBeastStageInfo(b.id);
           const isSelected = this.selectedBeastId === b.id;
-          const isAwakened = prog.awakened && prog.awakened[b.id];
 
           const ring = pin.querySelector('.pin-ring');
           const pill = pin.querySelector('.pin-pill');
+
+          if (imgEl) imgEl.src = stageInfo.image;
+          if (stageEl) stageEl.innerText = `Stage ${stageInfo.stageNum}`;
 
           if (isSelected) {
             pin.className = "beast-map-pin absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-300 z-30 scale-110 sm:scale-120 group/pin";
@@ -14145,7 +14301,7 @@
           } else {
             pin.className = "beast-map-pin absolute -translate-x-1/2 -translate-y-1/2 cursor-pointer transition-all duration-300 z-20 hover:scale-110 active:scale-95 group/pin";
             if (ring) {
-              ring.className = `pin-ring relative w-12 h-12 sm:w-16 sm:h-16 rounded-full border-2 ${isAwakened ? 'border-emerald-400 ring-2 ring-emerald-400/50 shadow-md' : 'border-white/50 shadow-md'} overflow-hidden bg-slate-900 flex items-center justify-center transition-all duration-300`;
+              ring.className = `pin-ring relative w-12 h-12 sm:w-16 sm:h-16 rounded-full border-2 ${stageInfo.isMaxed ? 'border-amber-400 ring-2 ring-amber-400/50 shadow-md' : 'border-white/50 shadow-md'} overflow-hidden bg-slate-900 flex items-center justify-center transition-all duration-300`;
             }
             if (pill) {
               pill.className = "pin-pill mt-1 px-2.5 py-0.5 rounded-full bg-slate-950/85 text-slate-200 text-[10px] font-bold shadow-md border border-slate-700 flex items-center gap-1 whitespace-nowrap";
@@ -14153,14 +14309,14 @@
           }
 
           if (badge) {
-            if (isAwakened) {
-              badge.innerText = '已覺醒 ✨';
-              badge.className = 'text-[8px] bg-emerald-500 text-slate-950 font-black px-1 rounded-full';
+            if (stageInfo.isMaxed) {
+              badge.innerText = '👑 傳奇成龍';
+              badge.className = 'text-[8px] bg-amber-400 text-slate-950 font-black px-1.5 rounded-full';
             } else if (isSelected) {
-              badge.innerText = '👉 點選進入';
+              badge.innerText = `👉 S${stageInfo.stageNum} (${stageInfo.stageProgress}/100)`;
               badge.className = 'text-[8px] bg-slate-950 text-amber-300 font-black px-1.5 rounded-full';
             } else {
-              badge.innerText = b.badge.split(' ')[1] || '封印中';
+              badge.innerText = `S${stageInfo.stageNum} · ${stageInfo.stageProgress}/100`;
               badge.className = 'text-[8px] bg-slate-800 text-slate-300 px-1 rounded-full';
             }
           }
@@ -14170,16 +14326,17 @@
       renderBeastTabs() {
         const container = document.getElementById('beastTabsBar');
         if (!container) return;
-        const prog = this.getProgress();
 
         container.innerHTML = BEAST_SANCTUARY_DATA.map(b => {
+          const stageInfo = this.getBeastStageInfo(b.id);
           const isSelected = this.selectedBeastId === b.id;
-          const isAwakened = prog.awakened && prog.awakened[b.id];
           return `
-            <button type="button" onclick="BeastGameEngine.selectBeastPin('${b.id}')" class="px-3.5 py-2 rounded-2xl font-black text-xs sm:text-sm flex items-center gap-2 transition active:scale-95 shrink-0 ${isSelected ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-md ring-2 ring-emerald-400/50' : 'bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800'}">
-              <img src="${b.image}?v=${APP_VERSION}" alt="${b.name}" class="w-6 h-6 rounded-full object-cover shrink-0 border border-emerald-400/50">
+            <button type="button" onclick="BeastGameEngine.selectBeastPin('${b.id}')" class="px-3.5 py-2 rounded-2xl font-black text-xs sm:text-sm flex items-center gap-2 transition active:scale-95 shrink-0 ${isSelected ? 'bg-gradient-to-r from-amber-500 to-yellow-600 text-slate-950 shadow-md ring-2 ring-amber-400/50' : 'bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800'}">
+              <img src="${stageInfo.image}" alt="${b.name}" class="w-6 h-6 rounded-full object-cover shrink-0 border border-amber-400/50">
               <span>${b.name.split('·')[0].trim()}</span>
-              ${isAwakened ? '<span class="text-[9px] bg-emerald-950 text-emerald-300 px-1.5 py-0.2 rounded-full border border-emerald-400/30">覺醒</span>' : ''}
+              <span class="text-[9px] ${stageInfo.isMaxed ? 'bg-amber-400 text-slate-950 font-black' : 'bg-slate-950 text-amber-300'} px-1.5 py-0.2 rounded-full border border-amber-400/30">
+                ${stageInfo.isMaxed ? '成龍' : `S${stageInfo.stageNum} (${stageInfo.stageProgress}%)`}
+              </span>
             </button>
           `;
         }).join('');
@@ -14189,27 +14346,28 @@
         const container = document.getElementById('beastSelectedDossier');
         if (!container) return;
 
-        const b = BEAST_SANCTUARY_DATA.find(x => x.id === this.selectedBeastId) || BEAST_SANCTUARY_DATA[0];
-        const prog = this.getProgress();
-        const isAwakened = prog.awakened && prog.awakened[b.id];
+        const stageInfo = this.getBeastStageInfo(this.selectedBeastId);
+        const b = stageInfo.beast;
 
         container.innerHTML = `
-          <div class="bg-gradient-to-br from-slate-900/95 via-emerald-950/90 to-slate-900/95 rounded-3xl p-5 sm:p-6 border-2 border-emerald-400/80 shadow-2xl flex flex-col md:flex-row gap-5 items-stretch relative overflow-hidden transition-all duration-300">
+          <div class="bg-gradient-to-br from-slate-900/95 via-indigo-950/90 to-slate-900/95 rounded-3xl p-5 sm:p-6 border-2 border-amber-400/80 shadow-2xl flex flex-col md:flex-row gap-5 items-stretch relative overflow-hidden transition-all duration-300">
             
-            <!-- Left Beast Portrait Box -->
-            <div class="w-full md:w-56 h-56 sm:h-64 shrink-0 relative rounded-2xl overflow-hidden border-2 border-emerald-400/60 bg-slate-950 flex flex-col items-center justify-center shadow-lg group">
-              <img src="${b.image}?v=${APP_VERSION}" alt="${b.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-              <div class="absolute top-2.5 left-2.5 flex items-center gap-1 bg-slate-950/85 backdrop-blur-xs px-2.5 py-1 rounded-xl border border-emerald-400/40 text-[11px] text-emerald-300 font-black shadow-md">
-                <span>${b.element.split(' ')[0]}</span> <span>${b.badge}</span>
+            <!-- Left Beast Stage Portrait Box -->
+            <div class="w-full md:w-60 h-60 sm:h-72 shrink-0 relative rounded-2xl overflow-hidden border-2 border-amber-400/60 bg-slate-950 flex flex-col items-center justify-center shadow-lg group">
+              <img src="${stageInfo.image}" alt="${b.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+              
+              <div class="absolute top-2.5 left-2.5 flex items-center gap-1 bg-slate-950/85 backdrop-blur-xs px-2.5 py-1 rounded-xl border border-amber-400/40 text-[11px] text-amber-300 font-black shadow-md">
+                <span>⚡ Stage ${stageInfo.stageNum}</span> · <span>${stageInfo.stageData.name}</span>
               </div>
+
               <div class="absolute bottom-2.5 inset-x-2.5 flex items-center justify-center">
-                <span class="text-[10px] font-black px-2.5 py-1 rounded-full ${isAwakened ? 'bg-emerald-500 text-slate-950' : 'bg-purple-900/80 text-purple-200 border border-purple-400/50'} shadow-md">
-                  ${isAwakened ? '✨ 已完全覺醒守護' : '🔒 暗黑迷霧封印中'}
+                <span class="text-[10px] font-black px-2.5 py-1 rounded-full ${stageInfo.isMaxed ? 'bg-amber-400 text-slate-950 font-black animate-pulse' : 'bg-slate-950/90 text-amber-300 border border-amber-400/50'} shadow-md">
+                  ${stageInfo.isMaxed ? '👑 傳奇成龍完全體 · 自由翱翔' : `⚡ 成長培育中 (${stageInfo.correctCount}/500 題)`}
                 </span>
               </div>
             </div>
 
-            <!-- Right Details & Action -->
+            <!-- Right Details & Evolution Specs -->
             <div class="flex-1 flex flex-col justify-between gap-3 text-left">
               <div>
                 <div class="flex items-center justify-between flex-wrap gap-2">
@@ -14217,38 +14375,53 @@
                     <h3 class="text-xl sm:text-2xl font-black text-amber-300 tracking-wide">${b.name}</h3>
                     <span class="text-xs text-indigo-300 font-mono">(${b.enName})</span>
                   </div>
-                  <span class="text-xs font-black px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/40">
-                    ${b.levelLabel}
+                  <span class="text-xs font-black px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-400/40">
+                    Stage ${stageInfo.stageNum} · ${stageInfo.stageData.title}
                   </span>
                 </div>
-                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mt-2 font-medium">
-                  ${b.desc}
+                
+                <p class="text-xs sm:text-sm text-slate-200 leading-relaxed mt-2 font-medium">
+                  ${stageInfo.stageData.desc}
                 </p>
+
+                <!-- Hunger & Energy Alert Callout -->
+                <div class="mt-2.5 p-2.5 rounded-xl bg-amber-500/10 border border-amber-400/30 flex items-center gap-2 text-xs text-amber-200 font-bold">
+                  <span class="text-base animate-bounce">⚡</span>
+                  <span><strong>巨獸呼喚：</strong>${b.hungerQuote}</span>
+                </div>
               </div>
 
-              <!-- Reward & Shield Specs -->
-              <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 py-1">
-                <div class="bg-slate-950/70 p-2.5 rounded-xl border border-slate-800">
-                  <div class="text-[10px] text-slate-400">封印屏障強度</div>
-                  <div class="font-black text-xs text-purple-300 mt-0.5">3 層水晶屏障</div>
+              <!-- 5-Stage Evolution Progress Bars -->
+              <div class="bg-slate-950/70 p-3 rounded-2xl border border-slate-800 flex flex-col gap-2.5">
+                <!-- Current Stage Progress -->
+                <div>
+                  <div class="flex items-center justify-between text-xs font-black text-slate-300 mb-1">
+                    <span class="flex items-center gap-1.5">
+                      <span>⚡ Stage ${stageInfo.stageNum} 階段充能目標：</span>
+                      <strong class="text-amber-400 font-mono">${stageInfo.stageProgress} / 100 題</strong>
+                    </span>
+                    <span class="text-amber-300 font-mono">${stageInfo.stagePercent}%</span>
+                  </div>
+                  <div class="w-full bg-slate-900 rounded-full h-3 p-0.5 border border-slate-800 overflow-hidden">
+                    <div class="h-full bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-300 rounded-full transition-all duration-500" style="width: ${stageInfo.stagePercent}%;"></div>
+                  </div>
                 </div>
-                <div class="bg-slate-950/70 p-2.5 rounded-xl border border-slate-800">
-                  <div class="text-[10px] text-slate-400">覺醒通關獎勵</div>
-                  <div class="font-black text-xs text-amber-400 mt-0.5">+${b.energyReward} ⚡ 能量</div>
-                </div>
-                <div class="bg-slate-950/70 p-2.5 rounded-xl border border-slate-800 col-span-2 sm:col-span-1">
-                  <div class="text-[10px] text-slate-400">專屬守護符印</div>
-                  <div class="font-black text-xs text-emerald-300 mt-0.5 truncate">${b.rewardCrest}</div>
+
+                <!-- 5-Stage Total Progress -->
+                <div class="flex items-center justify-between text-[11px] text-slate-400 pt-1 border-t border-slate-800/80">
+                  <span>🏆 5 階完全體累計：<strong class="text-white font-mono">${stageInfo.correctCount} / 500 題</strong> (${stageInfo.totalPercent}%)</span>
+                  <span>${stageInfo.nextStageData ? `下一階：${stageInfo.nextStageData.name}` : '已達完全體！'}</span>
                 </div>
               </div>
 
               <!-- Launch Action Button -->
-              <div class="flex items-center justify-between pt-2 border-t border-slate-800/80 flex-wrap gap-3">
-                <div class="text-xs text-slate-400">
-                  <span>💡 提示：點擊進入戰場後，依序朗讀 3 句破除屏障！</span>
+              <div class="flex items-center justify-between pt-1 border-t border-slate-800/80 flex-wrap gap-3">
+                <div class="text-xs text-slate-400 flex items-center gap-1.5">
+                  <span class="text-amber-300 font-bold">🎯 偏好主題：</span>
+                  <span class="text-slate-300 font-bold">${b.preferredTopicName}</span>
                 </div>
-                <button type="button" onclick="BeastGameEngine.startBattle('${b.id}')" class="px-6 py-3 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs sm:text-sm shadow-xl transition active:scale-95 flex items-center gap-2">
-                  <span>⚡ 進入神獸聖域共鳴破盾</span> <span>▶</span>
+                <button type="button" onclick="BeastGameEngine.startBattle('${b.id}')" class="px-6 py-3 rounded-2xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-slate-950 font-black text-xs sm:text-sm shadow-xl transition active:scale-95 flex items-center gap-2">
+                  <span>⚡ 召喚天雷 · 進入成長充能</span> <span>▶</span>
                 </button>
               </div>
 
@@ -14261,16 +14434,16 @@
       startBattle(beastId) {
         if (typeof SoundEffects !== 'undefined') {
           SoundEffects.init();
-          if (SoundEffects.playBeastRoar) SoundEffects.playBeastRoar();
+          if (SoundEffects.playLightningStrike) SoundEffects.playLightningStrike();
+          else if (SoundEffects.playBeastRoar) SoundEffects.playBeastRoar();
         }
 
         this.activeBeastId = beastId || this.selectedBeastId;
-        this.currentRound = 1;
-        this.shieldHealth = 3;
         this.combo = 0;
         this.totalScore = 0;
 
-        const b = BEAST_SANCTUARY_DATA.find(x => x.id === this.activeBeastId) || BEAST_SANCTUARY_DATA[0];
+        const stageInfo = this.getBeastStageInfo(this.activeBeastId);
+        const b = stageInfo.beast;
 
         // Update Arena Header & Stage
         const nameEl = document.getElementById('arenaBeastName');
@@ -14278,10 +14451,10 @@
         const lvlEl = document.getElementById('arenaBeastLevelLabel');
         const bigImgEl = document.getElementById('beastAvatarImg');
 
-        if (nameEl) nameEl.innerText = b.name;
-        if (avatarImgEl) avatarImgEl.src = `${b.image}?v=${APP_VERSION}`;
-        if (lvlEl) lvlEl.innerText = b.levelLabel;
-        if (bigImgEl) bigImgEl.src = `${b.image}?v=${APP_VERSION}`;
+        if (nameEl) nameEl.innerText = `${b.name} · Stage ${stageInfo.stageNum} (${stageInfo.stageData.name})`;
+        if (avatarImgEl) avatarImgEl.src = stageInfo.image;
+        if (lvlEl) lvlEl.innerText = `偏好：${b.preferredTopicName}`;
+        if (bigImgEl) bigImgEl.src = stageInfo.image;
 
         this.updateArenaStatsUI();
         this.loadRoundSentence();
@@ -14304,86 +14477,79 @@
       },
 
       updateArenaStatsUI() {
+        const stageInfo = this.getBeastStageInfo(this.activeBeastId);
         const comboEl = document.getElementById('arenaComboCount');
         const scoreEl = document.getElementById('arenaTotalScore');
         const roundEl = document.getElementById('arenaRoundLabel');
-        const integrityEl = document.getElementById('beastShieldIntegrity');
-        const crystalsContainer = document.getElementById('beastShieldCrystals');
-        const bubbleEl = document.getElementById('beastShieldBubble');
+        const stageBadge = document.getElementById('arenaBeastStageBadge');
+        const ratioText = document.getElementById('arenaStageRatioText');
+        const progressBar = document.getElementById('arenaStageProgressBar');
+        const bigImgEl = document.getElementById('beastAvatarImg');
+        const avatarImgEl = document.getElementById('arenaBeastAvatarImg');
 
         if (comboEl) comboEl.innerText = this.combo;
         if (scoreEl) scoreEl.innerText = this.totalScore;
-        if (roundEl) roundEl.innerText = `第 ${this.currentRound} / ${this.maxRounds} 句破盾詠唱`;
-
-        const percent = Math.round((this.shieldHealth / 3) * 100);
-        if (integrityEl) integrityEl.innerText = `護盾完整度：${percent}%`;
-
-        if (crystalsContainer) {
-          let cHtml = '';
-          for (let i = 0; i < 3; i++) {
-            if (i < this.shieldHealth) {
-              cHtml += '<span class="text-base text-amber-300 filter drop-shadow animate-pulse">💎</span>';
-            } else {
-              cHtml += '<span class="text-base text-slate-600 opacity-40">🪨</span>';
-            }
-          }
-          crystalsContainer.innerHTML = cHtml;
-        }
-
-        if (bubbleEl) {
-          if (this.shieldHealth <= 0) {
-            bubbleEl.className = "hidden";
-          } else {
-            bubbleEl.className = "absolute -inset-4 sm:-inset-6 rounded-full border-4 border-dashed border-purple-400/70 bg-purple-900/30 backdrop-blur-[1px] animate-pulse flex items-center justify-center shadow-[0_0_35px_rgba(168,85,247,0.4)] pointer-events-none transition-all duration-500";
-          }
-        }
+        if (roundEl) roundEl.innerText = `階段充能：${stageInfo.stageProgress} / 100 題 ⚡`;
+        if (stageBadge) stageBadge.innerText = `Stage ${stageInfo.stageNum} · ${stageInfo.stageData.name}`;
+        if (ratioText) ratioText.innerText = `${stageInfo.stageProgress} / 100 題`;
+        if (progressBar) progressBar.style.width = `${stageInfo.stagePercent}%`;
+        if (bigImgEl) bigImgEl.src = stageInfo.image;
+        if (avatarImgEl) avatarImgEl.src = stageInfo.image;
       },
 
       loadRoundSentence() {
-        const b = BEAST_SANCTUARY_DATA.find(x => x.id === this.activeBeastId) || BEAST_SANCTUARY_DATA[0];
+        const stageInfo = this.getBeastStageInfo(this.activeBeastId);
+        const b = stageInfo.beast;
         
+        // Progressive difficulty across the 5 stages
         let targetLevel = 1;
-        if (b.level === 1) targetLevel = 1;
-        else if (b.level === 2) targetLevel = 2;
-        else if (b.level === 3) targetLevel = 3;
-        else if (b.level === 'boss') {
-          // Boss mode progresses through L1 -> L2 -> L3 across the 3 rounds
-          targetLevel = this.currentRound === 1 ? 1 : (this.currentRound === 2 ? 2 : 3);
-        }
+        if (stageInfo.stageNum === 1) targetLevel = 1;
+        else if (stageInfo.stageNum === 2) targetLevel = Math.random() < 0.6 ? 1 : 2;
+        else if (stageInfo.stageNum === 3) targetLevel = 2;
+        else if (stageInfo.stageNum === 4) targetLevel = Math.random() < 0.5 ? 2 : 3;
+        else if (stageInfo.stageNum === 5) targetLevel = 3;
 
         // Pull candidate sentences from MASTER_VOCAB
-        const candidateSentences = [];
+        const preferredSentences = [];
+        const fallbackSentences = [];
+
         if (typeof MASTER_VOCAB !== 'undefined' && Array.isArray(MASTER_VOCAB)) {
           MASTER_VOCAB.forEach(v => {
             if (v.gradedSentences && Array.isArray(v.gradedSentences)) {
+              const matchesPref = b.preferredTopics && b.preferredTopics.includes(v.category);
               v.gradedSentences.forEach(s => {
                 if (s.level === targetLevel && s.text && s.translation) {
-                  candidateSentences.push({
+                  const item = {
                     text: s.text,
                     translation: s.translation,
                     audioSrc: s.audioSrc || v.audioWord,
                     audioSrcCanonical: s.audioSrcCanonical,
                     word: v.word,
-                    level: s.level
-                  });
+                    level: s.level,
+                    isPreferred: matchesPref,
+                    category: v.category
+                  };
+                  if (matchesPref) {
+                    preferredSentences.push(item);
+                  } else {
+                    fallbackSentences.push(item);
+                  }
                 }
               });
             }
           });
         }
 
-        // Fallback default sentences if vocab not loaded
-        if (candidateSentences.length === 0) {
-          candidateSentences.push(
-            { text: "This is my desk.", translation: "這是我的一張書桌。", level: 1 },
-            { text: "My bed is soft.", translation: "我的小床很柔軟。", level: 1 },
-            { text: "Put the book on the desk.", translation: "把書本放在書桌上。", level: 2 },
-            { text: "I sit at my desk and study happily.", translation: "我坐在書桌前開心地學習。", level: 3 }
-          );
+        // 75% chance to pick from preferred topic, 25% from general pool for great variety
+        let chosen;
+        if (preferredSentences.length > 0 && (Math.random() < 0.75 || fallbackSentences.length === 0)) {
+          chosen = preferredSentences[Math.floor(Math.random() * preferredSentences.length)];
+        } else if (fallbackSentences.length > 0) {
+          chosen = fallbackSentences[Math.floor(Math.random() * fallbackSentences.length)];
+        } else {
+          chosen = { text: "This is my desk.", translation: "這是我的一張書桌。", level: 1, isPreferred: true };
         }
 
-        // Pick a random sentence
-        const chosen = candidateSentences[Math.floor(Math.random() * candidateSentences.length)];
         this.currentSentence = chosen;
 
         // Update Tablet UI
@@ -14396,10 +14562,19 @@
 
         if (promptEl) promptEl.innerText = chosen.translation;
         if (engEl) engEl.innerText = chosen.text;
-        if (diffEl) diffEl.innerText = `Level ${chosen.level} · ${chosen.level === 1 ? '基礎短句' : (chosen.level === 2 ? '生活日常' : '進階挑戰')}`;
+        if (diffEl) {
+          diffEl.innerHTML = chosen.isPreferred 
+            ? `⭐ 偏好主題 (${b.preferredTopicName}) · L${chosen.level}`
+            : `通用語句 · Level ${chosen.level}`;
+          diffEl.className = chosen.isPreferred 
+            ? "text-[10px] bg-amber-500/20 text-amber-300 border border-amber-400/50 px-2.5 py-0.5 rounded-full font-black animate-pulse"
+            : "text-[10px] bg-slate-800 text-slate-300 border border-slate-700 px-2 py-0.5 rounded-full font-bold";
+        }
         if (spokenTextEl) spokenTextEl.innerText = '點擊下方麥克風，即可開始大聲朗讀...';
         if (spokenScorePill) spokenScorePill.classList.add('hidden');
-        if (bannerText) bannerText.innerText = `第 ${this.currentRound} 句：聽 Kai 示範發音，大聲唸出完整句子破除迷霧！`;
+        if (bannerText) {
+          bannerText.innerHTML = `<span class="text-amber-300 font-bold">⚡ 聽 Kai 示範發音，大聲唸出完整句子引導天雷充能！</span>`;
+        }
 
         this.updateArenaStatsUI();
       },
@@ -14518,7 +14693,7 @@
         const micIcon = document.getElementById('arenaMicIcon');
         const micLabel = document.getElementById('arenaMicLabel');
 
-        if (micBtn) micBtn.className = "w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-black text-sm sm:text-base shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2";
+        if (micBtn) micBtn.className = "w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-amber-400 via-yellow-400 to-amber-500 hover:from-amber-300 hover:to-yellow-300 text-slate-950 font-black text-sm sm:text-base shadow-lg transition-all active:scale-95 flex items-center justify-center gap-2";
         if (micIcon) micIcon.innerText = '🎙️';
         if (micLabel) micLabel.innerText = '開始整句朗讀詠唱';
       },
@@ -14558,6 +14733,7 @@
       evaluateSpeech(spoken, forcedScore = null) {
         if (!this.currentSentence) return;
         const target = this.currentSentence.text;
+        const b = BEAST_SANCTUARY_DATA.find(x => x.id === this.activeBeastId) || BEAST_SANCTUARY_DATA[0];
 
         let score = forcedScore;
         if (score === null) {
@@ -14595,38 +14771,71 @@
         }
 
         if (score >= 80) {
-          // PERFECT RESONANCE BREAK
+          // PERFECT RESONANCE & LIGHTNING ENERGY SURGE
           this.combo++;
           this.totalScore += score;
-          this.shieldHealth = Math.max(0, this.shieldHealth - 1);
 
+          // Play synthesized lightning sound
           if (typeof SoundEffects !== 'undefined') {
-            if (this.combo > 1 && SoundEffects.playComboBurst) {
-              SoundEffects.playComboBurst();
-            } else if (SoundEffects.playShieldShatter) {
-              SoundEffects.playShieldShatter();
-            }
+            if (SoundEffects.playLightningStrike) SoundEffects.playLightningStrike();
+            else if (SoundEffects.playBeastRoar) SoundEffects.playBeastRoar();
+          }
+
+          // Overhead lightning bolt visual animation
+          const boltEl = document.getElementById('beastLightningBolt');
+          if (boltEl) {
+            boltEl.classList.remove('hidden');
+            boltEl.classList.add('animate-lightning');
+            setTimeout(() => {
+              boltEl.classList.remove('animate-lightning');
+              boltEl.classList.add('hidden');
+            }, 650);
+          }
+
+          // Beast avatar body lightning glow surge
+          const displayEl = document.getElementById('beastAvatarDisplay');
+          if (displayEl) {
+            displayEl.classList.add('beast-lightning-glow');
+            setTimeout(() => {
+              displayEl.classList.remove('beast-lightning-glow');
+            }, 900);
           }
 
           if (impactEffect) {
+            impactEffect.innerHTML = "⚡⚡⚡";
             impactEffect.classList.remove('hidden');
-            setTimeout(() => impactEffect.classList.add('hidden'), 600);
+            setTimeout(() => impactEffect.classList.add('hidden'), 700);
           }
 
+          // Update Progress
+          const prog = this.getProgress();
+          if (!prog.beasts) prog.beasts = {};
+          if (!prog.beasts[b.id]) prog.beasts[b.id] = { correctCount: 0 };
+          const prevCount = prog.beasts[b.id].correctCount || 0;
+          const prevStage = Math.min(5, Math.floor(prevCount / 100) + 1);
+
+          prog.beasts[b.id].correctCount = prevCount + 1;
+          const newCount = prog.beasts[b.id].correctCount;
+          const newStage = Math.min(5, Math.floor(newCount / 100) + 1);
+
+          prog.peakCombo = Math.max(prog.peakCombo || 0, this.combo);
+          prog.totalPower = (prog.totalPower || 0) + score;
+          this.saveProgress(prog);
+
+          const stageInfo = this.getBeastStageInfo(b.id);
+
           if (bannerText) {
-            bannerText.innerHTML = `<span class="text-emerald-400 font-black animate-pulse">⚡ 聲波共鳴破盾！迷霧水晶碎裂一層！ (+${score}分)</span>`;
+            bannerText.innerHTML = `<span class="text-amber-300 font-black animate-pulse">⚡ 天雷電弧充能成功！成長生長值 +1 (${stageInfo.stageProgress}/100 題) (+${score}分)</span>`;
           }
 
           this.updateArenaStatsUI();
 
-          // Check if Beast Fully Awakened (all 3 crystals broken)
-          if (this.shieldHealth <= 0 || this.currentRound >= this.maxRounds) {
+          // Check if crossed stage boundary (100, 200, 300, 400, or 500)
+          if ((newCount % 100 === 0 && newStage > prevStage) || newCount === 500) {
             setTimeout(() => {
-              this.handleBeastAwakened();
-            }, 1000);
+              this.handleBeastEvolved(b, stageInfo, newCount >= 500);
+            }, 900);
           } else {
-            // Next round
-            this.currentRound++;
             setTimeout(() => {
               this.loadRoundSentence();
             }, 1200);
@@ -14634,39 +14843,44 @@
         } else {
           // Soft protective encouragement (no punishment)
           if (bannerText) {
-            bannerText.innerHTML = `<span class="text-amber-300 font-bold">🌱 聲波微震！聽 Kai 帶讀一次，再大聲詠唱破盾！</span>`;
+            bannerText.innerHTML = `<span class="text-amber-300 font-bold">🌱 聲波微震！聽 Kai 帶讀一次，再大聲詠唱引導天雷！</span>`;
           }
         }
       },
 
-      handleBeastAwakened() {
+      handleBeastEvolved(b, stageInfo, isFinal = false) {
         if (typeof SoundEffects !== 'undefined' && SoundEffects.playBeastAwaken) {
           SoundEffects.playBeastAwaken();
         }
 
-        const b = BEAST_SANCTUARY_DATA.find(x => x.id === this.activeBeastId) || BEAST_SANCTUARY_DATA[0];
-        const prog = this.getProgress();
-        prog.awakened[b.id] = true;
-        prog.peakCombo = Math.max(prog.peakCombo || 0, this.combo);
-        prog.totalPower = (prog.totalPower || 0) + this.totalScore + b.energyReward;
-        this.saveProgress(prog);
-        this.updateGlobalHeaderStats();
-
-        // Show Victory Celebration Modal
         const modal = document.getElementById('beastVictoryModal');
-        const vAvatar = document.getElementById('beastVictoryAvatar');
         const vImg = document.getElementById('beastVictoryImg');
+        const vBadge = document.getElementById('beastVictoryBadge');
         const vTitle = document.getElementById('beastVictoryTitle');
         const vDesc = document.getElementById('beastVictoryDesc');
         const vCrest = document.getElementById('beastVictoryCrest');
         const vEnergy = document.getElementById('beastVictoryEnergy');
+        const vBtn = document.getElementById('beastVictoryBtn');
 
-        if (vAvatar) vAvatar.innerText = b.avatar;
-        if (vImg) vImg.src = `${b.image}?v=${APP_VERSION}`;
-        if (vTitle) vTitle.innerText = `${b.name} · 完全覺醒！`;
-        if (vDesc) vDesc.innerText = `遠古封印迷霧已徹底驅散，${b.name.split('·')[0]} 成為您的專屬守護獸！`;
-        if (vCrest) vCrest.innerText = b.rewardCrest;
-        if (vEnergy) vEnergy.innerText = `+${b.energyReward} ⚡`;
+        if (vImg) vImg.src = stageInfo.image;
+
+        if (isFinal) {
+          if (vBadge) vBadge.innerText = 'LEGENDARY SOVEREIGN DRAGON';
+          if (vTitle) vTitle.innerText = `${b.name} · 完全體成龍！君臨天際！`;
+          if (vDesc) vDesc.innerText = `歷經 500 次天雷充能淬鍊！${b.name.split('·')[0]} 已完全蛻變為傳奇成龍，展翼翱翔於神聖蒼穹！`;
+          if (vCrest) vCrest.innerText = b.rewardCrest;
+          if (vEnergy) vEnergy.innerText = `+${b.energyReward} ⚡`;
+          if (vBtn) vBtn.innerHTML = `<span>👑 傳奇巡禮 · 返回聖域地圖</span>`;
+          this.isFinalEvolution = true;
+        } else {
+          if (vBadge) vBadge.innerText = `STAGE ${stageInfo.stageNum} EVOLUTION UNLOCKED`;
+          if (vTitle) vTitle.innerText = `🌟 階段突破！神獸進化！`;
+          if (vDesc) vDesc.innerText = `${b.name.split('·')[0]} 成功吸收 100 次天雷能量，進化為【Stage ${stageInfo.stageNum} · ${stageInfo.stageData.name}】！`;
+          if (vCrest) vCrest.innerText = `⚡ ${stageInfo.stageData.title} 成長符印`;
+          if (vEnergy) vEnergy.innerText = `+50 ⚡`;
+          if (vBtn) vBtn.innerHTML = `<span>⚡ 繼續天雷充能 (下一階段)</span>`;
+          this.isFinalEvolution = false;
+        }
 
         if (modal) {
           modal.classList.remove('hidden');
@@ -14680,7 +14894,11 @@
           modal.classList.add('hidden');
           modal.classList.remove('flex');
         }
-        this.returnToSanctuaryMap();
+        if (this.isFinalEvolution) {
+          this.returnToSanctuaryMap();
+        } else {
+          this.loadRoundSentence();
+        }
       }
     };
     window.BeastGameEngine = BeastGameEngine;
