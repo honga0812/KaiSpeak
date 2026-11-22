@@ -1,15 +1,26 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Generate KaiSpeak 15s Cinematic Animation Prompts for MiniMax Video-01
-Includes:
-- Category A: 4 Mythical Beasts Stage 5 Graduation Soaring Animations
-- Category B: 5 Skyscraper Completed Spire & Metropolis Flyby Animations
-- Category C: 5 Adventure Island Galaxy Boss Clear & Planetary Triumph Animations
+generate_minimax_prompts_excel.py
+---------------------------------
+為 KaiSpeak 生成 14 部 15 秒地端 MiniMax Video-01 (海螺視頻模型)
+首幀圖生視頻 (I2V) 專屬提示詞與檔案規範對照 Excel 總表。
+
+修正版：
+1. 修正 4 筆摩天大樓圖片配對錯位，精準對齊 images/ui/SKY-01~05 及 index.html：
+   - SKY-01: 台北 101 (Taipei 101)
+   - SKY-02: 哈里發塔 (Burj Khalifa)
+   - SKY-03: 上海中心大廈 (Shanghai Tower)
+   - SKY-04: 帝國大廈 (Empire State Building)
+   - SKY-05: 默迪卡 118 (Merdeka 118)
+2. 修正第三島 (ISL-03.jpeg)：精準契合「恐龍遠古叢林島」視覺元素（萌萌小暴龍、長頸龍、史前蕨類樹屋、粉紅煙霧火山）與神獸共鳴。
+3. 修正第四島 (ISL-04.jpeg)：精準契合「糖果夢幻點心島」視覺元素（棒棒糖森林、薑餅城堡、巧克力河、棉花糖山丘、糖果金幣雨）。
+4. 修正第五島 (ISL-05.jpeg)：精準契合「亞特蘭提斯水下珊瑚島 / 海底城市王國」視覺元素（水晶氣泡穹頂、七彩珊瑚礁城堡、潛水艇與海豚海龜、海底丁達爾聖光）。
 """
 
+import os
 import openpyxl
-from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
+from openpyxl.styles import Font, Alignment, PatternFill, Border, Side
 from openpyxl.utils import get_column_letter
 
 wb = openpyxl.Workbook()
@@ -19,23 +30,10 @@ ws.title = "MiniMax 15s 動畫總表"
 # Ensure grid lines are visible
 ws.views.sheetView[0].showGridLines = True
 
-headers = [
-    "分類",
-    "編號",
-    "項目名稱 (英中文)",
-    "目標時長",
-    "建議檔案名稱",
-    "目標存放路徑",
-    "首幀圖生視頻 (I2V) 參考圖",
-    "專屬場景特色元素",
-    "15秒鏡頭動態節奏 (0~5s, 5~10s, 10~15s)",
-    "MiniMax 影片生成提示詞 (英文 Prompt)",
-    "提示詞中文意境解析與特效要點"
-]
-
+# Data definition (14 items)
 data = [
     # -------------------------------------------------------------
-    # Category A: 4 Mythical Beasts Final Graduation Animations
+    # Category A: 4 Mythical Beasts Stage 5 Evolution Animations
     # -------------------------------------------------------------
     (
         "A. 巨獸養成聖域 (4大神獸)",
@@ -45,10 +43,10 @@ data = [
         "BST_ANIM_01_Buddy.mp4",
         "videos/beasts/BST_ANIM_01_Buddy.mp4",
         "images/ui/Buddy-5.jpeg",
-        "熱帶遠古浮空島嶼、參天巨木樹冠、青苔神廟廢墟、飄散的翡翠花粉微粒、溫暖晨曦金光。",
+        "原始雨林神樹頂端、青翠翡翠羽翼、發光藤蔓、懸浮綠晶石、漫天綠色發光微粒花粉。",
         "【0~5s】：鏡頭以第一幀為起點特寫成龍威嚴自信的笑容，巨大的翡翠羽翼重力拍打，震起漫天綠色微光花粉，巨龍凌空拔地而起。\n【5~10s】：空拍無人機鏡頭跟隨巨龍在熱帶浮島巨樹間高速俯衝穿梭，身姿靈動優雅，龍尾劃出碧綠色的發光流線軌跡。\n【10~15s】：巨龍昂首仰衝穿透金色雲層，迎著旭日向蒼穹發出雄壯咆哮，天際爆發出燦爛的翡翠極光波紋，鏡頭環繞拉遠定格。",
-        "Cinematic 3D animation, Pixar and Disney masterpiece style, beginning from the first frame image. A majestic adult emerald-green feathered dragon soars majestically off a mossy floating island temple. At 0-5s, close-up on the dragon's joyful smiling expression and glowing jade antlers as its colossal feathered wings beat powerfully, kicking up shimmering emerald pollen and golden morning light. At 5-10s, dynamic aerial drone tracking shot following the dragon swooping gracefully through ancient canopy trees and waterfalls, looping smoothly with radiant green particle trails behind its tail. At 10-15s, the emerald sovereign dragon surges vertically through sun-drenched golden clouds, unleashing a joyful heroic roar towards the rising sun as an emerald auroral shockwave ripples across the azure sky. Smooth camera motion, ultra-detailed feathers and scales, volumetric sunlight, 4K resolution, 60fps, joyful and triumphant mood.",
-        "【第一幀無縫銜接】：以 Buddy-5.jpeg 成龍立繪為起始視角。\n【視覺核心】：凸顯綠色羽翼的大氣展翼感與穿梭浮空熱帶島嶼的自由暢快。\n【音畫同步】：前段起飛呼嘯、中段風馳電掣穿雲、尾段天雷與晨光共鳴咆哮。"
+        "Cinematic 3D animation, Pixar and Disney masterpiece style, beginning from the first frame image. A majestic adult emerald sky dragon with magnificent jade-green wings and glowing emerald horns initiates flight from its lush rainforest cliff. At 0-5s, camera slow zoom on the dragon's confident, heroic face before it beats its wings powerfully, sending green luminous pollen floating across the air, launching gracefully into the clear sky. At 5-10s, dynamic aerial following shot swooping low through giant floating islands, lush waterfalls, and ancient mossy canopies, the dragon leaving a dazzling trail of emerald stardust in its wake. At 10-15s, the dragon climbs vertically through golden clouds toward the morning sun, letting out an epic, majestic roar of triumph as brilliant aurora light ripples across the dawn horizon. Volumetric lighting, 8k resolution, fluid organic motion, ultra-detailed textures, Pixar cinematic lighting.",
+        "【第一幀無縫銜接】：以 Buddy-5.jpeg 成龍翡翠巨龍為起點。\n【視覺核心】：巨大翡翠翼展、熱帶巨樹浮島俯衝、金色晨曦極光波紋。\n【音畫同步】：振翅破空聲、清脆鳥鳴與樹海呼嘯、高亢榮耀龍吟。"
     ),
     (
         "A. 巨獸養成聖域 (4大神獸)",
@@ -58,10 +56,10 @@ data = [
         "BST_ANIM_02_Ray.mp4",
         "videos/beasts/BST_ANIM_02_Ray.mp4",
         "images/ui/Ray-5.jpeg",
-        "暮色雷暴雲海、高聳紫晶懸崖、浮空機械航道、金色閃電電弧、音爆雲環 (Sonic Boom Rings)。",
+        "高聳紫晶懸崖頂端、滾滾金色雷雲、耀眼金藍電弧、音爆氣流圈、落日晚霞平靜雲海。",
         "【0~5s】：第一幀起步，金色獅鷲展露如刀鋒般的金羽，雙翼凝聚耀眼金藍電弧，伴隨破空音爆聲，以極限速度衝出紫晶崖頂。\n【5~10s】：鏡頭平行側飛跟拍，獅鷲在滾滾雷雲中進行高速滾轉特技，雙翼撕裂暴風雨雲層，無害的金黃色天雷沿著羽梢不斷躍動。\n【10~15s】：獅鷲突破音障衝出暴風雨，暮色晚霞破雲而出，獅鷲在金色落日與平靜雲海之上展開遮天羽翼優雅滑翔，鏡頭側逆光展示金光輪廓。",
-        "Cinematic 3D animation, Pixar Disney animation quality, initiating exactly from the first frame image. A magnificent adult golden-feathered thunder gryphon launches off a jagged purple-crystal cliff into twilight storm clouds. At 0-5s, camera focuses on its sharp golden beak and electrifying azure eyes as crackling golden lightning arcs envelop its massive wings, triggering a sonic shockwave ring as it rockets forward. At 5-10s, dynamic side-tracking high-speed camera flying parallel to the gryphon as it executes thrilling aerial barrel rolls through towering thunderclouds, golden electricity ribboning across its metallic feather tips. At 10-15s, the thunder sovereign pierces through the storm into serene golden sunset skies, spreading its colossal wingspan to glide effortlessly over a golden sea of clouds, triumphant noble expression, volumetric god rays, hyper-detailed feather physics, 4K, 60fps, exhilarating epic energy.",
-        "【第一幀無縫銜接】：以 Ray-5.jpeg 金翼獅鷲天尊為起點。\n【視覺核心】：極限速度感、破音障衝擊波、金色電弧在雷雲與黃金落日交錯。\n【音畫同步】：電弧嘶鳴聲、音爆重低音、穿雲後的澄澈悠揚配樂。"
+        "Cinematic 3D animation, Pixar Disney animation quality, initiating exactly from the first frame image. A magnificent adult golden thunder gryphon with razor-sharp lightning-infused feathers and glowing blue crystal eyes perches atop a stormy violet cliff. At 0-5s, brilliant harmless gold lightning crackles along its feather tips, creating a sonic pop as the gryphon leaps aggressively into supersonic flight. At 5-10s, high-speed tracking action camera racing alongside the gryphon as it executes thrilling barrel rolls through towering purple thunderclouds, slicing through stormy gusts with majestic golden wingtips. At 10-15s, the gryphon breaches the cloud layer into a breathtaking golden sunset above the sea of clouds, spreading its immense wings in a peaceful, victorious glide while golden evening rim light silhouettes its heroic form. Masterpiece grade CGI, octane render look, intense dynamic energy, crisp particle physics.",
+        "【第一幀無縫銜接】：以 Ray-5.jpeg 雷恩成年金羽獅鷲為起點。\n【視覺核心】：極限音爆、金色電弧粒子跳躍、穿透暴風雨破曉黃金雲海。\n【音畫同步】：雷電劈啪劈啪聲、音爆呼嘯震撼、雄鷹長嘯展翅。"
     ),
     (
         "A. 巨獸養成聖域 (4大神獸)",
@@ -91,7 +89,7 @@ data = [
     ),
 
     # -------------------------------------------------------------
-    # Category B: 5 Skyscraper Completed Animations
+    # Category B: 5 Skyscraper Completed Animations (CORRECTED MATCHING)
     # -------------------------------------------------------------
     (
         "B. 摩天大樓島 (5大世界名樓)",
@@ -101,224 +99,237 @@ data = [
         "SKY_ANIM_01_Taipei101.mp4",
         "videos/skyscrapers/SKY_ANIM_01_Taipei101.mp4",
         "images/ui/SKY-01.jpeg",
-        "竹節層疊綠色玻璃帷幕、塔頂雷射探照燈、象山俯瞰夜景視角、跨年百萬金色煙火瀑布、信義區璀璨車軌。",
-        "【0~5s】：由 SKY-01.jpeg 第一幀銜接，巨大金色吊車將頂層最後一塊金磚與避雷針精準安嵌，整座綠色竹節寶塔逐層點亮翡翠琉璃光芒。\n【5~10s】：鏡頭以 360 度急速空拍圍繞台北 101 由下向上螺旋盤旋上升，俯瞰整座璀璨繁華的台北市盆地夜景與五彩車流。\n【10~15s】：鏡頭升至塔頂尖端，101 塔身四面同時爆發出盛大壯麗的金色與粉紫色跨年煙火光瀑，塔頂射出直通星空的金色雷射光柱，全城歡呼，定格為奇蹟之樓。",
-        "Cinematic 3D architectural animation, Pixar Disney celebration style, starting from the first frame image of Taipei 101. At 0-5s, a golden construction crane perfectly drops the final luminous spire piece onto the apex of Taipei 101, triggering a magnificent wave of emerald green and golden lights illuminating each stacked bamboo-pagoda section from bottom to top. At 5-10s, thrilling 360-degree spiral drone shot ascending rapidly along the skyscraper facade, revealing the breathtaking panoramic night cityscape of vibrant neon Taipei below. At 10-15s, camera crests the glowing spire as monumental colorful celebratory fireworks erupt from all sides of the tower into the starry night sky, brilliant golden spotlights illuminating the clouds, ultra-detailed glass reflections, 4K resolution, 60fps, festive triumphant wonder.",
-        "【第一幀銜接】：以 SKY-01.jpeg 台北 101 特寫為起始。\n【建築象徵】：節節高升的竹節結構、逐層通電點亮琉璃光、盛大跨年煙火慶典。\n【視覺亮點】：台北夜景全景空拍、塔頂雷射貫穿星空。"
+        "8 節竹節層疊如意造型、綠色翡翠琉璃玻璃帷幕、避雷針頂部、信義區璀璨夜景、金色與紫色跨年百萬煙火瀑布。",
+        "【0~5s】：由 SKY-01.jpeg 第一幀銜接，金黃色起重吊車將頂部最後一節竹節與避雷天線精準安嵌，整座綠色竹節寶塔逐層點亮璀璨翡翠琉璃光輝。\n【5~10s】：鏡頭以 360 度急速空拍圍繞台北 101 由下向上螺旋盤旋上升，俯瞰整座璀璨繁華的台北市盆地夜景與信義區五彩車流。\n【10~15s】：鏡頭升至塔頂尖端，101 塔身四面同時爆發出盛大壯麗的金色與粉紫色跨年煙火光瀑，塔頂射出直通星空的金色雷射光柱，全城歡呼，定格為奇蹟之樓。",
+        "Cinematic 3D architectural animation, Pixar Disney celebration style, starting from the first frame image of Taipei 101 (SKY-01.jpeg). At 0-5s, a golden construction crane perfectly drops the final luminous spire piece onto the apex of Taipei 101, triggering a magnificent wave of emerald green and golden lights illuminating each stacked bamboo-pagoda section from bottom to top. At 5-10s, thrilling 360-degree spiral drone shot ascending rapidly along the skyscraper facade, revealing the breathtaking panoramic night cityscape of vibrant neon Taipei below. At 10-15s, camera crests the glowing spire as monumental colorful celebratory fireworks erupt from all sides of the tower into the starry night sky, brilliant golden spotlights illuminating the clouds, ultra-detailed glass reflections, 4K resolution, 60fps, festive triumphant wonder.",
+        "【第一幀銜接】：以 SKY-01.jpeg 台北 101 特寫為起始。\n【建築象徵】：節節高升的竹節如意結構、逐層通電點亮琉璃光、盛大跨年煙火慶典。\n【視覺亮點】：台北夜景全景空拍、塔頂雷射貫穿星空。"
     ),
     (
         "B. 摩天大樓島 (5大世界名樓)",
         "SKY-ANIM-02",
-        "帝國大廈 經典名樓竣工\n(Empire State Building Art-Deco)",
+        "哈里發塔 雲端神針竣工\n(Burj Khalifa Sky-Piercing Needle)",
         "15 秒",
-        "SKY_ANIM_02_EmpireState.mp4",
-        "videos/skyscrapers/SKY_ANIM_02_EmpireState.mp4",
+        "SKY_ANIM_02_BurjKhalifa.mp4",
+        "videos/skyscrapers/SKY_ANIM_02_BurjKhalifa.mp4",
         "images/ui/SKY-02.jpeg",
-        "曼哈頓黃金落日天際線、經典裝飾藝術 (Art Deco) 尖頂、飛馳的復古黃色計程車、哈德遜河金光水面、金色探照燈柱。",
-        "【0~5s】：以 SKY-02.jpeg 為起點，裝飾藝術風格的石灰石塔樓在落日餘暉下散發古典金銅光輝，最後一座復古鋼架完成鉚接，整座大樓巍然屹立。\n【5~10s】：鏡頭從曼哈頓街道由低向高垂直急速仰衝爬升，掠過無數對稱的經典窗格與鋁合金浮雕飾帶，落日金光在窗玻璃上折射出絢爛光芒。\n【10~15s】：鏡頭躍出塔頂避雷天線，迎向深邃溫暖的黃金時段夕陽天際線，四盞巨型白色復古探照燈在天空交錯掃動，金色五彩碎紙如雨飄落，經典永恆。",
-        "Cinematic 3D animation, vintage Art Deco cinematic masterpiece, initiating from the first frame of the Empire State Building. At 0-5s, the grand limestone skyscraper gleams in radiant late-afternoon golden hour sunlight as the final vintage steel framework locks seamlessly into place atop the mooring mast. At 5-10s, a dramatic vertical soaring drone camera rockets straight up the facade, skimming past thousands of sun-reflecting windows and geometric art-deco eagle sculptures. At 10-15s, the camera crests the illuminated spire, revealing the epic Manhattan skyline and Hudson River bathed in warm sunset orange and purple hues, with iconic white celebration beam searchlights sweeping across the sky as golden confetti sparkles in the wind, timeless majestic atmosphere, 4K, 60fps.",
-        "【第一幀銜接】：以 SKY-02.jpeg 帝國大廈建築立面為起始。\n【建築象徵】：百老匯與曼哈頓黃金時代經典、裝飾藝術幾何雕花、探照燈交錯。\n【視覺亮點】：極速垂直垂直爬升視角、金色夕陽映照整座曼哈頓島。"
+        "三瓣沙漠之花 Y 形遞減層次、世界第一高銀亮金屬科技感、杜拜音樂噴泉湖泊、阿拉伯灣日落金光、雲海倒灌平流層。",
+        "【0~5s】：以 SKY-02.jpeg 哈里發塔為起點，銀白色梯級建築在阿拉伯灣落日餘暉下反射耀眼金芒，最頂端數十米鋼製尖塔完成精密對接，光環逐級向下綻放。\n【5~10s】：鏡頭以超廣角垂直俯衝加速，沿著銀色金屬反光帷幕從八百米雲端如閃電般直墜，掠過底層如夢似幻的杜拜音樂噴泉巨型水幕秀。\n【10~15s】：鏡頭瞬間反向拉升躍出雲海，破雲而出屹立於平流層星空之下，哈里發塔通體射出萬道璀璨的銀河雷射矩陣，照亮整座沙漠綠洲都市，冠絕全球！",
+        "Cinematic 3D architectural animation, hyper-scale cinematic masterpiece, starting from the first frame image of Burj Khalifa (SKY-02.jpeg). At 0-5s, golden hour sunlight washes over the iconic Y-shaped stepped silver glass tower as the ultra-slender pinnacle needle spire snaps firmly into place, pulsing a wave of brilliant white-gold LED light cascading down 828 meters. At 5-10s, a thrilling, vertigo-inducing first-person drone dive rushes vertically down the mirrored metallic curtain walls, revealing the dancing fountains spraying water jets across turquoise lakes below. At 10-15s, the camera swoops back up into deep twilight, breaking through the sea of clouds where Burj Khalifa's pinnacle touches the stars, releasing an epic 360-degree laser and firework festival across the entire desert oasis metropolis, 4K, 60fps, absolute pinnacle wonder.",
+        "【第一幀銜接】：以 SKY-02.jpeg 哈里發塔為起始（原配對錯位已修正）。\n【建築象徵】：三瓣沙漠之花幾何層次、828米平流層高度、銀白金屬反光質感。\n【視覺亮點】：垂直萬米俯衝與穿雲破曉、水舞噴泉全景、平流層雷射光網。"
     ),
     (
         "B. 摩天大樓島 (5大世界名樓)",
         "SKY-ANIM-03",
-        "哈利法塔 雲端神針竣工\n(Burj Khalifa Sky-Piercing Needle)",
+        "上海中心大廈 螺旋巨龍竣工\n(Shanghai Tower Spiral Dragon Spire)",
         "15 秒",
-        "SKY_ANIM_03_BurjKhalifa.mp4",
-        "videos/skyscrapers/SKY_ANIM_03_BurjKhalifa.mp4",
+        "SKY_ANIM_03_ShanghaiTower.mp4",
+        "videos/skyscrapers/SKY_ANIM_03_ShanghaiTower.mp4",
         "images/ui/SKY-03.jpeg",
-        "杜拜天際線、浩瀚雲海 (Sea of Clouds)、銀白不鏽鋼反光立面、世界最高人工瀑布水舞、璀璨雷射水銀天芒。",
-        "【0~5s】：以 SKY-03.jpeg 為起點，銀白色的花瓣型塔樓底部向上傳遞一道耀眼的銀白光環，直入八百米九霄雲海，天際線萬籟俱寂。\n【5~10s】：空拍鏡頭從浩瀚壯觀的白色雲海上方俯衝直下，緊貼著哈利法塔極具未來感的三叉翼立面盤旋下落，如同一柄穿透雲層的星際神針。\n【10~15s】：鏡頭拉遠為全景，塔底全世界最大的音樂噴泉騰空萬道水柱，塔身八百米 LED 螢幕綻放出彩虹色的「KAI-SPEAK CHAMPION」光效，震撼寰宇。",
-        "Cinematic 3D architectural masterpiece, ultra-futuristic Pixar wonder style, starting from the Burj Khalifa first frame. At 0-5s, a brilliant pulse of silver starlight travels from the flower-shaped base all the way up the 828-meter skyscraper, piercing through thick fluffy clouds into sapphire blue outer skies. At 5-10s, an exhilarating supersonic aerial dive from above the cloud sea, spiraling down alongside the reflective steel and glass Y-shaped wings, capturing shimmering sunlight dancing on the curved tiers. At 10-15s, wide panoramic reveal showing the entire monumental needle piercing the clouds, with world-famous dancing water fountain jets shooting hundreds of feet in synchronization below and cascading golden celebration light beams enveloping the skyscraper, 4K, 60fps, awe-inspiring scale.",
-        "【第一幀銜接】：以 SKY-03.jpeg 哈利法塔為起點。\n【建築象徵】：世界第一高樓、穿透雲海的星際神針、三叉幾何花瓣結構。\n【視覺亮點】：穿透雲海的超高速俯衝跳水鏡頭、底部世界級音樂噴泉共舞。"
+        "120度旋轉雙層玻璃幕牆、流線型圓角與空中綠色花園、黃浦江 S 型江水倒影、外灘萬國建築群與陸家嘴賽博夜景、金色祥龍光帶。",
+        "【0~5s】：以 SKY-03.jpeg 第一幀為起點，雙層玻璃帷幕猶如一條蜿蜒巨龍旋轉盤旋而上，最後一圈圓弧頂部帷幕閉合，巨龍歸位。\n【5~10s】：鏡頭跟隨一條金色光龍沿著 120 度旋轉上升的螺旋軌道直衝六百米高空，黃浦江兩岸的萬家燈火與外灘鐘樓在身後如波浪展現。\n【10~15s】：鏡頭躍出雲霧頂層的冠頂觀景台，陸家嘴三件套在雲霧夜景中熠熠生輝，上海中心大廈旋轉發射出金色與深紅的祥龍光暈，祥瑞君臨大地。",
+        "Cinematic 3D animation, breathtaking futuristic urban animation style, beginning smoothly from the Shanghai Tower first frame (SKY-03.jpeg). At 0-5s, the elegant 120-degree twisting spiral glass double-curtain facade completes its majestic ascent, glowing with soft champagne gold and jade reflections like a slumbering coiled sky dragon. At 5-10s, a thrilling ascending roller-coaster camera tracks a golden light beam spiraling smoothly around the curved twisting grooves, showcasing the winding Huangpu River and historical Bund lights sparkling far below. At 10-15s, the camera crests the crown spire through ethereal mist into the futuristic Pudong night sky, the twisting tower pulsing with a grand harmonic light festival of golden and crimson ribbons, cinematic volumetric city fog, 4K, 60fps, majestic and legendary.",
+        "【第一幀銜接】：以 SKY-03.jpeg 上海中心大廈為起點（原配對錯位已修正）。\n【建築象徵】：120度旋轉上升的雙層旋轉巨龍、陸家嘴核心天際線、黃浦江水之印。\n【視覺亮點】：沿著螺旋凹槽急速盤旋爬升鏡頭、外灘夜景全貌、頂層祥龍慶典光芒。"
     ),
     (
         "B. 摩天大樓島 (5大世界名樓)",
         "SKY-ANIM-04",
-        "默迪卡 118 鑽石天際塔竣工\n(Merdeka 118 Diamond Facet Tower)",
+        "帝國大廈 經典名樓竣工\n(Empire State Building Art-Deco)",
         "15 秒",
-        "SKY_ANIM_04_Merdeka118.mp4",
-        "videos/skyscrapers/SKY_ANIM_04_Merdeka118.mp4",
+        "SKY_ANIM_04_EmpireState.mp4",
+        "videos/skyscrapers/SKY_ANIM_04_EmpireState.mp4",
         "images/ui/SKY-04.jpeg",
-        "多面體三角形玻璃鑽石切面、超長擎天尖頂天線、熱帶雨林城市微縮全景、藍紫水晶 LED 動態燈光矩陣。",
-        "【0~5s】：以 SKY-04.jpeg 第一幀銜接，鑽石多面體幾何玻璃在藍紫日光下如同巨大水晶寶石，塔頂超長尖頂天線綻放出第一道啟動星芒。\n【5~10s】：鏡頭以極度動感視角圍繞鑽石菱形切面做大角度傾斜飛行，每塊三角形玻璃如同一面面鏡子，折射出熱帶吉隆坡雙子塔與綠意森林。\n【10~15s】：塔身數萬顆菱形 LED 水晶燈陣如同多米諾骨牌般整齊點亮，天線頂端射出一道直通平流層的青藍色極光信標，如同大地之鑽閃耀宇宙。",
-        "Cinematic 3D animation, sleek modern architectural spectacle, beginning with the first frame of Merdeka 118. At 0-5s, the diamond-faceted triangular glass panels shimmer with crystalline cyan and violet reflections as the soaring needle spire reaches the sky, initiating its pinnacle beacon. At 5-10s, dynamic tilt-shift aerobatic drone camera swooping around the faceted prism corners, capturing sharp geometric reflections of tropical green landscapes and distant twin towers mirrored on the futuristic glass surfaces. At 10-15s, the entire crystalline facade cascades with dynamic waves of turquoise LED illumination from bottom to top, culminating in an awe-inspiring pillar of cyan light firing from the very tip into the twilight clouds, sharp crystalline aesthetics, 4K resolution, 60fps, ultra-modern triumph.",
-        "【第一幀銜接】：以 SKY-04.jpeg 默迪卡 118 未來天際塔為起點。\n【建築象徵】：如鑽石切割的多面體水晶立面、超高天線尖針、現代幾何奇蹟。\n【視覺亮點】：三角稜鏡對稱折射、青藍色 LED 矩陣波浪、平流層信標光柱。"
+        "曼哈頓黃金落日天際線、經典裝飾藝術 (Art Deco) 幾何階梯退縮、飛船繫留塔尖、穿梭的黃色計程車車流、四柱交錯復古白色探照燈。",
+        "【0~5s】：以 SKY-04.jpeg 為起點，裝飾藝術風格的石灰石塔樓在落日餘暉下散發古典金銅光輝，最後一座復古鋼架完成鉚接，整座大樓巍然屹立。\n【5~10s】：鏡頭從曼哈頓街道由低向高垂直急速仰衝爬升，掠過無數對稱的經典窗格與鋁合金浮雕飾帶，落日金光在窗玻璃上折射出絢爛光芒。\n【10~15s】：鏡頭躍出塔頂避雷天線，迎向深邃溫暖的黃金時段夕陽天際線，四盞巨型白色復古探照燈在天空交錯掃動，金色五彩碎紙如雨飄落，經典永恆。",
+        "Cinematic 3D animation, vintage Art Deco cinematic masterpiece, initiating from the first frame of the Empire State Building (SKY-04.jpeg). At 0-5s, the grand limestone skyscraper gleams in radiant late-afternoon golden hour sunlight as the final vintage steel framework locks seamlessly into place atop the mooring mast. At 5-10s, a dramatic vertical soaring drone camera rockets straight up the facade, skimming past thousands of sun-reflecting windows and geometric art-deco eagle sculptures. At 10-15s, the camera crests the illuminated spire, revealing the epic Manhattan skyline and Hudson River bathed in warm sunset orange and purple hues, with iconic white celebration beam searchlights sweeping across the sky as golden confetti sparkles in the wind, timeless majestic atmosphere, 4K, 60fps.",
+        "【第一幀銜接】：以 SKY-04.jpeg 帝國大廈建築立面為起始（原配對錯位已修正）。\n【建築象徵】：百老匯與曼哈頓黃金時代經典、裝飾藝術幾何雕花、探照燈交錯。\n【視覺亮點】：極速垂直爬升視角、金色夕陽映照整座曼哈頓島。"
     ),
     (
         "B. 摩天大樓島 (5大世界名樓)",
         "SKY-ANIM-05",
-        "上海中心大廈 螺旋巨龍竣工\n(Shanghai Tower Spiral Dragon Spire)",
+        "默迪卡 118 鑽石天際塔竣工\n(Merdeka 118 Diamond Facet Tower)",
         "15 秒",
-        "SKY_ANIM_05_ShanghaiTower.mp4",
-        "videos/skyscrapers/SKY_ANIM_05_ShanghaiTower.mp4",
+        "SKY_ANIM_05_Merdeka118.mp4",
+        "videos/skyscrapers/SKY_ANIM_05_Merdeka118.mp4",
         "images/ui/SKY-05.jpeg",
-        "雙層玻璃幕牆旋轉 120 度螺旋升騰、黃浦江 S 型江水倒影、外灘萬國建築群與陸家嘴賽博夜景、金色龍形光帶。",
-        "【0~5s】：以 SKY-05.jpeg 第一幀為起點，雙層玻璃帷幕猶如一條蜿蜒巨龍旋轉盤旋而上，最後一圈圓弧幕牆合攏，巨龍歸位。\n【5~10s】：鏡頭跟隨一條金色光龍沿著 120 度旋轉上升的螺旋軌道直衝六百米高空，黃浦江兩岸的萬家燈火與外灘鐘樓在身後如波浪展現。\n【10~15s】：鏡頭躍出雲霧頂層的冠頂觀景台，陸家嘴三件套在雲霧夜景中熠熠生輝，上海中心大廈旋轉發射出金色與深紅的祥龍光暈，祥瑞君臨大地。",
-        "Cinematic 3D animation, breathtaking futuristic urban animation style, beginning smoothly from the Shanghai Tower first frame. At 0-5s, the elegant 120-degree twisting spiral glass double-curtain facade completes its majestic ascent, glowing with soft champagne gold and jade reflections like a slumbering coiled sky dragon. At 5-10s, a thrilling ascending roller-coaster camera tracks a golden light beam spiraling smoothly around the curved twisting grooves, showcasing the winding Huangpu River and historical Bund lights sparkling far below. At 10-15s, the camera crests the crown spire through ethereal mist into the futuristic Pudong night sky, the twisting tower pulsing with a grand harmonic light festival of golden and crimson ribbons, cinematic volumetric city fog, 4K, 60fps, majestic and legendary.",
-        "【第一幀銜接】：以 SKY-05.jpeg 上海中心大廈為起點。\n【建築象徵】：120度旋轉上升的雙層旋轉巨龍、陸家嘴核心天際線、黃浦江水之印。\n【視覺亮點】：沿著螺旋凹槽急速盤旋爬升鏡頭、外灘夜景全貌、頂層祥龍慶典光芒。"
+        "鑽石幾何多面切割晶體外殼、超長優雅垂直天線尖頂、空中綠洲露台、吉隆坡熱帶黃昏雲海、青藍色 LED 晶面脈衝。",
+        "【0~5s】：由 SKY-05.jpeg 第一幀銜接，鑽石多面切割立面在熱帶晚霞下折射出如稜鏡般的五彩虹光，超長天線尖塔完成最終校準，通體晶瑩剔透。\n【5~10s】：鏡頭以動態側飛視角掠過多面幾何三角玻璃晶面，觀察光影在吉隆坡熱帶綠意與現代城市天際線之間的快速流動。\n【10~15s】：鏡頭由低角度仰拍躍升至頂峰尖針，整座 678.9 米鑽石神塔啟動通體青藍色與純金色相間的慶典燈光秀，塔頂光束劃破蒼穹，宣告現代建築奇蹟落成！",
+        "Cinematic 3D architectural animation, luxury modern style, initiating smoothly from the Merdeka 118 first frame (SKY-05.jpeg). At 0-5s, the triangular multi-faceted crystalline glass facade gleams like a finely-cut raw diamond under a warm tropical dusk, as the soaring pinnacle spire gently docks and locks into position. At 5-10s, dynamic low-altitude drone orbit capturing the iridescent rainbow reflections dancing across thousands of angular diamond mirrors, overlooking the sprawling green hills and cityscape of Kuala Lumpur. At 10-15s, the camera swoops up to the apex observation deck as the entire Merdeka tower pulses with a rhythmic cascading wave of gold and cyan LED illumination from bottom to top, culminating in an awe-inspiring pillar of cyan light firing from the very tip into the twilight clouds, sharp crystalline aesthetics, 4K resolution, 60fps, ultra-modern triumph.",
+        "【第一幀銜接】：以 SKY-05.jpeg 默迪卡 118 未來天際塔為起點（原配對錯位已修正）。\n【建築象徵】：如鑽石切割的多面體水晶立面、超高天線尖針、現代幾何奇蹟。\n【視覺亮點】：三角稜鏡對稱折射、青藍色 LED 矩陣波浪、平流層信標光柱。"
     ),
 
     # -------------------------------------------------------------
-    # Category C: 5 Adventure Island Galaxy Boss Clear Animations
+    # Category C: 5 Adventure Island Galaxy Boss Clear Animations (CORRECTED CONFLICTS)
     # -------------------------------------------------------------
     (
         "C. 探險島星系 (5大島嶼終極通關)",
         "ISL-ANIM-01",
-        "第一島 · 隕石擊墜終極大捷\n(Meteor Island Boss Annihilation)",
+        "第一島 · 隕石擊墜終極大捷\n(Meteor Crystal Island Boss Defeat)",
         "15 秒",
         "ISL_ANIM_01_MeteorDefense.mp4",
         "videos/islands/ISL_ANIM_01_MeteorDefense.mp4",
         "images/ui/ISL-01.jpeg",
-        "燃燒的紫黑巨型魔王隕石、Kai 騎乘的烈焰噴火龍、彩虹音波雷射重砲 (Rainbow Sonic Cannon)、太空星雲星塵煙火。",
-        "【0~5s】：第一幀銜接，最後一顆遮天蔽日的暗黑骷髏巨型隕石呼嘯墜落，Kai 騎乘在火龍背上堅定握拳，火龍胸口匯聚出彩虹色強大音波能量。\n【5~10s】：Kai 振臂大聲喊出終極口號，火龍口中轟然噴射出直徑數十米的彩虹音波雷射光束，筆直貫穿魔王隕石核心，裂紋瞬間蔓延。\n【10~15s】：巨型隕石在宇宙星空中轟然瓦解，炸裂成萬千顆五彩斑斕的星塵煙火如流星雨般灑向星系，Kai 與火龍擊掌歡呼，第一島防衛成功！",
-        "Cinematic 3D space-action animation, Pixar superhero style, starting from the first frame of Meteor Island. At 0-5s, a colossal glowing purple boss meteor with glowing magma cracks plummets menacingly towards the island planet, as cute hero kid Kai riding his fierce friendly red fire dragon charges bravely upwards, dragon's chest glowing with supercharged rainbow sonic energy. At 5-10s, Kai shouts a heroic command and the fire dragon unleashes a monumental beam of iridescent rainbow laser soundwaves directly through the heart of the dark meteor, shattering its crust into millions of cracks. At 10-15s, the giant boss meteor explodes harmlessly into magnificent colorful starfireworks, sparkling diamond confetti washing across space, Kai and his dragon do a mid-air high five, celebratory cosmic victory, 4K, 60fps.",
-        "【第一幀銜接】：以 ISL-01.jpeg 第一島全景為起點。\n【核心劇情】：Kai 騎龍發射終極彩虹音波雷射砲，正面轟碎魔王隕石。\n【視覺亮點】：隕石在太空中化作萬千星塵煙火、英雄少男與火龍空中擊掌慶祝。"
+        "懸浮紫色水晶簇、神秘發光洞窟入口、小型隕石坑、Kai 騎乘的烈焰噴火龍、彩虹音波雷射重砲、太空白熱星塵煙火。",
+        "【0~5s】：第一幀由 ISL-01.jpeg 水晶洞窟島銜接，天際最後一顆遮天蔽日的暗黑骷髏巨型隕石呼嘯墜落，Kai 騎乘烈焰龍由洞窟神廟騰空而起。\n【5~10s】：Kai 堅定大聲喊出單字口號，烈焰龍口中轟然噴射出直徑數十米的彩虹音波雷射光束，筆直貫穿魔王隕石核心，裂紋瞬間蔓延。\n【10~15s】：巨型隕石在水晶島天空中轟然瓦解，炸裂成萬千顆五彩斑斕的星塵煙火如流星雨般灑向大地，紫色水晶簇全數發光共鳴，Kai 與火龍在半空擊掌大獲全勝！",
+        "Cinematic 3D space-action animation, Pixar superhero style, starting smoothly from the first frame image of Meteor Crystal Island (ISL-01.jpeg). At 0-5s, a colossal glowing purple skull-faced boss meteor plummets from the burning sky toward the floating island, while brave kid hero Kai mounted on his friendly red dragon launches from the crystal cave temple with fierce determination. At 5-10s, Kai shouts a heroic English command, and the fire dragon unleashes a monumental beam of iridescent rainbow soundwave laser directly into the molten core of the meteor, spiderweb cracks spreading rapidly. At 10-15s, the gigantic meteor completely shatters into millions of harmless glittering stardust fireworks and sparkling confetti raining over the glowing purple crystal peaks, Kai and his dragon high-fiving mid-air in triumphant celebration, 4K resolution, 60fps, joyful and epic.",
+        "【第一幀銜接】：以 ISL-01.jpeg 水晶洞窟島全景為起點。\n【核心劇情】：Kai 騎龍發射終極彩虹音波雷射砲，正面轟碎魔王隕石。\n【視覺亮點】：隕石在太空中化作萬千星塵煙火、英雄少男與火龍空中擊掌慶祝。"
     ),
     (
         "C. 探險島星系 (5大島嶼終極通關)",
         "ISL-ANIM-02",
-        "第二島 · 摩天大樓群島金頂榮耀\n(Skyscraper Island Metropolis Glory)",
+        "第二島 · 摩天大樓建造島天際大成\n(Skyscraper Builder Island Metropolis Glory)",
         "15 秒",
         "ISL_ANIM_02_SkyscraperMetropolis.mp4",
         "videos/islands/ISL_ANIM_02_SkyscraperMetropolis.mp4",
         "images/ui/ISL-02.jpeg",
-        "海島上並立的五大世界摩天大樓、金色天秤巨型起重機、金色天際線能量網絡、島嶼狂歡彩帶。",
-        "【0~5s】：以第二島整體地圖為起點，海島上的五座摩天大樓全部建造完工，金色巨型起重機緩緩退場，夕陽將整座島嶼染成燦爛純金。\n【5~10s】：五座大樓尖頂同時射出金色能量光束，在海島天空中交織成一座巨大的「智慧之冠」光之幾何網絡，照亮整片蔚藍海洋。\n【10~15s】：鏡頭以超低空高速掠過海浪，隨後猛烈仰衝穿過五座摩天大樓之間的立體天橋，全城鐘聲齊鳴，無數熱氣球升空，建築工程大圓滿！",
-        "Cinematic 3D animation, Pixar utopian paradise style, initiating smoothly from the Skyscraper Island map. At 0-5s, camera sweeps over the sun-drenched island showcasing all 5 iconic world skyscrapers standing completed in magnificent harmony, giant golden construction cranes gently bowing in celebration. At 5-10s, all 5 skyscraper pinnacles simultaneously fire beams of luminous golden light into the sky, weaving together into a radiant celestial geometric Crown of Wisdom hovering above the island. At 10-15s, thrilling dynamic drone camera swoops low across sapphire ocean waves and climbs up between the gleaming towers, colorful celebration hot air balloons and festive ribbons floating everywhere, majestic orchestral brass fanfare vibe, 4K, 60fps, joyful and inspiring.",
-        "【第一幀銜接】：以 ISL-02.jpeg 第二島群樓地圖為起點。\n【核心劇情】：五大世界名樓共同竣工，天頂交織成金色智慧之冠能量網。\n【視覺亮點】：海浪低空掠過至摩天峽谷垂直仰衝、熱氣球與金色彩帶全島狂歡。"
+        "雲海之上的浮島、世界 5 大經典摩天大樓群、可愛黃金塔吊起重機、金色腳手架拆卸、天頂智慧之冠幾何能量光網、彩色慶祝熱氣球。",
+        "【0~5s】：以 ISL-02.jpeg 第二島整體建造浮島為起點，海島上的五座摩天大樓全部建造完工，金色巨型塔吊起重機緩緩退場，夕陽將整座浮島染成燦爛純金。\n【5~10s】：五座大樓尖頂同時射出金色能量光束，在浮島天空中交織成一座巨大的「智慧之冠」光之幾何網絡，照亮整片雲海與蔚藍海洋。\n【10~15s】：鏡頭以超低空高速掠過雲浪，隨後猛烈仰衝穿過五座摩天大樓之間的立體空中天橋，全城鐘聲齊鳴，無數彩色慶祝熱氣球升空，建築工程大圓滿！",
+        "Cinematic 3D animation, Pixar utopian builder style, initiating directly from Skyscraper Builder Island (ISL-02.jpeg). At 0-5s, golden hour sunlight washes over the floating builder island where all five iconic skyscrapers stand tall and complete, animated yellow cranes cheerfully waving and folding away. At 5-10s, every skyscraper pinnacle simultaneously shoots a pillar of radiant golden light into the blue sky, interweaving into a majestic geometric dome of architectural achievement above the clouds. At 10-15s, the camera takes an exhilarating swooping fly-through between skybridges connecting the towers, as hundreds of colorful hot-air balloons drift gracefully into the sunset sky and golden streamers cascade across the city, monumental celebration, 4K, 60fps, inspiring and majestic.",
+        "【第一幀銜接】：以 ISL-02.jpeg 第二島群樓建造地圖為起點。\n【核心劇情】：五大世界名樓共同竣工，天頂交織成金色智慧之冠能量網。\n【視覺亮點】：海浪低空掠過至摩天峽谷垂直仰衝、熱氣球與金色彩帶全島狂歡。"
     ),
     (
         "C. 探險島星系 (5大島嶼終極通關)",
         "ISL-ANIM-03",
-        "第三島 · 四大神獸完全體天際翱翔\n(Four Sovereigns Sky Flight Reunion)",
+        "第三島 · 恐龍叢林與神獸共鳴大捷\n(Dino Prehistoric Island & Beast Resonance Triumph)",
         "15 秒",
-        "ISL_ANIM_03_BeastSanctuaryAwakening.mp4",
-        "videos/islands/ISL_ANIM_03_BeastSanctuaryAwakening.mp4",
+        "ISL_ANIM_03_DinoBeastSanctuary.mp4",
+        "videos/islands/ISL_ANIM_03_DinoBeastSanctuary.mp4",
         "images/ui/ISL-03.jpeg",
-        "四大成龍完全體（巴迪、雷恩、弗羅斯特、戈爾隆）、遠古聖域中央神聖祭壇、四色元素光柱 (綠/金/藍/紅)、浮空仙島群。",
-        "【0~5s】：以第三島遠古叢林地圖為起點，中央祭壇上的古老暗黑水晶屏障徹底爆碎，綠、金、藍、紅四道巨型天雷光柱直衝雲霄。\n【5~10s】：四大完全體傳奇成龍（翡翠天龍、金翼獅鷲、極光聖龍、炎岩泰坦）同時展翼騰空，在島嶼上空列隊翺翔，神威赫赫，神采飛揚。\n【10~15s】：四隻成龍在鏡頭前並肩做環形大迴旋特技，向天際共同引頸長鳴，天地間灑落無盡的生機繁花與元素彩虹，第三島聖域完全覺醒！",
-        "Cinematic 3D fantasy animation, Pixar Disney triumphant celebration style, initiating from the Beast Island sanctuary map. At 0-5s, the ancient dark mist crystal barrier at the sanctuary center shatters into glittering dust as four monumental columns of green, golden, cyan, and crimson elemental light erupt towards the heavens. At 5-10s, all four adult legendary sovereigns—Buddy the emerald dragon, Ray the thunder gryphon, Frost the crystal wyrm, and Gorlon the magma titan—take flight in glorious unison, swooping over lush floating jungle valleys with magnificent confidence. At 10-15s, the four majestic dragons perform an aerial loop formation directly towards the camera, letting out a harmonious joyful roar that causes vibrant magical flowers and rainbow light rings to bloom across the entire island, 4K, 60fps, legendary triumphant joy.",
-        "【第一幀銜接】：以 ISL-03.jpeg 巨獸聖域地圖為起點。\n【核心劇情】：四隻完全體成龍同台集結，解除遠古封印，列隊翺翔護島。\n【視覺亮點】：四色元素光柱衝天、四龍編隊空中大迴轉、彩虹與花雨灑滿大地。"
+        "巨型史前蕨類樹屋、溫和噴發彩色泡泡的小火山、萌萌小暴龍與長頸龍、神獸完全體翱翔、陽光灑落遠古熱帶雨林、金色恐龍神獸皇冠獎盃。",
+        "【0~5s】：以 ISL-03.jpeg 恐龍遠古叢林島為起點，畫面中的小暴龍與長頸龍在史前樹屋旁驚喜仰望，可愛的小火山噗噗噴出粉紅煙霧與彩色泡泡。\n【5~10s】：四大完全體神獸（翡翠天龍、雷鷹獅鷲、極光聖龍、熔岩泰坦）自雲端呼嘯而至，在恐龍叢林上方低空列隊翱翔，龍吟與恐龍歡鳴引起整座島嶼的金色聲波共振！\n【10~15s】：鏡頭推至島嶼中央高台，可愛的小恐龍們與神獸並肩圍繞在 Kai 身旁快樂躍動，天空綻放出一頂巨大的「遠古叢林口語大師」黃金恐龍皇冠，漫天熱帶繁花盛開！",
+        "Cinematic 3D animation, Disney Pixar prehistoric fantasy style, starting directly from the Dino Prehistoric Island first frame (ISL-03.jpeg). At 0-5s, camera focuses on the cute chubby baby T-rex and friendly long-necked brachiosaurus cheering beside giant fern treehouses, as the gentle cartoon volcano puffs soft pink clouds and floating rainbow bubbles into the sunny jungle sky. At 5-10s, the four legendary guardian beasts (Emerald Dragon, Thunder Gryphon, Glacial Wyrm, Magma Titan) swoop down gracefully through giant tree canopies and rope bridges, their harmonic voices creating ripples of golden phonics soundwaves that heal and awaken the lush ancient island. At 10-15s, Kai, the friendly dinosaurs, and the mythical dragons gather atop a sunlit cliff to celebrate together, as a glorious golden prehistoric dinosaur-and-dragon master trophy illuminates the sky, vibrant tropical petals drifting in the breeze, 4K resolution, 60fps, warmhearted and joyful.",
+        "【第一幀銜接】：以 ISL-03.jpeg 恐龍遠古叢林島為起點（已修正衝突：融合恐龍樂園與神獸共鳴）。\n【核心劇情】：可愛史前恐龍與四大成龍神獸同慶，音波共振驅散迷霧。\n【視覺亮點】：粉紅火山噴泡泡、萌萌小暴龍長頸龍同樂、熱帶繁花與黃金恐龍神獸皇冠。"
     ),
     (
         "C. 探險島星系 (5大島嶼終極通關)",
         "ISL-ANIM-04",
-        "第四島 · 聽音尋寶深海金庫開啟\n(Sunken Sonic Vault Treasure Bloom)",
+        "第四島 · 糖果夢幻點心島寶藏大盛宴\n(Sweet Candy Wonderland Maze & Treasure Bloom)",
         "15 秒",
-        "ISL_ANIM_04_SoundTreasureLabyrinth.mp4",
-        "videos/islands/ISL_ANIM_04_SoundTreasureLabyrinth.mp4",
+        "ISL_ANIM_04_CandyMazeTreasure.mp4",
+        "videos/islands/ISL_ANIM_04_CandyMazeTreasure.mp4",
         "images/ui/ISL-04.jpeg",
-        "海底亞特蘭提斯神廟金庫、音符共鳴黃金音叉鑰匙、噴湧的七彩寶石與黃金寶箱、發光水母與海豚衛隊。",
-        "【0~5s】：以第四島尋寶迷宮為起點，Kai 插入最後一把發光的古代音波黃金鑰匙，整座沉沒海底的巨型珊瑚黃金大門緩緩開啟。\n【5~10s】：大門向兩側轟鳴打開，金色光芒照亮整個深邃海溝，無數散發著溫暖神聖光芒的遠古英文字母寶石與黃金寶藏如噴泉般湧出。\n【10~15s】：鏡頭在金光燦爛的水下神殿中高速穿梭，一群發光海豚在寶藏噴泉中歡快躍水跳躍，Kai 高高舉起象徵智慧的古代金羊毛獎盃，寶藏大豐收！",
-        "Cinematic 3D fantasy animation, Pixar underwater magical wonderland style, starting from Sound Treasure Island. At 0-5s, an ancient golden sonic tuner key slots into the colossal sunken coral temple door, sending waves of glowing musical notes cascading across underwater ruins. At 5-10s, the monumental golden vault doors slide open, releasing a dazzling eruption of glowing English alphabet gemstones, diamond crowns, and treasure crystals into the crystal-clear ocean waters. At 10-15s, sweeping cinematic underwater camera gliding through the shimmering golden hall as friendly glowing dolphins leap through cascades of golden coins, Kai proudly raises the legendary golden trophy of wisdom, joyful radiant lighting, 4K, 60fps, magical and lavish celebration.",
-        "【第一幀銜接】：以 ISL-04.jpeg 尋寶島地圖為起點。\n【核心劇情】：音波金鑰開啟海底遠古金庫，萬千英文寶石與黃金如噴泉爆發。\n【視覺亮點】：水下光影丁達爾效應、發光海豚群躍、高舉金羊毛智慧獎盃。"
+        "飄浮薑餅城堡、巨型七彩棒棒糖森林、流淌的溫熱牛奶巧克力河、粉紅棉花糖山丘、小熊軟糖守衛、英文字母糖果金幣雨、黃金棒棒糖智慧獎盃。",
+        "【0~5s】：以 ISL-04.jpeg 糖果夢幻點心島為起點，Kai 手持發光的黃金音叉鑰匙來到薑餅城堡門前，七彩螺旋棒棒糖森林在粉紅棉花糖雲朵下旋轉。\n【5~10s】：Kai 轉動音波鑰匙，薑餅城堡巨門歡快彈開，伴隨歡欣的音樂盒音效，融化的牛奶巧克力河歡暢奔流，噴發出無數閃耀著英文字母的彩色小熊軟糖與金箔巧克力幣！\n【10~15s】：鏡頭在糖果迷宮上空暢快飛掠，可愛的小熊軟糖們在薄荷跳跳糖石階上快樂跳舞，天空中緩緩升起一座閃耀無比的「黃金巨型棒棒糖聽力之星獎盃」，全島陷入甜蜜狂歡！",
+        "Cinematic 3D animation, whimsical Pixar candy wonderland style, starting smoothly from the first frame image of Sweet Candy Wonderland Island (ISL-04.jpeg). At 0-5s, hero kid Kai approaches the magnificent floating gingerbread castle nestled amidst towering rainbow swirl lollipop trees and cotton candy pink hills, holding a glowing golden tuning-fork microphone key. At 5-10s, unlocking the candy castle gates triggers a cheerful musical chime as the doors swing open, releasing a lavish, joyful eruption of glowing alphabet jelly beans, gold-wrapped chocolate coins, and sparkling sugar crystals flying like confetti across chocolate rivers. At 10-15s, dynamic camera swoops over the sweet candy maze where adorable bouncy gummy bears celebrate and dance on peppermint stepping stones, as a grand rotating Golden Lollipop Trophy crowns the gingerbread spire under a shower of pastel sparkle dust, 4K, 60fps, deliciously magical.",
+        "【第一幀銜接】：以 ISL-04.jpeg 糖果點心島為起點（已修正衝突：由原海底金庫改為糖果夢幻迷宮寶藏）。\n【核心劇情】：盲聽尋寶金鑰開啟薑餅城堡，噴發字母軟糖與金箔巧克力幣大盛宴。\n【視覺亮點】：巧克力河奔流、七彩棒棒糖旋轉、小熊軟糖跳舞、黃金棒棒糖皇冠獎盃。"
     ),
     (
         "C. 探險島星系 (5大島嶼終極通關)",
         "ISL-ANIM-05",
-        "第五島 · 終極魔王島破曉破滅\n(Galaxy Boss Defeat Dawn Awakening)",
+        "第五島 · 亞特蘭提斯海底城之光\n(Atlantis Coral Kingdom Arena Triumph)",
         "15 秒",
-        "ISL_ANIM_05_CosmicBossDefeat.mp4",
-        "videos/islands/ISL_ANIM_05_CosmicBossDefeat.mp4",
+        "ISL_ANIM_05_AtlantisCoralArena.mp4",
+        "videos/islands/ISL_ANIM_05_AtlantisCoralArena.mp4",
         "images/ui/ISL-05.jpeg",
-        "暗黑虛空魔王核心、全星系夥伴集結、全螢幕金色極光破曉、探險島全星系金色和平光環、終極語言之神獎盃。",
-        "【0~5s】：以第五島魔王島為起點，漆黑虛空魔王城堡正在釋放暗黑風暴，Kai 與全島神獸夥伴並肩站在山巔，無畏直面暴風。\n【5~10s】：Kai 攜手夥伴們釋放出融合了全島 2000 個單字能量的終極黃金星光長矛，一舉擊穿虛空魔王核心，黑暗如潮水般退散溶解。\n【10~15s】：一輪無比溫暖璀璨的黃金破曉之日從星系邊緣升起，溫暖陽光重新籠罩所有五座島嶼，天空中浮現出「KAI-SPEAK MASTER」傳奇金色星環，星系迎來和平！",
-        "Cinematic 3D animation, grand cosmic finale Pixar masterpiece style, beginning with the dark Final Boss Island. At 0-5s, the menacing dark void shadow fortress releases purple storm clouds, but hero kid Kai stands resolute atop a mountain surrounded by glowing mythical dragon guardians, holding the luminous Golden Voice Scepter. At 5-10s, Kai and his companions unleash a colossal beam of pure warm golden cosmic light, shattering the dark void core into dissolving purple butterflies and sparkling dust. At 10-15s, a magnificent golden dawn breaks over the entire galaxy of five adventure islands, bathing the oceans and sky in warm radiant sunlight, a giant holographic golden crown inscribed with 'KAI-SPEAK MASTER' shines proudly across the horizon, ultra-epic orchestral climax, 4K, 60fps, ultimate triumph.",
-        "【第一幀銜接】：以 ISL-05.jpeg 第五島魔王全景為起點。\n【核心劇情】：集結全星系能量一擊擊潰虛空魔王，迎來全星系黃金破曉。\n【視覺亮點】：黑暗消解化為紫色蝴蝶微粒、溫暖晨曦普照五大島嶼、宇宙級傳奇獎盃星環。"
+        "發光透明水晶氣泡穹頂 (Crystal Biodome)、七彩分支珊瑚礁宮殿、黃色卡通潛水艇、發光海豚與溫柔海龜衛隊、穿透清澈海水的金色丁達爾聖光、終極海皇金三叉戟/皇冠獎盃。",
+        "【0~5s】：以 ISL-05.jpeg 亞特蘭提斯海底珊瑚島為起點，深海中的巨型發光水晶氣泡穹頂內，競技場中央的遠古珍珠圖騰正匯聚強大的能量脈衝。\n【5~10s】：Kai 攜手海洋生物衛隊一同大聲吟誦終極單字，珍珠圖騰爆發出直貫海面的純金聖光，溫暖金光驅散深海陰霾，整片珊瑚礁宮殿被七彩霓虹與清澈碧藍海水照亮！\n【10~15s】：鏡頭在水下珊瑚城堡間高速穿梭，迷你黃色潛水艇噴出慶祝愛心氣泡，發光海豚與海龜在空中翻滾共舞，天頂浮現出「KAI-SPEAK 亞特蘭提斯海皇終極榮耀」金色三叉戟星環，星系迎來大圓滿！",
+        "Cinematic 3D animation, Pixar underwater fantasy masterpiece style, starting directly from the Deep-Sea Coral Atlantis Island (ISL-05.jpeg). At 0-5s, the camera enters through the glowing crystal bubble biodome kingdom resting on the vibrant coral reef seabed, where Kai stands confidently in the ancient pearl arena surrounded by friendly sea turtles and playful dolphins. At 5-10s, Kai channels all the master language power into the central pearl pillar, sending a blinding pulse of golden sunlight filtering deep down through the turquoise waters, illuminating towering coral reef palaces in dazzling bioluminescent colors. At 10-15s, sweeping cinematic camera tracks joyful yellow cartoon submarines puffing heart-shaped air bubbles as sea creatures dance, and a monumental holographic golden 'KAI-SPEAK OCEAN MASTER' trident-crown illuminates the ocean sky, 4K resolution, 60fps, awe-inspiring underwater paradise triumph.",
+        "【第一幀銜接】：以 ISL-05.jpeg 亞特蘭提斯水下珊瑚島為起點（已修正衝突：由原漆黑魔王島改為海底珊瑚城市王者大捷）。\n【核心劇情】：亞特蘭提斯水晶穹頂競技場大捷，終極珍珠圖騰激發金色丁達爾聖光。\n【視覺亮點】：清澈碧藍水下宮殿、發光海豚海龜翻滾、黃色潛水艇愛心泡泡、金色海皇三叉戟星環。"
     )
 ]
 
 # Set Title
 ws.merge_cells("A1:K1")
 title_cell = ws["A1"]
-title_cell.value = "KaiSpeak 奇妙星 15 秒高清終極通關動畫提示詞總表 (MiniMax Video-01 專用)"
+title_cell.value = "KaiSpeak 奇妙星 15 秒高清終極通關動畫提示詞總表 (MiniMax Video-01 專用 · 修正版)"
 title_cell.font = Font(name="Arial", size=16, bold=True, color="FFFFFF")
-title_cell.fill = PatternFill(start_color="312E81", end_color="312E81", fill_type="solid")
+title_cell.fill = PatternFill(start_color="1E1B4B", end_color="1E1B4B", fill_type="solid")
 title_cell.alignment = Alignment(horizontal="center", vertical="center")
-ws.row_dimensions[1].height = 40
+ws.row_dimensions[1].height = 42
 
-# Set Subtitle / Instructions
+# Subtitle
 ws.merge_cells("A2:K2")
 sub_cell = ws["A2"]
-sub_cell.value = "說明：本清單專供地端 MiniMax Video-01 (海螺視頻模型) 首幀圖生視頻 (I2V) 製作。時長設定 15 秒，生成後請依建議路徑存入專案目錄。"
+sub_cell.value = "說明：本清單已精確校正「4 筆摩天大樓圖片錯位」及「恐龍島/糖果島/海底城市」圖片主題一致性。專供地端 MiniMax Video-01 首幀 I2V 15 秒動畫製作。"
 sub_cell.font = Font(name="Arial", size=10, italic=True, color="4338CA")
 sub_cell.fill = PatternFill(start_color="EEF2FF", end_color="EEF2FF", fill_type="solid")
 sub_cell.alignment = Alignment(horizontal="center", vertical="center")
-ws.row_dimensions[2].height = 25
+ws.row_dimensions[2].height = 26
 
-# Header formatting
-ws.row_dimensions[3].height = 32
+# Headers
+headers = [
+    "分類",
+    "編號",
+    "項目名稱 (英中文)",
+    "目標時長",
+    "建議檔案名稱",
+    "目標存放路徑",
+    "首幀圖生視頻 (I2V) 參考圖",
+    "專屬場景特色元素",
+    "15秒鏡頭動態節奏 (0~5s, 5~10s, 10~15s)",
+    "MiniMax 影片生成提示詞 (英文 Prompt)",
+    "提示詞中文意境解析與特效要點 (修正說明)"
+]
+
+header_fill = PatternFill(start_color="312E81", end_color="312E81", fill_type="solid")
 header_font = Font(name="Arial", size=11, bold=True, color="FFFFFF")
-header_fill = PatternFill(start_color="4F46E5", end_color="4F46E5", fill_type="solid")
 thin_border = Border(
     left=Side(style="thin", color="CBD5E1"),
     right=Side(style="thin", color="CBD5E1"),
     top=Side(style="thin", color="CBD5E1"),
-    bottom=Side(style="thin", color="CBD5E1")
+    bottom=Side(style="thin", color="CBD5E1"),
 )
 
-for col_idx, header in enumerate(headers, 1):
-    cell = ws.cell(row=3, column=col_idx, value=header)
-    cell.font = header_font
+for col_num, h_text in enumerate(headers, 1):
+    cell = ws.cell(row=3, column=col_num)
+    cell.value = h_text
     cell.fill = header_fill
+    cell.font = header_font
     cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
     cell.border = thin_border
+ws.row_dimensions[3].height = 32
 
-# Fill data rows
-row_start = 4
-for row_idx, item in enumerate(data, row_start):
-    ws.row_dimensions[row_idx].height = 110  # generous height for multiline text
-    cat_prefix = item[0][:1]
-    
-    # Alternate row colors based on category
-    if cat_prefix == "A":
-        bg_color = "F0FDF4"  # light emerald
-    elif cat_prefix == "B":
-        bg_color = "FFFBEB"  # light amber
-    else:
-        bg_color = "F5F3FF"  # light indigo
+# Fill Data Rows
+cat_colors = {
+    "A": ("F0FDF4", "166534"),  # Mint Green for Beasts
+    "B": ("FEF3C7", "92400E"),  # Warm Amber for Skyscrapers
+    "C": ("EFF6FF", "1E40AF"),  # Soft Blue for Islands
+}
 
+for row_idx, item in enumerate(data, 4):
+    cat_key = item[0][0]
+    bg_color, fg_color = cat_colors.get(cat_key, ("FFFFFF", "000000"))
     row_fill = PatternFill(start_color=bg_color, end_color=bg_color, fill_type="solid")
 
     for col_idx, val in enumerate(item, 1):
-        cell = ws.cell(row=row_idx, column=col_idx, value=val)
+        cell = ws.cell(row=row_idx, column=col_idx)
+        cell.value = val
         cell.fill = row_fill
         cell.border = thin_border
         
-        # Alignment specific
+        # Alignments & Fonts
         if col_idx in [1, 2, 4]:
             cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
-            cell.font = Font(name="Arial", size=10, bold=(col_idx==2))
+            cell.font = Font(name="Arial", size=10, bold=(col_idx == 2))
         elif col_idx in [5, 6, 7]:
             cell.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True)
-            cell.font = Font(name="Courier New", size=9, bold=(col_idx==5))
-        elif col_idx == 10:  # English prompt
-            cell.alignment = Alignment(horizontal="left", vertical="top", wrap_text=True)
-            cell.font = Font(name="Arial", size=9, color="1E1B4B")
+            cell.font = Font(name="Courier New", size=9, bold=(col_idx == 5))
+        elif col_idx == 3:
+            cell.alignment = Alignment(horizontal="left", vertical="center", wrap_text=True)
+            cell.font = Font(name="Arial", size=10, bold=True)
         else:
             cell.alignment = Alignment(horizontal="left", vertical="top", wrap_text=True)
             cell.font = Font(name="Arial", size=9)
 
-# Adjust column widths
+    ws.row_dimensions[row_idx].height = 125
+
+# Column Widths
 col_widths = {
-    1: 18,   # 分類
-    2: 15,   # 編號
-    3: 24,   # 項目名稱
-    4: 10,   # 目標時長
-    5: 28,   # 建議檔案名稱
-    6: 34,   # 目標存放路徑
-    7: 24,   # 首幀圖生視頻 (I2V) 參考圖
-    8: 30,   # 專屬場景特色元素
-    9: 45,   # 15秒鏡頭動態節奏
-    10: 65,  # MiniMax 影片生成提示詞 (英文 Prompt)
-    11: 40   # 提示詞中文意境解析與特效要點
+    "A": 22,  # 分類
+    "B": 14,  # 編號
+    "C": 28,  # 項目名稱
+    "D": 10,  # 目標時長
+    "E": 34,  # 建議檔案名稱
+    "F": 38,  # 目標存放路徑
+    "G": 24,  # 首幀參考圖
+    "H": 36,  # 場景特色元素
+    "I": 52,  # 15秒動態節奏
+    "J": 78,  # MiniMax 提示詞 (英文)
+    "K": 48   # 中文意境解析
 }
 
-for col_idx, width in col_widths.items():
-    col_letter = get_column_letter(col_idx)
+for col_letter, width in col_widths.items():
     ws.column_dimensions[col_letter].width = width
 
-output_path = "KaiSpeak_15s_Cinematic_Animation_Prompts_MiniMax.xlsx"
-wb.save(output_path)
-print(f"Successfully generated: {output_path}")
+output_file = "KaiSpeak_15s_Cinematic_Animation_Prompts_MiniMax.xlsx"
+wb.save(output_file)
+print(f"Successfully generated corrected Excel: {output_file}")
