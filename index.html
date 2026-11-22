@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.77";
+        const LATEST_VER = "26.11.78";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -250,7 +250,7 @@
       <div class="flex flex-col items-center mb-1">
         <div class="flex items-center gap-3.5 cursor-pointer select-none">
           <div class="shrink-0">
-            <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.77" alt="KaiSpeak" class="h-20 sm:h-24 md:h-28 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] hover:scale-105 transition duration-300 shrink-0">
+            <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.78" alt="KaiSpeak" class="h-20 sm:h-24 md:h-28 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] hover:scale-105 transition duration-300 shrink-0">
           </div>
           <div class="flex flex-col justify-center text-left leading-none">
             <h1 class="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight bg-gradient-to-r from-indigo-800 via-indigo-600 to-purple-600 bg-clip-text text-transparent select-none leading-none">KaiSpeak</h1>
@@ -259,8 +259,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.77（2026年·11月·第45次發布）">
-                26.11.77
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.78（2026年·11月·第45次發布）">
+                26.11.78
               </span>
             </div>
           </div>
@@ -500,7 +500,7 @@
       <!-- Brand Logo + 奇妙星語言 Lockup -->
       <div class="flex items-center gap-1.5 sm:gap-2 cursor-pointer select-none shrink-0 group py-0.5" onclick="switchAppMode('quest')" title="KaiSpeak 首頁">
         <div class="shrink-0 flex items-center">
-          <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.77" alt="KaiSpeak" class="h-9 sm:h-11 md:h-12 w-auto object-contain drop-shadow-[0_4px_14px_rgba(79,70,229,0.18)] group-hover:scale-105 transition-all duration-300 shrink-0">
+          <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.78" alt="KaiSpeak" class="h-9 sm:h-11 md:h-12 w-auto object-contain drop-shadow-[0_4px_14px_rgba(79,70,229,0.18)] group-hover:scale-105 transition-all duration-300 shrink-0">
         </div>
         <div class="flex flex-col justify-center text-left leading-none">
           <div class="flex items-center gap-1">
@@ -508,7 +508,7 @@
               <span class="text-[9px] text-amber-500">✨</span>
               <span>奇妙星語言</span>
             </span>
-            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.77（2026年·11月·第45次發布）">26.11.77</span>
+            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.78（2026年·11月·第45次發布）">26.11.78</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer hidden sm:flex items-center gap-0.5 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-1.5 py-0.2 transition shadow-2xs group-hover:border-amber-400 max-w-[130px] truncate" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -2833,8 +2833,8 @@
             <!-- Kai Riding Fire Dragon Character (Transparent WebP + GIF Fallback, No Frame) -->
             <div id="dragonSprite" class="relative w-48 sm:w-60 md:w-72 h-28 sm:h-36 md:h-42 flex items-center justify-center transition-transform duration-200">
               <picture class="w-full h-full flex items-center justify-center pointer-events-none select-none">
-                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.77" type="image/webp">
-                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.77" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
+                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.78" type="image/webp">
+                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.78" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
               </picture>
             </div>
             <!-- Dragon Muzzle Flame Flash (Fires upon shooting laser) -->
@@ -3709,7 +3709,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.77 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.78 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -3748,7 +3748,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.77 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.78 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -4406,7 +4406,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.77";
+    const APP_VERSION = "26.11.78";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // ========================================================
@@ -9653,36 +9653,33 @@
 
       if (questSubStep === 0) {
         // Step 0: Single Word or Phrase
-        if (card.audioWord && typeof card.audioWord === 'string' && !card.audioWord.includes('undefined')) {
+        // Priority 1: Instant Preloaded Memory Blob URL
+        if (card.audioBlobUrl) return card.audioBlobUrl;
+        if (card.audioWord && typeof card.audioWord === 'string' && !card.audioWord.includes('undefined') && !card.audioWord.includes('/api/tts')) {
           return card.audioWord;
         }
         if (card.audioWordCanonical && typeof card.audioWordCanonical === 'string' && !card.audioWordCanonical.includes('undefined')) {
           return card.audioWordCanonical;
         }
-        // AI-generated, phrases, or custom items -> direct high quality TTS
+        // If newly generated and no blob, return empty string so playQuestDemoAudio triggers KaiSpeechEngine.speak synchronously!
         if (card.isNewlyGenerated || card.isPhrase || (typeof card.id === 'string' && (card.id.startsWith('cust_') || card.id.startsWith('gen_') || card.id.includes('_') || card.id.includes(' ')))) {
-          return `/api/tts?text=${encodeURIComponent(card.word.trim())}&rate=152`;
+          return "";
         }
         return `audio/word_${card.id}.m4a`;
       } else {
         // Step 1 or 2: Graded Sentences
         const sentItem = (card._dailySentences && card._dailySentences[questSubStep - 1]);
         if (sentItem) {
-          if (sentItem.audioSrc && typeof sentItem.audioSrc === 'string' && !sentItem.audioSrc.includes('undefined')) {
+          if (sentItem.audioBlobUrl) return sentItem.audioBlobUrl;
+          if (sentItem.audioSrc && typeof sentItem.audioSrc === 'string' && !sentItem.audioSrc.includes('undefined') && !sentItem.audioSrc.includes('/api/tts')) {
             return sentItem.audioSrc;
           }
           if (sentItem.audioSrcCanonical && typeof sentItem.audioSrcCanonical === 'string' && !sentItem.audioSrcCanonical.includes('undefined')) {
             return sentItem.audioSrcCanonical;
           }
-          if (sentItem.text && sentItem.text.trim()) {
-            return `/api/tts?text=${encodeURIComponent(sentItem.text.trim())}&rate=152`;
-          }
         }
         if (card.isNewlyGenerated || card.isPhrase || (typeof card.id === 'string' && (card.id.startsWith('cust_') || card.id.startsWith('gen_') || card.id.includes('_') || card.id.includes(' ')))) {
-          const fallbackText = (card.gradedSentences && card.gradedSentences[questSubStep - 1]) 
-            ? card.gradedSentences[questSubStep - 1].text 
-            : (card.gradedSentences && card.gradedSentences[0] ? card.gradedSentences[0].text : card.word);
-          return `/api/tts?text=${encodeURIComponent(fallbackText)}&rate=152`;
+          return "";
         }
         return `audio/sentence_${card.id}_0_0.m4a`;
       }
@@ -10860,8 +10857,12 @@
       const card = MASTER_VOCAB.find(c => c.id === cardId);
       const text = exactText || (card && card.scenarios && card.scenarios[scIdx] ? card.scenarios[scIdx].sentences[sentIdx] : "");
       let audioPath = `audio/sentence_${cardId}_${scIdx}_0.m4a`;
-      if (!card || card.isNewlyGenerated || !text) {
-        audioPath = `/api/tts?text=${encodeURIComponent(text || '')}&rate=152`;
+      if (card && card.audioBlobUrl) {
+        audioPath = card.audioBlobUrl;
+      } else if (!card || card.isNewlyGenerated || !text) {
+        // If newly generated and no blob, directly invoke bulletproof KaiSpeechEngine synchronously
+        KaiSpeechEngine.speak(text, 0.92, null, { role: 'teacher', pitch: 1.0 });
+        return;
       }
 
       let fallbackDone = false;
@@ -18915,9 +18916,10 @@
       ];
 
       aiPlanningProgressInterval = setInterval(() => {
-        if (currentPct < 92) {
-          const inc = Math.floor(Math.random() * 6) + 3; // +3% to +8%
-          currentPct = Math.min(92, currentPct + inc);
+        // Phase 1 (AI Generation): Progress ticks smoothly up to 45%, then hands off to audio preloader!
+        if (currentPct < 45) {
+          const inc = Math.floor(Math.random() * 4) + 2; // +2% to +5%
+          currentPct = Math.min(45, currentPct + inc);
           if (barEl) barEl.style.width = currentPct + '%';
           if (pctEl) pctEl.textContent = currentPct + '%';
 
@@ -18929,7 +18931,7 @@
             }
           }
         }
-      }, 420);
+      }, 350);
     }
 
     function finishAiPlanningProgressModal() {
@@ -18999,6 +19001,25 @@
           plan.userScenarioText = userText;
           currentPlannedPlan = plan;
 
+          // Clear simulated AI ticker and seamlessly activate Audio Preload & Synthesis Pipeline
+          if (aiPlanningProgressInterval) {
+            clearInterval(aiPlanningProgressInterval);
+            aiPlanningProgressInterval = null;
+          }
+
+          const barEl = document.getElementById('aiPlanningProgressBar');
+          const pctEl = document.getElementById('aiPlanningProgressPct');
+          const stepEl = document.getElementById('aiPlanningStepLabel');
+          const detailEl = document.getElementById('aiPlanningDetailText');
+
+          // 🚀 Phase 2: 真預載與語音合成檢核（45% ~ 95%）
+          await preloadAndSynthesizeScenarioAudio(plan, (p) => {
+            if (barEl) barEl.style.width = `${p.pct}%`;
+            if (pctEl) pctEl.textContent = `${p.pct}%`;
+            if (stepEl) stepEl.innerHTML = `<span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span><span>${p.step}</span>`;
+            if (detailEl) detailEl.textContent = p.detail;
+          });
+
           // FAIRNESS RULE: ONLY consume quota when successfully generated by genuine Google Gemini AI!
           if (plan.source === 'gemini') {
             recordAiUsage();
@@ -19012,14 +19033,19 @@
 
           renderPlannedResults(plan, adaptive);
           SoundEffects.playClick('unlock');
-          finishAiPlanningProgressModal();
+
+          if (barEl) barEl.style.width = '100%';
+          if (pctEl) pctEl.textContent = '100%';
+          if (stepEl) stepEl.innerHTML = `<span>✨ 所有生活對話與例句語音全部就緒！</span>`;
+          if (detailEl) detailEl.textContent = `🎉 語音資產已全數載入快取，即刻開啟有聲微課堂！`;
 
           setTimeout(() => {
+            hideAiPlanningProgressModal();
             const section = document.getElementById('aiScenarioPlanningContainer') || document.getElementById('plannerTextInput');
             if (section) {
               section.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
-          }, 550);
+          }, 450);
         } else {
           hideAiPlanningProgressModal();
         }
@@ -20399,7 +20425,195 @@
     }
 
     // ========================================================
-    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.64)
+    // BULLETPROOF SCENARIO AUDIO PRELOADER & SYNTHESIS ENGINE (v26.11.78)
+    // ========================================================
+    let _cachedServerTtsLive = null;
+    let _cachedServerTtsCheckTime = 0;
+
+    async function checkServerTtsAvailable() {
+      const now = Date.now();
+      if (_cachedServerTtsLive !== null && (now - _cachedServerTtsCheckTime < 30000)) {
+        return _cachedServerTtsLive;
+      }
+      try {
+        const ctrl = new AbortController();
+        const tid = setTimeout(() => ctrl.abort(), 1000);
+        const resp = await fetch('/api/tts?text=hi&role=kai&rate=160', { method: 'HEAD', signal: ctrl.signal });
+        clearTimeout(tid);
+        _cachedServerTtsLive = resp.ok;
+      } catch(e) {
+        _cachedServerTtsLive = false;
+      }
+      _cachedServerTtsCheckTime = now;
+      return _cachedServerTtsLive;
+    }
+
+    // Direct, zero-latency in-memory Blob audio player
+    function playDirectAudioBlob(blobUrl, onEndCallback = null, onErrorCallback = null) {
+      if (!blobUrl) {
+        if (onErrorCallback) onErrorCallback();
+        else if (onEndCallback) onEndCallback();
+        return;
+      }
+
+      KaiSpeechEngine.stop();
+
+      const a = new Audio();
+      let hasEnded = false;
+      const finish = () => {
+        if (hasEnded) return;
+        hasEnded = true;
+        a.onended = null;
+        a.onerror = null;
+        if (onEndCallback) onEndCallback();
+      };
+
+      const fail = (err) => {
+        if (hasEnded) return;
+        hasEnded = true;
+        a.onended = null;
+        a.onerror = null;
+        console.warn("[AudioBlob] playback failed:", err);
+        if (onErrorCallback) onErrorCallback();
+        else if (onEndCallback) onEndCallback();
+      };
+
+      a.onended = finish;
+      a.onerror = fail;
+      a.src = blobUrl;
+
+      const p = a.play();
+      if (p !== undefined) {
+        p.catch(fail);
+      }
+    }
+
+    // 🌟 全量情境語音預加載與合成檢核流水線 (在 Loading 階段完成，杜絕進入後無法朗讀痛點)
+    async function preloadAndSynthesizeScenarioAudio(plan, onProgress) {
+      if (!plan) return;
+      const serverTtsLive = await checkServerTtsAvailable();
+
+      const dialogue = plan.dialogue || [];
+      const items = plan.items || [];
+      const totalSteps = dialogue.length + items.length;
+      let completedSteps = 0;
+
+      // 1. 預載對話短文（全角色雙語生活對話）
+      for (let i = 0; i < dialogue.length; i++) {
+        const turn = dialogue[i];
+        if (turn && turn.en && turn.en.trim()) {
+          const isKai = (turn.speaker || '').toLowerCase().includes('kai');
+          const isDad = (turn.speaker || '').toLowerCase().includes('dad') || (turn.speakerLabel || '').includes('爸');
+          const isMom = (turn.speaker || '').toLowerCase().includes('mom') || (turn.speakerLabel || '').includes('媽');
+          const role = isKai ? 'kai' : (isDad ? 'dad' : (isMom ? 'mom' : 'teacher'));
+
+          if (serverTtsLive) {
+            try {
+              const url = `/api/tts?text=${encodeURIComponent(turn.en.trim())}&role=${role}&rate=152`;
+              const resp = await fetch(url);
+              if (resp.ok) {
+                const blob = await resp.blob();
+                turn.audioBlobUrl = URL.createObjectURL(blob);
+              }
+            } catch(e) {
+              console.warn("[Preload] Dialogue turn audio error:", e);
+            }
+          }
+        }
+        completedSteps++;
+        const pct = 45 + Math.round((completedSteps / Math.max(1, totalSteps)) * 50);
+        if (onProgress) {
+          onProgress({
+            pct: Math.min(95, pct),
+            step: `正在為生活對話「${turn.speakerLabel || turn.speaker}」生成專屬語音 (${i + 1}/${dialogue.length})...`,
+            detail: `🎙️ 正在處理：「${(turn.en || '').slice(0, 32)}...」`
+          });
+        }
+        await new Promise(r => setTimeout(r, 35));
+      }
+
+      // 2. 預載焦點單字與三級漸進例句
+      for (let i = 0; i < items.length; i++) {
+        const itemWrap = items[i];
+        const item = itemWrap.itemRef || itemWrap;
+        const word = (item.word || '').trim();
+
+        // Check if pre-recorded studio audio exists in MASTER_VOCAB
+        const matched = MASTER_VOCAB.find(v => v.word.toLowerCase() === word.toLowerCase() && !v.isNewlyGenerated);
+        if (matched && (matched.audioWordCanonical || matched.audioWord)) {
+          item.audioWord = matched.audioWordCanonical || matched.audioWord;
+          itemWrap.audioWord = item.audioWord;
+        } else if (serverTtsLive && word) {
+          try {
+            const wUrl = `/api/tts?text=${encodeURIComponent(word)}&role=teacher&rate=152`;
+            const resp = await fetch(wUrl);
+            if (resp.ok) {
+              const blob = await resp.blob();
+              const bUrl = URL.createObjectURL(blob);
+              item.audioBlobUrl = bUrl;
+              item.audioWord = bUrl;
+              itemWrap.audioWord = bUrl;
+            }
+          } catch(e) {}
+        } else {
+          item.audioWord = '';
+          itemWrap.audioWord = '';
+        }
+
+        // Graded sentences
+        const graded = item.gradedSentences || [];
+        for (let s = 0; s < graded.length; s++) {
+          const gSent = graded[s];
+          if (gSent && gSent.text && gSent.text.trim()) {
+            if (serverTtsLive) {
+              try {
+                const sUrl = `/api/tts?text=${encodeURIComponent(gSent.text.trim())}&role=teacher&rate=152`;
+                const sResp = await fetch(sUrl);
+                if (sResp.ok) {
+                  const sBlob = await sResp.blob();
+                  const sbUrl = URL.createObjectURL(sBlob);
+                  gSent.audioBlobUrl = sbUrl;
+                  gSent.audioSrc = sbUrl;
+                }
+              } catch(e) {}
+            } else {
+              gSent.audioSrc = '';
+            }
+          }
+        }
+
+        completedSteps++;
+        const pct = 45 + Math.round((completedSteps / Math.max(1, totalSteps)) * 50);
+        if (onProgress) {
+          onProgress({
+            pct: Math.min(95, pct),
+            step: `正在準備焦點單字與三級漸進例句語音 (${i + 1}/${items.length})...`,
+            detail: `📖 單字：${word}（已同步備妥初階/生活/進階例句）`
+          });
+        }
+        await new Promise(r => setTimeout(r, 35));
+      }
+
+      // 3. Pre-warm KaiSpeechEngine
+      try {
+        KaiSpeechEngine.init();
+        if ('speechSynthesis' in window) {
+          window.speechSynthesis.resume();
+          KaiSpeechEngine.pickVoice();
+        }
+      } catch(e) {}
+
+      if (onProgress) {
+        onProgress({
+          pct: 100,
+          step: `✨ 所有生活對話與例句語音全部就緒！`,
+          detail: `🎉 語音資產已全數載入快取，即刻開啟有聲微課堂！`
+        });
+      }
+    }
+
+    // ========================================================
+    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.78)
     // ========================================================
     const KaiSpeechEngine = {
       preferredVoice: null,
@@ -20438,7 +20652,6 @@
           ];
 
           // 1. High priority for Kai (5-year-old child / boy):
-          // Priority A: Genuine child voices across platforms (Flo, Eddy, Rocko, Sandy, Shelley, Ana, Maia)
           const trueChildNames = ['flo', 'eddy', 'rocko', 'sandy', 'shelley', 'ana', 'maia', 'child', 'kid', 'boy'];
           let foundKai = null;
           for (const name of trueChildNames) {
@@ -20449,16 +20662,10 @@
             }
           }
 
-          // Priority B: Sweet, youthful female voices that modulate into a natural, adorable 5-year-old boy
-          // (Nicky, Ava, Samantha, Jenny, Allison, Karen, Google US English)
-          // STRICTLY FILTER OUT ANY ADULT MALE NAMES!
           if (!foundKai) {
-            const sweetYouthNames = ['nicky', 'ava', 'samantha', 'jenny', 'allison', 'karen'];
-            for (const name of sweetYouthNames) {
-              const kv = safeVoices.find(vo => {
-                const n = vo.name.toLowerCase();
-                return n.includes(name) && !ADULT_MALE_NAMES.some(m => n.includes(m)) && (!vo.lang || vo.lang.startsWith('en'));
-              });
+            const friendlyFemaleNames = ['samantha', 'ava', 'allison', 'karen', 'jenny', 'victoria', 'serena', 'susan', 'kate', 'zoe', 'zira', 'aria', 'natasha'];
+            for (const name of friendlyFemaleNames) {
+              const kv = safeVoices.find(vo => vo.name.toLowerCase().includes(name) && (!vo.lang || vo.lang.startsWith('en')));
               if (kv) {
                 foundKai = kv;
                 break;
@@ -20466,28 +20673,33 @@
             }
           }
 
-          // Priority C: Any safe non-adult-male English voice
           if (!foundKai) {
             foundKai = safeVoices.find(vo => {
               const n = vo.name.toLowerCase();
-              return (!vo.lang || vo.lang.startsWith('en')) && !ADULT_MALE_NAMES.some(m => n.includes(m));
+              return !ADULT_MALE_NAMES.some(m => n.includes(m)) && (!vo.lang || vo.lang.startsWith('en'));
             });
           }
 
-          // 2. High priority for Teacher / Pronunciation / Mom:
-          const topNaturalNames = ['ava', 'samantha', 'jenny', 'aria', 'allison', 'nicky', 'victoria', 'zoe', 'karen', 'serena', 'susan'];
-          let foundGeneral = null;
-          for (const name of topNaturalNames) {
-            const v = safeVoices.find(vo => vo.name.toLowerCase().includes(name) && (!vo.lang || vo.lang.startsWith('en')));
-            if (v) {
-              foundGeneral = v;
+          if (foundKai) {
+            this.preferredKaiVoice = foundKai;
+          }
+
+          // 2. Standard Adult English Teacher voice (Samantha / Ava / Alex / Natural)
+          const teacherNames = ['samantha', 'ava', 'allison', 'alex', 'daniel', 'karen', 'serena', 'oliver', 'victoria', 'google us english', 'microsoft zira'];
+          let foundTeacher = null;
+          for (const name of teacherNames) {
+            const tv = safeVoices.find(vo => vo.name.toLowerCase().includes(name) && (!vo.lang || vo.lang.startsWith('en')));
+            if (tv) {
+              foundTeacher = tv;
               break;
             }
           }
-
-          this.preferredVoice = foundGeneral || safeVoices.find(vo => (vo.lang === 'en-US' || vo.lang === 'en_US')) || safeVoices[0];
-          // Kai voice: 100% child / youth voice (never adult male)
-          this.preferredKaiVoice = foundKai || this.preferredVoice;
+          if (!foundTeacher) {
+            foundTeacher = safeVoices.find(vo => !vo.lang || vo.lang.startsWith('en') || vo.lang.includes('US') || vo.lang.includes('GB'));
+          }
+          if (foundTeacher) {
+            this.preferredVoice = foundTeacher;
+          }
         } catch(e) {}
       },
 
@@ -20526,7 +20738,8 @@
             if (window.speechSynthesis.paused) {
               window.speechSynthesis.resume();
             }
-            if (window.speechSynthesis.speaking || window.speechSynthesis.pending) {
+            // CRITICAL FIX: Only cancel if currently speaking, and NEVER cancel when idle (prevents swallowing next utterance)
+            if (window.speechSynthesis.speaking) {
               window.speechSynthesis.cancel();
             }
           } catch(e){}
@@ -20534,16 +20747,11 @@
 
         const role = (options && options.role) ? options.role : 'kai';
         const isKai = role === 'kai' || role === 'kid';
-        // 👦 Kai is an authentic 5-year-old bright, energetic, cheerful young boy!
-        // Pitch: 1.45 (3 semitones / 3 keys higher than 1.25, giving super cute, youthful, adorable 5-year-old child timbre!)
-        // Standard teacher / word / mom: 1.0 (pure authentic human pronunciation)
-        // Dad: 0.92 (warm fatherly tone)
         const targetPitch = (options && options.pitch !== undefined) ? options.pitch : (isKai ? 1.45 : (role === 'dad' ? 0.92 : 1.0));
         const effectiveRate = isKai ? Math.max(1.02, rate) : rate;
         const cleanText = text.trim();
 
         // 1. Direct Zero-Latency Synchronous Web Speech API
-        // Executes synchronously in the immediate user interaction frame (crucial for iPad Safari & iOS PWA!)
         if ('speechSynthesis' in window) {
           try {
             if (window.speechSynthesis.paused) {
@@ -20560,30 +20768,36 @@
             u.rate = effectiveRate;
             u.pitch = targetPitch;
 
-            // Dynamic live voice assignment
+            // Dynamic live voice assignment (Ensures strict English voice, avoids Chinese fallback)
             const liveVoices = window.speechSynthesis.getVoices() || [];
+            const englishVoices = liveVoices.filter(v => v.lang && (v.lang.startsWith('en') || v.lang.includes('US') || v.lang.includes('GB')));
+
             let chosenVoice = null;
             if (isKai) {
-              chosenVoice = this.preferredKaiVoice || liveVoices.find(v => {
+              chosenVoice = this.preferredKaiVoice || englishVoices.find(v => {
                 const n = v.name.toLowerCase();
-                return (n.includes('samantha') || n.includes('ava') || n.includes('nicky') || n.includes('flo') || n.includes('eddy') || n.includes('karen') || n.includes('jenny')) && (!v.lang || v.lang.startsWith('en'));
-              }) || this.preferredVoice;
+                return n.includes('samantha') || n.includes('ava') || n.includes('nicky') || n.includes('flo') || n.includes('eddy') || n.includes('karen') || n.includes('jenny');
+              }) || this.preferredVoice || englishVoices[0];
             } else if (role === 'dad') {
-              chosenVoice = liveVoices.find(v => {
+              chosenVoice = englishVoices.find(v => {
                 const n = v.name.toLowerCase();
-                return (n.includes('alex') || n.includes('daniel') || n.includes('guy')) && (!v.lang || v.lang.startsWith('en'));
-              }) || this.preferredVoice;
+                return n.includes('alex') || n.includes('daniel') || n.includes('guy') || n.includes('david');
+              }) || this.preferredVoice || englishVoices[0];
             } else {
-              chosenVoice = this.preferredVoice;
+              chosenVoice = this.preferredVoice || englishVoices.find(v => {
+                const n = v.name.toLowerCase();
+                return n.includes('samantha') || n.includes('ava') || n.includes('alex');
+              }) || englishVoices[0];
             }
 
             if (chosenVoice) {
               u.voice = chosenVoice;
             }
 
-            // Reference retention against GC bug
+            // Global GC retention array
+            window._activeUtterances = window._activeUtterances || [];
+            window._activeUtterances.push(u);
             this.activeUtterance = u;
-            window._activeUtteranceRef = u;
 
             let hasEnded = false;
             const finish = () => {
@@ -20592,7 +20806,10 @@
               if (this.heartbeatTimer) { clearInterval(this.heartbeatTimer); this.heartbeatTimer = null; }
               if (this.watchdogTimer) { clearTimeout(this.watchdogTimer); this.watchdogTimer = null; }
               this.activeUtterance = null;
-              window._activeUtteranceRef = null;
+              if (window._activeUtterances) {
+                const idx = window._activeUtterances.indexOf(u);
+                if (idx > -1) window._activeUtterances.splice(idx, 1);
+              }
               if (onEndCallback) onEndCallback();
             };
 
@@ -20621,7 +20838,6 @@
               }
             }, 8000);
 
-            // Synchronous speak call: MUST BE CALLED NOW WITHOUT SETTIMEOUT!
             window.speechSynthesis.speak(u);
             return;
           } catch(err) {
@@ -20655,7 +20871,6 @@
           } catch(e){}
         }
         this.activeUtterance = null;
-        window._activeUtteranceRef = null;
       }
     };
 
@@ -20665,50 +20880,45 @@
       const rate = options.rate !== undefined ? options.rate : 0.90;
       const cleanFallback = (fallbackText || '').trim();
 
-      // If no valid audio URL provided (or synthetic /api/tts endpoint), speak immediately via KaiSpeechEngine!
-      const isSyntheticOrEmpty = !audioUrl || !audioUrl.trim() 
-        || audioUrl.startsWith('/api/') || audioUrl.includes('/api/tts') 
-        || audioUrl.includes('undefined') || audioUrl.includes('null');
+      // If valid preloaded Blob URL or local file: play directly!
+      if (audioUrl && (audioUrl.startsWith('blob:') || audioUrl.startsWith('audio/'))) {
+        const a = new Audio(audioUrl);
+        let hasStarted = false;
+        let fallbackDone = false;
 
-      if (isSyntheticOrEmpty) {
-        if (cleanFallback) {
-          KaiSpeechEngine.speak(cleanFallback, rate, null, { role, pitch });
+        const triggerFallback = () => {
+          if (fallbackDone) return;
+          fallbackDone = true;
+          try {
+            a.pause();
+            a.removeAttribute('src');
+            a.load();
+          } catch(e){}
+          if (cleanFallback) {
+            KaiSpeechEngine.speak(cleanFallback, rate, null, { role, pitch });
+          }
+        };
+
+        const p = a.play();
+        if (p !== undefined) {
+          p.then(() => {
+            hasStarted = true;
+          }).catch(err => {
+            triggerFallback();
+          });
         }
+        a.onerror = () => {
+          if (!hasStarted) {
+            triggerFallback();
+          }
+        };
         return;
       }
 
-      const a = new Audio(audioUrl);
-      let hasStarted = false;
-      let fallbackDone = false;
-
-      const triggerFallback = () => {
-        if (fallbackDone) return;
-        fallbackDone = true;
-        try {
-          a.pause();
-          a.onended = null;
-          a.onerror = null;
-          a.removeAttribute('src');
-          a.load();
-        } catch(e){}
-        if (cleanFallback) {
-          KaiSpeechEngine.speak(cleanFallback, rate, null, { role, pitch });
-        }
-      };
-
-      const p = a.play();
-      if (p !== undefined) {
-        p.then(() => {
-          hasStarted = true;
-        }).catch(err => {
-          triggerFallback();
-        });
+      // If empty or synthetic /api/tts that wasn't preloaded: speak immediately via KaiSpeechEngine!
+      if (cleanFallback) {
+        KaiSpeechEngine.speak(cleanFallback, rate, null, { role, pitch });
       }
-      a.onerror = () => {
-        if (!hasStarted) {
-          triggerFallback();
-        }
-      };
     }
 
     // High-Fidelity Studio Pronunciation Engine for Words (100% Human Audio, ZERO Robot)
@@ -20724,17 +20934,31 @@
         }, 500);
       }
 
-      // 1. Check if matches pre-recorded studio audio in MASTER_VOCAB (EXCLUDING newly generated / synthetic items)
+      // 1. Check current planned scenario items for preloaded Blob URL
+      if (currentPlannedPlan && currentPlannedPlan.items) {
+        const plannedItem = currentPlannedPlan.items.find(i => (i.word || '').toLowerCase() === cleanWord.toLowerCase());
+        if (plannedItem) {
+          const blobUrl = plannedItem.audioBlobUrl || (plannedItem.itemRef && plannedItem.itemRef.audioBlobUrl);
+          if (blobUrl) {
+            playDirectAudioBlob(blobUrl, null, () => {
+              KaiSpeechEngine.speak(cleanWord, 0.88, null, { role: 'teacher', pitch: 1.0 });
+            });
+            return;
+          }
+        }
+      }
+
+      // 2. Check if matches pre-recorded studio audio in MASTER_VOCAB (EXCLUDING newly generated / synthetic items)
       const matched = MASTER_VOCAB.find(v => v.word.toLowerCase() === cleanWord.toLowerCase());
       if (matched && !matched.isNewlyGenerated) {
         const audioPath = matched.audioWordCanonical || matched.audioWord;
-        if (audioPath && !audioPath.startsWith('/api/') && !audioPath.includes('/api/tts')) {
+        if (audioPath && !audioPath.startsWith('/api/') && !audioPath.includes('/api/tts') && !audioPath.startsWith('blob:')) {
           playAudioFile(audioPath, cleanWord, { role: 'teacher', pitch: 1.0, rate: 0.88 });
           return;
         }
       }
 
-      // 2. High-fidelity standard pronunciation via instant KaiSpeechEngine (Synchronous, zero-latency, 100% reliable)
+      // 3. High-fidelity standard pronunciation via instant KaiSpeechEngine (Synchronous, zero-latency, 100% reliable)
       KaiSpeechEngine.speak(cleanWord, 0.88, null, { role: 'teacher', pitch: 1.0 });
     }
 
@@ -20754,9 +20978,20 @@
       const isMomTurn = (turn.speaker || '').toLowerCase().includes('mom') || (turn.speakerLabel || '').includes('媽');
       const role = isKaiTurn ? 'kai' : (isDadTurn ? 'dad' : (isMomTurn ? 'mom' : 'teacher'));
 
-      KaiSpeechEngine.speak(turn.en, 0.92, () => {
+      const finishCb = () => {
         unhighlightDialogueBubble(lineIdx);
-      }, { role });
+      };
+
+      // 1. If preloaded Blob URL exists, play with singleton player!
+      if (turn.audioBlobUrl) {
+        playDirectAudioBlob(turn.audioBlobUrl, finishCb, () => {
+          KaiSpeechEngine.speak(turn.en, 0.92, finishCb, { role });
+        });
+        return;
+      }
+
+      // 2. Otherwise play via zero-latency bulletproof KaiSpeechEngine!
+      KaiSpeechEngine.speak(turn.en, 0.92, finishCb, { role });
     }
 
     function highlightDialogueBubble(idx) {
@@ -20816,14 +21051,23 @@
       const isMomTurn = (turn.speaker || '').toLowerCase().includes('mom') || (turn.speakerLabel || '').includes('媽');
       const role = isKaiTurn ? 'kai' : (isDadTurn ? 'dad' : (isMomTurn ? 'mom' : 'teacher'));
 
-      KaiSpeechEngine.speak(turn.en, 0.92, () => {
+      const onTurnFinished = () => {
         unhighlightDialogueBubble(idx);
         if (!isFullDialoguePlaying) return;
         currentDialoguePlaybackIndex++;
         setTimeout(() => {
           playNextDialogueTurn();
         }, 400); // 400ms pause between turns
-      }, { role });
+      };
+
+      if (turn.audioBlobUrl) {
+        playDirectAudioBlob(turn.audioBlobUrl, onTurnFinished, () => {
+          KaiSpeechEngine.speak(turn.en, 0.92, onTurnFinished, { role });
+        });
+        return;
+      }
+
+      KaiSpeechEngine.speak(turn.en, 0.92, onTurnFinished, { role });
     }
 
     function stopFullDialoguePlayback() {
@@ -21081,6 +21325,36 @@ ${existingSnippet || "無"}
 
         if (newDialogue && newDialogue.length > 0) {
           currentPlannedPlan.dialogue = newDialogue;
+
+          // 🚀 換文後即時預載全新對話語音，杜絕無法朗讀
+          if (loadModal) {
+            if (pBar) pBar.style.width = '75%';
+            if (pPct) pPct.innerText = '75%';
+            if (stepLabel) stepLabel.innerText = '正在為全新對話生成專屬語音模型...';
+            if (lineLabel) lineLabel.innerText = '預載雙語對話與發音快取...';
+          }
+
+          const serverTtsLive = await checkServerTtsAvailable();
+          if (serverTtsLive) {
+            for (let i = 0; i < newDialogue.length; i++) {
+              const turn = newDialogue[i];
+              if (turn && turn.en) {
+                const isKai = (turn.speaker || '').toLowerCase().includes('kai');
+                const isDad = (turn.speaker || '').toLowerCase().includes('dad') || (turn.speakerLabel || '').includes('爸');
+                const isMom = (turn.speaker || '').toLowerCase().includes('mom') || (turn.speakerLabel || '').includes('媽');
+                const role = isKai ? 'kai' : (isDad ? 'dad' : (isMom ? 'mom' : 'teacher'));
+                try {
+                  const url = `/api/tts?text=${encodeURIComponent(turn.en.trim())}&role=${role}&rate=152`;
+                  const resp = await fetch(url);
+                  if (resp.ok) {
+                    const blob = await resp.blob();
+                    turn.audioBlobUrl = URL.createObjectURL(blob);
+                  }
+                } catch(e) {}
+              }
+            }
+          }
+
           renderPlannedDialogue(newDialogue, currentPlannedPlan.items);
           renderDialogueUnitLargePrint(newDialogue, currentPlannedPlan.items);
           SoundEffects.playClick('unlock');
@@ -21088,8 +21362,8 @@ ${existingSnippet || "無"}
           if (isFromUnitModal && loadModal) {
             if (pBar) pBar.style.width = '100%';
             if (pPct) pPct.innerText = '100%';
-            if (stepLabel) stepLabel.innerText = '✅ 全新生活對話短文就緒！';
-            if (lineLabel) lineLabel.innerText = '所有句子均已完成校準，可即刻點擊朗讀！';
+            if (stepLabel) stepLabel.innerText = '✅ 全新生活對話短文與語音全數就緒！';
+            if (lineLabel) lineLabel.innerText = '所有句子均已完成語音生成，可即刻點擊朗讀！';
             await new Promise(r => setTimeout(r, 350));
             loadModal.classList.add('hidden');
           }
@@ -21821,9 +22095,18 @@ ${existingSnippet || "無"}
       const role = isKaiTurn ? 'kai' : (isDadTurn ? 'dad' : (isMomTurn ? 'mom' : 'teacher'));
 
       const effectiveRate = unitDialogueSpeechRate === 1.0 ? 0.92 : 0.82;
-      KaiSpeechEngine.speak(turn.en, effectiveRate, () => {
+      const finishCb = () => {
         unhighlightUnitDialogueBubble(lineIdx);
-      }, { role });
+      };
+
+      if (turn.audioBlobUrl) {
+        playDirectAudioBlob(turn.audioBlobUrl, finishCb, () => {
+          KaiSpeechEngine.speak(turn.en, effectiveRate, finishCb, { role });
+        });
+        return;
+      }
+
+      KaiSpeechEngine.speak(turn.en, effectiveRate, finishCb, { role });
     }
 
     function highlightUnitDialogueBubble(idx) {
@@ -21881,15 +22164,23 @@ ${existingSnippet || "無"}
       const role = isKaiTurn ? 'kai' : (isDadTurn ? 'dad' : (isMomTurn ? 'mom' : 'teacher'));
 
       const effectiveRate = unitDialogueSpeechRate === 1.0 ? 0.92 : 0.82;
-
-      KaiSpeechEngine.speak(turn.en, effectiveRate, () => {
+      const onTurnFinished = () => {
         unhighlightUnitDialogueBubble(idx);
         if (!isUnitFullDialoguePlaying) return;
         unitDialoguePlaybackIndex++;
         setTimeout(() => {
           playNextDialogueTurnInUnit();
         }, 450);
-      }, { role });
+      };
+
+      if (turn.audioBlobUrl) {
+        playDirectAudioBlob(turn.audioBlobUrl, onTurnFinished, () => {
+          KaiSpeechEngine.speak(turn.en, effectiveRate, onTurnFinished, { role });
+        });
+        return;
+      }
+
+      KaiSpeechEngine.speak(turn.en, effectiveRate, onTurnFinished, { role });
     }
 
     function stopFullDialoguePlaybackInUnit() {
