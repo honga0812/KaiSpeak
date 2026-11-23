@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.79";
+        const LATEST_VER = "26.11.80";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -250,7 +250,7 @@
       <div class="flex flex-col items-center mb-1">
         <div class="flex items-center gap-3.5 cursor-pointer select-none">
           <div class="shrink-0">
-            <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.79" alt="KaiSpeak" class="h-20 sm:h-24 md:h-28 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] hover:scale-105 transition duration-300 shrink-0">
+            <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.80" alt="KaiSpeak" class="h-20 sm:h-24 md:h-28 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] hover:scale-105 transition duration-300 shrink-0">
           </div>
           <div class="flex flex-col justify-center text-left leading-none">
             <h1 class="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight bg-gradient-to-r from-indigo-800 via-indigo-600 to-purple-600 bg-clip-text text-transparent select-none leading-none">KaiSpeak</h1>
@@ -259,8 +259,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.79（2026年·11月·第45次發布）">
-                26.11.79
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.80（2026年·11月·第45次發布）">
+                26.11.80
               </span>
             </div>
           </div>
@@ -500,7 +500,7 @@
       <!-- Brand Logo + 奇妙星語言 Lockup -->
       <div class="flex items-center gap-1.5 sm:gap-2 cursor-pointer select-none shrink-0 group py-0.5" onclick="switchAppMode('quest')" title="KaiSpeak 首頁">
         <div class="shrink-0 flex items-center">
-          <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.79" alt="KaiSpeak" class="h-9 sm:h-11 md:h-12 w-auto object-contain drop-shadow-[0_4px_14px_rgba(79,70,229,0.18)] group-hover:scale-105 transition-all duration-300 shrink-0">
+          <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.80" alt="KaiSpeak" class="h-9 sm:h-11 md:h-12 w-auto object-contain drop-shadow-[0_4px_14px_rgba(79,70,229,0.18)] group-hover:scale-105 transition-all duration-300 shrink-0">
         </div>
         <div class="flex flex-col justify-center text-left leading-none">
           <div class="flex items-center gap-1">
@@ -508,7 +508,7 @@
               <span class="text-[9px] text-amber-500">✨</span>
               <span>奇妙星語言</span>
             </span>
-            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.79（2026年·11月·第45次發布）">26.11.79</span>
+            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.80（2026年·11月·第45次發布）">26.11.80</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer hidden sm:flex items-center gap-0.5 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-1.5 py-0.2 transition shadow-2xs group-hover:border-amber-400 max-w-[130px] truncate" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -2841,8 +2841,8 @@
             <!-- Kai Riding Fire Dragon Character (Transparent WebP + GIF Fallback, No Frame) -->
             <div id="dragonSprite" class="relative w-48 sm:w-60 md:w-72 h-28 sm:h-36 md:h-42 flex items-center justify-center transition-transform duration-200">
               <picture class="w-full h-full flex items-center justify-center pointer-events-none select-none">
-                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.79" type="image/webp">
-                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.79" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
+                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.80" type="image/webp">
+                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.80" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
               </picture>
             </div>
             <!-- Dragon Muzzle Flame Flash (Fires upon shooting laser) -->
@@ -3717,7 +3717,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.79 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.80 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -3756,7 +3756,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.79 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.80 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -4414,7 +4414,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.79";
+    const APP_VERSION = "26.11.80";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // ========================================================
@@ -15026,7 +15026,7 @@
     };
 
     // ========================================================
-    // CINEMATIC 15-SECOND CELEBRATION VIDEO ENGINE (v26.11.79)
+    // CINEMATIC 15-SECOND CELEBRATION VIDEO ENGINE (v26.11.80)
     // ========================================================
     const CINEMATIC_VIDEOS = {
       beasts: {
@@ -15135,6 +15135,103 @@
       }
     };
 
+    let cinematicFadeRafId = null;
+    const CINEMATIC_FADE_DURATION = 1.2; // seconds before end to begin smooth fade to black & silence
+
+    function resetCinematicVideoFade(videoEl) {
+      if (cinematicFadeRafId) {
+        cancelAnimationFrame(cinematicFadeRafId);
+        cinematicFadeRafId = null;
+      }
+      if (videoEl) {
+        try {
+          videoEl.volume = 1.0;
+        } catch (e) {}
+        videoEl.style.filter = 'brightness(1)';
+      }
+      const overlay = document.getElementById('cinematicVideoFadeOverlay');
+      if (overlay) overlay.style.opacity = '0';
+    }
+
+    function initCinematicVideoFadeEngine(videoEl) {
+      if (!videoEl || videoEl._cinematicFadeAttached) return;
+      videoEl._cinematicFadeAttached = true;
+
+      const overlay = document.getElementById('cinematicVideoFadeOverlay');
+
+      function updateFade() {
+        if (!videoEl || videoEl.paused || videoEl.ended) return;
+        const dur = videoEl.duration;
+        if (!dur || isNaN(dur) || dur <= 0) {
+          cinematicFadeRafId = requestAnimationFrame(updateFade);
+          return;
+        }
+
+        const remaining = dur - videoEl.currentTime;
+        if (remaining <= CINEMATIC_FADE_DURATION && remaining >= 0) {
+          // Calculate fade progress: 1.0 at start of fade -> 0.0 at video end
+          const rawProgress = Math.max(0, Math.min(1, remaining / CINEMATIC_FADE_DURATION));
+          // Apply smooth ease curve
+          const easeProgress = Math.pow(rawProgress, 1.3);
+
+          // Audio fade-out
+          try {
+            videoEl.volume = Math.max(0, Math.min(1, easeProgress));
+          } catch (e) {}
+
+          // Video fade-out to black (both brightness filter and black overlay for 100% smooth transition)
+          videoEl.style.filter = `brightness(${easeProgress.toFixed(3)})`;
+          if (overlay) {
+            overlay.style.opacity = (1 - easeProgress).toFixed(3);
+          }
+        } else if (remaining > CINEMATIC_FADE_DURATION) {
+          // Normal playback range
+          try {
+            if (videoEl.volume < 0.98) videoEl.volume = 1.0;
+          } catch (e) {}
+          if (videoEl.style.filter !== 'brightness(1)') {
+            videoEl.style.filter = 'brightness(1)';
+          }
+          if (overlay && overlay.style.opacity !== '0') {
+            overlay.style.opacity = '0';
+          }
+        }
+
+        cinematicFadeRafId = requestAnimationFrame(updateFade);
+      }
+
+      videoEl.addEventListener('play', () => {
+        resetCinematicVideoFade(videoEl);
+        cinematicFadeRafId = requestAnimationFrame(updateFade);
+      });
+
+      videoEl.addEventListener('pause', () => {
+        if (cinematicFadeRafId) {
+          cancelAnimationFrame(cinematicFadeRafId);
+          cinematicFadeRafId = null;
+        }
+      });
+
+      videoEl.addEventListener('seeking', () => {
+        const dur = videoEl.duration;
+        if (dur && (dur - videoEl.currentTime) > CINEMATIC_FADE_DURATION) {
+          resetCinematicVideoFade(videoEl);
+        }
+      });
+
+      videoEl.addEventListener('ended', () => {
+        if (cinematicFadeRafId) {
+          cancelAnimationFrame(cinematicFadeRafId);
+          cinematicFadeRafId = null;
+        }
+        try {
+          videoEl.volume = 0;
+        } catch (e) {}
+        videoEl.style.filter = 'brightness(0)';
+        if (overlay) overlay.style.opacity = '1';
+      });
+    }
+
     function openCinematicVideo(category, key) {
       const meta = CINEMATIC_VIDEOS[category] && CINEMATIC_VIDEOS[category][key];
       if (!meta) {
@@ -15156,6 +15253,8 @@
       if (badgeEl) badgeEl.innerText = meta.badge;
 
       if (videoEl) {
+        initCinematicVideoFadeEngine(videoEl);
+        resetCinematicVideoFade(videoEl);
         videoEl.pause();
         videoEl.src = meta.videoSrc;
         if (meta.poster) videoEl.poster = meta.poster;
@@ -15176,6 +15275,7 @@
     function replayCinematicVideo() {
       const videoEl = document.getElementById('cinematicVideoElement');
       if (videoEl) {
+        resetCinematicVideoFade(videoEl);
         videoEl.currentTime = 0;
         videoEl.play();
       }
@@ -15197,6 +15297,7 @@
       const modal = document.getElementById('cinematicVideoModal');
       const videoEl = document.getElementById('cinematicVideoElement');
       if (videoEl) {
+        resetCinematicVideoFade(videoEl);
         videoEl.pause();
         videoEl.currentTime = 0;
         videoEl.removeAttribute('src');
@@ -20763,7 +20864,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SCENARIO AUDIO PRELOADER & SYNTHESIS ENGINE (v26.11.79)
+    // BULLETPROOF SCENARIO AUDIO PRELOADER & SYNTHESIS ENGINE (v26.11.80)
     // ========================================================
     let _cachedServerTtsLive = null;
     let _cachedServerTtsCheckTime = 0;
@@ -20951,7 +21052,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.79)
+    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.80)
     // ========================================================
     const KaiSpeechEngine = {
       preferredVoice: null,
@@ -22730,6 +22831,8 @@ ${existingSnippet || "無"}
         <video id="cinematicVideoElement" class="w-full h-full object-contain" controls playsinline preload="auto">
           您的瀏覽器不支援 HTML5 影片播放。
         </video>
+        <!-- Black Fade Overlay for Smooth Cinematic Ending (最後 1 秒平滑轉黑) -->
+        <div id="cinematicVideoFadeOverlay" class="absolute inset-0 bg-black pointer-events-none transition-opacity duration-150 opacity-0 z-10"></div>
       </div>
 
       <!-- Bottom Controls & Replay -->
