@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.81";
+        const LATEST_VER = "26.11.82";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -250,7 +250,7 @@
       <div class="flex flex-col items-center mb-1">
         <div class="flex items-center gap-3.5 cursor-pointer select-none">
           <div class="shrink-0">
-            <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.81" alt="KaiSpeak" class="h-20 sm:h-24 md:h-28 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] hover:scale-105 transition duration-300 shrink-0">
+            <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.82" alt="KaiSpeak" class="h-20 sm:h-24 md:h-28 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] hover:scale-105 transition duration-300 shrink-0">
           </div>
           <div class="flex flex-col justify-center text-left leading-none">
             <h1 class="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight bg-gradient-to-r from-indigo-800 via-indigo-600 to-purple-600 bg-clip-text text-transparent select-none leading-none">KaiSpeak</h1>
@@ -259,8 +259,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.81（2026年·11月·第45次發布）">
-                26.11.81
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.82（2026年·11月·第45次發布）">
+                26.11.82
               </span>
             </div>
           </div>
@@ -500,7 +500,7 @@
       <!-- Brand Logo + 奇妙星語言 Lockup -->
       <div class="flex items-center gap-1.5 sm:gap-2 cursor-pointer select-none shrink-0 group py-0.5" onclick="switchAppMode('quest')" title="KaiSpeak 首頁">
         <div class="shrink-0 flex items-center">
-          <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.81" alt="KaiSpeak" class="h-9 sm:h-11 md:h-12 w-auto object-contain drop-shadow-[0_4px_14px_rgba(79,70,229,0.18)] group-hover:scale-105 transition-all duration-300 shrink-0">
+          <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.82" alt="KaiSpeak" class="h-9 sm:h-11 md:h-12 w-auto object-contain drop-shadow-[0_4px_14px_rgba(79,70,229,0.18)] group-hover:scale-105 transition-all duration-300 shrink-0">
         </div>
         <div class="flex flex-col justify-center text-left leading-none">
           <div class="flex items-center gap-1">
@@ -508,7 +508,7 @@
               <span class="text-[9px] text-amber-500">✨</span>
               <span>奇妙星語言</span>
             </span>
-            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.81（2026年·11月·第45次發布）">26.11.81</span>
+            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.82（2026年·11月·第45次發布）">26.11.82</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer hidden sm:flex items-center gap-0.5 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-1.5 py-0.2 transition shadow-2xs group-hover:border-amber-400 max-w-[130px] truncate" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -2858,8 +2858,8 @@
             <!-- Kai Riding Fire Dragon Character (Transparent WebP + GIF Fallback, No Frame) -->
             <div id="dragonSprite" class="relative w-48 sm:w-60 md:w-72 h-28 sm:h-36 md:h-42 flex items-center justify-center transition-transform duration-200">
               <picture class="w-full h-full flex items-center justify-center pointer-events-none select-none">
-                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.81" type="image/webp">
-                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.81" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
+                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.82" type="image/webp">
+                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.82" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
               </picture>
             </div>
             <!-- Dragon Muzzle Flame Flash (Fires upon shooting laser) -->
@@ -3734,7 +3734,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.81 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.82 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -3773,7 +3773,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.81 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.82 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -4431,7 +4431,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.81";
+    const APP_VERSION = "26.11.82";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // ========================================================
@@ -12602,7 +12602,20 @@
           });
         }
 
-        this.showResultModal(passed, starsEarned);
+        if (passed) {
+          if (typeof unlockCinematicVideo === 'function') {
+            unlockCinematicVideo('islands', 1);
+          }
+          if (typeof openCinematicVideo === 'function') {
+            openCinematicVideo('islands', 1, () => {
+              this.showResultModal(passed, starsEarned);
+            });
+          } else {
+            this.showResultModal(passed, starsEarned);
+          }
+        } else {
+          this.showResultModal(passed, starsEarned);
+        }
       },
 
       showResultModal(passed, stars) {
@@ -13630,7 +13643,10 @@
             unlockCinematicVideo('skyscrapers', this.activeLandmarkId);
           }
           if (typeof openCinematicVideo === 'function') {
-            openCinematicVideo('skyscrapers', this.activeLandmarkId);
+            openCinematicVideo('skyscrapers', this.activeLandmarkId, () => {
+              alert(`🎉 【${lm.name}】全樓層盛大竣工封頂！\n\n共計 ${lm.totalFloors} 層 · 總高度 ${lm.heightMeters} 米！\n世界級經典名樓建造完成，獲得名樓專屬成就榮耀！`);
+              this.showFullTowerModal();
+            });
           }
           return;
         }
@@ -13669,7 +13685,10 @@
           unlockCinematicVideo('skyscrapers', this.activeLandmarkId);
         }
         if (typeof openCinematicVideo === 'function') {
-          openCinematicVideo('skyscrapers', this.activeLandmarkId);
+          openCinematicVideo('skyscrapers', this.activeLandmarkId, () => {
+            alert(`🎉 【${lm.name}】全樓層盛大竣工封頂！\n\n共計 ${lm.totalFloors} 層 · 總高度 ${lm.heightMeters} 米！\n世界級經典名樓建造完成，獲得名樓專屬成就榮耀！`);
+            this.showFullTowerModal();
+          });
         }
       },
 
@@ -15073,6 +15092,13 @@
 
         if (vImg) vImg.src = stageInfo.image;
 
+        const showModal = () => {
+          if (modal) {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+          }
+        };
+
         if (isFinal) {
           if (typeof unlockCinematicVideo === 'function') {
             unlockCinematicVideo('beasts', b.id);
@@ -15085,6 +15111,15 @@
           if (vBtn) vBtn.innerHTML = `<span>👑 傳奇巡禮 · 返回聖域地圖</span>`;
           if (vVidBtn) vVidBtn.classList.remove('hidden');
           this.isFinalEvolution = true;
+
+          // Proactively pop up 15-second sovereign flight cinematic FIRST!
+          if (typeof openCinematicVideo === 'function') {
+            openCinematicVideo('beasts', b.id, () => {
+              showModal();
+            });
+          } else {
+            showModal();
+          }
         } else {
           if (vBadge) vBadge.innerText = `STAGE ${stageInfo.stageNum} EVOLUTION UNLOCKED`;
           if (vTitle) vTitle.innerText = `🌟 階段突破！神獸進化！`;
@@ -15094,11 +15129,8 @@
           if (vBtn) vBtn.innerHTML = `<span>⚡ 繼續天雷充能 (下一階段)</span>`;
           if (vVidBtn) vVidBtn.classList.add('hidden');
           this.isFinalEvolution = false;
-        }
 
-        if (modal) {
-          modal.classList.remove('hidden');
-          modal.classList.add('flex');
+          showModal();
         }
       },
 
@@ -15155,7 +15187,7 @@
     };
 
     // ========================================================
-    // CINEMATIC 15-SECOND CELEBRATION VIDEO ENGINE (v26.11.81)
+    // CINEMATIC 15-SECOND CELEBRATION VIDEO ENGINE (v26.11.82)
     // ========================================================
     const CINEMATIC_VIDEOS = {
       beasts: {
@@ -15265,7 +15297,7 @@
     };
 
     // ========================================================
-    // DEV STAGE SIMULATOR SWITCH & CONTROLLER (v26.11.81)
+    // DEV STAGE SIMULATOR SWITCH & CONTROLLER (v26.11.82)
     // ========================================================
     // true = 開發預覽階段顯示「⚡ 模擬通關」快捷按鈕，方便即時確認結算畫面與通關動畫
     // false = 正式發布上架時完全鎖閉並隱藏所有模擬通關按鈕
@@ -15435,23 +15467,33 @@
         } catch (e) {}
         videoEl.style.filter = 'brightness(0)';
         if (overlay) overlay.style.opacity = '1';
+
+        const closeBtn = document.getElementById('cinematicVideoCloseBtn');
+        if (closeBtn && typeof currentCinematicOnCloseCallback === 'function') {
+          closeBtn.classList.add('animate-bounce');
+        }
       });
     }
 
-    function openCinematicVideo(category, key) {
+    let currentCinematicOnCloseCallback = null;
+
+    function openCinematicVideo(category, key, onCloseCallback = null) {
       if (!isCinematicVideoUnlocked(category, key)) {
         if (typeof SoundEffects !== 'undefined' && SoundEffects.playLockWarning) {
           SoundEffects.playLockWarning();
         }
         alert("🔒 尚未解鎖此傳奇通關動畫！\n請先完成該關卡任務、世界名樓封頂或神獸成龍蛻變後即可解鎖觀看。");
+        if (typeof onCloseCallback === 'function') onCloseCallback();
         return;
       }
 
       const meta = CINEMATIC_VIDEOS[category] && CINEMATIC_VIDEOS[category][key];
       if (!meta) {
-        alert("找不到對應動畫資源");
+        if (typeof onCloseCallback === 'function') onCloseCallback();
         return;
       }
+
+      currentCinematicOnCloseCallback = onCloseCallback;
 
       // Stop any voice speech or background audio
       if (typeof KaiSpeechEngine !== 'undefined') KaiSpeechEngine.stop();
@@ -15461,10 +15503,22 @@
       const subEl = document.getElementById('cinematicVideoSubtitle');
       const badgeEl = document.getElementById('cinematicVideoBadge');
       const videoEl = document.getElementById('cinematicVideoElement');
+      const closeBtn = document.getElementById('cinematicVideoCloseBtn');
 
       if (titleEl) titleEl.innerText = meta.title;
       if (subEl) subEl.innerText = meta.subtitle;
       if (badgeEl) badgeEl.innerText = meta.badge;
+
+      if (closeBtn) {
+        closeBtn.classList.remove('animate-bounce');
+        if (typeof onCloseCallback === 'function') {
+          closeBtn.innerHTML = '<span>✨ 關閉並查看結算計分 ▶</span>';
+          closeBtn.className = 'px-5 py-2 rounded-xl bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500 hover:from-emerald-300 text-slate-950 font-black text-xs sm:text-sm shadow-lg transition active:scale-95 flex items-center gap-1.5 cursor-pointer';
+        } else {
+          closeBtn.innerHTML = '關閉視窗';
+          closeBtn.className = 'px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-black text-xs sm:text-sm transition active:scale-95 cursor-pointer';
+        }
+      }
 
       if (videoEl) {
         initCinematicVideoFadeEngine(videoEl);
@@ -15518,6 +15572,12 @@
         videoEl.load();
       }
       if (modal) modal.classList.add('hidden');
+
+      if (typeof currentCinematicOnCloseCallback === 'function') {
+        const cb = currentCinematicOnCloseCallback;
+        currentCinematicOnCloseCallback = null;
+        cb();
+      }
     }
 
     window.openCinematicVideo = openCinematicVideo;
@@ -21085,7 +21145,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SCENARIO AUDIO PRELOADER & SYNTHESIS ENGINE (v26.11.81)
+    // BULLETPROOF SCENARIO AUDIO PRELOADER & SYNTHESIS ENGINE (v26.11.82)
     // ========================================================
     let _cachedServerTtsLive = null;
     let _cachedServerTtsCheckTime = 0;
@@ -21273,7 +21333,7 @@
     }
 
     // ========================================================
-    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.81)
+    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.82)
     // ========================================================
     const KaiSpeechEngine = {
       preferredVoice: null,
@@ -23069,7 +23129,7 @@ ${existingSnippet || "無"}
         <div class="text-[11px] text-amber-200/80 font-mono flex items-center gap-1.5">
           <span>✨ 15 秒高清終極通關動畫</span> · <span>MiniMax Video-01 旗艦電影級</span>
         </div>
-        <button type="button" onclick="closeCinematicVideo()" class="px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-black text-xs sm:text-sm transition active:scale-95">
+        <button type="button" id="cinematicVideoCloseBtn" onclick="closeCinematicVideo()" class="px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-black text-xs sm:text-sm transition active:scale-95 cursor-pointer">
           關閉視窗
         </button>
       </div>
