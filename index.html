@@ -14980,6 +14980,9 @@
         if (vImg) vImg.src = stageInfo.image;
 
         if (isFinal) {
+          if (typeof unlockCinematicVideo === 'function') {
+            unlockCinematicVideo('beasts', b.id);
+          }
           if (vBadge) vBadge.innerText = 'LEGENDARY SOVEREIGN DRAGON';
           if (vTitle) vTitle.innerText = `${b.name} · 完全體成龍！君臨天際！`;
           if (vDesc) vDesc.innerText = `歷經 500 次天雷充能淬鍊！${b.name.split('·')[0]} 已完全蛻變為傳奇成龍，展翼翱翔於神聖蒼穹！`;
@@ -15135,6 +15138,65 @@
       }
     };
 
+    // ========================================================
+    // CINEMATIC VIDEO UNLOCK ENGINE (DEV PREVIEW vs PRODUCTION)
+    // ========================================================
+    // true = 開發預覽階段全開放測試 / false = 正式版嚴格任務通關成就解鎖
+    const DEV_PREVIEW_UNLOCK_ALL_VIDEOS = true;
+
+    function isCinematicVideoUnlocked(category, key) {
+      if (DEV_PREVIEW_UNLOCK_ALL_VIDEOS) return true;
+
+      // 1. Check local persistent storage
+      try {
+        const raw = localStorage.getItem('kaispeak_unlocked_cinematics');
+        if (raw) {
+          const list = JSON.parse(raw);
+          if (list && list[category] && list[category][key]) return true;
+        }
+      } catch (e) {}
+
+      // 2. Realtime dynamic milestone evaluation:
+      if (category === 'beasts') {
+        // Unlocked when beast reached 500 questions (Stage 5 awakened)
+        try {
+          const bProg = BeastGameEngine.getProgress();
+          if (bProg && bProg.beasts && bProg.beasts[key] && (bProg.beasts[key].correctCount >= 500)) return true;
+        } catch(e) {}
+      } else if (category === 'skyscrapers') {
+        // Unlocked when skyscraper reached total floors
+        try {
+          const p = SkyscraperGameEngine.getProgressData();
+          const lm = (typeof SKYSCRAPER_LANDMARKS !== 'undefined') && SKYSCRAPER_LANDMARKS.find(x => x.id === key);
+          const totalFloors = lm ? lm.totalFloors : 100;
+          if (p && p.skyscraperProgress && p.skyscraperProgress[key] && (p.skyscraperProgress[key].currentFloor >= totalFloors)) return true;
+        } catch(e) {}
+      } else if (category === 'islands') {
+        // Unlocked when island boss defeated / clear
+        try {
+          const islId = parseInt(key, 10);
+          if (islId === 1) {
+            const mProg = MeteorGameEngine.getProgress();
+            if (mProg && mProg.stageRecords && mProg.stageRecords['boss_cleared']) return true;
+          }
+        } catch(e) {}
+      }
+
+      return false;
+    }
+
+    function unlockCinematicVideo(category, key) {
+      try {
+        let store = {};
+        const raw = localStorage.getItem('kaispeak_unlocked_cinematics');
+        if (raw) store = JSON.parse(raw) || {};
+        if (!store[category]) store[category] = {};
+        store[category][key] = true;
+        localStorage.setItem('kaispeak_unlocked_cinematics', JSON.stringify(store));
+        console.log(`[CinematicVideo] Unlocked milestone video: ${category}/${key}`);
+      } catch (e) {}
+    }
+
     let cinematicFadeRafId = null;
     const CINEMATIC_FADE_DURATION = 1.2; // seconds before end to begin smooth fade to black & silence
 
@@ -15233,6 +15295,14 @@
     }
 
     function openCinematicVideo(category, key) {
+      if (!isCinematicVideoUnlocked(category, key)) {
+        if (typeof SoundEffects !== 'undefined' && SoundEffects.playLockWarning) {
+          SoundEffects.playLockWarning();
+        }
+        alert("🔒 尚未解鎖此傳奇通關動畫！\n請先完成該關卡任務、世界名樓封頂或神獸成龍蛻變後即可解鎖觀看。");
+        return;
+      }
+
       const meta = CINEMATIC_VIDEOS[category] && CINEMATIC_VIDEOS[category][key];
       if (!meta) {
         alert("找不到對應動畫資源");
