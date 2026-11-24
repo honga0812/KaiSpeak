@@ -3038,6 +3038,13 @@
               <span>💡 智慧回答提示 (一鍵朗讀回答)</span>
             </button>
           </div>
+          <!-- Text Input Backup for Noisy Environments / Quick Reply -->
+          <div class="flex items-center gap-2 pt-2 border-t border-slate-800/80">
+            <input id="atlantisTextInput" type="text" placeholder="也可以直接輸入英文回答海皇導師（按 Enter 送出）..." onkeydown="if(event.key==='Enter'){AtlantisBossGameEngine.submitTextInput();}" class="flex-1 px-3.5 py-2 rounded-xl bg-slate-950 border border-cyan-500/40 text-xs sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400">
+            <button type="button" onclick="AtlantisBossGameEngine.submitTextInput()" class="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-black text-xs shadow-md transition active:scale-95 cursor-pointer shrink-0">
+              送出回答 ➔
+            </button>
+          </div>
         </div>
 
       </div>
@@ -16400,6 +16407,62 @@
       audioChunks: [],
       liveTranscript: '',
 
+      // 3-Stage Coral Temple Boss State
+      bossPhase: 1,
+      bossStep: 0,
+      bossHp: 100,
+      bossSpeechRec: null,
+      isBossRecording: false,
+      currentBossTask: null,
+
+      BOSS_PHASE_1_BANK: [
+        { audio: "Strike the glowing pearl!", correctId: "pearl", options: [
+          { id: "pearl", emoji: "🦪", label: "發光珍珠符文" },
+          { id: "shell", emoji: "🐚", label: "螺旋貝殼符文" },
+          { id: "star", emoji: "⭐", label: "海星符文" }
+        ]},
+        { audio: "Follow the giant blue whale!", correctId: "whale", options: [
+          { id: "shark", emoji: "🦈", label: "深海巨鯊符文" },
+          { id: "whale", emoji: "🐋", label: "藍鯨符文" },
+          { id: "crab", emoji: "🦀", label: "紅蟹符文" }
+        ]},
+        { audio: "Protect the golden coral reef!", correctId: "coral", options: [
+          { id: "anchor", emoji: "⚓", label: "鐵錨符文" },
+          { id: "crown", emoji: "👑", label: "王冠符文" },
+          { id: "coral", emoji: "🪸", label: "黃金珊瑚符文" }
+        ]}
+      ],
+
+      BOSS_PHASE_2_WORDS: [
+        { word: "TRIDENT", zh: "海皇三叉戟" },
+        { word: "DOLPHIN", zh: "水晶海豚" },
+        { word: "TREASURE", zh: "海底寶藏" }
+      ],
+
+      BOSS_PHASE_3_SENTENCES: [
+        { sentence: "I summon the golden trident to protect the deep ocean!", zh: "我召喚黃金三叉戟來守護深海！" },
+        { sentence: "The brave explorer defeated the giant sea monster!", zh: "勇敢的探險家擊敗了巨大的海怪！" }
+      ],
+
+      OPENING_TOPICS: [
+        {
+          en: "Welcome to Atlantis, brave explorer! I am Poseidon's Dolphin Sage. Tell me, what is your name, and what sea animal would you like to ride underwater?",
+          zh: "歡迎來到亞特蘭提斯，勇敢的探險家！我是海皇的海豚導師。告訴我你叫什麼名字，你在海底最想騎乘哪一種海洋動物呢？"
+        },
+        {
+          en: "Greetings from the Coral Palace! I'm curious: if you discovered a glowing treasure chest in the ocean, what do you hope is inside?",
+          zh: "來自珊瑚宮殿的問候！我很好奇：如果你在海底發現一個發光的寶箱，你希望裡面裝著什麼呢？"
+        },
+        {
+          en: "Hello, young traveler! Before we awaken the Golden Trident, tell me about your favorite food or hobby in your everyday life!",
+          zh: "你好，年輕的旅人！在喚醒黃金三叉戟之前，跟我聊聊你日常生活中最喜歡的食物或興趣吧！"
+        },
+        {
+          en: "Welcome to our underwater city! Look around the glowing reefs—if you had one magical ocean superpower, what would you choose and why?",
+          zh: "歡迎來到海底城市！看看四周發光的珊瑚礁——如果你能擁有一種海洋超能力，你會選什麼？為什麼呢？"
+        }
+      ],
+
       init() {
         if (typeof applyDevSimulatorVisibility === 'function') applyDevSimulatorVisibility();
         this.updateQuotaUI();
@@ -16409,19 +16472,17 @@
       showScreen(s) {
         const scrGate = document.getElementById('atlantisGatewayScreen');
         const scrInterview = document.getElementById('atlantisInterviewScreen');
-        if (s === 'gateway') {
-          if (scrGate) scrGate.classList.remove('hidden');
-          if (scrInterview) scrInterview.classList.add('hidden');
-        } else {
-          if (scrGate) scrGate.classList.add('hidden');
-          if (scrInterview) scrInterview.classList.remove('hidden');
-        }
+        const scrBoss = document.getElementById('atlantisBossBattleScreen');
+        if (scrGate) scrGate.classList.toggle('hidden', s !== 'gateway');
+        if (scrInterview) scrInterview.classList.toggle('hidden', s !== 'interview');
+        if (scrBoss) scrBoss.classList.toggle('hidden', s !== 'boss');
       },
 
       returnToGateway() {
         this.isInterviewing = false;
         this.stopTimer();
         this.stopRecording(false);
+        this.stopBossRecording();
         this.showScreen('gateway');
       },
 
@@ -16440,8 +16501,8 @@
         if (btn) {
           btn.innerText = this.autoLoopEnabled ? '🎙️ 連續對話: ON' : '🎙️ 連續對話: OFF';
           btn.className = this.autoLoopEnabled
-            ? 'text-[10px] font-black px-2.5 py-1 rounded-full bg-cyan-900/80 text-cyan-200 border border-cyan-400/50 hover:bg-cyan-800 transition cursor-pointer'
-            : 'text-[10px] font-black px-2.5 py-1 rounded-full bg-slate-800 text-slate-400 border border-slate-600 hover:bg-slate-700 transition cursor-pointer';
+            ? 'text-[10px] font-black px-2.5 py-1 rounded-xl bg-cyan-900/80 text-cyan-200 border border-cyan-400/50 hover:bg-cyan-800 transition cursor-pointer'
+            : 'text-[10px] font-black px-2.5 py-1 rounded-xl bg-slate-800 text-slate-400 border border-slate-600 hover:bg-slate-700 transition cursor-pointer';
         }
       },
 
@@ -16479,12 +16540,15 @@
         const s = String(Math.max(0, this.remainingSeconds) % 60).padStart(2, '0');
         el.innerText = `⏱️ ${m}:${s}`;
         if (this.remainingSeconds <= 15) {
-          el.className = 'text-xs font-black text-rose-300 bg-rose-950/80 px-3 py-1 rounded-full border border-rose-500/60 font-mono animate-pulse';
+          el.className = 'text-xs font-black text-rose-300 bg-rose-950/80 px-3 py-1 rounded-xl border border-rose-500/60 font-mono animate-pulse';
         } else {
-          el.className = 'text-xs font-black text-emerald-300 bg-emerald-950/70 px-3 py-1 rounded-full border border-emerald-500/40 font-mono';
+          el.className = 'text-xs font-black text-emerald-300 bg-emerald-950/70 px-3 py-1 rounded-xl border border-emerald-500/40 font-mono';
         }
       },
 
+      // ========================================================
+      // MODE A: LIVE AI ORAL INTERVIEW (DYNAMIC GEMINI MULTI-TURN)
+      // ========================================================
       startOralInterview() {
         if (typeof checkAndConsumeAiQuota === 'function') {
           const ok = checkAndConsumeAiQuota();
@@ -16508,12 +16572,10 @@
         this.showScreen('interview');
         this.startTimer();
 
-        const openingEn = "Welcome to Atlantis, brave explorer! I am Poseidon's Crystal Dolphin Sage. Tell me, what is your name, and what do you want to discover under the ocean?";
-        const openingZh = "歡迎來到亞特蘭提斯，勇敢的探險家！我是海皇的水晶海豚導師。告訴我，你叫什麼名字？你在海底最想探索什麼呢？";
-
-        this.conversationHistory.push({ role: 'model', text: openingEn });
-        this.appendMessage('ai', openingEn, openingZh);
-        this.speakAiResponse(openingEn, () => {
+        const opener = this.OPENING_TOPICS[Math.floor(Math.random() * this.OPENING_TOPICS.length)];
+        this.conversationHistory.push({ role: 'model', text: opener.en });
+        this.appendMessage('ai', opener.en, opener.zh);
+        this.speakAiResponse(opener.en, () => {
           if (this.isInterviewing && this.autoLoopEnabled && !this.isRecording) {
             setTimeout(() => {
               if (this.isInterviewing && !this.isRecording && !this.isProcessingAi) {
@@ -16524,8 +16586,14 @@
         });
       },
 
-      startBossBattle() {
-        this.startOralInterview();
+      submitTextInput() {
+        const inp = document.getElementById('atlantisTextInput');
+        if (!inp) return;
+        const txt = inp.value.trim();
+        if (!txt || this.isProcessingAi || !this.isInterviewing) return;
+        inp.value = '';
+        if (this.isRecording) this.stopRecording(false);
+        this.handleUserSpokenResponse(txt, '', '');
       },
 
       appendMessage(role, textEn, textZh, tipText = '') {
@@ -16589,7 +16657,6 @@
         if (micBtn) micBtn.className = "w-full py-4 px-4 rounded-2xl bg-rose-600 hover:bg-rose-500 text-white font-black text-sm sm:text-base shadow-xl transition active:scale-95 flex items-center justify-center gap-2 cursor-pointer animate-pulse";
         if (micLabel) micLabel.innerText = "正在說話... 點擊完成並送出給海皇";
 
-        // 1. Start MediaRecorder for real Gemini Audio Multimodal understanding
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia && typeof MediaRecorder !== 'undefined') {
           try {
             const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -16600,11 +16667,10 @@
             };
             this.mediaRecorder.start();
           } catch (err) {
-            console.warn("MediaRecorder unavailable, falling back to SpeechRecognition:", err);
+            console.warn("MediaRecorder unavailable:", err);
           }
         }
 
-        // 2. Start Web Speech API for real-time live captions & auto end-of-speech detection
         const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (SpeechRec) {
           try {
@@ -16612,6 +16678,7 @@
             this.speechRec.lang = 'en-US';
             this.speechRec.continuous = false;
             this.speechRec.interimResults = true;
+            this.speechRec.maxAlternatives = 3;
 
             this.speechRec.onresult = (e) => {
               let fullText = '';
@@ -16622,7 +16689,6 @@
               if (capEl && this.liveTranscript) {
                 capEl.innerText = `🗣️ "${this.liveTranscript}"`;
               }
-              // Auto-submit when speech recognition finalizes a sentence!
               const lastResult = e.results[e.results.length - 1];
               if (lastResult && lastResult.isFinal && this.isRecording) {
                 this.stopRecording(true);
@@ -16630,7 +16696,6 @@
             };
 
             this.speechRec.onerror = (e) => {
-              console.warn("Atlantis SpeechRec error:", e.error);
               if (this.isRecording && e.error === 'no-speech') {
                 this.stopRecording(false);
               }
@@ -16674,7 +16739,7 @@
             if (micStatus) micStatus.innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-cyan-400"></span> 等待您的語音回答...`;
             return;
           }
-          if (micStatus) micStatus.innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping"></span> 海皇導師正在聆聽並思考回應...`;
+          if (micStatus) micStatus.innerHTML = `<span class="w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping"></span> Gemini AI 正在聆聽並思考回應...`;
           await this.handleUserSpokenResponse(spoken || '(語音回答已送出)', audioBase64, mimeType);
         };
 
@@ -16705,12 +16770,12 @@
       autoReplySample() {
         if (!this.isInterviewing || this.isProcessingAi) return;
         const samples = [
-          "My name is Kai and I want to explore the glowing coral castle with dolphins!",
-          "I see purple and blue coral reefs shining like diamonds in the deep water!",
-          "We can protect the ocean by never throwing plastic trash into the sea!",
-          "Because ocean animals need clean water and safe homes to live happily!"
+          "My name is Kai and I would love to ride a fast silver dolphin!",
+          "I hope to find ancient glowing pearls and a map to a sunken ship!",
+          "My favorite food is pizza and I love playing basketball after school!",
+          "If I had a superpower, I would talk to whales and explore the deep sea!"
         ];
-        const s = samples[(this.turnIndex - 1) % samples.length];
+        const s = samples[Math.floor(Math.random() * samples.length)];
         this.handleUserSpokenResponse(s, '', '');
       },
 
@@ -16721,52 +16786,84 @@
 
         if (!isDirectKey && !gatewayUrl) return null;
 
-        const historyStr = this.conversationHistory.slice(-6).map(m => `${m.role === 'model' ? 'Sage' : 'Explorer'}: ${m.text}`).join('\n');
-        const promptText = `You are the Crystal Dolphin Sage conducting a warm, encouraging, interactive English oral interview with a student in Atlantis (Round ${this.turnIndex} of ${this.maxTurns}).
-Conversation so far:
+        const historyStr = this.conversationHistory.slice(-8).map(m => `${m.role === 'model' ? 'Sage' : 'Student'}: ${m.text}`).join('\n');
+        const promptText = `You are the Crystal Dolphin Sage conducting a dynamic, truly interactive English oral interview with a student in Atlantis (Round ${this.turnIndex} of ${this.maxTurns}).
+CRITICAL RULES:
+1. Directly react to and reference specific words/ideas the student JUST said! Never give generic canned responses.
+2. Ask ONE natural, engaging follow-up question that builds directly on their answer.
+3. Keep English level warm, clear, and encouraging (CEFR A1-B1).
+4. Respond ONLY with a valid JSON object (no markdown fences).
+
+Conversation History:
 ${historyStr}
 
-The student just responded${audioBase64 ? ' (listen carefully to the attached audio for their real words, pronunciation, and fluency!)' : ''}: "${spokenText}"
+Student's Latest Input: "${spokenText}"
 
-Respond ONLY in valid JSON with this exact format:
+JSON Schema:
 {
-  "transcribedEn": "what the student actually said in English",
-  "replyEn": "your natural conversational response in English (1-2 warm sentences reacting to what they said + 1 engaging follow-up question to keep the conversation going)",
+  "transcribedEn": "clean English transcription of what the student said",
+  "replyEn": "1-2 warm sentences reacting specifically to what they said + 1 natural follow-up question",
   "replyZh": "Traditional Chinese translation of replyEn",
-  "pronunciationTip": "short Traditional Chinese tip praising their speaking or gently advising 1 word/grammar point",
+  "pronunciationTip": "short Traditional Chinese feedback praising a specific word/idea they used or giving 1 helpful tip",
   "scores": { "pronunciation": 85, "fluency": 84, "vocab": 82, "latency": 88, "grammar": 83 }
 }`;
 
-        const parts = [{ text: promptText }];
-        if (audioBase64) {
-          parts.push({ inlineData: { mimeType: mimeType || 'audio/webm', data: audioBase64 } });
+        const models = ['gemini-3.5-flash', 'gemini-3.8-flash'];
+        // Build attempt modes: first try with audio if present, then reliably fall back to text-only across models & mime modes
+        const attemptModes = [];
+        if (audioBase64 && audioBase64.length > 200) {
+          for (const m of models) {
+            attemptModes.push({ model: m, useAudio: true, useMime: true });
+          }
+        }
+        for (const m of models) {
+          attemptModes.push({ model: m, useAudio: false, useMime: true });
+          attemptModes.push({ model: m, useAudio: false, useMime: false });
         }
 
-        const payload = {
-          contents: [{ role: "user", parts }],
-          generationConfig: { temperature: 0.7, responseMimeType: "application/json" }
-        };
+        for (const cfg of attemptModes) {
+          try {
+            const parts = [{ text: promptText }];
+            if (cfg.useAudio) {
+              parts.push({ inlineData: { mimeType: mimeType || 'audio/webm', data: audioBase64 } });
+            }
+            const payload = {
+              contents: [{ role: "user", parts }],
+              generationConfig: cfg.useMime
+                ? { temperature: 0.75, maxOutputTokens: 800, responseMimeType: "application/json" }
+                : { temperature: 0.75, maxOutputTokens: 800 }
+            };
+            const url = gatewayUrl
+              ? `${gatewayUrl}${gatewayUrl.includes('?') ? '&' : '?'}model=${cfg.model}`
+              : `https://generativelanguage.googleapis.com/v1beta/models/${cfg.model}:generateContent?key=${encodeURIComponent(apiKey)}`;
 
-        const model = 'gemini-3.5-flash';
-        const url = gatewayUrl
-          ? `${gatewayUrl}${gatewayUrl.includes('?') ? '&' : '?'}model=${model}`
-          : `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${encodeURIComponent(apiKey)}`;
+            const controller = new AbortController();
+            const tid = setTimeout(() => controller.abort(), 14000);
+            let resp;
+            try {
+              resp = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+                signal: controller.signal
+              });
+            } finally {
+              clearTimeout(tid);
+            }
 
-        try {
-          const resp = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-          });
-          if (!resp.ok) return null;
-          const data = await resp.json();
-          const raw = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
-          const cleaned = raw.replace(/```json|```/gi, '').trim();
-          return JSON.parse(cleaned);
-        } catch (e) {
-          console.warn("Atlantis Gemini call fallback:", e);
-          return null;
+            if (!resp.ok) continue;
+            const data = await resp.json();
+            const raw = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+            const jsonMatch = raw.match(/\{[\s\S]*\}/);
+            if (jsonMatch) {
+              const parsed = JSON.parse(jsonMatch[0]);
+              if (parsed && parsed.replyEn) return parsed;
+            }
+          } catch (err) {
+            console.warn(`Atlantis Gemini attempt (${cfg.model}, audio=${cfg.useAudio}) failed:`, err.message || err);
+          }
         }
+        return null;
       },
 
       async handleUserSpokenResponse(spokenText, audioBase64 = '', mimeType = '') {
@@ -16797,27 +16894,22 @@ Respond ONLY in valid JSON with this exact format:
           return;
         }
 
-        const fallbackReplies = [
-          {
-            en: "Wonderful! The crystal dolphins love your energy. Can you describe what colors or sea creatures you see around the temple?",
-            zh: "太棒了！水晶海豚很喜歡你的活力。你能描述你在神殿周圍看到什麼顏色或海洋生物嗎？",
-            tip: "句子結構很完整，試著多加入形容詞會更生動喔！"
-          },
-          {
-            en: "That sounds magical! Why is it important for humans to keep the ocean clean and peaceful?",
-            zh: "聽起來太神奇了！為什麼人類保持海洋潔淨與和平這麼重要呢？",
-            tip: "發音清晰自然，試著用 Because... 開頭回答看看！"
-          },
-          {
-            en: "Very thoughtful answer! If you had Poseidon's Golden Trident, what would you wish for the ocean?",
-            zh: "非常深刻的回答！如果你擁有海皇的黃金三叉戟，你會為海洋許下什麼願望呢？",
-            tip: "語速很流暢，繼續保持自信大聲說出來！"
-          }
-        ];
-
-        const nextObj = aiResult && aiResult.replyEn
-          ? { en: aiResult.replyEn, zh: aiResult.replyZh || '', tip: aiResult.pronunciationTip || '' }
-          : fallbackReplies[(this.turnIndex - 2) % fallbackReplies.length];
+        let nextObj;
+        if (aiResult && aiResult.replyEn) {
+          nextObj = {
+            en: aiResult.replyEn,
+            zh: aiResult.replyZh || '',
+            tip: aiResult.pronunciationTip || ''
+          };
+        } else {
+          // Smart contextual reflection fallback (references what user actually said)
+          const keywords = finalUserText.replace(/[^a-zA-Z\s]/g, '').trim().split(/\s+/).slice(-3).join(' ');
+          nextObj = {
+            en: `I heard you mention "${keywords || 'that'}"—that is really interesting! Tell me more: why is that special to you in this ocean adventure?`,
+            zh: `我聽到你提到了「${keywords || '這個想法'}」，真有意思！能再多跟我說一點嗎？為什麼這對你在這場海洋冒險中很特別呢？`,
+            tip: "離線備援模式：繼續用完整英文句子詳細回答吧！"
+          };
+        }
 
         this.conversationHistory.push({ role: 'model', text: nextObj.en });
         this.appendMessage('ai', nextObj.en, nextObj.zh, nextObj.tip);
@@ -16883,10 +16975,221 @@ Respond ONLY in valid JSON with this exact format:
         const grade = total >= 90 ? 'S 級' : (total >= 80 ? 'A 級' : (total >= 70 ? 'B 級' : 'C 級'));
         const modal = document.getElementById('atlantisReportModal');
         if (!modal) return;
-        const scoreEls = modal.querySelectorAll('.text-emerald-400, .text-cyan-400, .text-amber-400');
-        // Update grade badge if found
         const gradeEl = modal.querySelector('.text-3xl.font-black');
         if (gradeEl) gradeEl.innerText = `${grade} (${total}分)`;
+      },
+
+      // ========================================================
+      // MODE B: 3-STAGE CORAL TEMPLE BOSS BATTLE
+      // ========================================================
+      startBossBattle() {
+        if (typeof applyDevSimulatorVisibility === 'function') applyDevSimulatorVisibility();
+        this.bossPhase = 1;
+        this.bossStep = 0;
+        this.bossHp = 100;
+        this.showScreen('boss');
+        this.renderBossStage();
+      },
+
+      updateBossHpUI() {
+        const hpBar = document.getElementById('atlantisBossHpBar');
+        const hpText = document.getElementById('atlantisBossHpText');
+        const avatar = document.getElementById('atlantisBossAvatar');
+        if (hpBar) hpBar.style.width = `${Math.max(0, this.bossHp)}%`;
+        if (hpText) hpText.innerText = `HP ${Math.max(0, this.bossHp)}%`;
+        if (avatar) {
+          avatar.classList.add('scale-125', 'text-rose-400');
+          setTimeout(() => avatar.classList.remove('scale-125', 'text-rose-400'), 350);
+        }
+      },
+
+      renderBossStage() {
+        const titleEl = document.getElementById('atlantisBossStageTitle');
+        const badgeEl = document.getElementById('atlantisBossPhaseBadge');
+        const instrEl = document.getElementById('atlantisBossInstruction');
+        const targetEl = document.getElementById('atlantisBossTargetDisplay');
+        const actionEl = document.getElementById('atlantisBossActionArea');
+        const fbEl = document.getElementById('atlantisBossFeedback');
+        if (fbEl) fbEl.innerText = '';
+
+        this.updateBossHpUI();
+
+        if (this.bossPhase === 1) {
+          const item = this.BOSS_PHASE_1_BANK[this.bossStep % this.BOSS_PHASE_1_BANK.length];
+          this.currentBossTask = item;
+          if (titleEl) titleEl.innerText = '第一階段：聲納盲聽破漩渦';
+          if (badgeEl) badgeEl.innerText = `Phase 1 / 3 (${this.bossStep + 1}/3)`;
+          if (instrEl) instrEl.innerText = '聆聽海皇聲納指令，選出正確的珊瑚符文擊碎護盾！';
+          if (targetEl) targetEl.innerText = '🎧 盲聽模式（不顯示英文）';
+          if (actionEl) {
+            actionEl.innerHTML = `
+              <div class="grid grid-cols-3 gap-3 w-full">
+                ${item.options.map(opt => `
+                  <button type="button" onclick="AtlantisBossGameEngine.handleBossPhase1Choice('${opt.id}')" class="p-4 rounded-2xl bg-slate-900 hover:bg-indigo-900/60 border-2 border-indigo-400/50 hover:border-amber-400 flex flex-col items-center gap-2 transition active:scale-95 cursor-pointer">
+                    <span class="text-4xl">${opt.emoji}</span>
+                    <span class="text-xs font-black text-white">${opt.label}</span>
+                  </button>
+                `).join('')}
+              </div>
+            `;
+          }
+          setTimeout(() => this.playBossStageAudio(), 350);
+        } else if (this.bossPhase === 2) {
+          const item = this.BOSS_PHASE_2_WORDS[this.bossStep % this.BOSS_PHASE_2_WORDS.length];
+          this.currentBossTask = item;
+          if (titleEl) titleEl.innerText = '第二階段：珊瑚晶石單字射擊';
+          if (badgeEl) badgeEl.innerText = `Phase 2 / 3 (${this.bossStep + 1}/3)`;
+          if (instrEl) instrEl.innerText = '大聲唸出（或點擊發射）下方珊瑚晶石單字，發射三叉戟雷射！';
+          if (targetEl) targetEl.innerText = `💎 ${item.word} (${item.zh})`;
+          if (actionEl) {
+            actionEl.innerHTML = `
+              <div class="flex flex-col sm:flex-row gap-3 w-full max-w-md">
+                <button type="button" onclick="AtlantisBossGameEngine.startBossVoiceStrike('${item.word}', false)" class="flex-1 py-3.5 px-4 rounded-2xl bg-gradient-to-r from-cyan-400 to-indigo-500 hover:from-cyan-300 text-slate-950 font-black text-sm shadow-xl transition active:scale-95 cursor-pointer">
+                  🎙️ 唸出單字發射雷射
+                </button>
+                <button type="button" onclick="AtlantisBossGameEngine.dealBossDamage(12)" class="py-3.5 px-4 rounded-2xl bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-400/40 font-black text-xs transition active:scale-95 cursor-pointer">
+                  ⚡ 點擊晶石快擊
+                </button>
+              </div>
+            `;
+          }
+          setTimeout(() => this.playBossStageAudio(), 350);
+        } else {
+          const item = this.BOSS_PHASE_3_SENTENCES[this.bossStep % this.BOSS_PHASE_3_SENTENCES.length];
+          this.currentBossTask = item;
+          if (titleEl) titleEl.innerText = '第三階段：海皇三叉戟史詩詠唱';
+          if (badgeEl) badgeEl.innerText = `Phase 3 / 3 (${this.bossStep + 1}/2)`;
+          if (instrEl) instrEl.innerText = '深海巨怪已瀕臨潰敗！大聲詠唱整句史詩咒語給予終極一擊！';
+          if (targetEl) targetEl.innerHTML = `<div>${item.sentence}</div><div class="text-xs text-cyan-200 mt-1">${item.zh}</div>`;
+          if (actionEl) {
+            actionEl.innerHTML = `
+              <div class="flex flex-col sm:flex-row gap-3 w-full max-w-md">
+                <button type="button" onclick="AtlantisBossGameEngine.startBossVoiceStrike('${item.sentence.replace(/'/g, "\'")}', true)" class="flex-1 py-3.5 px-4 rounded-2xl bg-gradient-to-r from-amber-400 via-orange-500 to-rose-500 hover:from-amber-300 text-slate-950 font-black text-sm shadow-xl transition active:scale-95 cursor-pointer">
+                  👑 詠唱整句終極必殺
+                </button>
+                <button type="button" onclick="AtlantisBossGameEngine.dealBossDamage(18)" class="py-3.5 px-4 rounded-2xl bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-400/40 font-black text-xs transition active:scale-95 cursor-pointer">
+                  🔱 召喚三叉戟
+                </button>
+              </div>
+            `;
+          }
+          setTimeout(() => this.playBossStageAudio(), 350);
+        }
+      },
+
+      playBossStageAudio() {
+        if (!this.currentBossTask) return;
+        const text = this.currentBossTask.audio || this.currentBossTask.word || this.currentBossTask.sentence;
+        if (text && typeof KaiSpeechEngine !== 'undefined' && KaiSpeechEngine.speak) {
+          KaiSpeechEngine.speak(text, 0.92, null, { role: 'kai' });
+        }
+      },
+
+      handleBossPhase1Choice(choiceId) {
+        if (!this.currentBossTask) return;
+        const fbEl = document.getElementById('atlantisBossFeedback');
+        if (choiceId === this.currentBossTask.correctId) {
+          if (fbEl) fbEl.innerHTML = '<span class="text-emerald-400">💥 聲納命中！巨怪漩渦護盾碎裂！</span>';
+          this.dealBossDamage(11);
+        } else {
+          if (fbEl) fbEl.innerHTML = '<span class="text-amber-300">🌊 打偏了！再仔細聽一次聲納提示！</span>';
+          this.playBossStageAudio();
+        }
+      },
+
+      startBossVoiceStrike(targetText, isSentence) {
+        const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const fbEl = document.getElementById('atlantisBossFeedback');
+        if (!SpeechRec) {
+          this.dealBossDamage(isSentence ? 18 : 12);
+          return;
+        }
+        try {
+          this.stopBossRecording();
+          this.bossSpeechRec = new SpeechRec();
+          this.bossSpeechRec.lang = 'en-US';
+          this.bossSpeechRec.maxAlternatives = 5;
+          this.isBossRecording = true;
+          if (fbEl) fbEl.innerHTML = '<span class="text-cyan-300 animate-pulse">🎙️ 正在聆聽您的攻擊詠唱...</span>';
+
+          this.bossSpeechRec.onresult = (e) => {
+            const cands = [];
+            for (let i = 0; i < e.results.length; i++) {
+              for (let a = 0; a < e.results[i].length; a++) {
+                cands.push(e.results[i][a].transcript.toLowerCase());
+              }
+            }
+            const targetWords = targetText.toLowerCase().replace(/[^a-z\s]/g, '').split(/\s+/).filter(Boolean);
+            const matched = cands.some(c => {
+              const spokenWords = c.replace(/[^a-z\s]/g, '').split(/\s+/);
+              const hits = targetWords.filter(w => spokenWords.includes(w)).length;
+              return hits >= Math.max(1, Math.floor(targetWords.length * 0.5));
+            });
+            if (matched) {
+              if (fbEl) fbEl.innerHTML = `<span class="text-emerald-400">⚡ 語音暴擊命中！(辨識: "${cands[0]}")</span>`;
+              this.dealBossDamage(isSentence ? 18 : 12);
+            } else {
+              if (fbEl) fbEl.innerHTML = `<span class="text-amber-300">聽到 "${cands[0] || '...'}"，再大聲清晰唸一次！</span>`;
+            }
+          };
+          this.bossSpeechRec.onerror = () => {
+            if (fbEl) fbEl.innerHTML = '<span class="text-amber-300">麥克風未收音到清楚聲音，請再試一次或點擊右側按鈕攻擊！</span>';
+          };
+          this.bossSpeechRec.start();
+        } catch (e) {
+          this.dealBossDamage(isSentence ? 18 : 12);
+        }
+      },
+
+      stopBossRecording() {
+        this.isBossRecording = false;
+        if (this.bossSpeechRec) {
+          try { this.bossSpeechRec.abort(); } catch (e) {}
+          this.bossSpeechRec = null;
+        }
+      },
+
+      dealBossDamage(dmg) {
+        if (typeof SoundEffects !== 'undefined' && SoundEffects.playLaserShot) {
+          SoundEffects.playLaserShot();
+        }
+        this.bossHp = Math.max(0, this.bossHp - dmg);
+        this.bossStep++;
+
+        if (this.bossPhase === 1 && this.bossStep >= 3) {
+          this.bossPhase = 2;
+          this.bossStep = 0;
+        } else if (this.bossPhase === 2 && this.bossStep >= 3) {
+          this.bossPhase = 3;
+          this.bossStep = 0;
+        } else if (this.bossPhase === 3 && (this.bossStep >= 2 || this.bossHp <= 0)) {
+          this.bossHp = 0;
+          this.updateBossHpUI();
+          const fbEl = document.getElementById('atlantisBossFeedback');
+          if (fbEl) fbEl.innerHTML = '<span class="text-emerald-300 text-base animate-bounce">🏆 史詩大捷！深海巨怪已被徹底擊潰！</span>';
+          setTimeout(() => {
+            if (typeof unlockCinematicVideo === 'function') unlockCinematicVideo('islands', 5);
+            if (typeof openCinematicVideo === 'function') {
+              openCinematicVideo('islands', 5, () => this.showReportModal());
+            } else {
+              this.showReportModal();
+            }
+          }, 1100);
+          return;
+        }
+
+        setTimeout(() => this.renderBossStage(), 750);
+      },
+
+      simulatePassBoss() {
+        this.bossHp = 0;
+        this.updateBossHpUI();
+        if (typeof unlockCinematicVideo === 'function') unlockCinematicVideo('islands', 5);
+        if (typeof openCinematicVideo === 'function') {
+          openCinematicVideo('islands', 5, () => this.showReportModal());
+        } else {
+          this.showReportModal();
+        }
       },
 
       simulatePassInterview() {
@@ -23810,7 +24113,67 @@ ${existingSnippet || "無"}
             <div class="text-sm sm:text-base md:text-lg text-slate-500 font-semibold mt-2.5 pt-2 border-t border-slate-100/90">
               ${turn.zh}
             </div>
+          
+      <!-- SCREEN 3: 3-STAGE CORAL TEMPLE BOSS BATTLE -->
+      <div id="atlantisBossBattleScreen" class="hidden flex-col gap-4">
+        
+        <!-- Top Sub-bar -->
+        <div class="flex items-center justify-between bg-slate-900 text-white px-4 py-3 rounded-2xl border border-indigo-400/50 shadow-lg flex-wrap gap-2">
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="AtlantisBossGameEngine.returnToGateway()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold text-xs sm:text-sm flex items-center gap-1 transition active:scale-95">
+              <span>⬅️</span> <span>撤退</span>
+            </button>
+            <h3 id="atlantisBossStageTitle" class="text-sm sm:text-base font-black text-indigo-300">第一階段：聲納盲聽破漩渦</h3>
           </div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <button type="button" onclick="AtlantisBossGameEngine.simulatePassBoss()" class="dev-simulate-btn px-2.5 py-1 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-300 text-slate-950 font-black text-[10px] sm:text-xs shadow-md transition active:scale-95 flex items-center gap-1 border border-amber-300 cursor-pointer">
+              <span>⚡ 測試：擊敗海怪</span>
+            </button>
+            <span id="atlantisBossPhaseBadge" class="text-xs font-black bg-indigo-950 text-indigo-200 px-3 py-1 rounded-xl border border-indigo-400/40">
+              Phase 1 / 3
+            </span>
+          </div>
+        </div>
+
+        <!-- Boss Arena Visual & HP Bar -->
+        <div class="relative rounded-3xl bg-gradient-to-b from-indigo-950 via-slate-950 to-slate-900 border-2 border-indigo-400/60 p-5 sm:p-6 shadow-2xl flex flex-col items-center gap-4">
+          <div class="w-full max-w-xl flex flex-col gap-1.5">
+            <div class="flex items-center justify-between text-xs font-black">
+              <span class="text-rose-300 flex items-center gap-1.5"><span>🦑</span> <span>深海巨怪 · 珊瑚守護神 (Kraken)</span></span>
+              <span id="atlantisBossHpText" class="text-amber-300 font-mono">HP 100%</span>
+            </div>
+            <div class="w-full h-4 rounded-full bg-slate-800 border border-slate-700 overflow-hidden p-0.5">
+              <div id="atlantisBossHpBar" class="h-full rounded-full bg-gradient-to-r from-rose-500 via-fuchsia-500 to-indigo-500 transition-all duration-500" style="width: 100%;"></div>
+            </div>
+          </div>
+
+          <div id="atlantisBossAvatar" class="text-6xl sm:text-7xl py-2 drop-shadow-[0_0_25px_rgba(99,102,241,0.7)] transition-transform duration-300">
+            🦑
+          </div>
+
+          <div id="atlantisBossPromptBox" class="w-full max-w-2xl bg-slate-900/90 border border-indigo-400/40 rounded-2xl p-4 text-center flex flex-col items-center gap-2">
+            <div id="atlantisBossInstruction" class="text-xs sm:text-sm font-bold text-indigo-200">
+              聆聽海皇聲納指令，選出正確的珊瑚符文擊碎漩渦護盾！
+            </div>
+            <div id="atlantisBossTargetDisplay" class="text-lg sm:text-2xl font-black text-amber-300 tracking-wide">
+              🎧 盲聽模式（不顯示英文）
+            </div>
+            <button type="button" id="atlantisBossPlayAudioBtn" onclick="AtlantisBossGameEngine.playBossStageAudio()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-black text-xs shadow-md transition active:scale-95 flex items-center gap-1.5 cursor-pointer">
+              <span>🔊</span> <span>重播語音提示</span>
+            </button>
+          </div>
+
+          <!-- Interactive Action Area (Changes per Phase 1 / 2 / 3) -->
+          <div id="atlantisBossActionArea" class="w-full max-w-2xl flex flex-col items-center gap-3">
+            <!-- Rendered dynamically -->
+          </div>
+
+          <div id="atlantisBossFeedback" class="text-xs sm:text-sm font-black text-cyan-300 min-h-[20px] text-center"></div>
+        </div>
+
+      </div>
+
+    </div>
         `;
         container.appendChild(bubble);
       });
