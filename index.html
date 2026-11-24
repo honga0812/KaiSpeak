@@ -3049,6 +3049,65 @@
 
       </div>
 
+      <!-- SCREEN 3: 3-STAGE CORAL TEMPLE BOSS BATTLE -->
+      <div id="atlantisBossBattleScreen" class="hidden flex-col gap-4">
+        
+        <!-- Top Sub-bar -->
+        <div class="flex items-center justify-between bg-slate-900 text-white px-4 py-3 rounded-2xl border border-indigo-400/50 shadow-lg flex-wrap gap-2">
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="AtlantisBossGameEngine.returnToGateway()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold text-xs sm:text-sm flex items-center gap-1 transition active:scale-95">
+              <span>⬅️</span> <span>撤退</span>
+            </button>
+            <h3 id="atlantisBossStageTitle" class="text-sm sm:text-base font-black text-indigo-300">第一階段：聲納盲聽破漩渦</h3>
+          </div>
+          <div class="flex items-center gap-2 flex-wrap">
+            <button type="button" onclick="AtlantisBossGameEngine.simulatePassBoss()" class="dev-simulate-btn px-2.5 py-1 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-300 text-slate-950 font-black text-[10px] sm:text-xs shadow-md transition active:scale-95 flex items-center gap-1 border border-amber-300 cursor-pointer">
+              <span>⚡ 測試：擊敗海怪</span>
+            </button>
+            <span id="atlantisBossPhaseBadge" class="text-xs font-black bg-indigo-950 text-indigo-200 px-3 py-1 rounded-xl border border-indigo-400/40">
+              Phase 1 / 3
+            </span>
+          </div>
+        </div>
+
+        <!-- Boss Arena Visual & HP Bar -->
+        <div class="relative rounded-3xl bg-gradient-to-b from-indigo-950 via-slate-950 to-slate-900 border-2 border-indigo-400/60 p-5 sm:p-6 shadow-2xl flex flex-col items-center gap-4">
+          <div class="w-full max-w-xl flex flex-col gap-1.5">
+            <div class="flex items-center justify-between text-xs font-black">
+              <span class="text-rose-300 flex items-center gap-1.5"><span>🦑</span> <span>深海巨怪 · 珊瑚守護神 (Kraken)</span></span>
+              <span id="atlantisBossHpText" class="text-amber-300 font-mono">HP 100%</span>
+            </div>
+            <div class="w-full h-4 rounded-full bg-slate-800 border border-slate-700 overflow-hidden p-0.5">
+              <div id="atlantisBossHpBar" class="h-full rounded-full bg-gradient-to-r from-rose-500 via-fuchsia-500 to-indigo-500 transition-all duration-500" style="width: 100%;"></div>
+            </div>
+          </div>
+
+          <div id="atlantisBossAvatar" class="text-6xl sm:text-7xl py-2 drop-shadow-[0_0_25px_rgba(99,102,241,0.7)] transition-transform duration-300">
+            🦑
+          </div>
+
+          <div id="atlantisBossPromptBox" class="w-full max-w-2xl bg-slate-900/90 border border-indigo-400/40 rounded-2xl p-4 text-center flex flex-col items-center gap-2">
+            <div id="atlantisBossInstruction" class="text-xs sm:text-sm font-bold text-indigo-200">
+              聆聽海皇聲納指令，選出正確的珊瑚符文擊碎漩渦護盾！
+            </div>
+            <div id="atlantisBossTargetDisplay" class="text-lg sm:text-2xl font-black text-amber-300 tracking-wide">
+              🎧 盲聽模式（不顯示英文）
+            </div>
+            <button type="button" id="atlantisBossPlayAudioBtn" onclick="AtlantisBossGameEngine.playBossStageAudio()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-black text-xs shadow-md transition active:scale-95 flex items-center gap-1.5 cursor-pointer">
+              <span>🔊</span> <span>重播語音提示</span>
+            </button>
+          </div>
+
+          <!-- Interactive Action Area (Changes per Phase 1 / 2 / 3) -->
+          <div id="atlantisBossActionArea" class="w-full max-w-2xl flex flex-col items-center gap-3">
+            <!-- Rendered dynamically -->
+          </div>
+
+          <div id="atlantisBossFeedback" class="text-xs sm:text-sm font-black text-cyan-300 min-h-[20px] text-center"></div>
+        </div>
+
+      </div>
+
     </div>
 
   </section>
@@ -24114,66 +24173,7 @@ ${existingSnippet || "無"}
               ${turn.zh}
             </div>
           
-      <!-- SCREEN 3: 3-STAGE CORAL TEMPLE BOSS BATTLE -->
-      <div id="atlantisBossBattleScreen" class="hidden flex-col gap-4">
-        
-        <!-- Top Sub-bar -->
-        <div class="flex items-center justify-between bg-slate-900 text-white px-4 py-3 rounded-2xl border border-indigo-400/50 shadow-lg flex-wrap gap-2">
-          <div class="flex items-center gap-2">
-            <button type="button" onclick="AtlantisBossGameEngine.returnToGateway()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-bold text-xs sm:text-sm flex items-center gap-1 transition active:scale-95">
-              <span>⬅️</span> <span>撤退</span>
-            </button>
-            <h3 id="atlantisBossStageTitle" class="text-sm sm:text-base font-black text-indigo-300">第一階段：聲納盲聽破漩渦</h3>
           </div>
-          <div class="flex items-center gap-2 flex-wrap">
-            <button type="button" onclick="AtlantisBossGameEngine.simulatePassBoss()" class="dev-simulate-btn px-2.5 py-1 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-300 text-slate-950 font-black text-[10px] sm:text-xs shadow-md transition active:scale-95 flex items-center gap-1 border border-amber-300 cursor-pointer">
-              <span>⚡ 測試：擊敗海怪</span>
-            </button>
-            <span id="atlantisBossPhaseBadge" class="text-xs font-black bg-indigo-950 text-indigo-200 px-3 py-1 rounded-xl border border-indigo-400/40">
-              Phase 1 / 3
-            </span>
-          </div>
-        </div>
-
-        <!-- Boss Arena Visual & HP Bar -->
-        <div class="relative rounded-3xl bg-gradient-to-b from-indigo-950 via-slate-950 to-slate-900 border-2 border-indigo-400/60 p-5 sm:p-6 shadow-2xl flex flex-col items-center gap-4">
-          <div class="w-full max-w-xl flex flex-col gap-1.5">
-            <div class="flex items-center justify-between text-xs font-black">
-              <span class="text-rose-300 flex items-center gap-1.5"><span>🦑</span> <span>深海巨怪 · 珊瑚守護神 (Kraken)</span></span>
-              <span id="atlantisBossHpText" class="text-amber-300 font-mono">HP 100%</span>
-            </div>
-            <div class="w-full h-4 rounded-full bg-slate-800 border border-slate-700 overflow-hidden p-0.5">
-              <div id="atlantisBossHpBar" class="h-full rounded-full bg-gradient-to-r from-rose-500 via-fuchsia-500 to-indigo-500 transition-all duration-500" style="width: 100%;"></div>
-            </div>
-          </div>
-
-          <div id="atlantisBossAvatar" class="text-6xl sm:text-7xl py-2 drop-shadow-[0_0_25px_rgba(99,102,241,0.7)] transition-transform duration-300">
-            🦑
-          </div>
-
-          <div id="atlantisBossPromptBox" class="w-full max-w-2xl bg-slate-900/90 border border-indigo-400/40 rounded-2xl p-4 text-center flex flex-col items-center gap-2">
-            <div id="atlantisBossInstruction" class="text-xs sm:text-sm font-bold text-indigo-200">
-              聆聽海皇聲納指令，選出正確的珊瑚符文擊碎漩渦護盾！
-            </div>
-            <div id="atlantisBossTargetDisplay" class="text-lg sm:text-2xl font-black text-amber-300 tracking-wide">
-              🎧 盲聽模式（不顯示英文）
-            </div>
-            <button type="button" id="atlantisBossPlayAudioBtn" onclick="AtlantisBossGameEngine.playBossStageAudio()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-black text-xs shadow-md transition active:scale-95 flex items-center gap-1.5 cursor-pointer">
-              <span>🔊</span> <span>重播語音提示</span>
-            </button>
-          </div>
-
-          <!-- Interactive Action Area (Changes per Phase 1 / 2 / 3) -->
-          <div id="atlantisBossActionArea" class="w-full max-w-2xl flex flex-col items-center gap-3">
-            <!-- Rendered dynamically -->
-          </div>
-
-          <div id="atlantisBossFeedback" class="text-xs sm:text-sm font-black text-cyan-300 min-h-[20px] text-center"></div>
-        </div>
-
-      </div>
-
-    </div>
         `;
         container.appendChild(bubble);
       });
