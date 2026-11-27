@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.88";
+        const LATEST_VER = "26.11.89";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -250,7 +250,7 @@
       <div class="flex flex-col items-center mb-1">
         <div class="flex items-center gap-3.5 cursor-pointer select-none">
           <div class="shrink-0">
-            <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.88" alt="KaiSpeak" class="h-20 sm:h-24 md:h-28 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] hover:scale-105 transition duration-300 shrink-0">
+            <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.89" alt="KaiSpeak" class="h-20 sm:h-24 md:h-28 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] hover:scale-105 transition duration-300 shrink-0">
           </div>
           <div class="flex flex-col justify-center text-left leading-none">
             <h1 class="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight bg-gradient-to-r from-indigo-800 via-indigo-600 to-purple-600 bg-clip-text text-transparent select-none leading-none">KaiSpeak</h1>
@@ -259,8 +259,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.88（2026年·11月·第45次發布）">
-                26.11.88
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.89（2026年·11月·第45次發布）">
+                26.11.89
               </span>
             </div>
           </div>
@@ -500,7 +500,7 @@
       <!-- Brand Logo + 奇妙星語言 Lockup -->
       <div class="flex items-center gap-1.5 sm:gap-2 cursor-pointer select-none shrink-0 group py-0.5" onclick="switchAppMode('quest')" title="KaiSpeak 首頁">
         <div class="shrink-0 flex items-center">
-          <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.88" alt="KaiSpeak" class="h-9 sm:h-11 md:h-12 w-auto object-contain drop-shadow-[0_4px_14px_rgba(79,70,229,0.18)] group-hover:scale-105 transition-all duration-300 shrink-0">
+          <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.89" alt="KaiSpeak" class="h-9 sm:h-11 md:h-12 w-auto object-contain drop-shadow-[0_4px_14px_rgba(79,70,229,0.18)] group-hover:scale-105 transition-all duration-300 shrink-0">
         </div>
         <div class="flex flex-col justify-center text-left leading-none">
           <div class="flex items-center gap-1">
@@ -508,7 +508,7 @@
               <span class="text-[9px] text-amber-500">✨</span>
               <span>奇妙星語言</span>
             </span>
-            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.88（2026年·11月·第45次發布）">26.11.88</span>
+            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.89（2026年·11月·第45次發布）">26.11.89</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer hidden sm:flex items-center gap-0.5 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-1.5 py-0.2 transition shadow-2xs group-hover:border-amber-400 max-w-[130px] truncate" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -3315,8 +3315,8 @@
             <!-- Kai Riding Fire Dragon Character (Transparent WebP + GIF Fallback, No Frame) -->
             <div id="dragonSprite" class="relative w-48 sm:w-60 md:w-72 h-28 sm:h-36 md:h-42 flex items-center justify-center transition-transform duration-200">
               <picture class="w-full h-full flex items-center justify-center pointer-events-none select-none">
-                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.88" type="image/webp">
-                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.88" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
+                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.89" type="image/webp">
+                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.89" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
               </picture>
             </div>
             <!-- Dragon Muzzle Flame Flash (Fires upon shooting laser) -->
@@ -4191,7 +4191,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.88 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.89 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -4230,7 +4230,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.88 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.89 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -4888,7 +4888,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.88";
+    const APP_VERSION = "26.11.89";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // ========================================================
@@ -15676,7 +15676,7 @@
     };
 
     // ========================================================
-    // CINEMATIC 15-SECOND CELEBRATION VIDEO ENGINE (v26.11.88)
+    // CINEMATIC 15-SECOND CELEBRATION VIDEO ENGINE (v26.11.89)
     // ========================================================
     const CINEMATIC_VIDEOS = {
       beasts: {
@@ -15793,7 +15793,7 @@
     };
 
     // ========================================================
-    // DEV STAGE SIMULATOR SWITCH & CONTROLLER (v26.11.88)
+    // DEV STAGE SIMULATOR SWITCH & CONTROLLER (v26.11.89)
     // ========================================================
     // true = 開發預覽階段顯示「⚡ 模擬通關」快捷按鈕，方便即時確認結算畫面與通關動畫
     // false = 正式發布上架時完全鎖閉並隱藏所有模擬通關按鈕
@@ -18004,6 +18004,10 @@ JSON Schema:
       const m = document.getElementById('advMeteorIslandView');
       const s = document.getElementById('advSkyscraperIslandView');
       const b = document.getElementById('advBeastIslandView');
+      const c = document.getElementById('advCandyIslandView');
+      const a = document.getElementById('advAtlantisIslandView');
+      if (c) c.classList.add('hidden');
+      if (a) a.classList.add('hidden');
       if (g) g.classList.add('hidden');
       if (m) m.classList.add('hidden');
       if (s) s.classList.add('hidden');
@@ -18020,6 +18024,10 @@ JSON Schema:
       const m = document.getElementById('advMeteorIslandView');
       const s = document.getElementById('advSkyscraperIslandView');
       const b = document.getElementById('advBeastIslandView');
+      const c = document.getElementById('advCandyIslandView');
+      const a = document.getElementById('advAtlantisIslandView');
+      if (c) c.classList.add('hidden');
+      if (a) a.classList.add('hidden');
       if (g) g.classList.add('hidden');
       if (m) m.classList.add('hidden');
       if (s) s.classList.remove('hidden');
@@ -18323,7 +18331,14 @@ JSON Schema:
       const meteorIsland = document.getElementById('advMeteorIslandView');
       const skyIsland = document.getElementById('advSkyscraperIslandView');
       const beastIsland = document.getElementById('advBeastIslandView');
-      if (grandMap && meteorIsland && skyIsland && beastIsland && meteorIsland.classList.contains('hidden') && skyIsland.classList.contains('hidden') && beastIsland.classList.contains('hidden')) {
+      const candyIsland = document.getElementById('advCandyIslandView');
+      const atlantisIsland = document.getElementById('advAtlantisIslandView');
+      if (grandMap && meteorIsland && skyIsland && beastIsland &&
+          meteorIsland.classList.contains('hidden') &&
+          skyIsland.classList.contains('hidden') &&
+          beastIsland.classList.contains('hidden') &&
+          (!candyIsland || candyIsland.classList.contains('hidden')) &&
+          (!atlantisIsland || atlantisIsland.classList.contains('hidden'))) {
         grandMap.classList.remove('hidden');
       }
 
@@ -23172,7 +23187,7 @@ JSON Schema:
     }
 
     // ========================================================
-    // BULLETPROOF SCENARIO AUDIO PRELOADER & SYNTHESIS ENGINE (v26.11.88)
+    // BULLETPROOF SCENARIO AUDIO PRELOADER & SYNTHESIS ENGINE (v26.11.89)
     // ========================================================
     let _cachedServerTtsLive = null;
     let _cachedServerTtsCheckTime = 0;
@@ -23360,7 +23375,7 @@ JSON Schema:
     }
 
     // ========================================================
-    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.88)
+    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.89)
     // ========================================================
     const KaiSpeechEngine = {
       preferredVoice: null,
