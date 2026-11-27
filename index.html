@@ -10,7 +10,7 @@
     // Automatic cache busting for GitHub Pages CDN
     (function() {
       try {
-        const LATEST_VER = "26.11.87";
+        const LATEST_VER = "26.11.88";
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get("v") !== LATEST_VER) {
           urlParams.set("v", LATEST_VER);
@@ -250,7 +250,7 @@
       <div class="flex flex-col items-center mb-1">
         <div class="flex items-center gap-3.5 cursor-pointer select-none">
           <div class="shrink-0">
-            <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.87" alt="KaiSpeak" class="h-20 sm:h-24 md:h-28 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] hover:scale-105 transition duration-300 shrink-0">
+            <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.88" alt="KaiSpeak" class="h-20 sm:h-24 md:h-28 w-auto object-contain drop-shadow-[0_8px_20px_rgba(79,70,229,0.22)] hover:scale-105 transition duration-300 shrink-0">
           </div>
           <div class="flex flex-col justify-center text-left leading-none">
             <h1 class="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight bg-gradient-to-r from-indigo-800 via-indigo-600 to-purple-600 bg-clip-text text-transparent select-none leading-none">KaiSpeak</h1>
@@ -259,8 +259,8 @@
               <span>奇妙星語言</span>
             </span>
             <div class="mt-2 flex items-center">
-              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.87（2026年·11月·第45次發布）">
-                26.11.87
+              <span class="text-[10px] font-black font-mono px-2.5 py-0.5 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-flex items-center" title="版本 26.11.88（2026年·11月·第45次發布）">
+                26.11.88
               </span>
             </div>
           </div>
@@ -500,7 +500,7 @@
       <!-- Brand Logo + 奇妙星語言 Lockup -->
       <div class="flex items-center gap-1.5 sm:gap-2 cursor-pointer select-none shrink-0 group py-0.5" onclick="switchAppMode('quest')" title="KaiSpeak 首頁">
         <div class="shrink-0 flex items-center">
-          <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.87" alt="KaiSpeak" class="h-9 sm:h-11 md:h-12 w-auto object-contain drop-shadow-[0_4px_14px_rgba(79,70,229,0.18)] group-hover:scale-105 transition-all duration-300 shrink-0">
+          <img src="images/ui/kaispeak_app_icon_512.png?v=26.11.88" alt="KaiSpeak" class="h-9 sm:h-11 md:h-12 w-auto object-contain drop-shadow-[0_4px_14px_rgba(79,70,229,0.18)] group-hover:scale-105 transition-all duration-300 shrink-0">
         </div>
         <div class="flex flex-col justify-center text-left leading-none">
           <div class="flex items-center gap-1">
@@ -508,7 +508,7 @@
               <span class="text-[9px] text-amber-500">✨</span>
               <span>奇妙星語言</span>
             </span>
-            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.87（2026年·11月·第45次發布）">26.11.87</span>
+            <span class="text-[9px] font-black font-mono px-1.5 py-0.2 rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-xs tracking-wider inline-block" title="版本 26.11.88（2026年·11月·第45次發布）">26.11.88</span>
           </div>
           <!-- Mini Unlocked Badges Ribbon below Logo -->
           <div id="logoHonorBadgesBar" onclick="event.stopPropagation(); openHonorHallModal();" class="mt-1 cursor-pointer hidden sm:flex items-center gap-0.5 bg-amber-50/90 hover:bg-amber-100 border border-amber-300/80 rounded-full px-1.5 py-0.2 transition shadow-2xs group-hover:border-amber-400 max-w-[130px] truncate" title="點擊開啟「榮譽殿堂」查看全部獎盃與寶藏">
@@ -2715,10 +2715,15 @@
             <img src="images/islands/candy_maze_board.jpeg" alt="糖果聽音迷宮總覽大地圖" class="w-full h-full object-cover">
             <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
             
-            <div class="absolute top-3 left-3 flex items-center gap-2">
+            <div class="absolute top-3 inset-x-3 flex items-center justify-between flex-wrap gap-2">
               <span class="text-xs bg-slate-950/85 backdrop-blur-md text-amber-300 font-black px-3 py-1 rounded-full border border-amber-400/50 shadow-md">
                 👑 VIP 旗艦專屬 · 聽力敏銳度深層訓練
               </span>
+              <div id="candyMasteryBadge" class="text-xs bg-gradient-to-r from-amber-500/90 to-yellow-500/90 text-slate-950 font-black px-3.5 py-1 rounded-full border border-amber-200 shadow-lg flex items-center gap-1.5">
+                <span>🏆 累積獎盃: 0</span>
+                <span class="opacity-60">|</span>
+                <span>🌱 糖果見習生</span>
+              </div>
             </div>
 
             <!-- Key Status Bar inside Hero -->
@@ -3310,8 +3315,8 @@
             <!-- Kai Riding Fire Dragon Character (Transparent WebP + GIF Fallback, No Frame) -->
             <div id="dragonSprite" class="relative w-48 sm:w-60 md:w-72 h-28 sm:h-36 md:h-42 flex items-center justify-center transition-transform duration-200">
               <picture class="w-full h-full flex items-center justify-center pointer-events-none select-none">
-                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.87" type="image/webp">
-                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.87" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
+                <source srcset="images/ui/kai_dragon_ride.webp?v=26.11.88" type="image/webp">
+                <img id="dragonTurretImg" src="images/ui/kai_dragon_ride.gif?v=26.11.88" alt="Kai 騎乘烈焰噴火龍" class="w-full h-full object-contain pointer-events-none select-none">
               </picture>
             </div>
             <!-- Dragon Muzzle Flame Flash (Fires upon shooting laser) -->
@@ -4186,7 +4191,7 @@
           <div class="text-left">
             <h3 class="text-sm sm:text-base font-black text-slate-800 flex items-center gap-1.5">
               <span>Google Gemini API 設定</span>
-              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.87 · Cloudflare 官方安全網關</span>
+              <span class="text-[9px] bg-indigo-100 text-indigo-800 border border-indigo-300 px-2 py-0.5 rounded-full font-bold">26.11.88 · Cloudflare 官方安全網關</span>
             </h3>
             <p class="text-[10px] text-slate-500">直連 Google 官方大模型，開啟任意生活情境 1 秒即時動態生成</p>
           </div>
@@ -4225,7 +4230,7 @@
             <span>🛡️ Cloudflare 雲端保險箱已防護</span>
             <span>↗</span>
           </a>
-          <span class="text-slate-400 text-[10px]">版本 26.11.87 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
+          <span class="text-slate-400 text-[10px]">版本 26.11.88 · 支援 gemini-3.5-flash / gemini-3.8-flash</span>
         </div>
       </div>
 
@@ -4883,7 +4888,7 @@
   <!-- JAVASCRIPT APPLICATION CORE LOGIC                        -->
   <!-- ======================================================== -->
   <script>
-    const APP_VERSION = "26.11.87";
+    const APP_VERSION = "26.11.88";
     console.log("%c KaiSpeak " + APP_VERSION + " Active ", "background: #4F46E5; color: #fff; font-weight: bold; border-radius: 4px; padding: 2px 8px; font-size: 12px;");
 
     // ========================================================
@@ -15671,7 +15676,7 @@
     };
 
     // ========================================================
-    // CINEMATIC 15-SECOND CELEBRATION VIDEO ENGINE (v26.11.87)
+    // CINEMATIC 15-SECOND CELEBRATION VIDEO ENGINE (v26.11.88)
     // ========================================================
     const CINEMATIC_VIDEOS = {
       beasts: {
@@ -15788,7 +15793,7 @@
     };
 
     // ========================================================
-    // DEV STAGE SIMULATOR SWITCH & CONTROLLER (v26.11.87)
+    // DEV STAGE SIMULATOR SWITCH & CONTROLLER (v26.11.88)
     // ========================================================
     // true = 開發預覽階段顯示「⚡ 模擬通關」快捷按鈕，方便即時確認結算畫面與通關動畫
     // false = 正式發布上架時完全鎖閉並隱藏所有模擬通關按鈕
@@ -16090,104 +16095,197 @@
     // ========================================================
     // ISLAND 4: CANDY LISTENING MAZE ENGINE (第四島·糖果聽音尋寶)
     // ========================================================
+    const CANDY_SENTENCE_TEMPLATES = [
+      (w, slow) => ({
+        audio: `Walk toward the ${w}!`,
+        audioSlow: `Walk... toward... the... ${slow || w}!`
+      }),
+      (w, slow) => ({
+        audio: `Find the hidden ${w} in the maze!`,
+        audioSlow: `Find... the hidden... ${slow || w}... in the maze!`
+      }),
+      (w, slow) => ({
+        audio: `Follow the sweet path to the ${w}!`,
+        audioSlow: `Follow... the sweet path... to the... ${slow || w}!`
+      })
+    ];
+
+    // 4 Zones x 40 unique minimal-pair/listening items = 160 unique targets x 3 templates = 480+ prompts!
     const CANDY_MAZE_BANK = {
-      // Zone 1: 軟糖森林 (20 題池，每次隨機抽 10 題) - 著重 /ɪ/ vs /iː/, /θ/ vs /t/, /ʃ/ vs /s/ 等基礎最小對立體
       1: [
-        { audio: "Walk toward the white sheep!", audioSlow: "Walk... toward... the white... sheep!", correctId: "sheep", doors: [{ id: "ship", emoji: "🚢", clue: "藍色輪船門" }, { id: "sheep", emoji: "🐑", clue: "白色綿羊門" }, { id: "shoe", emoji: "👞", clue: "棕色皮鞋門" }] },
-        { audio: "Sail away on the big blue ship!", audioSlow: "Sail away... on the big blue... ship!", correctId: "ship", doors: [{ id: "ship", emoji: "🚢", clue: "藍色輪船門" }, { id: "sheep", emoji: "🐑", clue: "白色綿羊門" }, { id: "shop", emoji: "🏪", clue: "糖果商店門" }] },
-        { audio: "Count three sweet candy canes!", audioSlow: "Count... three... sweet... candy canes!", correctId: "three", doors: [{ id: "tree", emoji: "🌳", clue: "綠色大樹門" }, { id: "three", emoji: "3️⃣", clue: "數字三門" }, { id: "tea", emoji: "🍵", clue: "熱茶門" }] },
-        { audio: "Climb up the tall green tree!", audioSlow: "Climb up... the tall green... tree!", correctId: "tree", doors: [{ id: "tree", emoji: "🌳", clue: "綠色大樹門" }, { id: "three", emoji: "3️⃣", clue: "數字三門" }, { id: "train", emoji: "🚂", clue: "小火車門" }] },
-        { audio: "Jump into the pink strawberry donut!", audioSlow: "Jump... into... the pink... donut!", correctId: "donut", doors: [{ id: "donut", emoji: "🍩", clue: "草莓甜甜圈門" }, { id: "cupcake", emoji: "🧁", clue: "杯子蛋糕門" }, { id: "cookie", emoji: "🍪", clue: "餅乾門" }] },
-        { audio: "Take a bite of the fresh peach!", audioSlow: "Take a bite... of the fresh... peach!", correctId: "peach", doors: [{ id: "peach", emoji: "🍑", clue: "水蜜桃門" }, { id: "beach", emoji: "🏖️", clue: "沙灘門" }, { id: "pear", emoji: "🍐", clue: "西洋梨門" }] },
-        { audio: "Run across the sunny sandy beach!", audioSlow: "Run across... the sunny sandy... beach!", correctId: "beach", doors: [{ id: "peach", emoji: "🍑", clue: "水蜜桃門" }, { id: "beach", emoji: "🏖️", clue: "沙灘門" }, { id: "bee", emoji: "🐝", clue: "小蜜蜂門" }] },
-        { audio: "Put on your left brown shoe!", audioSlow: "Put on... your left brown... shoe!", correctId: "shoe", doors: [{ id: "shoe", emoji: "👞", clue: "棕色皮鞋門" }, { id: "zoo", emoji: "🦁", clue: "動物園門" }, { id: "soup", emoji: "🥣", clue: "熱湯門" }] },
-        { audio: "Look at the cute green frog!", audioSlow: "Look at... the cute green... frog!", correctId: "frog", doors: [{ id: "frog", emoji: "🐸", clue: "青蛙門" }, { id: "fog", emoji: "🌫️", clue: "白霧門" }, { id: "dog", emoji: "🐶", clue: "小狗門" }] },
-        { audio: "Ring the golden magic bell!", audioSlow: "Ring... the golden magic... bell!", correctId: "bell", doors: [{ id: "bell", emoji: "🔔", clue: "金鈴鐺門" }, { id: "ball", emoji: "⚽", clue: "足球門" }, { id: "bear", emoji: "🐻", clue: "小熊門" }] },
-        { audio: "Kick the bouncing soccer ball!", audioSlow: "Kick... the bouncing soccer... ball!", correctId: "ball", doors: [{ id: "bell", emoji: "🔔", clue: "金鈴鐺門" }, { id: "ball", emoji: "⚽", clue: "足球門" }, { id: "bowl", emoji: "🥣", clue: "糖果碗門" }] },
-        { audio: "Look up at the bright yellow sun!", audioSlow: "Look up... at the bright yellow... sun!", correctId: "sun", doors: [{ id: "sun", emoji: "☀️", clue: "太陽門" }, { id: "run", emoji: "🏃", clue: "跑道門" }, { id: "bun", emoji: "🥐", clue: "麵包門" }] },
-        { audio: "Listen to the buzzing yellow bee!", audioSlow: "Listen to... the buzzing yellow... bee!", correctId: "bee", doors: [{ id: "bee", emoji: "🐝", clue: "小蜜蜂門" }, { id: "pea", emoji: "🫛", clue: "碗豆門" }, { id: "key", emoji: "🔑", clue: "鑰匙門" }] },
-        { audio: "Smell the pretty red rose!", audioSlow: "Smell... the pretty red... rose!", correctId: "rose", doors: [{ id: "rose", emoji: "🌹", clue: "紅玫瑰門" }, { id: "nose", emoji: "👃", clue: "鼻子門" }, { id: "road", emoji: "🛣️", clue: "道路門" }] },
-        { audio: "Wear your favorite blue jeans!", audioSlow: "Wear... your favorite blue... jeans!", correctId: "jeans", doors: [{ id: "jeans", emoji: "👖", clue: "牛仔褲門" }, { id: "beans", emoji: "🫘", clue: "咖啡豆門" }, { id: "gems", emoji: "💎", clue: "寶石門" }] },
-        { audio: "Catch the tiny green pea!", audioSlow: "Catch... the tiny green... pea!", correctId: "pea", doors: [{ id: "pea", emoji: "🫛", clue: "碗豆門" }, { id: "bee", emoji: "🐝", clue: "小蜜蜂門" }, { id: "tea", emoji: "🍵", clue: "熱茶門" }] },
-        { audio: "Look at the shiny silver key!", audioSlow: "Look at... the shiny silver... key!", correctId: "key", doors: [{ id: "key", emoji: "🔑", clue: "鑰匙門" }, { id: "tea", emoji: "🍵", clue: "熱茶門" }, { id: "knee", emoji: "🦵", clue: "膝蓋門" }] },
-        { audio: "Smile for the friendly brown bear!", audioSlow: "Smile for... the friendly brown... bear!", correctId: "bear", doors: [{ id: "bear", emoji: "🐻", clue: "棕熊門" }, { id: "pear", emoji: "🍐", clue: "西洋梨門" }, { id: "chair", emoji: "🪑", clue: "木椅門" }] },
-        { audio: "Pick the juicy green pear!", audioSlow: "Pick... the juicy green... pear!", correctId: "pear", doors: [{ id: "bear", emoji: "🐻", clue: "棕熊門" }, { id: "pear", emoji: "🍐", clue: "西洋梨門" }, { id: "hair", emoji: "💇", clue: "長髮門" }] },
-        { audio: "Wave your hand at the happy pig!", audioSlow: "Wave your hand... at the happy... pig!", correctId: "pig", doors: [{ id: "pig", emoji: "🐷", clue: "小豬門" }, { id: "big", emoji: "🐘", clue: "大象門" }, { id: "fig", emoji: "🫐", clue: "果實門" }] }
+        { id: "z1_sheep", word: "white sheep", correctId: "sheep", doors: [{ id: "ship", emoji: "🚢", clue: "藍色輪船門" }, { id: "sheep", emoji: "🐑", clue: "白色綿羊門" }, { id: "shoe", emoji: "👞", clue: "棕色皮鞋門" }] },
+        { id: "z1_ship", word: "big blue ship", correctId: "ship", doors: [{ id: "ship", emoji: "🚢", clue: "藍色輪船門" }, { id: "sheep", emoji: "🐑", clue: "白色綿羊門" }, { id: "shop", emoji: "🏪", clue: "糖果商店門" }] },
+        { id: "z1_three", word: "three candy canes", correctId: "three", doors: [{ id: "tree", emoji: "🌳", clue: "綠色大樹門" }, { id: "three", emoji: "3️⃣", clue: "數字三門" }, { id: "tea", emoji: "🍵", clue: "熱茶門" }] },
+        { id: "z1_tree", word: "tall green tree", correctId: "tree", doors: [{ id: "tree", emoji: "🌳", clue: "綠色大樹門" }, { id: "three", emoji: "3️⃣", clue: "數字三門" }, { id: "train", emoji: "🚂", clue: "小火車門" }] },
+        { id: "z1_donut", word: "pink strawberry donut", correctId: "donut", doors: [{ id: "donut", emoji: "🍩", clue: "草莓甜甜圈門" }, { id: "cupcake", emoji: "🧁", clue: "杯子蛋糕門" }, { id: "cookie", emoji: "🍪", clue: "餅乾門" }] },
+        { id: "z1_peach", word: "fresh sweet peach", correctId: "peach", doors: [{ id: "peach", emoji: "🍑", clue: "水蜜桃門" }, { id: "beach", emoji: "🏖️", clue: "沙灘門" }, { id: "pear", emoji: "🍐", clue: "西洋梨門" }] },
+        { id: "z1_beach", word: "sunny sandy beach", correctId: "beach", doors: [{ id: "peach", emoji: "🍑", clue: "水蜜桃門" }, { id: "beach", emoji: "🏖️", clue: "沙灘門" }, { id: "bee", emoji: "🐝", clue: "小蜜蜂門" }] },
+        { id: "z1_shoe", word: "left brown shoe", correctId: "shoe", doors: [{ id: "shoe", emoji: "👞", clue: "棕色皮鞋門" }, { id: "zoo", emoji: "🦁", clue: "動物園門" }, { id: "soup", emoji: "🥣", clue: "熱湯門" }] },
+        { id: "z1_frog", word: "cute green frog", correctId: "frog", doors: [{ id: "frog", emoji: "🐸", clue: "青蛙門" }, { id: "fog", emoji: "🌫️", clue: "白霧門" }, { id: "dog", emoji: "🐶", clue: "小狗門" }] },
+        { id: "z1_bell", word: "golden magic bell", correctId: "bell", doors: [{ id: "bell", emoji: "🔔", clue: "金鈴鐺門" }, { id: "ball", emoji: "⚽", clue: "足球門" }, { id: "bear", emoji: "🐻", clue: "小熊門" }] },
+        { id: "z1_ball", word: "bouncing soccer ball", correctId: "ball", doors: [{ id: "bell", emoji: "🔔", clue: "金鈴鐺門" }, { id: "ball", emoji: "⚽", clue: "足球門" }, { id: "bowl", emoji: "🥣", clue: "糖果碗門" }] },
+        { id: "z1_sun", word: "bright yellow sun", correctId: "sun", doors: [{ id: "sun", emoji: "☀️", clue: "太陽門" }, { id: "run", emoji: "🏃", clue: "跑道門" }, { id: "bun", emoji: "🥐", clue: "麵包門" }] },
+        { id: "z1_bee", word: "buzzing yellow bee", correctId: "bee", doors: [{ id: "bee", emoji: "🐝", clue: "小蜜蜂門" }, { id: "pea", emoji: "🫛", clue: "碗豆門" }, { id: "key", emoji: "🔑", clue: "鑰匙門" }] },
+        { id: "z1_rose", word: "pretty red rose", correctId: "rose", doors: [{ id: "rose", emoji: "🌹", clue: "紅玫瑰門" }, { id: "nose", emoji: "👃", clue: "鼻子門" }, { id: "road", emoji: "🛣️", clue: "道路門" }] },
+        { id: "z1_jeans", word: "favorite blue jeans", correctId: "jeans", doors: [{ id: "jeans", emoji: "👖", clue: "牛仔褲門" }, { id: "beans", emoji: "🫘", clue: "咖啡豆門" }, { id: "gems", emoji: "💎", clue: "寶石門" }] },
+        { id: "z1_pea", word: "tiny green pea", correctId: "pea", doors: [{ id: "pea", emoji: "🫛", clue: "碗豆門" }, { id: "bee", emoji: "🐝", clue: "小蜜蜂門" }, { id: "tea", emoji: "🍵", clue: "熱茶門" }] },
+        { id: "z1_key", word: "shiny silver key", correctId: "key", doors: [{ id: "key", emoji: "🔑", clue: "鑰匙門" }, { id: "tea", emoji: "🍵", clue: "熱茶門" }, { id: "knee", emoji: "🦵", clue: "膝蓋門" }] },
+        { id: "z1_bear", word: "friendly brown bear", correctId: "bear", doors: [{ id: "bear", emoji: "🐻", clue: "棕熊門" }, { id: "pear", emoji: "🍐", clue: "西洋梨門" }, { id: "chair", emoji: "🪑", clue: "木椅門" }] },
+        { id: "z1_pear", word: "juicy green pear", correctId: "pear", doors: [{ id: "bear", emoji: "🐻", clue: "棕熊門" }, { id: "pear", emoji: "🍐", clue: "西洋梨門" }, { id: "hair", emoji: "💇", clue: "長髮門" }] },
+        { id: "z1_pig", word: "happy pink pig", correctId: "pig", doors: [{ id: "pig", emoji: "🐷", clue: "小豬門" }, { id: "big", emoji: "🐘", clue: "大象門" }, { id: "fig", emoji: "🫐", clue: "果實門" }] },
+        { id: "z1_tea", word: "warm green tea", correctId: "tea", doors: [{ id: "tea", emoji: "🍵", clue: "熱茶門" }, { id: "tree", emoji: "🌳", clue: "大樹門" }, { id: "sea", emoji: "🌊", clue: "大海門" }] },
+        { id: "z1_sea", word: "sparkling blue sea", correctId: "sea", doors: [{ id: "sea", emoji: "🌊", clue: "大海門" }, { id: "tea", emoji: "🍵", clue: "熱茶門" }, { id: "bee", emoji: "🐝", clue: "蜜蜂門" }] },
+        { id: "z1_zoo", word: "happy animal zoo", correctId: "zoo", doors: [{ id: "zoo", emoji: "🦁", clue: "動物園門" }, { id: "shoe", emoji: "👞", clue: "皮鞋門" }, { id: "two", emoji: "2️⃣", clue: "數字二門" }] },
+        { id: "z1_two", word: "number two", correctId: "two", doors: [{ id: "two", emoji: "2️⃣", clue: "數字二門" }, { id: "zoo", emoji: "🦁", clue: "動物園門" }, { id: "shoe", emoji: "👞", clue: "皮鞋門" }] },
+        { id: "z1_dog", word: "playful brown dog", correctId: "dog", doors: [{ id: "dog", emoji: "🐶", clue: "小狗門" }, { id: "frog", emoji: "🐸", clue: "青蛙門" }, { id: "duck", emoji: "🦆", clue: "鴨子門" }] },
+        { id: "z1_duck", word: "yellow swimming duck", correctId: "duck", doors: [{ id: "duck", emoji: "🦆", clue: "小鴨門" }, { id: "dog", emoji: "🐶", clue: "小狗門" }, { id: "truck", emoji: "🚚", clue: "卡車門" }] },
+        { id: "z1_truck", word: "big red truck", correctId: "truck", doors: [{ id: "truck", emoji: "🚚", clue: "紅卡車門" }, { id: "duck", emoji: "🦆", clue: "小鴨門" }, { id: "track", emoji: "🛤️", clue: "鐵軌門" }] },
+        { id: "z1_dish", word: "clean white dish", correctId: "dish", doors: [{ id: "dish", emoji: "🍽️", clue: "餐盤門" }, { id: "fish", emoji: "🐟", clue: "小魚門" }, { id: "wish", emoji: "🌟", clue: "許願星門" }] },
+        { id: "z1_fish", word: "tiny orange fish", correctId: "fish", doors: [{ id: "fish", emoji: "🐟", clue: "小魚門" }, { id: "dish", emoji: "🍽️", clue: "餐盤門" }, { id: "fist", emoji: "✊", clue: "拳頭門" }] },
+        { id: "z1_moon", word: "glowing silver moon", correctId: "moon", doors: [{ id: "moon", emoji: "🌕", clue: "滿月門" }, { id: "spoon", emoji: "🥄", clue: "湯匙門" }, { id: "noon", emoji: "🕛", clue: "正午門" }] },
+        { id: "z1_spoon", word: "silver ice cream spoon", correctId: "spoon", doors: [{ id: "spoon", emoji: "🥄", clue: "湯匙門" }, { id: "moon", emoji: "🌕", clue: "月亮門" }, { id: "balloon", emoji: "🎈", clue: "氣球門" }] },
+        { id: "z1_balloon", word: "floating red balloon", correctId: "balloon", doors: [{ id: "balloon", emoji: "🎈", clue: "氣球門" }, { id: "moon", emoji: "🌕", clue: "月亮門" }, { id: "baboon", emoji: "🐒", clue: "猴子門" }] },
+        { id: "z1_star", word: "bright shooting star", correctId: "star", doors: [{ id: "star", emoji: "⭐", clue: "星星門" }, { id: "car", emoji: "🚗", clue: "汽車門" }, { id: "jar", emoji: "🫙", clue: "糖果罐門" }] },
+        { id: "z1_car", word: "fast racing car", correctId: "car", doors: [{ id: "car", emoji: "🚗", clue: "賽車門" }, { id: "star", emoji: "⭐", clue: "星星門" }, { id: "card", emoji: "🃏", clue: "卡片門" }] },
+        { id: "z1_jar", word: "sweet honey jar", correctId: "jar", doors: [{ id: "jar", emoji: "🫙", clue: "糖果罐門" }, { id: "car", emoji: "🚗", clue: "賽車門" }, { id: "guitar", emoji: "🎸", clue: "吉他門" }] },
+        { id: "z1_bus", word: "yellow school bus", correctId: "bus", doors: [{ id: "bus", emoji: "🚌", clue: "校車門" }, { id: "bug", emoji: "🐞", clue: "瓢蟲門" }, { id: "box", emoji: "📦", clue: "箱子門" }] },
+        { id: "z1_bird", word: "singing blue bird", correctId: "bird", doors: [{ id: "bird", emoji: "🐦", clue: "小鳥門" }, { id: "bed", emoji: "🛏️", clue: "小床門" }, { id: "beard", emoji: "🧔", clue: "鬍子門" }] },
+        { id: "z1_heart", word: "pink candy heart", correctId: "heart", doors: [{ id: "heart", emoji: "💖", clue: "愛心門" }, { id: "hat", emoji: "🎩", clue: "帽子門" }, { id: "art", emoji: "🎨", clue: "畫盤門" }] },
+        { id: "z1_gift", word: "wrapped birthday gift", correctId: "gift", doors: [{ id: "gift", emoji: "🎁", clue: "禮物盒門" }, { id: "lift", emoji: "🛗", clue: "電梯門" }, { id: "ghost", emoji: "👻", clue: "小幽靈門" }] },
+        { id: "z1_candy", word: "rainbow swirl candy", correctId: "candy", doors: [{ id: "candy", emoji: "🍭", clue: "棒棒糖門" }, { id: "candle", emoji: "🕯️", clue: "蠟燭門" }, { id: "cookie", emoji: "🍪", clue: "餅乾門" }] }
       ],
-      // Zone 2: 巧克力河流 (20 題池，每次隨機抽 10 題) - 著重 /æ/ vs /ɛ/, /l/ vs /r/, 甜點字彙
       2: [
-        { audio: "Watch out for the black bat!", audioSlow: "Watch out... for the black... bat!", correctId: "bat", doors: [{ id: "bat", emoji: "🦇", clue: "黑蝙蝠門" }, { id: "bed", emoji: "🛏️", clue: "軟綿小床門" }, { id: "bag", emoji: "🎒", clue: "探險背包門" }] },
-        { audio: "Take a nap on the soft bed!", audioSlow: "Take a nap... on the soft... bed!", correctId: "bed", doors: [{ id: "bat", emoji: "🦇", clue: "黑蝙蝠門" }, { id: "bed", emoji: "🛏️", clue: "軟綿小床門" }, { id: "bread", emoji: "🍞", clue: "吐司門" }] },
-        { audio: "Cross the bridge over the deep lake!", audioSlow: "Cross the bridge... over the deep... lake!", correctId: "lake", doors: [{ id: "rake", emoji: "🧹", clue: "園藝耙子門" }, { id: "lake", emoji: "🏞️", clue: "巧克力湖泊門" }, { id: "cake", emoji: "🍰", clue: "千層蛋糕門" }] },
-        { audio: "Cut a slice of sweet chocolate cake!", audioSlow: "Cut a slice... of sweet chocolate... cake!", correctId: "cake", doors: [{ id: "rake", emoji: "🧹", clue: "園藝耙子門" }, { id: "lake", emoji: "🏞️", clue: "巧克力湖泊門" }, { id: "cake", emoji: "🍰", clue: "千層蛋糕門" }] },
-        { audio: "Drink the cold strawberry milkshake!", audioSlow: "Drink... the cold... strawberry... milkshake!", correctId: "milkshake", doors: [{ id: "milkshake", emoji: "🥤", clue: "草莓奶昔門" }, { id: "juice", emoji: "🧃", clue: "柳橙果汁門" }, { id: "water", emoji: "💧", clue: "冰涼開水門" }] },
-        { audio: "Cook an egg in the frying pan!", audioSlow: "Cook an egg... in the frying... pan!", correctId: "pan", doors: [{ id: "pan", emoji: "🍳", clue: "平底鍋門" }, { id: "pen", emoji: "🖊️", clue: "原子筆門" }, { id: "pin", emoji: "📌", clue: "圖釘門" }] },
-        { audio: "Write your name with a blue pen!", audioSlow: "Write your name... with a blue... pen!", correctId: "pen", doors: [{ id: "pan", emoji: "🍳", clue: "平底鍋門" }, { id: "pen", emoji: "🖊️", clue: "原子筆門" }, { id: "hen", emoji: "🐔", clue: "母雞門" }] },
-        { audio: "Pack your snacks in the yellow bag!", audioSlow: "Pack your snacks... in the yellow... bag!", correctId: "bag", doors: [{ id: "bag", emoji: "🎒", clue: "探險背包門" }, { id: "bug", emoji: "🐞", clue: "小瓢蟲門" }, { id: "mug", emoji: "☕", clue: "馬克杯門" }] },
-        { audio: "Find the tiny red bug on the leaf!", audioSlow: "Find... the tiny red... bug!", correctId: "bug", doors: [{ id: "bag", emoji: "🎒", clue: "探險背包門" }, { id: "bug", emoji: "🐞", clue: "小瓢蟲門" }, { id: "rug", emoji: "🧶", clue: "毛地毯門" }] },
-        { audio: "Put on the tall magic hat!", audioSlow: "Put on... the tall magic... hat!", correctId: "hat", doors: [{ id: "hat", emoji: "🎩", clue: "魔術帽門" }, { id: "hot", emoji: "🔥", clue: "火焰門" }, { id: "cat", emoji: "🐱", clue: "小貓咪門" }] },
-        { audio: "Pet the cute sleeping cat!", audioSlow: "Pet... the cute sleeping... cat!", correctId: "cat", doors: [{ id: "cat", emoji: "🐱", clue: "小貓咪門" }, { id: "cut", emoji: "✂️", clue: "剪刀門" }, { id: "hat", emoji: "🎩", clue: "魔術帽門" }] },
-        { audio: "Check the time on the wall clock!", audioSlow: "Check the time... on the wall... clock!", correctId: "clock", doors: [{ id: "clock", emoji: "⏰", clue: "時鐘門" }, { id: "lock", emoji: "🔒", clue: "鎖頭門" }, { id: "rock", emoji: "🪨", clue: "岩石門" }] },
-        { audio: "Step carefully on the big brown rock!", audioSlow: "Step carefully... on the big brown... rock!", correctId: "rock", doors: [{ id: "rock", emoji: "🪨", clue: "岩石門" }, { id: "lock", emoji: "🔒", clue: "鎖頭門" }, { id: "sock", emoji: "🧦", clue: "襪子門" }] },
-        { audio: "Pour hot cocoa into the warm mug!", audioSlow: "Pour hot cocoa... into the warm... mug!", correctId: "mug", doors: [{ id: "mug", emoji: "☕", clue: "馬克杯門" }, { id: "bug", emoji: "🐞", clue: "小瓢蟲門" }, { id: "hug", emoji: "🤗", clue: "擁抱門" }] },
-        { audio: "Look for the lost red sock!", audioSlow: "Look for... the lost red... sock!", correctId: "sock", doors: [{ id: "sock", emoji: "🧦", clue: "襪子門" }, { id: "rock", emoji: "🪨", clue: "岩石門" }, { id: "fox", emoji: "🦊", clue: "狐狸門" }] },
-        { audio: "Wave to the clever orange fox!", audioSlow: "Wave to... the clever orange... fox!", correctId: "fox", doors: [{ id: "fox", emoji: "🦊", clue: "狐狸門" }, { id: "box", emoji: "📦", clue: "紙箱門" }, { id: "sock", emoji: "🧦", clue: "襪子門" }] },
-        { audio: "Open the wooden treasure box!", audioSlow: "Open... the wooden treasure... box!", correctId: "box", doors: [{ id: "box", emoji: "📦", clue: "寶盒門" }, { id: "fox", emoji: "🦊", clue: "狐狸門" }, { id: "bus", emoji: "🚌", clue: "公車門" }] },
-        { audio: "Share the sweet honey waffle!", audioSlow: "Share... the sweet honey... waffle!", correctId: "waffle", doors: [{ id: "waffle", emoji: "🧇", clue: "格子鬆餅門" }, { id: "pancake", emoji: "🥞", clue: "煎餅門" }, { id: "apple", emoji: "🍎", clue: "蘋果門" }] },
-        { audio: "Eat a crisp red apple!", audioSlow: "Eat... a crisp red... apple!", correctId: "apple", doors: [{ id: "apple", emoji: "🍎", clue: "蘋果門" }, { id: "waffle", emoji: "🧇", clue: "格子鬆餅門" }, { id: "maple", emoji: "🍁", clue: "楓葉門" }] },
-        { audio: "Look at the big friendly whale!", audioSlow: "Look at... the big friendly... whale!", correctId: "whale", doors: [{ id: "whale", emoji: "🐋", clue: "鯨魚門" }, { id: "wheel", emoji: "🎡", clue: "摩天輪門" }, { id: "well", emoji: "⛲", clue: "水井門" }] }
+        { id: "z2_bat", word: "black bat", correctId: "bat", doors: [{ id: "bat", emoji: "🦇", clue: "黑蝙蝠門" }, { id: "bed", emoji: "🛏️", clue: "軟綿小床門" }, { id: "bag", emoji: "🎒", clue: "探險背包門" }] },
+        { id: "z2_bed", word: "soft bed", correctId: "bed", doors: [{ id: "bat", emoji: "🦇", clue: "黑蝙蝠門" }, { id: "bed", emoji: "🛏️", clue: "軟綿小床門" }, { id: "bread", emoji: "🍞", clue: "吐司門" }] },
+        { id: "z2_lake", word: "deep chocolate lake", correctId: "lake", doors: [{ id: "rake", emoji: "🧹", clue: "園藝耙子門" }, { id: "lake", emoji: "🏞️", clue: "巧克力湖泊門" }, { id: "cake", emoji: "🍰", clue: "千層蛋糕門" }] },
+        { id: "z2_cake", word: "sweet chocolate cake", correctId: "cake", doors: [{ id: "rake", emoji: "🧹", clue: "園藝耙子門" }, { id: "lake", emoji: "🏞️", clue: "巧克力湖泊門" }, { id: "cake", emoji: "🍰", clue: "千層蛋糕門" }] },
+        { id: "z2_milkshake", word: "cold strawberry milkshake", correctId: "milkshake", doors: [{ id: "milkshake", emoji: "🥤", clue: "草莓奶昔門" }, { id: "juice", emoji: "🧃", clue: "柳橙果汁門" }, { id: "water", emoji: "💧", clue: "冰涼開水門" }] },
+        { id: "z2_pan", word: "frying pan", correctId: "pan", doors: [{ id: "pan", emoji: "🍳", clue: "平底鍋門" }, { id: "pen", emoji: "🖊️", clue: "原子筆門" }, { id: "pin", emoji: "📌", clue: "圖釘門" }] },
+        { id: "z2_pen", word: "blue pen", correctId: "pen", doors: [{ id: "pan", emoji: "🍳", clue: "平底鍋門" }, { id: "pen", emoji: "🖊️", clue: "原子筆門" }, { id: "hen", emoji: "🐔", clue: "母雞門" }] },
+        { id: "z2_bag", word: "yellow bag", correctId: "bag", doors: [{ id: "bag", emoji: "🎒", clue: "探險背包門" }, { id: "bug", emoji: "🐞", clue: "小瓢蟲門" }, { id: "mug", emoji: "☕", clue: "馬克杯門" }] },
+        { id: "z2_bug", word: "tiny red bug", correctId: "bug", doors: [{ id: "bag", emoji: "🎒", clue: "探險背包門" }, { id: "bug", emoji: "🐞", clue: "小瓢蟲門" }, { id: "rug", emoji: "🧶", clue: "毛地毯門" }] },
+        { id: "z2_hat", word: "tall magic hat", correctId: "hat", doors: [{ id: "hat", emoji: "🎩", clue: "魔術帽門" }, { id: "hot", emoji: "🔥", clue: "火焰門" }, { id: "cat", emoji: "🐱", clue: "小貓咪門" }] },
+        { id: "z2_cat", word: "cute sleeping cat", correctId: "cat", doors: [{ id: "cat", emoji: "🐱", clue: "小貓咪門" }, { id: "cut", emoji: "✂️", clue: "剪刀門" }, { id: "hat", emoji: "🎩", clue: "魔術帽門" }] },
+        { id: "z2_clock", word: "wall clock", correctId: "clock", doors: [{ id: "clock", emoji: "⏰", clue: "時鐘門" }, { id: "lock", emoji: "🔒", clue: "鎖頭門" }, { id: "rock", emoji: "🪨", clue: "岩石門" }] },
+        { id: "z2_rock", word: "big brown rock", correctId: "rock", doors: [{ id: "rock", emoji: "🪨", clue: "岩石門" }, { id: "lock", emoji: "🔒", clue: "鎖頭門" }, { id: "sock", emoji: "🧦", clue: "襪子門" }] },
+        { id: "z2_mug", word: "warm cocoa mug", correctId: "mug", doors: [{ id: "mug", emoji: "☕", clue: "馬克杯門" }, { id: "bug", emoji: "🐞", clue: "小瓢蟲門" }, { id: "hug", emoji: "🤗", clue: "擁抱門" }] },
+        { id: "z2_sock", word: "lost red sock", correctId: "sock", doors: [{ id: "sock", emoji: "🧦", clue: "襪子門" }, { id: "rock", emoji: "🪨", clue: "岩石門" }, { id: "fox", emoji: "🦊", clue: "狐狸門" }] },
+        { id: "z2_fox", word: "clever orange fox", correctId: "fox", doors: [{ id: "fox", emoji: "🦊", clue: "狐狸門" }, { id: "box", emoji: "📦", clue: "紙箱門" }, { id: "sock", emoji: "🧦", clue: "襪子門" }] },
+        { id: "z2_box", word: "wooden treasure box", correctId: "box", doors: [{ id: "box", emoji: "📦", clue: "寶盒門" }, { id: "fox", emoji: "🦊", clue: "狐狸門" }, { id: "bus", emoji: "🚌", clue: "公車門" }] },
+        { id: "z2_waffle", word: "sweet honey waffle", correctId: "waffle", doors: [{ id: "waffle", emoji: "🧇", clue: "格子鬆餅門" }, { id: "pancake", emoji: "🥞", clue: "煎餅門" }, { id: "apple", emoji: "🍎", clue: "蘋果門" }] },
+        { id: "z2_apple", word: "crisp red apple", correctId: "apple", doors: [{ id: "apple", emoji: "🍎", clue: "蘋果門" }, { id: "waffle", emoji: "🧇", clue: "格子鬆餅門" }, { id: "maple", emoji: "🍁", clue: "楓葉門" }] },
+        { id: "z2_whale", word: "friendly blue whale", correctId: "whale", doors: [{ id: "whale", emoji: "🐋", clue: "鯨魚門" }, { id: "wheel", emoji: "🎡", clue: "摩天輪門" }, { id: "well", emoji: "⛲", clue: "水井門" }] },
+        { id: "z2_bread", word: "fresh toasted bread", correctId: "bread", doors: [{ id: "bread", emoji: "🍞", clue: "吐司門" }, { id: "bed", emoji: "🛏️", clue: "小床門" }, { id: "red", emoji: "🟥", clue: "紅色方塊門" }] },
+        { id: "z2_hen", word: "little brown hen", correctId: "hen", doors: [{ id: "hen", emoji: "🐔", clue: "母雞門" }, { id: "pen", emoji: "🖊️", clue: "原子筆門" }, { id: "ten", emoji: "🔟", clue: "數字十門" }] },
+        { id: "z2_ten", word: "lucky number ten", correctId: "ten", doors: [{ id: "ten", emoji: "🔟", clue: "數字十門" }, { id: "hen", emoji: "🐔", clue: "母雞門" }, { id: "tent", emoji: "⛺", clue: "帳篷門" }] },
+        { id: "z2_tent", word: "camping green tent", correctId: "tent", doors: [{ id: "tent", emoji: "⛺", clue: "帳篷門" }, { id: "ten", emoji: "🔟", clue: "數字十門" }, { id: "ant", emoji: "🐜", clue: "小螞蟻門" }] },
+        { id: "z2_ant", word: "tiny busy ant", correctId: "ant", doors: [{ id: "ant", emoji: "🐜", clue: "小螞蟻門" }, { id: "aunt", emoji: "👩", clue: "阿姨門" }, { id: "tent", emoji: "⛺", clue: "帳篷門" }] },
+        { id: "z2_lock", word: "shiny brass lock", correctId: "lock", doors: [{ id: "lock", emoji: "🔒", clue: "鎖頭門" }, { id: "clock", emoji: "⏰", clue: "時鐘門" }, { id: "log", emoji: "🪵", clue: "木頭門" }] },
+        { id: "z2_map", word: "secret treasure map", correctId: "map", doors: [{ id: "map", emoji: "🗺️", clue: "藏寶圖門" }, { id: "mat", emoji: "🧘", clue: "地墊門" }, { id: "mop", emoji: "🧹", clue: "拖把門" }] },
+        { id: "z2_lamp", word: "glowing desk lamp", correctId: "lamp", doors: [{ id: "lamp", emoji: "🛋️", clue: "檯燈門" }, { id: "lamb", emoji: "🐑", clue: "小羊門" }, { id: "camp", emoji: "🏕️", clue: "營地門" }] },
+        { id: "z2_egg", word: "golden chocolate egg", correctId: "egg", doors: [{ id: "egg", emoji: "🥚", clue: "金蛋門" }, { id: "leg", emoji: "🦵", clue: "腿門" }, { id: "bag", emoji: "🎒", clue: "背包門" }] },
+        { id: "z2_bell2", word: "chocolate dinner bell", correctId: "bell2", doors: [{ id: "bell2", emoji: "🛎️", clue: "服務鈴門" }, { id: "well", emoji: "⛲", clue: "水井門" }, { id: "shell", emoji: "🐚", clue: "貝殼門" }] },
+        { id: "z2_shell", word: "pink sea shell", correctId: "shell", doors: [{ id: "shell", emoji: "🐚", clue: "貝殼門" }, { id: "bell2", emoji: "🛎️", clue: "鈴鐺門" }, { id: "sell", emoji: "🏷️", clue: "標籤門" }] },
+        { id: "z2_net", word: "butterfly catching net", correctId: "net", doors: [{ id: "net", emoji: "🥅", clue: "網子門" }, { id: "nut", emoji: "🥜", clue: "堅果門" }, { id: "wet", emoji: "💦", clue: "水花門" }] },
+        { id: "z2_nut", word: "crunchy hazel nut", correctId: "nut", doors: [{ id: "nut", emoji: "🥜", clue: "堅果門" }, { id: "net", emoji: "🥅", clue: "網子門" }, { id: "hut", emoji: "🛖", clue: "小屋門" }] },
+        { id: "z2_pot", word: "hot cocoa pot", correctId: "pot", doors: [{ id: "pot", emoji: "🍲", clue: "熱鍋門" }, { id: "hot", emoji: "🔥", clue: "火焰門" }, { id: "pet", emoji: "🐶", clue: "寵物門" }] },
+        { id: "z2_corn", word: "sweet yellow corn", correctId: "corn", doors: [{ id: "corn", emoji: "🌽", clue: "玉米門" }, { id: "horn", emoji: "📯", clue: "號角門" }, { id: "cone", emoji: "🍦", clue: "甜筒門" }] },
+        { id: "z2_cone", word: "crispy waffle cone", correctId: "cone", doors: [{ id: "cone", emoji: "🍦", clue: "甜筒門" }, { id: "corn", emoji: "🌽", clue: "玉米門" }, { id: "bone", emoji: "🦴", clue: "骨頭門" }] },
+        { id: "z2_bone", word: "biscuit dog bone", correctId: "bone", doors: [{ id: "bone", emoji: "🦴", clue: "骨頭門" }, { id: "cone", emoji: "🍦", clue: "甜筒門" }, { id: "boat", emoji: "⛵", clue: "小船門" }] },
+        { id: "z2_pie", word: "warm apple pie", correctId: "pie", doors: [{ id: "pie", emoji: "🥧", clue: "蘋果派門" }, { id: "tie", emoji: "👔", clue: "領帶門" }, { id: "fly", emoji: "🦋", clue: "蝴蝶門" }] },
+        { id: "z2_tie", word: "striped party tie", correctId: "tie", doors: [{ id: "tie", emoji: "👔", clue: "領帶門" }, { id: "pie", emoji: "🥧", clue: "蘋果派門" }, { id: "toy", emoji: "🧸", clue: "玩具門" }] },
+        { id: "z2_toy", word: "cuddly plush toy", correctId: "toy", doors: [{ id: "toy", emoji: "🧸", clue: "玩具熊門" }, { id: "tie", emoji: "👔", clue: "領帶門" }, { id: "boy", emoji: "👦", clue: "小男孩門" }] }
       ],
-      // Zone 3: 馬卡龍長廊 (20 題池，每次隨機抽 10 題) - 著重 /f/ vs /v/, /r/ vs /l/, /s/ vs /z/
       3: [
-        { audio: "Pick up the bowl of hot rice!", audioSlow: "Pick up... the bowl of hot... rice!", correctId: "rice", doors: [{ id: "rice", emoji: "🍚", clue: "白米飯門" }, { id: "ice", emoji: "🧊", clue: "冰塊門" }, { id: "mice", emoji: "🐭", clue: "小老鼠門" }] },
-        { audio: "Cool down with a cube of ice!", audioSlow: "Cool down... with a cube of... ice!", correctId: "ice", doors: [{ id: "rice", emoji: "🍚", clue: "白米飯門" }, { id: "ice", emoji: "🧊", clue: "冰塊門" }, { id: "eyes", emoji: "👀", clue: "眼睛門" }] },
-        { audio: "Turn on the cool electric fan!", audioSlow: "Turn on... the cool electric... fan!", correctId: "fan", doors: [{ id: "van", emoji: "🚐", clue: "露營廂型車門" }, { id: "fan", emoji: "🌀", clue: "小電風扇門" }, { id: "pan", emoji: "🍳", clue: "平底鍋門" }] },
-        { audio: "Drive the colorful camper van!", audioSlow: "Drive... the colorful camper... van!", correctId: "van", doors: [{ id: "van", emoji: "🚐", clue: "露營廂型車門" }, { id: "fan", emoji: "🌀", clue: "小電風扇門" }, { id: "man", emoji: "🧑", clue: "探險家門" }] },
-        { audio: "Take a seat on the golden chair!", audioSlow: "Take a... seat... on the golden... chair!", correctId: "seat", doors: [{ id: "sit", emoji: "🧘", clue: "打坐墊門" }, { id: "seat", emoji: "🪑", clue: "黃金寶座門" }, { id: "sweet", emoji: "🍬", clue: "糖果罐門" }] },
-        { audio: "Read a story about five stars!", audioSlow: "Read a story... about five... stars!", correctId: "five", doors: [{ id: "five", emoji: "5️⃣", clue: "數字五門" }, { id: "hive", emoji: "🐝", clue: "蜂窩門" }, { id: "fire", emoji: "🔥", clue: "營火門" }] },
-        { audio: "Turn on the bright glowing light!", audioSlow: "Turn on... the bright glowing... light!", correctId: "light", doors: [{ id: "light", emoji: "💡", clue: "發光燈泡門" }, { id: "right", emoji: "👉", clue: "向右箭頭門" }, { id: "night", emoji: "🌙", clue: "月亮門" }] },
-        { audio: "Open the magic door at night!", audioSlow: "Open... the magic door at... night!", correctId: "night", doors: [{ id: "light", emoji: "💡", clue: "發光燈泡門" }, { id: "night", emoji: "🌙", clue: "月亮門" }, { id: "kite", emoji: "🪁", clue: "風箏門" }] },
-        { audio: "Fly the rainbow paper kite!", audioSlow: "Fly... the rainbow paper... kite!", correctId: "kite", doors: [{ id: "kite", emoji: "🪁", clue: "風箏門" }, { id: "cat", emoji: "🐱", clue: "小貓門" }, { id: "night", emoji: "🌙", clue: "月亮門" }] },
-        { audio: "Listen to the gentle autumn rain!", audioSlow: "Listen to... the gentle autumn... rain!", correctId: "rain", doors: [{ id: "rain", emoji: "🌧️", clue: "雨滴門" }, { id: "train", emoji: "🚂", clue: "火車門" }, { id: "lane", emoji: "🛣️", clue: "小巷門" }] },
-        { audio: "Ride the fast express train!", audioSlow: "Ride... the fast express... train!", correctId: "train", doors: [{ id: "rain", emoji: "🌧️", clue: "雨滴門" }, { id: "train", emoji: "🚂", clue: "火車門" }, { id: "brain", emoji: "🧠", clue: "大腦門" }] },
-        { audio: "Look at the tiny green leaf!", audioSlow: "Look at... the tiny green... leaf!", correctId: "leaf", doors: [{ id: "leaf", emoji: "🍃", clue: "綠葉門" }, { id: "reef", emoji: "🪸", clue: "珊瑚礁門" }, { id: "loaf", emoji: "🥖", clue: "長棍麵包門" }] },
-        { audio: "Taste the sweet pink ice cream!", audioSlow: "Taste... the sweet pink... ice cream!", correctId: "icecream", doors: [{ id: "icecream", emoji: "🍦", clue: "冰淇淋門" }, { id: "cupcake", emoji: "🧁", clue: "杯子蛋糕門" }, { id: "popcorn", emoji: "🍿", clue: "爆米花門" }] },
-        { audio: "Count four colorful macarons!", audioSlow: "Count... four... colorful macarons!", correctId: "four", doors: [{ id: "four", emoji: "4️⃣", clue: "數字四門" }, { id: "door", emoji: "🚪", clue: "木門" }, { id: "floor", emoji: "🧱", clue: "地板門" }] },
-        { audio: "Knock gently on the golden door!", audioSlow: "Knock gently... on the golden... door!", correctId: "door", doors: [{ id: "four", emoji: "4️⃣", clue: "數字四門" }, { id: "door", emoji: "🚪", clue: "黃金大門" }, { id: "doll", emoji: "🪆", clue: "娃娃門" }] },
-        { audio: "Look through the crystal clear glass!", audioSlow: "Look through... the crystal clear... glass!", correctId: "glass", doors: [{ id: "glass", emoji: "🥛", clue: "玻璃杯門" }, { id: "grass", emoji: "🌿", clue: "青草地門" }, { id: "class", emoji: "🏫", clue: "教室門" }] },
-        { audio: "Walk barefoot on the soft green grass!", audioSlow: "Walk barefoot... on the soft green... grass!", correctId: "grass", doors: [{ id: "glass", emoji: "🥛", clue: "玻璃杯門" }, { id: "grass", emoji: "🌿", clue: "青草地門" }, { id: "grapes", emoji: "🍇", clue: "葡萄門" }] },
-        { audio: "Eat a bunch of purple grapes!", audioSlow: "Eat a bunch... of purple... grapes!", correctId: "grapes", doors: [{ id: "grapes", emoji: "🍇", clue: "葡萄門" }, { id: "grass", emoji: "🌿", clue: "青草地門" }, { id: "crabs", emoji: "🦀", clue: "螃蟹門" }] },
-        { audio: "Give your best friend a happy smile!", audioSlow: "Give your best friend... a happy... smile!", correctId: "smile", doors: [{ id: "smile", emoji: "😊", clue: "微笑門" }, { id: "snail", emoji: "🐌", clue: "蝸牛門" }, { id: "smell", emoji: "👃", clue: "聞香門" }] },
-        { audio: "Watch the little brown snail!", audioSlow: "Watch... the little brown... snail!", correctId: "snail", doors: [{ id: "smile", emoji: "😊", clue: "微笑門" }, { id: "snail", emoji: "🐌", clue: "蝸牛門" }, { id: "tail", emoji: "🦊", clue: "尾巴門" }] }
+        { id: "z3_rice", word: "bowl of hot rice", correctId: "rice", doors: [{ id: "rice", emoji: "🍚", clue: "白米飯門" }, { id: "ice", emoji: "🧊", clue: "冰塊門" }, { id: "mice", emoji: "🐭", clue: "小老鼠門" }] },
+        { id: "z3_ice", word: "cube of ice", correctId: "ice", doors: [{ id: "rice", emoji: "🍚", clue: "白米飯門" }, { id: "ice", emoji: "🧊", clue: "冰塊門" }, { id: "eyes", emoji: "👀", clue: "眼睛門" }] },
+        { id: "z3_fan", word: "cool electric fan", correctId: "fan", doors: [{ id: "van", emoji: "🚐", clue: "露營廂型車門" }, { id: "fan", emoji: "🌀", clue: "小電風扇門" }, { id: "pan", emoji: "🍳", clue: "平底鍋門" }] },
+        { id: "z3_van", word: "colorful camper van", correctId: "van", doors: [{ id: "van", emoji: "🚐", clue: "露營廂型車門" }, { id: "fan", emoji: "🌀", clue: "小電風扇門" }, { id: "man", emoji: "🧑", clue: "探險家門" }] },
+        { id: "z3_seat", word: "golden velvet seat", correctId: "seat", doors: [{ id: "sit", emoji: "🧘", clue: "打坐墊門" }, { id: "seat", emoji: "🪑", clue: "黃金寶座門" }, { id: "sweet", emoji: "🍬", clue: "糖果罐門" }] },
+        { id: "z3_five", word: "number five", correctId: "five", doors: [{ id: "five", emoji: "5️⃣", clue: "數字五門" }, { id: "hive", emoji: "🐝", clue: "蜂窩門" }, { id: "fire", emoji: "🔥", clue: "營火門" }] },
+        { id: "z3_light", word: "bright glowing light", correctId: "light", doors: [{ id: "light", emoji: "💡", clue: "發光燈泡門" }, { id: "right", emoji: "👉", clue: "向右箭頭門" }, { id: "night", emoji: "🌙", clue: "月亮門" }] },
+        { id: "z3_night", word: "starry midnight night", correctId: "night", doors: [{ id: "light", emoji: "💡", clue: "發光燈泡門" }, { id: "night", emoji: "🌙", clue: "月亮門" }, { id: "kite", emoji: "🪁", clue: "風箏門" }] },
+        { id: "z3_kite", word: "rainbow paper kite", correctId: "kite", doors: [{ id: "kite", emoji: "🪁", clue: "風箏門" }, { id: "cat", emoji: "🐱", clue: "小貓門" }, { id: "night", emoji: "🌙", clue: "月亮門" }] },
+        { id: "z3_rain", word: "gentle autumn rain", correctId: "rain", doors: [{ id: "rain", emoji: "🌧️", clue: "雨滴門" }, { id: "train", emoji: "🚂", clue: "火車門" }, { id: "lane", emoji: "🛣️", clue: "小巷門" }] },
+        { id: "z3_train", word: "fast express train", correctId: "train", doors: [{ id: "rain", emoji: "🌧️", clue: "雨滴門" }, { id: "train", emoji: "🚂", clue: "火車門" }, { id: "brain", emoji: "🧠", clue: "大腦門" }] },
+        { id: "z3_leaf", word: "tiny green leaf", correctId: "leaf", doors: [{ id: "leaf", emoji: "🍃", clue: "綠葉門" }, { id: "reef", emoji: "🪸", clue: "珊瑚礁門" }, { id: "loaf", emoji: "🥖", clue: "長棍麵包門" }] },
+        { id: "z3_icecream", word: "sweet pink ice cream", correctId: "icecream", doors: [{ id: "icecream", emoji: "🍦", clue: "冰淇淋門" }, { id: "cupcake", emoji: "🧁", clue: "杯子蛋糕門" }, { id: "popcorn", emoji: "🍿", clue: "爆米花門" }] },
+        { id: "z3_four", word: "number four", correctId: "four", doors: [{ id: "four", emoji: "4️⃣", clue: "數字四門" }, { id: "door", emoji: "🚪", clue: "木門" }, { id: "floor", emoji: "🧱", clue: "地板門" }] },
+        { id: "z3_door", word: "golden palace door", correctId: "door", doors: [{ id: "four", emoji: "4️⃣", clue: "數字四門" }, { id: "door", emoji: "🚪", clue: "黃金大門" }, { id: "doll", emoji: "🪆", clue: "娃娃門" }] },
+        { id: "z3_glass", word: "crystal clear glass", correctId: "glass", doors: [{ id: "glass", emoji: "🥛", clue: "玻璃杯門" }, { id: "grass", emoji: "🌿", clue: "青草地門" }, { id: "class", emoji: "🏫", clue: "教室門" }] },
+        { id: "z3_grass", word: "soft green grass", correctId: "grass", doors: [{ id: "glass", emoji: "🥛", clue: "玻璃杯門" }, { id: "grass", emoji: "🌿", clue: "青草地門" }, { id: "grapes", emoji: "🍇", clue: "葡萄門" }] },
+        { id: "z3_grapes", word: "bunch of purple grapes", correctId: "grapes", doors: [{ id: "grapes", emoji: "🍇", clue: "葡萄門" }, { id: "grass", emoji: "🌿", clue: "青草地門" }, { id: "crabs", emoji: "🦀", clue: "螃蟹門" }] },
+        { id: "z3_smile", word: "happy bright smile", correctId: "smile", doors: [{ id: "smile", emoji: "😊", clue: "微笑門" }, { id: "snail", emoji: "🐌", clue: "蝸牛門" }, { id: "smell", emoji: "👃", clue: "聞香門" }] },
+        { id: "z3_snail", word: "little brown snail", correctId: "snail", doors: [{ id: "smile", emoji: "😊", clue: "微笑門" }, { id: "snail", emoji: "🐌", clue: "蝸牛門" }, { id: "tail", emoji: "🦊", clue: "尾巴門" }] },
+        { id: "z3_vest", word: "cyan adventure vest", correctId: "vest", doors: [{ id: "vest", emoji: "🦺", clue: "探險背心門" }, { id: "west", emoji: "🧭", clue: "西方指南門" }, { id: "nest", emoji: "🪹", clue: "鳥巢門" }] },
+        { id: "z3_nest", word: "cozy bird nest", correctId: "nest", doors: [{ id: "nest", emoji: "🪹", clue: "鳥巢門" }, { id: "vest", emoji: "🦺", clue: "背心門" }, { id: "net", emoji: "🥅", clue: "網子門" }] },
+        { id: "z3_vase", word: "pink flower vase", correctId: "vase", doors: [{ id: "vase", emoji: "🏺", clue: "花瓶門" }, { id: "face", emoji: "😀", clue: "笑臉門" }, { id: "lace", emoji: "🎀", clue: "緞帶門" }] },
+        { id: "z3_face", word: "smiling happy face", correctId: "face", doors: [{ id: "face", emoji: "😀", clue: "笑臉門" }, { id: "vase", emoji: "🏺", clue: "花瓶門" }, { id: "space", emoji: "🚀", clue: "太空門" }] },
+        { id: "z3_leaf2", word: "mint candy leaf", correctId: "leaf2", doors: [{ id: "leaf2", emoji: "🌿", clue: "薄荷葉門" }, { id: "live", emoji: "🎤", clue: "舞台門" }, { id: "love", emoji: "❤️", clue: "愛心門" }] },
+        { id: "z3_ring", word: "sparkling diamond ring", correctId: "ring", doors: [{ id: "ring", emoji: "💍", clue: "鑽戒門" }, { id: "wing", emoji: "🪽", clue: "翅膀門" }, { id: "king", emoji: "🤴", clue: "國王門" }] },
+        { id: "z3_wing", word: "angel feather wing", correctId: "wing", doors: [{ id: "wing", emoji: "🪽", clue: "翅膀門" }, { id: "ring", emoji: "💍", clue: "鑽戒門" }, { id: "wind", emoji: "🌬️", clue: "微風門" }] },
+        { id: "z3_lamb", word: "fluffy baby lamb", correctId: "lamb", doors: [{ id: "lamb", emoji: "🐑", clue: "小綿羊門" }, { id: "ram", emoji: "🐏", clue: "大角羊門" }, { id: "lamp", emoji: "🛋️", clue: "檯燈門" }] },
+        { id: "z3_fly", word: "purple butterfly", correctId: "fly", doors: [{ id: "fly", emoji: "🦋", clue: "蝴蝶門" }, { id: "fry", emoji: "🍟", clue: "薯條門" }, { id: "cry", emoji: "😢", clue: "哭臉門" }] },
+        { id: "z3_fry", word: "crispy french fry", correctId: "fry", doors: [{ id: "fry", emoji: "🍟", clue: "薯條門" }, { id: "fly", emoji: "🦋", clue: "蝴蝶門" }, { id: "try", emoji: "🎯", clue: "靶心門" }] },
+        { id: "z3_pray", word: "quiet wish pray", correctId: "pray", doors: [{ id: "pray", emoji: "🙏", clue: "祈願門" }, { id: "play", emoji: "🎮", clue: "遊戲門" }, { id: "tray", emoji: "🍽️", clue: "托盤門" }] },
+        { id: "z3_play", word: "fun playground play", correctId: "play", doors: [{ id: "play", emoji: "🎮", clue: "遊戲門" }, { id: "pray", emoji: "🙏", clue: "祈願門" }, { id: "clay", emoji: "🏺", clue: "黏土門" }] },
+        { id: "z3_brush", word: "artist paint brush", correctId: "brush", doors: [{ id: "brush", emoji: "🖌️", clue: "畫筆門" }, { id: "blush", emoji: "😊", clue: "腮紅門" }, { id: "crush", emoji: "💥", clue: "粉碎門" }] },
+        { id: "z3_broom", word: "magic flying broom", correctId: "broom", doors: [{ id: "broom", emoji: "🧹", clue: "魔法掃帚門" }, { id: "bloom", emoji: "🌸", clue: "花朵門" }, { id: "room", emoji: "🚪", clue: "房間門" }] },
+        { id: "z3_bloom", word: "pink cherry bloom", correctId: "bloom", doors: [{ id: "bloom", emoji: "🌸", clue: "櫻花門" }, { id: "broom", emoji: "🧹", clue: "掃帚門" }, { id: "blue", emoji: "🔵", clue: "藍色門" }] },
+        { id: "z3_blue", word: "macaron sky blue", correctId: "blue", doors: [{ id: "blue", emoji: "🔵", clue: "天藍門" }, { id: "glue", emoji: "🧴", clue: "膠水門" }, { id: "shoe", emoji: "👞", clue: "皮鞋門" }] },
+        { id: "z3_snow", word: "soft winter snow", correctId: "snow", doors: [{ id: "snow", emoji: "❄️", clue: "雪花門" }, { id: "slow", emoji: "🐢", clue: "烏龜門" }, { id: "show", emoji: "🎭", clue: "舞台門" }] },
+        { id: "z3_slow", word: "little green slow turtle", correctId: "slow", doors: [{ id: "slow", emoji: "🐢", clue: "慢烏龜門" }, { id: "snow", emoji: "❄️", clue: "雪花門" }, { id: "glow", emoji: "✨", clue: "光芒門" }] },
+        { id: "z3_clock3", word: "pastel tower clock", correctId: "clock3", doors: [{ id: "clock3", emoji: "🕰️", clue: "鐘樓門" }, { id: "croc", emoji: "🐊", clue: "鱷魚門" }, { id: "block", emoji: "🧱", clue: "積木門" }] },
+        { id: "z3_block", word: "colorful sugar block", correctId: "block", doors: [{ id: "block", emoji: "🧱", clue: "積木門" }, { id: "clock3", emoji: "🕰️", clue: "鐘樓門" }, { id: "lock", emoji: "🔒", clue: "鎖頭門" }] }
       ],
-      // Zone 4: 薑餅國王金庫 (20 題池，每次隨機抽 10 題) - 著重 /k/ vs /g/, /p/ vs /b/, /t/ vs /d/ 等清濁爆破音
       4: [
-        { audio: "Put on the warm winter coat!", audioSlow: "Put on... the warm winter... coat!", correctId: "coat", doors: [{ id: "goat", emoji: "🐐", clue: "白山羊門" }, { id: "coat", emoji: "🧥", clue: "暖冬大衣門" }, { id: "boat", emoji: "⛵", clue: "糖霜帆船門" }] },
-        { audio: "Feed the friendly white goat!", audioSlow: "Feed... the friendly white... goat!", correctId: "goat", doors: [{ id: "goat", emoji: "🐐", clue: "白山羊門" }, { id: "coat", emoji: "🧥", clue: "暖冬大衣門" }, { id: "gold", emoji: "🪙", clue: "金幣門" }] },
-        { audio: "Sail across in the wooden boat!", audioSlow: "Sail across... in the wooden... boat!", correctId: "boat", doors: [{ id: "boat", emoji: "⛵", clue: "糖霜帆船門" }, { id: "coat", emoji: "🧥", clue: "暖冬大衣門" }, { id: "boot", emoji: "🥾", clue: "長靴門" }] },
-        { audio: "Open the treasure with your right hand!", audioSlow: "Open the treasure... with your... right... hand!", correctId: "right", doors: [{ id: "light", emoji: "💡", clue: "發光燈泡門" }, { id: "right", emoji: "👉", clue: "向右箭頭門" }, { id: "write", emoji: "✍️", clue: "羽毛筆門" }] },
-        { audio: "Wear the shiny red cap!", audioSlow: "Wear... the shiny red... cap!", correctId: "cap", doors: [{ id: "cab", emoji: "🚕", clue: "黃色計程車門" }, { id: "cap", emoji: "🧢", clue: "紅色鴨舌帽門" }, { id: "cup", emoji: "☕", clue: "熱可可杯門" }] },
-        { audio: "Jump into the yellow city cab!", audioSlow: "Jump into... the yellow city... cab!", correctId: "cab", doors: [{ id: "cab", emoji: "🚕", clue: "黃色計程車門" }, { id: "cap", emoji: "🧢", clue: "紅色鴨舌帽門" }, { id: "crab", emoji: "🦀", clue: "螃蟹門" }] },
-        { audio: "Collect the shiny royal gold!", audioSlow: "Collect... the shiny royal... gold!", correctId: "gold", doors: [{ id: "gold", emoji: "🪙", clue: "皇家金幣門" }, { id: "cold", emoji: "🥶", clue: "冰寒門" }, { id: "goat", emoji: "🐐", clue: "白山羊門" }] },
-        { audio: "Hold your hot chocolate cup!", audioSlow: "Hold... your hot chocolate... cup!", correctId: "cup", doors: [{ id: "cup", emoji: "☕", clue: "熱可可杯門" }, { id: "cap", emoji: "🧢", clue: "鴨舌帽門" }, { id: "cub", emoji: "🐻", clue: "小熊門" }] },
-        { audio: "Draw a picture with a golden pen!", audioSlow: "Draw a picture... with a golden... pen!", correctId: "draw", doors: [{ id: "draw", emoji: "🎨", clue: "畫筆門" }, { id: "door", emoji: "🚪", clue: "大門" }, { id: "claw", emoji: "🦞", clue: "龍蝦鉗門" }] },
-        { audio: "Wear the sparkling royal crown!", audioSlow: "Wear... the sparkling royal... crown!", correctId: "crown", doors: [{ id: "crown", emoji: "👑", clue: "皇冠門" }, { id: "clown", emoji: "🤡", clue: "小丑門" }, { id: "cloud", emoji: "☁️", clue: "白雲門" }] },
-        { audio: "Laugh with the funny circus clown!", audioSlow: "Laugh with... the funny circus... clown!", correctId: "clown", doors: [{ id: "crown", emoji: "👑", clue: "皇冠門" }, { id: "clown", emoji: "🤡", clue: "小丑門" }, { id: "clock", emoji: "⏰", clue: "時鐘門" }] },
-        { audio: "Float up to the fluffy white cloud!", audioSlow: "Float up... to the fluffy white... cloud!", correctId: "cloud", doors: [{ id: "cloud", emoji: "☁️", clue: "白雲門" }, { id: "crown", emoji: "👑", clue: "皇冠門" }, { id: "crowd", emoji: "👥", clue: "人群門" }] },
-        { audio: "Bake a warm gingerbread man!", audioSlow: "Bake... a warm gingerbread... man!", correctId: "bake", doors: [{ id: "bake", emoji: "🥐", clue: "烘焙門" }, { id: "bike", emoji: "🚲", clue: "腳踏車門" }, { id: "cake", emoji: "🍰", clue: "蛋糕門" }] },
-        { audio: "Ride the speedy golden bike!", audioSlow: "Ride... the speedy golden... bike!", correctId: "bike", doors: [{ id: "bake", emoji: "🥐", clue: "烘焙門" }, { id: "bike", emoji: "🚲", clue: "腳踏車門" }, { id: "kite", emoji: "🪁", clue: "風箏門" }] },
-        { audio: "Play a joyful song on the drum!", audioSlow: "Play a joyful song... on the... drum!", correctId: "drum", doors: [{ id: "drum", emoji: "🥁", clue: "小鼓門" }, { id: "plum", emoji: "🫐", clue: "李子門" }, { id: "thumb", emoji: "👍", clue: "大拇指門" }] },
-        { audio: "Give the King a big thumbs up!", audioSlow: "Give the King... a big... thumb!", correctId: "thumb", doors: [{ id: "thumb", emoji: "👍", clue: "大拇指門" }, { id: "drum", emoji: "🥁", clue: "小鼓門" }, { id: "sun", emoji: "☀️", clue: "太陽門" }] },
-        { audio: "Open the safe with the magic code!", audioSlow: "Open the safe... with the magic... code!", correctId: "code", doors: [{ id: "code", emoji: "🔐", clue: "密碼鎖門" }, { id: "cold", emoji: "❄️", clue: "寒冰門" }, { id: "coat", emoji: "🧥", clue: "大衣門" }] },
-        { audio: "Find the purple diamond gem!", audioSlow: "Find... the purple diamond... gem!", correctId: "gem", doors: [{ id: "gem", emoji: "💎", clue: "紫寶石門" }, { id: "jam", emoji: "🍓", clue: "果醬門" }, { id: "game", emoji: "🎮", clue: "遊戲機門" }] },
-        { audio: "Spread sweet strawberry jam!", audioSlow: "Spread... sweet strawberry... jam!", correctId: "jam", doors: [{ id: "gem", emoji: "💎", clue: "寶石門" }, { id: "jam", emoji: "🍓", clue: "草莓果醬門" }, { id: "ham", emoji: "🍖", clue: "火腿門" }] },
-        { audio: "Meet the smiling Gingerbread King!", audioSlow: "Meet... the smiling Gingerbread... King!", correctId: "king", doors: [{ id: "king", emoji: "🤴", clue: "國王寶座門" }, { id: "ring", emoji: "💍", clue: "金戒指門" }, { id: "wing", emoji: "🪽", clue: "翅膀門" }] }
+        { id: "z4_coat", word: "warm winter coat", correctId: "coat", doors: [{ id: "goat", emoji: "🐐", clue: "白山羊門" }, { id: "coat", emoji: "🧥", clue: "暖冬大衣門" }, { id: "boat", emoji: "⛵", clue: "糖霜帆船門" }] },
+        { id: "z4_goat", word: "friendly white goat", correctId: "goat", doors: [{ id: "goat", emoji: "🐐", clue: "白山羊門" }, { id: "coat", emoji: "🧥", clue: "暖冬大衣門" }, { id: "gold", emoji: "🪙", clue: "金幣門" }] },
+        { id: "z4_boat", word: "wooden sailing boat", correctId: "boat", doors: [{ id: "boat", emoji: "⛵", clue: "糖霜帆船門" }, { id: "coat", emoji: "🧥", clue: "暖冬大衣門" }, { id: "boot", emoji: "🥾", clue: "長靴門" }] },
+        { id: "z4_right", word: "golden right arrow", correctId: "right", doors: [{ id: "light", emoji: "💡", clue: "發光燈泡門" }, { id: "right", emoji: "👉", clue: "向右箭頭門" }, { id: "write", emoji: "✍️", clue: "羽毛筆門" }] },
+        { id: "z4_cap", word: "shiny red cap", correctId: "cap", doors: [{ id: "cab", emoji: "🚕", clue: "黃色計程車門" }, { id: "cap", emoji: "🧢", clue: "紅色鴨舌帽門" }, { id: "cup", emoji: "☕", clue: "熱可可杯門" }] },
+        { id: "z4_cab", word: "yellow city cab", correctId: "cab", doors: [{ id: "cab", emoji: "🚕", clue: "黃色計程車門" }, { id: "cap", emoji: "🧢", clue: "紅色鴨舌帽門" }, { id: "crab", emoji: "🦀", clue: "螃蟹門" }] },
+        { id: "z4_gold", word: "shiny royal gold", correctId: "gold", doors: [{ id: "gold", emoji: "🪙", clue: "皇家金幣門" }, { id: "cold", emoji: "🥶", clue: "冰寒門" }, { id: "goat", emoji: "🐐", clue: "白山羊門" }] },
+        { id: "z4_cup", word: "hot chocolate cup", correctId: "cup", doors: [{ id: "cup", emoji: "☕", clue: "熱可可杯門" }, { id: "cap", emoji: "🧢", clue: "鴨舌帽門" }, { id: "cub", emoji: "🐻", clue: "小熊門" }] },
+        { id: "z4_draw", word: "colorful art draw", correctId: "draw", doors: [{ id: "draw", emoji: "🎨", clue: "畫筆門" }, { id: "door", emoji: "🚪", clue: "大門" }, { id: "claw", emoji: "🦞", clue: "龍蝦鉗門" }] },
+        { id: "z4_crown", word: "sparkling royal crown", correctId: "crown", doors: [{ id: "crown", emoji: "👑", clue: "皇冠門" }, { id: "clown", emoji: "🤡", clue: "小丑門" }, { id: "cloud", emoji: "☁️", clue: "白雲門" }] },
+        { id: "z4_clown", word: "funny circus clown", correctId: "clown", doors: [{ id: "crown", emoji: "👑", clue: "皇冠門" }, { id: "clown", emoji: "🤡", clue: "小丑門" }, { id: "clock", emoji: "⏰", clue: "時鐘門" }] },
+        { id: "z4_cloud", word: "fluffy white cloud", correctId: "cloud", doors: [{ id: "cloud", emoji: "☁️", clue: "白雲門" }, { id: "crown", emoji: "👑", clue: "皇冠門" }, { id: "crowd", emoji: "👥", clue: "人群門" }] },
+        { id: "z4_bake", word: "warm gingerbread bake", correctId: "bake", doors: [{ id: "bake", emoji: "🥐", clue: "烘焙門" }, { id: "bike", emoji: "🚲", clue: "腳踏車門" }, { id: "cake", emoji: "🍰", clue: "蛋糕門" }] },
+        { id: "z4_bike", word: "speedy golden bike", correctId: "bike", doors: [{ id: "bake", emoji: "🥐", clue: "烘焙門" }, { id: "bike", emoji: "🚲", clue: "腳踏車門" }, { id: "kite", emoji: "🪁", clue: "風箏門" }] },
+        { id: "z4_drum", word: "joyful royal drum", correctId: "drum", doors: [{ id: "drum", emoji: "🥁", clue: "小鼓門" }, { id: "plum", emoji: "🫐", clue: "李子門" }, { id: "thumb", emoji: "👍", clue: "大拇指門" }] },
+        { id: "z4_thumb", word: "big golden thumb", correctId: "thumb", doors: [{ id: "thumb", emoji: "👍", clue: "大拇指門" }, { id: "drum", emoji: "🥁", clue: "小鼓門" }, { id: "sun", emoji: "☀️", clue: "太陽門" }] },
+        { id: "z4_code", word: "secret magic code", correctId: "code", doors: [{ id: "code", emoji: "🔐", clue: "密碼鎖門" }, { id: "cold", emoji: "❄️", clue: "寒冰門" }, { id: "coat", emoji: "🧥", clue: "大衣門" }] },
+        { id: "z4_gem", word: "purple diamond gem", correctId: "gem", doors: [{ id: "gem", emoji: "💎", clue: "紫寶石門" }, { id: "jam", emoji: "🍓", clue: "果醬門" }, { id: "game", emoji: "🎮", clue: "遊戲機門" }] },
+        { id: "z4_jam", word: "sweet strawberry jam", correctId: "jam", doors: [{ id: "gem", emoji: "💎", clue: "寶石門" }, { id: "jam", emoji: "🍓", clue: "草莓果醬門" }, { id: "ham", emoji: "🍖", clue: "火腿門" }] },
+        { id: "z4_king", word: "smiling gingerbread king", correctId: "king", doors: [{ id: "king", emoji: "🤴", clue: "國王寶座門" }, { id: "ring", emoji: "💍", clue: "金戒指門" }, { id: "wing", emoji: "🪽", clue: "翅膀門" }] },
+        { id: "z4_boot", word: "tall leather boot", correctId: "boot", doors: [{ id: "boot", emoji: "🥾", clue: "探險長靴門" }, { id: "boat", emoji: "⛵", clue: "帆船門" }, { id: "root", emoji: "🥕", clue: "蘿蔔門" }] },
+        { id: "z4_pear2", word: "golden treasure pear", correctId: "pear2", doors: [{ id: "pear2", emoji: "🍐", clue: "西洋梨門" }, { id: "bear2", emoji: "🐻", clue: "棕熊門" }, { id: "pair", emoji: "🧦", clue: "成雙襪門" }] },
+        { id: "z4_crab", word: "happy red crab", correctId: "crab", doors: [{ id: "crab", emoji: "🦀", clue: "紅螃蟹門" }, { id: "cab", emoji: "🚕", clue: "計程車門" }, { id: "clap", emoji: "👏", clue: "拍手門" }] },
+        { id: "z4_clap", word: "happy victory clap", correctId: "clap", doors: [{ id: "clap", emoji: "👏", clue: "拍手門" }, { id: "crab", emoji: "🦀", clue: "螃蟹門" }, { id: "map", emoji: "🗺️", clue: "地圖門" }] },
+        { id: "z4_card", word: "golden royal card", correctId: "card", doors: [{ id: "card", emoji: "🃏", clue: "皇家卡片門" }, { id: "guard", emoji: "💂", clue: "衛兵門" }, { id: "cart", emoji: "🛒", clue: "推車門" }] },
+        { id: "z4_guard", word: "gingerbread palace guard", correctId: "guard", doors: [{ id: "guard", emoji: "💂", clue: "城堡衛兵門" }, { id: "card", emoji: "🃏", clue: "卡片門" }, { id: "garden", emoji: "🌷", clue: "花園門" }] },
+        { id: "z4_cart", word: "candy treasure cart", correctId: "cart", doors: [{ id: "cart", emoji: "🛒", clue: "寶藏推車門" }, { id: "card", emoji: "🃏", clue: "卡片門" }, { id: "heart", emoji: "💖", clue: "愛心門" }] },
+        { id: "z4_gate", word: "open golden gate", correctId: "gate", doors: [{ id: "gate", emoji: "⛩️", clue: "黃金大門" }, { id: "cake", emoji: "🍰", clue: "蛋糕門" }, { id: "skate", emoji: "⛸️", clue: "溜冰鞋門" }] },
+        { id: "z4_skate", word: "silver ice skate", correctId: "skate", doors: [{ id: "skate", emoji: "⛸️", clue: "溜冰鞋門" }, { id: "gate", emoji: "⛩️", clue: "大門" }, { id: "snake", emoji: "🐍", clue: "小蛇門" }] },
+        { id: "z4_snake", word: "cute green snake", correctId: "snake", doors: [{ id: "snake", emoji: "🐍", clue: "小綠蛇門" }, { id: "skate", emoji: "⛸️", clue: "溜冰鞋門" }, { id: "snail", emoji: "🐌", clue: "蝸牛門" }] },
+        { id: "z4_game", word: "exciting puzzle game", correctId: "game", doors: [{ id: "game", emoji: "🎮", clue: "遊戲機門" }, { id: "gem", emoji: "💎", clue: "寶石門" }, { id: "name", emoji: "📛", clue: "名牌門" }] },
+        { id: "z4_plum", word: "juicy purple plum", correctId: "plum", doors: [{ id: "plum", emoji: "🫐", clue: "紫李子門" }, { id: "drum", emoji: "🥁", clue: "小鼓門" }, { id: "thumb", emoji: "👍", clue: "大拇指門" }] },
+        { id: "z4_cold", word: "icy winter cold", correctId: "cold", doors: [{ id: "cold", emoji: "🥶", clue: "冰寒門" }, { id: "gold", emoji: "🪙", clue: "金幣門" }, { id: "code", emoji: "🔐", clue: "密碼門" }] },
+        { id: "z4_write", word: "golden feather write", correctId: "write", doors: [{ id: "write", emoji: "✍️", clue: "羽毛筆門" }, { id: "right", emoji: "👉", clue: "右箭頭門" }, { id: "white", emoji: "⬜", clue: "白色門" }] },
+        { id: "z4_white", word: "pure icing white", correctId: "white", doors: [{ id: "white", emoji: "⬜", clue: "純白門" }, { id: "write", emoji: "✍️", clue: "羽毛筆門" }, { id: "night", emoji: "🌙", clue: "夜晚門" }] },
+        { id: "z4_horn", word: "royal brass horn", correctId: "horn", doors: [{ id: "horn", emoji: "📯", clue: "號角門" }, { id: "corn", emoji: "🌽", clue: "玉米門" }, { id: "thorn", emoji: "🌹", clue: "玫瑰門" }] },
+        { id: "z4_sword", word: "candy cane sword", correctId: "sword", doors: [{ id: "sword", emoji: "⚔️", clue: "寶劍門" }, { id: "word", emoji: "📖", clue: "單字書門" }, { id: "bird", emoji: "🐦", clue: "小鳥門" }] },
+        { id: "z4_shield", word: "golden cookie shield", correctId: "shield", doors: [{ id: "shield", emoji: "🛡️", clue: "盾牌門" }, { id: "field", emoji: "🌾", clue: "田野門" }, { id: "shell", emoji: "🐚", clue: "貝殼門" }] },
+        { id: "z4_chest", word: "overflowing treasure chest", correctId: "chest", doors: [{ id: "chest", emoji: "🧰", clue: "寶箱門" }, { id: "chess", emoji: "♟️", clue: "西洋棋門" }, { id: "nest", emoji: "🪹", clue: "鳥巢門" }] },
+        { id: "z4_trophy", word: "grand golden trophy", correctId: "trophy", doors: [{ id: "trophy", emoji: "🏆", clue: "金獎盃門" }, { id: "coffee", emoji: "☕", clue: "熱咖啡門" }, { id: "toffee", emoji: "🍬", clue: "太妃糖門" }] }
       ]
     };
 
     const CandyMazeGameEngine = {
+      MASTERY_STORAGE_KEY: 'kaispeak_island4_mastery_v1',
       currentZone: 1,
-      currentStep: 0, // 0 .. 9 (10 random questions per Zone!)
+      currentStep: 0,
       stepsPerZone: 10,
       sessionQuestions: [],
       collectedKeys: 0,
@@ -16210,7 +16308,6 @@
         4: 'images/islands/candy_maze_z4_map.jpeg'
       },
 
-      // 11 exact stepping pad coordinates (Start + 10 steps) for each Zone's own dedicated 10-step Maze Map!
       ZONE_MAZE_COORDS: {
         1: [
           { x: 24.5, y: 74.5 }, { x: 35.5, y: 65.5 }, { x: 42.5, y: 70.0 },
@@ -16238,9 +16335,41 @@
         ]
       },
 
+      getMasteryState() {
+        try {
+          const raw = localStorage.getItem(this.MASTERY_STORAGE_KEY);
+          if (raw) return JSON.parse(raw);
+        } catch (e) {}
+        return { trophies: 0, bestCombo: 0, seenIds: [] };
+      },
+
+      saveMasteryState(st) {
+        try {
+          localStorage.setItem(this.MASTERY_STORAGE_KEY, JSON.stringify(st));
+        } catch (e) {}
+      },
+
+      getRankTitle(trophies) {
+        if (trophies >= 10) return '👑 糖果迷宮傳奇至尊';
+        if (trophies >= 7) return '💎 鑽石聽音大師';
+        if (trophies >= 4) return '🥇 黃金耳神獵人';
+        if (trophies >= 2) return '🥈 雙倍音感達人';
+        if (trophies >= 1) return '🥉 糖果探險勇者';
+        return '🌱 糖果見習生';
+      },
+
+      updateMasteryUI() {
+        const st = this.getMasteryState();
+        const badge = document.getElementById('candyMasteryBadge');
+        if (badge) {
+          badge.innerHTML = `<span>🏆 累積獎盃: ${st.trophies}</span> <span class="opacity-60">|</span> <span>${this.getRankTitle(st.trophies)}</span>`;
+        }
+      },
+
       init() {
         if (typeof applyDevSimulatorVisibility === 'function') applyDevSimulatorVisibility();
         this.updateKeySlotsUI();
+        this.updateMasteryUI();
         this.showScreen('select');
       },
 
@@ -16257,6 +16386,7 @@
       },
 
       returnToSelect() {
+        this.updateMasteryUI();
         this.showScreen('select');
       },
 
@@ -16275,13 +16405,49 @@
         if (playCnt) playCnt.innerText = `${this.collectedKeys}/4`;
       },
 
+      // Anti-Repeat Smart Selector + Dynamic Sentence Generator (40 items x 3 templates = 120 prompts/zone!)
       pickRandomQuestions(zoneNum, count = 10) {
-        const pool = [...(CANDY_MAZE_BANK[zoneNum] || CANDY_MAZE_BANK[1])];
-        for (let i = pool.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [pool[i], pool[j]] = [pool[j], pool[i]];
+        const rawPool = CANDY_MAZE_BANK[zoneNum] || CANDY_MAZE_BANK[1];
+        const st = this.getMasteryState();
+        const seenSet = new Set(st.seenIds || []);
+
+        let unseen = rawPool.filter(item => !seenSet.has(item.id));
+        if (unseen.length < count) {
+          // Reset seen IDs for this zone so user can cycle cleanly again with fresh templates!
+          const zonePrefix = `z${zoneNum}_`;
+          st.seenIds = (st.seenIds || []).filter(id => !id.startsWith(zonePrefix));
+          this.saveMasteryState(st);
+          unseen = [...rawPool];
         }
-        return pool.slice(0, Math.min(count, pool.length));
+
+        // Fisher-Yates shuffle
+        for (let i = unseen.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [unseen[i], unseen[j]] = [unseen[j], unseen[i]];
+        }
+
+        const picked = unseen.slice(0, Math.min(count, unseen.length));
+        return picked.map(item => {
+          const tpl = CANDY_SENTENCE_TEMPLATES[Math.floor(Math.random() * CANDY_SENTENCE_TEMPLATES.length)];
+          const prompts = tpl(item.word, item.word);
+          return {
+            id: item.id,
+            audio: prompts.audio,
+            audioSlow: prompts.audioSlow,
+            correctId: item.correctId,
+            doors: item.doors
+          };
+        });
+      },
+
+      markQuestionSeen(qId) {
+        if (!qId) return;
+        const st = this.getMasteryState();
+        if (!st.seenIds) st.seenIds = [];
+        if (!st.seenIds.includes(qId)) {
+          st.seenIds.push(qId);
+          this.saveMasteryState(st);
+        }
       },
 
       startZone(zoneNum, stepIdx = 0) {
@@ -16289,13 +16455,11 @@
         this.currentStep = stepIdx;
         this.isSlipping = false;
 
-        // Pick 10 fresh random questions whenever starting at step 0!
         if (stepIdx === 0 || !this.sessionQuestions || this.sessionQuestions.length === 0) {
           this.sessionQuestions = this.pickRandomQuestions(zoneNum, this.stepsPerZone);
         }
         this.currentQuestion = this.sessionQuestions[stepIdx % this.sessionQuestions.length];
 
-        // Update Zone Scene Backdrop & Dedicated Zone Maze Map
         const bgEl = document.getElementById('candyZoneSceneBg');
         if (bgEl && this.ZONE_SCENES[zoneNum]) bgEl.src = this.ZONE_SCENES[zoneNum];
 
@@ -16399,7 +16563,6 @@
         const container = document.getElementById('candyDoorsContainer');
         if (!container || !this.currentQuestion) return;
 
-        // Shuffle doors order each time!
         const shuffledDoors = [...this.currentQuestion.doors].sort(() => Math.random() - 0.5);
         container.innerHTML = shuffledDoors.map(d => `
           <button type="button" onclick="CandyMazeGameEngine.selectDoor('${d.id}', this)" class="candy-door-btn group p-5 rounded-3xl bg-slate-900 hover:bg-pink-950/50 border-2 border-pink-400/40 hover:border-pink-400 shadow-xl transition-all active:scale-95 flex flex-col items-center gap-3 cursor-pointer">
@@ -16416,12 +16579,28 @@
         `).join('');
       },
 
+      awardFullIslandTrophy() {
+        const st = this.getMasteryState();
+        const isFirstClear = (st.trophies === 0);
+        st.trophies = (st.trophies || 0) + 1;
+        st.bestCombo = Math.max(st.bestCombo || 0, this.combo);
+        this.saveMasteryState(st);
+        this.updateMasteryUI();
+
+        const banner = document.getElementById('candyVictoryTrophyBanner');
+        if (banner) {
+          banner.innerHTML = `<span>🏆 獲得第 ${st.trophies} 座糖果獎盃！</span> · <span>${this.getRankTitle(st.trophies)}</span>`;
+        }
+        return isFirstClear;
+      },
+
       selectDoor(choiceId, btnEl) {
         if (!this.currentQuestion || this.isSlipping) return;
         const isCorrect = (choiceId === this.currentQuestion.correctId);
         const notice = document.getElementById('candyFeedbackNotice');
 
         if (isCorrect) {
+          this.markQuestionSeen(this.currentQuestion.id);
           if (typeof SoundEffects !== 'undefined' && SoundEffects.playClick) {
             SoundEffects.playClick('unlock');
           }
@@ -16441,22 +16620,25 @@
               this.startZone(this.currentZone, nextStep);
             }, 900);
           } else {
-            // Reached the final 10th node of this Zone!
             this.currentStep = this.sessionQuestions.length;
             this.renderMazePath();
             this.collectedKeys = Math.min(4, Math.max(this.collectedKeys, this.currentZone));
             this.updateKeySlotsUI();
+
+            const st = this.getMasteryState();
+            const isFirstRun = (st.trophies === 0);
+
             if (typeof unlockCinematicVideo === 'function') {
               unlockCinematicVideo('candy_zones', this.currentZone);
             }
 
             if (this.currentZone < 4) {
               if (notice) {
-                notice.innerHTML = `<span class="text-amber-300 font-black animate-bounce">🔑 完成第 ${this.currentZone} 區 10 關挑戰！獲得金鑰，播放過關動畫！</span>`;
+                notice.innerHTML = `<span class="text-amber-300 font-black animate-bounce">🔑 完成第 ${this.currentZone} 區 10 關挑戰！獲得第 ${this.currentZone} 把金鑰！</span>`;
               }
               const nextZ = this.currentZone + 1;
               setTimeout(() => {
-                if (typeof openCinematicVideo === 'function') {
+                if (isFirstRun && typeof openCinematicVideo === 'function') {
                   openCinematicVideo('candy_zones', this.currentZone, () => {
                     this.startZone(nextZ, 0);
                   });
@@ -16465,18 +16647,20 @@
                 }
               }, 900);
             } else {
+              const firstClear = this.awardFullIslandTrophy();
               if (notice) {
-                notice.innerHTML = `<span class="text-emerald-300 font-black animate-bounce">🏰 恭喜通過全部 4 區共 40 題挑戰！開啟薑餅國王大盛宴！</span>`;
+                notice.innerHTML = `<span class="text-emerald-300 font-black animate-bounce">🏆 恭喜完成第 4 區！獲得累積糖果獎盃！</span>`;
               }
               setTimeout(() => {
                 if (typeof unlockCinematicVideo === 'function') unlockCinematicVideo('islands', 4);
-                if (typeof openCinematicVideo === 'function') {
+                if (firstClear && typeof openCinematicVideo === 'function') {
                   openCinematicVideo('candy_zones', 4, () => {
                     openCinematicVideo('islands', 4, () => {
                       this.showVictoryModal();
                     });
                   });
                 } else {
+                  // Replay clear: go straight to Trophy Victory Modal (can still click watch video inside modal!)
                   this.showVictoryModal();
                 }
               }, 950);
@@ -16516,8 +16700,9 @@
         } else {
           this.collectedKeys = 4;
           this.updateKeySlotsUI();
+          const firstClear = this.awardFullIslandTrophy();
           if (typeof unlockCinematicVideo === 'function') unlockCinematicVideo('islands', 4);
-          if (typeof openCinematicVideo === 'function') {
+          if (firstClear && typeof openCinematicVideo === 'function') {
             openCinematicVideo('candy_zones', 4, () => {
               openCinematicVideo('islands', 4, () => {
                 this.showVictoryModal();
@@ -16543,6 +16728,7 @@
           modal.classList.add('hidden');
           modal.classList.remove('flex');
         }
+        this.updateMasteryUI();
         this.showScreen('select');
       }
     };
@@ -22986,7 +23172,7 @@ JSON Schema:
     }
 
     // ========================================================
-    // BULLETPROOF SCENARIO AUDIO PRELOADER & SYNTHESIS ENGINE (v26.11.87)
+    // BULLETPROOF SCENARIO AUDIO PRELOADER & SYNTHESIS ENGINE (v26.11.88)
     // ========================================================
     let _cachedServerTtsLive = null;
     let _cachedServerTtsCheckTime = 0;
@@ -23174,7 +23360,7 @@ JSON Schema:
     }
 
     // ========================================================
-    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.87)
+    // BULLETPROOF SPEECH ENGINE & INSTANT AUDIO PLAYER (v26.11.88)
     // ========================================================
     const KaiSpeechEngine = {
       preferredVoice: null,
@@ -24932,7 +25118,10 @@ ${existingSnippet || "無"}
       <div>
         <span class="text-[10px] font-black tracking-widest uppercase text-pink-300 bg-pink-950 px-2.5 py-0.5 rounded-full border border-pink-400/40">CANDY VAULT UNLOCKED</span>
         <h3 class="text-xl sm:text-2xl font-black text-amber-300 mt-1">薑餅城堡 · 秘密金庫大開！</h3>
-        <p class="text-xs text-slate-300 mt-1">成功集齊 3 把音波金鑰！解鎖軟糖金幣雨大盛宴！</p>
+        <p class="text-xs text-slate-300 mt-1">成功集齊 4 把音波金鑰！完成 4 大糖果迷宮 40 題大挑戰！</p>
+        <div id="candyVictoryTrophyBanner" class="mt-2.5 px-4 py-2 rounded-2xl bg-gradient-to-r from-amber-500/20 via-yellow-500/20 to-amber-500/20 border border-amber-400/60 text-amber-300 font-black text-xs sm:text-sm flex items-center justify-center gap-2">
+          <span>🏆 累積糖果獎盃：1 座</span> · <span>🥉 糖果探險勇者</span>
+        </div>
       </div>
 
       <div class="w-full p-3.5 rounded-2xl bg-slate-950/80 border border-pink-400/40 flex items-center justify-around text-xs">
